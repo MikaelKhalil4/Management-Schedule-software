@@ -106,7 +106,7 @@ namespace MKproject.Schedule
             {
                 Cursor = Cursors.WaitCursor;
                 //SQL
-                ProjectToSqlSchedule.UpdateRankNIsCheckedCoachAvailabilitySQL(DataTableCoachavailabilityCopy);
+                ProjectToSql.UpdateRankNIsCheckedCoachAvailabilitySQL(DataTableCoachavailabilityCopy);
 
                 //Design 
                 RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(schedule.ucday.TLPCoaches);
@@ -248,7 +248,7 @@ namespace MKproject.Schedule
 
                     }
                 }
-                ProjectToSqlSchedule.UpdateHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
+                ProjectToSql.UpdateHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
                 this.Close();
                 Cursor = Cursors.Default;
             }

@@ -135,7 +135,7 @@ namespace MKproject.Schedule
             ListCoach_idChecked = new List<int>();
 
             //Getting Coaches & Their Availability
-            DataTableCoachavailability = SQLToProjectSchedule.DisplayCoachAvailabilityASC();//they are in the order of a rank
+            DataTableCoachavailability = SQLToProject.DisplayCoachAvailabilityASC();//they are in the order of a rank
 
             //To get the TBL structure with ListCoach_idChecked structure
             if (DataTableCoachavailability.Rows.Count != 0)
@@ -215,7 +215,7 @@ namespace MKproject.Schedule
             //REMINDER
             //CREATING ALL THE ucreminder and putting it on a list
             ListUCreminder = new List<UCreminder>();
-            tablereminder = SQLToProjectSchedule.DisplayReminder();
+            tablereminder = SQLToProject.DisplayReminder();
 
             foreach (DataRow dr in tablereminder.Rows)
             {
@@ -252,7 +252,7 @@ namespace MKproject.Schedule
 
             //HistoryCoachAvailability
             //Putting the  Availability And The ID of the Coaches   who are in the ListCoach_idChecked of today in the historycoachavailability
-            if (SQLToProjectSchedule.DataExistsForToday(DateTime.Now))//eza exists update 
+            if (SQLToProject.DataExistsForToday(DateTime.Now))//eza exists update 
             {
                 //Code For SQL 
                 //and we can add a condition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
@@ -285,7 +285,7 @@ namespace MKproject.Schedule
                 }
 
                 //Update SQL
-                ProjectToSqlSchedule.UpdateHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
+                ProjectToSql.UpdateHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
             }
             else//if it doesn't exist insert
             {
@@ -320,7 +320,7 @@ namespace MKproject.Schedule
                 }
 
                 //Update SQL
-                ProjectToSqlSchedule.InsertHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
+                ProjectToSql.InsertHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
             }
         }
 
@@ -723,7 +723,7 @@ namespace MKproject.Schedule
                 IsHistory = true;
 
                 //Getting the Rank and Availability of the coaches who were checked and trained in this day
-                DataTable RankNAvailabilityCoaches = SQLToProjectSchedule.DisplayRankCoachesNAvailability(DateUCDay);
+                DataTable RankNAvailabilityCoaches = SQLToProject.DisplayRankCoachesNAvailability(DateUCDay);
 
                 //Variables
                 string[] rankCoaches;
@@ -755,7 +755,7 @@ namespace MKproject.Schedule
                     }
 
                     //Getting From SQL Coaches who trained and haved Meeting
-                    List<int> coaches_idwhotrained = SQLToProjectSchedule.DisplayCoachesIdWhoTrained(this, rankcoaches_id);
+                    List<int> coaches_idwhotrained = SQLToProject.DisplayCoachesIdWhoTrained(this, rankcoaches_id);
 
 
                     //Getting the finale List Of the Rank and Availability of the coaches who were checked and trained in this day
@@ -819,7 +819,7 @@ namespace MKproject.Schedule
         public void AddUCappointments(int coach_id, int? idclient, string fullname, DateTime starttime, DateTime endtime, string notes, bool onpending, string clienttype)
         {
             //SQL:
-            int idappointment = ProjectToSqlSchedule.AddFromAppoitementtoSQL(coach_id, idclient, starttime, endtime, notes, onpending, clienttype);
+            int idappointment = ProjectToSql.AddFromAppoitementtoSQL(coach_id, idclient, starttime, endtime, notes, onpending, clienttype);
 
             //Design
             UCappointments ucappointments = new UCappointments(idappointment, coach_id, idclient, fullname, starttime, endtime, notes, onpending, this, clienttype);
@@ -906,7 +906,7 @@ namespace MKproject.Schedule
         public void AddUCmeeting(int idcoach, string title, DateTime starttime, DateTime endtime, string Note, bool onpending)
         {
             //SQL
-            int idmeeting = ProjectToSqlSchedule.AddFromMeetingtoSQL(idcoach, title, starttime, endtime, Note, onpending);
+            int idmeeting = ProjectToSql.AddFromMeetingtoSQL(idcoach, title, starttime, endtime, Note, onpending);
 
             //DESIGN
             UCmeeting ucmeeting = new UCmeeting(idmeeting, idcoach, title, starttime, endtime, Note, onpending, this);
@@ -1018,8 +1018,8 @@ namespace MKproject.Schedule
             }
 
             //Getting From SQL Appointments & Meetings of this day and the Listed Coaches
-            thisdaydatatableAppointments = SQLToProjectSchedule.DisplayAppointmentsWhereCoaches(this, ListCoach_idChecked);
-            thisdaydatatableMeetings = SQLToProjectSchedule.DisplayMeetingsWhereCoaches(this, ListCoach_idChecked);
+            thisdaydatatableAppointments = SQLToProject.DisplayAppointmentsWhereCoaches(this, ListCoach_idChecked);
+            thisdaydatatableMeetings = SQLToProject.DisplayMeetingsWhereCoaches(this, ListCoach_idChecked);
 
             UCappointmentsFill(ListCoach_idChecked);
 
@@ -1078,8 +1078,8 @@ namespace MKproject.Schedule
             //Editing TBP
             AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);
 
-            thisdaydatatableAppointments = SQLToProjectSchedule.DisplayAppointmentsOneCoach(this, coach_id);
-            thisdaydatatableMeetings = SQLToProjectSchedule.DisplayMeetingsOneCoach(this, coach_id);
+            thisdaydatatableAppointments = SQLToProject.DisplayAppointmentsOneCoach(this, coach_id);
+            thisdaydatatableMeetings = SQLToProject.DisplayMeetingsOneCoach(this, coach_id);
 
 
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
@@ -1185,8 +1185,8 @@ namespace MKproject.Schedule
         {
 
             //now we have to display the appointemnts
-            thisdaydatatableAppointments = SQLToProjectSchedule.DisplayAppointmentsWhereCoaches(this, rankcoaches_id);
-            thisdaydatatableMeetings = SQLToProjectSchedule.DisplayMeetingsWhereCoaches(this, rankcoaches_id);
+            thisdaydatatableAppointments = SQLToProject.DisplayAppointmentsWhereCoaches(this, rankcoaches_id);
+            thisdaydatatableMeetings = SQLToProject.DisplayMeetingsWhereCoaches(this, rankcoaches_id);
 
             UCappointmentsFill(rankcoaches_id);
 
@@ -1362,7 +1362,7 @@ namespace MKproject.Schedule
                     else
                     {
 
-                        string coachname = SQLToProjectSchedule.DisplayCoachName(rankcoaches_id[i]);
+                        string coachname = SQLToProject.DisplayCoachName(rankcoaches_id[i]);
                         Label label = (Label)TLPCoaches.GetControlFromPosition(columnindex, 0);
                         label.Text = coachname;
                         string[] HoursOfTheday = availabilityrankorder[i].Split('-');

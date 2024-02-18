@@ -7,7 +7,7 @@ using System.Data;
 
 namespace MKproject.Schedule
 {
-    public class SQLToProjectSchedule
+    public class SQLToProject
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 

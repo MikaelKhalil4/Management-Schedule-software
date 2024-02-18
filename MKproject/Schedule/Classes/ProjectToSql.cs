@@ -4,7 +4,7 @@ using System.Data;
 
 namespace MKproject.Schedule
 {
-    public class ProjectToSqlSchedule
+    public class ProjectToSql
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 

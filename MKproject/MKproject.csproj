@@ -450,10 +450,9 @@
     <Compile Include="Schedule\Availabilityform\UCTimeavailability.designer.cs">
       <DependentUpon>UCTimeavailability.cs</DependentUpon>
     </Compile>
-    <Compile Include="Schedule\Classes\ProjectToSqlSchedule.cs" />
-    <Compile Include="Schedule\Classes\RandomFunctions.cs" />
+    <Compile Include="Schedule\Classes\ProjectToSql.cs" />
     <Compile Include="Schedule\Classes\RandomFunctionSchedule.cs" />
-    <Compile Include="Schedule\Classes\SQLToProjectSchedule.cs" />
+    <Compile Include="Schedule\Classes\SQLToProject.cs" />
     <Compile Include="Schedule\Classes\StaticClass.cs" />
     <Compile Include="Schedule\Classes\TouchScroll.cs" />
     <Compile Include="Schedule\CustomisedComboBox\CBdisplayTime.cs">

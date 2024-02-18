@@ -210,7 +210,7 @@ namespace MKproject.Schedule
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             //SQL:
-            ProjectToSqlSchedule.DeleteReminderSQL(Idreminder);
+            ProjectToSql.DeleteReminderSQL(Idreminder);
 
 
             UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.idreminder == Idreminder);
@@ -231,7 +231,7 @@ namespace MKproject.Schedule
         private void checkBoxReminder_Click(object sender, EventArgs e)
         {
             //SQL
-            ProjectToSqlSchedule.checkBoxReminderChangedToSQL(Idreminder, checkBoxReminder.Checked);
+            ProjectToSql.checkBoxReminderChangedToSQL(Idreminder, checkBoxReminder.Checked);
 
             //BackEnd
             IsChecked = checkBoxReminder.Checked;//tghayar l2esem hone bas houwe zeto ousoulan

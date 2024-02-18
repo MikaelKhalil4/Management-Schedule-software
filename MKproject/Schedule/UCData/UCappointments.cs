@@ -124,7 +124,7 @@ namespace MKproject.Schedule
         public void UpdateAppointments(int? idclient, string fullname, DateTime starttime, DateTime endtime, string notes, bool onpending, string clienttype)
         {
             //SQL
-            ProjectToSqlSchedule.UpdateFromAppoitementtoSQL(IdAppointment, idclient, starttime, endtime, notes, onpending, clienttype);
+            ProjectToSql.UpdateFromAppoitementtoSQL(IdAppointment, idclient, starttime, endtime, notes, onpending, clienttype);
 
             //UPDATE DESIGN
             IdClient = idclient;
@@ -154,7 +154,7 @@ namespace MKproject.Schedule
         private void checkBoxOnPending_Click(object sender, EventArgs e)
         {
             //SQL
-            ProjectToSqlSchedule.UpdateAppointmentCheck(IdAppointment, checkBoxAppointment.Checked);
+            ProjectToSql.UpdateAppointmentCheck(IdAppointment, checkBoxAppointment.Checked);
 
             //DESIGN
             OnPending = checkBoxAppointment.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
@@ -164,7 +164,7 @@ namespace MKproject.Schedule
         public void RemoveAppointment()
         {
             //SQL
-            ProjectToSqlSchedule.DeleteAppointment(IdAppointment);
+            ProjectToSql.DeleteAppointment(IdAppointment);
 
             //DESIGN
             TimeSpan starttimeTimeSpan = StartTime.TimeOfDay;

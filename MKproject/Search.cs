@@ -19,7 +19,7 @@ namespace MKproject
         ClassClient DesiredClient;
 
 
-        public Search(TextBoxWithPlaceHolder desiredTextbox, ClassClient desiredClient )
+        public Search(TextBoxWithPlaceHolder desiredTextbox, ClassClient desiredClient)
         {
             InitializeComponent();
             DesiredTextbox = desiredTextbox;

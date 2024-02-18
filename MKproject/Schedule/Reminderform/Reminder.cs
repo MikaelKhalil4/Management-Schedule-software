@@ -293,7 +293,7 @@ namespace MKproject.Schedule
 
 
                         //SQL
-                        ProjectToSqlSchedule.UpdateFromRemindertoSQL(foundUcReminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                        ProjectToSql.UpdateFromRemindertoSQL(foundUcReminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
 
 
 
@@ -347,7 +347,7 @@ namespace MKproject.Schedule
                             clientid = DesiredClient.ClientId;
                         }
                         //SQL
-                        ProjectToSqlSchedule.UpdateFromRemindertoSQL(ucreminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                        ProjectToSql.UpdateFromRemindertoSQL(ucreminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
 
 
                         //DESIGN Schedule
@@ -378,7 +378,7 @@ namespace MKproject.Schedule
                         clientid = DesiredClient.ClientId;
                     }
                     //SQL
-                    int idreminder = ProjectToSqlSchedule.AddRemindertoSQL(clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                    int idreminder = ProjectToSql.AddRemindertoSQL(clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
 
                     //BackEnd
                     UCreminder ucreminder = new UCreminder(idreminder,clientid,clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text, ucday, schedule);//we add it to the SQL in the same time

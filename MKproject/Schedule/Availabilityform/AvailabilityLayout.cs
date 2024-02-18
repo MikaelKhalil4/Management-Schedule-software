@@ -212,7 +212,7 @@ namespace MKproject.Schedule
             if (oldavailability != uccoach.Availability)
             {
                 //SQL:
-                ProjectToSqlSchedule.UpdateCoachAvailabilitySQL(uccoach.Availability_id, uccoach.Availability);
+                ProjectToSql.UpdateCoachAvailabilitySQL(uccoach.Availability_id, uccoach.Availability);
 
                 //UPDATE DataTableCoachavailability
                 foreach (DataRow row in uccoach.coaches.schedule.ucday.DataTableCoachavailability.Rows)

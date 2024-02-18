@@ -14,14 +14,17 @@ namespace GlobalFunctions
         {
 
             var filteredData = Originaldt.AsEnumerable();
-            filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName).IndexOf(DesiredTarget, StringComparison.OrdinalIgnoreCase) >= 0);
+            if (!string.IsNullOrEmpty(DesiredTarget))
+            {
+                filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName).IndexOf(DesiredTarget, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : Originaldt.Clone();
             return filteredDataTable;
 
         }
+
         public static DataTable FilterDatatableIFStringEquality(string DesiredColumnName,String DesiredTarget, DataTable Originaldt)
         {
-
             var filteredData = Originaldt.AsEnumerable();
             filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName) == DesiredTarget);
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : Originaldt.Clone();

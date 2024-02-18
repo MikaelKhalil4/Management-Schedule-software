@@ -94,7 +94,7 @@ namespace MKproject.Schedule
         public void UpdateMeeting(string title, DateTime starttime, DateTime endtime, string note, bool onpending)
         {
             //SQL
-            ProjectToSqlSchedule.UpdateFromMeetingtoSQL(IdMeeting, title, starttime, endtime, note, onpending);
+            ProjectToSql.UpdateFromMeetingtoSQL(IdMeeting, title, starttime, endtime, note, onpending);
 
             //DESIGN    
             Title = title;
@@ -117,7 +117,7 @@ namespace MKproject.Schedule
         public void RemoveMeeting()
         {
             //SQL
-            ProjectToSqlSchedule.DeleteAppointment(IdMeeting);
+            ProjectToSql.DeleteAppointment(IdMeeting);
 
             //DESIGN
             TimeSpan starttimeTimeSpan = StartTime.TimeOfDay;
@@ -230,7 +230,7 @@ namespace MKproject.Schedule
         private void checkBoxMeeting_Click(object sender, EventArgs e)
         {
             //SQL
-            ProjectToSqlSchedule.UpdateMeetingCheck(IdMeeting, checkBoxMeeting.Checked);
+            ProjectToSql.UpdateMeetingCheck(IdMeeting, checkBoxMeeting.Checked);
 
             //DESIGN
             OnPending = checkBoxMeeting.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
