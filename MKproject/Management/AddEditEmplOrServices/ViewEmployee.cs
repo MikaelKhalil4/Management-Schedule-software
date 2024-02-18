@@ -1,0 +1,266 @@
+﻿
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using GlobalFunctions;
+using CustomizedTools;
+
+
+namespace MKproject.Management
+{
+    public partial class ViewEmployee : Form
+    {
+        public DataTable dtEmployee;
+        public ViewEmployee()
+        {
+            InitializeComponent();
+            LoadInfo();
+        }
+
+        private void ViewEmployee_Load(object sender, EventArgs e)
+        {
+            dataGridViewEdit.ClearSelection();
+            FormatDatagridViewColors();
+        }
+
+
+        public void LoadInfo()
+        {
+
+            dtEmployee = ClassEmployee.GetAllEmployees();
+
+            FormatOriginaldt(dtEmployee);
+
+            dataGridViewEdit.DataSource = dtEmployee;
+
+            FormatDatagridView();
+
+        }//try catch
+
+
+        public void FormatOriginaldt(DataTable Desireddt)
+        {
+            Desireddt.Columns.Add("FakeAccess", typeof(string));
+            Desireddt.Columns.Add("FakeStatus", typeof(string));
+            foreach (DataRow row in Desireddt.Rows)
+            {
+                FixColumnFakeAccess(row);
+
+                if ((bool)row["status"] == true)
+                {
+                    row["FakeStatus"] = "True";
+                }
+                else
+                {
+                    row["FakeStatus"] = "False";
+                }
+            }
+
+            //ordering
+            int columnIndexToMove;
+            int newIndex;
+
+            columnIndexToMove = Desireddt.Columns.IndexOf("first_name"); // Replace with the actual column name
+            newIndex = 0; // The new desired index
+            Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+
+            columnIndexToMove = Desireddt.Columns.IndexOf("last_name"); // Replace with the actual column name
+            newIndex = 1; // The new desired index
+            Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+
+
+            columnIndexToMove = Desireddt.Columns.IndexOf("phone_number"); // Replace with the actual column name
+            newIndex = 2; // The new desired index
+            Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+
+            columnIndexToMove = Desireddt.Columns.IndexOf("password"); // Replace with the actual column name
+            newIndex = 3; // The new desired index
+            Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+
+
+            columnIndexToMove = Desireddt.Columns.IndexOf("FakeAccess"); // Replace with the actual column name
+            newIndex = 4; // The new desired index
+            Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+
+
+            columnIndexToMove = Desireddt.Columns.IndexOf("FakeStatus"); // Replace with the actual column name
+            newIndex = 5; // The new desired index
+            Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+
+
+
+        }
+        public void FixColumnFakeAccess(DataRow row)
+        {
+            row["FakeAccess"] = row["access"];
+
+            if (!Features.Workout && row["FakeAccess"].ToString().Contains(Features.enumFeatures.Workout.GetStringValue()))
+            {
+                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Workout.GetStringValue()+"/", "");
+            }
+            if (!Features.Marketing && row["FakeAccess"].ToString().Contains(Features.enumFeatures.Marketing.GetStringValue()))
+            {
+                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Marketing.GetStringValue() + "/", "");
+            }
+            if (!Features.Schedule && row["FakeAccess"].ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
+            {
+                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Schedule.GetStringValue()+"/", "");
+            }
+            if (!Features.Management)
+            {
+                if(row["FakeAccess"].ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
+                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.EditOffres.GetStringValue()+"/", "");
+       
+                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
+                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Transactions.GetStringValue() + "/", "");
+               
+                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.BackOffice.GetStringValue()))
+                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.BackOffice.GetStringValue()+"/", "");
+              
+                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
+                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Statistics.GetStringValue() + "/", "");
+
+            }
+           
+            if (row["FakeAccess"].ToString() == "" || row["FakeAccess"] == null)
+            {
+                row["FakeAccess"] = "N/A";
+            }
+            else
+            {
+                row["FakeAccess"] = ReplaceLastCharacterWithDot(row["FakeAccess"].ToString(), '/');
+                row["FakeAccess"] = ((string)row["FakeAccess"]).Replace("/", ", ");
+            }
+
+
+        }
+
+        void FormatDatagridView()
+        {
+            // Hide the "ID" column by referencing its name
+            foreach (DataGridViewColumn col in dataGridViewEdit.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            dataGridViewEdit.Columns["employee_id"].Visible = false;
+            dataGridViewEdit.Columns["access"].Visible = false;
+            dataGridViewEdit.Columns["status"].Visible = false;
+
+            dataGridViewEdit.Columns["first_name"].HeaderCell.Value = "First Name";
+            dataGridViewEdit.Columns["last_name"].HeaderCell.Value = "Last Name";
+            dataGridViewEdit.Columns["phone_number"].HeaderCell.Value = "Phone Number";
+            dataGridViewEdit.Columns["password"].HeaderCell.Value = "Password";
+            dataGridViewEdit.Columns["FakeStatus"].HeaderCell.Value = "Status";
+            dataGridViewEdit.Columns["FakeAccess"].HeaderCell.Value = "Access";
+
+
+            dataGridViewEdit.Columns["first_name"].FillWeight = 12;
+            dataGridViewEdit.Columns["last_name"].FillWeight = 12;
+            dataGridViewEdit.Columns["phone_number"].FillWeight = 12;
+            dataGridViewEdit.Columns["password"].FillWeight = 12;
+            dataGridViewEdit.Columns["FakeAccess"].FillWeight = 30;
+            dataGridViewEdit.Columns["Edit"].FillWeight = 15;
+            dataGridViewEdit.Columns["FakeStatus"].FillWeight = 7;
+            //
+            dataGridViewEdit.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewEdit.Columns["Edit"].DisplayIndex = dtEmployee.Columns.Count;
+            dataGridViewEdit.Columns["Edit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewEdit.Columns["Edit"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridViewEdit.ApplyStyle1();
+        }
+        public void FormatDatagridViewColors()
+        {
+            foreach (DataGridViewRow row in dataGridViewEdit.Rows)
+            {
+                DataGridViewCell cell = (DataGridViewCell)row.Cells["FakeStatus"];
+                if (Convert.ToString(cell.Value) == "False")
+                {
+                    cell.Style.ForeColor = Color.Red;
+                    cell.Style.SelectionForeColor = Color.Red;
+                }
+                else
+                {
+                    cell.Style.ForeColor = Color.Green;
+                    cell.Style.SelectionForeColor = Color.Green;
+                }
+
+            }
+        }
+
+
+        string ReplaceLastCharacterWithDot(string input, char targetCharacter)
+        {
+            // Find the last occurrence of the target character
+            int lastIndex = input.LastIndexOf(targetCharacter);
+
+            // Check if the target character was found and if it's at the end
+            if (lastIndex != -1 && lastIndex == input.Length - 1)
+            {
+                // Replace the last occurrence with '.'
+                input = input.Remove(lastIndex, 1).Insert(lastIndex, ".");
+            }
+
+            return input;
+        }
+
+
+
+        private void dataGridViewEdit_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+            if (e.RowIndex >= 0)
+            {
+                if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "Edit")//this condition aal name tabaa el column mesh el text
+                {
+                    DataGridViewRow selectedRow = dataGridViewEdit.Rows[e.RowIndex];
+                    int ID = Convert.ToInt32(selectedRow.Cells["employee_id"].Value);
+
+                    DataRow[] rows = dtEmployee.Select("employee_id =" + ID);
+                    DataRow desiredRow = null;
+                    if (rows.Length > 0)//wwe re we re going to have 1 row
+                    {
+                        desiredRow = rows[0];
+                    }
+
+                    Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                    Program.GreyForm.Show();
+                    EditEmployee p = new EditEmployee(null, desiredRow);
+                    p.ParentFormViewEmpl = this;
+                    p.ShowDialog();
+                }
+                dataGridViewEdit.ClearSelection();
+            }
+
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+            Program.GreyForm.Show();
+            EditEmployee p = new EditEmployee(null, null);
+            p.ParentFormViewEmpl = this;
+            p.ShowDialog();
+
+        }
+         protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+     
+    }
+}

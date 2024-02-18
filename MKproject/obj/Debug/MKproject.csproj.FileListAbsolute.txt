@@ -1,0 +1,1694 @@
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.csproj.SuggestedBindingRedirects.cache
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.Balance.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.OwnerHome.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.Save.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.SaveAndBuyMembership.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.ViewProfile.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\My files\ELK project\New project\MKproject\MKproject\bin\Debug\MKproject.exe.config
+C:\My files\ELK project\New project\MKproject\MKproject\bin\Debug\MKproject.exe
+C:\My files\ELK project\New project\MKproject\MKproject\bin\Debug\MKproject.pdb
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.UCPackage.resources
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.exe
+C:\My files\ELK project\New project\MKproject\MKproject\obj\Debug\MKproject.pdb
+C:\My files\ELK project\New project\MKproject\MKproject\bin\Debug\images\Check.png
+C:\My files\ELK project\New project\MKproject\MKproject\bin\Debug\images\Edit.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Save.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCPayOneSeesion.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.BuyOneSession.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.BuyServiceOrProudct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCPackagesOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.BuyOneSession.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.BuyServiceOrProudct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Save.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCFilterStatistics.UCComboFilterStat.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCPackagesOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCPayOneSeesion.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCHeightWeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCTwoCheckBox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCFilterStatistics.UCComboFilterStat.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCHeightWeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCTwoCheckBox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.csproj.SuggestedBindingRedirects.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.BuyOneSession.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.BuyServiceOrProudct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.FilterCheckListStatisticsIncome.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.Save.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCComboBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCFilterStatistics.UCComboFilterStat.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCPackagesOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCPayOneSeesion.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCHeightWeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCTwoCheckBox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.EditPackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.EditPrices.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\images\user.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject-\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\user.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\editgreen.png
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.csproj.SuggestedBindingRedirects.cache
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.exe
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.pdb
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\images\editgreen.png
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\images\editgray.png
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\images\user1.png
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\images\Check.png
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\images\user.png
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\MKproject.exe
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\MKproject.pdb
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\OpenTK.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Memory.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\OpenTK.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Memory.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.BuyOneSession.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.BuyServiceOrProudct.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.EditPackage.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.EditPrices.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.FilterCheckListStatisticsIncome.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.Save.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCComboBoxFilter.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCFilterStatistics.UCComboFilterStat.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCPackagesOutput.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCPayOneSeesion.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCHeightWeight.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCTwoCheckBox.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\GK\Downloads\MKproject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\images\editgreen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\images\user.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.BuyOneSession.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.BuyServiceOrProudct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.EditPackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.EditPrices.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Save.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCComboBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCFilterStatistics.UCComboFilterStat.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCPackagesOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCPayOneSeesion.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCHeightWeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCTwoCheckBox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCRegistration.UCFightingSkills.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\images\editgreen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\images\user.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.csproj.SuggestedBindingRedirects.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.BuyOneSession.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.BuyServiceOrProudct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.EditPackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.EditPrices.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Save.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCComboBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCFilterStatistics.UCComboFilterStat.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCPackagesOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCPayOneSeesion.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCFightingSkills.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCHeightWeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCTwoCheckBox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCCalandermonth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.UCCalanderyear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org) - Copy\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject(org)\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCRegistration.UCFightingSkills.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.EditEmployee.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\userNudeSmall.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\MKproject.exe.manifest
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\MKproject.application
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.exe.manifest
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.application
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.EditPackageProduct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.ViewPackagesAndProducts.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.CustomerService.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\images\userNude.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCItem.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\editgreen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\user.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\userNude.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\images\userNudeSmall.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\MKproject.exe.manifest
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\MKproject.application
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.CustomerService.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.EditEmployee.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.EditPackageProduct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCFiltersSearch.UCComboBoxFilterOriginal.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCItem.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.ViewPackagesAndProducts.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCRegistration.UCFightingSkills.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.exe.manifest
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.application
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject - Copy\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCFiltersSearch.UCComboBoxFilterOriginal.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\NLog.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\NLog.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\bin\Debug\nlog.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software\MKproject\MKproject\obj\Debug\MKproject.BackOffice.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\nlog.config
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\editgreen.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\user.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\userNude.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\images\userNudeSmall.png
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\MKproject.exe.manifest
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\MKproject.application
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\NLog.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\NLog.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.BackOffice.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.BuyOneSession.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.BuyServiceOrProudct.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.CustomerService.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.EditEmployee.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.EditPackageProduct.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCFiltersSearch.UCComboBoxFilterOriginal.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCItem.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.ViewPackagesAndProducts.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Save.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCFilterStatistics.UCComboFilterStat.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCPackagesOutput.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCPayOneSeesion.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCFightingSkills.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCHeightWeight.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCTwoCheckBox.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.exe.manifest
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.application
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\OneDrive\Work\MKProject\MKproject\obj\Debug\MKproject.CBsearchName.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\nlog.config
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\editgreen.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\user.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\userNude.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\userNudeSmall.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\MKproject.exe.manifest
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\MKproject.application
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\NLog.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\NLog.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.BackOffice.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.CustomerService.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.EditEmployee.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCItem.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.exe.manifest
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.application
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\userNude(smallPixel).png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\userNudeSmall(smallPixel).png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\EmptyIcon.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\BackOfficeBig.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\BackOfficeSmall.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\dollarBig.png
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\dollarSmall.png
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Album.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.RelatedChildrens.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.DialogMessageBox.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\bin\Debug\images\view.png
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\UserControl1.g.cs
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject_Content.g.cs
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject_MarkupCompile.cache
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject_MarkupCompile.lref
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\UserControl1.baml
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.g.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.Search.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCComboFilterStat.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterOriginal.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.EditBundleProduct.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCBundlesOutput.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.ViewBundlesAndProducts.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.BuyBundleOrProudct.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\UserControl1.g.cs
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject_Content.g.cs
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject_MarkupCompile.cache
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject_MarkupCompile.lref
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\nlog.config
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\BackOfficeBig.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\BackOfficeSmall.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\dollarBig.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\dollarSmall.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\EmptyIcon.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\userNude(smallPixel).png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\userNudeSmall(smallPixel).png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\view.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\editgreen.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\user.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\userNude.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\images\userNudeSmall.png
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\MKproject.exe.manifest
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\MKproject.application
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\NLog.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\NLog.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\UserControl1.baml
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.g.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.BackOffice.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.BuyBundleOrProudct.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Search.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.CustomerService.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.DialogMessageBox.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.EditEmployee.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.EditBundleProduct.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.RelatedChildrens.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCComboBoxFilterOriginal.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCItem.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.ViewBundlesAndProducts.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Album.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCComboFilterStat.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCBundlesOutput.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCKeyboard.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCPureNumber.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCPureNumberUnit.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCBodyShapeTarget.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCCamera.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCDateOfBirth.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCExerciseHistory.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCFightingSkills.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCNumberAndUnit.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCInjuries.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCKnowAboutUs.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCMaritalStatus.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCMusclesFocusOn.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCNameFamilyName.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCSessionPerWeek.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCSleepPattern.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCStressLevels.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCTextbox.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCTimelineGoals.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCTwoRadioButton.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.UCRegistration.UCWeightAndHeight.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.exe.manifest
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.application
+C:\Users\USER\OneDrive\MKProject(off)\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCCamera.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCNumberButt.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCNumberComboButt.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCNumberLabelButt.resources
+C:\Users\USER\OneDrive\MKProject\MKproject\obj\Debug\MKproject.UCDoubleCombo.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\nlog.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\BackOfficeBig.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\BackOfficeSmall.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\dollarBig.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\dollarSmall.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\EmptyIcon.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNude(smallPixel).png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNudeSmall(smallPixel).png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\view.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\user1.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\editgreen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\editgray.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\Check.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\Editing_pen.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\user.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNude.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNudeSmall.png
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.exe.config
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.exe.manifest
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.application
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.World.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\NLog.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.GLControl.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Buffers.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Drawing.Common.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Memory.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Json.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.ValueTuple.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ZedGraph.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.World.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\NLog.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.GLControl.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Buffers.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Drawing.Common.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Memory.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Json.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.ValueTuple.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ZedGraph.xml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\UserControl1.g.cs
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject_Content.g.cs
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject_MarkupCompile.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject_MarkupCompile.lref
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\UserControl1.baml
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.g.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.BackOffice.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.BuyBundleOrProudct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Camera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCNumberButt.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCNumberComboButt.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Search.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ChildParent.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.CustomerService.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.DialogMessageBox.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.EditEmployee.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.EditBundleProduct.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Home.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.RelatedChildrens.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterOriginal.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCItem.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ViewBundlesAndProducts.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ImageForm.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.LOGIN.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.GreyColor.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.NewRegister.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Payment.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Album.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Statistics.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Calander.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Calanderyear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCLabelFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCComboFilterStat.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCBundlesOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCPayments.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCNumberLabelButt.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCTextBoxFilter.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCCamera.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCDoubleCombo.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.exe.manifest
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.application
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.exe
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.pdb
+C:\Users\USER\Documents\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCDoubleUCTextbox.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.exe
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\BackOfficeBig.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\BackOfficeSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\dollarBig.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\dollarSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\EmptyIcon.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNude(smallPixel).png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNudeSmall(smallPixel).png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\view.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\user1.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\editgreen.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\editgray.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\Check.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\Editing_pen.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\user.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNude.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\userNudeSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.exe.config
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.exe.manifest
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.application
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.exe
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.World.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\NLog.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.GLControl.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Buffers.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Drawing.Common.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Memory.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Json.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.ValueTuple.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ZedGraph.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Emgu.CV.World.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\NLog.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\OpenTK.GLControl.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Buffers.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Drawing.Common.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Memory.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Text.Json.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\System.ValueTuple.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ZedGraph.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\de\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\es\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\it\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.BackOffice.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.BuyBundleOrProudct.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Camera.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCNumberButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCNumberComboButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Search.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ChildParent.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.CustomerService.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.EditEmployee.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.EditBundleProduct.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Home.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.RelatedChildrens.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterOriginal.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCItem.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCDoubleUCTextbox.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ViewBundlesAndProducts.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ImageForm.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.LOGIN.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.GreyColor.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.NewRegister.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Payment.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Album.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Statistics.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Calander.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Calanderyear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCBundlesOutput.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCPayments.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCNumberLabelButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCCamera.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCDoubleCombo.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.exe.manifest
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.application
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCLabelFilterOriginal.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.UCTextBoxFilterOriginal.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\others\nlog.config
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.Menu.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\maximizee.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\restore-down.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.CustomMessageBox.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\Error.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\info.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\Question.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\Warning.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\bin\Debug\images\YesOrNo.png
+D:\Work\MKProject\MKproject\bin\Debug\others\nlog.config
+D:\Work\MKProject\MKproject\bin\Debug\images\BackOfficeBig.png
+D:\Work\MKProject\MKproject\bin\Debug\images\BackOfficeSmall.png
+D:\Work\MKProject\MKproject\bin\Debug\images\dollarBig.png
+D:\Work\MKProject\MKproject\bin\Debug\images\dollarSmall.png
+D:\Work\MKProject\MKproject\bin\Debug\images\EmptyIcon.png
+D:\Work\MKProject\MKproject\bin\Debug\images\Error.png
+D:\Work\MKProject\MKproject\bin\Debug\images\info.png
+D:\Work\MKProject\MKproject\bin\Debug\images\maximizee.png
+D:\Work\MKProject\MKproject\bin\Debug\images\Question.png
+D:\Work\MKProject\MKproject\bin\Debug\images\restore-down.png
+D:\Work\MKProject\MKproject\bin\Debug\images\userNude(smallPixel).png
+D:\Work\MKProject\MKproject\bin\Debug\images\userNudeSmall(smallPixel).png
+D:\Work\MKProject\MKproject\bin\Debug\images\view.png
+D:\Work\MKProject\MKproject\bin\Debug\images\Warning.png
+D:\Work\MKProject\MKproject\bin\Debug\images\YesOrNo.png
+D:\Work\MKProject\MKproject\bin\Debug\images\user1.png
+D:\Work\MKProject\MKproject\bin\Debug\images\editgreen.png
+D:\Work\MKProject\MKproject\bin\Debug\images\editgray.png
+D:\Work\MKProject\MKproject\bin\Debug\images\Check.png
+D:\Work\MKProject\MKproject\bin\Debug\images\Editing_pen.png
+D:\Work\MKProject\MKproject\bin\Debug\images\user.png
+D:\Work\MKProject\MKproject\bin\Debug\images\userNude.png
+D:\Work\MKProject\MKproject\bin\Debug\images\userNudeSmall.png
+D:\Work\MKProject\MKproject\bin\Debug\MKproject.exe.config
+D:\Work\MKProject\MKproject\bin\Debug\MKproject.exe.manifest
+D:\Work\MKProject\MKproject\bin\Debug\MKproject.application
+D:\Work\MKProject\MKproject\bin\Debug\MKproject.exe
+D:\Work\MKProject\MKproject\bin\Debug\MKproject.pdb
+D:\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.dll
+D:\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.dll
+D:\Work\MKProject\MKproject\bin\Debug\Emgu.CV.World.dll
+D:\Work\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Work\MKProject\MKproject\bin\Debug\NLog.dll
+D:\Work\MKProject\MKproject\bin\Debug\OpenTK.dll
+D:\Work\MKProject\MKproject\bin\Debug\OpenTK.GLControl.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Buffers.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Drawing.Common.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Memory.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Text.Json.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Work\MKProject\MKproject\bin\Debug\System.ValueTuple.dll
+D:\Work\MKProject\MKproject\bin\Debug\ZedGraph.dll
+D:\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.xml
+D:\Work\MKProject\MKproject\bin\Debug\Emgu.CV.UI.GL.xml
+D:\Work\MKProject\MKproject\bin\Debug\Emgu.CV.World.xml
+D:\Work\MKProject\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\Work\MKProject\MKproject\bin\Debug\NLog.xml
+D:\Work\MKProject\MKproject\bin\Debug\OpenTK.xml
+D:\Work\MKProject\MKproject\bin\Debug\OpenTK.GLControl.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Buffers.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Drawing.Common.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Memory.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Numerics.Vectors.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Text.Json.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Work\MKProject\MKproject\bin\Debug\System.ValueTuple.xml
+D:\Work\MKProject\MKproject\bin\Debug\ZedGraph.xml
+D:\Work\MKProject\MKproject\bin\Debug\de\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\es\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\fr\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\hu\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\it\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\ja\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\pt\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\ru\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\sk\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\sv\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\tr\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\zh-cn\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\bin\Debug\zh-tw\ZedGraph.resources.dll
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.EditBundleProduct.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.EditEmployee.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.ViewBundlesAndProducts.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.ViewEmployee.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.BackOffice.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.BuyBundleOrProudct.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCBundlesOutput.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCProductOutput.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCCalanderMonth.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.CustomMessageBox.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Camera.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCNumberButt.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCNumberComboButt.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Menu.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Search.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.ChildParent.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.ClientManagementProfile.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.CustomerService.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Home.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.RelatedChildrens.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterOriginal.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCItem.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCDoubleUCTextbox.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.FilterCheckListSearch.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.FilterCustomDate.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.ImageForm.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.LOGIN.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.GreyColor.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.NewRegister.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Payment.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.RegistrationFields.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Album.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.SearchCurrentClient.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Statistics.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCBundlePackage.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Calander.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.Calanderyear.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCCalanderYear.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCComboBoxFilterSearch.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCLabelFilterOriginal.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCLabelAndDetail.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCPayments.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCNumberLabelButt.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCTextBoxFilterOriginal.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCCamera.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCDoubleCombo.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCSlideButton.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.UCTextbox1.resources
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.exe.manifest
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.application
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.exe
+D:\Work\MKProject\MKproject\obj\Debug\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject\MKproject\obj\Debug\MKproject.TransferData.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\MKproject.exe.config
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\MKproject.exe.manifest
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\MKproject.application
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\MKproject.exe
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\NLog.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\OpenTK.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\OpenTK.GLControl.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Buffers.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Drawing.Common.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Memory.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Numerics.Vectors.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Text.Json.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.ValueTuple.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\NLog.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\OpenTK.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\OpenTK.GLControl.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Buffers.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Drawing.Common.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Memory.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Numerics.Vectors.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Text.Json.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.ValueTuple.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Menu.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Home.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.exe.manifest
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.application
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.exe
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\CustomizedTools.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\CustomizedTools.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\nlog.config
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCData.UCData.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCCalanderday.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCCalandermonth.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCCalanderyear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCDays.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCMonth.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.CBsearchName.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.Schedule.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.ClientReminder.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.Reminder.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCappointments.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCCoach.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCmeeting.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCreminder.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.AppointmentUpdate.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.MeetingUpdate.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.Appointment.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCClient.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCMeetingInAppointment.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.AvailabilityLayout.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.Coach.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCTimeavailability.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.CBdisplayTime.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.CBrepeat.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCDay.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCTime.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\BackOfficeBig.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\BackOfficeSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\Check.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\dollarBig.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\dollarSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\editgray.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\editgreen.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\Editing_pen.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\EmptyIcon.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\Error.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\info.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\maximizee.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\Question.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\restore-down.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\user.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\user1.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\userNude(smallPixel).png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\userNude.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\userNudeSmall(smallPixel).png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\userNudeSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\view.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\Warning.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\YesOrNo.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCCalanderMonth.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCNumberButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCNumberComboButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.ChildParent.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.ClientManagementProfile.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.CustomerService.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.RelatedChildrens.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.TransferData.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.FilterCheckListSearch.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.FilterCustomDate.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.ImageForm.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.LOGIN.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.NewRegister.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.Payment.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.RegistrationFields.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.Album.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.SearchCurrentClient.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.Statistics.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCBundlePackage.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.Calander.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.Calanderyear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCCalanderYear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCComboBoxFilterSearch.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCPayments.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCNumberLabelButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCCamera.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCDoubleCombo.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.EditBundleProduct.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.EditEmployee.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.ViewBundlesAndProducts.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.ViewEmployee.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.BuyBundleOrProudct.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCBundlesOutput.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCProductOutput.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.Camera.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.UCItem.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Management.BackOffice.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Search.resources

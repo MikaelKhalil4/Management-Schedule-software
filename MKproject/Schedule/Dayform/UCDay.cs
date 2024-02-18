@@ -1,0 +1,2052 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using System.Globalization;
+using System.Data.SqlClient;
+
+namespace MKproject.Schedule
+{
+    public partial class UCDay : UserControl
+    {
+        //SQL:
+        SqlConnection con = new SqlConnection(Program.DataLocation);
+
+
+
+        //PROPERTY:
+        ///-Date
+        public DateTime DateUCDay { get; set; }
+
+        ///-Reminder
+        public DataTable tablereminder { get; set; }
+        public List<UCreminder> ListUCreminder { get; set; }//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
+
+        ///-Coaches Listed From Day Now to Infinity 
+        public List<int> ListCoach_idChecked { get; set; }
+        public DataTable DataTableCoachavailability { get; set; }// it has the availibility of all the 7 days of each coach checked and unchecked , Don't forget he has to be always asc by rank, so if you modify his rank make him again asc you can see UCcoach
+
+        ///-Coaches Listed All Time
+        public List<int> ListCoach_idAllTime { get; set; }
+        public List<string> CoachAvailabilityByOrder { get; set; }//it hase the availibility if this day of each coach exemple: 1-2-3/1-4-5,so there's 2 coaches they are ranked in this order
+
+        ///-Time
+        private bool ishistory;
+        public bool IsHistory
+
+        {
+            get { return ishistory; }
+            set
+            {
+                ishistory = value;
+            }
+        }
+
+        ///-Touch
+        private TouchScroll TouchscrollPanelUCDay { get; set; }
+
+
+
+        //VARIABLES:
+        public Schedule schedule;
+
+        ///-This Day DataTable
+        DataTable thisdaydatatableAppointments;
+        DataTable thisdaydatatableMeetings;
+
+
+        public FlowLayoutPanel clickedPanel;
+
+        ///-Copies
+        DateTime date; public int day, month, year, days; string dayname, monthname;
+        int PreviousValue;
+        int FutureValue;
+
+        ///-Bool
+        public bool isAssigned = false;
+        bool Isloaducday = false;
+        bool IsHistoryToAfterToday = false;
+        bool IsFirstTimeTouchAssigned = true;
+        bool IsClick;//eza kabasna aa hada men lcoachiye la yekbar colummn
+
+        ///-Position
+        public int OneUCARowPosition, OneUCAColumnPosition;//hiye ousoulan lal flowlayoutpanel jouweta UCA
+
+        ///-Color
+        public Color StaticColorFLP = Color.White, DisableColorFLP = Color.FromArgb(250, 246, 254), StaticColorTBUca = Color.White, DisableColorTBUca = Color.FromArgb(250, 246, 254)
+                  , MoveColor = Color.FromArgb(249, 246, 254)/*table taba3 lucap wel FLP*/
+                  , ErrorColor = Color.FromArgb(252, 0, 5), MemberColor = Color.FromArgb(109, 122, 224)/*ucappointment*/;
+
+        //Size
+        int ucdayoldwidth;//kermel resizing ysir optemized aktar
+        public int KeepSpace = 25;//for the ucappointments to keep the space for clicking on the FLP
+
+
+        //INITIALISE:
+        public UCDay(Schedule form)
+        {
+            InitializeComponent();
+            schedule = form;
+
+            //Scroll
+            TLPAppointment.AutoScroll = true;
+            TLPAppointment.VerticalScrollBarTable = VScrollBar1;
+
+            ucdayoldwidth = this.Size.Width;
+
+            //Fill TBP
+            for (int i = 0; i < 24; i++)
+            {
+                UCTime uctime = new UCTime();
+                uctime.Dock = DockStyle.Fill;
+                uctime.Time = TimeSpan.FromHours(i);
+
+                TLPAppointment.Controls.Add(uctime, 0, i);
+            }
+            for (int i = 0; i < 24; i++)
+            {
+                FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+                //Properties
+                flowLayoutPanel.Dock = DockStyle.Fill;
+                flowLayoutPanel.BackColor = Color.White;
+                flowLayoutPanel.Cursor = Cursors.Hand;
+                flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
+
+                //Events
+                flowLayoutPanel.Click += flowLayoutPanel1_Click;
+                flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
+                flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
+
+
+                TLPAppointment.Controls.Add(flowLayoutPanel, 1, i);
+            }
+
+            //ColumnStyle
+            TLPAppointment.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 125);
+            TLPCoaches.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 125);
+        }
+        private void UCDay_Load(object sender, EventArgs e)
+        {
+            //Initialise List
+            ListCoach_idAllTime = new List<int>();
+            CoachAvailabilityByOrder = new List<string>();
+            ListCoach_idChecked = new List<int>();
+
+            //Getting Coaches & Their Availability
+            DataTableCoachavailability = SQLToProjectSchedule.DisplayCoachAvailabilityASC();//they are in the order of a rank
+
+            //To get the TBL structure with ListCoach_idChecked structure
+            if (DataTableCoachavailability.Rows.Count != 0)
+            {
+                if (TLPCoaches.Controls.Count == 0)
+                {
+                    //Label Add
+                    Label label = new Label();
+                    label.Dock = DockStyle.Fill;
+                    label.BackColor = Color.FromArgb(229, 226, 244);
+                    label.Font = new Font("Segoe UI", 12);
+                    label.AutoSize = true;
+                    label.TextAlign = ContentAlignment.MiddleCenter;
+
+                    TLPCoaches.Controls.Add(label, 1, 0);
+                    label.Click += tableLayoutPanelCoaches_Click;
+
+                    //Getting the name and the family of the first coach who is checked but not adding it to the list because we want to add the first coach and the other coaches at the same time
+                    for (int i = 0; i < DataTableCoachavailability.Rows.Count; i++)
+                    {
+                        if ((bool)DataTableCoachavailability.Rows[i][6] == true)
+                        {
+                            label.Text = (string)DataTableCoachavailability.Rows[i][2] + " " + (string)DataTableCoachavailability.Rows[i][3];
+                            break;//he will get the first one and then get out
+                        }
+                    }
+                }
+
+                //Getting ListCoach_idChecked
+                for (int i = 0; i < DataTableCoachavailability.Rows.Count; i++)
+                {
+                    if ((bool)DataTableCoachavailability.Rows[i][6] == true)
+                    {
+                        ListCoach_idChecked.Add((int)DataTableCoachavailability.Rows[i][1]);
+                    }
+                }
+
+                int difference = ListCoach_idChecked.Count - TLPAppointment.ColumnCount + 1;//BOOM aadad lcoaches bel datatable hene rows w aadad lcoaches bel tablelayout ma3 wahad la uctime houwe aada lcolumms
+
+                if (difference > 0)
+                {
+                    for (int i = 0; i < difference; i++)
+                    {
+                        Isloaducday = true;//because it's the only situation that we will add to the listcoachid in the AddColumnUCDay
+                        AddColumnUCDay();// there's in it add to the ListCoach_idChecked
+                    }
+                }
+
+                //else will not happen 
+                else
+                {
+                    for (int i = 0; i < Math.Abs(difference); i++)
+                    {
+                        RemoveColumnUCDay();
+                    }
+                }
+
+            }
+
+
+            displayNow();
+
+            //Scroll
+            TLPAppointment.rowHeight = TLPAppointment.GetRowHeights()[0];
+            TLPAppointment.AutoScrollPosition = new Point(0, TLPAppointment.rowHeight * 6);
+            TLPAppointment.currentRow = 6;//for weel and touch scroll reason
+            PreviousValue = (TLPAppointment.currentRow) * (TLPAppointment.rowHeight);
+            FutureValue = (TLPAppointment.currentRow + 1) * (TLPAppointment.rowHeight);
+
+            VScrollBar1.Minimum = TLPAppointment.VerticalScroll.Minimum;
+            VScrollBar1.Maximum = TLPAppointment.VerticalScroll.Maximum;//hone aam hot ra2em hasab hayda table li2anno manno lmax value,baeed ma 3refet shu relation bein lvalue wel max barke tool tumb bi 2asir
+            VScrollBar1.Value = TLPAppointment.VerticalScroll.Value;
+            VScrollBar1.LargeChange = TLPAppointment.VerticalScroll.LargeChange;
+            VScrollBar1.SmallChange = 165;
+
+
+            //REMINDER
+            //CREATING ALL THE ucreminder and putting it on a list
+            ListUCreminder = new List<UCreminder>();
+            tablereminder = SQLToProjectSchedule.DisplayReminder();
+
+            foreach (DataRow dr in tablereminder.Rows)
+            {
+                int? clientid = dr[1] as int?;//hayde fi hal kenit null
+                string clientname;
+                if (dr.IsNull(7))
+                {
+                    clientname = "";
+                }
+                else
+                {
+                    clientname = (string)dr[7] + " " + (string)dr[8];
+                }
+                UCreminder ucreminder = new UCreminder((int)dr[0], clientid, (string)dr[2], (string)dr[3], (DateTime)dr[4], (string)dr[5], (bool)dr[6], clientname, this, schedule, false);//li2anno manna bi client reminder
+
+                ListUCreminder.Add(ucreminder);
+
+                //If it's Checked, then it will not appear in schedule.panelreminder
+                if (ucreminder.IsChecked == false)
+                {
+                    if (isThedayofUCreminder(ucreminder, DateUCDay))
+                    {
+                        ucreminder.Dock = DockStyle.Top;
+                        schedule.panelreminder.Controls.Add(ucreminder);
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+
+
+            //HistoryCoachAvailability
+            //Putting the  Availability And The ID of the Coaches   who are in the ListCoach_idChecked of today in the historycoachavailability
+            if (SQLToProjectSchedule.DataExistsForToday(DateTime.Now))//eza exists update 
+            {
+                //Code For SQL 
+                //and we can add a condition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
+                string rank_coaches = "";
+                string availibility_coaches = "";
+                for (int i = 0; i < ListCoach_idChecked.Count; i++)//both of the string are in the order of the rank
+                {
+                    //getting rank_coaches
+                    rank_coaches += ListCoach_idChecked[i].ToString();
+
+
+                    //getting availibility for this day of every coach
+                    int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
+                    var query = from row in schedule.ucday.DataTableCoachavailability.AsEnumerable()
+                                where row.Field<int>("coach_id") == ListCoach_idChecked[i]
+                                select row.Field<string>("availability");
+
+                    string availibility = query.First();
+                    string[] HoursOfThedays = availibility.Split('/');
+                    availibility_coaches += HoursOfThedays[dayOfWeekInt];
+
+                    if (i != ListCoach_idChecked.Count - 1)
+                    {
+                        rank_coaches += "/";
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+                //Update SQL
+                ProjectToSqlSchedule.UpdateHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
+            }
+            else//if it doesn't exist insert
+            {
+                //Code For SQL 
+                string rank_coaches = "";
+                string availibility_coaches = "";
+                for (int i = 0; i < ListCoach_idChecked.Count; i++)//both of the string are in the order of the rank
+                {
+                    //getting rank_coaches
+                    rank_coaches += ListCoach_idChecked[i].ToString();
+
+
+                    //getting availibility for this day of every coach
+                    int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
+                    var query = from row in schedule.ucday.DataTableCoachavailability.AsEnumerable()
+                                where row.Field<int>("coach_id") == ListCoach_idChecked[i]
+                                select row.Field<string>("availability");
+
+                    string availibility = query.First();
+                    string[] HoursOfThedays = availibility.Split('/');
+                    availibility_coaches += HoursOfThedays[dayOfWeekInt];
+
+                    if (i != ListCoach_idChecked.Count - 1)
+                    {
+                        rank_coaches += "/";
+                        availibility_coaches += "/";
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+                //Update SQL
+                ProjectToSqlSchedule.InsertHistoryCoachavailibility(DateTime.Now, rank_coaches, availibility_coaches);
+            }
+        }
+
+
+        //EVENT:
+        ///-Click
+
+        public void flowLayoutPanel1_Click(object sender, EventArgs e)
+        {
+            if (TouchScroll.MoveHoldClick == false && IsHistory == false)
+            {
+                clickedPanel = sender as FlowLayoutPanel;
+                if (clickedPanel.BackColor == DisableColorTBUca)
+                {
+
+                }
+                else
+                {
+                    int rowIndex = TLPAppointment.GetRow(clickedPanel);//get the row of the flowlayoutpanel
+                    UCTime uctime = (UCTime)TLPAppointment.GetControlFromPosition(0, rowIndex);//get the uctime wich he has the same row to get the time1 and display it in the combobox  of the appointment
+
+                    int columnIndex = TLPAppointment.GetColumn(clickedPanel);
+                    Appointment appointment = new Appointment(this, uctime, ListCoach_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
+                    appointment.ShowDialog();
+                }
+            }
+            else
+            {
+
+            }
+        }//inside TableLayoutPanel Of UcDay
+        private void tableLayoutPanelCoaches_Click(object sender, EventArgs e)
+        {
+            IsClick = true;
+            //It's when the table has one columncoach of course this column will be always in percentage
+            if (TLPAppointment.ColumnCount == 2)
+            {
+
+            }
+
+            else
+            {
+
+                if (sender is Label)
+                {
+                    Cursor = Cursors.WaitCursor;
+
+                    Label clickedLabel = (Label)sender;
+                    int row = TLPCoaches.GetRow(clickedLabel);
+                    int col = TLPCoaches.GetColumn(clickedLabel);
+
+                    //The click event will activate, if it's not the first cell where's there's no name of a coach in tableLayoutPanelCoaches
+                    if (col != 0)
+                    {
+
+                        //Absolute -> Percentage
+                        if (TLPAppointment.ColumnStyles[col].SizeType is SizeType.Absolute)
+                        {
+                            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPCoaches);
+                            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
+
+                            //kermel kel ucappointment ybaynoma bel column
+                            for (int i = 0; i < TLPAppointment.RowCount; i++)
+                            {
+
+                                Control cellControl1 = TLPAppointment.GetControlFromPosition(col, i);
+
+                                if (cellControl1 is FlowLayoutPanel)
+                                {
+                                    FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+                                    int columnwidth = TLPAppointment.GetColumnWidths()[col];
+
+
+                                    //So watta yzawim: eza bi shi flowlayoutpanel , lmax width tabaee lappointment maee kel aadadoun ma byetkhata column width fa ma byaeemlo streched(lie2anno eza eemil streched byetkhata lwidth tabeeoulo)
+                                    if (UCappointments.OriginalWidth * (innerFlowLayoutPanel1.Controls.Count) < clickedLabel.Width)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        EditWidthAppointment(innerFlowLayoutPanel1, columnwidth);
+
+                                    }
+                                }
+                            }
+                        }
+
+
+                        //Percentage -> Absolute
+                        else
+                        {
+                            //badna nrajiee ucappointment lal originale size li2anno sar column absolute size
+                            GettingWidthAppointmentToOriginal(col);
+
+
+                            //FLP That has the biggest number of ucdata
+                            int MaxNumberOfUcData = 0;
+                            int rowOfThemaxflowLayPan = 0;
+                            for (int i = 0; i < TLPAppointment.RowCount; i++)
+                            {
+                                Control cellControl = TLPAppointment.GetControlFromPosition(col, i);
+                                if (cellControl is FlowLayoutPanel)
+                                {
+                                    FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
+                                    if (MaxNumberOfUcData < MaxFlowLayoutPanel.Controls.Count)
+                                    {
+                                        MaxNumberOfUcData = MaxFlowLayoutPanel.Controls.Count;
+                                        rowOfThemaxflowLayPan = i;
+                                    }
+                                }
+                            }
+
+
+                            //eza toli3 fi column absolute gher li eemelnela  click laken mana nredo percentage
+                            if (CheckOtherColumnsStylesType(TLPAppointment, col))
+                            {
+                                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPCoaches);
+                                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
+                            }
+
+
+                            // If the summation of the controls width inside the flowlayoutpanel(that has the biggest number) is approximately same as the column width then it's better to keep it in percentage
+                            if (MaxNumberOfUcData == 0 || ((UCappointments.OriginalWidth * MaxNumberOfUcData) + KeepSpace) < clickedLabel.Width)//approximately because without using the margins to compare
+                            {
+
+                            }
+                            //If not then we will Edit The Clicked Column making him to absolute
+                            else
+                            {
+                                EditColumnAbsoluteSize(col, rowOfThemaxflowLayPan);
+                            }
+
+
+                        }
+
+                    }
+
+
+                    else
+                    {
+
+                    }
+
+                    Cursor = Cursors.Default;
+                }
+            }
+
+            IsClick = false;
+
+        }//changing size column of the Table Layout Panel
+        private void buttonToday_Click(object sender, EventArgs e)
+        {
+            if (DateUCDay.Date != DateTime.Now.Date)
+            {
+                Cursor = Cursors.WaitCursor;
+                displayNow();
+                Cursor = Cursors.Default;
+            }
+            else
+            {
+                Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.Default;
+            }
+        }
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            if (DateUCDay.Day != DateTime.DaysInMonth(DateUCDay.Year, DateUCDay.Month))//add day
+            {
+                DateUCDay = DateUCDay.AddDays(+1);
+                displayDay();
+            }
+            else if (DateUCDay.Month != 12)//day=1, add month
+            {
+                DateUCDay = DateUCDay.AddMonths(+1);
+                month = DateUCDay.Month;
+                year = DateUCDay.Year;
+                DateUCDay = new DateTime(year, month, 1);
+                displayDay();
+            }
+            else//day=1,month=1,add year
+            {
+                DateUCDay = DateUCDay.AddYears(+1);
+                DateUCDay = new DateTime(year, 1, 1);
+                displayDay();
+            }
+
+            //Scroll
+            TLPAppointment.AutoScrollPosition = new Point(0, 0);
+            TLPAppointment.AutoScrollPosition = new Point(0, TLPAppointment.rowHeight * 6);
+            VScrollBar1.Value = TLPAppointment.VerticalScroll.Value;
+            TLPAppointment.currentRow = 6;
+
+            //Reminder
+            DisplayUCReminder();
+
+            Cursor = Cursors.Default;
+        }
+        private void buttonPrevious_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            if (DateUCDay.Day != 1)//remove day
+            {
+                DateUCDay = DateUCDay.AddDays(-1);
+                displayDay();
+            }
+            else if (DateUCDay.Month != 1)//day= last day, remove month
+            {
+                DateUCDay = DateUCDay.AddMonths(-1);
+                month = DateUCDay.Month;
+                year = DateUCDay.Year;
+                DateUCDay = new DateTime(year, month, DateTime.DaysInMonth(DateUCDay.Year, DateUCDay.Month));
+                displayDay();
+            }
+            else//day=last day,month=12,remove year
+            {
+                DateUCDay = DateUCDay.AddYears(-1);
+                year = DateUCDay.Year;
+                DateUCDay = new DateTime(year, 12, DateTime.DaysInMonth(DateUCDay.Year, DateUCDay.Month));
+                displayDay();
+            }
+            TLPAppointment.AutoScrollPosition = new Point(0, 0);
+            TLPAppointment.AutoScrollPosition = new Point(0, TLPAppointment.rowHeight * 6);
+            VScrollBar1.Value = TLPAppointment.VerticalScroll.Value;
+            TLPAppointment.currentRow = 6;
+
+            DisplayUCReminder();
+
+            Cursor = Cursors.Default;
+        }
+        private void labelDate_Click(object sender, EventArgs e)
+        {
+            //UCmonth show
+            Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(0, 20);
+            schedule.ucmonths.Location = locationRelativeToScreen;
+            schedule.ucmonths.Show();
+
+
+            //Showing the ucmonth from the calanderday in the date that we are
+            schedule.ucmonths.DateUCMonth = DateUCDay;
+            if (schedule.ucmonths.wichuccalander == 2)
+            {
+                schedule.ucmonths.wichuccalander = 1;
+                schedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(schedule.ucmonths.uccalandermonth);
+                schedule.ucmonths.tableLayoutPanelMonth.Controls.Add(schedule.ucmonths.uccalanderday);
+            }
+            else if (schedule.ucmonths.wichuccalander == 3)
+            {
+                schedule.ucmonths.wichuccalander = 1;
+                schedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(schedule.ucmonths.uccalanderyear);
+                schedule.ucmonths.tableLayoutPanelMonth.Controls.Add(schedule.ucmonths.uccalanderday);
+
+            }
+
+            schedule.ucmonths.buttonTypeDateChange.Text = "Month";
+            schedule.ucmonths.EditLabelUCdays();
+
+        }
+        private void labelMember_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            Point locationRelativeToScreen = labelMember.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(-150,20);
+            schedule.coach = new Coach(schedule);
+            schedule.coach.Location = locationRelativeToScreen;
+            schedule.coach.Show();
+            Cursor = Cursors.Default;
+        }
+
+
+        ///-Size Change
+        private void UCDay_SizeChanged(object sender, EventArgs e)
+        {
+            VScrollBar1.LargeChange = TLPAppointment.VerticalScroll.LargeChange;
+
+
+            int col = GettingAbsoluteColumn(TLPCoaches);
+
+            //if col = 0 that means the absolute column doesn't exist because it's the column of the uctime
+            if (col != 0)
+            {
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPCoaches);
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
+            }
+
+
+
+            //kermel kel ucappointment ybaynoma bel column
+            for (int j = 0; j < TLPAppointment.ColumnCount; j++)
+            {
+                int columnwidth = TLPAppointment.GetColumnWidths()[j];
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+                    Control cellControl = TLPAppointment.GetControlFromPosition(j, i);//cell li fi yo akbar aadad ucappointment
+                    if (cellControl is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel flowLayoutPanel = (FlowLayoutPanel)cellControl;
+
+
+
+                        //eza lwidth aam ykbar laken maybe it will surpass the limit eza aam yezghar akid laa faeza aam yozghar ma daroure taeemil originale size
+                        if (this.Size.Width > ucdayoldwidth)
+                        {
+                            //Getting them to their true width to know if they ll surpass the limit
+                            foreach (UCappointments ucappointment in flowLayoutPanel.Controls.OfType<UCappointments>())
+                            {
+                                ucappointment.Width = UCappointments.OriginalWidth;
+                            }
+
+
+                            foreach (UCmeeting ucmeeting in flowLayoutPanel.Controls.OfType<UCmeeting>())
+                            {
+                                ucmeeting.Width = UCappointments.OriginalWidth;
+                            }
+                        }
+
+
+
+                        //Getting to know if we have to EditWidthAppointment
+                        if (((UCappointments.OriginalWidth * flowLayoutPanel.Controls.Count) + KeepSpace) > columnwidth)
+                        {
+                            EditWidthAppointment(flowLayoutPanel, columnwidth);
+                        }
+                    }
+                }
+            }
+
+            ucdayoldwidth = this.Size.Width;
+        }
+
+
+
+        //FUNCTIONS:
+        ///-Display
+        public void displayNow()
+        {
+            if (DateTime.Now != DateUCDay)
+            {
+                DateUCDay = DateTime.Now;
+
+                displayDay();
+            }
+            else
+            {
+
+            }
+        }
+        public void displayDay()
+        {
+            //copies
+            date = DateUCDay;
+            year = DateUCDay.Year;
+            month = DateUCDay.Month;
+            day = DateUCDay.Day;
+
+
+            //Fill with ucappointments
+
+            ///Now To Infinity or From History to now
+            if (DateTime.Now.Date <= DateUCDay.Date)
+            {
+                //We Have ListCoach_idChecked now we have to get the availabily of each coach by the same order
+                List<string> availabilityrankorder = new List<string>();
+                for (int i = 0; i < ListCoach_idChecked.Count(); i++)
+                {
+                    int dayOfWeekInt = ((int)DateUCDay.DayOfWeek + 6) % 7;
+                    var query = from row in DataTableCoachavailability.AsEnumerable()
+                                where row.Field<int>("coach_id") == ListCoach_idChecked[i]
+                                select row.Field<string>("availability");
+                    string availibility = query.First();//availibility for all the days
+                    string[] HoursOfThedays = availibility.Split('/');//availibility for the day of DateUCDay EXEMPEL: it could be Monday
+                    availabilityrankorder.Add(HoursOfThedays[dayOfWeekInt]);
+                }
+
+                //From History To Today
+                if (IsHistory)//eza ken li abla men lhistory ya3ne barke ysir fi add column aw remove... 
+                {
+                    IsHistory = false;
+                    IsHistoryToAfterToday = true;
+                    EditTBPbyChangingDates(ListCoach_idChecked, availabilityrankorder);
+                    IsHistoryToAfterToday = false;
+                }
+
+                //Between Present And Future
+                else//eza laa bas 3layna nghayir lavailibility wel appointments
+                {
+                    IsHistory = false;
+                    UCappointmentsfillTodayToFuture();
+                }
+
+                //Updating the new List
+                ListCoach_idAllTime = ListCoach_idChecked.ToList();
+                CoachAvailabilityByOrder = availabilityrankorder;
+            }
+
+            //History
+            else
+            {
+                IsHistory = true;
+
+                //Getting the Rank and Availability of the coaches who were checked and trained in this day
+                DataTable RankNAvailabilityCoaches = SQLToProjectSchedule.DisplayRankCoachesNAvailability(DateUCDay);
+
+                //Variables
+                string[] rankCoaches;
+                string[] availabilityCoaches;
+
+                List<int> rankcoaches_id = new List<int>();
+                List<string> availabilityrankorder = new List<string>();
+
+
+                List<int> rankcoaches_idwhotrainedAp = new List<int>();
+                List<int> rankcoaches_idwhotrainedMeet = new List<int>();
+
+                List<int> rankcoaches_idwhotrained = new List<int>();
+                List<string> availabilityrankorderwhotrained = new List<string>();
+
+                //there's Checked Coaches In this Day
+                if (RankNAvailabilityCoaches.Rows.Count > 0)
+                {
+
+                    //The Rank and Availability of the coaches who were checked in this day
+                    DataRow row = RankNAvailabilityCoaches.Rows[0];
+
+                    rankCoaches = row["rank_coaches"].ToString().Split('/');
+                    availabilityCoaches = row["availability_coaches"].ToString().Split('/');
+                    for (int i = 0; i < rankCoaches.Length; i++)
+                    {
+                        rankcoaches_id.Add(int.Parse(rankCoaches[i]));
+                        availabilityrankorder.Add(availabilityCoaches[i]);
+                    }
+
+                    //Getting From SQL Coaches who trained and haved Meeting
+                    List<int> coaches_idwhotrained = SQLToProjectSchedule.DisplayCoachesIdWhoTrained(this, rankcoaches_id);
+
+
+                    //Getting the finale List Of the Rank and Availability of the coaches who were checked and trained in this day
+                    for (int i = 0; i < rankcoaches_id.Count; i++)
+                    {
+                        bool IsCoachTrain = false;
+                        for (int j = 0; j < coaches_idwhotrained.Count; j++)
+                        {
+                            if (rankcoaches_id[i] == coaches_idwhotrained[j])
+                            {
+                                rankcoaches_idwhotrained.Add(rankcoaches_id[i]);
+                                IsCoachTrain = true;
+                            }
+
+                        }
+                        if (IsCoachTrain == true)//eza maken lcoach mawjoid bi hal day taba3 lhistory laken mana nshilo men lavailibility
+                        {
+                            availabilityrankorderwhotrained.Add(availabilityrankorder[i]);
+                        }
+                    }
+
+                    //There's Coaches who trained in this day
+                    if (rankcoaches_idwhotrained.Count > 0)
+                    {
+                        EditTBPbyChangingDates(rankcoaches_idwhotrained, availabilityrankorderwhotrained);
+                    }
+                    //There's no one who trained in this day
+                    else
+                    {
+                        rankcoaches_idwhotrained.Clear();
+                        availabilityrankorderwhotrained.Clear();
+                        rankcoaches_idwhotrained.Add(0);
+                        availabilityrankorderwhotrained.Add("");
+                        EditTBPbyChangingDates(rankcoaches_idwhotrained, availabilityrankorderwhotrained);
+                    }
+                }
+
+                //there's No Checked Coaches In this Day
+                else
+                {
+                    rankcoaches_idwhotrained.Add(0);
+                    availabilityrankorderwhotrained.Add("");
+                    EditTBPbyChangingDates(rankcoaches_idwhotrained, availabilityrankorderwhotrained);
+                }
+
+
+                //Updating The New List
+                ListCoach_idAllTime = rankcoaches_idwhotrained;
+                CoachAvailabilityByOrder = availabilityrankorderwhotrained;
+            }
+
+            //Changing Date
+            dayname = DateUCDay.ToString("dddd");
+            monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
+            labelDate.Text = dayname + "," + monthname + " " + day + "," + year;
+
+
+        }//Display the title and the ucappointments
+
+        ///-Add
+        public void AddUCappointments(int coach_id, int? idclient, string fullname, DateTime starttime, DateTime endtime, string notes, bool onpending, string clienttype)
+        {
+            //SQL:
+            int idappointment = ProjectToSqlSchedule.AddFromAppoitementtoSQL(coach_id, idclient, starttime, endtime, notes, onpending, clienttype);
+
+            //Design
+            UCappointments ucappointments = new UCappointments(idappointment, coach_id, idclient, fullname, starttime, endtime, notes, onpending, this, clienttype);
+            ucappointments.Width = UCappointments.OriginalWidth;
+
+           
+            //Adding Appointment
+            clickedPanel.Controls.Add(ucappointments);
+
+            //Getting the position of the flow layout panel
+            TableLayoutPanelCellPosition position = TLPAppointment.GetPositionFromControl(clickedPanel);
+            OneUCAColumnPosition = position.Column;
+            OneUCARowPosition = position.Row;
+
+
+
+            //Absolute
+            if (TLPAppointment.ColumnStyles[position.Column].SizeType is SizeType.Absolute)
+            {
+
+                //FLP That has the biggest number of ucdata
+                int MaxNumberOfUcData = 0;
+                int rowOfThemaxflowLayPan = 0;
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+                    Control cellControl = TLPAppointment.GetControlFromPosition(position.Column, i);
+                    if (cellControl is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
+                        if (MaxNumberOfUcData < MaxFlowLayoutPanel.Controls.Count)
+                        {
+                            MaxNumberOfUcData = MaxFlowLayoutPanel.Controls.Count;
+                            rowOfThemaxflowLayPan = i;
+                        }
+                    }
+                }
+
+                //If Clicked FLP is MaxFlowLayoutPanel then it may affect the column absolute size
+                if (rowOfThemaxflowLayPan == position.Row)
+                {
+                    EditColumnAbsoluteSize(position.Column, position.Row);
+                }
+
+                //se3eta bas momkin yet2asar lwidthucappointment
+                else
+                {
+                    int columnwidth = TLPAppointment.GetColumnWidths()[position.Column];
+                    
+                    //eza ee edit width
+                    if (((UCappointments.OriginalWidth * clickedPanel.Controls.Count) + KeepSpace) > columnwidth)
+                    {
+                        EditWidthAppointment(clickedPanel, columnwidth);
+                    }
+                }
+            }
+
+
+            //Percentage
+            else
+            {
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+
+                    Control cellControl1 = TLPAppointment.GetControlFromPosition(position.Column, i);
+
+                    if (cellControl1 is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+
+
+                        int columnwidth = TLPAppointment.GetColumnWidths()[position.Column];
+
+                        //eza ee edit width
+                        if (((UCappointments.OriginalWidth * clickedPanel.Controls.Count) + KeepSpace) > columnwidth)//bala ucaddclick
+                        {
+                            EditWidthAppointment(clickedPanel, columnwidth);
+                        }
+                    }
+                }
+            }
+
+            TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+        }
+        public void AddUCmeeting(int idcoach, string title, DateTime starttime, DateTime endtime, string Note, bool onpending)
+        {
+            //SQL
+            int idmeeting = ProjectToSqlSchedule.AddFromMeetingtoSQL(idcoach, title, starttime, endtime, Note, onpending);
+
+            //DESIGN
+            UCmeeting ucmeeting = new UCmeeting(idmeeting, idcoach, title, starttime, endtime, Note, onpending, this);
+
+          
+            //Adding Appointment
+            clickedPanel.Controls.Add(ucmeeting);
+
+
+            //Getting the position of the flow layout panel
+            TableLayoutPanelCellPosition position = TLPAppointment.GetPositionFromControl(clickedPanel);
+            OneUCAColumnPosition = position.Column;
+            OneUCARowPosition = position.Row;
+
+
+
+            //Absolute
+            if (TLPAppointment.ColumnStyles[position.Column].SizeType is SizeType.Absolute)
+            {
+
+                //FLP That has the biggest number of ucdata
+                int MaxNumberOfUcData = 0;
+                int rowOfThemaxflowLayPan = 0;
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+                    Control cellControl = TLPAppointment.GetControlFromPosition(position.Column, i);
+                    if (cellControl is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
+                        if (MaxNumberOfUcData < MaxFlowLayoutPanel.Controls.Count)
+                        {
+                            MaxNumberOfUcData = MaxFlowLayoutPanel.Controls.Count;
+                            rowOfThemaxflowLayPan = i;
+                        }
+                    }
+                }
+
+                //If Clicked FLP is MaxFlowLayoutPanel then it may affect the column absolute size
+                if (rowOfThemaxflowLayPan == position.Row)
+                {
+                    EditColumnAbsoluteSize(position.Column, position.Row);
+                }
+
+                //se3eta bas momkin yet2asar lwidthucappointment
+                else
+                {
+                    int columnwidth = TLPAppointment.GetColumnWidths()[position.Column];
+
+                    //eza ee edit width
+                    if (((UCappointments.OriginalWidth * clickedPanel.Controls.Count) + KeepSpace) > columnwidth)
+                    {
+                        EditWidthAppointment(clickedPanel, columnwidth);
+                    }
+                }
+            }
+
+
+            //Percentage
+            else
+            {
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+
+                    Control cellControl1 = TLPAppointment.GetControlFromPosition(position.Column, i);
+
+                    if (cellControl1 is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+
+
+                        int columnwidth = TLPAppointment.GetColumnWidths()[position.Column];
+
+                        //eza ee edit width
+                        if (((UCappointments.OriginalWidth * clickedPanel.Controls.Count) + KeepSpace) > columnwidth)
+                        {
+                            EditWidthAppointment(clickedPanel, columnwidth);
+                        }
+                    }
+                }
+            }
+
+
+
+            TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+        }
+
+
+
+        ///-Fill With Appointments
+        private void UCappointmentsfillTodayToFuture()
+        {
+
+            int dayOfWeekInt = ((int)DateUCDay.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+
+            //Clear all the flow layout panel
+            for (int j = 1; j < TLPAppointment.ColumnCount; j++)//1 li2anno bala uctime BOOM
+            {
+                //Getting the Hours of Availibility of this Coach Of This Day
+                var query = from row in schedule.ucday.DataTableCoachavailability.AsEnumerable()
+                            where row.Field<int>("coach_id") == ListCoach_idChecked[j - 1]
+                            select row.Field<string>("availability");
+
+                string availibility = query.First();
+                string[] HoursOfThedays = availibility.Split('/');// "/" it's the split between days
+                string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');// "-" it's the split between hours
+
+                //Editing TBP
+                AvailibilityColumnNClearUCA(j, HoursOfTheday);
+            }
+
+            //Getting From SQL Appointments & Meetings of this day and the Listed Coaches
+            thisdaydatatableAppointments = SQLToProjectSchedule.DisplayAppointmentsWhereCoaches(this, ListCoach_idChecked);
+            thisdaydatatableMeetings = SQLToProjectSchedule.DisplayMeetingsWhereCoaches(this, ListCoach_idChecked);
+
+            UCappointmentsFill(ListCoach_idChecked);
+
+            //TouchScroll
+            if (IsFirstTimeTouchAssigned)//hiye ousoulan ejit true moujarad ma to2taee bi hayde bet sir aan aatoul false
+            {
+                TouchscrollPanelUCDay = new TouchScroll(TLPAppointment, this, VScrollBar1);
+                IsFirstTimeTouchAssigned = false;
+            }
+            else
+            {
+                TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+            }
+
+            //Fihal ken fi shi column absolute
+            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPCoaches);
+            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
+
+
+            //kermel kel ucappointment ybaynoma bel column
+            for (int j = 0; j < TLPAppointment.ColumnCount; j++)
+            {
+                int columnwidth = TLPAppointment.GetColumnWidths()[j];
+
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+                    Control cellControl1 = TLPAppointment.GetControlFromPosition(j, i);
+
+                    if (cellControl1 is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+
+                        //eza ee edit width
+                        if (((UCappointments.OriginalWidth * innerFlowLayoutPanel1.Controls.Count) + KeepSpace) > columnwidth)
+                        {
+                            EditWidthAppointment(innerFlowLayoutPanel1, columnwidth);
+                        }
+                    }
+                }
+            }
+
+        }//hone lal load,next,previous w eza jina mnel month
+        public void UCappointmentsfillColumn(int columnindex, int coach_id, string coachname)
+        {
+
+            int dayOfWeekInt = ((int)DateUCDay.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+                                                                   //Getting the Hours of Availibility of this Coach Of This Day
+            var query = from row in schedule.ucday.DataTableCoachavailability.AsEnumerable()
+                        where row.Field<int>("coach_id") == ListCoach_idChecked[columnindex - 1]
+                        select row.Field<string>("availability");
+
+            string availibility = query.First();
+            string[] HoursOfThedays = availibility.Split('/');// "/" it's the split between days
+            string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');// "-" it's the split between hours
+
+            //Editing TBP
+            AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);
+
+            thisdaydatatableAppointments = SQLToProjectSchedule.DisplayAppointmentsOneCoach(this, coach_id);
+            thisdaydatatableMeetings = SQLToProjectSchedule.DisplayMeetingsOneCoach(this, coach_id);
+
+
+            foreach (DataRow dr in thisdaydatatableAppointments.Rows)
+            {
+                int appointment_id = Convert.ToInt32(dr[0]);
+
+                int client_id = Convert.ToInt32(dr[1]);
+
+                string fullname = dr[2].ToString() + " " + dr[3].ToString();
+
+                DateTime starttime = (DateTime)dr[4];
+                DateTime endtime = (DateTime)dr[5];
+
+                string Note = dr[6].ToString();
+
+                bool onpending = Convert.ToBoolean(dr[7]);
+
+                string clienttype = dr[8].ToString();
+
+                UCappointments ucappointments = new UCappointments(appointment_id, coach_id, client_id, fullname, starttime, endtime, Note, onpending, this, clienttype);
+
+
+                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
+                int positionrow = starttimeTimeSpan.Hours;
+                int positioncol = ListCoach_idChecked.IndexOf(coach_id) + 1;//BOOM
+                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
+               
+
+
+                if (flowLayoutPanel.BackColor == DisableColorFLP)
+                {
+                    ucappointments.BackColor = ErrorColor;
+                    ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                }
+
+                flowLayoutPanel.Controls.Add(ucappointments);
+
+                //EditWidthAppointment(flowLayoutPanel);
+            }
+
+
+            foreach (DataRow dr in thisdaydatatableMeetings.Rows)
+            {
+                int meeting_id = Convert.ToInt32(dr[0]);
+                string title = dr[2].ToString();
+
+
+                DateTime starttime = (DateTime)dr[3];
+                DateTime endtime = (DateTime)dr[4];
+
+                string Note = dr[5].ToString();
+
+                bool onpending = Convert.ToBoolean(dr[6]);
+
+                UCmeeting ucmeeting = new UCmeeting(meeting_id, coach_id, title, starttime, endtime, Note, onpending, this);
+
+
+                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
+                int positionrow = starttimeTimeSpan.Hours;
+                int positioncol = ListCoach_idChecked.IndexOf(coach_id) + 1;
+                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
+               
+
+
+                if (flowLayoutPanel.BackColor == DisableColorFLP)
+                {
+                    ucmeeting.BackColor = ErrorColor;
+                    ucmeeting.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                }
+                flowLayoutPanel.Controls.Add(ucmeeting);
+                //EditWidthAppointment(flowLayoutPanel);
+            }
+
+            Label label = (Label)TLPCoaches.GetControlFromPosition(columnindex, 0);
+            label.Text = coachname;
+            TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+
+
+
+            ///kermel kel ucappointment ybaynoma bel column
+            for (int j = 0; j < TLPAppointment.ColumnCount; j++)
+            {
+                int columnwidth = TLPAppointment.GetColumnWidths()[j];
+
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+                    Control cellControl1 = TLPAppointment.GetControlFromPosition(j, i);
+
+                    if (cellControl1 is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+
+                        //eza ee edit width
+                        if (((UCappointments.OriginalWidth * innerFlowLayoutPanel1.Controls.Count) + KeepSpace) > columnwidth)
+                        {
+                            EditWidthAppointment(innerFlowLayoutPanel1, columnwidth);
+                        }
+                    }
+                }
+            }
+        }//When we Change ListCoachSelected 
+        private void UCappointmentsfillHistory(List<int> rankcoaches_id)
+        {
+
+            //now we have to display the appointemnts
+            thisdaydatatableAppointments = SQLToProjectSchedule.DisplayAppointmentsWhereCoaches(this, rankcoaches_id);
+            thisdaydatatableMeetings = SQLToProjectSchedule.DisplayMeetingsWhereCoaches(this, rankcoaches_id);
+
+            UCappointmentsFill(rankcoaches_id);
+
+            TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+
+
+            //Fihal ken fi shi column absolute
+            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPCoaches);
+            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
+
+            //kermel kel ucappointment ybaynoma bel column
+            for (int j = 0; j < TLPAppointment.ColumnCount; j++)
+            {
+                int columnwidth = TLPAppointment.GetColumnWidths()[j];
+
+                for (int i = 0; i < TLPAppointment.RowCount; i++)
+                {
+                    Control cellControl1 = TLPAppointment.GetControlFromPosition(j, i);
+
+                    if (cellControl1 is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+                        //eza ee edit width
+                        if (((UCappointments.OriginalWidth * innerFlowLayoutPanel1.Controls.Count) + KeepSpace) > columnwidth)
+                        {
+                            EditWidthAppointment(innerFlowLayoutPanel1, columnwidth);
+                        }
+                    }
+                }
+            }
+        }//hone lal load,next,previous w eza jina mnel month
+
+        ///-Function to Fill by getting a List
+        private void UCappointmentsFill(List<int> rankcoaches_id)
+        {
+            foreach (DataRow dr in thisdaydatatableAppointments.Rows)
+            {
+                int appointment_id = Convert.ToInt32(dr[0]);
+                int coach_id = Convert.ToInt32(dr[1]);
+                int client_id = Convert.ToInt32(dr[2]);
+
+                string fullname = dr[3].ToString() + " " + dr[4].ToString();
+
+                DateTime starttime = (DateTime)dr[5];
+                DateTime endtime = (DateTime)dr[6];
+
+                string Note = dr[7].ToString();
+
+                bool onpending = Convert.ToBoolean(dr[8]);
+
+
+                string clienttype = dr[9].ToString();
+
+                UCappointments ucappointments = new UCappointments(appointment_id, coach_id, client_id, fullname, starttime, endtime, Note, onpending, this, clienttype);
+
+
+                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
+                int positionrow = starttimeTimeSpan.Hours;
+                int positioncol = rankcoaches_id.IndexOf(coach_id) + 1;
+                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
+               
+
+
+                if (flowLayoutPanel.BackColor == DisableColorFLP)
+                {
+                    ucappointments.BackColor = ErrorColor;
+                    ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                }
+                flowLayoutPanel.Controls.Add(ucappointments);
+                //EditWidthAppointment(flowLayoutPanel);
+            }
+
+
+            foreach (DataRow dr in thisdaydatatableMeetings.Rows)
+            {
+                int meeting_id = Convert.ToInt32(dr[0]);
+                int coach_id = Convert.ToInt32(dr[1]);
+                string title = dr[2].ToString();
+
+
+                DateTime starttime = (DateTime)dr[3];
+                DateTime endtime = (DateTime)dr[4];
+
+                string Note = dr[5].ToString();
+
+                bool onpending = Convert.ToBoolean(dr[6]);
+
+                UCmeeting ucmeeting = new UCmeeting(meeting_id, coach_id, title, starttime, endtime, Note, onpending, this);
+
+
+                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
+                int positionrow = starttimeTimeSpan.Hours;
+                int positioncol = rankcoaches_id.IndexOf(coach_id) + 1;
+                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
+                
+
+
+                if (flowLayoutPanel.BackColor == DisableColorFLP)
+                {
+                    ucmeeting.BackColor = ErrorColor;
+                    ucmeeting.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                }
+                flowLayoutPanel.Controls.Add(ucmeeting);
+                //EditWidthAppointment(flowLayoutPanel);
+            }
+        }
+
+        ///-Editing The Table Layout Panel
+        public void EditTBPbyChangingDates(List<int> listrankcoach_id, List<string> listavailabilityrankorder)
+        {
+            int difference = listrankcoach_id.Count() /*it will give me the number of coaches*/ - ListCoach_idAllTime.Count();//ListCoach_idAllTime hone hal property sarit l2adime badda tetjadad
+
+            //there's more coaches 
+            if (difference > 0)
+            {
+                //hataynehoun monfoslin kermel lcount taba3 ListUCCoachChecked ma yotla3 fo2 lcount taba3 schedule.ucday.ListCoach_id
+                for (int i = 0; i < difference; i++)
+                {
+                    schedule.ucday.AddColumnUCDay();
+                }
+                SwitchCoachIfDifferent(listrankcoach_id, listavailabilityrankorder);
+            }
+
+            //There's less coaches
+            else if (difference < 0)
+            {
+                for (int i = 0; i < Math.Abs(difference); i++)
+                {
+                    schedule.ucday.RemoveColumnUCDay();
+                }
+                SwitchCoachIfDifferent(listrankcoach_id, listavailabilityrankorder);
+            }
+
+            //there's the same number of coaches
+            else
+            {
+                SwitchCoachIfDifferent(listrankcoach_id, listavailabilityrankorder);
+            }
+        }
+        public void SwitchCoachIfDifferent(List<int> rankcoaches_id, List<string> availabilityrankorder)
+        {
+            //there's Coaches
+            if (rankcoaches_id[0] != 0)
+            {
+                //Checking Each Column T0 Swap it
+                for (int i = 0; i < rankcoaches_id.Count(); i++)//exemple column 0 men shabeha lal rank 1 eza aandoun zet lcoach_id laken ma bi sir chi eza laa byetghayar
+                {
+
+                    int columnindex = i + 1;//BOOM 
+
+                    //The Column Has The Same Coach
+                    if (rankcoaches_id[i] == ListCoach_idAllTime[i])//ma sar shi hone ha tes2al barke nmaha column rejiee nrad ma bi 2assir li2anno bel addcolumn hatit coach_id=0
+                    {
+                        //The Column Has The Same AvailibilityCoach
+                        if (availabilityrankorder[i] == CoachAvailabilityByOrder[i])
+                        {
+                            //Then No Change Just Clear FLP
+                            for (int j = 0; j < TLPAppointment.RowCount; j++)
+                            {
+                                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, j) as FlowLayoutPanel;
+                                flowLayoutPanel.Controls.Clear();
+                            }
+                        }
+                        //The Column Does Not Have The Same AvailibilityCoach
+                        else
+                        {
+                            //then we have to change the color of the FLP and clear them
+                            string[] HoursOfTheday = availabilityrankorder[i].Split('-');
+                            AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);
+                        }
+                    }
+                    //The Column Does Not Have The Same Coach
+                    else
+                    {
+
+                        string coachname = SQLToProjectSchedule.DisplayCoachName(rankcoaches_id[i]);
+                        Label label = (Label)TLPCoaches.GetControlFromPosition(columnindex, 0);
+                        label.Text = coachname;
+                        string[] HoursOfTheday = availabilityrankorder[i].Split('-');
+                        AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);//listcoachid ma3 tanesou2 columns BOOM
+                    }
+                }
+                UCappointmentsfillHistory(rankcoaches_id);
+            }
+
+            //There's no coaches
+            else
+            {
+                string coachname = "No Appointments were assigned";
+                Label label = (Label)TLPCoaches.GetControlFromPosition(1, 0);//BOOM
+                label.Text = coachname;
+                string[] HoursOfTheday = availabilityrankorder[0].Split('-');
+                AvailibilityColumnNClearUCA(1, HoursOfTheday);//listcoachid ma3 tanesou2 columns BOOM
+            }
+        }//hone bi aadil lcolumns w byaeemeloun clear byerjaee bi aabe lal kel
+
+
+        ///-Fill and Remove (Column)
+        public void RemoveColumnUCDay()
+        {
+            if (TLPAppointment.ColumnCount != 2)
+            {
+                //History or From History To Today
+                if (IsHistory || IsHistoryToAfterToday)
+                {
+                    ListCoach_idAllTime.RemoveAt(ListCoach_idAllTime.Count - 1);
+                    CoachAvailabilityByOrder.RemoveAt(CoachAvailabilityByOrder.Count - 1);
+                }
+
+                //From Today To Infinity
+                else
+                {
+                    ListCoach_idChecked.RemoveAt(ListCoach_idChecked.Count - 1);
+                }
+
+                //Removing A Column to the 2 TableLayoutPanel 
+                RemoveControlsFromLastColumnPanelApCo();
+                RandomFunctionSchedule.RemoveColumnTableLayoutPanel(TLPCoaches, TLPCoaches.ColumnCount - 1);
+                RandomFunctionSchedule.RemoveColumnTableLayoutPanel(TLPAppointment, TLPAppointment.ColumnCount - 1);
+            }
+        }
+        public void AddColumnUCDay()
+        {
+            //Adding A Column to the 2 TableLayoutPanel 
+            RandomFunctionSchedule.AddColumnTableLayoutPanel(TLPAppointment);
+            FillLastColumnPanelAppointmentsWithFlowLayoutPanel();
+            RandomFunctionSchedule.AddColumnTableLayoutPanel(TLPCoaches);
+            FillLastColumnPanelCoachesWithLabels();
+
+
+            //hone awal display bi koun mafiyo list manna nfawetlo list aa kel add column
+            if (Isloaducday)
+            {
+                //ListCoach_idChecked.Add((int)DataTableCoachavailability.Rows[tableLayoutPanelCoaches.ColumnCount - 2][1]);//BOOM
+                Isloaducday = false;
+            }
+
+            //History or From History To Today
+            else if (IsHistory || IsHistoryToAfterToday)
+            {
+                ListCoach_idAllTime.Add(0);
+                CoachAvailabilityByOrder.Add("0");
+            }
+
+            //From Today To Infinity
+            else
+            {
+                ListCoach_idChecked.Add(0);//bte3teberoun 0 li2anno ha yet3adal baeeden bel switch
+            }
+
+
+        }
+
+        ///-Fill and Remove (Labels & Flow Layout Panel)
+        public void FillLastColumnPanelAppointmentsWithFlowLayoutPanel()
+        {
+            for (int j = 0; j < 24; j++)
+            {
+                FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+                //Properties
+                flowLayoutPanel.Dock = DockStyle.Fill;
+                flowLayoutPanel.BackColor = Color.White;
+                flowLayoutPanel.Cursor = Cursors.Hand;
+                flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
+
+                //Events
+                flowLayoutPanel.Click += flowLayoutPanel1_Click;
+                flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
+                flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
+
+
+                TLPAppointment.Controls.Add(flowLayoutPanel, TLPAppointment.ColumnCount - 1, j);
+            }
+        }
+        public void FillLastColumnPanelCoachesWithLabels()
+        {
+            //Design 
+            Label label = new Label();
+            label.Dock = DockStyle.Fill;
+            label.BackColor = Color.FromArgb(229, 226, 244);
+            label.Font = new Font("Segoe UI", 12);
+            label.AutoSize = true;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+
+            //eza bet lahiz awal sater count-2 li2annoo lal DataTable w mafiya uctime w tene sater lal table -1 fiya uctime
+            if (Isloaducday)
+            {
+                label.Text = (string)DataTableCoachavailability.Rows[TLPCoaches.ColumnCount - 2][2] + " " + (string)DataTableCoachavailability.Rows[TLPCoaches.ColumnCount - 2][3];//BOOM aam yenzwd column laken lcount lahalo aam bi zid, -2 li2anno wehde lal uctime w wehde lal count
+            }
+            else//fi hal kenit mnel coachswitch mahada hammo li2anno text ha terjaee tekhed men fillappointmentcolumn
+            {
+
+            }
+            TLPCoaches.Controls.Add(label, TLPCoaches.ColumnCount - 1, 0);
+
+            //Events
+            label.Click += tableLayoutPanelCoaches_Click;
+        }
+        public void RemoveControlsFromLastColumnPanelApCo()
+        {
+            for (int j = 0; j < TLPAppointment.RowCount; j++)
+            {
+                Control control = TLPAppointment.GetControlFromPosition(TLPAppointment.ColumnCount - 1, j);
+                TLPAppointment.Controls.Remove(control);
+                control.Dispose();
+            }
+            Control control1 = TLPCoaches.GetControlFromPosition(TLPCoaches.ColumnCount - 1, 0);
+            TLPCoaches.Controls.Remove(control1);
+            control1.Dispose();
+        }
+
+        ///-Remove & Fill The Column with UCA
+        public void AvailibilityColumnNClearUCA(int columnindex, string[] HoursOfTheday)
+        {
+            //Editing the column of the coach
+            int k = 0;
+            for (int i = 0; i < TLPAppointment.RowCount; i++)
+            {
+                if (k != HoursOfTheday.Length)
+                {
+                    if (i.ToString() == HoursOfTheday[k])
+                    {
+                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                        flowLayoutPanel.Controls.Clear();
+                        flowLayoutPanel.BackColor = StaticColorFLP;
+                        k++;
+                    }
+                    else
+                    {
+                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                        flowLayoutPanel.Controls.Clear();
+                        flowLayoutPanel.BackColor = DisableColorFLP;
+                    }
+                }
+                else
+                {
+                    FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                    flowLayoutPanel.Controls.Clear();
+                    flowLayoutPanel.BackColor = DisableColorFLP;
+                }
+            }
+        }
+        public void AvailibilityColumnChanged(int columnindex, string[] HoursOfTheday)
+        {
+            int k = 0;//number of flow layout panel with staticcolor
+            for (int i = 0; i < TLPAppointment.RowCount; i++)
+            {
+                //number of flow layout panel with staticcolor = number of availibility then the rest is disable
+                if (k != HoursOfTheday.Length)
+                {
+                    if (i.ToString() == HoursOfTheday[k])
+                    {
+                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                        flowLayoutPanel.BackColor = StaticColorFLP;
+                        if (flowLayoutPanel.Controls.Count > 0)
+                        {
+                            //W have to change the color of ucappointment that the error is gone
+                            foreach (Control childControl in flowLayoutPanel.Controls)
+                            {
+                                if (childControl is UCappointments)
+                                {
+                                    UCappointments ucappointments = (UCappointments)childControl;
+                                    ucappointments.BackColor = MemberColor;
+                                    ucappointments.tableLayoutPanel2.BackColor = StaticColorTBUca;
+                                }
+                            }
+                        }
+
+                        k++;
+                    }
+                    else
+                    {
+                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                        flowLayoutPanel.BackColor = DisableColorFLP;
+                        if (flowLayoutPanel.Controls.Count > 0)
+                        {
+                            //To show that there's an error
+                            foreach (Control childControl in flowLayoutPanel.Controls)
+                            {
+                                if (childControl is UCappointments)
+                                {
+                                    UCappointments ucappointments = (UCappointments)childControl;
+                                    ucappointments.BackColor = ErrorColor;
+                                    ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                    flowLayoutPanel.BackColor = DisableColorFLP;
+                    if (flowLayoutPanel.Controls.Count > 0)
+                    {
+                        foreach (Control childControl in flowLayoutPanel.Controls)
+                        {
+                            if (childControl is UCappointments)
+                            {
+                                UCappointments ucappointments = (UCappointments)childControl;
+                                ucappointments.BackColor = ErrorColor;
+                                ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        ///-Reminder
+        public bool isThedayofUCreminder(UCreminder ucreminder, DateTime date)
+        {
+            //For every day, no repeat
+            if (ucreminder.Partsrepeat.Length == 1)
+            {
+                if (ucreminder.Partsrepeat[0] == Reminder.NoRepeat)
+                {
+                    if (date.Date == ucreminder.Starttime.Date)
+                    {
+                        return true;
+                    }
+
+                }
+
+                else if (ucreminder.Partsrepeat[0] == Reminder.Everyday)
+                {
+                    if (date.Date >= ucreminder.Starttime.Date)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+
+
+            //For every week
+            else
+            {
+                if (date.Date >= ucreminder.Starttime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
+                {
+                    for (int i = 1; i < ucreminder.Partsrepeat.Length; i++)
+                    {
+                        if (date.DayOfWeek.ToString() == ucreminder.Partsrepeat[i])
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+
+        }
+
+      
+
+        public void DisplayUCReminder()
+        {
+            schedule.panelreminder.Controls.Clear();
+            foreach (UCreminder ucreminder in ListUCreminder)
+            {
+                if (ucreminder.IsChecked == false)//moujarad ma ykoun checked bel ucday ma bi bayin
+                {
+                    if (isThedayofUCreminder(ucreminder, DateUCDay))
+                    {
+                        ucreminder.Dock = DockStyle.Top;
+                        schedule.panelreminder.Controls.Add(ucreminder);
+                    }
+                }
+                else
+                {
+
+                }
+
+            }
+            schedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(schedule.panelreminder);
+        }
+
+
+        ////Design TLP
+        public void EditColumnAbsoluteSize(int column, int rowOfThemaxflowLayPan)
+        {
+            int expectedwidth = 0;
+           
+
+            //Getting the maximum width of the absolute column so that other columns always appear
+            double ClikedColumnPercWidth = 0.9;
+            int maxwidth = (int)((TLPAppointment.Width - TLPAppointment.GetColumnWidths()[0]) * ClikedColumnPercWidth);//so he will be 90 % of the columns without the first column
+
+
+            //FLP li fiyo akbar aadad ucappointment
+            Control cellControl = TLPAppointment.GetControlFromPosition(column, rowOfThemaxflowLayPan);
+            if (cellControl is FlowLayoutPanel)
+            {
+                FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
+
+                // Getting the  summation of the controls width inside the flowlayoutpanel(that has the biggest number) with margin and padding
+                foreach (Control control in MaxFlowLayoutPanel.Controls)
+                {
+                    expectedwidth += control.Width + MaxFlowLayoutPanel.Margin.Horizontal;
+                }
+
+                expectedwidth = expectedwidth + MaxFlowLayoutPanel.Padding.Horizontal + KeepSpace;
+
+
+
+                //If Yes : the width of the absolute column has to take the maxwidth and here we will have to edit the ucappointments width 
+                if (expectedwidth > maxwidth)
+                {
+                    //Column TLP Expand so maxwidth it's the same columnwidth
+                    RandomFunctionSchedule.ExpandTableLayoutPanelColumn(TLPAppointment, column, maxwidth);
+                    RandomFunctionSchedule.ExpandTableLayoutPanelColumn(TLPCoaches, column, maxwidth);
+
+
+
+
+                    //If yes: Manna nemrou2 bi kel FLP jouwet lclicked column
+                    if (IsClick)
+                    {
+                        //Here The column has a certain width, We are getting the number of ucappointements with original width that can appear in this width
+                        double MaxNumberUCAppointment = maxwidth / UCappointments.OriginalWidth;
+
+                        //Getting every row of the column  that we clicked on
+                        for (int i = 0; i < TLPAppointment.RowCount; i++)
+                        {
+                            Control cellControl1 = TLPAppointment.GetControlFromPosition(column, i);
+
+                            if (cellControl1 is FlowLayoutPanel)
+                            {
+                                FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+
+
+                                //check if the number of their ucappointment will reach the limit
+                                if (((UCappointments.OriginalWidth * innerFlowLayoutPanel1.Controls.Count) + KeepSpace) > maxwidth)//(innerFlowLayoutPanel1.Controls.Count-1)without the adducclick
+                                {
+                                    //if yes then edit the width of their ucappointment
+                                    EditWidthAppointment(innerFlowLayoutPanel1, maxwidth);
+                                }
+                            }
+
+                        }
+                    }
+
+                    //Eza Kenit Delete Aw Add bas eelayna nemrou2 bel clickedFLP
+                    else
+                    {
+                        //hone ma men hot the condition of MaxNumberUCAppointment li2anno hayda houwe MaxFLP li 2atta3 hayde lcondition  (expectedwidth > maxwidth) fa akid ha tsir EditWidthAppointment
+                        EditWidthAppointment(MaxFlowLayoutPanel, maxwidth);
+                    }
+
+                }
+
+
+                //Here the width of the absolute column has the to take the expectedwidth and there's no edit to the width of ucappointments
+                else
+                {
+                    //Column TLP Expand 
+                    RandomFunctionSchedule.ExpandTableLayoutPanelColumn(TLPAppointment, column, expectedwidth);
+                    RandomFunctionSchedule.ExpandTableLayoutPanelColumn(TLPCoaches, column, expectedwidth);
+                }
+            }
+        }//so we need wich column that we will edit and the row where it contains the biggest number of ucdata
+        public void EditWidthAppointment(FlowLayoutPanel flowLayoutPanel, int columnwidth)
+        {
+            int NumberOfControls = flowLayoutPanel.Controls.Count;
+            foreach (UCappointments ucappointment in flowLayoutPanel.Controls.OfType<UCappointments>())
+            {
+                ucappointment.Width = (columnwidth - KeepSpace - (NumberOfControls * ucappointment.Margin.Horizontal)) / (NumberOfControls);//UCAddClick.Width it's static width that I declared it
+            }
+            foreach (UCmeeting ucmeeting in flowLayoutPanel.Controls.OfType<UCmeeting>())
+            {
+                ucmeeting.Width = (columnwidth - KeepSpace - (NumberOfControls * ucmeeting.Margin.Horizontal)) / (NumberOfControls);//UCAddClick.Width it's static width that I declared it
+            }
+
+        }//When the count of the ucappointments in the FLP is Above 3 
+
+       
+
+        public void GettingWidthAppointmentToOriginal(int column)
+        {
+            //Getting every row of the absolutecolumn and getting back  the original width to  the ucappointment where their width has been edited if there is
+            for (int i = 0; i < TLPAppointment.RowCount; i++)
+            {
+                Control cellControl1 = TLPAppointment.GetControlFromPosition(column, i);
+
+                if (cellControl1 is FlowLayoutPanel)
+                {
+                    FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+
+
+                    //if yes then we give back the original width to  the ucappointment where their width has been edited 
+                    foreach (UCappointments ucappointment in innerFlowLayoutPanel1.Controls.OfType<UCappointments>())
+                    {
+                        ucappointment.Width = UCappointments.OriginalWidth;//UCAddClick.Width it's static width that I declared it
+                    }
+
+
+                    foreach (UCmeeting ucmeeting in innerFlowLayoutPanel1.Controls.OfType<UCmeeting>())
+                    {
+                        ucmeeting.Width = UCappointments.OriginalWidth;//UCAddClick.Width it's static width that I declared it
+                    }
+                }
+            }
+        }//when we get the column absolute to perc we will give back the ucappointments the originale size
+        private bool CheckOtherColumnsStylesType(TableLayoutPanel tableLayoutPanel, int col)
+        {
+            bool SomeoneIsAbsolute = false;
+            for (int i = 1; i < tableLayoutPanel.ColumnCount; i++)
+            {
+                if (i != col)//ma lezim yshouf lcol li eemelnelo double click lezim bas yshouf lba2we
+                {
+                    if (TLPAppointment.ColumnStyles[i].SizeType is SizeType.Absolute)
+                    {
+                        SomeoneIsAbsolute = true;
+                    }
+                }
+            }
+            return SomeoneIsAbsolute;
+        }
+        private int GettingAbsoluteColumn(TableLayoutPanel tableLayoutPanel)
+        {
+            for (int i = 1; i < tableLayoutPanel.ColumnCount; i++)
+            {
+                if (TLPAppointment.ColumnStyles[i].SizeType is SizeType.Absolute)
+                {
+                    return i;//getting the column that's absolute
+                }
+            }
+            return 0;//that means there's no column that's absolute
+        }
+
+
+
+
+
+        ///I can't do it because there's add and dispose fora specific type of user control so this function can't be generale
+        public void EditTLPByAddingUCData(FlowLayoutPanel flowLayoutPanel)
+        {
+
+        }
+        public void EditTLPByDisposingUCData(FlowLayoutPanel flowLayoutPanel)
+        {
+
+        }
+
+
+        //DESIGN:
+        public void flowLayoutPanel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (TouchScroll.MoveHoldClick == false)
+            {
+                Panel panel = sender as Panel;
+                if (panel.BackColor == DisableColorFLP)
+                {
+                }
+                else
+                {
+                    panel.BackColor = MoveColor;
+                }
+
+            }
+            else
+            {
+
+            }
+
+        }
+        private void flowLayoutPanel1_MouseLeave(object sender, EventArgs e)
+        {
+            Panel panel = sender as Panel;
+            if (panel.BackColor == DisableColorFLP)
+            {
+            }
+            else
+            {
+                panel.BackColor = StaticColorFLP;
+            }
+        }
+
+        //Scroll Bar Appeared
+        public void VScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+
+            //if (VScrollBar1.Value < 4)
+            //{
+            //    tableLayoutPanel1.AutoScroll = false;
+            //    tableLayoutPanel1.VerticalScroll.Value = 0;//the maximum value is autotaken when autoscroll is on, if not we need to initialise it awwal shi, 
+            //    tableLayoutPanel1.AutoScroll = true;
+            //}
+
+            if (VScrollBar1.Value < PreviousValue || VScrollBar1.Value > FutureValue)
+            {
+                if (VScrollBar1.Value < PreviousValue)
+                {
+                    TLPAppointment.currentRow = Math.Max(0, TLPAppointment.currentRow - 1);
+                }
+                else
+                {
+                    TLPAppointment.currentRow = Math.Min(TLPAppointment.RowCount - TLPAppointment.GetVisibleRowsCount(), TLPAppointment.currentRow + 1);
+                }
+
+
+                PreviousValue = (TLPAppointment.currentRow) * (TLPAppointment.rowHeight);
+                int newValue = TLPAppointment.currentRow * TLPAppointment.rowHeight;
+                FutureValue = (TLPAppointment.currentRow + 1) * (TLPAppointment.rowHeight);
+
+
+                TLPAppointment.AutoScroll = false;
+                TLPAppointment.VerticalScroll.Value = Math.Min(newValue, TLPAppointment.VerticalScroll.Maximum);//the maximum value is autotaken when autoscroll is on, if not we need to initialise it awwal shi, 
+                TLPAppointment.AutoScroll = true;
+                Console.WriteLine("Value: " + TLPAppointment.VerticalScroll.Value + "\nValueCust: " + VScrollBar1.Value + "\nMax= " + TLPAppointment.VerticalScroll.Maximum + "\nMaxCust " + VScrollBar1.Maximum + "\n");
+            }
+
+            //for (int i = 0; i < 24; i++)
+            //{
+            //    if ((i * tableLayoutPanelAppointments.rowHeight) <= VScrollBar1.Value && VScrollBar1.Value < ((i + 1) * tableLayoutPanelAppointments.rowHeight))
+            //    {
+            //        int newValue = i * tableLayoutPanelAppointments.rowHeight;
+            //        tableLayoutPanelAppointments.currentRow = i;
+            //        tableLayoutPanelAppointments.AutoScroll = false;
+            //        tableLayoutPanelAppointments.VerticalScroll.Value = Math.Min(newValue, tableLayoutPanelAppointments.rowHeight * 24);//the maximum value is autotaken when autoscroll is on, if not we need to initialise it awwal shi, 
+            //        tableLayoutPanelAppointments.AutoScroll = true;
+            //    }
+            //}
+
+
+        }
+    }
+}
+
+
+
+////ma fina nejmaee hawde 2 bools li2anno kel wahde la event m3ayane wahde la color w wehde eza mnekbous aw laa
+//public bool HoldClick = false;
+//public bool MoveHoldClick = false;//for the event move of the controls
+
+
+//tari2it TouchScroll l2adim
+//public int WhatKindOfAdd = 0;*/// 0 for for the clear All ucappointment and then Fill All,1 for ADDUCAcolumn inside the FLP,2 for  AddFLPColumn , 3 for AddOneUCA
+
+
+
+///hayda logique eza ken every 2 day jouwet display reminder function
+//else if (ucreminder.Partsrepeat.Length == 3)
+//{
+
+//    else if (ucreminder.Partsrepeat[2] == Reminder.day2)
+//    {
+//        if (date >= ucreminder.Starttime.Date)
+//        {
+//            DateTime datetimeevery2days = ucreminder.Starttime.Date;
+//            while (date >= datetimeevery2days)//starttime ha nsir nzido 2 day moujarad ma ysir akbar men date w ma sar equal la date  laken manno men levery 2 days
+//            {
+//                if (date == datetimeevery2days)
+//                {
+//                    ucreminder.Dock = DockStyle.Top;
+//                    schedule.panelreminder.Controls.Add(ucreminder);
+//                    break;
+//                }
+//                datetimeevery2days = datetimeevery2days.AddDays(2);
+//            }
+//        }
+//    }
+
+//}
+
+
+
+/// <summary>
+/// Hayde kermel tl2e  user control hasab lposition tab3oulto
+/// </summary>
+/// 
+
+
+
+///private UCTime FinductimeByProperty(TableLayoutPanel panel, TimeSpan time)
+//{
+
+//    for (int row = 0; row < panel.RowCount; row++)
+//    {
+//        Control control = panel.GetControlFromPosition(0, row);
+//        if (control is UCTime uctime)
+//        {
+//            if (uctime.Time == time)//same TimeSpan
+//            {
+//                return uctime;
+//            }
+//        }
+//    }
+//    return null;
+//}
+
+
+
+///public void AvailibilityColumnChangedHistory(string HoursofThedays, int columnindex) //Fi Hal  badde  ghayir availibility bala clear UCappointment w aadil bi 2alwenoun w bi woujoud UCAddClick
+//{
+//    string[] HoursOfTheday = HoursofThedays.Split('-');
+//    int k = 0;
+//    for (int i = 0; i < tableLayoutPanelAppointments.RowCount; i++)
+//    {
+//        if (k != HoursOfTheday.Length)
+//        {
+//            if (i.ToString() == HoursOfTheday[k])
+//            {
+//                FlowLayoutPanel flowLayoutPanel = tableLayoutPanelAppointments.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+//                flowLayoutPanel.BackColor = StaticColorFLP;
+//                if (flowLayoutPanel.Controls.Count > 0)
+//                {
+//                    foreach (Control childControl in flowLayoutPanel.Controls)
+//                    {
+//                        UCappointments ucappointments = (UCappointments)childControl;
+//                        ucappointments.BackColor = MemberColor;
+//                        ucappointments.tableLayoutPanel2.BackColor = StaticColorTBUca;
+//                    }
+//                }
+
+//                k++;
+//            }
+//            else
+//            {
+//                FlowLayoutPanel flowLayoutPanel = tableLayoutPanelAppointments.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+//                flowLayoutPanel.BackColor = DisableColorFLP;
+//                if (flowLayoutPanel.Controls.Count > 0)
+//                {
+//                    foreach (Control childControl in flowLayoutPanel.Controls)
+//                    {
+//                        UCappointments ucappointments = (UCappointments)childControl;
+//                        ucappointments.BackColor = ErrorColor;
+//                        ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//            FlowLayoutPanel flowLayoutPanel = tableLayoutPanelAppointments.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+//            flowLayoutPanel.BackColor = DisableColorFLP;
+//            if (flowLayoutPanel.Controls.Count > 0)
+//            {
+//                foreach (Control childControl in flowLayoutPanel.Controls)
+//                {
+//                    UCappointments ucappointments = (UCappointments)childControl;
+//                    ucappointments.BackColor = ErrorColor;
+//                    ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+///Fi Hal lcolumnwidth ken akbar bi shwe men lucdata  ma men khali yrouh absolute
+//If the summation of the controls width inside the flowlayoutpanel(that has the biggest number) is approximately same as the column width then it's better to keep it in percentage
+//if (MaxNumberOfUcData == 0 || ((UCappointments.OriginalWidth * (MaxNumberOfUcData - 1)/*bala usaddclick*/) + UCAddClick.OriginalWidth) < clickedLabel.Width)//approximately because without using the margins to compare
+//{
+
+//}
+//If not then we will Edit The Clicked Column making him to absolute
+//else
+//{
+//}

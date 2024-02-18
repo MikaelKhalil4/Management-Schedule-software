@@ -1,0 +1,6 @@
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\GlobalFunctions\bin\Debug\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\GlobalFunctions\bin\Debug\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\GlobalFunctions\obj\Debug\GlobalFunctions.csproj.AssemblyReference.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\GlobalFunctions\obj\Debug\GlobalFunctions.csproj.CoreCompileInputs.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\GlobalFunctions\obj\Debug\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\GlobalFunctions\obj\Debug\GlobalFunctions.pdb
