@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -19,6 +20,8 @@ namespace MKproject.Schedule
         public bool isupdate;
         public int typerepeats3;//1:no repeat, 2:everyday, 3:everyweek
         bool Isclientreminder;
+
+        ClassClient DesiredClient = new ClassClient();
 
 
         //Initialise
@@ -41,8 +44,8 @@ namespace MKproject.Schedule
             typerepeats3 = 1;
 
             //Getting the needed values
-            StaticClass.ClientName = clientreminder.ClientName;
-            StaticClass.Client_id = (int)clientreminder.ClientId;
+            DesiredClient.FullName = clientreminder.ClientName;
+            DesiredClient.ClientId = (int)clientreminder.ClientId;
             textBoxFullName.Text = clientreminder.ClientName;
 
 
@@ -73,8 +76,8 @@ namespace MKproject.Schedule
             Isclientreminder = isclientreminder;
 
             //Getting the properties of the ucreminder that we clicked on
-            StaticClass.ClientName = ucreminder.ClientName;
-            StaticClass.Client_id = (int)ucreminder.ClientId;
+            DesiredClient.FullName = ucreminder.ClientName;
+            DesiredClient.ClientId = (int)ucreminder.ClientId;
             StaticClass.StaticClientNameChanged += HandleClientNameChanged;//Event for the name if he changed
 
 
@@ -176,8 +179,8 @@ namespace MKproject.Schedule
             Isclientreminder = isclientreminder;
 
             //Getting the properties of the ucreminder that we clicked on
-            StaticClass.ClientName = ucreminder.ClientName;
-            StaticClass.Client_id = ucreminder.ClientId;
+            DesiredClient.FullName = ucreminder.ClientName;
+            DesiredClient.ClientId = ucreminder.ClientId;
             StaticClass.StaticClientNameChanged += HandleClientNameChanged;
 
             if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
@@ -284,9 +287,11 @@ namespace MKproject.Schedule
                         }
                         else
                         {
-                            clientname = StaticClass.ClientName;
-                            clientid = StaticClass.Client_id;
+                            clientname = DesiredClient.FullName;
+                            clientid = DesiredClient.ClientId;
                         }
+
+
                         //SQL
                         ProjectToSqlSchedule.UpdateFromRemindertoSQL(foundUcReminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
 
@@ -312,7 +317,7 @@ namespace MKproject.Schedule
 
                         //DESIGN ClientReminder
                         //If it still linked to the same client so we just change the info of this reminder
-                        if (StaticClass.Client_id == clientReminder.ClientId)
+                        if (DesiredClient.ClientId == clientReminder.ClientId)
                         {
                             //the ucreminder that we clicked on to update
                             ucreminder.UpdateReminder(clientid, clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
@@ -338,8 +343,8 @@ namespace MKproject.Schedule
                         }
                         else
                         {
-                            clientname = StaticClass.ClientName;
-                            clientid = StaticClass.Client_id;
+                            clientname = DesiredClient.FullName;
+                            clientid = DesiredClient.ClientId;
                         }
                         //SQL
                         ProjectToSqlSchedule.UpdateFromRemindertoSQL(ucreminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
@@ -369,8 +374,8 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        clientname = StaticClass.ClientName;
-                        clientid = StaticClass.Client_id;
+                        clientname = DesiredClient.FullName;
+                        clientid = DesiredClient.ClientId;
                     }
                     //SQL
                     int idreminder = ProjectToSqlSchedule.AddRemindertoSQL(clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
@@ -388,7 +393,7 @@ namespace MKproject.Schedule
                     }
 
                     //DESIGN IF IT'S IN ClientReminder
-                    if (Isclientreminder && StaticClass.Client_id == clientReminder.ClientId)
+                    if (Isclientreminder && DesiredClient.ClientId == clientReminder.ClientId)
                     {
                         UCreminder ucreminder1 = new UCreminder(ucreminder.Idreminder, ucreminder.ClientId, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text, false, ucreminder.ClientName, ucday, schedule, true, clientReminder);
                         clientReminder.panelreminder.Controls.Add(ucreminder1);
@@ -412,18 +417,23 @@ namespace MKproject.Schedule
         }
         private void textBoxFullName_Click(object sender, EventArgs e)
         {
-            bool isreminder = true;
-            CBsearchName searchname = new CBsearchName(textBoxFullName.Text, isreminder);
+            Search searchname = new Search(textBoxFullName, DesiredClient);
+            searchname.Deactivate += Searchname_Deactivate; 
             Point locationRelativeToScreen = textBoxFullName.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(0, 0);
             searchname.Location = locationRelativeToScreen;
             searchname.Show();
         }
 
+        private void Searchname_Deactivate(object sender, EventArgs e)
+        {
+            label3.Select();
+        }
+
         ///-Change:
         public void HandleClientNameChanged(object sender, EventArgs e)
         {
-            textBoxFullName.Text = StaticClass.ClientName;
+            textBoxFullName.Text = DesiredClient.FullName;
             pictureBox1.Select();
         }
         private void monthCalendarStart_DateChanged(object sender, DateRangeEventArgs e)

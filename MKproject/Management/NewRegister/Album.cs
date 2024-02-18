@@ -127,13 +127,8 @@ namespace MKproject.Management
                 FLPHome.Controls.SetChildIndex(button, 0);
             }
         }
-        private void InsertNewClient(string AlbumName)
-        {
-            RegisterForm.UpdateOrInsertToSQLAndObj(AlbumName);
-            int lastClientId = ClassClient.GetLastClientIDSQL();
-            RegisterForm.OpenClientManagementForm(lastClientId);     
-        }
-       
+      
+      
         private void AlbumButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
@@ -147,7 +142,7 @@ namespace MKproject.Management
                 else//jeyin men clientProfile
                 {               
                     //sql
-                    ClassClient.UpdateClientAlbumSQL(ClientManagementProfileForm.Client.ClientId, albumName);
+                    ClassClient.UpdateClientAlbumSQL((int)ClientManagementProfileForm.Client.ClientId, albumName);
                     //design
                     ClientManagementProfileForm.Client.AlbumType = albumName;
                     ClientManagementProfileForm.UpdateAlbum();
@@ -259,7 +254,7 @@ namespace MKproject.Management
             else
             {
                 //sql
-                ClassClient.UpdateClientAlbumSQL(ClientManagementProfileForm.Client.ClientId, null);
+                ClassClient.UpdateClientAlbumSQL((int)ClientManagementProfileForm.Client.ClientId, null);
                 //design
                 ClientManagementProfileForm.Client.AlbumType = null;
                 ClientManagementProfileForm.UpdateAlbum();

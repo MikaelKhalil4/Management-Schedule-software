@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using static MKproject.Schedule.StaticClass;
 
 namespace MKproject.Schedule
 {
@@ -69,15 +70,15 @@ namespace MKproject.Schedule
             set
             {
                 clienttype = value;
-                if (clienttype == StaticClass.Member)
+                if (clienttype == StaticClass.AppointmentType.Member.ToString())
                 {
                     this.BackColor = Color.FromArgb(109, 122, 224);
                 }
-                else if (clienttype == StaticClass.Trial)
+                else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
                 {
                     this.BackColor = Color.FromArgb(202, 88, 229);
                 }
-                else if (clienttype == StaticClass.Invitation)
+                else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
                 {
                     this.BackColor = Color.FromArgb(74, 220, 168);
                 }

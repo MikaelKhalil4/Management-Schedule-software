@@ -1,12 +1,17 @@
-﻿using System;
+﻿
+using System;
 
 
 namespace MKproject.Schedule
 {
     public class StaticClass
     {
-        public static string Member = "Member", Trial = "Trial", Invitation = "Invitation", Meeting = "Meeting";
-        static public int? Client_id { get; set; }
+        public enum AppointmentType
+        {
+            Member,
+            Solo,// bi kun ekhid a specific service
+            Others
+        }
 
         //hone event relation ma3 ucclient wel ucmeeting fa tnaynetoun ha yet3adalo
         static public TimeSpan StartTime { get; set; }
@@ -15,7 +20,6 @@ namespace MKproject.Schedule
         {
             StaticStartTimeChanged?.Invoke(null, EventArgs.Empty);
         }
-
 
         static public TimeSpan EndTime { get; set; }
         public static event EventHandler StaticEndTimeChanged;
@@ -33,9 +37,6 @@ namespace MKproject.Schedule
         }
 
      
-
-
-        static public string ClientName { get; set; }
         public static event EventHandler StaticClientNameChanged;
         public static void OnStaticClientNameChanged()
         {
@@ -43,6 +44,7 @@ namespace MKproject.Schedule
         }
 
         static public string ClientType { get; set; }
+
         public static event EventHandler StaticClientTypeChanged;
         public static void OnStaticClientTypeChanged()
         {

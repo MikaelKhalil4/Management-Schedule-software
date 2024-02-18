@@ -13,21 +13,24 @@ namespace MKproject
      
         public DataTable Originaldt { get; set; }
         public DataTable FilterDt { get; set; }
-        UCTextBoxFilterOriginal UCClickedTextBox;
+
+        TextBoxWithPlaceHolder DesiredTextbox;
+     
+        ClassClient DesiredClient;
 
 
-        public Search(UCTextBoxFilterOriginal ucclickedTextBox)
+        public Search(TextBoxWithPlaceHolder desiredTextbox, ClassClient desiredClient )
         {
             InitializeComponent();
-            UCClickedTextBox = ucclickedTextBox;
+            DesiredTextbox = desiredTextbox;
+            DesiredClient = desiredClient;
 
             LoadForm();
-
-            string content = UCClickedTextBox.textBox.Text;         
+        
             textBoxSearch.Select();
-            if (content != UCClickedTextBox.PlaceHolderOfTextBox)//don t use strings use 
+            if (DesiredTextbox.Text != DesiredTextbox.PlaceholderText)//don t use strings use 
             {
-                textBoxSearch.Text = content;
+                textBoxSearch.Text = DesiredTextbox.Text;
             } 
 
         }
@@ -39,6 +42,7 @@ namespace MKproject
 
         void LoadForm()
         {
+
             Originaldt = ClassClient.GetAllClientSpecificInfoSQL();
             FormatOriginaldt();
             FillDataGridview();
@@ -46,22 +50,7 @@ namespace MKproject
         }//try catch
         private void FormatOriginaldt()
         {
-            Originaldt.Columns.Add("Full Name", typeof(string));
 
-
-            foreach (DataRow row in Originaldt.Rows)
-            {
-                row["Full Name"] = row["name"] + " " + row["family_name"];
-
-                if (row["phone_number"] == DBNull.Value)
-                {
-                    row["phone_number"] = "N/A";
-                }
-
-            }
-
-            Originaldt.Columns.Remove("name");
-            Originaldt.Columns.Remove("family_name");
 
             //ordering
             int columnIndexToMove;
@@ -87,6 +76,7 @@ namespace MKproject
             dataGridViewMembers.DataSource = FilterDt;
 
             dataGridViewMembers.Columns["client_id"].Visible = false;
+            dataGridViewMembers.Columns["Registration_Date"].Visible = false;
             dataGridViewMembers.ClearSelection();
 
             FixFormSize();
@@ -98,11 +88,11 @@ namespace MKproject
 
             if (dataGridViewMembers.DisplayedRowCount(false) < dataGridViewMembers.RowCount)
             {
-                this.Size = new Size(UCClickedTextBox.textBox.Width, 185);
+                this.Size = new Size(DesiredTextbox.Width, 185);
             }
             else
             {
-                this.Size = new Size(UCClickedTextBox.textBox.Width, ((dataGridViewMembers.RowTemplate.Height) * (dataGridViewMembers.RowCount)) + 30);
+                this.Size = new Size(DesiredTextbox.Width, ((dataGridViewMembers.RowTemplate.Height) * (dataGridViewMembers.RowCount)) + 30);
             }
         }
       
@@ -125,7 +115,6 @@ namespace MKproject
             }
            
         }
-  
 
         private void dataGridViewMembers_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -138,6 +127,7 @@ namespace MKproject
                 dataGridViewMembers.Rows[e.RowIndex].DefaultCellStyle = style1;
             }
         }
+
         private void dataGridViewMembers_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewCellStyle style2 = new DataGridViewCellStyle();
@@ -147,6 +137,7 @@ namespace MKproject
                 dataGridViewMembers.Rows[e.RowIndex].DefaultCellStyle = style2;
             }
         }
+
         private void dataGridViewMembers_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
@@ -156,27 +147,26 @@ namespace MKproject
                 DataGridViewRow row = dataGridViewMembers.Rows[e.RowIndex];
                 string Name = row.Cells["Full Name"].Value.ToString();
                 int Id = Convert.ToInt16(row.Cells["client_id"].Value);
-                UCClickedTextBox.ClientIdInBackOfficeForm = Id;//ejbare ha foe li tahta cz el filter aal textchange
+
+                DesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
+                DesiredClient.FullName = Name;
                 textBoxSearch.Text = Name;
-                UCClickedTextBox.textBox.Text = Name;
-                UCClickedTextBox.labelTitle.Select();
-               
+                DesiredTextbox.Text = Name;             
                 this.Close();
             }
 
         }
 
-
         private void Search_Deactivate(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxSearch.Text))
             {
-                UCClickedTextBox.ClientIdInBackOfficeForm = null;//ejbare ha foe li tahta cz el filter aal textchange
-                UCClickedTextBox.textBox.Text = UCClickedTextBox.PlaceHolderOfTextBox;
-
+                DesiredClient.ClientId = null;//ejbare ha foe li tahta cz el filter aal textchange
+                DesiredTextbox.Text = DesiredTextbox.PlaceholderText;
             }
             this.Close();
         }
+
         protected override CreateParams CreateParams
         {
             get

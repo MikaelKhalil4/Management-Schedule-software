@@ -12,7 +12,8 @@ namespace MKproject.Management
         static SqlConnection con = new SqlConnection(Program.DataLocation);
         //? bas btonhatt lal int w double ta neoul enno hole can be null, or string image, datetime by default fiyun yehkhdo nullvalues
         //personal
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
+        public string FullName { get; set; }//mesh mawjude bel db, bas btenaaz bi osas bel schdule
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string PhoneNumber { get; set; }
@@ -57,8 +58,8 @@ namespace MKproject.Management
 
         //business
         public DateTime? SaveDate { get; set; }
-        public DateTime? LastVisit { get; set; }
-        public DateTime? RegistrationDate { get; set; }
+        public DateTime? LastVisit { get; set; }//used to know if the client is visitor or none visitor
+        public DateTime? RegistrationDate { get; set; }//used to know if the client is member or no
 
 
 
@@ -211,8 +212,8 @@ namespace MKproject.Management
         }
         public static DataTable GetAllClientSpecificInfoSQL()
         {
-            string queryClient = "select client_id,name,family_name,phone_number from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
-
+            string queryClient = "select client_id, CONCAT(name, ' ', family_name) AS [Full Name], phone_number,Registration_Date from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
+     
             SqlCommand cmd = new SqlCommand(queryClient, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -930,7 +931,7 @@ namespace MKproject.Management
             ClassClient client = new ClassClient();
 
 
-            client.ClientId = (int)datarow["client_id"];
+            client.ClientId = (int)datarow["client_id"];//noway ykun bel db fi client ma endo clientid
             client.Fname = datarow["name"] is DBNull ? null : (string)datarow["name"];
             client.Lname = datarow["family_name"] is DBNull ? null : (string)datarow["family_name"];
             client.PhoneNumber = datarow["phone_number"] is DBNull ? null : (string)datarow["phone_number"];

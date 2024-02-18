@@ -172,8 +172,8 @@ namespace MKproject.Management
                             {
                                 action = "Purchased a " + Bundle.Name + ".";
                                 actiontype = ActionsEnum.SoloPurchases;
-                                ClassClient.UpdateClientCheckInSQL(ParentFormClientMang.Client.ClientId, Date);
-                                ProjectToSQL.InsertToClientAttendance(ParentFormClientMang.Client.ClientId);
+                                ClassClient.UpdateClientCheckInSQL((int)ParentFormClientMang.Client.ClientId, Date);
+                                ProjectToSQL.InsertToClientAttendance((int)ParentFormClientMang.Client.ClientId);
                                 StructId = SQLToProject.GetLAstInsertedAttendance();//ejbare tahet InsertToClientAttendance
                             }
                             else
@@ -183,12 +183,12 @@ namespace MKproject.Management
                                 StructId = null;
                             }
                          
-                            ProjectToSQL.InsertToClientBalance(ParentFormClientMang.Client.ClientId, Bundle.ID, Bundle.EnumBundletype.ToString());
+                            ProjectToSQL.InsertToClientBalance((int)ParentFormClientMang.Client.ClientId, Bundle.ID, Bundle.EnumBundletype.ToString());
                             DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
                             ParentFormClientMang.FormatOriginalDt(dtinserteditem);
                             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                                            
 
-                            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMang.Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
+                            ClassBackOffice backOffice = new ClassBackOffice((int)ParentFormClientMang.Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
                             backOffice.InsertToArchiveSQL();
 
                             ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date, ParentFormClientMang.Client.AlbumType);//kermel el count
@@ -267,14 +267,14 @@ namespace MKproject.Management
                         for (int i = 0; i < product.Qty; i++)
                         {
                             //SQL
-                            ProjectToSQL.InsertToClientBalance(ParentFormClientMang.Client.ClientId, product.ID, null);
+                            ProjectToSQL.InsertToClientBalance((int)ParentFormClientMang.Client.ClientId, product.ID, null);
                             DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
                             ParentFormClientMang.FormatOriginalDt(dtinserteditem);
 
                             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
 
-                            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMang.Client.ClientId, "Purchased " + product.Name + ".", ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, Date);
+                            ClassBackOffice backOffice = new ClassBackOffice((int)ParentFormClientMang.Client.ClientId, "Purchased " + product.Name + ".", ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, Date);
                             backOffice.InsertToArchiveSQL();
                             
                             ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date, ParentFormClientMang.Client.AlbumType);//kermel el count

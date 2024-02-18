@@ -47,7 +47,6 @@ namespace MKproject.Schedule
             reminder.ShowDialog();
         }
 
-
         ///-CHECK BOX
         private void checkBoxMember_CheckedChanged(object sender, EventArgs e)
         {
@@ -64,7 +63,7 @@ namespace MKproject.Schedule
                             foreach (Control innerControl in flowLayoutPanel.Controls)
                             {
                                 if (innerControl is UCappointments ucappointment &&
-                                    ucappointment.ClientType == StaticClass.Member)
+                                    ucappointment.ClientType == StaticClass.AppointmentType.Member.ToString())
                                 {
                                     ucappointment.Show();
                                 }
@@ -86,7 +85,7 @@ namespace MKproject.Schedule
                             foreach (Control innerControl in flowLayoutPanel.Controls)
                             {
                                 if (innerControl is UCappointments ucappointment &&
-                                    ucappointment.ClientType == StaticClass.Member)
+                                    ucappointment.ClientType == StaticClass.AppointmentType.Member.ToString())
                                 {
                                     ucappointment.Hide();
                                 }
@@ -111,7 +110,7 @@ namespace MKproject.Schedule
                             foreach (Control innerControl in flowLayoutPanel.Controls)
                             {
                                 if (innerControl is UCappointments ucappointment &&
-                                    ucappointment.ClientType == StaticClass.Trial)
+                                    ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
                                 {
                                     ucappointment.Show();
                                 }
@@ -133,7 +132,7 @@ namespace MKproject.Schedule
                             foreach (Control innerControl in flowLayoutPanel.Controls)
                             {
                                 if (innerControl is UCappointments ucappointment &&
-                                    ucappointment.ClientType == StaticClass.Trial)
+                                    ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
                                 {
                                     ucappointment.Hide();
                                 }
@@ -158,7 +157,7 @@ namespace MKproject.Schedule
                             foreach (Control innerControl in flowLayoutPanel.Controls)
                             {
                                 if (innerControl is UCappointments ucappointment &&
-                                    ucappointment.ClientType == StaticClass.Invitation)
+                                    ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
                                 {
                                     ucappointment.Show();
                                 }
@@ -180,7 +179,7 @@ namespace MKproject.Schedule
                             foreach (Control innerControl in flowLayoutPanel.Controls)
                             {
                                 if (innerControl is UCappointments ucappointment &&
-                                    ucappointment.ClientType == StaticClass.Invitation)
+                                    ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
                                 {
                                     ucappointment.Hide();
                                 }

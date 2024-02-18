@@ -42,15 +42,13 @@ namespace MKproject.Schedule
             this.panel4 = new System.Windows.Forms.Panel();
             this.buttonD = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.textBoxNotes = new CustomizedTools.TextBoxWithPlaceHolder();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.radioButtonInvitation = new System.Windows.Forms.RadioButton();
-            this.radioButtonTrial = new System.Windows.Forms.RadioButton();
             this.flowLayoutPanelNew = new System.Windows.Forms.FlowLayoutPanel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBoxNotes = new TextBoxWithPlaceHolder();
-            this.textBoxFullName = new TextBoxWithPlaceHolder();  
+            this.textBoxFullName = new CustomizedTools.TextBoxWithPlaceHolder();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -163,7 +161,7 @@ namespace MKproject.Schedule
             this.checkBoxOnPending.AutoSize = true;
             this.checkBoxOnPending.Location = new System.Drawing.Point(13, 10);
             this.checkBoxOnPending.Name = "checkBoxOnPending";
-            this.checkBoxOnPending.Size = new System.Drawing.Size(86, 20);
+            this.checkBoxOnPending.Size = new System.Drawing.Size(72, 17);
             this.checkBoxOnPending.TabIndex = 0;
             this.checkBoxOnPending.Text = "Approved";
             this.checkBoxOnPending.UseVisualStyleBackColor = true;
@@ -208,10 +206,21 @@ namespace MKproject.Schedule
             this.panel5.Size = new System.Drawing.Size(519, 151);
             this.panel5.TabIndex = 10;
             // 
+            // textBoxNotes
+            // 
+            this.textBoxNotes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxNotes.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNotes.ForeColor = System.Drawing.Color.Gray;
+            this.textBoxNotes.Location = new System.Drawing.Point(0, 0);
+            this.textBoxNotes.Multiline = true;
+            this.textBoxNotes.Name = "textBoxNotes";
+            this.textBoxNotes.PlaceholderText = "Notes";
+            this.textBoxNotes.Size = new System.Drawing.Size(519, 151);
+            this.textBoxNotes.TabIndex = 0;
+            this.textBoxNotes.Text = "Notes";
+            // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.radioButtonInvitation);
-            this.panel2.Controls.Add(this.radioButtonTrial);
             this.panel2.Controls.Add(this.flowLayoutPanelNew);
             this.panel2.Controls.Add(this.pictureBox2);
             this.panel2.Controls.Add(this.textBoxFullName);
@@ -221,40 +230,6 @@ namespace MKproject.Schedule
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(531, 80);
             this.panel2.TabIndex = 11;
-            // 
-            // radioButtonInvitation
-            // 
-            this.radioButtonInvitation.AutoSize = true;
-            this.radioButtonInvitation.BackColor = System.Drawing.Color.Transparent;
-            this.radioButtonInvitation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButtonInvitation.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonInvitation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(220)))), ((int)(((byte)(168)))));
-            this.radioButtonInvitation.Location = new System.Drawing.Point(320, 48);
-            this.radioButtonInvitation.Name = "radioButtonInvitation";
-            this.radioButtonInvitation.Size = new System.Drawing.Size(73, 17);
-            this.radioButtonInvitation.TabIndex = 67;
-            this.radioButtonInvitation.TabStop = true;
-            this.radioButtonInvitation.Text = "Invitation";
-            this.radioButtonInvitation.UseVisualStyleBackColor = false;
-            this.radioButtonInvitation.Visible = false;
-            // 
-            // radioButtonTrial
-            // 
-            this.radioButtonTrial.AutoSize = true;
-            this.radioButtonTrial.BackColor = System.Drawing.Color.Transparent;
-            this.radioButtonTrial.Checked = true;
-            this.radioButtonTrial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButtonTrial.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonTrial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(88)))), ((int)(((byte)(229)))));
-            this.radioButtonTrial.Location = new System.Drawing.Point(269, 48);
-            this.radioButtonTrial.Name = "radioButtonTrial";
-            this.radioButtonTrial.Size = new System.Drawing.Size(45, 17);
-            this.radioButtonTrial.TabIndex = 67;
-            this.radioButtonTrial.TabStop = true;
-            this.radioButtonTrial.Text = "Trial";
-            this.radioButtonTrial.UseVisualStyleBackColor = false;
-            this.radioButtonTrial.Visible = false;
-            this.radioButtonTrial.CheckedChanged += new System.EventHandler(this.radioButtonTrial_CheckedChanged);
             // 
             // flowLayoutPanelNew
             // 
@@ -314,25 +289,12 @@ namespace MKproject.Schedule
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
             // 
-            // textBoxNotes
-            // 
-            this.textBoxNotes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxNotes.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNotes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.textBoxNotes.Location = new System.Drawing.Point(0, 0);
-            this.textBoxNotes.Multiline = true;
-            this.textBoxNotes.Name = "textBoxNotes";
-            this.textBoxNotes.PlaceholderText = "Notes";
-            this.textBoxNotes.Size = new System.Drawing.Size(519, 151);
-            this.textBoxNotes.TabIndex = 0;
-            this.textBoxNotes.Text = "Notes";
-            // 
             // textBoxFullName
             // 
             this.textBoxFullName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.textBoxFullName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxFullName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFullName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.textBoxFullName.ForeColor = System.Drawing.Color.Gray;
             this.textBoxFullName.Location = new System.Drawing.Point(38, 20);
             this.textBoxFullName.Name = "textBoxFullName";
             this.textBoxFullName.PlaceholderText = "Search by name or phone number...";
@@ -388,7 +350,5 @@ namespace MKproject.Schedule
         public TextBoxWithPlaceHolder textBoxFullName;
         public System.Windows.Forms.FlowLayoutPanel flowLayoutPanelNew;
         public TextBoxWithPlaceHolder textBoxNotes;
-        public System.Windows.Forms.RadioButton radioButtonInvitation;
-        public System.Windows.Forms.RadioButton radioButtonTrial;
     }
 }

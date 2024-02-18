@@ -28,6 +28,9 @@ namespace MKproject.Management
 
 
         Label LabelNoDataRecorded;
+        //For Filter
+        ClassClient ClientForFilter=new ClassClient();
+
 
         public BackOffice(ClientManagementProfile clientManagement, int? ClientBalanceId, DataTable desiredRowsdt, int? clientId)//we have 3 modes: child mode(1-spcifc baland and specific client/2-specific client) mode 3: all backoffice
         {
@@ -246,14 +249,13 @@ namespace MKproject.Management
                     Filtereddt = FiltersDataTable.FilterDatatableDateCustomDate("RealDate", Filtereddt, StartDate, EndDate);
                 }
 
-                if (UCClient != null && UCClient.ClientIdInBackOfficeForm != null)// awwal condition eza kena feytin men profile nshuf all transaction tb3 a client/scd condtion eza feytin backoffice w aam nshuf eza eemelna search aa client
+                if (UCClient != null && ClientForFilter.ClientId != null)// awwal condition eza kena feytin men profile nshuf all transaction tb3 a client/scd condtion eza feytin backoffice w aam nshuf eza eemelna search aa client
                 {
-                    Filtereddt = FiltersDataTable.FilterDatatableIFIntEquality("client_id", (int)UCClient.ClientIdInBackOfficeForm, Filtereddt);
+                    Filtereddt = FiltersDataTable.FilterDatatableIFIntEquality("client_id", (int)ClientForFilter.ClientId, Filtereddt);
                 }
 
                 FillBackOfficeDataGridView(Filtereddt);
             }
-
 
         }
 
@@ -479,7 +481,9 @@ namespace MKproject.Management
         }
         private void UCClient_TextBoxClicked(object sender, EventArgs e)
         {
-            Search searchname = new Search(UCClient);
+            
+            Search searchname = new Search(UCClient.textBox, ClientForFilter);
+            searchname.Deactivate += Searchname_Deactivate;
             Point locationRelativeToScreen = UCClient.textBox.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-2, -2);
             searchname.Location = locationRelativeToScreen;
@@ -487,8 +491,10 @@ namespace MKproject.Management
 
         }
 
-
-
+        private void Searchname_Deactivate(object sender, EventArgs e)
+        {
+            UCClient.labelTitle.Select();
+        }
 
         void DeletingDatagridRows(int ArchiveId)
         {

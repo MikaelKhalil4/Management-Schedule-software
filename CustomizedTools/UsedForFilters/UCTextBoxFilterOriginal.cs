@@ -15,10 +15,10 @@ namespace CustomizedTools
             }
         }
 
-        public int? ClientIdInBackOfficeForm { get; set; }//ma mnestaamela gher bel backoffice
+      
+
 
         private string title;
-
         public string Title
         {
             get { return title; }

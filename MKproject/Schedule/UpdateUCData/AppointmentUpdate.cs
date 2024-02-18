@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
+
 
 namespace MKproject.Schedule
 {
@@ -14,6 +16,8 @@ namespace MKproject.Schedule
         //Variables
         UCappointments ucappointments;
         bool isstarttime;
+
+        ClassClient DesiredClient = new ClassClient();
 
         //Initialise
         public AppointmentUpdate(UCappointments uc1)
@@ -29,11 +33,12 @@ namespace MKproject.Schedule
 
             StaticClass.StaticClientNameChanged += HandleClientNameChanged;
             StaticClass.StaticClientTypeChanged += HandleClientTypeChanged;
+
         }
         private void AppointmentUpdate_Load(object sender, EventArgs e)
         {
-            StaticClass.ClientName = ucappointments.FullName;
-            StaticClass.Client_id = ucappointments.IdClient;
+            DesiredClient.FullName = ucappointments.FullName;
+            DesiredClient.ClientId = ucappointments.IdClient;
 
             textBoxFullName.Text = ucappointments.FullName;
             textBoxNotes.Text = ucappointments.Notes;
@@ -62,25 +67,9 @@ namespace MKproject.Schedule
             }
             labeldifferencetime.Text = formattedTime;
 
-            StaticClass.ClientType = ucappointments.ClientType;
-            if (ucappointments.ClientType == StaticClass.Member)
-            {
-                radioButtonInvitation.Visible = false;
-                radioButtonTrial.Visible = false;
-            }
-            else if(ucappointments.ClientType == StaticClass.Invitation)
-            {
-                radioButtonInvitation.Visible = true;
-                radioButtonTrial.Visible = true;
-                radioButtonInvitation.Checked = true;
-            }
-            else//trial
-            {
-                radioButtonInvitation.Visible = true;
-                radioButtonTrial.Visible = true;
-                radioButtonTrial.Checked = true;
-            }
+            StaticClass.ClientType = ucappointments.ClientType;        
             pictureBox1.Select();
+
         }
 
 
@@ -115,19 +104,26 @@ namespace MKproject.Schedule
                 string notes = textBoxNotes.Text;
                 bool onpending = checkBoxOnPending.Checked;//if it's checked ,thn it's true
 
-                ucappointments.UpdateAppointments(StaticClass.Client_id, fullname, starttime, endtime, notes, onpending, StaticClass.ClientType);
+                ucappointments.UpdateAppointments(DesiredClient.ClientId, fullname, starttime, endtime, notes, onpending, StaticClass.ClientType);
                 this.Close();
             }
         }
         private void textBoxFullName_Click(object sender, EventArgs e)
         {
-            bool isreminder = false;
-            CBsearchName searchname = new CBsearchName(textBoxFullName.Text, isreminder);
+      
+            Search searchname = new Search(textBoxFullName, DesiredClient);
+            searchname.Deactivate += Searchname_Deactivate;    
             Point locationRelativeToScreen = textBoxFullName.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(0, 0);
             searchname.Location = locationRelativeToScreen;
             searchname.Show();
         }
+
+        private void Searchname_Deactivate(object sender, EventArgs e)
+        {
+            label1.Select();
+        }
+
         private void textBoxStartTime_Click(object sender, EventArgs e)
         {
             isstarttime = true;
@@ -188,38 +184,26 @@ namespace MKproject.Schedule
             pictureBox1.Select();
 
         }
-
+ 
         private void HandleClientNameChanged(object sender, EventArgs e)
         {
-            textBoxFullName.Text = StaticClass.ClientName;
+            textBoxFullName.Text = DesiredClient.FullName;
         }
         private void HandleClientTypeChanged(object sender, EventArgs e)
         {
-            if (StaticClass.ClientType == StaticClass.Member)
+            if (DesiredClient.RegistrationDate != null)
             {
-                radioButtonInvitation.Visible = false;
-                radioButtonTrial.Visible = false;
+
             }
             else
             {
-                radioButtonInvitation.Visible = true;
-                radioButtonTrial.Visible = true;
+
             }
             pictureBox1.Select();
         }
 
         ///-RadioChanged
-        private void radioButtonTrial_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonTrial.Checked)
-            {
-                StaticClass.ClientType = StaticClass.Trial;
-            }
-            else
-            {
-                StaticClass.ClientType = StaticClass.Invitation;
-            }
-        }
+     
 
         ///-Closed
         private void AppointmentUpdate_FormClosed(object sender, FormClosedEventArgs e)

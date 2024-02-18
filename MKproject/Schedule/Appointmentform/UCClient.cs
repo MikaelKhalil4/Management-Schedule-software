@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static MKproject.Schedule.StaticClass;
 
 namespace MKproject.Schedule
 {
@@ -14,7 +16,7 @@ namespace MKproject.Schedule
         bool isstarttime;
         int coach_id;
 
-
+        ClassClient DesiredClient=new ClassClient();
 
         //INITIALISE
         public UCClient()
@@ -83,19 +85,17 @@ namespace MKproject.Schedule
 
         public void HandleClientNameChanged(object sender, EventArgs e)
         {
-            textBoxFullName.Text = StaticClass.ClientName;
+            textBoxFullName.Text = DesiredClient.FullName;
         }
         public void HandleClientTypeChanged(object sender, EventArgs e)
         {
-            if (StaticClass.ClientType == StaticClass.Member)
+            if (DesiredClient.RegistrationDate!=null)
             {
-                radioButtonInvitation.Visible = false;
-                radioButtonTrial.Visible = false;
+              
             }
             else
             {
-                radioButtonInvitation.Visible = true;
-                radioButtonTrial.Visible = true;
+              
             }
             pictureBox1.Select();
         }
@@ -110,10 +110,7 @@ namespace MKproject.Schedule
             }
             //there's a name
             else
-            {
-                //awal shi manna nekhoud fullname
-                string fullname = textBoxFullName.Text;
-
+            {           
                 //teletshi manna nekhoud endtime wel start time1  wen haweloun la datetime
                 string starttimestring = (string)textBoxStartTime.Text;//7:00 PM
                 string endtimestring = (string)textBoxEndTime.Text;
@@ -130,20 +127,26 @@ namespace MKproject.Schedule
                 string notes = textBoxNotes.Text;
                 bool onpending = checkBoxOnPending.Checked;//if it's checked ,thn it's true
 
-                ucday.AddUCappointments(coach_id, StaticClass.Client_id, fullname, starttime, endtime, notes, onpending, StaticClass.ClientType);
-
+                ucday.AddUCappointments(coach_id, DesiredClient.ClientId, DesiredClient.FullName, starttime, endtime, notes, onpending, StaticClass.ClientType);
                 appointment.Close();
             }
         }
+
+
         private void textBoxFullName_Click(object sender, EventArgs e)
         {
-            bool isreminder = false;
-            CBsearchName searchname = new CBsearchName(textBoxFullName.Text, isreminder);
+            Search searchname = new Search(textBoxFullName, DesiredClient);
+            searchname.Deactivate += Searchname_Deactivate;
             Point locationRelativeToScreen = textBoxFullName.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(0, 0);
             searchname.Location = locationRelativeToScreen;
             searchname.Show();
         }
+        private void Searchname_Deactivate(object sender, EventArgs e)
+        {
+            label1.Select();
+        }
+
         private void textBoxStartTime_Click(object sender, EventArgs e)
         {
             isstarttime = true;
@@ -171,18 +174,8 @@ namespace MKproject.Schedule
             displayendtime.Show();
         }
 
-        ///-RadioChanged
-        private void radioButtonTrial_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonTrial.Checked)
-            {
-                StaticClass.ClientType = StaticClass.Trial;
-            }
-            else
-            {
-                StaticClass.ClientType = StaticClass.Invitation;
-            }
-        }
+        ///-should be eza ghayarna type of the appointment
+      
 
 
 

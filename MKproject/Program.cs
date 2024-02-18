@@ -40,7 +40,7 @@ namespace MKproject
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new MKproject.Management.LOGIN();
             //new MKproject.Schedule.Schedule()
-            Application.Run(LoginForm);       
+            Application.Run(new MKproject.Schedule.Schedule());       
         }      
     }
 }

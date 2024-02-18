@@ -450,12 +450,6 @@
     <Compile Include="Schedule\Availabilityform\UCTimeavailability.designer.cs">
       <DependentUpon>UCTimeavailability.cs</DependentUpon>
     </Compile>
-    <Compile Include="Schedule\CBsearchName.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\CBsearchName.designer.cs">
-      <DependentUpon>CBsearchName.cs</DependentUpon>
-    </Compile>
     <Compile Include="Schedule\Classes\ProjectToSqlSchedule.cs" />
     <Compile Include="Schedule\Classes\RandomFunctions.cs" />
     <Compile Include="Schedule\Classes\RandomFunctionSchedule.cs" />
@@ -736,9 +730,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\Availabilityform\UCTimeavailability.resx">
       <DependentUpon>UCTimeavailability.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\CBsearchName.resx">
-      <DependentUpon>CBsearchName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\CustomisedComboBox\CBdisplayTime.resx">
       <DependentUpon>CBdisplayTime.cs</DependentUpon>
