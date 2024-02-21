@@ -40,6 +40,8 @@ namespace MKproject.Schedule
             DesiredClient.FullName = ucappointments.FullName;
             DesiredClient.ClientId = ucappointments.IdClient;
 
+            
+
             textBoxFullName.Text = ucappointments.FullName;
             textBoxNotes.Text = ucappointments.Notes;
             checkBoxOnPending.Checked = ucappointments.OnPending;

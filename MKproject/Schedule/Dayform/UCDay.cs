@@ -343,7 +343,7 @@ namespace MKproject.Schedule
                     UCTime uctime = (UCTime)TLPAppointment.GetControlFromPosition(0, rowIndex);//get the uctime wich he has the same row to get the time1 and display it in the combobox  of the appointment
 
                     int columnIndex = TLPAppointment.GetColumn(clickedPanel);
-                    Appointment appointment = new Appointment(this, uctime, ListCoach_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
+                    AppointmentF appointment = new AppointmentF(this, uctime, ListCoach_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
                     appointment.ShowDialog();
                 }
             }

@@ -10,7 +10,7 @@ namespace MKproject.Schedule
     {
         //VARIABLES
         UCDay ucday;
-        Appointment appointment;
+        AppointmentF appointment;
 
 
         bool isstarttime;
@@ -23,7 +23,7 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
         }
-        public UCClient(UCDay form1, Appointment form2, int number1)
+        public UCClient(UCDay form1, AppointmentF form2, int number1)
         {
             InitializeComponent();
             ucday = form1;
@@ -160,6 +160,7 @@ namespace MKproject.Schedule
             displaytime.Location = locationRelativeToScreen;
             displaytime.Show();
         }
+
         private void textBoxEndTime_Click(object sender, EventArgs e)
         {
             isstarttime = false;

@@ -32,26 +32,26 @@
             this.panelMembers = new System.Windows.Forms.Panel();
             this.flowLayoutPanelDoubleBufferedcs2 = new System.Windows.Forms.FlowLayoutPanel();
             this.labelMember = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonToday = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.flowLayoutPanelDoubleBufferedcs1 = new System.Windows.Forms.FlowLayoutPanel();
             this.labelDate = new System.Windows.Forms.Label();
+            this.DownArrow = new System.Windows.Forms.PictureBox();
+            this.buttonPrevious = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanelDay = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.TLPAppointment = new TableLayoutPanelBuffered();
             this.VScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.TLPCoaches = new TableLayoutPanelDoubleBufferedNoscroll();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonNext = new System.Windows.Forms.Button();
-            this.DownArrow = new System.Windows.Forms.PictureBox();
-            this.buttonPrevious = new System.Windows.Forms.Button();
+            this.TLPAppointment = new MKproject.Schedule.TableLayoutPanelBuffered();
+            this.TLPCoaches = new MKproject.Schedule.TableLayoutPanelDoubleBufferedNoscroll();
             this.panelMembers.SuspendLayout();
             this.flowLayoutPanelDoubleBufferedcs2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanelDoubleBufferedcs1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DownArrow)).BeginInit();
             this.tableLayoutPanelDay.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DownArrow)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMembers
@@ -93,6 +93,19 @@
             this.labelMember.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.labelMember.Click += new System.EventHandler(this.labelMember_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Location = new System.Drawing.Point(62, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(23, 19);
+            this.pictureBox1.TabIndex = 61;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.labelMember_Click);
+            // 
             // buttonToday
             // 
             this.buttonToday.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -108,6 +121,24 @@
             this.buttonToday.Text = "Today";
             this.buttonToday.UseVisualStyleBackColor = false;
             this.buttonToday.Click += new System.EventHandler(this.buttonToday_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNext.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonNext.BackgroundImage")));
+            this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonNext.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonNext.FlatAppearance.BorderSize = 0;
+            this.buttonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
+            this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonNext.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonNext.Location = new System.Drawing.Point(129, 9);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(34, 23);
+            this.buttonNext.TabIndex = 58;
+            this.buttonNext.UseVisualStyleBackColor = false;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // flowLayoutPanelDoubleBufferedcs1
             // 
@@ -133,6 +164,38 @@
             this.labelDate.Text = "Day,00 Week,Year";
             this.labelDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.labelDate.Click += new System.EventHandler(this.labelDate_Click);
+            // 
+            // DownArrow
+            // 
+            this.DownArrow.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DownArrow.BackgroundImage")));
+            this.DownArrow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DownArrow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DownArrow.Image = ((System.Drawing.Image)(resources.GetObject("DownArrow.Image")));
+            this.DownArrow.Location = new System.Drawing.Point(121, 0);
+            this.DownArrow.Margin = new System.Windows.Forms.Padding(0);
+            this.DownArrow.Name = "DownArrow";
+            this.DownArrow.Size = new System.Drawing.Size(23, 19);
+            this.DownArrow.TabIndex = 61;
+            this.DownArrow.TabStop = false;
+            this.DownArrow.Click += new System.EventHandler(this.labelDate_Click);
+            // 
+            // buttonPrevious
+            // 
+            this.buttonPrevious.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPrevious.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonPrevious.BackgroundImage")));
+            this.buttonPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonPrevious.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonPrevious.FlatAppearance.BorderSize = 0;
+            this.buttonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
+            this.buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPrevious.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonPrevious.Location = new System.Drawing.Point(100, 8);
+            this.buttonPrevious.Name = "buttonPrevious";
+            this.buttonPrevious.Size = new System.Drawing.Size(33, 23);
+            this.buttonPrevious.TabIndex = 57;
+            this.buttonPrevious.UseVisualStyleBackColor = false;
+            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
             // 
             // panel1
             // 
@@ -177,6 +240,18 @@
             this.panel3.Size = new System.Drawing.Size(1104, 574);
             this.panel3.TabIndex = 67;
             // 
+            // VScrollBar1
+            // 
+            this.VScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.VScrollBar1.LargeChange = 200;
+            this.VScrollBar1.Location = new System.Drawing.Point(1087, 0);
+            this.VScrollBar1.Maximum = 1421;
+            this.VScrollBar1.Name = "VScrollBar1";
+            this.VScrollBar1.Size = new System.Drawing.Size(17, 574);
+            this.VScrollBar1.SmallChange = 100;
+            this.VScrollBar1.TabIndex = 66;
+            this.VScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScrollBar1_Scroll);
+            // 
             // TLPAppointment
             // 
             this.TLPAppointment.AutoScroll = true;
@@ -218,18 +293,6 @@
             this.TLPAppointment.TabIndex = 67;
             this.TLPAppointment.VerticalScrollBarTable = null;
             // 
-            // VScrollBar1
-            // 
-            this.VScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.VScrollBar1.LargeChange = 200;
-            this.VScrollBar1.Location = new System.Drawing.Point(1087, 0);
-            this.VScrollBar1.Maximum = 1421;
-            this.VScrollBar1.Name = "VScrollBar1";
-            this.VScrollBar1.Size = new System.Drawing.Size(17, 574);
-            this.VScrollBar1.SmallChange = 100;
-            this.VScrollBar1.TabIndex = 66;
-            this.VScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScrollBar1_Scroll);
-            // 
             // TLPCoaches
             // 
             this.TLPCoaches.ColumnCount = 2;
@@ -244,68 +307,6 @@
             this.TLPCoaches.Size = new System.Drawing.Size(1087, 43);
             this.TLPCoaches.TabIndex = 68;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Location = new System.Drawing.Point(62, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 19);
-            this.pictureBox1.TabIndex = 61;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.labelMember_Click);
-            // 
-            // buttonNext
-            // 
-            this.buttonNext.BackColor = System.Drawing.Color.Transparent;
-            this.buttonNext.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonNext.BackgroundImage")));
-            this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonNext.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonNext.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonNext.FlatAppearance.BorderSize = 0;
-            this.buttonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
-            this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNext.ForeColor = System.Drawing.Color.Transparent;
-            this.buttonNext.Location = new System.Drawing.Point(129, 9);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(34, 23);
-            this.buttonNext.TabIndex = 58;
-            this.buttonNext.UseVisualStyleBackColor = false;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
-            // 
-            // DownArrow
-            // 
-            this.DownArrow.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DownArrow.BackgroundImage")));
-            this.DownArrow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.DownArrow.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DownArrow.Image = ((System.Drawing.Image)(resources.GetObject("DownArrow.Image")));
-            this.DownArrow.Location = new System.Drawing.Point(121, 0);
-            this.DownArrow.Margin = new System.Windows.Forms.Padding(0);
-            this.DownArrow.Name = "DownArrow";
-            this.DownArrow.Size = new System.Drawing.Size(23, 19);
-            this.DownArrow.TabIndex = 61;
-            this.DownArrow.TabStop = false;
-            this.DownArrow.Click += new System.EventHandler(this.labelDate_Click);
-            // 
-            // buttonPrevious
-            // 
-            this.buttonPrevious.BackColor = System.Drawing.Color.Transparent;
-            this.buttonPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonPrevious.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonPrevious.FlatAppearance.BorderSize = 0;
-            this.buttonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
-            this.buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPrevious.ForeColor = System.Drawing.Color.Transparent;
-            this.buttonPrevious.Location = new System.Drawing.Point(100, 8);
-            this.buttonPrevious.Name = "buttonPrevious";
-            this.buttonPrevious.Size = new System.Drawing.Size(33, 23);
-            this.buttonPrevious.TabIndex = 57;
-            this.buttonPrevious.UseVisualStyleBackColor = false;
-            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
-            // 
             // UCDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,12 +320,12 @@
             this.panelMembers.ResumeLayout(false);
             this.flowLayoutPanelDoubleBufferedcs2.ResumeLayout(false);
             this.flowLayoutPanelDoubleBufferedcs2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.flowLayoutPanelDoubleBufferedcs1.ResumeLayout(false);
             this.flowLayoutPanelDoubleBufferedcs1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DownArrow)).EndInit();
             this.tableLayoutPanelDay.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DownArrow)).EndInit();
             this.ResumeLayout(false);
 
         }

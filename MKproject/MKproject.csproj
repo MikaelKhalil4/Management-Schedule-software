@@ -417,8 +417,14 @@
     <Compile Include="Schedule\Appointmentform\Appointment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Schedule\Appointmentform\Appointment.designer.cs">
+    <Compile Include="Schedule\Appointmentform\Appointment.Designer.cs">
       <DependentUpon>Appointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Appointmentform\AppointmentF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schedule\Appointmentform\AppointmentF.designer.cs">
+      <DependentUpon>AppointmentF.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\Appointmentform\UCClient.cs">
       <SubType>UserControl</SubType>
@@ -714,6 +720,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\Appointmentform\Appointment.resx">
       <DependentUpon>Appointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schedule\Appointmentform\AppointmentF.resx">
+      <DependentUpon>AppointmentF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\Appointmentform\UCClient.resx">
       <DependentUpon>UCClient.cs</DependentUpon>

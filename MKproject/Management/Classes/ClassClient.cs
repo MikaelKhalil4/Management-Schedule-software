@@ -95,6 +95,7 @@ namespace MKproject.Management
             Male,
             Female
         }
+
         public enum enumType//most of enum strings are in registation field table  the same string in sql 
         {
             //personal

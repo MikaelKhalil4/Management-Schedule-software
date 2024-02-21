@@ -23,7 +23,7 @@ namespace MKproject
         public static GreyColor GreyFormJunior;//in case eende 3 forms foe baaed metel bel new register
 
 
-        public static string DataLocation = "Data Source=MKpc;Initial Catalog=MKproject;Integrated Security=True;";
+        public static string DataLocation = "Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject2; Integrated Security=True";
         public static string FolderProfileImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProfileImages");
         public static string ExecptionString = "Unexpected error:\n";
 
@@ -39,8 +39,7 @@ namespace MKproject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new MKproject.Management.LOGIN();
-            //new MKproject.Schedule.Schedule()
-            Application.Run(new MKproject.Schedule.Schedule());       
+            Application.Run(LoginForm);       
         }      
     }
 }

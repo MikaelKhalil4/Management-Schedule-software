@@ -8,7 +8,7 @@ namespace MKproject.Schedule
     {
         //Variables
         UCDay ucday;
-        Appointment appointment;
+        AppointmentF appointment;
 
         bool isstarttime;
         int coach_id;
@@ -20,7 +20,7 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
         }
-        public UCMeetingInAppointment(UCDay form1, Appointment form2,int number1)
+        public UCMeetingInAppointment(UCDay form1, AppointmentF form2,int number1)
         {
             InitializeComponent();
             ucday = form1;

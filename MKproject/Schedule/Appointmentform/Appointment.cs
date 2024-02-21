@@ -1,48 +1,38 @@
-﻿using System;
-using System.Data.SqlClient;
+﻿using MKproject.Management;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace MKproject.Schedule
 {
     public partial class Appointment : Form
     {
-        //SQL
-        SqlConnection con = new SqlConnection(Program.DataLocation);
-
-        //VARIABLES:
+        //VARIABLES
+        UCDay ucday;
         DateTime dateTime;
 
         UCTime uctime;
-        UCDay ucday;
-        UCClient ucclient;
-        UCMeetingInAppointment ucmeetinginap;
 
-        bool isbuttonclientclicked;
+        bool isstarttime;
         int coach_id;
 
-        
+        ClassClient DesiredClient = new ClassClient();
 
-        //INITIALISE
-        public Appointment(UCDay form2, UCTime form1, int number1)//HAYDA APPOINTMENT BYENFATAH EZA KENNA BI UCTableDay1 se3eta variable uctableday1 byekhdo
+        public Appointment(UCDay form2, UCTime form1, int number1)
         {
-
-
             InitializeComponent();
             uctime = form1;
             ucday = form2;
-            coach_id=number1;
-
-            isbuttonclientclicked = true;
-            ucmeetinginap = new UCMeetingInAppointment(ucday, this,coach_id);
-            ucclient = new UCClient(ucday, this,coach_id);
-            tableLayoutPanel2.Controls.Add(ucclient);
-            ucclient.Dock = DockStyle.Fill;
-            ucmeetinginap.Dock = DockStyle.Fill;
+            coach_id = number1;
 
 
-            
             TimeSpan endtime;
             if (uctime.Time == new TimeSpan(23, 0, 0))
             {
@@ -52,7 +42,7 @@ namespace MKproject.Schedule
             {
                 endtime = uctime.Time + TimeSpan.FromHours(1);
             }
-        
+
             //hone event relation ma3 ucclient wel ucmeeting fa tnaynetoun ha yet3adalo
             StaticClass.StartTime = uctime.Time;//badde yehoun kermel bel display ma hada yotlaee fo2 tene
             StaticClass.OnStaticStartTimeChanged();
@@ -64,77 +54,34 @@ namespace MKproject.Schedule
             StaticClass.DifferenceTime = StaticClass.EndTime - StaticClass.StartTime;
             StaticClass.OnStaticDifferenceTimeChanged();
 
-           
-
-            ucclient.pictureBox1.Select();
         }
 
-       
-       
+        private void textBoxStartTime_Click(object sender, EventArgs e)
+        {
+            isstarttime = true;
 
-        //EVENTS
-        private void buttonClient_Click(object sender, EventArgs e)
-        {
-            if (isbuttonclientclicked)
-            {
-            }
-            else
-            {
-                buttonClient.BackColor = Color.FromArgb(109, 122, 224);
-                buttonMeeting.BackColor = Color.FromArgb(196, 210, 245);
-                tableLayoutPanel2.Controls.Remove(ucmeetinginap);
-                tableLayoutPanel2.Controls.Add(ucclient);
-            }
-            isbuttonclientclicked = true;
-        }
-        private void buttonMeeting_Click(object sender, EventArgs e)
-        {
-            if (isbuttonclientclicked)
-            {
-                buttonClient.BackColor = Color.FromArgb(196, 210, 245);
-                buttonMeeting.BackColor = Color.FromArgb(109, 122, 224);
-                tableLayoutPanel2.Controls.Remove(ucclient);
-                tableLayoutPanel2.Controls.Add(ucmeetinginap);
-            }
-            else
-            {
-            }
-            isbuttonclientclicked = false;
-        }
-        private void Appointment_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            //moujarad ma yenfatah lappointment time byetghayar aand ltnen
-            ucclient.Dispose();
-            StaticClass.StaticStartTimeChanged -= ucclient.HandleStartTimeChanged;
-            StaticClass.StaticEndTimeChanged -=  ucclient.HandleEndTimeChanged;
-            StaticClass.StaticDifferenceTimeChanged -=  ucclient.HandleDifferenceTimeChanged;
-            StaticClass.StaticClientNameChanged -=  ucclient.HandleClientNameChanged;
-            StaticClass.StaticClientTypeChanged -=  ucclient.HandleClientTypeChanged;
+            //Constructor
+            CBdisplayTime displaytime = new CBdisplayTime(textBoxStartTime.Text, isstarttime);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
 
-            ucmeetinginap.Dispose();
-            StaticClass.StaticStartTimeChanged -= ucmeetinginap.HandleStartTimeChanged;
-            StaticClass.StaticEndTimeChanged -= ucmeetinginap.HandleEndTimeChanged;
-            StaticClass.StaticDifferenceTimeChanged -= ucmeetinginap.HandleDifferenceTimeChanged;
+            //Design
+            Point locationRelativeToScreen = textBoxStartTime.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(0, 0);
+            displaytime.Location = locationRelativeToScreen;
+            displaytime.Show();
+        }
+
+        private void textBoxEndTime_Click(object sender, EventArgs e)
+        {
+            isstarttime = false;
+
+            //Constructor
+            CBdisplayTime displayendtime = new CBdisplayTime(textBoxEndTime.Text, isstarttime);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
+
+            //Design
+            Point locationRelativeToScreen = textBoxEndTime.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(0, 0);
+            displayendtime.Location = locationRelativeToScreen;
+            displayendtime.Show();
         }
     }
 }
-
-
-
-///kermel starttime ma ykoun fo2 endtime wel endtime ma ykoun tahet starttime
-//static public TimeSpan StartTime { get; set; }
-//static public TimeSpan EndTime { get; set; }
-//static public TimeSpan DifferenceTime { get; set; }
-
-
-
-
-///protected override CreateParams CreateParams
-//{
-//    get
-//    {
-//        CreateParams cp = base.CreateParams;
-//        cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-//        return cp;
-//    }
-//}

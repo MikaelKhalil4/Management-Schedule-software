@@ -17,3 +17,22 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramewo
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\CustomizedTools\obj\Debug\CustomizedTools.UCComboBoxFilterOriginal.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\CustomizedTools\obj\Debug\CustomizedTools.UCLabelFilterOriginal.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\CustomizedTools\obj\Debug\CustomizedTools.UCTextBoxFilterOriginal.resources
+C:\MKproject\CustomizedTools\bin\Debug\CustomizedTools.dll
+C:\MKproject\CustomizedTools\bin\Debug\CustomizedTools.pdb
+C:\MKproject\CustomizedTools\bin\Debug\GlobalFunctions.dll
+C:\MKproject\CustomizedTools\bin\Debug\GlobalFunctions.pdb
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.csproj.AssemblyReference.cache
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.CustomMessageBox.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.GreyColor.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.UCDoubleUCTextbox.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.UCLabelAndDetail.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.UCSlideButton.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.UCTextbox1.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.UCComboBoxFilterOriginal.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.UCLabelFilterOriginal.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.UCTextBoxFilterOriginal.resources
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.csproj.GenerateResource.cache
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.csproj.CoreCompileInputs.cache
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.csproj.CopyComplete
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.dll
+C:\MKproject\CustomizedTools\obj\Debug\CustomizedTools.pdb
