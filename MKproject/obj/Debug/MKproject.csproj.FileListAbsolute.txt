@@ -1825,3 +1825,5 @@ C:\MKproject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
 C:\MKproject\MKproject\obj\Debug\MKproject.exe
 C:\MKproject\MKproject\obj\Debug\MKproject.pdb
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.AppointmentF.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.AppointmentF.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources

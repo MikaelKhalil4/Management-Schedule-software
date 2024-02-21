@@ -26,7 +26,8 @@ namespace MKproject
             DesiredClient = desiredClient;
 
             LoadForm();
-        
+
+            textBoxSearch.BackColor = desiredTextbox.BackColor;
             textBoxSearch.Select();
             if (DesiredTextbox.Text != DesiredTextbox.PlaceholderText)//don t use strings use 
             {

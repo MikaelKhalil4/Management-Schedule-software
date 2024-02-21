@@ -27,7 +27,7 @@ namespace GlobalFunctions
             DateTime currentDate = DateTime.Now;
             int age = currentDate.Year - Birthdate.Year;
 
-            if (currentDate.Month < Birthdate.Month || (currentDate.Month == Birthdate.Month && currentDate.Day < Birthdate.Day))
+            if (currentDate.Month < Birthdate.Month || (currentDate.Month == Birthdate.Month && currentDate.Day <= Birthdate.Day))
             {
                 age--;
             }

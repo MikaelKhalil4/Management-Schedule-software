@@ -270,6 +270,7 @@ namespace MKproject.Management
                     LabelNoDataRecorded = null;
                     TLPGlobal.Controls.Remove(LabelNoDataRecorded);
                 }
+
                 dataGridViewBackOffice.Visible = true;
 
 
@@ -279,10 +280,9 @@ namespace MKproject.Management
                 if (LabelNoDataRecorded == null)
                 {
                     CreatingTheNoDataLabel();
-                    dataGridViewBackOffice.Visible = false;
-                    TLPGlobal.Controls.Remove(LabelNoDataRecorded);
-                    LabelNoDataRecorded.Show();
                     TLPGlobal.Controls.Add(LabelNoDataRecorded, 0, 1);
+
+                   dataGridViewBackOffice.Visible = false;                                    
                 }
 
             }

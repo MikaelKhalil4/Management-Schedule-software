@@ -438,6 +438,12 @@
     <Compile Include="Schedule\Appointmentform\UCMeetingInAppointment.designer.cs">
       <DependentUpon>UCMeetingInAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Schedule\AppointmentManagement\UCClientApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schedule\AppointmentManagement\UCClientApp.Designer.cs">
+      <DependentUpon>UCClientApp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Schedule\Availabilityform\AvailabilityLayout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -729,6 +735,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\Appointmentform\UCMeetingInAppointment.resx">
       <DependentUpon>UCMeetingInAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schedule\AppointmentManagement\UCClientApp.resx">
+      <DependentUpon>UCClientApp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\Availabilityform\AvailabilityLayout.resx">
       <DependentUpon>AvailabilityLayout.cs</DependentUpon>

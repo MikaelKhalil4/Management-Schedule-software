@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>a0Bviso56cPnYwcvxoYSomJTf6BarR1OeuDbo4tiJMo=</dsig:DigestValue>
+        <dsig:DigestValue>BINZh16bnYQOZ7by7qaqN8aJOll5sBlvnE02DZqxeaY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1WhQAoC40e5Te106J4q0K9mrA72srijOAVlFfLrU0b8=</dsig:DigestValue>
+        <dsig:DigestValue>p7qjePCwkWq0Zgkh3r+ODebWXq+FgLayrlZGmOX7V3Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2379672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2415512">
       <assemblyIdentity name="MKproject" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>maKhc6Kan8ZqU+jgef8pgNhEiIKC6uUdIZIH7JMIwIk=</dsig:DigestValue>
+        <dsig:DigestValue>313quDh4AWuwue9uA5xxo1O5Jqo/cEh4OmeEJIm2UYI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -449,13 +449,13 @@
       <dsig:DigestValue>Q4IebUNivkcDcNl0iCma5A7u5Cl4KgS+CgOAWdsaZaY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="nlog.config" size="470">
+  <file name="nlog.config" size="456">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RKlX7xghEKWJ5+rOJJO6o2qiYUyzbY0hedzgZnXUaro=</dsig:DigestValue>
+      <dsig:DigestValue>e+l7JIeJ6clq+oXOio6GTpja8ObNgaTWwA6X+xfvfzc=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

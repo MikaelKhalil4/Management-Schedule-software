@@ -11,6 +11,7 @@ namespace GlobalFunctions
 {
     public class ImagesFunctions
     {
+        //FolderPath of forder inside the project: AppDomain.CurrentDomain.BaseDirectory
         public static Image loadImageFromProject(String FolderPath, String FolderName, string imageName)//to call it: button.background=loadImage(,) w ama tensa tghayir el prop imaghe la copy always
         {
             Image image = null;

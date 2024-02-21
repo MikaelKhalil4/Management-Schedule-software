@@ -1,4 +1,6 @@
 ﻿using CustomizedTools;
+using MKproject.Management;
+using MKproject.Schedule;
 using System;
 using System.Drawing;
 using System.IO;
@@ -16,13 +18,13 @@ namespace MKproject
         public static Color SoftColor = Color.FromArgb(238, 241, 254);//used if the backgorund was white
         public static Color MediumColor = Color.FromArgb(196, 210, 245);//used in the background
         public static Color BoldColor = Color.FromArgb(109, 122, 224);//used for buttons/datagrid headers
-
+        public static Color BoldColorHover = Color.FromArgb(100, 112, 214);//used for buttons/datagrid headers
 
 
         //Cashed Forms
-        public static MKproject.Management.ClientManagementProfile clientManagementProfile;      
-        public static MKproject.Management.NewRegister NewRegisterForm;
-        public static MKproject.Management.LOGIN LoginForm;  
+        public static ClientManagementProfile clientManagementProfile;      
+        public static NewRegister NewRegisterForm;
+        public static LOGIN LoginForm;  
         //
 
 
@@ -42,13 +44,13 @@ namespace MKproject
         [STAThread]
         static void Main()
         {
-            MKproject.Management.Currency.GetCurrency();
-            MKproject.Management.Features.GetFeatures();
+          Currency.GetCurrency();
+          Features.GetFeatures();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            LoginForm = new MKproject.Management.LOGIN();
-            Application.Run(LoginForm);       
+            LoginForm = new LOGIN();
+            Application.Run(new UCClientApp());       
         }      
     }
 }
