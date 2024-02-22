@@ -25,6 +25,10 @@ namespace MKproject.Schedule
 
         ClassClient DesiredClient = new ClassClient();
 
+        public Appointment()
+        {
+            InitializeComponent();
+        }
         public Appointment(UCDay form2, UCTime form1, int number1)
         {
             InitializeComponent();
