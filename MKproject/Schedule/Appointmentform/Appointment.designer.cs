@@ -285,7 +285,7 @@
             this.customButton2.Name = "customButton2";
             this.customButton2.Size = new System.Drawing.Size(87, 29);
             this.customButton2.TabIndex = 1;
-            this.customButton2.Text = "Cancell";
+            this.customButton2.Text = "Cancel";
             this.customButton2.UseVisualStyleBackColor = false;
             // 
             // customButton1
