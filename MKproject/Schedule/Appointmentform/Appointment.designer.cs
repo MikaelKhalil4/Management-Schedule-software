@@ -45,11 +45,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.customButton2 = new CustomizedTools.CustomButton();
+            this.customButton1 = new CustomizedTools.CustomButton();
             this.panel6 = new System.Windows.Forms.Panel();
             this.textBoxNotes = new CustomizedTools.TextBoxWithPlaceHolder();
             this.ucClientApp1 = new MKproject.Schedule.UCClientApp();
-            this.customButton1 = new CustomizedTools.CustomButton();
-            this.customButton2 = new CustomizedTools.CustomButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -94,7 +94,7 @@
             this.ucSlideButton1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ucSlideButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
             this.ucSlideButton1.Location = new System.Drawing.Point(150, 4);
-            this.ucSlideButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ucSlideButton1.Margin = new System.Windows.Forms.Padding(4);
             this.ucSlideButton1.Name = "ucSlideButton1";
             this.ucSlideButton1.Size = new System.Drawing.Size(151, 31);
             this.ucSlideButton1.TabIndex = 75;
@@ -127,7 +127,7 @@
             this.textBoxStartTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxStartTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxStartTime.Location = new System.Drawing.Point(2, 2);
-            this.textBoxStartTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxStartTime.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxStartTime.Name = "textBoxStartTime";
             this.textBoxStartTime.Size = new System.Drawing.Size(111, 18);
             this.textBoxStartTime.TabIndex = 10;
@@ -153,9 +153,9 @@
             this.labelStartTime.Dock = System.Windows.Forms.DockStyle.Left;
             this.labelStartTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelStartTime.Location = new System.Drawing.Point(0, 0);
-            this.labelStartTime.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.labelStartTime.Margin = new System.Windows.Forms.Padding(5);
             this.labelStartTime.Name = "labelStartTime";
-            this.labelStartTime.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.labelStartTime.Padding = new System.Windows.Forms.Padding(10);
             this.labelStartTime.Size = new System.Drawing.Size(145, 43);
             this.labelStartTime.TabIndex = 0;
             this.labelStartTime.Text = "Start Time:";
@@ -189,7 +189,7 @@
             this.textBoxEndTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxEndTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEndTime.Location = new System.Drawing.Point(2, 2);
-            this.textBoxEndTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxEndTime.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEndTime.Name = "textBoxEndTime";
             this.textBoxEndTime.Size = new System.Drawing.Size(111, 18);
             this.textBoxEndTime.TabIndex = 10;
@@ -215,9 +215,9 @@
             this.labelEndTime.Dock = System.Windows.Forms.DockStyle.Left;
             this.labelEndTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEndTime.Location = new System.Drawing.Point(0, 0);
-            this.labelEndTime.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.labelEndTime.Margin = new System.Windows.Forms.Padding(5);
             this.labelEndTime.Name = "labelEndTime";
-            this.labelEndTime.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.labelEndTime.Padding = new System.Windows.Forms.Padding(10);
             this.labelEndTime.Size = new System.Drawing.Size(148, 39);
             this.labelEndTime.TabIndex = 0;
             this.labelEndTime.Text = "End Time:";
@@ -252,9 +252,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Left;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(5);
             this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.label1.Padding = new System.Windows.Forms.Padding(10);
             this.label1.Size = new System.Drawing.Size(148, 41);
             this.label1.TabIndex = 1;
             this.label1.Text = "Duration:";
@@ -269,6 +269,42 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(445, 41);
             this.panel5.TabIndex = 73;
+            // 
+            // customButton2
+            // 
+            this.customButton2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.customButton2.BackAndMouseHoverColor = System.Drawing.Color.Empty;
+            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
+            this.customButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customButton2.FlatAppearance.BorderSize = 0;
+            this.customButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customButton2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.customButton2.ForeColor = System.Drawing.Color.White;
+            this.customButton2.Location = new System.Drawing.Point(262, 7);
+            this.customButton2.Name = "customButton2";
+            this.customButton2.Size = new System.Drawing.Size(87, 29);
+            this.customButton2.TabIndex = 1;
+            this.customButton2.Text = "Cancell";
+            this.customButton2.UseVisualStyleBackColor = false;
+            // 
+            // customButton1
+            // 
+            this.customButton1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.customButton1.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            this.customButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customButton1.FlatAppearance.BorderSize = 0;
+            this.customButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
+            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customButton1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.customButton1.ForeColor = System.Drawing.Color.White;
+            this.customButton1.Location = new System.Drawing.Point(355, 7);
+            this.customButton1.Name = "customButton1";
+            this.customButton1.Size = new System.Drawing.Size(87, 29);
+            this.customButton1.TabIndex = 0;
+            this.customButton1.Text = "Done";
+            this.customButton1.UseVisualStyleBackColor = false;
             // 
             // panel6
             // 
@@ -301,42 +337,6 @@
             this.ucClientApp1.Name = "ucClientApp1";
             this.ucClientApp1.Size = new System.Drawing.Size(445, 128);
             this.ucClientApp1.TabIndex = 75;
-            // 
-            // customButton1
-            // 
-            this.customButton1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.customButton1.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.customButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.Location = new System.Drawing.Point(355, 7);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(87, 29);
-            this.customButton1.TabIndex = 0;
-            this.customButton1.Text = "Done";
-            this.customButton1.UseVisualStyleBackColor = false;
-            // 
-            // customButton2
-            // 
-            this.customButton2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.customButton2.BackAndMouseHoverColor = System.Drawing.Color.Empty;
-            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.customButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.customButton2.FlatAppearance.BorderSize = 0;
-            this.customButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.customButton2.ForeColor = System.Drawing.Color.White;
-            this.customButton2.Location = new System.Drawing.Point(262, 7);
-            this.customButton2.Name = "customButton2";
-            this.customButton2.Size = new System.Drawing.Size(87, 29);
-            this.customButton2.TabIndex = 1;
-            this.customButton2.Text = "Cancel";
-            this.customButton2.UseVisualStyleBackColor = false;
             // 
             // Appointment
             // 
