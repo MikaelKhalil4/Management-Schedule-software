@@ -16,7 +16,7 @@ namespace MKproject.Schedule
     public partial class UCClientApp : UserControl
     {
 
-        Label LabelFullName;
+        Label LabelServiceOutput;
         Label LabelService;
         Label LabelNoDataRecorded;
         IconButton IconProfile;
@@ -47,21 +47,21 @@ namespace MKproject.Schedule
                 //kermel l LabelNoDataRecorded
                 if (TLPglobal.Controls.Contains(LabelNoDataRecorded))
                 {
+                    pictureBoxSearch.Dispose();
                     LabelNoDataRecorded.Dispose();
                     LabelNoDataRecorded = null;
-                    TLPglobal.Controls.Remove(LabelNoDataRecorded);
+                    pictureBoxSearch = null;                 
                 }
-                if (!TLPglobal.Controls.Contains(LabelFullName))
+                if (!TLPglobal.Controls.Contains(IconProfile))
                 {
                     CreatingTheClientModeOn();
-                    TLPglobal.Controls.Add(IconProfile, 2, 1);
-                    TLPglobal.Controls.Add(ButtonChangeORChooseService, 4, 2);
-                    TLPglobal.Controls.Add(LabelFullName, 3, 1);
-                    TLPglobal.Controls.Add(LabelService, 1, 2);
-                    TLPglobal.SetColumnSpan(LabelService, 3);
+                    TLPglobal.Controls.Add(IconProfile, 0, 0);
+                    TLPglobal.Controls.Add(ButtonChangeORChooseService, 2, 1);
+                    TLPglobal.Controls.Add(LabelServiceOutput, 0, 1);
+                    TLPglobal.Controls.Add(LabelService, 1, 1);;
                 }
 
-                LabelFullName.Text = DesiredClient.FullName;
+                //LabelFullName.Text = DesiredClient.FullName;
                 LabelService.Text = "Confidence: 12 sess/-$10";
 
             }
@@ -74,8 +74,6 @@ namespace MKproject.Schedule
                     TLPglobal.Controls.Add(LabelNoDataRecorded, 0, 1);
                     TLPglobal.SetRowSpan(LabelNoDataRecorded, 2);
                     TLPglobal.SetColumnSpan(LabelNoDataRecorded, 5);
-
-
                 }
 
             }
@@ -100,23 +98,23 @@ namespace MKproject.Schedule
             ButtonChangeORChooseService.Text = "Change";
             ButtonChangeORChooseService.Size = new Size(92, 29);
             ButtonChangeORChooseService.BackAndMouseHoverColor = Program.BoldColor;
-            ButtonChangeORChooseService.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            ButtonChangeORChooseService.Font = new Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             ButtonChangeORChooseService.Click += ButtonChangeORChooseService_Click;
             ButtonChangeORChooseService.Anchor = AnchorStyles.None;
 
-            LabelFullName = new Label();
-            LabelFullName.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            LabelFullName.TextAlign = ContentAlignment.MiddleLeft;
-            LabelFullName.AutoSize = true;
-            LabelFullName.Margin = new Padding(0, 0, 0, 0);
-            LabelFullName.Anchor = AnchorStyles.Left;
+            LabelServiceOutput = new Label();
+            LabelServiceOutput.Text = "Service:";
+            LabelServiceOutput.Font = new Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            LabelServiceOutput.AutoSize = true;
+            LabelServiceOutput.Margin = new Padding(0);
+            LabelServiceOutput.Anchor = AnchorStyles.None;
 
             LabelService = new Label();
             LabelService.Text = "Confidence: 12 sess/-$10";
             LabelService.Font = new Font("Segoe UI", 12, FontStyle.Bold);        
             LabelService.AutoSize = true;
-            LabelService.Margin = new Padding(20, 0, 0, 0);
-            LabelService.Anchor = AnchorStyles.None;
+            LabelService.Margin = new Padding(0);
+            LabelService.Anchor = AnchorStyles.Left;
         }
 
         private void ButtonChangeORChooseService_Click(object sender, EventArgs e)
@@ -143,7 +141,7 @@ namespace MKproject.Schedule
             LabelNoDataRecorded.TextAlign = ContentAlignment.MiddleCenter;
             LabelNoDataRecorded.AutoSize = false;
             LabelNoDataRecorded.Dock = DockStyle.Fill;
-            LabelNoDataRecorded.Margin = new Padding(0, 0, 0, 0);
+            LabelNoDataRecorded.Margin = new Padding(5,0,5,0);
         }
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
@@ -160,7 +158,6 @@ namespace MKproject.Schedule
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
             label1.Select();
-            textBoxSearch.Text = textBoxSearch.PlaceholderText;
             SetDesignMode();
         }
 

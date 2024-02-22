@@ -44,28 +44,27 @@
             // TLPglobal
             // 
             this.TLPglobal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPglobal.ColumnCount = 5;
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
+            this.TLPglobal.ColumnCount = 3;
+            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
-            this.TLPglobal.Controls.Add(this.TLPAddNewClient, 4, 0);
+            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TLPglobal.Controls.Add(this.TLPAddNewClient, 2, 0);
             this.TLPglobal.Controls.Add(this.textBoxSearch, 1, 0);
             this.TLPglobal.Controls.Add(this.pictureBoxSearch, 0, 0);
             this.TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TLPglobal.Location = new System.Drawing.Point(0, 0);
             this.TLPglobal.Name = "TLPglobal";
-            this.TLPglobal.RowCount = 3;
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.0729F));
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.96355F));
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.96355F));
-            this.TLPglobal.Size = new System.Drawing.Size(420, 122);
+            this.TLPglobal.RowCount = 2;
+            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.86364F));
+            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.13636F));
+            this.TLPglobal.Size = new System.Drawing.Size(420, 88);
             this.TLPglobal.TabIndex = 0;
             // 
             // TLPAddNewClient
             // 
-            this.TLPAddNewClient.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.TLPAddNewClient.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.TLPAddNewClient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
             this.TLPAddNewClient.ColumnCount = 2;
             this.TLPAddNewClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -73,7 +72,7 @@
             this.TLPAddNewClient.Controls.Add(this.label1, 1, 0);
             this.TLPAddNewClient.Controls.Add(this.pictureBox1, 0, 0);
             this.TLPAddNewClient.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TLPAddNewClient.Location = new System.Drawing.Point(322, 3);
+            this.TLPAddNewClient.Location = new System.Drawing.Point(322, 6);
             this.TLPAddNewClient.Name = "TLPAddNewClient";
             this.TLPAddNewClient.RowCount = 1;
             this.TLPAddNewClient.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -116,25 +115,25 @@
             // 
             // textBoxSearch
             // 
+            this.textBoxSearch.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPglobal.SetColumnSpan(this.textBoxSearch, 3);
             this.textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.textBoxSearch.ForeColor = System.Drawing.Color.Gray;
-            this.textBoxSearch.Location = new System.Drawing.Point(33, 3);
+            this.textBoxSearch.Location = new System.Drawing.Point(60, 8);
             this.textBoxSearch.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.PlaceholderText = "Search by name or phone number...";
-            this.textBoxSearch.Size = new System.Drawing.Size(257, 29);
+            this.textBoxSearch.Size = new System.Drawing.Size(256, 29);
             this.textBoxSearch.TabIndex = 31;
             this.textBoxSearch.Text = "Search by name or phone number...";
             this.textBoxSearch.Click += new System.EventHandler(this.textBoxSearch_Click);
             // 
             // pictureBoxSearch
             // 
-            this.pictureBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxSearch.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.pictureBoxSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxSearch.BackgroundImage")));
             this.pictureBoxSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxSearch.Location = new System.Drawing.Point(7, 6);
+            this.pictureBoxSearch.Location = new System.Drawing.Point(34, 14);
             this.pictureBoxSearch.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
             this.pictureBoxSearch.Name = "pictureBoxSearch";
             this.pictureBoxSearch.Size = new System.Drawing.Size(26, 20);
@@ -145,9 +144,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 122);
             this.Controls.Add(this.TLPglobal);
             this.Name = "UCClientApp";
+            this.Size = new System.Drawing.Size(420, 88);
             this.TLPglobal.ResumeLayout(false);
             this.TLPglobal.PerformLayout();
             this.TLPAddNewClient.ResumeLayout(false);
@@ -160,10 +159,10 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel TLPglobal;
-        public CustomizedTools.TextBoxWithPlaceHolder textBoxSearch;
         public System.Windows.Forms.PictureBox pictureBoxSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel TLPAddNewClient;
         private System.Windows.Forms.PictureBox pictureBox1;
+        public CustomizedTools.TextBoxWithPlaceHolder textBoxSearch;
     }
 }
