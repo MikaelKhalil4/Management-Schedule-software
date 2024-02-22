@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CustomizedTools.dll" size="66048">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CustomizedTools.dll" size="66560">
       <assemblyIdentity name="CustomizedTools" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BINZh16bnYQOZ7by7qaqN8aJOll5sBlvnE02DZqxeaY=</dsig:DigestValue>
+        <dsig:DigestValue>wO/xLoJwNB9Yn6qGCtF6mjL7X91POWIFNzFU5tXzyVA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2415512">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2408344">
       <assemblyIdentity name="MKproject" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>313quDh4AWuwue9uA5xxo1O5Jqo/cEh4OmeEJIm2UYI=</dsig:DigestValue>
+        <dsig:DigestValue>OGCBpAmkG5jFiytEFKHlvRGt2AMBTy5JLCsxHxc/aoI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -18,9 +18,8 @@ namespace MKproject
         public static Color SoftColor = Color.FromArgb(238, 241, 254);//used if the backgorund was white
         public static Color MediumColor = Color.FromArgb(196, 210, 245);//used in the background
         public static Color BoldColor = Color.FromArgb(109, 122, 224);//used for buttons/datagrid headers
-        public static Color BoldColorHover = Color.FromArgb(100, 112, 214);//used for buttons/datagrid headers
 
-
+        public static Color CancleButton = Color.FromArgb(95, 97, 99);//used for buttons/datagrid headers
         //Cashed Forms
         public static ClientManagementProfile clientManagementProfile;      
         public static NewRegister NewRegisterForm;
@@ -50,7 +49,7 @@ namespace MKproject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new LOGIN();
-            Application.Run(new UCClientApp());       
+            Application.Run(LoginForm);       
         }      
     }
 }

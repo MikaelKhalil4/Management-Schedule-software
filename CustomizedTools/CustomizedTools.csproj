@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>

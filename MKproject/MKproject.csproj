@@ -439,7 +439,7 @@
       <DependentUpon>UCMeetingInAppointment.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\AppointmentManagement\UCClientApp.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Schedule\AppointmentManagement\UCClientApp.Designer.cs">
       <DependentUpon>UCClientApp.cs</DependentUpon>

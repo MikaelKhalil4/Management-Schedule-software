@@ -30,19 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCClientApp));
             this.TLPglobal = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBoxSearch = new System.Windows.Forms.PictureBox();
             this.TLPAddNewClient = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBoxSearch = new CustomizedTools.TextBoxWithPlaceHolder();
-            this.label2 = new System.Windows.Forms.Label();
-            this.iconButton1 = new CustomizedTools.IconButton();
-            this.buttonUpdateOrPay = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBoxSearch = new System.Windows.Forms.PictureBox();
             this.TLPglobal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).BeginInit();
             this.TLPAddNewClient.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // TLPglobal
@@ -53,14 +49,10 @@
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
+            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
             this.TLPglobal.Controls.Add(this.TLPAddNewClient, 4, 0);
             this.TLPglobal.Controls.Add(this.textBoxSearch, 1, 0);
-            this.TLPglobal.Controls.Add(this.label2, 3, 1);
-            this.TLPglobal.Controls.Add(this.iconButton1, 2, 1);
-            this.TLPglobal.Controls.Add(this.buttonUpdateOrPay, 4, 2);
             this.TLPglobal.Controls.Add(this.pictureBoxSearch, 0, 0);
-            this.TLPglobal.Controls.Add(this.label3, 1, 2);
             this.TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TLPglobal.Location = new System.Drawing.Point(0, 0);
             this.TLPglobal.Name = "TLPglobal";
@@ -68,20 +60,8 @@
             this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.0729F));
             this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.96355F));
             this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.96355F));
-            this.TLPglobal.Size = new System.Drawing.Size(394, 122);
+            this.TLPglobal.Size = new System.Drawing.Size(420, 122);
             this.TLPglobal.TabIndex = 0;
-            // 
-            // pictureBoxSearch
-            // 
-            this.pictureBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxSearch.BackgroundImage")));
-            this.pictureBoxSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxSearch.Location = new System.Drawing.Point(7, 6);
-            this.pictureBoxSearch.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
-            this.pictureBoxSearch.Name = "pictureBoxSearch";
-            this.pictureBoxSearch.Size = new System.Drawing.Size(26, 20);
-            this.pictureBoxSearch.TabIndex = 32;
-            this.pictureBoxSearch.TabStop = false;
             // 
             // TLPAddNewClient
             // 
@@ -93,7 +73,7 @@
             this.TLPAddNewClient.Controls.Add(this.label1, 1, 0);
             this.TLPAddNewClient.Controls.Add(this.pictureBox1, 0, 0);
             this.TLPAddNewClient.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TLPAddNewClient.Location = new System.Drawing.Point(296, 3);
+            this.TLPAddNewClient.Location = new System.Drawing.Point(322, 3);
             this.TLPAddNewClient.Name = "TLPAddNewClient";
             this.TLPAddNewClient.RowCount = 1;
             this.TLPAddNewClient.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -149,65 +129,17 @@
             this.textBoxSearch.Text = "Search by name or phone number...";
             this.textBoxSearch.Click += new System.EventHandler(this.textBoxSearch_Click);
             // 
-            // label2
+            // pictureBoxSearch
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(148, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 21);
-            this.label2.TabIndex = 735;
-            this.label2.Text = "Mikael Khalil";
-            // 
-            // iconButton1
-            // 
-            this.iconButton1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.iconButton1.BackColor = System.Drawing.Color.Transparent;
-            this.iconButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iconButton1.BackgroundImage")));
-            this.iconButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.iconButton1.FlatAppearance.BorderSize = 0;
-            this.iconButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.iconButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.Location = new System.Drawing.Point(110, 47);
-            this.iconButton1.MotionHeight = true;
-            this.iconButton1.MotionWidth = true;
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(30, 28);
-            this.iconButton1.TabIndex = 734;
-            this.iconButton1.UseVisualStyleBackColor = false;
-            // 
-            // buttonUpdateOrPay
-            // 
-            this.buttonUpdateOrPay.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonUpdateOrPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonUpdateOrPay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonUpdateOrPay.FlatAppearance.BorderSize = 0;
-            this.buttonUpdateOrPay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
-            this.buttonUpdateOrPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonUpdateOrPay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.buttonUpdateOrPay.ForeColor = System.Drawing.Color.White;
-            this.buttonUpdateOrPay.Location = new System.Drawing.Point(300, 88);
-            this.buttonUpdateOrPay.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.buttonUpdateOrPay.Name = "buttonUpdateOrPay";
-            this.buttonUpdateOrPay.Size = new System.Drawing.Size(84, 29);
-            this.buttonUpdateOrPay.TabIndex = 733;
-            this.buttonUpdateOrPay.Text = "Change";
-            this.buttonUpdateOrPay.UseVisualStyleBackColor = false;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.TLPglobal.SetColumnSpan(this.label3, 3);
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(53, 91);
-            this.label3.Name = "label3";
-            this.label3.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.label3.Size = new System.Drawing.Size(217, 21);
-            this.label3.TabIndex = 736;
-            this.label3.Text = "Confidence: 12 sess/-$10";
+            this.pictureBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxSearch.BackgroundImage")));
+            this.pictureBoxSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxSearch.Location = new System.Drawing.Point(7, 6);
+            this.pictureBoxSearch.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.pictureBoxSearch.Name = "pictureBoxSearch";
+            this.pictureBoxSearch.Size = new System.Drawing.Size(26, 20);
+            this.pictureBoxSearch.TabIndex = 32;
+            this.pictureBoxSearch.TabStop = false;
             // 
             // UCClientApp
             // 
@@ -215,14 +147,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 122);
             this.Controls.Add(this.TLPglobal);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UCClientApp";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TLPglobal.ResumeLayout(false);
             this.TLPglobal.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).EndInit();
             this.TLPAddNewClient.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -235,9 +165,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel TLPAddNewClient;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button buttonUpdateOrPay;
-        private CustomizedTools.IconButton iconButton1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
     }
 }
