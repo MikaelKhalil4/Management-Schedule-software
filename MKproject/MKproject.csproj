@@ -849,6 +849,9 @@
     <Content Include="images\restore-down.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\search2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

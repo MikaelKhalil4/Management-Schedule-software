@@ -20,6 +20,7 @@ namespace MKproject.Schedule
         Label LabelService;
         Label LabelNoDataRecorded;
         IconButton IconProfile;
+        PictureBox pictureBoxSearch;
         CustomButton ButtonChangeORChooseService;
 
 
@@ -28,7 +29,7 @@ namespace MKproject.Schedule
         public UCClientApp()
         {
             InitializeComponent();
-            DesiredClient = new ClassClient();
+            DesiredClient = new ClassClient();    
             SetDesignMode();
         }
         public UCClientApp(ClassClient desiredClient)//used in appointment form
@@ -36,7 +37,7 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
             DesiredClient = desiredClient;
-            DesiredClient = new ClassClient();//to be removed
+            DesiredClient = new ClassClient();//to be removed          
             SetDesignMode();
         }
 
@@ -50,7 +51,7 @@ namespace MKproject.Schedule
                     pictureBoxSearch.Dispose();
                     LabelNoDataRecorded.Dispose();
                     LabelNoDataRecorded = null;
-                    pictureBoxSearch = null;                 
+                    pictureBoxSearch = null;                      
                 }
                 if (!TLPglobal.Controls.Contains(IconProfile))
                 {
@@ -67,31 +68,47 @@ namespace MKproject.Schedule
             }
             else
             {
+                if (TLPglobal.Controls.Contains(IconProfile))
+                {
+                    TLPglobal.Controls.Remove(IconProfile);
+                    TLPglobal.Controls.Remove(ButtonChangeORChooseService);
+                    TLPglobal.Controls.Remove(LabelServiceOutput);
+                    TLPglobal.Controls.Remove(LabelService);
+                }
                 if (LabelNoDataRecorded == null)
                 {
 
-                    CreatingTheNoDataLabel();
+                    CreatingTheClientModeOff();
+                    TLPglobal.Controls.Add(pictureBoxSearch, 0, 0);
+
                     TLPglobal.Controls.Add(LabelNoDataRecorded, 0, 1);
                     TLPglobal.SetRowSpan(LabelNoDataRecorded, 2);
                     TLPglobal.SetColumnSpan(LabelNoDataRecorded, 5);
                 }
+
 
             }
 
         }
 
 
-
-
         void CreatingTheClientModeOn()
-        {
+        {          
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.InitialDelay = 500;
+            toolTip1.AutoPopDelay = 5000;          
+            toolTip1.ShowAlways = true;
+          
+
+
             IconProfile = new IconButton();
             IconProfile.Size = new Size(30, 28);
             IconProfile.Margin = new Padding(0);
             IconProfile.Anchor = AnchorStyles.None;
             IconProfile.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "userNude.png");
-            IconProfile.BackgroundImageLayout = ImageLayout.Zoom;
+            IconProfile.BackgroundImageLayout = ImageLayout.Zoom;       
             IconProfile.Click += IconProfile_Click; ;
+            toolTip1.SetToolTip(IconProfile, "Client Profile");
 
 
             ButtonChangeORChooseService = new CustomButton();
@@ -101,6 +118,7 @@ namespace MKproject.Schedule
             ButtonChangeORChooseService.Font = new Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             ButtonChangeORChooseService.Click += ButtonChangeORChooseService_Click;
             ButtonChangeORChooseService.Anchor = AnchorStyles.None;
+
 
             LabelServiceOutput = new Label();
             LabelServiceOutput.Text = "Service:";
@@ -115,8 +133,10 @@ namespace MKproject.Schedule
             LabelService.AutoSize = true;
             LabelService.Margin = new Padding(0);
             LabelService.Anchor = AnchorStyles.Left;
+         
         }
 
+     
         private void ButtonChangeORChooseService_Click(object sender, EventArgs e)
         {
 
@@ -124,24 +144,66 @@ namespace MKproject.Schedule
 
         private void IconProfile_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
+            DesiredClient = ClassClient.CreateClientObject((int)DesiredClient.ClientId);
+          
+            if (Program.clientManagementProfile == null)
+            {
+                Program.clientManagementProfile = new ClientManagementProfile(DesiredClient, true);
+            }
+            else
+            {
+                Program.clientManagementProfile.LoadData(DesiredClient, true);
+                Program.clientManagementProfile.FormatDatagridviewDesign();// ma aam tozbat men wara el show dialog, bas eemlna glitch bel event visible chnaged on the form
+            }
+            Program.clientManagementProfile.Size = new Size(1000, 659);          
+            Program.clientManagementProfile.FormBorderStyle= FormBorderStyle.Sizable;
+            Program.clientManagementProfile.Tag = Program.clientManagementProfile;
+            Program.clientManagementProfile.FormClosing += ClientManagementProfile_FormClosing;
+            Program.clientManagementProfile.ShowDialog();          
+            Cursor = Cursors.Default;
 
         }
+     
 
-        void CreatingTheNoDataLabel()
+        private void ClientManagementProfile_FormClosing(object sender, FormClosingEventArgs e)
+        {            
+            e.Cancel = true;
+            Program.clientManagementProfile.Hide();
+            Program.clientManagementProfile.FormClosing -= ClientManagementProfile_FormClosing;
+            UpdateValues();
+        }
+
+        void UpdateValues()
+        {
+            if (DesiredClient.ClientId != null)
+            {
+                textBoxSearch.Text = DesiredClient.Fname + " " + DesiredClient.Lname;
+            }
+            else
+            {
+                textBoxSearch.Text = textBoxSearch.PlaceholderText;
+            }
+        }
+
+        void CreatingTheClientModeOff()
         {
             LabelNoDataRecorded = new Label();
             LabelNoDataRecorded.Text = "No client chosen yet";
             LabelNoDataRecorded.Font = new Font("Segoe UI", 12, FontStyle.Italic);
             LabelNoDataRecorded.ForeColor = Color.FromArgb(150, 150, 150);
-
-            Color whiteSmoke = Color.WhiteSmoke;
-            Color semiTransparentWhiteSmoke = Color.FromArgb(150, whiteSmoke.R, whiteSmoke.G, whiteSmoke.B); // 128 is the alpha value
-            LabelNoDataRecorded.BackColor = semiTransparentWhiteSmoke;
-
+            LabelNoDataRecorded.BackColor = Color.FromArgb(150, Color.WhiteSmoke.R, Color.WhiteSmoke.G, Color.WhiteSmoke.B); // 128 is the alpha value
             LabelNoDataRecorded.TextAlign = ContentAlignment.MiddleCenter;
             LabelNoDataRecorded.AutoSize = false;
             LabelNoDataRecorded.Dock = DockStyle.Fill;
             LabelNoDataRecorded.Margin = new Padding(5,0,5,0);
+
+
+            pictureBoxSearch = new PictureBox();
+            pictureBoxSearch.Size = new Size(25, 25);
+            pictureBoxSearch.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "search2.png");
+            pictureBoxSearch.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxSearch.Anchor = AnchorStyles.Right;
         }
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
@@ -158,6 +220,7 @@ namespace MKproject.Schedule
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
             label1.Select();
+            UpdateValues();
             SetDesignMode();
         }
 
@@ -170,9 +233,26 @@ namespace MKproject.Schedule
             TLPAddNewClient.BackColor = Program.BoldColor;
         }
 
-        private void customButton1_Click(object sender, EventArgs e)
+        private void TLPAddNewClient_Click(object sender, EventArgs e)
         {
+            if (Program.NewRegisterForm == null)
+            {
+                Program.NewRegisterForm = new NewRegister(null, DesiredClient);
+            }
+            else
+            {
+                Program.NewRegisterForm.Resetcontrols();
+                Program.NewRegisterForm.LoadForm(null, DesiredClient);
+            }
+            Program.NewRegisterForm.FormClosed += NewRegisterForm_FormClosed;
+            Program.NewRegisterForm.ShowDialog();
+        }
 
+        private void NewRegisterForm_FormClosed(object sender, FormClosedEventArgs e)
+        {          
+            UpdateValues();
+            SetDesignMode();
+            Program.NewRegisterForm.FormClosed -= NewRegisterForm_FormClosed;
         }
     }
 }

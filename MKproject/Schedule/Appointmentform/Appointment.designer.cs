@@ -80,8 +80,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.69652F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.35714F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.2449F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.14286F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.45918F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0939F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.56338F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.29108F));
@@ -101,14 +101,13 @@
             // 
             // panel2
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.flowLayoutPanel1);
             this.panel2.Controls.Add(this.labelStartTime);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 161);
+            this.panel2.Location = new System.Drawing.Point(0, 168);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(451, 48);
+            this.panel2.Size = new System.Drawing.Size(451, 41);
             this.panel2.TabIndex = 71;
             // 
             // flowLayoutPanel1
@@ -116,7 +115,7 @@
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.Controls.Add(this.textBoxStartTime);
             this.flowLayoutPanel1.Controls.Add(this.DownArrowStartTime);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(296, 9);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(300, 9);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(142, 21);
             this.flowLayoutPanel1.TabIndex = 11;
@@ -156,14 +155,13 @@
             this.labelStartTime.Margin = new System.Windows.Forms.Padding(5);
             this.labelStartTime.Name = "labelStartTime";
             this.labelStartTime.Padding = new System.Windows.Forms.Padding(10);
-            this.labelStartTime.Size = new System.Drawing.Size(145, 44);
+            this.labelStartTime.Size = new System.Drawing.Size(145, 41);
             this.labelStartTime.TabIndex = 0;
             this.labelStartTime.Text = "Start Time:";
             this.labelStartTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel3
             // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.flowLayoutPanel2);
             this.panel3.Controls.Add(this.labelEndTime);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -178,7 +176,7 @@
             this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel2.Controls.Add(this.textBoxEndTime);
             this.flowLayoutPanel2.Controls.Add(this.DownArrowEndTime);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(296, 12);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(300, 12);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(142, 21);
             this.flowLayoutPanel2.TabIndex = 12;
@@ -218,14 +216,13 @@
             this.labelEndTime.Margin = new System.Windows.Forms.Padding(5);
             this.labelEndTime.Name = "labelEndTime";
             this.labelEndTime.Padding = new System.Windows.Forms.Padding(10);
-            this.labelEndTime.Size = new System.Drawing.Size(148, 35);
+            this.labelEndTime.Size = new System.Drawing.Size(148, 39);
             this.labelEndTime.TabIndex = 0;
             this.labelEndTime.Text = "End Time:";
             this.labelEndTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel4
             // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.label1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -240,7 +237,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(296, 10);
+            this.label2.Location = new System.Drawing.Point(300, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 23);
             this.label2.TabIndex = 2;
@@ -255,7 +252,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(5);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(10);
-            this.label1.Size = new System.Drawing.Size(148, 37);
+            this.label1.Size = new System.Drawing.Size(148, 41);
             this.label1.TabIndex = 1;
             this.label1.Text = "Duration:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -273,11 +270,11 @@
             // customButton2
             // 
             this.customButton2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.customButton2.BackAndMouseHoverColor = System.Drawing.Color.Empty;
+            this.customButton2.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
             this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
             this.customButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.customButton2.FlatAppearance.BorderSize = 0;
-            this.customButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.customButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(117)))), ((int)(((byte)(119)))));
             this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.customButton2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.customButton2.ForeColor = System.Drawing.Color.White;
@@ -308,7 +305,6 @@
             // 
             // panel6
             // 
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel6.Controls.Add(this.textBoxNotes);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 289);
@@ -326,7 +322,7 @@
             this.textBoxNotes.Multiline = true;
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.PlaceholderText = "Notes";
-            this.textBoxNotes.Size = new System.Drawing.Size(447, 99);
+            this.textBoxNotes.Size = new System.Drawing.Size(451, 103);
             this.textBoxNotes.TabIndex = 1;
             this.textBoxNotes.Text = "Notes";
             // 
@@ -335,7 +331,7 @@
             this.ucClientApp1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucClientApp1.Location = new System.Drawing.Point(3, 45);
             this.ucClientApp1.Name = "ucClientApp1";
-            this.ucClientApp1.Size = new System.Drawing.Size(445, 113);
+            this.ucClientApp1.Size = new System.Drawing.Size(445, 120);
             this.ucClientApp1.TabIndex = 75;
             // 
             // Appointment
@@ -346,6 +342,7 @@
             this.ClientSize = new System.Drawing.Size(451, 441);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Appointment";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Appointment";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

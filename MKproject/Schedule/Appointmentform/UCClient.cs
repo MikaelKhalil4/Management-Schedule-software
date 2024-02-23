@@ -85,7 +85,7 @@ namespace MKproject.Schedule
 
         public void HandleClientNameChanged(object sender, EventArgs e)
         {
-            textBoxFullName.Text = DesiredClient.FullName;
+            textBoxFullName.Text = DesiredClient.Fname + " " + DesiredClient.Lname;
         }
         public void HandleClientTypeChanged(object sender, EventArgs e)
         {

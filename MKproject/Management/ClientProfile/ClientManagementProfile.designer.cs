@@ -32,8 +32,8 @@ namespace MKproject.Management
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientManagementProfile));
             this.TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             this.TLPdatagrid = new System.Windows.Forms.TableLayoutPanel();
@@ -113,7 +113,7 @@ namespace MKproject.Management
             this.TLPGlobal.Name = "TLPGlobal";
             this.TLPGlobal.RowCount = 1;
             this.TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 733F));
+            this.TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 620F));
             this.TLPGlobal.Size = new System.Drawing.Size(1230, 733);
             this.TLPGlobal.TabIndex = 21;
             // 
@@ -143,7 +143,7 @@ namespace MKproject.Management
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
-            this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 113F));
             this.TLPBalance.Controls.Add(this.buttonBackOffice, 5, 0);
             this.TLPBalance.Controls.Add(this.dataGridViewBalance, 0, 1);
             this.TLPBalance.Controls.Add(this.buttonPayTotalBalance, 3, 0);
@@ -170,10 +170,10 @@ namespace MKproject.Management
             this.buttonBackOffice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackOffice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBackOffice.ForeColor = System.Drawing.Color.White;
-            this.buttonBackOffice.Location = new System.Drawing.Point(565, 10);
+            this.buttonBackOffice.Location = new System.Drawing.Point(558, 10);
             this.buttonBackOffice.Margin = new System.Windows.Forms.Padding(10);
             this.buttonBackOffice.Name = "buttonBackOffice";
-            this.buttonBackOffice.Size = new System.Drawing.Size(87, 51);
+            this.buttonBackOffice.Size = new System.Drawing.Size(94, 51);
             this.buttonBackOffice.TabIndex = 23;
             this.buttonBackOffice.Text = "All Transactions";
             this.buttonBackOffice.UseVisualStyleBackColor = false;
@@ -190,14 +190,14 @@ namespace MKproject.Management
             this.dataGridViewBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewBalance.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewBalance.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewBalance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewBalance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewBalance.ColumnHeadersHeight = 50;
             this.dataGridViewBalance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewBalance.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -205,14 +205,14 @@ namespace MKproject.Management
             this.BackOffice});
             this.TLPBalance.SetColumnSpan(this.dataGridViewBalance, 5);
             this.dataGridViewBalance.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewBalance.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewBalance.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewBalance.EnableHeadersVisualStyles = false;
             this.dataGridViewBalance.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
@@ -270,7 +270,7 @@ namespace MKproject.Management
             this.buttonPayTotalBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPayTotalBalance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPayTotalBalance.ForeColor = System.Drawing.Color.White;
-            this.buttonPayTotalBalance.Location = new System.Drawing.Point(463, 10);
+            this.buttonPayTotalBalance.Location = new System.Drawing.Point(456, 10);
             this.buttonPayTotalBalance.Margin = new System.Windows.Forms.Padding(10);
             this.buttonPayTotalBalance.Name = "buttonPayTotalBalance";
             this.buttonPayTotalBalance.Size = new System.Drawing.Size(82, 51);
@@ -288,7 +288,7 @@ namespace MKproject.Management
             this.panelServiceBalance.Location = new System.Drawing.Point(7, 7);
             this.panelServiceBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelServiceBalance.Name = "panelServiceBalance";
-            this.panelServiceBalance.Size = new System.Drawing.Size(137, 57);
+            this.panelServiceBalance.Size = new System.Drawing.Size(134, 57);
             this.panelServiceBalance.TabIndex = 0;
             // 
             // labelServiceBalance
@@ -299,7 +299,7 @@ namespace MKproject.Management
             this.labelServiceBalance.Location = new System.Drawing.Point(0, 21);
             this.labelServiceBalance.Name = "labelServiceBalance";
             this.labelServiceBalance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelServiceBalance.Size = new System.Drawing.Size(137, 30);
+            this.labelServiceBalance.Size = new System.Drawing.Size(134, 30);
             this.labelServiceBalance.TabIndex = 1;
             this.labelServiceBalance.Text = "-$150";
             this.labelServiceBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -311,7 +311,7 @@ namespace MKproject.Management
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(137, 21);
+            this.label2.Size = new System.Drawing.Size(134, 21);
             this.label2.TabIndex = 0;
             this.label2.Text = "Services Balance";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -322,10 +322,10 @@ namespace MKproject.Management
             this.panelTotalBalance.Controls.Add(this.labelTotalBalance);
             this.panelTotalBalance.Controls.Add(this.label5);
             this.panelTotalBalance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTotalBalance.Location = new System.Drawing.Point(309, 7);
+            this.panelTotalBalance.Location = new System.Drawing.Point(304, 7);
             this.panelTotalBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelTotalBalance.Name = "panelTotalBalance";
-            this.panelTotalBalance.Size = new System.Drawing.Size(137, 57);
+            this.panelTotalBalance.Size = new System.Drawing.Size(135, 57);
             this.panelTotalBalance.TabIndex = 1;
             // 
             // labelTotalBalance
@@ -336,7 +336,7 @@ namespace MKproject.Management
             this.labelTotalBalance.Location = new System.Drawing.Point(0, 21);
             this.labelTotalBalance.Name = "labelTotalBalance";
             this.labelTotalBalance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelTotalBalance.Size = new System.Drawing.Size(137, 30);
+            this.labelTotalBalance.Size = new System.Drawing.Size(135, 30);
             this.labelTotalBalance.TabIndex = 1;
             this.labelTotalBalance.Text = "-$300";
             this.labelTotalBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -348,7 +348,7 @@ namespace MKproject.Management
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(137, 21);
+            this.label5.Size = new System.Drawing.Size(135, 21);
             this.label5.TabIndex = 0;
             this.label5.Text = "Total Balance";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -359,10 +359,10 @@ namespace MKproject.Management
             this.panelProductBalance.Controls.Add(this.labelProductBalance);
             this.panelProductBalance.Controls.Add(this.label6);
             this.panelProductBalance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelProductBalance.Location = new System.Drawing.Point(158, 7);
+            this.panelProductBalance.Location = new System.Drawing.Point(155, 7);
             this.panelProductBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelProductBalance.Name = "panelProductBalance";
-            this.panelProductBalance.Size = new System.Drawing.Size(137, 57);
+            this.panelProductBalance.Size = new System.Drawing.Size(135, 57);
             this.panelProductBalance.TabIndex = 2;
             // 
             // labelProductBalance
@@ -373,7 +373,7 @@ namespace MKproject.Management
             this.labelProductBalance.Location = new System.Drawing.Point(0, 21);
             this.labelProductBalance.Name = "labelProductBalance";
             this.labelProductBalance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelProductBalance.Size = new System.Drawing.Size(137, 30);
+            this.labelProductBalance.Size = new System.Drawing.Size(135, 30);
             this.labelProductBalance.TabIndex = 1;
             this.labelProductBalance.Text = "-$150";
             this.labelProductBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -385,7 +385,7 @@ namespace MKproject.Management
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(137, 21);
+            this.label6.Size = new System.Drawing.Size(135, 21);
             this.label6.TabIndex = 0;
             this.label6.Text = "Product Balance";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -428,10 +428,10 @@ namespace MKproject.Management
             this.buttonAddProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddProduct.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddProduct.ForeColor = System.Drawing.Color.White;
-            this.buttonAddProduct.Location = new System.Drawing.Point(85, 15);
+            this.buttonAddProduct.Location = new System.Drawing.Point(100, 19);
             this.buttonAddProduct.Margin = new System.Windows.Forms.Padding(28);
             this.buttonAddProduct.Name = "buttonAddProduct";
-            this.buttonAddProduct.Size = new System.Drawing.Size(174, 70);
+            this.buttonAddProduct.Size = new System.Drawing.Size(159, 66);
             this.buttonAddProduct.TabIndex = 1;
             this.buttonAddProduct.Text = "Add\r\nProduct";
             this.buttonAddProduct.UseVisualStyleBackColor = false;
@@ -458,10 +458,10 @@ namespace MKproject.Management
             this.buttonAddPAckge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddPAckge.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddPAckge.ForeColor = System.Drawing.Color.White;
-            this.buttonAddPAckge.Location = new System.Drawing.Point(76, 15);
+            this.buttonAddPAckge.Location = new System.Drawing.Point(91, 19);
             this.buttonAddPAckge.Margin = new System.Windows.Forms.Padding(28);
             this.buttonAddPAckge.Name = "buttonAddPAckge";
-            this.buttonAddPAckge.Size = new System.Drawing.Size(174, 70);
+            this.buttonAddPAckge.Size = new System.Drawing.Size(159, 66);
             this.buttonAddPAckge.TabIndex = 0;
             this.buttonAddPAckge.Text = "Add\r\n Service";
             this.buttonAddPAckge.UseVisualStyleBackColor = false;
@@ -788,7 +788,7 @@ namespace MKproject.Management
             this.DoubleBuffered = true;
             this.Name = "ClientManagementProfile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " ";
+            this.Text = " Client Profile";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ClientManagementProfile_FormClosed);
             this.Load += new System.EventHandler(this.ClientManagementProfile_Load);
             this.VisibleChanged += new System.EventHandler(this.ClientManagementProfile_VisibleChanged);

@@ -18,7 +18,7 @@ namespace MKproject.Management
         string NotAvailableText = "N/A";
         public bool IsClientDeleted = false;
         int? ParentIdInProfile;//eza ken child w eendo parent ha ha tkun not null 
-
+        bool IsFromSchedule;
 
         public Panel panelBundles;//kermel lamma ykun eena bundles nhotta    
 
@@ -64,14 +64,14 @@ namespace MKproject.Management
 
 
 
-        public ClientManagementProfile(ClassClient client)//new register
+        public ClientManagementProfile(ClassClient client, bool isFromSchedule)//new register
         {
             InitializeComponent();
 
             LoadImages();
 
-           
-            LoadData(client);
+
+            LoadData(client, isFromSchedule);
 
             dataGridViewBalance.ApplyStyle1();
         }
@@ -86,13 +86,19 @@ namespace MKproject.Management
         }
 
 
-        public void LoadData(ClassClient client)
+        public void LoadData(ClassClient client, bool isFromSchedule)
         {
+            if (isFromSchedule)
+            {
+                Opacity = 0;
+                timer1.Start();
+            }
 
             Client = client;
-
+            IsFromSchedule = isFromSchedule;
             IsClientDeleted = false;
             ParentIdInProfile = null;
+
 
             panelSecondaryInfo.AutoScrollPosition = new Point(0, 0);
             RemoveLinkedChildOrParent();
@@ -333,7 +339,7 @@ namespace MKproject.Management
             DesiredDataGrid.Columns["FakeOrignalOffre"].HeaderText = "Offre";
             DesiredDataGrid.Columns["FakeOffer"].HeaderText = "Deal";
 
-          
+
 
         }
         public void FormatDatagridviewDesign()
@@ -852,7 +858,7 @@ namespace MKproject.Management
                 {
                     ((UCLabelAndDetail)control).CheckSize(((UCLabelAndDetail)control).labelType.Width, ((UCLabelAndDetail)control).labelDetail.Width);
 
-                }           
+                }
             }
             foreach (UCLabelAndDetail uCLabelAndDetail in panelSecondaryInfo.Controls)
             {
@@ -1097,7 +1103,7 @@ namespace MKproject.Management
                     EntetityAmount = EntetityAmount.Replace(Currency.Symbol, "");
 
 
-                    Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                    Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                     Program.GreyForm.Show();
                     Payment payment = new Payment((int)Client.ClientId, Convert.ToDouble(EntetityAmount), RetrievingSpecificRowsInDt(false, ClientBalanceId), this);
                     payment.ClientManagementProfileParentForm = this;
@@ -1110,7 +1116,7 @@ namespace MKproject.Management
                 {
                     if (LOGIN.Employee.CanAccessTransaction)
                     {
-                        Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                        Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                         Program.GreyForm.Show();
                         BackOffice backOffice = new BackOffice(this, ClientBalanceId, RetrievingSpecificRowsInDt(false, ClientBalanceId), null);
                         backOffice.ShowDialog();
@@ -1126,7 +1132,7 @@ namespace MKproject.Management
 
         private void buttonPayTotalBalance_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+            Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
             Program.GreyForm.Show();
             Payment payment = new Payment((int)Client.ClientId, Convert.ToDouble(TotalBalanceAmount), RetrievingSpecificRowsInDt(true, null), this);
             payment.ClientManagementProfileParentForm = this;
@@ -1137,7 +1143,7 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanAccessTransaction)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                 Program.GreyForm.Show();
                 BackOffice backOffice = new BackOffice(this, null, null, Client.ClientId);
                 backOffice.ShowDialog();
@@ -1153,7 +1159,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(false);//true becuase it s a bundle
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1165,7 +1171,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(true);//true becuase it s a product
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1178,17 +1184,17 @@ namespace MKproject.Management
         private void buttonEditClientInfo_Click(object sender, EventArgs e)
         {
 
-            Program.GreyForm = new GreyColor((Form)this.Tag, false, false);//cz aam t3alie w ma tsakkir el form
+            Program.GreyForm = new GreyColor((Form)this.Tag, false, IsFromSchedule);//cz aam t3alie w ma tsakkir el form
             Program.GreyForm.Show();
 
             if (Program.NewRegisterForm == null)
             {
-                Program.NewRegisterForm = new NewRegister(Client);
+                Program.NewRegisterForm = new NewRegister(Client, null);
             }
             else
             {
                 Program.NewRegisterForm.Resetcontrols();
-                Program.NewRegisterForm.LoadForm(Client);
+                Program.NewRegisterForm.LoadForm(Client,null);
             }
 
             Program.NewRegisterForm.ClientManagementProfileForm = this;
@@ -1203,7 +1209,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                 Program.GreyForm.Show();
                 Album s = new Album(null);
                 s.ClientManagementProfileForm = this;
@@ -1216,7 +1222,7 @@ namespace MKproject.Management
         {
             if (Client.ProfileImage != null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                 Program.GreyForm.Show();
                 ImageForm i = new ImageForm(Client.ProfileImage);
                 i.Show();
@@ -1623,19 +1629,24 @@ namespace MKproject.Management
             if (Client.IsParent == true)
             {
 
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                 Program.GreyForm.Show();
-                RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true);
+                RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true, IsFromSchedule);
                 relatedChildrens.ParentFormClientMang = this;
                 relatedChildrens.Show();
             }
             else if (Client.IsChild == true)
             {
-                SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(this.Tag)).menu.ActivatedForm));
-
-                ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
-
-                searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
+                if (!IsFromSchedule)
+                {
+                    SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(this.Tag)).menu.ActivatedForm));
+                    ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
+                    searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
+                }
+                else
+                {
+                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.Ok);
+                }
             }
         }
 
@@ -1932,11 +1943,10 @@ namespace MKproject.Management
 
         private void ClientManagementProfile_VisibleChanged(object sender, EventArgs e)
         {
-            //if (this.Visible == false)
-            //{
-            //    TransferInformationToSearch();
-
-            //}
+            if (IsFromSchedule)//since aam nodtarr naamela show dialog, w lamma tkun cached w showdialo ma aam bi bayno bel usaully method el icons, so this glitsh worked
+            {
+                FormatDatagridviewDesign();
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -1948,14 +1958,6 @@ namespace MKproject.Management
             Opacity += .1;
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-                return cp;
-            }
-        }
+
     }
 }

@@ -21,10 +21,10 @@ namespace MKproject.Management
 
 
         public void FilterDatable()
-        {
+        {       
             ParentFormSearch.firstVisibleRowIndex = 0;
-            DataTable Filtereddt = ParentFormSearch.Originaldt.Copy();
 
+            DataTable Filtereddt = ParentFormSearch.Originaldt.Copy();
             if (ParentFormSearch.textBoxSearch.Text != ParentFormSearch.textBoxSearch.PlaceholderText)
             {
                 String Input = ParentFormSearch.textBoxSearch.Text.TrimEnd();

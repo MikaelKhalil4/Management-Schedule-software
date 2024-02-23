@@ -213,7 +213,7 @@ namespace MKproject.Management
         }
         public static DataTable GetAllClientSpecificInfoSQL()
         {
-            string queryClient = "select client_id, CONCAT(name, ' ', family_name) AS [Full Name], phone_number,Registration_Date from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
+            string queryClient = "select client_id,name,family_name, phone_number as \"Phone Number\",Registration_Date from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
      
             SqlCommand cmd = new SqlCommand(queryClient, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);

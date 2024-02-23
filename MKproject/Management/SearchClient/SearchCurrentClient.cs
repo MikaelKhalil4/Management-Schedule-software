@@ -368,13 +368,14 @@ namespace MKproject.Management
                 Menu menu = ((Home)this.Tag).menu;
                 if (Program.clientManagementProfile == null)
                 {
-                    Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient);
+                    Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient,false);
                 }
                 else
                 {
-                    Program.clientManagementProfile.LoadData(DesiredCLient);
+                    Program.clientManagementProfile.LoadData(DesiredCLient, false);
                     Program.clientManagementProfile.FormatDatagridviewDesign();
                 }
+
                 Program.clientManagementProfile.Size = this.Size;
                 Program.clientManagementProfile.SearchCurrentClientform = this;
                 menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
@@ -758,12 +759,12 @@ namespace MKproject.Management
             Program.GreyForm.Show();
             if (Program.NewRegisterForm == null)
             {
-                Program.NewRegisterForm = new NewRegister(null);
+                Program.NewRegisterForm = new NewRegister(null, null);
             }
             else
             {
                 Program.NewRegisterForm.Resetcontrols();
-                Program.NewRegisterForm.LoadForm(null);
+                Program.NewRegisterForm.LoadForm(null, null);
             }
             Program.NewRegisterForm.SearchCurrentClientForm = this;
             Program.NewRegisterForm.ShowDialog();

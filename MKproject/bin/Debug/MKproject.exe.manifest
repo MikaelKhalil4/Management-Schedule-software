@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>p7qjePCwkWq0Zgkh3r+ODebWXq+FgLayrlZGmOX7V3Y=</dsig:DigestValue>
+        <dsig:DigestValue>tPqKWakHzXhPzFcdNKldvIIcYcx4LVpFN4l7hNPWwKo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2408344">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2398104">
       <assemblyIdentity name="MKproject" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2RH8xpGBPpE4UKcTmfmEUY5Xx4B0Hk9pxwUXBdEO/cs=</dsig:DigestValue>
+        <dsig:DigestValue>rxzbM7MPQgZLvt5zItxa57BctV4HJhnrx8f99VR30tc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -357,6 +357,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>m7SODmsQttZ/u7Dzy26v8tynYfh9gjWM0gJxM/TNyo8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="images\search2.png" size="12456">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>PMzJaiCidaaeJJFNSk7rkKsEk5V6Hy5FuQojzxwvUSQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="images\user.png" size="7901">

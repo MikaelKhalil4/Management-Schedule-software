@@ -34,11 +34,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBoxSearch = new CustomizedTools.TextBoxWithPlaceHolder();
-            this.pictureBoxSearch = new System.Windows.Forms.PictureBox();
             this.TLPglobal.SuspendLayout();
             this.TLPAddNewClient.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // TLPglobal
@@ -48,17 +46,14 @@
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TLPglobal.Controls.Add(this.TLPAddNewClient, 2, 0);
             this.TLPglobal.Controls.Add(this.textBoxSearch, 1, 0);
-            this.TLPglobal.Controls.Add(this.pictureBoxSearch, 0, 0);
             this.TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TLPglobal.Location = new System.Drawing.Point(0, 0);
             this.TLPglobal.Name = "TLPglobal";
             this.TLPglobal.RowCount = 2;
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.86364F));
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.13636F));
+            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.TLPglobal.Size = new System.Drawing.Size(420, 88);
             this.TLPglobal.TabIndex = 0;
             // 
@@ -78,6 +73,7 @@
             this.TLPAddNewClient.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TLPAddNewClient.Size = new System.Drawing.Size(92, 30);
             this.TLPAddNewClient.TabIndex = 68;
+            this.TLPAddNewClient.Click += new System.EventHandler(this.TLPAddNewClient_Click);
             this.TLPAddNewClient.MouseLeave += new System.EventHandler(this.TLPAddNewClient_MouseLeave);
             this.TLPAddNewClient.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TLPAddNewClient_MouseMove);
             // 
@@ -95,6 +91,7 @@
             this.label1.TabIndex = 65;
             this.label1.Text = "New Client";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.TLPAddNewClient_Click);
             this.label1.MouseLeave += new System.EventHandler(this.TLPAddNewClient_MouseLeave);
             this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TLPAddNewClient_MouseMove);
             // 
@@ -110,6 +107,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(27, 20);
             this.pictureBox1.TabIndex = 66;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.TLPAddNewClient_Click);
             this.pictureBox1.MouseLeave += new System.EventHandler(this.TLPAddNewClient_MouseLeave);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TLPAddNewClient_MouseMove);
             // 
@@ -128,18 +126,6 @@
             this.textBoxSearch.Text = "Search by name or phone number...";
             this.textBoxSearch.Click += new System.EventHandler(this.textBoxSearch_Click);
             // 
-            // pictureBoxSearch
-            // 
-            this.pictureBoxSearch.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBoxSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxSearch.BackgroundImage")));
-            this.pictureBoxSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxSearch.Location = new System.Drawing.Point(34, 14);
-            this.pictureBoxSearch.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
-            this.pictureBoxSearch.Name = "pictureBoxSearch";
-            this.pictureBoxSearch.Size = new System.Drawing.Size(26, 20);
-            this.pictureBoxSearch.TabIndex = 32;
-            this.pictureBoxSearch.TabStop = false;
-            // 
             // UCClientApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -151,7 +137,6 @@
             this.TLPglobal.PerformLayout();
             this.TLPAddNewClient.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -159,7 +144,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel TLPglobal;
-        public System.Windows.Forms.PictureBox pictureBoxSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel TLPAddNewClient;
         private System.Windows.Forms.PictureBox pictureBox1;
