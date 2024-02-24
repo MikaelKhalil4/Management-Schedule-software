@@ -59,14 +59,17 @@ namespace MKproject.Management
             return ((double)dt.Rows[0]["amount_paid"], Convert.ToDouble(dt.Rows[0]["balance"]));
 
         }
-
-        public static DataTable GetClientBalanceNotExpiredPackage()
+        public static DataTable GetClientBalanceNotExpiredPackage(int? clientID)
         {
-            string query = @"Select	client_id,bundle_name,session_left_days,due_date,is_freezed
+            string query = @"Select	ID,client_id,bundle_name,session_left_days,due_date,is_freezed,balance
                             from client_balance as c ,bundles  as b
-                              where session_left_days is not null And is_expired='false' and c.bundle_id is not null and c.bundle_id=b.bundle_id
-                               Order by is_expired ASC , purchase_date DESC";
+                              where session_left_days is not null And is_expired='false' and c.bundle_id is not null and c.bundle_id=b.bundle_id ";
 
+            if (clientID != null)
+            {
+                query += " And client_id='"+ (int)clientID + "'";
+            }
+            query += " Order by is_expired ASC , purchase_date DESC ";
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dtClientBalance = new DataTable();

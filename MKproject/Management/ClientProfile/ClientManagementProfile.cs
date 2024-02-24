@@ -78,11 +78,13 @@ namespace MKproject.Management
 
         void LoadImages()
         {
+           
             PayOrEditImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "dollarSmall.png");
             PayOrEditImagePopUp = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "dollarBig.png");
             BackOfficeImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "BackOfficeSmall.png");
             BackOfficeImagePopUp = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "BackOfficeBig.png");
             EmptyImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "EmptyIcon.png");
+
         }
 
 
@@ -344,6 +346,7 @@ namespace MKproject.Management
         }
         public void FormatDatagridviewDesign()
         {
+
             foreach (DataGridViewRow row in dataGridViewBalance.Rows)
             {
                 DataGridViewCell cell = (DataGridViewCell)row.Cells["FakeBalance"];
@@ -1024,11 +1027,11 @@ namespace MKproject.Management
         public void CreateUCPackage(DataRow DesiredRow)
         {
 
-            UCBundlePackage bundlePackage = new UCBundlePackage();
+            UCBundlePackage bundlePackage = new UCBundlePackage(false);
             bundlePackage.ParentFormClientMan = this;
             bundlePackage.Dock = DockStyle.Left;
             bundlePackage.FakeId = Convert.ToInt16(DesiredRow["AutoIncrementColumn"]);
-            bundlePackage.CreateUCPackage(DesiredRow);
+            bundlePackage.CreateUCPackage(DesiredRow); ;
 
             panelBundles.Controls.Add(bundlePackage);
 
@@ -1087,11 +1090,9 @@ namespace MKproject.Management
         }
 
 
-
-
-        private void dataGridViewBalance_CellContentClick(object sender, DataGridViewCellEventArgs e)
+  
+        private void dataGridViewBalance_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex >= 0)
             {
                 int ClientBalanceId = Convert.ToInt16(dataGridViewBalance.Rows[e.RowIndex].Cells["ID"].Value);
@@ -1127,9 +1128,38 @@ namespace MKproject.Management
                     }
 
                 }
-            }
-        }
+                else
+                {
+                    if (dataGridViewBalance.Rows[e.RowIndex].Cells["session_left_days"].Value != DBNull.Value && Convert.ToBoolean(dataGridViewBalance.Rows[e.RowIndex].Cells["is_expired"].Value) == false)//package 
+                    {
+                        if (panelBundles != null)
+                        {
+                            foreach (UCBundlePackage uc in panelBundles.Controls)
+                            {
+                                if (uc.Id == Convert.ToInt64(dataGridViewBalance.Rows[e.RowIndex].Cells["ID"].Value))
+                                {
+                                    uc.Focus();
+                                    panelBundles.ScrollControlIntoView(uc);
+                                    uc.TLPglobal.BackColor = uc.ColorMouseOver;
+                                    Timer timer = new Timer();
+                                    timer.Interval = 1000;
+                                    timer.Tick += (timerSender, timerEventArgs) =>
+                                    {
+                                        uc.TLPglobal.BackColor = uc.ColorDedault;
+                                        timer.Stop();
+                                        timer.Dispose();
+                                    };
+                                    timer.Start();
+                                    break;
+                                }
+                            }
+                        }
 
+                    }
+                }
+            }
+          
+        }
         private void buttonPayTotalBalance_Click(object sender, EventArgs e)
         {
             Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
@@ -1934,12 +1964,7 @@ namespace MKproject.Management
 
         }
 
-        private void dataGridViewBalance_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            //DataTableToDatagridView();
-            //FormatDatagridviewDesign();
-
-        }
+    
 
         private void ClientManagementProfile_VisibleChanged(object sender, EventArgs e)
         {
@@ -1958,6 +1983,16 @@ namespace MKproject.Management
             Opacity += .1;
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
 
+     
     }
 }

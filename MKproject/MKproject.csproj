@@ -193,6 +193,7 @@
     <Compile Include="Management\CalenderComponents\UCCalanderMonth.designer.cs">
       <DependentUpon>UCCalanderMonth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Management\Classes\ClassChosenClientBalance.cs" />
     <Compile Include="Management\NewRegister\UserControls\Camera.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -437,6 +438,12 @@
     </Compile>
     <Compile Include="Schedule\Appointmentform\UCMeetingInAppointment.designer.cs">
       <DependentUpon>UCMeetingInAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\AppointmentManagement\ChooseService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schedule\AppointmentManagement\ChooseService.Designer.cs">
+      <DependentUpon>ChooseService.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\AppointmentManagement\UCClientApp.cs">
       <SubType>UserControl</SubType>
@@ -735,6 +742,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\Appointmentform\UCMeetingInAppointment.resx">
       <DependentUpon>UCMeetingInAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schedule\AppointmentManagement\ChooseService.resx">
+      <DependentUpon>ChooseService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\AppointmentManagement\UCClientApp.resx">
       <DependentUpon>UCClientApp.cs</DependentUpon>

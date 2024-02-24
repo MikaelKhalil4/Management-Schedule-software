@@ -46,6 +46,7 @@
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
+            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TLPglobal.Controls.Add(this.TLPAddNewClient, 2, 0);
             this.TLPglobal.Controls.Add(this.textBoxSearch, 1, 0);
             this.TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;

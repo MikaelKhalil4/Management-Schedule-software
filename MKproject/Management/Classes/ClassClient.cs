@@ -89,6 +89,10 @@ namespace MKproject.Management
         public string StressLevel { get; set; }
         public string FightingSkills { get; set; }
 
+
+        //Used Only in schedule:
+        public ClassChosenClientBalance ChosenClientBalance { get; set; }
+
         public enum ClientGender
         {
             All,

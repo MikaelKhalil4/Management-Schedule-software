@@ -10,8 +10,25 @@ namespace CustomizedTools
        public Color ColorUnclicked = Color.FromArgb(139, 152, 224);
        public Color ColorClicked= Color.FromArgb(109, 122, 224);
 
-      
 
+        private string button1text;
+        public string Button1text
+        {
+            get { return button1text; }
+            set {
+                button1text = value;
+                button1.Text = value;
+            }
+        }
+        private string button2text;
+        public string Button2text
+        {
+            get { return button2text; }
+            set {               
+                button2text = value;
+                button2.Text = value;
+            }
+        }
 
 
 

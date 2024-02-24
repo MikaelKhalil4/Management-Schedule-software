@@ -490,11 +490,11 @@ namespace MKproject.Management
 
 
 
-            PaymentRefreshParentANDSql(ListFinanceUpdates, IsProduct, Date);//mahalla mazbut w mah ateassir law eemil crash backoffice masalan w el disign tabaa el payment ha yotlaa ghalat i agree bas el parent form ma tkun accurate, w eza tolii ghalat bel payment men sakkir el form fina
+            PaymentRefreshParentANDSql(ListFinanceUpdates, IsProduct, IsPackageOrSolo, Date);//mahalla mazbut w mah ateassir law eemil crash backoffice masalan w el disign tabaa el payment ha yotlaa ghalat i agree bas el parent form ma tkun accurate, w eza tolii ghalat bel payment men sakkir el form fina
             ClientManagementProfileParentForm.CalculatingClientHistory(true);
 
         }//try catch
-        void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct, DateTime Date)
+        void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct,bool? IsPackageOrSolo, DateTime Date)
         {
             //SQL
             ProjectToSQL.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredRowsdt, AffectedRow, ListFinanceUpdates, Date, ClientManagementProfileParentForm.Client.AlbumType);//mafik tsil affected row, ma32oul affected row awal men el count tabaa el desired dt
@@ -509,12 +509,12 @@ namespace MKproject.Management
                 rowToEdit["Paid"] = DesiredRowsdt.Rows[k]["Paid"];
                 rowToEdit["is_expired"] = DesiredRowsdt.Rows[k]["is_expired"];
 
-                if (IsProduct)//lieano el bundle men shello el expiry bel remove or renew
+                if (IsProduct ||(IsPackageOrSolo!=null && !(bool)IsPackageOrSolo))//lieano el bundle men shello el expiry bel remove or renew
                 {
                     rowToEdit["is_expired"] = DesiredRowsdt.Rows[k]["is_expired"];
                 }
             }
-            if (IsProduct)//lieanno el resorting only aal date which is fix and Is expired, since eza ma ken product isexpired ha teb2a metel a hiyye , so ma ela aaze ynaamal sorting lal bundle
+            if (IsProduct || (IsPackageOrSolo != null && !(bool)IsPackageOrSolo))//lieanno el resorting only aal date which is fix and Is expired, since eza ma ken product isexpired ha teb2a metel a hiyye , so ma ela aaze ynaamal sorting lal bundle
             {
                 ClientManagementProfileParentForm.ResortOriginalDataTableAndSetDatasource();
             }

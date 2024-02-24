@@ -1,4 +1,5 @@
 ﻿using MKproject.Management;
+using MKproject.Schedule;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -220,5 +221,10 @@ namespace MKproject
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Appointment app = new Appointment();
+            app.ShowDialog();
+        }
     }
 }
