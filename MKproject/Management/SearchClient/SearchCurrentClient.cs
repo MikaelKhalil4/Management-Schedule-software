@@ -233,16 +233,6 @@ namespace MKproject.Management
                 }
 
                 string balance = d["total_balance"].ToString();//cannnot be null
-                if (balance.Contains('-'))
-                {
-                    balance = balance.Substring(1);
-                    balance = "-" + Currency.Symbol + balance;
-
-                }
-                else
-                {
-                    balance = Currency.Symbol + balance;
-                }
 
                 string Payment = d["total_payment"].ToString();//cannnot be null
                 if (Payment != "0")
@@ -272,7 +262,7 @@ namespace MKproject.Management
                 d["Save Date"] = SaveDate;
                 d["Last Visit"] = LastVisit;
                 d["Registration Date"] = RegistrationDate;
-                d["Total Balance"] = balance;
+                d["Total Balance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                 d["Total payment"] = Payment;
 
                 //the rest should obligatory have values
@@ -373,7 +363,6 @@ namespace MKproject.Management
                 else
                 {
                     Program.clientManagementProfile.LoadData(DesiredCLient, false);
-                    Program.clientManagementProfile.FormatDatagridviewDesign();
                 }
 
                 Program.clientManagementProfile.Size = this.Size;

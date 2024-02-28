@@ -30,7 +30,7 @@ namespace CustomizedTools
             }
         }
 
-
+        public Button ClickedButton { get; set; }
 
         public UCSlideButton()
         {
@@ -51,16 +51,15 @@ namespace CustomizedTools
         {
             button1.BackColor = ColorClicked;
             button2.BackColor = ColorUnclicked;
-            Button1Clicked?.Invoke(this, e);
-          
+            Button1Clicked?.Invoke(this, e);     
+            ClickedButton = button1;
         }
-
         public void button2_Click(object sender, EventArgs e)
         {
             button1.BackColor = ColorUnclicked;
             button2.BackColor = ColorClicked;
             Button2Clicked?.Invoke(this, e);
-           
-        }           
+            ClickedButton = button2;
+        }
     }
 }

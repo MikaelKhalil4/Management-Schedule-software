@@ -77,8 +77,10 @@ namespace MKproject
         {
             if (ParentFormHome.panelContainer.Controls.Count > 0)//specially made kermel el back ma nekhsar el data bel form li fetna menna
             {
+                Form OpenendForm = ((Form)ParentFormHome.panelContainer.Controls[0]);
                 ParentFormHome.panelContainer.Controls[0].Visible = false;//we re sure only one control 
-                ParentFormHome.panelContainer.Controls.Clear();
+                ParentFormHome.panelContainer.Controls.RemoveAt(0);
+                OpenendForm.TopLevel = true;
             }
             ParentFormHome.buttonBackHome.Visible = false;
 

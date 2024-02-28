@@ -156,6 +156,7 @@ namespace MKproject
             }
         }
 
+        public event EventHandler ChosenClientChanged;
         private void dataGridViewMembers_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
@@ -170,17 +171,20 @@ namespace MKproject
                 DesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
                 DesiredClient.Fname = FName;
                 DesiredClient.Lname = LName;
-                textBoxSearch.Text = Name;
+                textBoxSearch.Text = FName+" "+ LName;
+                DesiredTextbox.Text = textBoxSearch.Text;//ejbare hone kermel el packoffice
+                ChosenClientChanged?.Invoke(this, EventArgs.Empty);
                 this.Close();
             }
 
         }
-
         private void Search_Deactivate(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxSearch.Text))
+            if (DesiredClient.ClientId!=null && string.IsNullOrEmpty(textBoxSearch.Text))//which mean ghayarne
             {
                 DesiredClient.ClientId = null;//ejbare ha foe li tahta cz el filter aal textchange
+                DesiredTextbox.Text = DesiredTextbox.PlaceholderText;
+                ChosenClientChanged?.Invoke(this, EventArgs.Empty);
             }
             this.Close();
         }

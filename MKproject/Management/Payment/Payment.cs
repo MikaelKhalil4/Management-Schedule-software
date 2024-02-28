@@ -403,18 +403,7 @@ namespace MKproject.Management
                 {
                     //dt update
                     string balance = "0";
-                    string FakeBalance = balance;
-                    if (FakeBalance.Contains('-'))
-                    {
-                        FakeBalance = balance.Substring(1);
-                        FakeBalance = "-" + DesiredRowsdt.Rows[0]["Symbol"] + FakeBalance;
-
-                    }
-                    else
-                    {
-                        FakeBalance = DesiredRowsdt.Rows[0]["Symbol"] + balance;
-                    }
-                    //logic ended
+                   
 
                     //SQL
                     backOffice = new ClassBackOffice((int)ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmoutPerRow + " for the " + BackOfficeCatName + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null, null, null, Date);
@@ -423,7 +412,7 @@ namespace MKproject.Management
 
                     //Design
                     DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["FakeBalance"] = FakeBalance;
+                    DesiredRowsdt.Rows[i]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                     DesiredRowsdt.Rows[i]["amount_paid"] = AmoutPerRow + (double)DesiredRowsdt.Rows[i]["amount_paid"];
                     DesiredRowsdt.Rows[i]["Paid"] = DesiredRowsdt.Rows[i]["Symbol"].ToString() + DesiredRowsdt.Rows[i]["amount_paid"].ToString();
                     //IsExpired and only for products cz bundles mesh men hone
@@ -456,17 +445,6 @@ namespace MKproject.Management
                 {
                     //logic started
                     string balance = Convert.ToString(-(AmoutPerRow - AmountPaid));
-                    string FakeBalance = balance;
-                    if (balance.Contains('-'))
-                    {
-                        FakeBalance = balance.Substring(1);
-                        FakeBalance = "-" + DesiredRowsdt.Rows[0]["Symbol"] + FakeBalance;
-
-                    }
-                    else
-                    {
-                        FakeBalance = DesiredRowsdt.Rows[0]["Symbol"] + balance;
-                    }
                     //logic ended
 
                     //Sql
@@ -475,7 +453,7 @@ namespace MKproject.Management
 
                     //Design
                     DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["FakeBalance"] = FakeBalance;
+                    DesiredRowsdt.Rows[i]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                     DesiredRowsdt.Rows[i]["amount_paid"] = AmountPaid + (double)DesiredRowsdt.Rows[i]["amount_paid"];
                     DesiredRowsdt.Rows[i]["Paid"] = DesiredRowsdt.Rows[i]["Symbol"].ToString() + DesiredRowsdt.Rows[i]["amount_paid"].ToString();
                     ListFinanceUpdates.Add((AmountPaid, ClientBalanceId));

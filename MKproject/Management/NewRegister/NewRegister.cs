@@ -2157,7 +2157,7 @@ namespace MKproject.Management
             r.ShowDialog();
         }
 
-
+        public event EventHandler ClientSaved;
         public void SaveOrUpdate(string AlbumName)//album name could be null,w only used on insert NOT UPDATE
         {
 
@@ -2180,6 +2180,7 @@ namespace MKproject.Management
                 {
                     OpenClientManagementForm(DesiredCLient);
                 }
+                ClientSaved?.Invoke(this, EventArgs.Empty);
                 this.Close();
             }
             else//update
@@ -2251,6 +2252,7 @@ namespace MKproject.Management
                 }
             }
         }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (CheckRequired())
@@ -2301,7 +2303,6 @@ namespace MKproject.Management
                 else
                 {
                     Program.clientManagementProfile.LoadData(DesiredCLient, false);
-                    Program.clientManagementProfile.FormatDatagridviewDesign();
                 }
                 Program.clientManagementProfile.Size = SearchCurrentClientForm.Size;
                 Program.clientManagementProfile.SearchCurrentClientform = SearchCurrentClientForm;

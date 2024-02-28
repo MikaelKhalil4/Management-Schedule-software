@@ -143,7 +143,7 @@ namespace MKproject.Management
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
-            this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
             this.TLPBalance.Controls.Add(this.buttonBackOffice, 5, 0);
             this.TLPBalance.Controls.Add(this.dataGridViewBalance, 0, 1);
             this.TLPBalance.Controls.Add(this.buttonPayTotalBalance, 3, 0);
@@ -170,10 +170,10 @@ namespace MKproject.Management
             this.buttonBackOffice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackOffice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBackOffice.ForeColor = System.Drawing.Color.White;
-            this.buttonBackOffice.Location = new System.Drawing.Point(556, 10);
+            this.buttonBackOffice.Location = new System.Drawing.Point(555, 10);
             this.buttonBackOffice.Margin = new System.Windows.Forms.Padding(10);
             this.buttonBackOffice.Name = "buttonBackOffice";
-            this.buttonBackOffice.Size = new System.Drawing.Size(96, 51);
+            this.buttonBackOffice.Size = new System.Drawing.Size(97, 51);
             this.buttonBackOffice.TabIndex = 23;
             this.buttonBackOffice.Text = "All Transactions";
             this.buttonBackOffice.UseVisualStyleBackColor = false;
@@ -236,6 +236,7 @@ namespace MKproject.Management
             this.dataGridViewBalance.Size = new System.Drawing.Size(648, 281);
             this.dataGridViewBalance.TabIndex = 22;
             this.dataGridViewBalance.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBalance_CellClick);
+            this.dataGridViewBalance.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewBalance_CellFormatting);
             this.dataGridViewBalance.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBalance_CellMouseEnter);
             this.dataGridViewBalance.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBalance_CellMouseLeave);
             // 
@@ -269,7 +270,7 @@ namespace MKproject.Management
             this.buttonPayTotalBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPayTotalBalance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPayTotalBalance.ForeColor = System.Drawing.Color.White;
-            this.buttonPayTotalBalance.Location = new System.Drawing.Point(454, 10);
+            this.buttonPayTotalBalance.Location = new System.Drawing.Point(453, 10);
             this.buttonPayTotalBalance.Margin = new System.Windows.Forms.Padding(10);
             this.buttonPayTotalBalance.Name = "buttonPayTotalBalance";
             this.buttonPayTotalBalance.Size = new System.Drawing.Size(82, 51);
@@ -287,7 +288,7 @@ namespace MKproject.Management
             this.panelServiceBalance.Location = new System.Drawing.Point(7, 7);
             this.panelServiceBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelServiceBalance.Name = "panelServiceBalance";
-            this.panelServiceBalance.Size = new System.Drawing.Size(134, 57);
+            this.panelServiceBalance.Size = new System.Drawing.Size(133, 57);
             this.panelServiceBalance.TabIndex = 0;
             // 
             // labelServiceBalance
@@ -298,7 +299,7 @@ namespace MKproject.Management
             this.labelServiceBalance.Location = new System.Drawing.Point(0, 21);
             this.labelServiceBalance.Name = "labelServiceBalance";
             this.labelServiceBalance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelServiceBalance.Size = new System.Drawing.Size(134, 30);
+            this.labelServiceBalance.Size = new System.Drawing.Size(133, 30);
             this.labelServiceBalance.TabIndex = 1;
             this.labelServiceBalance.Text = "-$150";
             this.labelServiceBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -310,7 +311,7 @@ namespace MKproject.Management
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 21);
+            this.label2.Size = new System.Drawing.Size(133, 21);
             this.label2.TabIndex = 0;
             this.label2.Text = "Services Balance";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -321,7 +322,7 @@ namespace MKproject.Management
             this.panelTotalBalance.Controls.Add(this.labelTotalBalance);
             this.panelTotalBalance.Controls.Add(this.label5);
             this.panelTotalBalance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTotalBalance.Location = new System.Drawing.Point(303, 7);
+            this.panelTotalBalance.Location = new System.Drawing.Point(302, 7);
             this.panelTotalBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelTotalBalance.Name = "panelTotalBalance";
             this.panelTotalBalance.Size = new System.Drawing.Size(134, 57);
@@ -358,7 +359,7 @@ namespace MKproject.Management
             this.panelProductBalance.Controls.Add(this.labelProductBalance);
             this.panelProductBalance.Controls.Add(this.label6);
             this.panelProductBalance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelProductBalance.Location = new System.Drawing.Point(155, 7);
+            this.panelProductBalance.Location = new System.Drawing.Point(154, 7);
             this.panelProductBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelProductBalance.Name = "panelProductBalance";
             this.panelProductBalance.Size = new System.Drawing.Size(134, 57);

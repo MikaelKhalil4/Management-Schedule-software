@@ -20,20 +20,21 @@ namespace MKproject.Schedule
 
         Label LabelServiceOutput;
         Label LabelServiceBundle;
-        //Label LabelServiceBalance;
         Label LabelNoDataRecorded;
         IconButton IconProfile;
         PictureBox pictureBoxSearch;
         CustomButton ButtonChangeORChooseService;
 
 
-
-        ClassClient DesiredClient;
+        int OldClientId = -1;
+        public ClassClient DesiredClient;
+        public DataTable PackageRemainingsDt;
+        public DataTable OldPackageRemainingsDt;
         public UCClientApp()
         {
             InitializeComponent();
             DesiredClient = new ClassClient();
-            SetDesignMode();
+            SetDesignMode(null);
         }
         public UCClientApp(ClassClient desiredClient)//used in appointment form
 
@@ -41,15 +42,50 @@ namespace MKproject.Schedule
             InitializeComponent();
             DesiredClient = desiredClient;
             DesiredClient = new ClassClient();//to be removed          
-            SetDesignMode();
+            SetDesignMode(null);
         }
 
-        void SetDesignMode()
+        void SetDesignIfServiceSelected()//sous level design, lamma naee service maayane it will b called
+        {
+
+            if (!TLPglobal.Controls.Contains(LabelServiceBundle))
+            {
+                TLPglobal.Controls.Add(LabelServiceBundle, 1, 1);
+            }
+            TLPglobal.SetColumn(ButtonChangeORChooseService, 2);
+            TLPglobal.SetRow(ButtonChangeORChooseService, 1);
+            ButtonChangeORChooseService.Text = "Change";
+
+        }
+        void SetDesignModeIfMultiplePackagesExist()
+        {
+            if (TLPglobal.Controls.Contains(LabelServiceBundle))
+            {
+                TLPglobal.Controls.Remove(LabelServiceBundle);
+            }
+            TLPglobal.SetColumn(ButtonChangeORChooseService, 1);
+            TLPglobal.SetRow(ButtonChangeORChooseService, 1);
+
+            if (PackageRemainingsDt.Rows.Count > 1)
+            {
+                ButtonChangeORChooseService.Text = "Choose an available package";
+            }
+            else if (PackageRemainingsDt.Rows.Count == 0)
+            {
+                ButtonChangeORChooseService.Text = "Choose one or more service";
+            }
+
+            if (OldClientId != DesiredClient.ClientId)
+            {
+                ChooseService chooseService = new ChooseService(this);
+                chooseService.ShowDialog();
+            }
+        }
+        public void SetDesignMode(bool? IsNewServiceOrOneOfMultipleIsSelected)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
         {
             if (DesiredClient.ClientId != null)
             {
-                //Sql
-                DataTable PackageRemainingsDt = Management.SQLToProject.GetClientBalanceNotExpiredPackage(DesiredClient.ClientId);
+
                 //Design
                 textBoxSearch.Text = DesiredClient.Fname + " " + DesiredClient.Lname;
 
@@ -69,29 +105,62 @@ namespace MKproject.Schedule
                     TLPglobal.Controls.Add(ButtonChangeORChooseService);
                 }
 
-                //chosing the right service
-                if (PackageRemainingsDt.Rows.Count == 1)
+
+                if (IsNewServiceOrOneOfMultipleIsSelected == null)
                 {
-                    FillObjectAndDesign(PackageRemainingsDt.Rows[0]);
-                }
-                else //no packages or multiple packages
-                {
-                    if (TLPglobal.Controls.Contains(LabelServiceBundle))
+                    //Sql
+                    PackageRemainingsDt = Management.SQLToProject.GetClientBalanceNotExpiredPackage(DesiredClient.ClientId);           
+                    
+                    if (DesiredClient.ChosenServicesList == null)//in case ma kenet mnaea wala service
                     {
-                        TLPglobal.Controls.Remove(LabelServiceBundle);
-                        //TLPglobal.Controls.Remove(LabelServiceBalance);
+                        if (OldPackageRemainingsDt == null || !AreTablesTheSame(OldPackageRemainingsDt, PackageRemainingsDt))//in case baadna meal3in el form, old=null ha nfout/ w eza ghayarna shi bel packages tb3 profile ha nfout
+                        {
+                            //chosing the right service
+                            if (PackageRemainingsDt.Rows.Count == 1)
+                            {
+                                SetDesignIfServiceSelected();
+                                FillObjectOfAvailablePackage(PackageRemainingsDt.Rows[0]);
+                            }
+                            else //no packages or multiple packages
+                            {
+
+                                if (DesiredClient.DesiredClientBalance == null)//fi kaza package w mesh mnaeyin wala wahad abel
+                                {
+
+                                    SetDesignModeIfMultiplePackagesExist();
+
+                                }
+                                else//fi kaza package bas mna2yin wahad already, w hayda el wahad mnerjaa mnaamelo update always, maybe ghayrna shi fi aw mayble shelne men el profile
+                                {
+                                    DataRow[] selectedRows = PackageRemainingsDt.Select("ID ="+ DesiredClient.DesiredClientBalance.ClientBalanceID);
+                                    if (selectedRows.Length == 1)
+                                    {
+                                        FillObjectOfAvailablePackage(selectedRows[0]);
+                                    }
+                                    else//in case ken fi selected package, w shelne men profil
+                                    {
+                                        SetDesignModeIfMultiplePackagesExist();
+                                    }
+                                }
+                            }
+
+                            OldPackageRemainingsDt = PackageRemainingsDt.Copy();
+                        }
                     }
 
-                    TLPglobal.SetColumn(ButtonChangeORChooseService, 1);
-                    TLPglobal.SetRow(ButtonChangeORChooseService, 1);
-                    ButtonChangeORChooseService.Text = "Choose";
-
                 }
+                else
+                {
+                    SetDesignIfServiceSelected();
+                }
+
+
+                OldClientId = (int)DesiredClient.ClientId;
+
             }
             else
             {
                 textBoxSearch.Text = textBoxSearch.PlaceholderText;
-
                 if (TLPglobal.Controls.Contains(IconProfile))
                 {
                     TLPglobal.Controls.Remove(IconProfile);
@@ -110,56 +179,84 @@ namespace MKproject.Schedule
                     TLPglobal.SetColumnSpan(LabelNoDataRecorded, 5);
                 }
 
+                OldClientId = -1;
             }
 
         }
+        bool AreTablesTheSame(DataTable table1, DataTable table2)
+        {
+            if (table1.Rows.Count != table2.Rows.Count || table1.Columns.Count != table2.Columns.Count)
+                return false;
 
-        void FillObjectAndDesign(DataRow DesiredRow)
+            for (int i = 0; i < table1.Rows.Count; i++)
+            {
+                for (int j = 0; j < table1.Columns.Count; j++)
+                {
+                    if (!Equals(table1.Rows[i][j], table2.Rows[i][j]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void FillObjectOfNewServices()
+        {
+            string details = "";
+            foreach (ClassBundles Bundle in DesiredClient.ChosenServicesList)
+            {
+                details += Bundle.Name + "/";
+            }
+            if (details.Length > 0)
+            {
+                details = details.Remove(details.Length - 1);
+            }
+            DesiredClient.ChosenServicesDetails = details;
+            LabelServiceBundle.Text = DesiredClient.ChosenServicesDetails;
+        }
+        public void FillObjectOfAvailablePackage(DataRow DesiredRow)//only used if we were selecting an available package ( a specified balance) from table sql clientbalance
         {
             //Filling the object
-            //id
-            DesiredClient.ChosenClientBalance = new ClassChosenClientBalance();
-            DesiredClient.ChosenClientBalance.ClientBalanceID = Convert.ToInt32(DesiredRow["ID"]);
+
+            //Number Of Sessions or days
+            string ServiceName;
+            ServiceName = (string)DesiredRow["Description"];
+            DesiredClient.DesiredClientBalance = new ClassChosenClientBalance();
+            DesiredClient.DesiredClientBalance.ClientBalanceID = Convert.ToInt32(DesiredRow["ID"]);
             //sessionleft
             if (DesiredRow["due_date"] == DBNull.Value)//package of sessions
             {
-                DesiredClient.ChosenClientBalance.SessionLeft = Convert.ToInt32(DesiredRow["session_left_days"]);
-                DesiredClient.ChosenClientBalance.ClientBalanceSessionLeftDetails = ClassChosenClientBalance.SetPackageFormatFromBalance(DesiredRow);
+                DesiredClient.DesiredClientBalance.ISSessionsOrDays = true;
+                DesiredClient.DesiredClientBalance.SessionLeft = Convert.ToInt32(DesiredRow["session_left_days"]);
+                DesiredClient.DesiredClientBalance.ClientBalanceSessionLeftDetails = DesiredRow["session_left_days"] + " sess";
             }
             else if (DesiredRow["due_date"] != DBNull.Value)//package of days
             {
-                DesiredClient.ChosenClientBalance.ClientBalanceSessionLeftDetails = ClassChosenClientBalance.SetPackageFormatFromBalance(DesiredRow);
-            }
-            else if (DesiredRow["session_left_days"] == DBNull.Value)//solo
-            {
-                DesiredClient.ChosenClientBalance.ClientBalanceSessionLeftDetails = ClassBundles.FindBundleName(Convert.ToInt32(DesiredRow["bundle_id"]));
+                DesiredClient.DesiredClientBalance.ISSessionsOrDays = false;
+
+                if ((bool)DesiredRow["is_freezed"] == false)//only packgae of days not freezed
+                {
+                    int daysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredRow["due_date"]);
+                    if (daysLeft < 0)
+                    {
+                        daysLeft = 0;
+                    }
+                    DesiredClient.DesiredClientBalance.ClientBalanceSessionLeftDetails = daysLeft + " days";//tene wahde - awwal wahde
+                }
+                else//package days freezed
+                {
+                    ServiceName += "(Freezed)";
+                }
+
             }
 
             //balance
-            DesiredClient.ChosenClientBalance.Balance = Convert.ToInt32(DesiredRow["balance"]);
-            string balance = DesiredRow["balance"].ToString();//cannnot be null
-            if (balance.Contains('-'))
-            {
-                balance = balance.Substring(1);
-                balance = "-" + Currency.Symbol + balance;
-            }
-            else
-            {
-                balance = Currency.Symbol + balance;
-            }
-            DesiredClient.ChosenClientBalance.ClientBalanceDetails = balance;
+            DesiredClient.DesiredClientBalance.ClientBalanceDetails = ClassChosenClientBalance.SetBalanceFormat(DesiredRow["balance"].ToString());
+
 
             //Design
-            LabelServiceBundle.Text = DesiredClient.ChosenClientBalance.ClientBalanceSessionLeftDetails + "/" + DesiredClient.ChosenClientBalance.ClientBalanceDetails;
-
-            if (!TLPglobal.Controls.Contains(LabelServiceBundle))
-            {
-                TLPglobal.Controls.Add(LabelServiceBundle, 1, 1);
-            }
-
-            TLPglobal.SetColumn(ButtonChangeORChooseService, 2);
-            TLPglobal.SetRow(ButtonChangeORChooseService, 1);
-            ButtonChangeORChooseService.Text = "Change";
+            DesiredClient.DesiredClientBalance.ClientBalanceFullDetails = ServiceName + ": " + DesiredClient.DesiredClientBalance.ClientBalanceSessionLeftDetails + " / " + DesiredClient.DesiredClientBalance.ClientBalanceDetails;
+            LabelServiceBundle.Text = DesiredClient.DesiredClientBalance.ClientBalanceFullDetails;
 
         }
         void CreatingTheClientModeOn()
@@ -182,12 +279,15 @@ namespace MKproject.Schedule
 
 
             ButtonChangeORChooseService = new CustomButton();
-            ButtonChangeORChooseService.Size = new Size(92, 29);
-            ButtonChangeORChooseService.BackAndMouseHoverColor = Program.BoldColor;
-            ButtonChangeORChooseService.Font = new Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular);
+            ButtonChangeORChooseService.Size = new Size(220, 29);
+            ButtonChangeORChooseService.FlatAppearance.BorderSize = 1;
+            ButtonChangeORChooseService.BackColor = Color.Transparent;
+            ButtonChangeORChooseService.ForeColor = Program.BoldColor;
+            ButtonChangeORChooseService.FlatAppearance.MouseOverBackColor = Color.FromArgb(Program.MediumColor.R - 20, Program.MediumColor.G - 20, Program.MediumColor.B - 20);
+            ButtonChangeORChooseService.FlatAppearance.MouseDownBackColor = Color.FromArgb(Program.MediumColor.R + 10, Program.MediumColor.G + 10, Program.MediumColor.B + 10);
+            ButtonChangeORChooseService.Font = new Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             ButtonChangeORChooseService.Click += ButtonChangeORChooseService_Click;
-            ButtonChangeORChooseService.Anchor = AnchorStyles.None;
-
+            ButtonChangeORChooseService.Anchor = AnchorStyles.Left;
 
             LabelServiceOutput = new Label();
             LabelServiceOutput.Text = "Service:";
@@ -210,32 +310,34 @@ namespace MKproject.Schedule
             //LabelServiceBalance.Margin = new Padding(0);
             //LabelServiceBalance.Anchor = AnchorStyles.Left;
 
+
         }
 
 
         private void ButtonChangeORChooseService_Click(object sender, EventArgs e)
         {
-
+            ChooseService chooseService = new ChooseService(this);
+            chooseService.ShowDialog();
         }
 
         private void IconProfile_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-            DesiredClient = ClassClient.CreateClientObject((int)DesiredClient.ClientId);
 
             if (Program.clientManagementProfile == null)
             {
-                Program.clientManagementProfile = new ClientManagementProfile(DesiredClient, true);
+                Program.clientManagementProfile = new ClientManagementProfile(ClassClient.CreateClientObject((int)DesiredClient.ClientId), true);
             }
             else
             {
                 Program.clientManagementProfile.LoadData(DesiredClient, true);
-                Program.clientManagementProfile.FormatDatagridviewDesign();// ma aam tozbat men wara el show dialog, bas eemlna glitch bel event visible chnaged on the form
+                // ma aam tozbat el formatdatatgrid men wara el show dialog, bas eemlna glitch bel event visible chnaged on the form
             }
             Program.clientManagementProfile.Size = new Size(1000, 659);
             Program.clientManagementProfile.FormBorderStyle = FormBorderStyle.Sizable;
             Program.clientManagementProfile.Tag = Program.clientManagementProfile;
             Program.clientManagementProfile.FormClosing += ClientManagementProfile_FormClosing;
+            Program.clientManagementProfile.TopLevel = true;//ejbare
             Program.clientManagementProfile.ShowDialog();
             Cursor = Cursors.Default;
 
@@ -244,9 +346,14 @@ namespace MKproject.Schedule
         private void ClientManagementProfile_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            Program.clientManagementProfile.Hide();
+            Program.clientManagementProfile.TopLevel = false;//ejbare kermel ma tsakkir li tahta
+            Program.clientManagementProfile.Visible = false;
             Program.clientManagementProfile.FormClosing -= ClientManagementProfile_FormClosing;
-            SetDesignMode();
+
+            //in case we have changed the name
+            DesiredClient.Fname = Program.clientManagementProfile.Client.Fname;
+            DesiredClient.Lname = Program.clientManagementProfile.Client.Lname;
+            SetDesignMode(null);
         }
 
 
@@ -283,7 +390,7 @@ namespace MKproject.Schedule
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
             label1.Select();
-            SetDesignMode();
+            SetDesignMode(null);
         }
 
         private void TLPAddNewClient_MouseMove(object sender, MouseEventArgs e)
@@ -306,15 +413,15 @@ namespace MKproject.Schedule
                 Program.NewRegisterForm.Resetcontrols();
                 Program.NewRegisterForm.LoadForm(null, DesiredClient);
             }
-            Program.NewRegisterForm.FormClosed += NewRegisterForm_FormClosed;
+            Program.NewRegisterForm.ClientSaved += NewRegisterForm_ClientSaved;
             Program.NewRegisterForm.ShowDialog();
         }
 
-        private void NewRegisterForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void NewRegisterForm_ClientSaved(object sender, EventArgs e)
         {
-
-            SetDesignMode();
-            Program.NewRegisterForm.FormClosed -= NewRegisterForm_FormClosed;
+            SetDesignMode(null);
+            Program.NewRegisterForm.FormClosed -= NewRegisterForm_ClientSaved;
         }
+
     }
 }

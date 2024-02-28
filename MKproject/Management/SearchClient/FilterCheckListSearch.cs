@@ -649,7 +649,7 @@ namespace MKproject.Management
             foreach (DataRow dtrow in DtRows)
             {
 
-                PackageRemainings += ClassChosenClientBalance.SetPackageFormatFromBalance(dtrow);               
+                PackageRemainings += ClassChosenClientBalance.SetPackageRemainingsFormat(dtrow);               
                 PackageRemainings += Environment.NewLine;
             }
 
