@@ -200,10 +200,6 @@ namespace MKproject.Schedule
                             {
                                 ucappointment.Width = UCappointments.OriginalWidth; ;
                             }
-                            foreach (UCmeeting ucmeeting in flowLayoutPanel.Controls.OfType<UCmeeting>())
-                            {
-                                ucmeeting.Width = UCappointments.OriginalWidth;
-                            }
 
 
                             //eza ee edit width

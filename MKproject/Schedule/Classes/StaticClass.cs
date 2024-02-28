@@ -9,7 +9,8 @@ namespace MKproject.Schedule
         public enum AppointmentType
         {
             Member,
-            Solo,// bi kun ekhid a specific service
+            visitor,
+            NoneVisitor,
             Others
         }
 

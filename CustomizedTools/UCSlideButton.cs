@@ -35,7 +35,7 @@ namespace CustomizedTools
             button1.BackColor = ColorClicked;
             button2.BackColor = ColorUnclicked;
             Button1Clicked?.Invoke(this, e);
-          
+
         }
 
         public void button2_Click(object sender, EventArgs e)

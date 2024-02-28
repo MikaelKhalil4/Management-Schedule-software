@@ -1792,8 +1792,6 @@ C:\MKproject\MKproject\obj\Debug\MKproject.Management.UCNumberLabelButt.resource
 C:\MKproject\MKproject\obj\Debug\MKproject.Management.UCCamera.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Management.UCDoubleCombo.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.Appointment.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCClient.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCMeetingInAppointment.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.AvailabilityLayout.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.Coach.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCTimeavailability.resources
@@ -1812,10 +1810,7 @@ C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.Reminder.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCappointments.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCCoach.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCData.UCData.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCmeeting.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCreminder.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.AppointmentUpdate.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.MeetingUpdate.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Search.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
 C:\MKproject\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
@@ -1824,6 +1819,7 @@ C:\MKproject\MKproject\obj\Debug\MKproject.application
 C:\MKproject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
 C:\MKproject\MKproject\obj\Debug\MKproject.exe
 C:\MKproject\MKproject\obj\Debug\MKproject.pdb
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.AppointmentF.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.AppointmentF.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources
+C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources
+C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCOthersApp.resources

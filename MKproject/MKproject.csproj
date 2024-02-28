@@ -420,23 +420,13 @@
     <Compile Include="Schedule\Appointmentform\Appointment.Designer.cs">
       <DependentUpon>Appointment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Schedule\Appointmentform\AppointmentF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Appointmentform\AppointmentF.designer.cs">
-      <DependentUpon>AppointmentF.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Appointmentform\UCClient.cs">
+    <Compile Include="Schedule\Appointmentform\ClassAppointment.cs" />
+    <Compile Include="Schedule\Appointmentform\ClassAppOthers.cs" />
+    <Compile Include="Schedule\Appointmentform\UCOthersApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Appointmentform\UCClient.designer.cs">
-      <DependentUpon>UCClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Appointmentform\UCMeetingInAppointment.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Schedule\Appointmentform\UCMeetingInAppointment.designer.cs">
-      <DependentUpon>UCMeetingInAppointment.cs</DependentUpon>
+    <Compile Include="Schedule\Appointmentform\UCOthersApp.Designer.cs">
+      <DependentUpon>UCOthersApp.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\AppointmentManagement\UCClientApp.cs">
       <SubType>UserControl</SubType>
@@ -554,6 +544,7 @@
     <Compile Include="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Schedule\UCData\ClassReminder.cs" />
     <Compile Include="Schedule\UCData\UCappointments.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -566,29 +557,11 @@
     <Compile Include="Schedule\UCData\UCcoach.designer.cs">
       <DependentUpon>UCcoach.cs</DependentUpon>
     </Compile>
-    <Compile Include="Schedule\UCData\UCmeeting.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Schedule\UCData\UCmeeting.designer.cs">
-      <DependentUpon>UCmeeting.cs</DependentUpon>
-    </Compile>
     <Compile Include="Schedule\UCData\UCreminder.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Schedule\UCData\UCreminder.designer.cs">
       <DependentUpon>UCreminder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\UpdateUCData\AppointmentUpdate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\UpdateUCData\AppointmentUpdate.designer.cs">
-      <DependentUpon>AppointmentUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\UpdateUCData\MeetingUpdate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\UpdateUCData\MeetingUpdate.designer.cs">
-      <DependentUpon>MeetingUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Search.cs">
       <SubType>Form</SubType>
@@ -727,14 +700,8 @@
     <EmbeddedResource Include="Schedule\Appointmentform\Appointment.resx">
       <DependentUpon>Appointment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Appointmentform\AppointmentF.resx">
-      <DependentUpon>AppointmentF.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Appointmentform\UCClient.resx">
-      <DependentUpon>UCClient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Appointmentform\UCMeetingInAppointment.resx">
-      <DependentUpon>UCMeetingInAppointment.cs</DependentUpon>
+    <EmbeddedResource Include="Schedule\Appointmentform\UCOthersApp.resx">
+      <DependentUpon>UCOthersApp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\AppointmentManagement\UCClientApp.resx">
       <DependentUpon>UCClientApp.cs</DependentUpon>
@@ -791,17 +758,8 @@
       <DependentUpon>UCcoach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\UCData\UCData.resx" />
-    <EmbeddedResource Include="Schedule\UCData\UCmeeting.resx">
-      <DependentUpon>UCmeeting.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Schedule\UCData\UCreminder.resx">
       <DependentUpon>UCreminder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\UpdateUCData\AppointmentUpdate.resx">
-      <DependentUpon>AppointmentUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\UpdateUCData\MeetingUpdate.resx">
-      <DependentUpon>MeetingUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Search.resx">
       <DependentUpon>Search.cs</DependentUpon>

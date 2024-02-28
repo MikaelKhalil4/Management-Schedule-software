@@ -1,4 +1,5 @@
 ﻿using MKproject.Management;
+using MKproject.Schedule.UCData;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace MKproject.Schedule
         bool Isclientreminder;
 
         ClassClient DesiredClient = new ClassClient();
-
+        ClassReminder DesiredReminder = new ClassReminder();
 
         //Initialise
         public Reminder()
@@ -255,7 +256,6 @@ namespace MKproject.Schedule
             //The title is here
             else
             {
-
                 string repeat = labelrepeat.Text;
                 if(labelrepeat.Text == Reminder.Everyweek)
                 {
@@ -275,8 +275,15 @@ namespace MKproject.Schedule
                     //FROM ClientReminder
                     if (Isclientreminder)
                     {
+                        //We are getting the ucreminder just for the id
                         UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.Idreminder == ucreminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
 
+                        DesiredReminder.Idreminder = foundUcReminder.Idreminder;
+                        DesiredReminder.DesiredClient = DesiredClient;
+                        DesiredReminder.Reminder = textBoxReminder.Text;
+                        DesiredReminder.Repeat = repeat;
+                        DesiredReminder.StartTime = monthCalendarStart.SelectionStart;
+                        DesiredReminder.LabelQuote = labelQuote.Text;
 
                         int? clientid;
                         string clientname;
@@ -425,10 +432,6 @@ namespace MKproject.Schedule
             searchname.Show();
         }
 
-        private void Searchname_Deactivate(object sender, EventArgs e)
-        {
-            label3.Select();
-        }
 
         ///-Change:
         public void HandleClientNameChanged(object sender, EventArgs e)
@@ -488,6 +491,10 @@ namespace MKproject.Schedule
         }
 
         ///-Close
+        private void Searchname_Deactivate(object sender, EventArgs e)
+        {
+            label3.Select();
+        }
         private void Reminder_FormClosed(object sender, FormClosedEventArgs e)
         {
             StaticClass.StaticClientNameChanged -= HandleClientNameChanged;

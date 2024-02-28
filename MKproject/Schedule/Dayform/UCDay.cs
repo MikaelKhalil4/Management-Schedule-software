@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Data.SqlClient;
+using MKproject.Schedule.Appointmentform;
 
 namespace MKproject.Schedule
 {
@@ -343,7 +344,7 @@ namespace MKproject.Schedule
                     UCTime uctime = (UCTime)TLPAppointment.GetControlFromPosition(0, rowIndex);//get the uctime wich he has the same row to get the time1 and display it in the combobox  of the appointment
 
                     int columnIndex = TLPAppointment.GetColumn(clickedPanel);
-                    AppointmentF appointment = new AppointmentF(this, uctime, ListCoach_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
+                    Appointment appointment = new Appointment(this, uctime, ListCoach_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
                     appointment.ShowDialog();
                 }
             }
@@ -631,11 +632,6 @@ namespace MKproject.Schedule
                                 ucappointment.Width = UCappointments.OriginalWidth;
                             }
 
-
-                            foreach (UCmeeting ucmeeting in flowLayoutPanel.Controls.OfType<UCmeeting>())
-                            {
-                                ucmeeting.Width = UCappointments.OriginalWidth;
-                            }
                         }
 
 
@@ -755,7 +751,7 @@ namespace MKproject.Schedule
                     }
 
                     //Getting From SQL Coaches who trained and haved Meeting
-                    List<int> coaches_idwhotrained = SQLToProject.DisplayCoachesIdWhoTrained(this, rankcoaches_id);
+                    List<int> coaches_idwhotrained = ClassAppointment.DisplayCoachesIdWhoTrained(this, rankcoaches_id);
 
 
                     //Getting the finale List Of the Rank and Availability of the coaches who were checked and trained in this day
@@ -816,18 +812,15 @@ namespace MKproject.Schedule
         }//Display the title and the ucappointments
 
         ///-Add
-        public void AddUCappointments(int coach_id, int? idclient, string fullname, DateTime starttime, DateTime endtime, string notes, bool onpending, string clienttype)
+        public void AddUCappointments(ClassAppointment DesiredAppointment)
         {
-            //SQL:
-            int idappointment = ProjectToSql.AddFromAppoitementtoSQL(coach_id, idclient, starttime, endtime, notes, onpending, clienttype);
-
             //Design
-            UCappointments ucappointments = new UCappointments(idappointment, coach_id, idclient, fullname, starttime, endtime, notes, onpending, this, clienttype);
+            UCappointments ucappointments = new UCappointments(DesiredAppointment, this);
             ucappointments.Width = UCappointments.OriginalWidth;
 
            
             //Adding Appointment
-            clickedPanel.Controls.Add(ucappointments);
+            clickedPanel.Controls.Add(ucappointments);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
             //Getting the position of the flow layout panel
             TableLayoutPanelCellPosition position = TLPAppointment.GetPositionFromControl(clickedPanel);
@@ -903,96 +896,6 @@ namespace MKproject.Schedule
 
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
         }
-        public void AddUCmeeting(int idcoach, string title, DateTime starttime, DateTime endtime, string Note, bool onpending)
-        {
-            //SQL
-            int idmeeting = ProjectToSql.AddFromMeetingtoSQL(idcoach, title, starttime, endtime, Note, onpending);
-
-            //DESIGN
-            UCmeeting ucmeeting = new UCmeeting(idmeeting, idcoach, title, starttime, endtime, Note, onpending, this);
-
-          
-            //Adding Appointment
-            clickedPanel.Controls.Add(ucmeeting);
-
-
-            //Getting the position of the flow layout panel
-            TableLayoutPanelCellPosition position = TLPAppointment.GetPositionFromControl(clickedPanel);
-            OneUCAColumnPosition = position.Column;
-            OneUCARowPosition = position.Row;
-
-
-
-            //Absolute
-            if (TLPAppointment.ColumnStyles[position.Column].SizeType is SizeType.Absolute)
-            {
-
-                //FLP That has the biggest number of ucdata
-                int MaxNumberOfUcData = 0;
-                int rowOfThemaxflowLayPan = 0;
-                for (int i = 0; i < TLPAppointment.RowCount; i++)
-                {
-                    Control cellControl = TLPAppointment.GetControlFromPosition(position.Column, i);
-                    if (cellControl is FlowLayoutPanel)
-                    {
-                        FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                        if (MaxNumberOfUcData < MaxFlowLayoutPanel.Controls.Count)
-                        {
-                            MaxNumberOfUcData = MaxFlowLayoutPanel.Controls.Count;
-                            rowOfThemaxflowLayPan = i;
-                        }
-                    }
-                }
-
-                //If Clicked FLP is MaxFlowLayoutPanel then it may affect the column absolute size
-                if (rowOfThemaxflowLayPan == position.Row)
-                {
-                    EditColumnAbsoluteSize(position.Column, position.Row);
-                }
-
-                //se3eta bas momkin yet2asar lwidthucappointment
-                else
-                {
-                    int columnwidth = TLPAppointment.GetColumnWidths()[position.Column];
-
-                    //eza ee edit width
-                    if (((UCappointments.OriginalWidth * clickedPanel.Controls.Count) + KeepSpace) > columnwidth)
-                    {
-                        EditWidthAppointment(clickedPanel, columnwidth);
-                    }
-                }
-            }
-
-
-            //Percentage
-            else
-            {
-                for (int i = 0; i < TLPAppointment.RowCount; i++)
-                {
-
-                    Control cellControl1 = TLPAppointment.GetControlFromPosition(position.Column, i);
-
-                    if (cellControl1 is FlowLayoutPanel)
-                    {
-                        FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
-
-
-                        int columnwidth = TLPAppointment.GetColumnWidths()[position.Column];
-
-                        //eza ee edit width
-                        if (((UCappointments.OriginalWidth * clickedPanel.Controls.Count) + KeepSpace) > columnwidth)
-                        {
-                            EditWidthAppointment(clickedPanel, columnwidth);
-                        }
-                    }
-                }
-            }
-
-
-
-            TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
-        }
-
 
 
         ///-Fill With Appointments
@@ -1018,8 +921,7 @@ namespace MKproject.Schedule
             }
 
             //Getting From SQL Appointments & Meetings of this day and the Listed Coaches
-            thisdaydatatableAppointments = SQLToProject.DisplayAppointmentsWhereCoaches(this, ListCoach_idChecked);
-            thisdaydatatableMeetings = SQLToProject.DisplayMeetingsWhereCoaches(this, ListCoach_idChecked);
+            thisdaydatatableAppointments = ClassAppointment.DisplayAppointmentsWhereCoaches(this, ListCoach_idChecked);
 
             UCappointmentsFill(ListCoach_idChecked);
 
@@ -1078,31 +980,33 @@ namespace MKproject.Schedule
             //Editing TBP
             AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);
 
-            thisdaydatatableAppointments = SQLToProject.DisplayAppointmentsOneCoach(this, coach_id);
-            thisdaydatatableMeetings = SQLToProject.DisplayMeetingsOneCoach(this, coach_id);
+            thisdaydatatableAppointments = ClassAppointment.DisplayAppointmentsOneCoach(this, coach_id);
 
 
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
             {
-                int appointment_id = Convert.ToInt32(dr[0]);
+                ClassAppointment DesiredAppointment = new ClassAppointment();
+                DesiredAppointment.IdAppointment = Convert.ToInt32(dr[0]);
+                DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr[1]);
 
-                int client_id = Convert.ToInt32(dr[1]);
+                DesiredAppointment.DesiredClient.Fname = dr[2].ToString();
+                DesiredAppointment.DesiredClient.Lname = dr[3].ToString();
 
-                string fullname = dr[2].ToString() + " " + dr[3].ToString();
+                DesiredAppointment.StartTime = (DateTime)dr[4];
+                DesiredAppointment.EndTime = (DateTime)dr[5];
 
-                DateTime starttime = (DateTime)dr[4];
-                DateTime endtime = (DateTime)dr[5];
+                DesiredAppointment.Notes = dr[6].ToString();
 
-                string Note = dr[6].ToString();
+                DesiredAppointment.OnPending = Convert.ToBoolean(dr[7]);
+                DesiredAppointment.IdCoach = coach_id;
 
-                bool onpending = Convert.ToBoolean(dr[7]);
-
-                string clienttype = dr[8].ToString();
-
-                UCappointments ucappointments = new UCappointments(appointment_id, coach_id, client_id, fullname, starttime, endtime, Note, onpending, this, clienttype);
+                //string clienttype = dr[8].ToString();
 
 
-                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
+                UCappointments ucappointments = new UCappointments(DesiredAppointment, this);
+
+
+                TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
                 int positionrow = starttimeTimeSpan.Hours;
                 int positioncol = ListCoach_idChecked.IndexOf(coach_id) + 1;//BOOM
                 FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
@@ -1121,37 +1025,6 @@ namespace MKproject.Schedule
             }
 
 
-            foreach (DataRow dr in thisdaydatatableMeetings.Rows)
-            {
-                int meeting_id = Convert.ToInt32(dr[0]);
-                string title = dr[2].ToString();
-
-
-                DateTime starttime = (DateTime)dr[3];
-                DateTime endtime = (DateTime)dr[4];
-
-                string Note = dr[5].ToString();
-
-                bool onpending = Convert.ToBoolean(dr[6]);
-
-                UCmeeting ucmeeting = new UCmeeting(meeting_id, coach_id, title, starttime, endtime, Note, onpending, this);
-
-
-                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
-                int positionrow = starttimeTimeSpan.Hours;
-                int positioncol = ListCoach_idChecked.IndexOf(coach_id) + 1;
-                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
-               
-
-
-                if (flowLayoutPanel.BackColor == DisableColorFLP)
-                {
-                    ucmeeting.BackColor = ErrorColor;
-                    ucmeeting.tableLayoutPanel2.BackColor = DisableColorTBUca;
-                }
-                flowLayoutPanel.Controls.Add(ucmeeting);
-                //EditWidthAppointment(flowLayoutPanel);
-            }
 
             Label label = (Label)TLPCoaches.GetControlFromPosition(columnindex, 0);
             label.Text = coachname;
@@ -1185,8 +1058,8 @@ namespace MKproject.Schedule
         {
 
             //now we have to display the appointemnts
-            thisdaydatatableAppointments = SQLToProject.DisplayAppointmentsWhereCoaches(this, rankcoaches_id);
-            thisdaydatatableMeetings = SQLToProject.DisplayMeetingsWhereCoaches(this, rankcoaches_id);
+            thisdaydatatableAppointments = ClassAppointment.DisplayAppointmentsWhereCoaches(this, rankcoaches_id);
+
 
             UCappointmentsFill(rankcoaches_id);
 
@@ -1224,28 +1097,30 @@ namespace MKproject.Schedule
         {
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
             {
-                int appointment_id = Convert.ToInt32(dr[0]);
-                int coach_id = Convert.ToInt32(dr[1]);
-                int client_id = Convert.ToInt32(dr[2]);
+                ClassAppointment DesiredAppointment = new ClassAppointment();
+                DesiredAppointment.IdAppointment = Convert.ToInt32(dr[0]);
+                DesiredAppointment.IdCoach = Convert.ToInt32(dr[1]);
+                DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr[2]);
 
-                string fullname = dr[3].ToString() + " " + dr[4].ToString();
+                DesiredAppointment.DesiredClient.Fname = dr[3].ToString(); 
+                DesiredAppointment.DesiredClient.Lname = dr[4].ToString();
 
-                DateTime starttime = (DateTime)dr[5];
-                DateTime endtime = (DateTime)dr[6];
+                DesiredAppointment.StartTime = (DateTime)dr[5];
+                DesiredAppointment.EndTime = (DateTime)dr[6];
 
-                string Note = dr[7].ToString();
+                DesiredAppointment.Notes = dr[7].ToString();
 
-                bool onpending = Convert.ToBoolean(dr[8]);
-
-
-                string clienttype = dr[9].ToString();
-
-                UCappointments ucappointments = new UCappointments(appointment_id, coach_id, client_id, fullname, starttime, endtime, Note, onpending, this, clienttype);
+                DesiredAppointment.OnPending = Convert.ToBoolean(dr[8]);
 
 
-                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
+                //string clienttype = dr[9].ToString();
+
+                UCappointments ucappointments = new UCappointments(DesiredAppointment ,this);
+
+
+                TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
                 int positionrow = starttimeTimeSpan.Hours;
-                int positioncol = rankcoaches_id.IndexOf(coach_id) + 1;
+                int positioncol = rankcoaches_id.IndexOf(DesiredAppointment.IdCoach) + 1;
                 FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
                
 
@@ -1260,38 +1135,6 @@ namespace MKproject.Schedule
             }
 
 
-            foreach (DataRow dr in thisdaydatatableMeetings.Rows)
-            {
-                int meeting_id = Convert.ToInt32(dr[0]);
-                int coach_id = Convert.ToInt32(dr[1]);
-                string title = dr[2].ToString();
-
-
-                DateTime starttime = (DateTime)dr[3];
-                DateTime endtime = (DateTime)dr[4];
-
-                string Note = dr[5].ToString();
-
-                bool onpending = Convert.ToBoolean(dr[6]);
-
-                UCmeeting ucmeeting = new UCmeeting(meeting_id, coach_id, title, starttime, endtime, Note, onpending, this);
-
-
-                TimeSpan starttimeTimeSpan = starttime.TimeOfDay;//bas kermel le2e uctime
-                int positionrow = starttimeTimeSpan.Hours;
-                int positioncol = rankcoaches_id.IndexOf(coach_id) + 1;
-                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
-                
-
-
-                if (flowLayoutPanel.BackColor == DisableColorFLP)
-                {
-                    ucmeeting.BackColor = ErrorColor;
-                    ucmeeting.tableLayoutPanel2.BackColor = DisableColorTBUca;
-                }
-                flowLayoutPanel.Controls.Add(ucmeeting);
-                //EditWidthAppointment(flowLayoutPanel);
-            }
         }
 
         ///-Editing The Table Layout Panel
@@ -1757,11 +1600,6 @@ namespace MKproject.Schedule
             {
                 ucappointment.Width = (columnwidth - KeepSpace - (NumberOfControls * ucappointment.Margin.Horizontal)) / (NumberOfControls);//UCAddClick.Width it's static width that I declared it
             }
-            foreach (UCmeeting ucmeeting in flowLayoutPanel.Controls.OfType<UCmeeting>())
-            {
-                ucmeeting.Width = (columnwidth - KeepSpace - (NumberOfControls * ucmeeting.Margin.Horizontal)) / (NumberOfControls);//UCAddClick.Width it's static width that I declared it
-            }
-
         }//When the count of the ucappointments in the FLP is Above 3 
 
        
@@ -1784,11 +1622,6 @@ namespace MKproject.Schedule
                         ucappointment.Width = UCappointments.OriginalWidth;//UCAddClick.Width it's static width that I declared it
                     }
 
-
-                    foreach (UCmeeting ucmeeting in innerFlowLayoutPanel1.Controls.OfType<UCmeeting>())
-                    {
-                        ucmeeting.Width = UCappointments.OriginalWidth;//UCAddClick.Width it's static width that I declared it
-                    }
                 }
             }
         }//when we get the column absolute to perc we will give back the ucappointments the originale size

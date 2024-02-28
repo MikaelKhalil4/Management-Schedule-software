@@ -4,88 +4,54 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using static MKproject.Schedule.StaticClass;
+using MKproject.Management;
 
 namespace MKproject.Schedule
 {
     public partial class UCappointments : UserControl
     {
-        //SQL
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
-
         //PROPERTY:
-        public int IdAppointment { get; set; }
-        public int? IdClient { get; set; }
-        public int IdCoach { get; set; }
-        public string Notes { get; set; }
-
-
-        private DateTime starttime;
-        public DateTime StartTime
+        private ClassAppointment desiredappointment;
+        public ClassAppointment DesiredAppointment
         {
-            get { return starttime; }
-            set
+            get { return desiredappointment; }
+            set 
             {
-                starttime = value;
-                string timestring = starttime.ToString("h:mm tt");
+                desiredappointment = value;
+
+                //Name
+                checkBoxAppointment.Text = desiredappointment.DesiredClient.Fname + " " + desiredappointment.DesiredClient.Lname;
+
+                //StartTime
+                string timestring = desiredappointment.StartTime.ToString("h:mm tt");
                 string[] partstime = timestring.Split(' ');
                 labelStartTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
-            }
-        }
 
-
-        private DateTime endtime;
-        public DateTime EndTime
-        {
-            get { return endtime; }
-            set
-            {
-                endtime = value;
-                string timestring = endtime.ToString("h:mm tt");
-                string[] partstime = timestring.Split(' ');
+                //EndTime
+                timestring = desiredappointment.EndTime.ToString("h:mm tt");
+                partstime = timestring.Split(' ');
                 labelEndTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
-            }
-        }
 
+                //OnPending
+                checkBoxAppointment.Checked = desiredappointment.OnPending;
 
-        private bool onpending;
-        public bool OnPending
-        {
-            get { return onpending; }
-            set { onpending = value; checkBoxAppointment.Checked = onpending; }
-        }
-
-
-        private string fullname;
-        public string FullName
-        {
-            get { return fullname; }
-            set { fullname = value; checkBoxAppointment.Text = fullname; }
-        }
-
-        private string clienttype;
-
-        public string ClientType
-        {
-            get { return clienttype; }
-            set
-            {
-                clienttype = value;
-                if (clienttype == StaticClass.AppointmentType.Member.ToString())
-                {
-                    this.BackColor = Color.FromArgb(109, 122, 224);
-                }
-                else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
-                {
-                    this.BackColor = Color.FromArgb(202, 88, 229);
-                }
-                else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
-                {
-                    this.BackColor = Color.FromArgb(74, 220, 168);
-                }
-                else//Meeting
-                {
-                    this.BackColor = Color.FromArgb(255, 102, 147);
-                }
+                //ClientType
+                //if (clienttype == StaticClass.AppointmentType.Member.ToString())
+                //{
+                //    this.BackColor = Color.FromArgb(109, 122, 224);
+                //}
+                //else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
+                //{
+                //    this.BackColor = Color.FromArgb(202, 88, 229);
+                //}
+                //else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
+                //{
+                //    this.BackColor = Color.FromArgb(74, 220, 168);
+                //}
+                //else//Meeting
+                //{
+                //    this.BackColor = Color.FromArgb(255, 102, 147);
+                //}
             }
         }
 
@@ -95,7 +61,6 @@ namespace MKproject.Schedule
         UCDay ucday;
         public static int OriginalWidth = 230;
 
-
         //INITIALISE
         public UCappointments()
         {
@@ -104,36 +69,23 @@ namespace MKproject.Schedule
 
 
         //ADD and SELECT (remember in add there's no uctime but in select there's)
-        public UCappointments(int appointment_id, int coach_id, int? idclient, string fullname, DateTime starttime, DateTime endtime, string notes, bool onpending, UCDay form1, string clienttype)
+        public UCappointments(ClassAppointment desiredappointment,UCDay uCDay)
         {
             InitializeComponent();
-            IdAppointment = appointment_id;
-            IdCoach = coach_id;
-            IdClient = idclient;
-            StartTime = starttime;
-            EndTime = endtime;
-            Notes = notes;
-            OnPending = onpending;
-            FullName = fullname;
-            ucday = form1;
-            ClientType = clienttype;
+            DesiredAppointment = desiredappointment;
+            ucday = uCDay;
+            //ClientType = DesiredAppointment;
         }
 
 
         //UPDATE
-        public void UpdateAppointments(int? idclient, string fullname, DateTime starttime, DateTime endtime, string notes, bool onpending, string clienttype)
+        public void UpdateAppointments(ClassAppointment desiredappointment)
         {
             //SQL
-            ProjectToSql.UpdateFromAppoitementtoSQL(IdAppointment, idclient, starttime, endtime, notes, onpending, clienttype);
+            desiredappointment.UpdateFromAppoitementtoSQL();
 
             //UPDATE DESIGN
-            IdClient = idclient;
-            StartTime = starttime;
-            EndTime = endtime;
-            Notes = notes;
-            OnPending = onpending;
-            FullName = fullname;
-            ClientType = clienttype;
+            DesiredAppointment = desiredappointment;
         }
 
 
@@ -143,7 +95,7 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false && ucday.IsHistory == false)
             {
-                AppointmentUpdate appointmentupdate = new AppointmentUpdate(this);
+                Appointment appointmentupdate = new Appointment(this);
                 appointmentupdate.ShowDialog();
             }
             else
@@ -153,23 +105,27 @@ namespace MKproject.Schedule
         }
         private void checkBoxOnPending_Click(object sender, EventArgs e)
         {
+            //Class
+            DesiredAppointment.OnPending = checkBoxAppointment.Checked;
+
             //SQL
-            ProjectToSql.UpdateAppointmentCheck(IdAppointment, checkBoxAppointment.Checked);
+            DesiredAppointment.UpdateAppointmentCheck();
 
             //DESIGN
-            OnPending = checkBoxAppointment.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
+
+            DesiredAppointment.OnPending = checkBoxAppointment.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
            
         }
 
         public void RemoveAppointment()
         {
             //SQL
-            ProjectToSql.DeleteAppointment(IdAppointment);
+            DesiredAppointment.DeleteAppointment();
 
             //DESIGN
-            TimeSpan starttimeTimeSpan = StartTime.TimeOfDay;
+            TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;
             int positionrow = starttimeTimeSpan.Hours;
-            int positioncol = ucday.ListCoach_idChecked.IndexOf(IdCoach) + 1;
+            int positioncol = ucday.ListCoach_idChecked.IndexOf(DesiredAppointment.IdCoach) + 1;
             FlowLayoutPanel clickedflowLayoutPanel = ucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
             this.Dispose();
 
@@ -180,11 +136,6 @@ namespace MKproject.Schedule
                 ucappointment.Width = UCappointments.OriginalWidth;//UCAddClick.Width it's static width that I declared it
             }
 
-
-            foreach (UCmeeting ucmeeting in clickedflowLayoutPanel.Controls.OfType<UCmeeting>())
-            {
-                ucmeeting.Width = UCappointments.OriginalWidth;//UCAddClick.Width it's static width that I declared it
-            }
 
 
 

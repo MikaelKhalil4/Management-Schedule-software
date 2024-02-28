@@ -21,7 +21,6 @@ namespace MKproject.Schedule
         }
 
         //VARIABLE:
-        bool Isstarttime;
         CBdisplayTime displaytime;
 
 
@@ -29,11 +28,10 @@ namespace MKproject.Schedule
         public LabelTime()
         {
         }
-        public LabelTime(TimeSpan time, CBdisplayTime form1,bool boolean)
+        public LabelTime(TimeSpan time, CBdisplayTime form1)
         {
             Time = time;
             displaytime = form1;
-            Isstarttime = boolean;
 
             this.Size = new Size(94, 24);
             this.Font = new Font("Segoe UI", 8.75f);
@@ -56,13 +54,13 @@ namespace MKproject.Schedule
         private void labeltime_MouseClick(object sender, MouseEventArgs e)
         {
 
-            if (Isstarttime)
-            {
-                displaytime.textBoxTime.Text = this.Text;
-                displaytime.Close();
-            }
-            else
-            {
+            //if (Isstarttime)
+            //{
+            //    displaytime.textBoxTime.Text = this.Text;
+            //    displaytime.Close();
+            //}
+            //else
+            //{
                 if (TouchScroll.MoveHoldClick == false)
                 {
                     displaytime.textBoxTime.Text = this.Text;
@@ -72,7 +70,7 @@ namespace MKproject.Schedule
                 {
 
                 }
-            }
+            //}
         }
 
 
