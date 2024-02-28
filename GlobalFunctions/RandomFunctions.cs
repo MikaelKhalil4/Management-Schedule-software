@@ -102,6 +102,32 @@ namespace GlobalFunctions
             }
             return Lastvisit;
         }
+        public static string SetDateFormatWithDayWithoutHour(string DesiredDate)
+        {
+            DateTime tomorrow = DateTime.Now.AddDays(1);
+            DateTime today = DateTime.Now;
+            string Lastvisit;
+
+            if (DesiredDate != DBNull.Value.ToString())
+            {
+                DateTime check_in = Convert.ToDateTime(DesiredDate);
+                if (check_in.Day == today.Day && check_in.Month == today.Month && check_in.Year == today.Year)
+                {
+                    Lastvisit = "Today";
+                }
+                else if (check_in.Day == tomorrow.Day && check_in.Month == tomorrow.Month && check_in.Year == tomorrow.Year)
+                {
+                    Lastvisit = "Tomorrow";
+                }
+                else Lastvisit = check_in.ToString("dddd, MMMM dd yyyy");
+            }
+            else
+            {
+                Lastvisit = null;
+            }
+            return Lastvisit;
+
+        }
         public static string SetDateFormatWithoutHour(string DesiredDate)
         {
             DateTime yesterday = DateTime.Now.AddDays(-1);
@@ -128,24 +154,7 @@ namespace GlobalFunctions
             return Lastvisit;
 
         }
-        public static string SetFullDateFormat(string DesiredDate)
-        {
-            DateTime yesterday = DateTime.Now.AddDays(-1);
-            DateTime today = DateTime.Now;
-            string date;
-
-            if (DesiredDate != DBNull.Value.ToString())
-            {
-                DateTime check_in = Convert.ToDateTime(DesiredDate);
-                date = check_in.ToString("MMMM, dd yyyy");
-            }
-            else
-            {
-                date = null;
-            }
-            return date;
-
-        }
+       
         public static int GetDaysDifference(DateTime startDate, DateTime endDate)
         {
             DateTime startDateOnly = startDate.Date;

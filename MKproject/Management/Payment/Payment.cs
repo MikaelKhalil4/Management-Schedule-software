@@ -403,18 +403,7 @@ namespace MKproject.Management
                 {
                     //dt update
                     string balance = "0";
-                    string FakeBalance = balance;
-                    if (FakeBalance.Contains('-'))
-                    {
-                        FakeBalance = balance.Substring(1);
-                        FakeBalance = "-" + DesiredRowsdt.Rows[0]["Symbol"] + FakeBalance;
-
-                    }
-                    else
-                    {
-                        FakeBalance = DesiredRowsdt.Rows[0]["Symbol"] + balance;
-                    }
-                    //logic ended
+                   
 
                     //SQL
                     backOffice = new ClassBackOffice((int)ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmoutPerRow + " for the " + BackOfficeCatName + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null, null, null, Date);
@@ -423,7 +412,7 @@ namespace MKproject.Management
 
                     //Design
                     DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["FakeBalance"] = FakeBalance;
+                    DesiredRowsdt.Rows[i]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                     DesiredRowsdt.Rows[i]["amount_paid"] = AmoutPerRow + (double)DesiredRowsdt.Rows[i]["amount_paid"];
                     DesiredRowsdt.Rows[i]["Paid"] = DesiredRowsdt.Rows[i]["Symbol"].ToString() + DesiredRowsdt.Rows[i]["amount_paid"].ToString();
                     //IsExpired and only for products cz bundles mesh men hone
@@ -456,17 +445,6 @@ namespace MKproject.Management
                 {
                     //logic started
                     string balance = Convert.ToString(-(AmoutPerRow - AmountPaid));
-                    string FakeBalance = balance;
-                    if (balance.Contains('-'))
-                    {
-                        FakeBalance = balance.Substring(1);
-                        FakeBalance = "-" + DesiredRowsdt.Rows[0]["Symbol"] + FakeBalance;
-
-                    }
-                    else
-                    {
-                        FakeBalance = DesiredRowsdt.Rows[0]["Symbol"] + balance;
-                    }
                     //logic ended
 
                     //Sql
@@ -475,7 +453,7 @@ namespace MKproject.Management
 
                     //Design
                     DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["FakeBalance"] = FakeBalance;
+                    DesiredRowsdt.Rows[i]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                     DesiredRowsdt.Rows[i]["amount_paid"] = AmountPaid + (double)DesiredRowsdt.Rows[i]["amount_paid"];
                     DesiredRowsdt.Rows[i]["Paid"] = DesiredRowsdt.Rows[i]["Symbol"].ToString() + DesiredRowsdt.Rows[i]["amount_paid"].ToString();
                     ListFinanceUpdates.Add((AmountPaid, ClientBalanceId));
@@ -490,11 +468,11 @@ namespace MKproject.Management
 
 
 
-            PaymentRefreshParentANDSql(ListFinanceUpdates, IsProduct, Date);//mahalla mazbut w mah ateassir law eemil crash backoffice masalan w el disign tabaa el payment ha yotlaa ghalat i agree bas el parent form ma tkun accurate, w eza tolii ghalat bel payment men sakkir el form fina
+            PaymentRefreshParentANDSql(ListFinanceUpdates, IsProduct, IsPackageOrSolo, Date);//mahalla mazbut w mah ateassir law eemil crash backoffice masalan w el disign tabaa el payment ha yotlaa ghalat i agree bas el parent form ma tkun accurate, w eza tolii ghalat bel payment men sakkir el form fina
             ClientManagementProfileParentForm.CalculatingClientHistory(true);
 
         }//try catch
-        void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct, DateTime Date)
+        void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct,bool? IsPackageOrSolo, DateTime Date)
         {
             //SQL
             ProjectToSQL.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredRowsdt, AffectedRow, ListFinanceUpdates, Date, ClientManagementProfileParentForm.Client.AlbumType);//mafik tsil affected row, ma32oul affected row awal men el count tabaa el desired dt
@@ -509,12 +487,12 @@ namespace MKproject.Management
                 rowToEdit["Paid"] = DesiredRowsdt.Rows[k]["Paid"];
                 rowToEdit["is_expired"] = DesiredRowsdt.Rows[k]["is_expired"];
 
-                if (IsProduct)//lieano el bundle men shello el expiry bel remove or renew
+                if (IsProduct ||(IsPackageOrSolo!=null && !(bool)IsPackageOrSolo))//lieano el bundle men shello el expiry bel remove or renew
                 {
                     rowToEdit["is_expired"] = DesiredRowsdt.Rows[k]["is_expired"];
                 }
             }
-            if (IsProduct)//lieanno el resorting only aal date which is fix and Is expired, since eza ma ken product isexpired ha teb2a metel a hiyye , so ma ela aaze ynaamal sorting lal bundle
+            if (IsProduct || (IsPackageOrSolo != null && !(bool)IsPackageOrSolo))//lieanno el resorting only aal date which is fix and Is expired, since eza ma ken product isexpired ha teb2a metel a hiyye , so ma ela aaze ynaamal sorting lal bundle
             {
                 ClientManagementProfileParentForm.ResortOriginalDataTableAndSetDatasource();
             }

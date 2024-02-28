@@ -31,15 +31,7 @@ namespace MKproject.Management
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewBundles = new DoubleBufferAndCustomScrollDataGrid();
-            this.ColumnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.BundleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BundleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SessionNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bundletype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MemberShip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewBundles = new CustomizedTools.DoubleBufferAndCustomScrollDataGrid();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBundles)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +41,6 @@ namespace MKproject.Management
             this.dataGridViewBundles.AllowUserToDeleteRows = false;
             this.dataGridViewBundles.AllowUserToResizeColumns = false;
             this.dataGridViewBundles.AllowUserToResizeRows = false;
-            this.dataGridViewBundles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewBundles.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewBundles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewBundles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -57,15 +48,6 @@ namespace MKproject.Management
             this.dataGridViewBundles.ColumnHeadersHeight = 50;
             this.dataGridViewBundles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewBundles.ColumnHeadersVisible = false;
-            this.dataGridViewBundles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnCheck,
-            this.BundleID,
-            this.BundleName,
-            this.Description,
-            this.SessionNumber,
-            this.bundletype,
-            this.Price,
-            this.MemberShip});
             this.dataGridViewBundles.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -94,65 +76,7 @@ namespace MKproject.Management
             this.dataGridViewBundles.Size = new System.Drawing.Size(443, 320);
             this.dataGridViewBundles.TabIndex = 0;
             this.dataGridViewBundles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBundles_CellClick);
-            // 
-            // ColumnCheck
-            // 
-            this.ColumnCheck.FillWeight = 10F;
-            this.ColumnCheck.HeaderText = "ColumnCheck";
-            this.ColumnCheck.Name = "ColumnCheck";
-            this.ColumnCheck.ReadOnly = true;
-            this.ColumnCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColumnCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // BundleID
-            // 
-            this.BundleID.HeaderText = "BundleID";
-            this.BundleID.Name = "BundleID";
-            this.BundleID.ReadOnly = true;
-            this.BundleID.Visible = false;
-            // 
-            // BundleName
-            // 
-            this.BundleName.FillWeight = 22.5F;
-            this.BundleName.HeaderText = "BundleName";
-            this.BundleName.Name = "BundleName";
-            this.BundleName.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.FillWeight = 22.5F;
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // SessionNumber
-            // 
-            this.SessionNumber.FillWeight = 22.5F;
-            this.SessionNumber.HeaderText = "SessionNumber";
-            this.SessionNumber.Name = "SessionNumber";
-            this.SessionNumber.ReadOnly = true;
-            // 
-            // bundletype
-            // 
-            this.bundletype.HeaderText = "bundletype";
-            this.bundletype.Name = "bundletype";
-            this.bundletype.ReadOnly = true;
-            this.bundletype.Visible = false;
-            // 
-            // Price
-            // 
-            this.Price.FillWeight = 22.5F;
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            // 
-            // MemberShip
-            // 
-            this.MemberShip.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.MemberShip.HeaderText = "MemberShip";
-            this.MemberShip.Name = "MemberShip";
-            this.MemberShip.ReadOnly = true;
-            this.MemberShip.Width = 5;
+            this.dataGridViewBundles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBundles_CellDoubleClick);
             // 
             // UCBundlesOutput
             // 
@@ -161,6 +85,7 @@ namespace MKproject.Management
             this.Controls.Add(this.dataGridViewBundles);
             this.Name = "UCBundlesOutput";
             this.Size = new System.Drawing.Size(443, 320);
+            this.Load += new System.EventHandler(this.UCBundlesOutput_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBundles)).EndInit();
             this.ResumeLayout(false);
 
@@ -169,13 +94,5 @@ namespace MKproject.Management
         #endregion
 
         private DoubleBufferAndCustomScrollDataGrid dataGridViewBundles;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BundleID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BundleName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SessionNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bundletype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MemberShip;
     }
 }

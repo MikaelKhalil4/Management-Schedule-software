@@ -477,7 +477,6 @@ namespace MKproject.Management
             {
                 FilterDatable();//should be async kermel el taeakhor tabaa el textbox changing
             }
-
         }
         private void UCClient_TextBoxClicked(object sender, EventArgs e)
         {
