@@ -430,18 +430,9 @@ namespace MKproject.Management
                 double OldBalance = (double)backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"];
                 string balance = Convert.ToString(OldBalance - AmountPaid);//eza kenit balance=-50 w paid 50 bet sir balance -100
                 backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"] = balance;
-                if (balance.Contains('-'))
-                {
-                    balance = balance.Substring(1);
-                    balance = "-" + Currency.Symbol + balance;
 
-                }
-                else
-                {
-                    balance = Currency.Symbol + balance;
-                }
                 //updating backoffice datatgridbalancce
-                backofficeform.DesiredBalanceRowsdt.Rows[0]["FakeBalance"] = balance;
+                backofficeform.DesiredBalanceRowsdt.Rows[0]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                 backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"] = (double)backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"] - AmountPaid;
                 backofficeform.DesiredBalanceRowsdt.Rows[0]["Paid"] = Currency.Symbol + backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"];
                 bool IsExpired = (bool)backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];

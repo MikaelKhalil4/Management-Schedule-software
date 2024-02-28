@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using GlobalFunctions;
+using static MKproject.Management.ClassBundles;
 
 namespace MKproject.Management
 {
@@ -88,6 +90,14 @@ namespace MKproject.Management
         public string SleepPattern { get; set; }
         public string StressLevel { get; set; }
         public string FightingSkills { get; set; }
+
+
+        //Used Only in schedule:
+        public ClassChosenClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
+
+        public List<ClassBundles> ChosenServicesList;//used when selecting new services
+        public string ChosenServicesDetails;//e.g: hair/Beard
+
 
         public enum ClientGender
         {
@@ -213,7 +223,7 @@ namespace MKproject.Management
         }
         public static DataTable GetAllClientSpecificInfoSQL()
         {
-            string queryClient = "select client_id, CONCAT(name, ' ', family_name) AS [Full Name], phone_number,Registration_Date from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
+            string queryClient = "select client_id,name,family_name, phone_number as \"Phone Number\",Registration_Date from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
      
             SqlCommand cmd = new SqlCommand(queryClient, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -476,7 +486,55 @@ namespace MKproject.Management
             cmd.ExecuteNonQuery();
             con.Close();
         }
+        
+        //when a client purchase eenda connection maa many forms, that swhy
+        public static DataTable PurchaseAService(ClassBundles Bundle,DateTime Date,ClassClient Client)
+        {
+            //SQLAndLogic                        
+            string action;
+            ActionsEnum actiontype;
+            int? StructId;
+            if (Bundle.EnumBundletype == ClassBundles.bundle.Solo)
+            {
+                action = "Purchased a " + Bundle.Name + ".";
+                actiontype = ActionsEnum.SoloPurchases;
+                ClassClient.UpdateClientCheckInSQL((int)Client.ClientId, Date);
+                ProjectToSQL.InsertToClientAttendance((int)Client.ClientId);
+                StructId = SQLToProject.GetLAstInsertedAttendance();//ejbare tahet InsertToClientAttendance
+            }
+            else
+            {
+                actiontype = ActionsEnum.Purchases;
+                action = "Purchased the " + Bundle.Name + " Package.";
+                StructId = null;
+            }
 
+            ProjectToSQL.InsertToClientBalance((int)Client.ClientId, Bundle.ID, Bundle.EnumBundletype.ToString());
+            DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
+            DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                                            
+
+            ClassBackOffice backOffice = new ClassBackOffice((int)Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
+            backOffice.InsertToArchiveSQL();
+
+            ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date, Client.AlbumType);//kermel el count
+
+            return dtinserteditem;
+        }
+        public static DataTable PurchaseAProduce(ClassProduct product , DateTime Date, ClassClient Client)
+        {
+            //SQL
+            ProjectToSQL.InsertToClientBalance((int)Client.ClientId, product.ID, null);
+            DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
+           
+            DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
+
+
+            ClassBackOffice backOffice = new ClassBackOffice((int)Client.ClientId, "Purchased " + product.Name + ".", ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, Date);
+            backOffice.InsertToArchiveSQL();
+
+            ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date,Client.AlbumType);//kermel el count
+            return dtinserteditem;
+        }
 
 
 

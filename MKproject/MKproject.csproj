@@ -193,6 +193,7 @@
     <Compile Include="Management\CalenderComponents\UCCalanderMonth.designer.cs">
       <DependentUpon>UCCalanderMonth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Management\Classes\ClassChosenClientBalance.cs" />
     <Compile Include="Management\NewRegister\UserControls\Camera.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -427,6 +428,12 @@
     </Compile>
     <Compile Include="Schedule\Appointmentform\UCOthersApp.Designer.cs">
       <DependentUpon>UCOthersApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\AppointmentManagement\ChooseService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schedule\AppointmentManagement\ChooseService.Designer.cs">
+      <DependentUpon>ChooseService.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\AppointmentManagement\UCClientApp.cs">
       <SubType>UserControl</SubType>
@@ -703,6 +710,9 @@
     <EmbeddedResource Include="Schedule\Appointmentform\UCOthersApp.resx">
       <DependentUpon>UCOthersApp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Schedule\AppointmentManagement\ChooseService.resx">
+      <DependentUpon>ChooseService.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Schedule\AppointmentManagement\UCClientApp.resx">
       <DependentUpon>UCClientApp.cs</DependentUpon>
     </EmbeddedResource>
@@ -805,6 +815,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\restore-down.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\search2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\user.png">

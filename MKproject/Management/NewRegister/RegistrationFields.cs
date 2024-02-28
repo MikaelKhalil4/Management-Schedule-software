@@ -52,7 +52,36 @@ namespace MKproject.Management
                 }
             }
         }
+        private void dataGridViewFieldsNew_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//kermel l selection color lal cell ma ykoun abyad w yet8ayar eza t8ayar l cell back color
+        {
 
+            DataGridViewCell cell = dataGridViewFieldsNew.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Exclude header cells
+            {
+                cell.Style.SelectionBackColor = cell.Style.BackColor;
+            }
+
+            if (e.RowIndex >= 0) // Assuming "balance" is the name of your balance column
+            {
+                if (e.ColumnIndex == dataGridViewFieldsNew.Columns["Visible"].Index)
+                {
+                    DataGridViewCell CellToModifie = dataGridViewFieldsNew.Rows[e.RowIndex].Cells["Required"];
+                    if (!Convert.ToBoolean(cell.Value))
+                    {
+
+                        CellToModifie.ReadOnly = true;
+                        CellToModifie.Style.BackColor = Color.LightGray;
+                        CellToModifie.Value = false;
+                    }
+                    else
+                    {
+                        CellToModifie.ReadOnly = false;
+                        CellToModifie.Style.BackColor = Color.White;
+                    }
+
+                }
+            }
+        }
 
         void FormatOriginalDt()
         {
@@ -282,36 +311,7 @@ namespace MKproject.Management
             }
         }
 
-        private void dataGridViewFieldsNew_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//kermel l selection color lal cell ma ykoun abyad w yet8ayar eza t8ayar l cell back color
-        {
-
-            DataGridViewCell cell = dataGridViewFieldsNew.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Exclude header cells
-            {
-                cell.Style.SelectionBackColor = cell.Style.BackColor;
-            }
-
-            if (e.RowIndex >= 0) // Assuming "balance" is the name of your balance column
-            {
-                if (e.ColumnIndex == dataGridViewFieldsNew.Columns["Visible"].Index)
-                {
-                    DataGridViewCell CellToModifie = dataGridViewFieldsNew.Rows[e.RowIndex].Cells["Required"];
-                    if (!Convert.ToBoolean(cell.Value))
-                    {
-
-                        CellToModifie.ReadOnly = true;
-                        CellToModifie.Style.BackColor = Color.LightGray;
-                        CellToModifie.Value = false;
-                    }
-                    else
-                    {
-                        CellToModifie.ReadOnly = false;
-                        CellToModifie.Style.BackColor = Color.White;
-                    }
-
-                }
-            }
-        }
+      
 
 
 
