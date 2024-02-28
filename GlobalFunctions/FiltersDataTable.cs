@@ -9,7 +9,7 @@ namespace GlobalFunctions
 {
     public class FiltersDataTable
     {
-        //this filter won t work , in case there were empty values in it, and all the filters also
+             
         public static DataTable FilterDatatableIfContainsIgnoringCapitals(string DesiredColumnName, String DesiredTarget, DataTable Originaldt)
         {
 

@@ -26,6 +26,7 @@ namespace MKproject.Management
         bool PicHasChanged;//hayde kermel nestaamela eza el sura ma tghayyirit ma naamela upload
         int ControlsWidthInsideFLP;
 
+
         private bool parent_chosen;//lamma na2e parent lal child a parent w erjaa aal register el form  , el parent_chose bet sir true kermel lamma naamil save, ma nshayyik eza fi duplicates phonenumber
         public bool ParentChosen
         {
@@ -80,12 +81,11 @@ namespace MKproject.Management
 
 
         public ClassClient Client;
-        ClassClient ClientFromSchedule;
         private List<UCTextbox1> TextBoxes = new List<UCTextbox1> { };
         public List<Control> RequiredControls = new List<Control> { };
 
 
-        public NewRegister(ClassClient Clients, ClassClient clientFromSchedule)
+        public NewRegister(ClassClient Clients)
         {
             InitializeComponent();
 
@@ -93,11 +93,10 @@ namespace MKproject.Management
             this.Opacity = 0;
             this.Size = new Size(660, 650);//kell shi aam nhotoo juwwa aam naamela width=600, which is not accurate, try bi wpf taamil dock top
             ControlsWidthInsideFLP = 600;
-            LoadForm(Clients, clientFromSchedule);
-            
+            LoadForm(Clients);
         }
 
-        public void LoadForm(ClassClient Clients, ClassClient clientFromSchedule)
+        public void LoadForm(ClassClient Clients)
         {
             radioButtonAdult.Checked = true;
             ClientManagementProfileForm = null;
@@ -109,9 +108,9 @@ namespace MKproject.Management
             ISCallingFromTheConstructor = true;
 
 
+            
 
 
-            ClientFromSchedule = clientFromSchedule;
             Client = Clients;
             if (Client != null)//update form
             {
@@ -1929,12 +1928,11 @@ namespace MKproject.Management
             else
             {
                 UpdatedOrNewClient.InsertClientToSQL();
-
             }
 
 
         }//try catch 
-        
+
 
 
 
@@ -2157,7 +2155,7 @@ namespace MKproject.Management
             r.ShowDialog();
         }
 
-        public event EventHandler ClientSaved;
+
         public void SaveOrUpdate(string AlbumName)//album name could be null,w only used on insert NOT UPDATE
         {
 
@@ -2169,18 +2167,7 @@ namespace MKproject.Management
                 }
                 UpdateOrInsertToSQLAndObj(AlbumName);//album name could be null
                 int lastClientId = ClassClient.GetLastClientIDSQL();
-                ClassClient DesiredCLient = ClassClient.CreateClientObject(lastClientId);
-                if (ClientFromSchedule != null)//from schedule
-                {
-                    ClientFromSchedule.ClientId = DesiredCLient.ClientId;
-                    ClientFromSchedule.Fname = DesiredCLient.Fname;
-                    ClientFromSchedule.Lname = DesiredCLient.Lname;
-                }
-                else
-                {
-                    OpenClientManagementForm(DesiredCLient);
-                }
-                ClientSaved?.Invoke(this, EventArgs.Empty);
+                OpenClientManagementForm(lastClientId);
                 this.Close();
             }
             else//update
@@ -2252,7 +2239,6 @@ namespace MKproject.Management
                 }
             }
         }
-
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (CheckRequired())
@@ -2289,27 +2275,25 @@ namespace MKproject.Management
 
         }
 
-        public void OpenClientManagementForm(ClassClient DesiredCLient)
+        public void OpenClientManagementForm(int ClientID)
         {
+            ClassClient DesiredCLient = ClassClient.CreateClientObject(ClientID);
+            //form creation
+            Menu menu = ((Home)SearchCurrentClientForm.Tag).menu;
+            if (Program.clientManagementProfile == null)
+            {
+                Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient);
 
-             
-           
-                //form creation
-                Menu menu = ((Home)SearchCurrentClientForm.Tag).menu;
-                if (Program.clientManagementProfile == null)
-                {
-                    Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient, false);
-                }
-                else
-                {
-                    Program.clientManagementProfile.LoadData(DesiredCLient, false);
-                }
-                Program.clientManagementProfile.Size = SearchCurrentClientForm.Size;
-                Program.clientManagementProfile.SearchCurrentClientform = SearchCurrentClientForm;
-                menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
-                ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Visible = true;
-            
-
+            }
+            else
+            {
+                Program.clientManagementProfile.LoadData(DesiredCLient);
+                Program.clientManagementProfile.FormatDatagridviewDesign();
+            }
+            Program.clientManagementProfile.Size = SearchCurrentClientForm.Size;
+            Program.clientManagementProfile.SearchCurrentClientform = SearchCurrentClientForm;
+            menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
+            ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Visible = true;
         }
 
 
@@ -2366,20 +2350,14 @@ namespace MKproject.Management
 
                 if (CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
                 {
-                    if (ClientFromSchedule == null)
+                    DialogResult dialogResult = CustomMessageBox.Show("The Client With this Phone Number Already Exists, Do you want to Check its profile?", CustomMessageBox.Type.YesNo);
+                    if (dialogResult == DialogResult.Yes)
                     {
-                        DialogResult dialogResult = CustomMessageBox.Show("The Client With this Phone Number Already Exists, Do you want to Check its profile?", CustomMessageBox.Type.YesNo);
-                        if (dialogResult == DialogResult.Yes)
-                        {
-                            int clientid = ClassClient.GetClientIdFromPhoneNumberSQL(UCPhoneNumber.Value);
-                            OpenClientManagementForm(ClassClient.CreateClientObject(clientid));
-                            this.Close();
-                        }
+                        int clientid = ClassClient.GetClientIdFromPhoneNumberSQL(UCPhoneNumber.Value);
+                        OpenClientManagementForm(clientid);
+                        this.Close();
                     }
-                    else//from schedule
-                    {
-                        CustomMessageBox.Show("The Client With this Phone Number Already Exists", CustomMessageBox.Type.Ok);
-                    }
+
                 }
             }
         }

@@ -10,12 +10,12 @@ namespace MKproject
 {
     public partial class Search : Form
     {
-
+     
         public DataTable Originaldt { get; set; }
         public DataTable FilterDt { get; set; }
 
         TextBoxWithPlaceHolder DesiredTextbox;
-
+     
         ClassClient DesiredClient;
 
 
@@ -32,14 +32,14 @@ namespace MKproject
             if (DesiredTextbox.Text != DesiredTextbox.PlaceholderText)//don t use strings use 
             {
                 textBoxSearch.Text = DesiredTextbox.Text;
-            }
+            } 
 
         }
         private void Search_Load(object sender, EventArgs e)
         {
             dataGridViewMembers.ClearSelection();
         }
-
+    
 
         void LoadForm()
         {
@@ -51,20 +51,8 @@ namespace MKproject
         }//try catch
         private void FormatOriginaldt()
         {
-            Originaldt.Columns.Add("Full Name", typeof(string));
 
-            string NotAvailable = "N/A";
-            foreach (DataRow d in Originaldt.Rows)
-            {
-                string phone_number = NotAvailable;
-                if (d["Phone Number"] != DBNull.Value)
-                {
-                    phone_number = d["Phone Number"].ToString();
-                }
-                d["Phone Number"] = phone_number;
 
-                d["Full Name"] = d["name"] +" "+ d["family_name"];
-            }
             //ordering
             int columnIndexToMove;
             int newIndex;
@@ -77,12 +65,11 @@ namespace MKproject
             newIndex = 1; // The new desired index
             Originaldt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = Originaldt.Columns.IndexOf("Phone Number");
+            columnIndexToMove = Originaldt.Columns.IndexOf("phone_number");
             newIndex = 2; // The new desired index
             Originaldt.Columns[columnIndexToMove].SetOrdinal(newIndex);
             //
             FilterDt = Originaldt;
-
         }
         private void FillDataGridview()
         {
@@ -91,9 +78,6 @@ namespace MKproject
 
             dataGridViewMembers.Columns["client_id"].Visible = false;
             dataGridViewMembers.Columns["Registration_Date"].Visible = false;
-            dataGridViewMembers.Columns["name"].Visible = false;
-            dataGridViewMembers.Columns["family_name"].Visible = false;
-
             dataGridViewMembers.ClearSelection();
 
             FixFormSize();
@@ -112,8 +96,8 @@ namespace MKproject
                 this.Size = new Size(DesiredTextbox.Width, ((dataGridViewMembers.RowTemplate.Height) * (dataGridViewMembers.RowCount)) + 30);
             }
         }
-
-        bool IsRowClicked = false;
+      
+        bool IsRowClicked = false;     
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             if (!IsRowClicked)
@@ -121,17 +105,16 @@ namespace MKproject
                 String Input = textBoxSearch.Text.TrimEnd();
                 if (RandomFunctions.CheckIfContainsOnlyDigits(Input))
                 {
-                    FilterDt = FiltersDataTable.FilterDatatableIfContainsIgnoringCapitals("Phone Number", Input, Originaldt);
+                    FilterDt = FiltersDataTable.FilterDatatableIfContainsIgnoringCapitals("phone_number", Input, Originaldt);
 
                 }
                 else
                 {
                     FilterDt = FiltersDataTable.FilterDatatableIfContainsIgnoringCapitals("Full Name", Input, Originaldt);
                 }
-
                 FillDataGridview();
             }
-
+           
         }
 
         private void dataGridViewMembers_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
@@ -156,7 +139,6 @@ namespace MKproject
             }
         }
 
-        public event EventHandler ChosenClientChanged;
         private void dataGridViewMembers_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
@@ -164,27 +146,24 @@ namespace MKproject
             {
                 IsRowClicked = true;
                 DataGridViewRow row = dataGridViewMembers.Rows[e.RowIndex];
-                string FName = row.Cells["name"].Value.ToString();
-                string LName = row.Cells["family_name"].Value.ToString();
+                string Name = row.Cells["Full Name"].Value.ToString();
                 int Id = Convert.ToInt16(row.Cells["client_id"].Value);
 
                 DesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
-                DesiredClient.Fname = FName;
-                DesiredClient.Lname = LName;
-                textBoxSearch.Text = FName+" "+ LName;
-                DesiredTextbox.Text = textBoxSearch.Text;//ejbare hone kermel el packoffice
-                ChosenClientChanged?.Invoke(this, EventArgs.Empty);
+                DesiredClient.FullName = Name;
+                textBoxSearch.Text = Name;
+                DesiredTextbox.Text = Name;             
                 this.Close();
             }
 
         }
+
         private void Search_Deactivate(object sender, EventArgs e)
         {
-            if (DesiredClient.ClientId!=null && string.IsNullOrEmpty(textBoxSearch.Text))//which mean ghayarne
+            if (string.IsNullOrEmpty(textBoxSearch.Text))
             {
                 DesiredClient.ClientId = null;//ejbare ha foe li tahta cz el filter aal textchange
                 DesiredTextbox.Text = DesiredTextbox.PlaceholderText;
-                ChosenClientChanged?.Invoke(this, EventArgs.Empty);
             }
             this.Close();
         }

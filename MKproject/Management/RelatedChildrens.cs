@@ -1,5 +1,4 @@
 ﻿
-using CustomizedTools;
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -8,13 +7,12 @@ namespace MKproject.Management
 {
     public partial class RelatedChildrens : Form
     {
-        bool IsFromSchedule;
         public ClientManagementProfile ParentFormClientMang { get; set; }
       
-        public RelatedChildrens(string ChildOrParentPhoneNumber, bool Parent,bool isFromSchedule)
+        public RelatedChildrens(string ChildOrParentPhoneNumber, bool Parent)
         {
             InitializeComponent();
-            IsFromSchedule = isFromSchedule;
+       
             FillClients(ChildOrParentPhoneNumber, Parent);
 
             this.Opacity = 0;
@@ -66,23 +64,21 @@ namespace MKproject.Management
         {
             if (e.RowIndex >= 0)
             {
-                if (!IsFromSchedule)
-                {
-                    object idValue = dataGridViewChildren.Rows[e.RowIndex].Cells["client_id"].Value;
-                    if (idValue != DBNull.Value)
-                    {
-                        int id = Convert.ToInt32(idValue);
-                        SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(ParentFormClientMang.Tag)).menu.ActivatedForm));
+                object idValue = dataGridViewChildren.Rows[e.RowIndex].Cells["client_id"].Value;
 
-                        ((Home)ParentFormClientMang.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
-
-                        searchform.FocusOnADesiredRow(id);
-                        this.Close();
-                    }
-                }
-                else
+                if (idValue != DBNull.Value)
                 {
-                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.Ok);
+                    int id = Convert.ToInt32(idValue);
+                    SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(ParentFormClientMang.Tag)).menu.ActivatedForm));
+
+                  
+
+                    ((Home)ParentFormClientMang.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
+
+                    searchform.FocusOnADesiredRow(id);
+                    this.Close();
+
+
                 }
             }
         }

@@ -1,5 +1,4 @@
 ﻿using MKproject.Management;
-using MKproject.Schedule;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -77,10 +76,8 @@ namespace MKproject
         {
             if (ParentFormHome.panelContainer.Controls.Count > 0)//specially made kermel el back ma nekhsar el data bel form li fetna menna
             {
-                Form OpenendForm = ((Form)ParentFormHome.panelContainer.Controls[0]);
                 ParentFormHome.panelContainer.Controls[0].Visible = false;//we re sure only one control 
-                ParentFormHome.panelContainer.Controls.RemoveAt(0);
-                OpenendForm.TopLevel = true;
+                ParentFormHome.panelContainer.Controls.Clear();
             }
             ParentFormHome.buttonBackHome.Visible = false;
 
@@ -223,10 +220,5 @@ namespace MKproject
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Appointment app = new Appointment();
-            app.ShowDialog();
-        }
     }
 }

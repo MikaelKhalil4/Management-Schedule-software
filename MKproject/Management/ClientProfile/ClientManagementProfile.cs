@@ -18,7 +18,7 @@ namespace MKproject.Management
         string NotAvailableText = "N/A";
         public bool IsClientDeleted = false;
         int? ParentIdInProfile;//eza ken child w eendo parent ha ha tkun not null 
-        bool IsFromSchedule;
+
 
         public Panel panelBundles;//kermel lamma ykun eena bundles nhotta    
 
@@ -64,48 +64,35 @@ namespace MKproject.Management
 
 
 
-        public ClientManagementProfile(ClassClient client, bool isFromSchedule)//new register
+        public ClientManagementProfile(ClassClient client)//new register
         {
             InitializeComponent();
 
             LoadImages();
 
-
-            LoadData(client, isFromSchedule);
+           
+            LoadData(client);
 
             dataGridViewBalance.ApplyStyle1();
         }
 
         void LoadImages()
         {
-
             PayOrEditImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "dollarSmall.png");
             PayOrEditImagePopUp = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "dollarBig.png");
             BackOfficeImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "BackOfficeSmall.png");
             BackOfficeImagePopUp = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "BackOfficeBig.png");
             EmptyImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "EmptyIcon.png");
-
         }
 
 
-        public void LoadData(ClassClient client, bool isFromSchedule)
+        public void LoadData(ClassClient client)
         {
-            if (isFromSchedule)
-            {
-                Opacity = 0;
-                timer1.Start();
-            }
 
             Client = client;
-            IsFromSchedule = isFromSchedule;
+
             IsClientDeleted = false;
             ParentIdInProfile = null;
-            if (dtClientBalanceOriginal != null)
-            {
-                dtClientBalanceOriginal.Clear();
-                dataGridViewBalance.Refresh();
-            }
-
 
             panelSecondaryInfo.AutoScrollPosition = new Point(0, 0);
             RemoveLinkedChildOrParent();
@@ -123,13 +110,13 @@ namespace MKproject.Management
             UpdateOrCreateUCLabelAndDetail(false);//creating linked child in here at the end
             labelName.Select();
             //
-            FormatDatagridviewDesign();
+
         }//try catch
 
         private void ClientManagementProfile_Load(object sender, EventArgs e)
         {
             AutosizeUCLabel();
-            //FormatDatagridviewDesign();battal ela aaze, since hattayneha bel visible on off
+            FormatDatagridviewDesign();
             dataGridViewBalance.ClearSelection();
         }
 
@@ -194,6 +181,17 @@ namespace MKproject.Management
                     DueDate = dateTimeValue.ToString("MMMM/dd/yyyy");
                 }
 
+                if (balance.Contains('-'))
+                {
+                    balance = balance.Substring(1);
+                    balance = "-" + currency + balance;
+
+                }
+                else
+                {
+                    balance = currency + balance;
+                }
+
                 if (d["offre"] != DBNull.Value)
                 {
                     d["FakeOffer"] = currency + d["offre"];
@@ -215,7 +213,7 @@ namespace MKproject.Management
                 d["Purchase date"] = PurchaseDate;
                 d["DueDate"] = DueDate;
                 d["Paid"] = currency + d["amount_paid"];
-                d["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
+                d["FakeBalance"] = balance;
             }
 
             // Add auto-increment column to existing DataTable
@@ -335,12 +333,11 @@ namespace MKproject.Management
             DesiredDataGrid.Columns["FakeOrignalOffre"].HeaderText = "Offre";
             DesiredDataGrid.Columns["FakeOffer"].HeaderText = "Deal";
 
-
+          
 
         }
         public void FormatDatagridviewDesign()
         {
-
             foreach (DataGridViewRow row in dataGridViewBalance.Rows)
             {
                 DataGridViewCell cell = (DataGridViewCell)row.Cells["FakeBalance"];
@@ -354,7 +351,6 @@ namespace MKproject.Management
                     cell.Style.ForeColor = Color.Black;
                     cell.Style.SelectionForeColor = Color.Black;
                 }
-
                 DataGridViewCell cell1 = (DataGridViewCell)row.Cells["PayOrEdit"];
                 if (Convert.ToBoolean(row.Cells["is_expired"].Value) == false)
                 {
@@ -365,55 +361,10 @@ namespace MKproject.Management
                     cell1.Value = EmptyImage;
                 }
 
-
                 DataGridViewCell cell2 = (DataGridViewCell)row.Cells["BackOffice"];
                 cell2.Value = BackOfficeImage;
             }
             dataGridViewBalance.ClearSelection();
-        }
-        //it wont work , lieanno on mousehover aam tetezii
-        private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            //DataGridViewCell cell = dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            //if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Assuming "balance" is the name of your balance column
-            //{
-            //    DataGridViewCell CellToModifie;
-
-            //    if (e.ColumnIndex == dataGridViewBalance.Columns["FakeBalance"].Index)
-            //    {
-            //        CellToModifie = dataGridViewBalance.Rows[e.RowIndex].Cells["FakeBalance"];
-            //        if (Convert.ToString(CellToModifie.Value) != "$0")
-            //        {
-            //            CellToModifie.Style.ForeColor = Color.Red;
-            //            CellToModifie.Style.SelectionForeColor = Color.Red;
-            //        }
-            //        else
-            //        {
-            //            CellToModifie.Style.ForeColor = Color.Black;
-            //            CellToModifie.Style.SelectionForeColor = Color.Black;
-            //        }
-            //    }
-
-            //    if (e.ColumnIndex == dataGridViewBalance.Columns["PayOrEdit"].Index)
-            //    {
-            //        CellToModifie= dataGridViewBalance.Rows[e.RowIndex].Cells["PayOrEdit"];
-            //        if (Convert.ToBoolean(dataGridViewBalance.Rows[e.RowIndex].Cells["is_expired"].Value) == false)
-            //        {
-            //            CellToModifie.Value = PayOrEditImage;
-            //        }
-            //        else
-            //        {
-            //            CellToModifie.Value = EmptyImage;
-            //        }
-            //    }
-
-            //    if (e.ColumnIndex == dataGridViewBalance.Columns["BackOffice"].Index)
-            //    {
-            //        CellToModifie = dataGridViewBalance.Rows[e.RowIndex].Cells["BackOffice"];
-            //        CellToModifie.Value = BackOfficeImage;
-            //    }
-            //}
         }
         //public static void ResortOriginalDataTable(DataTable Desireddt)//MAFINA!!! gher nebaat el datatbale as argument because we re losing the reference, still dk why
         //{
@@ -901,7 +852,7 @@ namespace MKproject.Management
                 {
                     ((UCLabelAndDetail)control).CheckSize(((UCLabelAndDetail)control).labelType.Width, ((UCLabelAndDetail)control).labelDetail.Width);
 
-                }
+                }           
             }
             foreach (UCLabelAndDetail uCLabelAndDetail in panelSecondaryInfo.Controls)
             {
@@ -1067,42 +1018,15 @@ namespace MKproject.Management
         public void CreateUCPackage(DataRow DesiredRow)
         {
 
-            UCBundlePackage bundlePackage = new UCBundlePackage(false, DesiredRow);
-            bundlePackage.FakeId = Convert.ToInt16(DesiredRow["AutoIncrementColumn"]);
+            UCBundlePackage bundlePackage = new UCBundlePackage();
             bundlePackage.ParentFormClientMan = this;
             bundlePackage.Dock = DockStyle.Left;
+            bundlePackage.FakeId = Convert.ToInt16(DesiredRow["AutoIncrementColumn"]);
+            bundlePackage.CreateUCPackage(DesiredRow);
+
             panelBundles.Controls.Add(bundlePackage);
-            bundlePackage.UCMouseClick += BundlePackage_UCMouseClick;
 
         }
-
-        private void BundlePackage_UCMouseClick(object sender, EventArgs e)
-        {
-            UCBundlePackage desiredUC = (UCBundlePackage)sender;
-            for (int i = 0; i < dataGridViewBalance.Rows.Count; i++)
-            {
-                DataGridViewRow row = dataGridViewBalance.Rows[i];
-                if (Convert.ToInt64(row.Cells["ID"].Value) == desiredUC.Id)
-                {
-                    if (!dataGridViewBalance.Rows[i].Displayed)
-                    {
-                        dataGridViewBalance.FirstDisplayedScrollingRowIndex = row.Index;
-                    }
-                    row.DefaultCellStyle.BackColor = dataGridViewBalance.ColorOnMouseMove;
-                    Timer timer = new Timer();
-                    timer.Interval = 1000;
-                    timer.Tick += (timerSender, timerEventArgs) =>
-                    {
-                        row.DefaultCellStyle.BackColor = dataGridViewBalance.ColorDefault;
-                        timer.Stop();
-                        timer.Dispose();
-                    };
-                    timer.Start();
-                    break;
-                }
-            }
-        }
-
         public Label GetNoBundleLable(string Text)//in case we had no bundles
         {
             Label labelNoBundles = new Label();
@@ -1158,8 +1082,10 @@ namespace MKproject.Management
 
 
 
-        private void dataGridViewBalance_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        private void dataGridViewBalance_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.RowIndex >= 0)
             {
                 int ClientBalanceId = Convert.ToInt16(dataGridViewBalance.Rows[e.RowIndex].Cells["ID"].Value);
@@ -1171,7 +1097,7 @@ namespace MKproject.Management
                     EntetityAmount = EntetityAmount.Replace(Currency.Symbol, "");
 
 
-                    Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                    Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                     Program.GreyForm.Show();
                     Payment payment = new Payment((int)Client.ClientId, Convert.ToDouble(EntetityAmount), RetrievingSpecificRowsInDt(false, ClientBalanceId), this);
                     payment.ClientManagementProfileParentForm = this;
@@ -1184,7 +1110,7 @@ namespace MKproject.Management
                 {
                     if (LOGIN.Employee.CanAccessTransaction)
                     {
-                        Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                        Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                         Program.GreyForm.Show();
                         BackOffice backOffice = new BackOffice(this, ClientBalanceId, RetrievingSpecificRowsInDt(false, ClientBalanceId), null);
                         backOffice.ShowDialog();
@@ -1195,41 +1121,12 @@ namespace MKproject.Management
                     }
 
                 }
-                else
-                {
-                    if (dataGridViewBalance.Rows[e.RowIndex].Cells["session_left_days"].Value != DBNull.Value && Convert.ToBoolean(dataGridViewBalance.Rows[e.RowIndex].Cells["is_expired"].Value) == false)//package 
-                    {
-                        if (panelBundles != null)
-                        {
-                            foreach (UCBundlePackage uc in panelBundles.Controls)
-                            {
-                                if (uc.Id == Convert.ToInt64(dataGridViewBalance.Rows[e.RowIndex].Cells["ID"].Value))
-                                {
-                                    uc.Focus();
-                                    panelBundles.ScrollControlIntoView(uc);
-                                    uc.TLPglobal.BackColor = uc.ColorMouseOver;
-                                    Timer timer = new Timer();
-                                    timer.Interval = 1000;
-                                    timer.Tick += (timerSender, timerEventArgs) =>
-                                    {
-                                        uc.TLPglobal.BackColor = uc.ColorDedault;
-                                        timer.Stop();
-                                        timer.Dispose();
-                                    };
-                                    timer.Start();
-                                    break;
-                                }
-                            }
-                        }
-
-                    }
-                }
             }
-
         }
+
         private void buttonPayTotalBalance_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
             Program.GreyForm.Show();
             Payment payment = new Payment((int)Client.ClientId, Convert.ToDouble(TotalBalanceAmount), RetrievingSpecificRowsInDt(true, null), this);
             payment.ClientManagementProfileParentForm = this;
@@ -1240,7 +1137,7 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanAccessTransaction)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 BackOffice backOffice = new BackOffice(this, null, null, Client.ClientId);
                 backOffice.ShowDialog();
@@ -1256,7 +1153,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(false);//true becuase it s a bundle
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1268,7 +1165,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(true);//true becuase it s a product
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1281,17 +1178,17 @@ namespace MKproject.Management
         private void buttonEditClientInfo_Click(object sender, EventArgs e)
         {
 
-            Program.GreyForm = new GreyColor((Form)this.Tag, false, IsFromSchedule);//cz aam t3alie w ma tsakkir el form
+            Program.GreyForm = new GreyColor((Form)this.Tag, false, false);//cz aam t3alie w ma tsakkir el form
             Program.GreyForm.Show();
 
             if (Program.NewRegisterForm == null)
             {
-                Program.NewRegisterForm = new NewRegister(Client, null);
+                Program.NewRegisterForm = new NewRegister(Client);
             }
             else
             {
                 Program.NewRegisterForm.Resetcontrols();
-                Program.NewRegisterForm.LoadForm(Client, null);
+                Program.NewRegisterForm.LoadForm(Client);
             }
 
             Program.NewRegisterForm.ClientManagementProfileForm = this;
@@ -1306,7 +1203,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 Album s = new Album(null);
                 s.ClientManagementProfileForm = this;
@@ -1319,7 +1216,7 @@ namespace MKproject.Management
         {
             if (Client.ProfileImage != null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 ImageForm i = new ImageForm(Client.ProfileImage);
                 i.Show();
@@ -1360,7 +1257,17 @@ namespace MKproject.Management
 
 
             string UpdatedBalance = Convert.ToString(BalanceAmount + DifferenceBetweenToFrom);
+            string UpdatedFakeBalance = UpdatedBalance;
+            if (UpdatedFakeBalance.Contains('-'))
+            {
+                UpdatedFakeBalance = UpdatedFakeBalance.Substring(1);
+                UpdatedFakeBalance = "-" + CurrencySymbol + UpdatedFakeBalance;
 
+            }
+            else
+            {
+                UpdatedFakeBalance = CurrencySymbol + UpdatedFakeBalance;
+            }
 
 
             //updating theoffre in the datatgridview's PAyment Form
@@ -1440,7 +1347,7 @@ namespace MKproject.Management
             //Design
             //datagrid payment form
             DesiredRowsdt.Rows[0]["balance"] = UpdatedBalance;
-            DesiredRowsdt.Rows[0]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(UpdatedBalance); ;
+            DesiredRowsdt.Rows[0]["FakeBalance"] = UpdatedFakeBalance;
             DesiredRowsdt.Rows[0]["offre"] = UpdatedOffre;
             DesiredRowsdt.Rows[0]["FakeOffer"] = CurrencySymbol + UpdatedOffre;
             DesiredRowsdt.Rows[0]["is_expired"] = NewIsExpired;
@@ -1716,24 +1623,19 @@ namespace MKproject.Management
             if (Client.IsParent == true)
             {
 
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
-                RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true, IsFromSchedule);
+                RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true);
                 relatedChildrens.ParentFormClientMang = this;
                 relatedChildrens.Show();
             }
             else if (Client.IsChild == true)
             {
-                if (!IsFromSchedule)
-                {
-                    SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(this.Tag)).menu.ActivatedForm));
-                    ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
-                    searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
-                }
-                else
-                {
-                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.Ok);
-                }
+                SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(this.Tag)).menu.ActivatedForm));
+
+                ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
+
+                searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
             }
         }
 
@@ -2021,20 +1923,21 @@ namespace MKproject.Management
 
         }
 
+        private void dataGridViewBalance_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //DataTableToDatagridView();
+            //FormatDatagridviewDesign();
 
+        }
 
         private void ClientManagementProfile_VisibleChanged(object sender, EventArgs e)
         {
-            //if (IsFromSchedule)//since aam nodtarr naamela show dialog, w lamma tkun cached w showdialo ma aam bi bayno bel usaully method el icons, so this glitsh worked
+            //if (this.Visible == false)
             //{
+            //    TransferInformationToSearch();
 
             //}
-            if (Visible == true)
-            {
-                FormatDatagridviewDesign();
-            }
         }
-
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -2054,7 +1957,5 @@ namespace MKproject.Management
                 return cp;
             }
         }
-
-
     }
 }

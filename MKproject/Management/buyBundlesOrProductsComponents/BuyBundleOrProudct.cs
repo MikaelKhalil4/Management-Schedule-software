@@ -151,21 +151,53 @@ namespace MKproject.Management
                 {
 
                     DateTime Date = DateTime.Now;
+                    int TotalSessionsAdded = 0;
                     bool OneOfThePackgesIsMemberShip = false;
                     int NOBundles = 0;
                     foreach (ClassBundles Bundle in BundleList)
                     {
                         for (int i = 0; i < Bundle.Qty; i++)
                         {
-                           //Sql And Logic
-                            DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, ParentFormClientMang.Client);//hattayneha global lieanno ha nestaamela men kaza mahal
+                            //SQLAndLogic
+
+                            if (Bundle.EnumBundletype == ClassBundles.bundle.Sessions)
+                            {
+                                TotalSessionsAdded += (int)Bundle.SessionDaysNumber;   //this variable to use below to Update totalsessionleft in client
+                            }
+
+                            string action;
+                            ActionsEnum actiontype;
+                            int? StructId;
+                            if (Bundle.EnumBundletype == ClassBundles.bundle.Solo)
+                            {
+                                action = "Purchased a " + Bundle.Name + ".";
+                                actiontype = ActionsEnum.SoloPurchases;
+                                ClassClient.UpdateClientCheckInSQL((int)ParentFormClientMang.Client.ClientId, Date);
+                                ProjectToSQL.InsertToClientAttendance((int)ParentFormClientMang.Client.ClientId);
+                                StructId = SQLToProject.GetLAstInsertedAttendance();//ejbare tahet InsertToClientAttendance
+                            }
+                            else
+                            {
+                                actiontype = ActionsEnum.Purchases;
+                                action = "Purchased the " + Bundle.Name + " Package.";
+                                StructId = null;
+                            }
+                         
+                            ProjectToSQL.InsertToClientBalance((int)ParentFormClientMang.Client.ClientId, Bundle.ID, Bundle.EnumBundletype.ToString());
+                            DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
+                            ParentFormClientMang.FormatOriginalDt(dtinserteditem);
+                            DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                                            
+
+                            ClassBackOffice backOffice = new ClassBackOffice((int)ParentFormClientMang.Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
+                            backOffice.InsertToArchiveSQL();
+
+                            ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date, ParentFormClientMang.Client.AlbumType);//kermel el count
+
+
 
 
                             //Design
                             //updating originaldatable
-                            ParentFormClientMang.FormatOriginalDt(dtinserteditem);
-                            DataRow InsertedRow = dtinserteditem.Rows[0];
-
                             DataRow NewRow = ParentFormClientMang.dtClientBalanceOriginal.NewRow();
                             NewRow.ItemArray = InsertedRow.ItemArray; // Copy the data from InsertedRow to NewRow
                             ParentFormClientMang.dtClientBalanceOriginal.Rows.Add(NewRow);
@@ -197,14 +229,14 @@ namespace MKproject.Management
                                 ParentFormClientMang.Client.TotalAttendance++;
                                 ParentFormClientMang.UCTotalAttendance.Detail = Convert.ToString(ParentFormClientMang.Client.TotalAttendance);
                             }
-
-
                             //shi elo aalea bel token bundle
                             NOBundles++;
 
                         }
                     }
-               
+
+
+                  
                     //design
                     ParentFormClientMang.UCTokenServices.Detail = Convert.ToString(NOBundles + Convert.ToInt16(ParentFormClientMang.UCTokenServices.Detail));
 
@@ -235,12 +267,20 @@ namespace MKproject.Management
                         for (int i = 0; i < product.Qty; i++)
                         {
                             //SQL
-                            DataTable dtinserteditem = ClassClient.PurchaseAProduce(product, Date,ParentFormClientMang.Client);
+                            ProjectToSQL.InsertToClientBalance((int)ParentFormClientMang.Client.ClientId, product.ID, null);
+                            DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
+                            ParentFormClientMang.FormatOriginalDt(dtinserteditem);
+
+                            DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
+
+
+                            ClassBackOffice backOffice = new ClassBackOffice((int)ParentFormClientMang.Client.ClientId, "Purchased " + product.Name + ".", ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, Date);
+                            backOffice.InsertToArchiveSQL();
+                            
+                            ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date, ParentFormClientMang.Client.AlbumType);//kermel el count
 
                             //Design
                             //updating originaldatable
-                            ParentFormClientMang.FormatOriginalDt(dtinserteditem);
-                            DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one       
                             DataRow NewRow = ParentFormClientMang.dtClientBalanceOriginal.NewRow();
                             NewRow.ItemArray = InsertedRow.ItemArray; // Copy the data from InsertedRow to NewRow
                             ParentFormClientMang.dtClientBalanceOriginal.Rows.Add(NewRow);

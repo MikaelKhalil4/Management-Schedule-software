@@ -91,7 +91,7 @@ namespace MKproject.Management
                 }
 
 
-                row["FakeBirthday"] = RandomFunctions.SetDateFormatWithDayWithoutHour(row["Birthday"].ToString());
+                row["FakeBirthday"] = RandomFunctions.SetFullDateFormat(row["Birthday"].ToString());
                 row["Up coming Age"] = RandomFunctions.AgeCalculator(Convert.ToDateTime(row["Birthday"])) + 1;
             }
 

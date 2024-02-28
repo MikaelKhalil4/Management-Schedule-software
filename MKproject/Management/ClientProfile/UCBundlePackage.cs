@@ -11,8 +11,6 @@ namespace MKproject.Management
     public partial class UCBundlePackage : UserControl
     {
         Currency Currency = new Currency();
-        Label labelBalanceDetails;
-        Label labelBalance;
         Button buttonRemove;
         Button buttonRenew;
         Button buttonReduceSession;
@@ -20,9 +18,6 @@ namespace MKproject.Management
         //Button buttonReduceSession = new Button();
         bool IsActiveMode = false;
         bool IsDesactiveMode = false;
-
-        public Color ColorMouseOver = Color.WhiteSmoke;
-        public Color ColorDedault = Color.White;
 
         Color ColorActiveMode = Color.FromArgb(128, 128, 255);
         Color ColorDesActiveMode = Color.Red;
@@ -51,7 +46,7 @@ namespace MKproject.Management
             set
             {
                 fakeid = value;
-                labelIDDetails.Text = fakeid.ToString();
+                labelID.Text = fakeid.ToString();
             }
         }
 
@@ -74,7 +69,7 @@ namespace MKproject.Management
             set
             {
                 bundleType = value;
-                if (bundleType == ClassBundles.bundle.Sessions)
+                if (bundleType ==ClassBundles.bundle.Sessions)
                 {
 
                     BundleSessionsMode();
@@ -98,24 +93,24 @@ namespace MKproject.Management
                 dueDate = value;
                 if (labelDueDateDetails != null)
                 {
-                    labelDueDateDetails.Text = RandomFunctions.SetDateFormatWithDayWithoutHour(dueDate.ToString());
+                    labelDueDateDetails.Text = RandomFunctions.SetFullDateFormat(dueDate.ToString());
                 }
 
             }
         }
 
 
-        private int sessionOrDaysLeft;
+        private int sessionDaysLeft;
         public int SessionDaysLeft
         {
-            get { return sessionOrDaysLeft; }
+            get { return sessionDaysLeft; }
             set
             {
-                sessionOrDaysLeft = value;
-                labelSessiosOrDaysDetails.Text = Convert.ToString(sessionOrDaysLeft);
-                if (bundleType == ClassBundles.bundle.Sessions)
+                sessionDaysLeft = value;
+                labelSessiosOrDaysDetails.Text = Convert.ToString(sessionDaysLeft);
+                if (bundleType ==  ClassBundles.bundle.Sessions)
                 {
-                    if (sessionOrDaysLeft == 0)
+                    if (sessionDaysLeft == 0)
                     {
 
                         if (!IsDesactiveMode)
@@ -134,7 +129,7 @@ namespace MKproject.Management
                 }
                 else if (bundleType == ClassBundles.bundle.Days)
                 {
-                    if (sessionOrDaysLeft < 0)
+                    if (sessionDaysLeft < 0)
                     {
                         labelSessiosOrDaysDetails.Text = "No Days Left";
                         if (!IsDesactiveMode)
@@ -145,7 +140,7 @@ namespace MKproject.Management
                     }
                     else
                     {
-                        if (sessionOrDaysLeft == 0)
+                        if (sessionDaysLeft == 0)
                         {
                             labelSessiosOrDaysDetails.Text = "Last Day";
                             if (!IsDesactiveMode)
@@ -177,22 +172,18 @@ namespace MKproject.Management
                 isFreezingMode = value;
                 if (IsFreezingMode == false)
                 {
-                    if (!IsFromSchedule)
-                    {
-                        buttonFreeze.Text = Freeze;
-                        buttonFreeze.BackColor = ColorActiveMode;
-                    }
+
+                    buttonFreeze.Text = Freeze;
+                    buttonFreeze.BackColor = ColorActiveMode;
                     labelSessiosOrDaysDetails.ForeColor = Color.Green;
                     labelDueDateDetails.ForeColor = Color.Black;
                     panelColor.BackColor = ColorActiveMode;
                 }
                 else
                 {
-                    if (!IsFromSchedule)
-                    {
-                        buttonFreeze.Text = "Reacticate";
-                        buttonFreeze.BackColor = ColorFreezing;
-                    }
+
+                    buttonFreeze.Text = "Reacticate";
+                    buttonFreeze.BackColor = ColorFreezing;
                     labelSessiosOrDaysDetails.ForeColor = ColorFreezing;
                     labelDueDateDetails.ForeColor = ColorFreezing;
                     panelColor.BackColor = ColorFreezing;
@@ -214,32 +205,23 @@ namespace MKproject.Management
 
                 if (IsInDebt)
                 {
-                    if (!IsFromSchedule)
-                    {
-                        buttonRemove.Text = "Pay&&Remove";
-                    }
+                    buttonRemove.Text = "Pay&&Remove";
                 }
                 else
                 {
-                    if (!IsFromSchedule)
-                    {
-                        buttonRemove.Text = "Remove";
-                    }
+
+                    buttonRemove.Text = "Remove";
 
                 }
                 if (IsInDebt)
                 {
-                    if (!IsFromSchedule)
-                    {
-                        buttonRenew.Text = "Pay&&Renew";
-                    }
+                    buttonRenew.Text = "Pay&&Renew";
                 }
                 else
                 {
-                    if (!IsFromSchedule)
-                    {
-                        buttonRenew.Text = "Renew";
-                    }
+
+                    buttonRenew.Text = "Renew";
+
                 }
 
             }
@@ -247,57 +229,13 @@ namespace MKproject.Management
 
         Label labelDueDate;
         Label labelDueDateDetails;
-        bool IsFromSchedule;
-        public DataRow DesiredRow;//this row, huwwe men el table client balance, and it s going to be used bel sechdule
-        public UCBundlePackage(bool isFromSchedule, DataRow DesiredRow)
+        public UCBundlePackage()
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
-            IsFromSchedule = isFromSchedule;
-            if (!IsFromSchedule)
-            {
-                CreateButtons();
-            }
-            else
-            {
-                CreateBalanceLabels();
-                this.Padding = new Padding(0);
-                TLPglobal.ColumnCount -= 1;
-                TLPglobal.RowCount += 1;
-                TLPglobal.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
-
-                TLPglobal.RowStyles[1].Height = 0;//ID ma badna yeha
-                TLPglobal.RowStyles[2].Height = 30;
-                TLPglobal.RowStyles[3].Height = 30;
-                TLPglobal.RowStyles[4].Height = 20;
-
-                TLPglobal.Controls.Add(labelBalance, 0, 5);
-                TLPglobal.Controls.Add(labelBalanceDetails, 1, 5);
-
-                this.Width = Convert.ToInt16(TLPglobal.ColumnStyles[1].Width + TLPglobal.ColumnStyles[1].Width);
-            }
-
-            CreateUCPackage(DesiredRow);
+            CreateButtons();
         }
-
-        void CreateBalanceLabels()
-        {
-            labelBalance = new Label();
-            labelBalance.Text = "Balance:";
-            labelBalance.TextAlign = ContentAlignment.MiddleLeft;
-            labelBalance.ForeColor = Color.FromArgb(64, 64, 64);
-            labelBalance.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold);
-            labelBalance.Dock = DockStyle.Fill;
-            labelBalance.AutoSize = false;
-
-            labelBalanceDetails = new Label();
-            labelBalanceDetails.TextAlign = ContentAlignment.MiddleLeft;
-            labelBalanceDetails.ForeColor = Color.Black;
-            labelBalanceDetails.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            labelBalanceDetails.Dock = DockStyle.Fill;
-            labelBalanceDetails.AutoSize = false;
-
-        }
+       
+        
         void CreateButtons()
         {
             buttonReduceSession = new Button();
@@ -347,16 +285,13 @@ namespace MKproject.Management
             buttonRenew.Cursor = Cursors.Hand;
             buttonRenew.Click += ButtonRenew_Click;
         }
-
         public void CreateUCPackage(DataRow dr)
         {
-            DesiredRow = dr;
+
+
             this.BundleId = Convert.ToInt16(dr["bundle_id"]);
             this.Id = Convert.ToInt16(dr["ID"]);
-
-            
-            this.BundleDescription = dr["Description"].ToString();//Decription = bundle Name
-
+            this.BundleDescription = dr["Description"].ToString();
 
             if (dr["due_date"] != DBNull.Value && dr["is_freezed"] != DBNull.Value)
             {
@@ -374,92 +309,25 @@ namespace MKproject.Management
                     this.SessionDaysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)dr["due_date"]);//tene wahde - awwal wahde
                 }
                 //hay ejbare tahta cz el desactivate mode eenda priority abel el freezing mode
-
+             
             }
             else
             {
-                this.BundleType = ClassBundles.bundle.Sessions;
+                this.BundleType =  ClassBundles.bundle.Sessions;
                 this.DueDate = null;
                 this.SessionDaysLeft = Convert.ToInt16(dr["session_left_days"]);
             }
 
-
-            if (!IsFromSchedule)
+            if ((double)dr["balance"] != 0)
             {
-
-
-                if ((double)dr["balance"] != 0)
-                {
-                    this.IsInDebt = true;
-                }
-                else
-                {
-                    this.IsInDebt = false;
-                }
+                this.IsInDebt = true;
             }
             else
             {
-
-                string balance = dr["balance"].ToString();           
-                if (balance.Contains("-"))
-                {
-                    labelBalanceDetails.ForeColor = Color.Red;
-                    this.IsInDebt = true;
-                }
-                else
-                {
-                    labelBalanceDetails.ForeColor = Color.Black;
-                    this.IsInDebt = false;
-                }
-                labelBalanceDetails.Text = ClassChosenClientBalance.SetBalanceFormat(balance); 
-
+                this.IsInDebt = false;
             }
-
-
-
-          
-            TLPglobal.MouseLeave += Control_MouseLeave;
-            TLPglobal.MouseMove += Control_MouseMove;      
-             TLPglobal.MouseClick += Control_MouseClick;
-            if (IsFromSchedule)
-            {        
-                TLPglobal.Cursor = Cursors.Hand;         
-            }
-            foreach (Control control in TLPglobal.Controls)
-            {
-                if (!(control is Button))
-                {
-                    control.MouseClick += Control_MouseClick;
-                }
-
-                control.MouseMove += Control_MouseMove;
-                control.MouseLeave += Control_MouseLeave;
-                if (IsFromSchedule)
-                {
-                  
-                    control.Cursor = Cursors.Hand;
-                }
-
-            }
-
         }
 
-        public event EventHandler UCMouseClick;
-        private void Control_MouseClick(object sender, MouseEventArgs e)
-        {
-            UCMouseClick?.Invoke(this, e);
-        }
-
-        private void Control_MouseLeave(object sender, EventArgs e)
-        {
-            TLPglobal.BackColor = ColorDedault;
-
-        }
-
-        private void Control_MouseMove(object sender, MouseEventArgs e)
-        {
-            TLPglobal.BackColor = ColorMouseOver;
-        }
 
         public void BundleDaysMode()
         {
@@ -468,114 +336,84 @@ namespace MKproject.Management
             {
                 // Create first label
                 labelDueDate = new Label();
-                labelDueDate.Font = new Font("Segoe UI Semibold", 12f, FontStyle.Bold);
+                labelDueDate.Font = new Font("Segoe UI Semibold", 14f, FontStyle.Bold);
                 labelDueDate.ForeColor = Color.FromArgb(64, 64, 64);
                 labelDueDate.TextAlign = ContentAlignment.MiddleLeft;
-                labelDueDate.Text = "Due Date:";
+                labelDueDate.Text = "Due Date";
                 labelDueDate.BackColor = Color.Transparent;
                 labelDueDate.Dock = DockStyle.Fill;
 
                 // Create second label
                 labelDueDateDetails = new Label();
-                labelDueDateDetails.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
-                labelDueDateDetails.ForeColor = Color.Black;
+                labelDueDateDetails.Font = new Font("Segoe UI", 14f, FontStyle.Bold);
+                labelDueDateDetails.ForeColor = Color.FromArgb(64, 64, 64);
                 labelDueDateDetails.TextAlign = ContentAlignment.MiddleLeft;
                 labelDueDateDetails.BackColor = Color.Transparent;
                 labelDueDateDetails.Dock = DockStyle.Fill;
 
-
+                TLPglobal.SetRowSpan(labelBundle, 1);
+                TLPglobal.SetRowSpan(labelBundleDescription, 1);
                 TLPglobal.Controls.Add(labelDueDate, 0, 3);
                 TLPglobal.Controls.Add(labelDueDateDetails, 1, 3);
-
-                if (!IsFromSchedule)
-                {
-                    TLPglobal.SetRowSpan(labelBundle, 1);
-                    TLPglobal.SetRowSpan(labelBundleDescription, 1);
-
-                }
-                else
-                {
-
-                    TLPglobal.SetRow(labelSessiosOrDays, 4);
-                    TLPglobal.SetRow(labelSessiosOrDaysDetails, 4);
-                    TLPglobal.SetRowSpan(labelSessiosOrDays, 1);
-                    TLPglobal.SetRowSpan(labelSessiosOrDaysDetails, 1);
-                }
             }
 
             labelSessiosOrDays.Text = "Days Left:";
 
-            if (!IsFromSchedule)
-            {
-                TLPglobal.Controls.Add(buttonFreeze, 2, 2);
-                TLPglobal.SetRowSpan(buttonFreeze, 2);
-            }
 
-        }
+            TLPglobal.Controls.Add(buttonFreeze, 2, 2);
+            TLPglobal.SetRowSpan(buttonFreeze, 2);
+
+        }      
         public void BundleSessionsMode()
         {
-            if (!IsFromSchedule)
-            {
-                TLPglobal.Controls.Add(buttonReduceSession, 2, 2);
-                TLPglobal.SetRowSpan(buttonReduceSession, 2);
-            }
+
+            TLPglobal.Controls.Add(buttonReduceSession, 2, 2);
+            TLPglobal.SetRowSpan(buttonReduceSession, 2);
             ///
-            if (!IsFromSchedule)
-            {
-                TLPglobal.SetRowSpan(labelBundle, 2);
-                TLPglobal.SetRowSpan(labelBundleDescription, 2);
-            }
-            else
-            {
-                TLPglobal.SetRow(labelSessiosOrDays, 3);
-                TLPglobal.SetRow(labelSessiosOrDaysDetails, 3);
-                TLPglobal.SetRowSpan(labelSessiosOrDays, 2);
-                TLPglobal.SetRowSpan(labelSessiosOrDaysDetails, 2);
-
-            }
+            TLPglobal.SetRowSpan(labelBundle, 2);
+            TLPglobal.SetRowSpan(labelBundleDescription, 2);
             labelSessiosOrDays.Text = "Sessions Left:";
+
+
+
         }
-
-
+     
+        
         public void ActiveModeOn()
         {
             IsDesactiveMode = false;
             IsActiveMode = true;
 
+            if (TLPglobal.Controls.Contains(buttonRenew) && TLPglobal.Controls.Contains(buttonRemove))
+            {
+                TLPglobal.Controls.Remove(buttonRenew);
+                TLPglobal.Controls.Remove(buttonRemove);
+
+            }
             //color design 
             if (!IsFreezingMode)//cz el freezing mode eenda its colors
             {
                 labelSessiosOrDaysDetails.ForeColor = Color.Green;
                 panelColor.BackColor = ColorActiveMode;
 
+
             }
 
-            if (!IsFromSchedule)
+            if (BundleType == ClassBundles.bundle.Sessions)
             {
-                if (TLPglobal.Controls.Contains(buttonRenew) && TLPglobal.Controls.Contains(buttonRemove))
+                if (!TLPglobal.Controls.Contains(buttonReduceSession))
                 {
-                    TLPglobal.Controls.Remove(buttonRenew);
-                    TLPglobal.Controls.Remove(buttonRemove);
-
+                    TLPglobal.Controls.Add(buttonReduceSession, 2, 2);
+                    TLPglobal.SetRowSpan(buttonReduceSession, 2);
                 }
 
-
-                if (BundleType == ClassBundles.bundle.Sessions)
+            }
+            else
+            {
+                if (!TLPglobal.Controls.Contains(buttonFreeze))
                 {
-                    if (!TLPglobal.Controls.Contains(buttonReduceSession))
-                    {
-                        TLPglobal.Controls.Add(buttonReduceSession, 2, 2);
-                        TLPglobal.SetRowSpan(buttonReduceSession, 2);
-                    }
-
-                }
-                else
-                {
-                    if (!TLPglobal.Controls.Contains(buttonFreeze))
-                    {
-                        TLPglobal.Controls.Add(buttonFreeze, 2, 2);
-                        TLPglobal.SetRowSpan(buttonFreeze, 2);
-                    }
+                    TLPglobal.Controls.Add(buttonFreeze, 2, 2);
+                    TLPglobal.SetRowSpan(buttonFreeze, 2);
                 }
             }
         }
@@ -583,44 +421,50 @@ namespace MKproject.Management
         {
             IsDesactiveMode = true;
             IsActiveMode = false;
-            if (!IsFromSchedule)
+            if (TLPglobal.Controls.Contains(buttonReduceSession))
             {
-                if (TLPglobal.Controls.Contains(buttonReduceSession))
-                {
-                    TLPglobal.Controls.Remove(buttonReduceSession);
-                }
-                else if (TLPglobal.Controls.Contains(buttonFreeze))
-                {
-                    TLPglobal.Controls.Remove(buttonFreeze);
-                }
+                TLPglobal.Controls.Remove(buttonReduceSession);
+
+            }
+            else if (TLPglobal.Controls.Contains(buttonFreeze))
+            {
+
+                TLPglobal.Controls.Remove(buttonFreeze);
+
             }
             labelSessiosOrDaysDetails.ForeColor = Color.Red;
             panelColor.BackColor = ColorDesActiveMode;
             //
 
-            if (!IsFromSchedule)
+            if (IsInDebt)
             {
-                if (IsInDebt)
-                {
-                    buttonRemove.Text = "PayToRemove";
-                }
-                else
-                {
-                    buttonRemove.Text = "Remove";
-                }
-                if (IsInDebt)
-                {
-                    buttonRenew.Text = "PayToRenew";
-                }
-                else
-                {
-                    buttonRenew.Text = "Renew";
-                }
-
-
-                TLPglobal.Controls.Add(buttonRenew, 2, 2);
-                TLPglobal.Controls.Add(buttonRemove, 2, 3);
+                buttonRemove.Text = "PayToRemove";
             }
+            else
+            {
+
+                buttonRemove.Text = "Remove";
+
+            }
+
+
+
+            if (IsInDebt)
+            {
+                buttonRenew.Text = "PayToRenew";
+            }
+            else
+            {
+
+                buttonRenew.Text = "Renew";
+
+            }
+
+
+
+            TLPglobal.Controls.Add(buttonRenew, 2, 2);
+            TLPglobal.Controls.Add(buttonRemove, 2, 3);
+
             //
             if (isFreezingMode == true)//we re Reactivating the package, hayde will be use only, lamma naamil edit el package, w nhattello days left 0, so eza ken eendo freeze, men shello el freeze
             {
@@ -655,13 +499,13 @@ namespace MKproject.Management
             foundRow["is_expired"] = true;
             ParentFormClientMan.ResortOriginalDataTableAndSetDatasource();
             ParentFormClientMan.FormatDatagridviewDesign();
-            ParentFormClientMan.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
+            ParentFormClientMan.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;      
             ParentFormClientMan.CheckAndSetNoBundleLabel();
 
 
 
         }//try catch
-
+       
 
         //but we still need to see eza aale masare aw abaeed before using this buttons
         private void ButtonRenew_Click(object sender, EventArgs e)
@@ -678,8 +522,8 @@ namespace MKproject.Management
         }//try catch
         public void RenewPackage()
         {
-
-            //sql
+          
+           //sql
             int lastClientId = (int)ParentFormClientMan.Client.ClientId;
             if (BundleId != null)
             {
@@ -693,11 +537,11 @@ namespace MKproject.Management
 
 
             ProjectToSQL.UpdateIsexpiredClientBalanceRemoveUC(Id, true);//true because the bundle has expired
-                                                                        //backoffice
+                                                                                                    //backoffice
             string action;
             if (BundleType == ClassBundles.bundle.Solo)
             {
-                action = "Purchased a " + BundleDescription + ".";
+                action = "Purchased a " + BundleDescription+".";
             }
             else
             {
@@ -705,7 +549,7 @@ namespace MKproject.Management
             }
             ClassBackOffice backOffice = new ClassBackOffice((int)ParentFormClientMan.Client.ClientId, action, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, DateTime.Now);
             backOffice.InsertToArchiveSQL();
-
+            
 
             //design
 
@@ -725,7 +569,7 @@ namespace MKproject.Management
             ParentFormClientMan.FormatDatagridviewDesign();
             ParentFormClientMan.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
             ParentFormClientMan.CalculatingTotalBalances(true);
-
+          
 
             //Setting the new values of teh uc for the new package
             Id = Convert.ToInt16(NewRow["ID"]);
@@ -733,14 +577,14 @@ namespace MKproject.Management
             BundleDescription = NewRow["Description"].ToString();
             if (NewRow["due_date"] != DBNull.Value)
             {
-                BundleType = ClassBundles.bundle.Days;
+                BundleType =  ClassBundles.bundle.Days;
                 DueDate = (DateTime)NewRow["due_date"];
                 isFreezingMode = false;
 
             }
             else
             {
-                BundleType = ClassBundles.bundle.Sessions;
+                BundleType =ClassBundles.bundle.Sessions;
                 DueDate = null;
             }
 
@@ -758,10 +602,10 @@ namespace MKproject.Management
             {
                 ParentFormClientMan.UCTokenServices.Detail = Convert.ToString(Convert.ToInt16(ParentFormClientMan.UCTokenServices.Detail) + 1);
             }
-
+            
         }//try catch
-
-
+      
+        
         //only for sessions bundles
         private void ButtonReduceSession_Click(object sender, EventArgs e)
         {
@@ -799,10 +643,10 @@ namespace MKproject.Management
         }//try catch      
         public void ReduceSession()
         {
-
+        
             //Sql update
             int ID = Id;
-            int UpdatedSessionLeft = SessionDaysLeft - 1;
+            int UpdatedSessionLeft = SessionDaysLeft-1;
             DateTime Date = DateTime.Now;
             ProjectToSQL.UpdateClientBalanceOnEditingSessions(ID, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
             ClassClient.UpdateClientCheckInSQL((int)ParentFormClientMan.Client.ClientId, Date);
@@ -813,7 +657,7 @@ namespace MKproject.Management
             //design
             SessionDaysLeft--;
             DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
-            rowToEdit["session_left_days"] = sessionOrDaysLeft;
+            rowToEdit["session_left_days"] = sessionDaysLeft;
 
             ParentFormClientMan.UCLastVisit.Detail = RandomFunctions.SetDateFormat(Date.ToString());
             ParentFormClientMan.Client.TotalAttendance++;
@@ -821,17 +665,17 @@ namespace MKproject.Management
             ParentFormClientMan.UCTotalAttendance.Detail = Convert.ToString(ParentFormClientMan.Client.TotalAttendance);
         }//try catch
 
-
+    
         private void ButtonFreeze_Click(object sender, EventArgs e)
         {
             if (IsFreezingMode == true)//reactivate mode
             {
                 ReActivateMode();
-
+             
             }
             else//we re freezing the ackage
-            {
-                ProjectToSQL.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, null);
+            {             
+                ProjectToSQL.UpdateClientBalanceOnFreezingDays(Id, sessionDaysLeft, null);
                 //design
                 IsFreezingMode = true;
                 DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
@@ -840,9 +684,9 @@ namespace MKproject.Management
         }//try catch
         void ReActivateMode()
         {
-            DateTime newDueDate = DateTime.Now.AddDays(sessionOrDaysLeft);
-            ProjectToSQL.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, newDueDate);
-
+            DateTime newDueDate = DateTime.Now.AddDays(sessionDaysLeft);
+            ProjectToSQL.UpdateClientBalanceOnFreezingDays(Id, sessionDaysLeft, newDueDate);
+         
             //Design
             this.DueDate = newDueDate;
             IsFreezingMode = false;
@@ -861,7 +705,7 @@ namespace MKproject.Management
             payment.Show();
         }
 
-      
+       
 
     }
 }

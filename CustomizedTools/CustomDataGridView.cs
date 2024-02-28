@@ -6,9 +6,9 @@ namespace CustomizedTools
 {
     public class CustomDataGridView : DoubleBufferAndCustomScrollDataGrid
     {
-        public Color ColorSelection = Color.FromArgb(229, 226, 244);
-        public Color ColorOnMouseMove = Color.FromArgb(229, 226, 244);//on mouse hover
-        public Color ColorDefault;//default color mafrud tkun
+        Color ColorSelection = Color.FromArgb(229, 226, 244);
+        Color ColorOnMouseMove = Color.FromArgb(229, 226, 244);//on mouse hover
+        Color ColorDefault;//default color mafrud tkun
 
         private bool isRowColorChangeOnMouseMove;
         public bool IsRowColorChangeonMouseMove

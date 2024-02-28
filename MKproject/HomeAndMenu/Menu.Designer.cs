@@ -40,7 +40,6 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.timerMenuOpen = new System.Windows.Forms.Timer(this.components);
             this.timerMenuClose = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.FLPGlobal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +53,6 @@
             this.FLPGlobal.Controls.Add(this.buttonBundlesAndProducts);
             this.FLPGlobal.Controls.Add(this.buttonEmployee);
             this.FLPGlobal.Controls.Add(this.buttonLogout);
-            this.FLPGlobal.Controls.Add(this.button1);
             this.FLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FLPGlobal.Location = new System.Drawing.Point(0, 0);
             this.FLPGlobal.Margin = new System.Windows.Forms.Padding(0);
@@ -225,28 +223,6 @@
             this.timerMenuClose.Interval = 1;
             this.timerMenuClose.Tick += new System.EventHandler(this.timerMenuClose_Tick);
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 331);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(247, 49);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Test";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,6 +254,5 @@
         public System.Windows.Forms.Timer timerMenuOpen;
         public System.Windows.Forms.Timer timerMenuClose;
         private System.Windows.Forms.Button buttonLogout;
-        private System.Windows.Forms.Button button1;
     }
 }

@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using GlobalFunctions;
 using CustomizedTools;
 
-
 namespace MKproject.Management
 {
     public partial class FilterCheckListSearch : Form
@@ -22,10 +21,10 @@ namespace MKproject.Management
 
 
         public void FilterDatable()
-        {       
+        {
             ParentFormSearch.firstVisibleRowIndex = 0;
-
             DataTable Filtereddt = ParentFormSearch.Originaldt.Copy();
+
             if (ParentFormSearch.textBoxSearch.Text != ParentFormSearch.textBoxSearch.PlaceholderText)
             {
                 String Input = ParentFormSearch.textBoxSearch.Text.TrimEnd();
@@ -618,7 +617,7 @@ namespace MKproject.Management
             {
                 Cursor = Cursors.WaitCursor;
 
-                PackageRemainingsDt = SQLToProject.GetClientBalanceNotExpiredPackage(null);
+                PackageRemainingsDt = SQLToProject.GetClientBalanceNotExpiredPackage();
                 foreach (DataRow row in ParentFormSearch.Originaldt.Rows)//we re filling both the original dt and filtered dt
                 {
                     string PackagesRemianing;
@@ -639,7 +638,6 @@ namespace MKproject.Management
             }
 
         }
-
         public static (string, int, bool) CalculateClientRemainingPackages(DataRow[] DtRows)
         {
             string NotAv = "N/A";
@@ -649,7 +647,27 @@ namespace MKproject.Management
             foreach (DataRow dtrow in DtRows)
             {
 
-                PackageRemainings += ClassChosenClientBalance.SetPackageRemainingsFormat(dtrow);               
+                PackageRemainings += "Package " + dtrow["bundle_name"] + ": ";
+                if (dtrow["due_date"] != DBNull.Value)
+                {
+                    if ((bool)dtrow["is_freezed"] == false)//only packgae of days not freezed
+                    {
+                        int daysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)dtrow["due_date"]);
+                        if (daysLeft < 0)
+                        {
+                            daysLeft = 0;
+                        }
+                        PackageRemainings += daysLeft + " Days Left";//tene wahde - awwal wahde
+                    }
+                    else//package days freezed
+                    {
+                        PackageRemainings += (int)dtrow["session_left_days"] + " Days Left(Freezed)";
+                    }
+                }
+                else//package sesiosn
+                {
+                    PackageRemainings += (int)dtrow["session_left_days"] + " Session Left ";
+                }
                 PackageRemainings += Environment.NewLine;
             }
 
