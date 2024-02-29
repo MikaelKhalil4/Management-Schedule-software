@@ -37,11 +37,11 @@ namespace MKproject.Management
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.FLPTop = new System.Windows.Forms.FlowLayoutPanel();
-            this.ucTextboxFirstName = new UCTextbox1();
-            this.ucTextboxLastName = new UCTextbox1();
-            this.ucTextboxPhoneNumber = new UCTextbox1();
-            this.ucTextboxPassword = new UCTextbox1();
-            this.groupBoxFeatures = new CustomGroupBox();
+            this.ucTextboxFirstName = new CustomizedTools.UCTextbox1();
+            this.ucTextboxLastName = new CustomizedTools.UCTextbox1();
+            this.ucTextboxPhoneNumber = new CustomizedTools.UCTextbox1();
+            this.ucTextboxPassword = new CustomizedTools.UCTextbox1();
+            this.groupBoxFeatures = new CustomizedTools.CustomGroupBox();
             this.FLPFeatures = new System.Windows.Forms.FlowLayoutPanel();
             this.checkBoxStatus = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -161,7 +161,7 @@ namespace MKproject.Management
             this.ucTextboxFirstName.IsPhoneNumber = false;
             this.ucTextboxFirstName.IsRequired = false;
             this.ucTextboxFirstName.Location = new System.Drawing.Point(3, 5);
-            this.ucTextboxFirstName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.ucTextboxFirstName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.ucTextboxFirstName.Name = "ucTextboxFirstName";
             this.ucTextboxFirstName.NextControl = null;
             this.ucTextboxFirstName.ParentOfNextControl = null;
@@ -178,8 +178,8 @@ namespace MKproject.Management
             this.ucTextboxLastName.IsEmail = false;
             this.ucTextboxLastName.IsPhoneNumber = false;
             this.ucTextboxLastName.IsRequired = false;
-            this.ucTextboxLastName.Location = new System.Drawing.Point(3, 90);
-            this.ucTextboxLastName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.ucTextboxLastName.Location = new System.Drawing.Point(3, 80);
+            this.ucTextboxLastName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.ucTextboxLastName.Name = "ucTextboxLastName";
             this.ucTextboxLastName.NextControl = null;
             this.ucTextboxLastName.ParentOfNextControl = null;
@@ -196,8 +196,8 @@ namespace MKproject.Management
             this.ucTextboxPhoneNumber.IsEmail = false;
             this.ucTextboxPhoneNumber.IsPhoneNumber = false;
             this.ucTextboxPhoneNumber.IsRequired = false;
-            this.ucTextboxPhoneNumber.Location = new System.Drawing.Point(3, 175);
-            this.ucTextboxPhoneNumber.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.ucTextboxPhoneNumber.Location = new System.Drawing.Point(3, 155);
+            this.ucTextboxPhoneNumber.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.ucTextboxPhoneNumber.Name = "ucTextboxPhoneNumber";
             this.ucTextboxPhoneNumber.NextControl = null;
             this.ucTextboxPhoneNumber.ParentOfNextControl = null;
@@ -214,8 +214,8 @@ namespace MKproject.Management
             this.ucTextboxPassword.IsEmail = false;
             this.ucTextboxPassword.IsPhoneNumber = false;
             this.ucTextboxPassword.IsRequired = false;
-            this.ucTextboxPassword.Location = new System.Drawing.Point(3, 260);
-            this.ucTextboxPassword.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.ucTextboxPassword.Location = new System.Drawing.Point(3, 230);
+            this.ucTextboxPassword.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.ucTextboxPassword.Name = "ucTextboxPassword";
             this.ucTextboxPassword.NextControl = null;
             this.ucTextboxPassword.ParentOfNextControl = null;
@@ -230,7 +230,7 @@ namespace MKproject.Management
             this.groupBoxFeatures.BorderSize = 1;
             this.groupBoxFeatures.Controls.Add(this.FLPFeatures);
             this.groupBoxFeatures.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFeatures.Location = new System.Drawing.Point(3, 345);
+            this.groupBoxFeatures.Location = new System.Drawing.Point(3, 310);
             this.groupBoxFeatures.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBoxFeatures.Name = "groupBoxFeatures";
             this.groupBoxFeatures.Size = new System.Drawing.Size(420, 168);
@@ -255,7 +255,7 @@ namespace MKproject.Management
             this.checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.checkBoxStatus.AutoSize = true;
             this.checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxStatus.Location = new System.Drawing.Point(176, 523);
+            this.checkBoxStatus.Location = new System.Drawing.Point(176, 488);
             this.checkBoxStatus.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.checkBoxStatus.Name = "checkBoxStatus";
             this.checkBoxStatus.Size = new System.Drawing.Size(74, 25);

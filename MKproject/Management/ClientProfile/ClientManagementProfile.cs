@@ -1286,19 +1286,29 @@ namespace MKproject.Management
 
             if (Program.NewRegisterForm == null)
             {
-                Program.NewRegisterForm = new NewRegister(Client, null);
+                Program.NewRegisterForm = new NewRegister(Client, false);
             }
             else
             {
                 Program.NewRegisterForm.Resetcontrols();
-                Program.NewRegisterForm.LoadForm(Client, null);
+                Program.NewRegisterForm.LoadForm(Client, false);
             }
 
             Program.NewRegisterForm.ClientManagementProfileForm = this;
             Program.NewRegisterForm.ShowDialog();
+
             if (IsClientDeleted)
             {
-                ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
+                if (!IsFromSchedule)
+                {
+                    ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
+                   
+                }
+                else
+                {
+                    Client = null;//ejbare cz badde estaamela bel ucClientApp
+                    this.Close();
+                }
             }
         }
 

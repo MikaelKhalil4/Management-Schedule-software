@@ -27,7 +27,7 @@ namespace MKproject.Schedule
             InitializeComponent();
             ParentFormucClientApp = uc;
 
-            labelFullName.Text = ParentFormucClientApp.DesiredClient.Fname + " " + ParentFormucClientApp.DesiredClient.Lname;
+            labelFullName.Text = ParentFormucClientApp.DesiredAppointment.DesiredClient.Fname + " " + ParentFormucClientApp.DesiredAppointment.DesiredClient.Lname;
             SetUCSlidebutton();
             if (ParentFormucClientApp.PackageRemainingsDt.Rows.Count == 0)
             {
@@ -105,13 +105,15 @@ namespace MKproject.Schedule
             bundlePackage.UCMouseClick += BundlePackage_UCMouseClick; ;
             bundlePackage.Margin = new Padding(100, 0, 0, 10);
             FLPAvailablePackages.Controls.Add(bundlePackage);
+
         }
 
         private void BundlePackage_UCMouseClick(object sender, EventArgs e)
         {
             UCBundlePackage DesiredBundPackage = (UCBundlePackage)sender;
-            ParentFormucClientApp.DesiredClient.ChosenServicesList = null;
-            ParentFormucClientApp.FillObjectOfAvailablePackage(DesiredBundPackage.DesiredRow);
+            ParentFormucClientApp.DesiredAppointment.ChosenServicesList = null;
+            ParentFormucClientApp.DesiredAppointment.ChosenServicesDetails = null;
+            ParentFormucClientApp.FillObjectAndDesignOfAvailablePackage(DesiredBundPackage.DesiredRow);
             ParentFormucClientApp.SetDesignMode(false);
             this.Close();
         }
@@ -133,15 +135,23 @@ namespace MKproject.Schedule
                 }
                 if (uCBundlesOutput == null)
                 {
-                    uCBundlesOutput = new UCBundlesOutput();
-                    uCBundlesOutput.ParentFormChooseService = this;
-                    uCBundlesOutput.Dock = DockStyle.Fill;
-                    uCBundlesOutput.Margin = new Padding(15, 5, 15, 0);
 
+                    uCBundlesOutput = new UCBundlesOutput(this);        
+                    uCBundlesOutput.Dock = DockStyle.Fill;
+                    uCBundlesOutput.Margin = new Padding(15, 5, 15, 0);                 
                 }
                 TLPglobal.Controls.Add(uCBundlesOutput, 0, 2);
             }
         }
+        private void buttonChoose_Click(object sender, EventArgs e)
+        {
+            ParentFormucClientApp.DesiredAppointment.ChosenServicesList = new List<ClassBundles>(BundleList);//the bundle list is being filled bel ucapp
+            ParentFormucClientApp.DesiredAppointment.DesiredClientBalance = null;
+            ParentFormucClientApp.FillObjectAndDesignOfNewServices();
+            ParentFormucClientApp.SetDesignMode(false);
+            this.Close();
+        }
+
 
         void CreateTheNoLabelData()
         {
@@ -161,12 +171,6 @@ namespace MKproject.Schedule
             this.Close();
         }
 
-        private void buttonChoose_Click(object sender, EventArgs e)
-        {
-            ParentFormucClientApp.DesiredClient.ChosenServicesList = new List<ClassBundles>(BundleList);
-            ParentFormucClientApp.FillObjectOfNewServices();
-            ParentFormucClientApp.SetDesignMode(false);
-            this.Close();
-        }
+      
     }
 }

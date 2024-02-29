@@ -300,7 +300,7 @@ namespace MKproject.Schedule
 
 
                         //SQL
-                        ProjectToSql.UpdateFromRemindertoSQL(foundUcReminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                        //ProjectToSql.UpdateFromRemindertoSQL(foundUcReminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
 
 
 
@@ -354,7 +354,7 @@ namespace MKproject.Schedule
                             clientid = DesiredClient.ClientId;
                         }
                         //SQL
-                        ProjectToSql.UpdateFromRemindertoSQL(ucreminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                        //ProjectToSql.UpdateFromRemindertoSQL(ucreminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
 
 
                         //DESIGN Schedule
@@ -385,10 +385,10 @@ namespace MKproject.Schedule
                         clientid = DesiredClient.ClientId;
                     }
                     //SQL
-                    int idreminder = ProjectToSql.AddRemindertoSQL(clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                    //int idreminder = ProjectToSql.AddRemindertoSQL(clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
 
                     //BackEnd
-                    UCreminder ucreminder = new UCreminder(idreminder,clientid,clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text, ucday, schedule);//we add it to the SQL in the same time
+                    //UCreminder ucreminder = new UCreminder(idreminder,clientid,clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text, ucday, schedule);//we add it to the SQL in the same time
                     ucday.ListUCreminder.Add(ucreminder);//li2anno nehna aam men mashe lprogram lezim na3mello add
 
                     //DESIGN SCHEDULE

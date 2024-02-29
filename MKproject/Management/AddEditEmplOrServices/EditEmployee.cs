@@ -15,13 +15,15 @@ namespace MKproject.Management
         int GroupBoxOldHeight;//la e5oud l oldheight taba3 l groupBox abel ma 8ayerla siza
 
 
-        private CheckBox CheckboxWorkout;
         private CheckBox CheckBoxEditOffres;
-        private CheckBox CheckBoxSchedule;
-        private CheckBox CheckBoxMarketing;
         private CheckBox CheckBoxTransactions;
-        private CheckBox CheckBoxBackOffice;
+        private CheckBox CheckBoxEditEmployeesServicesProducts;
         private CheckBox CheckBoxStatistics;
+        private CheckBox CheckBoxEditClients;
+        private CheckBox CheckBoxDeleteClient;
+        private CheckBox CheckBoxRegistrationFields;
+
+        private CheckBox CheckBoxSchedule;
 
 
         private bool IsFeatures;//he la nchouf eza fi features aw keloun turned off
@@ -82,26 +84,22 @@ namespace MKproject.Management
                 buttonDelete.Visible = false;
             }
 
-            if ((!Features.Workout && !Features.Management && !Features.Management && !Features.Schedule && !Features.Marketing) || (EmployeeId != null))
+            if ((!Features.Management && !Features.Schedule) || (EmployeeId != null))
             {
-                // Remove the groupBoxFeatures from the form's controls
                 this.Controls.Remove(groupBoxFeatures);
-                // Dispose of the groupBoxFeatures to release its resources
                 groupBoxFeatures.Dispose();
                 IsFeatures = false;
                 ChangeFormSize(false);
             }
             else
             {
+                ToolTip toolTip1 = new ToolTip();
+                toolTip1.InitialDelay = 800;
+                toolTip1.AutoPopDelay = 30000;
+                toolTip1.ShowAlways = true;
+
                 IsFeatures = true;
-                if (Features.Workout)
-                {
-                    CheckboxWorkout = new CheckBox();
-                    CheckboxWorkout.Text = enumFeatures.Workout.GetStringValue();
-                    CheckboxWorkout.Font = seguiFont;
-                    CheckboxWorkout.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckboxWorkout);
-                }
+
                 if (Features.Schedule)
                 {
                     CheckBoxSchedule = new CheckBox();
@@ -109,42 +107,60 @@ namespace MKproject.Management
                     CheckBoxSchedule.Font = seguiFont;
                     CheckBoxSchedule.AutoSize = true;
                     FLPFeatures.Controls.Add(CheckBoxSchedule);
-                }
-                if (Features.Marketing)
-                {
-                    CheckBoxMarketing = new CheckBox();
-                    CheckBoxMarketing.Text = enumFeatures.Marketing.GetStringValue();
-                    CheckBoxMarketing.Font = seguiFont;
-                    CheckBoxMarketing.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxMarketing);
+                    toolTip1.SetToolTip(CheckBoxSchedule, "This feature allows employees to access the schedule");
                 }
                 if (Features.Management)
                 {
+                    CheckBoxEditOffres = new CheckBox();
+                    CheckBoxEditOffres.Text = enumFeatures.EditOffres.GetStringValue();
+                    CheckBoxEditOffres.Font = seguiFont;
+                    CheckBoxEditOffres.AutoSize = true;
+                    FLPFeatures.Controls.Add(CheckBoxEditOffres);
+                    toolTip1.SetToolTip(CheckBoxEditOffres, "This feature allows employees to edit the offers of the client while purchasing a service or product");
+
+                    CheckBoxRegistrationFields = new CheckBox();
+                    CheckBoxRegistrationFields.Text = enumFeatures.RegistrationFields.GetStringValue() ;
+                    CheckBoxRegistrationFields.Font = seguiFont;
+                    CheckBoxRegistrationFields.AutoSize = true;
+                    FLPFeatures.Controls.Add(CheckBoxRegistrationFields);
+                    toolTip1.SetToolTip(CheckBoxRegistrationFields, "This feature allows employees to show or hide fields or set them as required for the client's information");
+
+                    CheckBoxEditClients = new CheckBox();
+                    CheckBoxEditClients.Text = enumFeatures.EditClients.GetStringValue();
+                    CheckBoxEditClients.Font = seguiFont;
+                    CheckBoxEditClients.AutoSize = true;
+                    FLPFeatures.Controls.Add(CheckBoxEditClients);
+                    toolTip1.SetToolTip(CheckBoxEditClients, "This feature allows employees to insert or edit clients' information");
+
+                    CheckBoxDeleteClient = new CheckBox();
+                    CheckBoxDeleteClient.Text = enumFeatures.DeleteClients.GetStringValue();
+                    CheckBoxDeleteClient.Font = seguiFont;
+                    CheckBoxDeleteClient.AutoSize = true;
+                    FLPFeatures.Controls.Add(CheckBoxDeleteClient);
+                    toolTip1.SetToolTip(CheckBoxDeleteClient, "This feature allows employees to delete clients");
                    
                     CheckBoxTransactions = new CheckBox();
                     CheckBoxTransactions.Text = enumFeatures.Transactions.GetStringValue();
                     CheckBoxTransactions.Font = seguiFont;
                     CheckBoxTransactions.AutoSize = true;
                     FLPFeatures.Controls.Add(CheckBoxTransactions);
-
-                    CheckBoxBackOffice = new CheckBox();
-                    CheckBoxBackOffice.Text = enumFeatures.BackOffice.GetStringValue();
-                    CheckBoxBackOffice.Font = seguiFont;
-                    CheckBoxBackOffice.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxBackOffice);
+                    toolTip1.SetToolTip(CheckBoxTransactions, "This feature enables employees to access all interactions made on the system. At the client level, they can access all interactions made by this client and can undo actions");
 
                     CheckBoxStatistics = new CheckBox();
-                    CheckBoxStatistics.Text = enumFeatures.Statistics.GetStringValue();
+                    CheckBoxStatistics.Text = enumFeatures.Statistics.GetStringValue() ;
                     CheckBoxStatistics.Font = seguiFont;
                     CheckBoxStatistics.AutoSize = true;
                     FLPFeatures.Controls.Add(CheckBoxStatistics);
+                    toolTip1.SetToolTip(CheckBoxStatistics, "This feature allows employees to view all statistics, from income to client attendance, in real time or for any selected date");
 
-                    CheckBoxEditOffres = new CheckBox();
-                    CheckBoxEditOffres.Text = enumFeatures.EditOffres.GetStringValue();
-                    CheckBoxEditOffres.Font = seguiFont;
-                    CheckBoxEditOffres.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxEditOffres);
-                
+                    CheckBoxEditEmployeesServicesProducts = new CheckBox();
+                    CheckBoxEditEmployeesServicesProducts.Text = enumFeatures.ServicesProductsEmployees.GetStringValue();
+                    CheckBoxEditEmployeesServicesProducts.Font = seguiFont;
+                    CheckBoxEditEmployeesServicesProducts.AutoSize = true;
+                    FLPFeatures.Controls.Add(CheckBoxEditEmployeesServicesProducts);
+                    toolTip1.SetToolTip(CheckBoxEditEmployeesServicesProducts, "This feature enables employees, to add/Edit/Delete services, products or employee");
+
+
 
                 }
                 AdjustFeaturesSize();
@@ -160,6 +176,7 @@ namespace MKproject.Management
 
         private void AdjustFeaturesSize()
         {
+            int MaxHeight = 270;
             // Get the preferred size of FLPFeatures
             Size preferredSize = FLPFeatures.PreferredSize;
 
@@ -167,9 +184,17 @@ namespace MKproject.Management
             int padding = 2; // You can adjust the padding as per your preference
 
             int SizeDifference = groupBoxFeatures.Size.Height - FLPFeatures.Size.Height;//kermel nchouf l fare2 ben l groupbox wel FLP
+            int DesiredHeight = preferredSize.Height + padding + SizeDifference;
+            if (DesiredHeight > MaxHeight)
+            {
+                groupBoxFeatures.Size = new Size(groupBoxFeatures.Size.Width, MaxHeight);
 
-            // Set the new size for groupBoxFeatures
-            groupBoxFeatures.Size = new Size(groupBoxFeatures.Size.Width, preferredSize.Height + padding + SizeDifference);
+            }
+            else
+            {
+                groupBoxFeatures.Size = new Size(groupBoxFeatures.Size.Width, preferredSize.Height + padding + SizeDifference);
+
+            }
         }
         void ChangeFormSize(bool ContainFeatures)
         {
@@ -239,14 +264,8 @@ namespace MKproject.Management
 
                 foreach (string word in accessWords)
                 {
-                    if (word == enumFeatures.Workout.GetStringValue())
-                    {
-                        if (CheckboxWorkout != null)
-                        {
-                            CheckboxWorkout.Checked = true;
-                        }
-                    }
-                    else if (word == enumFeatures.Schedule.GetStringValue())
+                  //schedule
+                     if (word == enumFeatures.Schedule.GetStringValue())
                     {
                         if (CheckBoxSchedule != null)
                         {
@@ -254,13 +273,7 @@ namespace MKproject.Management
                         }
                     }
 
-                    else if (word == enumFeatures.Marketing.GetStringValue())
-                    {
-                        if (CheckBoxMarketing != null)
-                        {
-                            CheckBoxMarketing.Checked = true;
-                        }
-                    }
+                    //management
                     else if (word==enumFeatures.Transactions.GetStringValue())
                     {
                         
@@ -269,12 +282,12 @@ namespace MKproject.Management
                             CheckBoxTransactions.Checked = true;
                         }
                     }
-                    else if (word == enumFeatures.BackOffice.GetStringValue())
+                    else if (word == enumFeatures.ServicesProductsEmployees.GetStringValue())
                     {
 
-                        if (CheckBoxBackOffice != null)
+                        if (CheckBoxEditEmployeesServicesProducts != null)
                         {
-                            CheckBoxBackOffice.Checked = true;
+                            CheckBoxEditEmployeesServicesProducts.Checked = true;
                         }
                     }
                     else if (word == enumFeatures.Statistics.GetStringValue())
@@ -287,13 +300,32 @@ namespace MKproject.Management
                     }
                     else if (word == enumFeatures.EditOffres.GetStringValue())
                     {               
-                        if (CheckBoxStatistics != null)
+                        if (CheckBoxEditOffres != null)
                         {
                             CheckBoxEditOffres.Checked = true;
                         }
                     }
-                   
-              
+                    else if (word == enumFeatures.RegistrationFields.GetStringValue())
+                    {
+                        if (CheckBoxRegistrationFields != null)
+                        {
+                            CheckBoxRegistrationFields.Checked = true;
+                        }
+                    }
+                    else if (word == enumFeatures.EditClients.GetStringValue())
+                    {
+                        if (CheckBoxEditClients != null)
+                        {
+                            CheckBoxEditClients.Checked = true;
+                        }
+                    }
+                    else if (word == enumFeatures.DeleteClients.GetStringValue())
+                    {
+                        if (CheckBoxDeleteClient != null)
+                        {
+                            CheckBoxDeleteClient.Checked = true;
+                        }
+                    }
 
                 }
             }

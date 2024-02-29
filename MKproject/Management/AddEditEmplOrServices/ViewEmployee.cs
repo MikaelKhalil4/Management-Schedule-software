@@ -100,15 +100,7 @@ namespace MKproject.Management
         public void FixColumnFakeAccess(DataRow row)
         {
             row["FakeAccess"] = row["access"];
-
-            if (!Features.Workout && row["FakeAccess"].ToString().Contains(Features.enumFeatures.Workout.GetStringValue()))
-            {
-                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Workout.GetStringValue()+"/", "");
-            }
-            if (!Features.Marketing && row["FakeAccess"].ToString().Contains(Features.enumFeatures.Marketing.GetStringValue()))
-            {
-                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Marketing.GetStringValue() + "/", "");
-            }
+           
             if (!Features.Schedule && row["FakeAccess"].ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
             {
                 row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Schedule.GetStringValue()+"/", "");
@@ -121,11 +113,20 @@ namespace MKproject.Management
                 if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
                     row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Transactions.GetStringValue() + "/", "");
                
-                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.BackOffice.GetStringValue()))
-                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.BackOffice.GetStringValue()+"/", "");
+                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
+                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()+"/", "");
               
                 if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
                     row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Statistics.GetStringValue() + "/", "");
+
+                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
+                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.RegistrationFields.GetStringValue() + "/", "");
+
+                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
+                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.DeleteClients.GetStringValue() + "/", "");
+
+                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
+                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.EditClients.GetStringValue() + "/", "");
 
             }
            

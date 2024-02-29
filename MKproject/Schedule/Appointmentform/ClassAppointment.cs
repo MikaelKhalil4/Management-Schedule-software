@@ -15,14 +15,19 @@ namespace MKproject.Schedule
         //Property
         public int IdAppointment { get; set; }
         public int IdCoach { get; set; }
-        public ClassClient DesiredClient { get; set; }
         public string Title { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Notes { get; set; }
         public bool OnPending { get; set; }
 
-
+        //used in UCClientApp
+        public ClassClient DesiredClient { get; set; }
+          
+        public ClassChosenClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
+        public List<ClassBundles> ChosenServicesList;//used when selecting new services
+        public string ChosenServicesDetails;//e.g: hair/Beard
+                                           
         //SQL
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 

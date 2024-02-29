@@ -38,9 +38,10 @@
             this.buttonBundlesAndProducts = new System.Windows.Forms.Button();
             this.buttonEmployee = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.timerMenuOpen = new System.Windows.Forms.Timer(this.components);
             this.timerMenuClose = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSchedule = new System.Windows.Forms.Button();
             this.FLPGlobal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@
             this.FLPGlobal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.FLPGlobal.Controls.Add(this.buttonMenu);
             this.FLPGlobal.Controls.Add(this.buttonSearchClient);
+            this.FLPGlobal.Controls.Add(this.buttonSchedule);
             this.FLPGlobal.Controls.Add(this.buttonTransaction);
             this.FLPGlobal.Controls.Add(this.buttonStatistics);
             this.FLPGlobal.Controls.Add(this.buttonBundlesAndProducts);
@@ -117,7 +119,7 @@
             this.buttonTransaction.ForeColor = System.Drawing.Color.White;
             this.buttonTransaction.Image = ((System.Drawing.Image)(resources.GetObject("buttonTransaction.Image")));
             this.buttonTransaction.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonTransaction.Location = new System.Drawing.Point(0, 86);
+            this.buttonTransaction.Location = new System.Drawing.Point(0, 135);
             this.buttonTransaction.Margin = new System.Windows.Forms.Padding(0);
             this.buttonTransaction.Name = "buttonTransaction";
             this.buttonTransaction.Size = new System.Drawing.Size(247, 49);
@@ -139,7 +141,7 @@
             this.buttonStatistics.ForeColor = System.Drawing.Color.White;
             this.buttonStatistics.Image = ((System.Drawing.Image)(resources.GetObject("buttonStatistics.Image")));
             this.buttonStatistics.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonStatistics.Location = new System.Drawing.Point(0, 135);
+            this.buttonStatistics.Location = new System.Drawing.Point(0, 184);
             this.buttonStatistics.Margin = new System.Windows.Forms.Padding(0);
             this.buttonStatistics.Name = "buttonStatistics";
             this.buttonStatistics.Size = new System.Drawing.Size(247, 49);
@@ -161,7 +163,7 @@
             this.buttonBundlesAndProducts.ForeColor = System.Drawing.Color.White;
             this.buttonBundlesAndProducts.Image = ((System.Drawing.Image)(resources.GetObject("buttonBundlesAndProducts.Image")));
             this.buttonBundlesAndProducts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonBundlesAndProducts.Location = new System.Drawing.Point(0, 184);
+            this.buttonBundlesAndProducts.Location = new System.Drawing.Point(0, 233);
             this.buttonBundlesAndProducts.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBundlesAndProducts.Name = "buttonBundlesAndProducts";
             this.buttonBundlesAndProducts.Size = new System.Drawing.Size(247, 49);
@@ -183,7 +185,7 @@
             this.buttonEmployee.ForeColor = System.Drawing.Color.White;
             this.buttonEmployee.Image = ((System.Drawing.Image)(resources.GetObject("buttonEmployee.Image")));
             this.buttonEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonEmployee.Location = new System.Drawing.Point(0, 233);
+            this.buttonEmployee.Location = new System.Drawing.Point(0, 282);
             this.buttonEmployee.Margin = new System.Windows.Forms.Padding(0);
             this.buttonEmployee.Name = "buttonEmployee";
             this.buttonEmployee.Size = new System.Drawing.Size(247, 49);
@@ -205,7 +207,7 @@
             this.buttonLogout.ForeColor = System.Drawing.Color.White;
             this.buttonLogout.Image = ((System.Drawing.Image)(resources.GetObject("buttonLogout.Image")));
             this.buttonLogout.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.buttonLogout.Location = new System.Drawing.Point(0, 282);
+            this.buttonLogout.Location = new System.Drawing.Point(0, 331);
             this.buttonLogout.Margin = new System.Windows.Forms.Padding(0);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(247, 49);
@@ -214,16 +216,6 @@
             this.buttonLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonLogout.UseVisualStyleBackColor = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
-            // timerMenuOpen
-            // 
-            this.timerMenuOpen.Interval = 1;
-            this.timerMenuOpen.Tick += new System.EventHandler(this.timerMenuOpen_Tick);
-            // 
-            // timerMenuClose
-            // 
-            this.timerMenuClose.Interval = 1;
-            this.timerMenuClose.Tick += new System.EventHandler(this.timerMenuClose_Tick);
             // 
             // button1
             // 
@@ -237,7 +229,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 331);
+            this.button1.Location = new System.Drawing.Point(0, 380);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(247, 49);
@@ -246,6 +238,38 @@
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // timerMenuOpen
+            // 
+            this.timerMenuOpen.Interval = 1;
+            this.timerMenuOpen.Tick += new System.EventHandler(this.timerMenuOpen_Tick);
+            // 
+            // timerMenuClose
+            // 
+            this.timerMenuClose.Interval = 1;
+            this.timerMenuClose.Tick += new System.EventHandler(this.timerMenuClose_Tick);
+            // 
+            // buttonSchedule
+            // 
+            this.buttonSchedule.BackColor = System.Drawing.Color.Transparent;
+            this.buttonSchedule.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonSchedule.FlatAppearance.BorderSize = 0;
+            this.buttonSchedule.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.buttonSchedule.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.buttonSchedule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSchedule.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSchedule.ForeColor = System.Drawing.Color.White;
+            this.buttonSchedule.Image = ((System.Drawing.Image)(resources.GetObject("buttonSchedule.Image")));
+            this.buttonSchedule.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonSchedule.Location = new System.Drawing.Point(0, 86);
+            this.buttonSchedule.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonSchedule.Name = "buttonSchedule";
+            this.buttonSchedule.Size = new System.Drawing.Size(247, 49);
+            this.buttonSchedule.TabIndex = 15;
+            this.buttonSchedule.Text = "Schedule";
+            this.buttonSchedule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonSchedule.UseVisualStyleBackColor = false;
+            this.buttonSchedule.Click += new System.EventHandler(this.buttonSchedule_Click);
             // 
             // Menu
             // 
@@ -279,5 +303,6 @@
         public System.Windows.Forms.Timer timerMenuClose;
         private System.Windows.Forms.Button buttonLogout;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Button buttonSchedule;
     }
 }

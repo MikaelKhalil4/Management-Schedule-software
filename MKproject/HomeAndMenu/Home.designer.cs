@@ -45,7 +45,7 @@
             // 
             // TLPHome
             // 
-            this.TLPHome.BackColor = System.Drawing.Color.White;
+            this.TLPHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
             this.TLPHome.ColumnCount = 1;
             this.TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TLPHome.Controls.Add(this.panelTitleBar, 0, 0);

@@ -3,20 +3,20 @@
   <assemblyIdentity name="MKproject.application" version="1.0.0.20" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <description asmv2:publisher="MKproject" asmv2:product="MKproject" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true">
-    <deploymentProvider codebase="http://desktop-mmi74fe/MKproject/MKproject.application" />
+    <deploymentProvider codebase="http://mkpc/MKproject/MKproject.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
     <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="MKproject.exe.manifest" size="23317">
+    <dependentAssembly dependencyType="install" codebase="MKproject.exe.manifest" size="23714">
       <assemblyIdentity name="MKproject.exe" version="1.0.0.20" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MEW+s5reATkD41FNkykIGkjKB3dYkN/T+CuC6OS1bOU=</dsig:DigestValue>
+        <dsig:DigestValue>jPKZLPrrE33XhxaC8BIXpoO8xb3TZ4pV7ookFHLl1ro=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

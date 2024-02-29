@@ -1,8 +1,10 @@
 ﻿using GlobalFunctions;
 using MKproject.Schedule;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using static MKproject.Management.ClassBundles;
 
@@ -14,7 +16,7 @@ namespace MKproject.Management
         public BuyBundleOrProudct ParentFormBuy { get; set; }
         public ChooseService ParentFormChooseService { get; set; }
 
-        public UCBundlesOutput()
+        public UCBundlesOutput(ChooseService parentFormChooseService)//baatneha in argument for the reason , in the load event we re using it
         {
             InitializeComponent();
 
@@ -22,10 +24,14 @@ namespace MKproject.Management
             DataTable dtBundle = ClassBundles.RetrieveAllBundleStatusOn();
             FormatdtBundles(dtBundle);
             FormatDatagridViewBundles(dtBundle);
+
+            ParentFormChooseService = parentFormChooseService;
+
         }
 
-        String StringMembership = "MemberShip", StringNotMembership = "Not MemberShip";
 
+
+        String StringMembership = "MemberShip", StringNotMembership = "Not MemberShip";
         public void FormatdtBundles(DataTable dt)
         {
             dt.Columns.Add("ColumnCheck", typeof(bool));
@@ -113,73 +119,79 @@ namespace MKproject.Management
 
 
         }
-        public void FillDataGrid()
-        {
-
-            DataTable dt = ClassBundles.RetrieveAllBundleStatusOn();
-
-
-            // Create UCPackage UserControls based on the data in the DataTable
-            foreach (DataRow row in dt.Rows)
-            {
-                // Get the values from the DataTable row
-                int id = Convert.ToInt16(row["bundle_id"]);
-                string bundleName = row["bundle_name"].ToString();
-
-                string description;
-                if (row["description"] == DBNull.Value)
-                {
-                    description = "N/A";
-                }
-                else
-                {
-                    description = row["description"].ToString();
-                }
-
-                string Membership;
-                if ((bool)row["is_member_ship"] == true)
-                {
-                    Membership = StringMembership;
-                }
-                else
-                {
-                    Membership = StringNotMembership;
-                }
-                string sessionsNumber;
-                if (row["sessions_numb"] != DBNull.Value)
-                {
-                    sessionsNumber = row["sessions_numb"].ToString();
-
-                }
-                else
-                {
-                    sessionsNumber = null;
-                }
-
-                string bundletype = row["bundle_type"].ToString();
-                string price = row["price"].ToString();
-
-                dataGridViewBundles.Rows.Add(false, id, bundleName, description, sessionsNumber + " " + bundletype, bundletype, Currency.Symbol + price, Membership);
-            }
-
-
-        }//try catch
-
-
-
-
-        private void dataGridViewBundles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        DataGridViewRow LastRowSelected;
 
         private void UCBundlesOutput_Load(object sender, EventArgs e)
         {
+            if (ParentFormChooseService != null && ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenServicesList != null)
+            {
+                SelectChosenServices();
+            }
             dataGridViewBundles.ClearSelection();
         }
 
+        public void SelectChosenServices()
+        {
+            foreach (DataGridViewRow row in dataGridViewBundles.Rows)
+            {
+                foreach (ClassBundles bundle in ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenServicesList)
+                {
+                    if (bundle.ID == (int)row.Cells["bundle_id"].Value)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.FromArgb(229, 226, 244);
+                        row.Cells["ColumnCheck"].Value = true;
+
+                        ParentFormChooseService.BundleList.Add(bundle);
+
+                    }
+                }
+            }
+        }
+
+        private void dataGridViewBundles_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ClassBundles Bundle = null;
+            Bundle = new ClassBundles();
+            FillingBundleDetails(dataGridViewBundles.Rows[e.RowIndex], Bundle);
+
+
+            if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == false)
+            {
+                dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 226, 244);
+                dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = true;
+                dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(229, 226, 244);
+
+
+                //Design
+                if (ParentFormBuy != null)//only in buy product
+                {
+                    ParentFormBuy.AddItem(Bundle, null);
+                }
+                else if (ParentFormChooseService != null)
+                {
+                    ParentFormChooseService.BundleList.Add(Bundle);
+                }
+
+            }
+            else if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == true)
+            {
+                dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.White;
+                dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = false;
+                dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+
+
+                //design
+                if (ParentFormBuy != null)//only in buyproduct
+                {
+                    ParentFormBuy.RemoveButton(Bundle.ID, Bundle.Price);
+                    //list
+                    ParentFormBuy.BundleList.RemoveAll(p => p.ID == Bundle.ID);
+                }
+                else if (ParentFormChooseService != null)
+                {
+                    ParentFormChooseService.BundleList.RemoveAll(p => p.ID == Bundle.ID);
+                }
+            }
+        }
 
         void FillingBundleDetails(DataGridViewRow DesiredRow, ClassBundles Bundle)
         {
@@ -225,76 +237,32 @@ namespace MKproject.Management
 
             Bundle.Qty = 1;
         }
-        private void dataGridViewBundles_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ClassBundles Bundle = null;
-            Bundle = new ClassBundles();
-            FillingBundleDetails(dataGridViewBundles.Rows[e.RowIndex], Bundle);
 
 
-            if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == false)
-            {
-                dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 226, 244);
-                dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = true;
-                dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(229, 226, 244);
-
-
-                //Design
-                if (ParentFormBuy != null)//only in buyproduct
-                {
-                    ParentFormBuy.AddItem(Bundle, null);
-                }
-                else if(ParentFormChooseService!=null)
-                {
-                    ParentFormChooseService.BundleList.Add(Bundle);
-                }
-
-            }
-            else if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == true)
-            {
-                dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.White;
-                dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = false;
-                dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
-
-
-                //design
-                if (ParentFormBuy != null)//only in buyproduct
-                {
-                    ParentFormBuy.RemoveButton(Bundle.ID, Bundle.Price);
-                    //list
-                    ParentFormBuy.BundleList.RemoveAll(p => p.ID == Bundle.ID);
-                }
-                else if (ParentFormChooseService != null)
-                {
-                    ParentFormChooseService.BundleList.RemoveAll(p => p.ID == Bundle.ID);
-                }
-            }
-
-        }
-        ////to select one row only
-        //else if(ParentFormChooseService!=null)
-        //{
-        //    if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == false)
-        //    {
-        //        dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 226, 244);
-        //        dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = true;
-        //        dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(229, 226, 244);
-        //        if (LastRowSelected != null)
+        //        //to select one row only
+        //        else if(ParentFormChooseService!=null)
         //        {
-        //            LastRowSelected.DefaultCellStyle.BackColor = Color.White;
-        //            LastRowSelected.Cells["ColumnCheck"].Value = false;
-        //        }
-        //        LastRowSelected = dataGridViewBundles.Rows[e.RowIndex];
+        //            if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == false)
+        //            {
+        //                dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 226, 244);
+        //                dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = true;
+        //                dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(229, 226, 244);
+        //                if (LastRowSelected != null)
+        //                {
+        //                    LastRowSelected.DefaultCellStyle.BackColor = Color.White;
+        //                    LastRowSelected.Cells["ColumnCheck"].Value = false;
+        //                }
+        //    LastRowSelected = dataGridViewBundles.Rows[e.RowIndex];
 
-        //    }
-        //    else if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == true)
-        //    {
-        //        dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = false;
-        //        dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.White;
-        //        dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = false;
-        //        dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
-        //    }
+        //            }
+        //            else if (Convert.ToBoolean(dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value) == true)
+        //{
+        //    dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = false;
+        //    dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.White;
+        //    dataGridViewBundles.Rows[e.RowIndex].Cells["ColumnCheck"].Value = false;
+        //    dataGridViewBundles.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
         //}
+        //        }
 
 
 

@@ -37,7 +37,7 @@ namespace MKproject.Schedule
             schedule = form1;
             ucday = uc1;
             panelreminder.Controls.Clear();
-            tablereminder = SQLToProject.DisplayReminderByClientName(ClientId);
+            //tablereminder = SQLToProject.DisplayReminderByClientName(ClientId);
             foreach (DataRow dr in tablereminder.Rows)
             {
                 UCreminder ucreminder = new UCreminder((int)dr[0], ClientId, (string)dr[1], (string)dr[2], (DateTime)dr[3], (string)dr[4], (bool)dr[5], ClientName, ucday, schedule, true, this);//zedna true kermel naeemela construction khas la ela

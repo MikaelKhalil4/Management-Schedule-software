@@ -32,7 +32,7 @@ namespace MKproject.Management
         {
             if (IsBundle)
             {
-                UCBundlesOutput uc = new UCBundlesOutput();
+                UCBundlesOutput uc = new UCBundlesOutput(null);
                 uc.ParentFormBuy = this;
                 uc.Dock = DockStyle.Fill;
                 uc.Margin = new Padding(7, 0, 7, 0);

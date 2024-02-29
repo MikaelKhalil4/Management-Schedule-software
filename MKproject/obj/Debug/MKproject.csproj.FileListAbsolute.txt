@@ -1616,13 +1616,8 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramewo
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.Reminder.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCappointments.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCCoach.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCmeeting.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCreminder.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.AppointmentUpdate.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.MeetingUpdate.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.Appointment.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCClient.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCMeetingInAppointment.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.AvailabilityLayout.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.Coach.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCTimeavailability.resources
@@ -1819,7 +1814,141 @@ C:\MKproject\MKproject\obj\Debug\MKproject.application
 C:\MKproject\MKproject\obj\Debug\MKproject.csproj.CopyComplete
 C:\MKproject\MKproject\obj\Debug\MKproject.exe
 C:\MKproject\MKproject\obj\Debug\MKproject.pdb
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.AppointmentF.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCOthersApp.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.csproj.AssemblyReference.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.EditBundleProduct.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.EditEmployee.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.ViewBundlesAndProducts.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.ViewEmployee.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.BackOffice.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.BuyBundleOrProudct.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCBundlesOutput.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCProductOutput.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCCalanderMonth.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.Camera.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCNumberButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCNumberComboButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Menu.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.ChildParent.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.ClientManagementProfile.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.CustomerService.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Home.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.RelatedChildrens.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.TransferData.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCItem.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.FilterCheckListSearch.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.FilterCustomDate.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.ImageForm.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.LOGIN.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.NewRegister.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.Payment.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Properties.Resources.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.RegistrationFields.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.Album.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.SearchCurrentClient.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.Statistics.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCBundlePackage.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.Calander.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.Calanderyear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCCalanderYear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCComboBoxFilterSearch.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCPayments.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCNumberLabelButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCCamera.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Management.UCDoubleCombo.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.Appointment.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCOthersApp.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.ChooseService.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.AvailabilityLayout.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.Coach.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCTimeavailability.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.CBdisplayTime.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.CBrepeat.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCDay.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCTime.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.Schedule.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCCalanderday.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCCalandermonth.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCCalanderyear.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCDays.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCMonth.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.ClientReminder.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.Reminder.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCappointments.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCCoach.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCData.UCData.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Schedule.UCreminder.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.Search.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.csproj.GenerateResource.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.csproj.CoreCompileInputs.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.exe
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\nlog.config
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\BackOfficeBig.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\BackOfficeSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\Check.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\dollarBig.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\dollarSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\editgray.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\editgreen.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\Editing_pen.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\EmptyIcon.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\Error.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\info.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\maximizee.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\Question.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\restore-down.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\search2.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\user.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\user1.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\userNude(smallPixel).png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\userNude.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\userNudeSmall(smallPixel).png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\userNudeSmall.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\view.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\Warning.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\images\YesOrNo.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\MKproject.exe.config
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\MKproject.exe.manifest
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\MKproject.application
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\MKproject.exe
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\CustomizedTools.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\NLog.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\OpenTK.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\OpenTK.GLControl.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Buffers.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Drawing.Common.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Memory.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Numerics.Vectors.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Text.Encodings.Web.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Text.Json.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.ValueTuple.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\CustomizedTools.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\NLog.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\OpenTK.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\OpenTK.GLControl.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Buffers.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Drawing.Common.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Memory.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Numerics.Vectors.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Text.Encodings.Web.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Text.Json.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\bin\Debug\System.ValueTuple.xml
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.exe.manifest
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.application
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework -abs changes\MKproject\obj\Debug\MKproject.csproj.CopyComplete
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\search2.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCOthersApp.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.ChooseService.resources

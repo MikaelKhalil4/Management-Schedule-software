@@ -16,24 +16,26 @@ namespace MKproject
 
         TextBoxWithPlaceHolder DesiredTextbox;
 
-        ClassClient DesiredClient;
+        public ClassClient NewDesiredClient;
+        ClassClient ComingDesiredClient;
 
-
-        public Search(TextBoxWithPlaceHolder desiredTextbox, ClassClient desiredClient)
+        //what will hapen to access the new selected client , we use the evemt ChosenClientChanged in the other form and we access NewDesiredClient
+        public Search(TextBoxWithPlaceHolder desiredTextbox, ClassClient comingDesiredClient)
         {
             InitializeComponent();
             DesiredTextbox = desiredTextbox;
-            DesiredClient = desiredClient;
+            NewDesiredClient = new ClassClient();
+            ComingDesiredClient = comingDesiredClient;
 
             LoadForm();
 
             textBoxSearch.BackColor = desiredTextbox.BackColor;
+            textBoxSearch.Font = desiredTextbox.Font;
             textBoxSearch.Select();
             if (DesiredTextbox.Text != DesiredTextbox.PlaceholderText)//don t use strings use 
             {
                 textBoxSearch.Text = DesiredTextbox.Text;
             }
-
         }
         private void Search_Load(object sender, EventArgs e)
         {
@@ -63,7 +65,7 @@ namespace MKproject
                 }
                 d["Phone Number"] = phone_number;
 
-                d["Full Name"] = d["name"] +" "+ d["family_name"];
+                d["Full Name"] = d["name"] + " " + d["family_name"];
             }
             //ordering
             int columnIndexToMove;
@@ -168,22 +170,31 @@ namespace MKproject
                 string LName = row.Cells["family_name"].Value.ToString();
                 int Id = Convert.ToInt16(row.Cells["client_id"].Value);
 
-                DesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
-                DesiredClient.Fname = FName;
-                DesiredClient.Lname = LName;
-                textBoxSearch.Text = FName+" "+ LName;
+                NewDesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
+                NewDesiredClient.Fname = FName;
+                NewDesiredClient.Lname = LName;
+
+
+                textBoxSearch.Text = FName + " " + LName;
                 DesiredTextbox.Text = textBoxSearch.Text;//ejbare hone kermel el packoffice
+
+                this.Close();//ejbare foe el event,glitch: kermel teftah el choose el service, since, bel event aam neftaha,
                 ChosenClientChanged?.Invoke(this, EventArgs.Empty);
+
+
                 this.Close();
             }
 
         }
         private void Search_Deactivate(object sender, EventArgs e)
         {
-            if (DesiredClient.ClientId!=null && string.IsNullOrEmpty(textBoxSearch.Text))//which mean ghayarne
+            if (ComingDesiredClient != null && string.IsNullOrEmpty(textBoxSearch.Text))//which mean ghayarne
             {
-                DesiredClient.ClientId = null;//ejbare ha foe li tahta cz el filter aal textchange
+                NewDesiredClient = null;
+
                 DesiredTextbox.Text = DesiredTextbox.PlaceholderText;
+
+                this.Close();//ejbare foe el event,glitch: kermel teftah el choose el service, since, bel event aam neftaha
                 ChosenClientChanged?.Invoke(this, EventArgs.Empty);
             }
             this.Close();

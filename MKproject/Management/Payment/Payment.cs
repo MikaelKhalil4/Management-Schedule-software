@@ -184,7 +184,7 @@ namespace MKproject.Management
         }
         private void UcSlideButtonPayOrEdit_Button2Clicked(object sender, EventArgs e)
         {
-            if (LOGIN.Employee.CanAccesEditOffre)
+            if (LOGIN.Employee.CanEditOffre)
             {
                 if (IsPayementMode)//eza already kenit edit mode ma btaamil shi
                 {

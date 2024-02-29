@@ -92,11 +92,9 @@ namespace MKproject.Management
         public string FightingSkills { get; set; }
 
 
-        //Used Only in schedule:
-        public ClassChosenClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
+    
 
-        public List<ClassBundles> ChosenServicesList;//used when selecting new services
-        public string ChosenServicesDetails;//e.g: hair/Beard
+      
 
 
         public enum ClientGender

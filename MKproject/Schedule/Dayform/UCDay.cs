@@ -216,38 +216,38 @@ namespace MKproject.Schedule
             //REMINDER
             //CREATING ALL THE ucreminder and putting it on a list
             ListUCreminder = new List<UCreminder>();
-            tablereminder = SQLToProject.DisplayReminder();
+            //tablereminder = SQLToProject.DisplayReminder();
 
-            foreach (DataRow dr in tablereminder.Rows)
-            {
-                int? clientid = dr[1] as int?;//hayde fi hal kenit null
-                string clientname;
-                if (dr.IsNull(7))
-                {
-                    clientname = "";
-                }
-                else
-                {
-                    clientname = (string)dr[7] + " " + (string)dr[8];
-                }
-                UCreminder ucreminder = new UCreminder((int)dr[0], clientid, (string)dr[2], (string)dr[3], (DateTime)dr[4], (string)dr[5], (bool)dr[6], clientname, this, schedule, false);//li2anno manna bi client reminder
+            //foreach (DataRow dr in tablereminder.Rows)
+            //{
+            //    int? clientid = dr[1] as int?;//hayde fi hal kenit null
+            //    string clientname;
+            //    if (dr.IsNull(7))
+            //    {
+            //        clientname = "";
+            //    }
+            //    else
+            //    {
+            //        clientname = (string)dr[7] + " " + (string)dr[8];
+            //    }
+            //    UCreminder ucreminder = new UCreminder((int)dr[0], clientid, (string)dr[2], (string)dr[3], (DateTime)dr[4], (string)dr[5], (bool)dr[6], clientname, this, schedule, false);//li2anno manna bi client reminder
 
-                ListUCreminder.Add(ucreminder);
+            //    ListUCreminder.Add(ucreminder);
 
-                //If it's Checked, then it will not appear in schedule.panelreminder
-                if (ucreminder.IsChecked == false)
-                {
-                    if (isThedayofUCreminder(ucreminder, DateUCDay))
-                    {
-                        ucreminder.Dock = DockStyle.Top;
-                        schedule.panelreminder.Controls.Add(ucreminder);
-                    }
-                }
-                else
-                {
+            //    //If it's Checked, then it will not appear in schedule.panelreminder
+            //    if (ucreminder.IsChecked == false)
+            //    {
+            //        if (isThedayofUCreminder(ucreminder, DateUCDay))
+            //        {
+            //            ucreminder.Dock = DockStyle.Top;
+            //            schedule.panelreminder.Controls.Add(ucreminder);
+            //        }
+            //    }
+            //    else
+            //    {
 
-                }
-            }
+            //    }
+            //}
             schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
 
 

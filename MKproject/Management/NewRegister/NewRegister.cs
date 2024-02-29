@@ -79,13 +79,19 @@ namespace MKproject.Management
 
 
 
-        public ClassClient Client;
-        ClassClient ClientFromSchedule;
+        public ClassClient Client;//used for updates
+        public ClassClient TheNewInsertedClient;//used when we insert a client , we access it from the schedule or other external forms , with the help of the event ClientSavedEvent
+
+
         private List<UCTextbox1> TextBoxes = new List<UCTextbox1> { };
         public List<Control> RequiredControls = new List<Control> { };
 
+        bool IsFromSchedule;
 
-        public NewRegister(ClassClient Clients, ClassClient clientFromSchedule)
+        public event EventHandler ClientSavedEvent;
+
+
+        public NewRegister(ClassClient Clients, bool isclientFromSchedule)
         {
             InitializeComponent();
 
@@ -93,12 +99,13 @@ namespace MKproject.Management
             this.Opacity = 0;
             this.Size = new Size(660, 650);//kell shi aam nhotoo juwwa aam naamela width=600, which is not accurate, try bi wpf taamil dock top
             ControlsWidthInsideFLP = 600;
-            LoadForm(Clients, clientFromSchedule);
-            
+            LoadForm(Clients, isclientFromSchedule);
+
         }
 
-        public void LoadForm(ClassClient Clients, ClassClient clientFromSchedule)
+        public void LoadForm(ClassClient Clients, bool isclientFromSchedule)
         {
+            ClientSavedEvent = null;
             radioButtonAdult.Checked = true;
             ClientManagementProfileForm = null;
             SearchCurrentClientForm = null;
@@ -108,11 +115,9 @@ namespace MKproject.Management
             ParentChosen = false;
             ISCallingFromTheConstructor = true;
 
-
-
-
-            ClientFromSchedule = clientFromSchedule;
+            IsFromSchedule = isclientFromSchedule;
             Client = Clients;
+
             if (Client != null)//update form
             {
                 ISCallingFromTheConstructor = true;
@@ -1934,7 +1939,7 @@ namespace MKproject.Management
 
 
         }//try catch 
-        
+
 
 
 
@@ -2151,13 +2156,20 @@ namespace MKproject.Management
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            Program.GreyFormJunior = new GreyColor(this, true, true);
-            Program.GreyFormJunior.Show();
-            RegistrationFields r = new RegistrationFields(this);
-            r.ShowDialog();
+            if (LOGIN.Employee.CanEditRegistrationFields)
+            {
+                Program.GreyFormJunior = new GreyColor(this, true, true);
+                Program.GreyFormJunior.Show();
+                RegistrationFields r = new RegistrationFields(this);
+                r.ShowDialog();
+            }
+            else
+            {
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+            }
         }
 
-        public event EventHandler ClientSaved;
+
         public void SaveOrUpdate(string AlbumName)//album name could be null,w only used on insert NOT UPDATE
         {
 
@@ -2169,18 +2181,15 @@ namespace MKproject.Management
                 }
                 UpdateOrInsertToSQLAndObj(AlbumName);//album name could be null
                 int lastClientId = ClassClient.GetLastClientIDSQL();
-                ClassClient DesiredCLient = ClassClient.CreateClientObject(lastClientId);
-                if (ClientFromSchedule != null)//from schedule
+                TheNewInsertedClient = ClassClient.CreateClientObject(lastClientId);
+
+                if (!IsFromSchedule)
                 {
-                    ClientFromSchedule.ClientId = DesiredCLient.ClientId;
-                    ClientFromSchedule.Fname = DesiredCLient.Fname;
-                    ClientFromSchedule.Lname = DesiredCLient.Lname;
+                    OpenClientManagementForm(TheNewInsertedClient);
                 }
-                else
-                {
-                    OpenClientManagementForm(DesiredCLient);
-                }
-                ClientSaved?.Invoke(this, EventArgs.Empty);
+
+                ClientSavedEvent?.Invoke(this, EventArgs.Empty);
+
                 this.Close();
             }
             else//update
@@ -2255,17 +2264,24 @@ namespace MKproject.Management
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (CheckRequired())
+            if (LOGIN.Employee.CanInsertOrEditClients)
             {
-                if (!CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
+                if (CheckRequired())
                 {
-                    SaveOrUpdate(null);
+                    if (!CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
+                    {
+                        SaveOrUpdate(null);
+                    }
+                    else
+                    {
+                        CustomMessageBox.Show("Phone Number already exists, please choose another one", CustomMessageBox.Type.Ok);
+                        FLPInfo.ScrollControlIntoView(UCPhoneNumber);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Phone Number already exists, please choose another one");
-                    FLPInfo.ScrollControlIntoView(UCPhoneNumber);
-                }
+            }
+            else
+            {
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
             }
         }//try catch
 
@@ -2292,23 +2308,23 @@ namespace MKproject.Management
         public void OpenClientManagementForm(ClassClient DesiredCLient)
         {
 
-             
-           
-                //form creation
-                Menu menu = ((Home)SearchCurrentClientForm.Tag).menu;
-                if (Program.clientManagementProfile == null)
-                {
-                    Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient, false);
-                }
-                else
-                {
-                    Program.clientManagementProfile.LoadData(DesiredCLient, false);
-                }
-                Program.clientManagementProfile.Size = SearchCurrentClientForm.Size;
-                Program.clientManagementProfile.SearchCurrentClientform = SearchCurrentClientForm;
-                menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
-                ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Visible = true;
-            
+
+
+            //form creation
+            Menu menu = ((Home)SearchCurrentClientForm.Tag).menu;
+            if (Program.clientManagementProfile == null)
+            {
+                Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient, false);
+            }
+            else
+            {
+                Program.clientManagementProfile.LoadData(DesiredCLient, false);
+            }
+            Program.clientManagementProfile.Size = SearchCurrentClientForm.Size;
+            Program.clientManagementProfile.SearchCurrentClientform = SearchCurrentClientForm;
+            menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
+            ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Visible = true;
+
 
         }
 
@@ -2366,7 +2382,7 @@ namespace MKproject.Management
 
                 if (CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
                 {
-                    if (ClientFromSchedule == null)
+                    if (IsFromSchedule == true)
                     {
                         DialogResult dialogResult = CustomMessageBox.Show("The Client With this Phone Number Already Exists, Do you want to Check its profile?", CustomMessageBox.Type.YesNo);
                         if (dialogResult == DialogResult.Yes)
@@ -2395,33 +2411,42 @@ namespace MKproject.Management
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (Client.IsParent == false)
+            if (LOGIN.Employee.CanDeleteClient)
             {
-                // Show a message box with "Yes" and "No" buttons
-                DialogResult result = CustomMessageBox.Show("Are you sure you want to delete this client profile?\nYou will loose all his informations", CustomMessageBox.Type.YesNoWarning);
-
-                // Check the user's choice
-                if (result == DialogResult.Yes)
+                if (Client.IsParent == false)
                 {
+                    // Show a message box with "Yes" and "No" buttons
+                    DialogResult result = CustomMessageBox.Show("Are you sure you want to delete this client profile?\nYou will loose all his informations", CustomMessageBox.Type.YesNoWarning);
 
-
-                    if (ClientManagementProfileForm != null)
+                    // Check the user's choice
+                    if (result == DialogResult.Yes)
                     {
-                        ClientManagementProfileForm.IsClientDeleted = true;
-                    }
-                    if (Client.IsChild)
-                    {
-                        RemoveParentIfMust(Client.PhoneNumber, true);//eza aam nshil a child eendo parent
-                    }
 
-                    Client.DeleteClientToSQL();//ejbare tahet el RemoveParentIfMust
-                    this.Close();
+
+                        if (ClientManagementProfileForm != null)
+                        {
+                            ClientManagementProfileForm.IsClientDeleted = true;
+                        }
+                        if (Client.IsChild)
+                        {
+                            RemoveParentIfMust(Client.PhoneNumber, true);//eza aam nshil a child eendo parent
+                        }
+
+                        Client.DeleteClientToSQL();//ejbare tahet el RemoveParentIfMust
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    CustomMessageBox.Show("In order to Delete this Client , you need first to remove all his childrens", CustomMessageBox.Type.Error);
                 }
             }
+
             else
             {
-                CustomMessageBox.Show("In order to Delete this Client , you need first to remove all his childrens", CustomMessageBox.Type.Error);
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
             }
+
         }//try catch
 
         private void timer1_Tick(object sender, EventArgs e)

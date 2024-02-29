@@ -438,7 +438,7 @@
     <Compile Include="Schedule\AppointmentManagement\UCClientApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\AppointmentManagement\UCClientApp.Designer.cs">
+    <Compile Include="Schedule\AppointmentManagement\UCClientApp.designer.cs">
       <DependentUpon>UCClientApp.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\Availabilityform\AvailabilityLayout.cs">

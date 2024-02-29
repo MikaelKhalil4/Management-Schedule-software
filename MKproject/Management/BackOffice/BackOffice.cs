@@ -29,7 +29,7 @@ namespace MKproject.Management
 
         Label LabelNoDataRecorded;
         //For Filter
-        ClassClient ClientForFilter=new ClassClient();
+        ClassClient ClientForFilter;
 
 
         public BackOffice(ClientManagementProfile clientManagement, int? ClientBalanceId, DataTable desiredRowsdt, int? clientId)//we have 3 modes: child mode(1-spcifc baland and specific client/2-specific client) mode 3: all backoffice
@@ -249,7 +249,7 @@ namespace MKproject.Management
                     Filtereddt = FiltersDataTable.FilterDatatableDateCustomDate("RealDate", Filtereddt, StartDate, EndDate);
                 }
 
-                if (UCClient != null && ClientForFilter.ClientId != null)// awwal condition eza kena feytin men profile nshuf all transaction tb3 a client/scd condtion eza feytin backoffice w aam nshuf eza eemelna search aa client
+                if (UCClient != null && ClientForFilter!= null)// awwal condition eza kena feytin men profile nshuf all transaction tb3 a client/scd condtion eza feytin backoffice w aam nshuf eza eemelna search aa client
                 {
                     Filtereddt = FiltersDataTable.FilterDatatableIFIntEquality("client_id", (int)ClientForFilter.ClientId, Filtereddt);
                 }
@@ -282,7 +282,7 @@ namespace MKproject.Management
                     CreatingTheNoDataLabel();
                     TLPGlobal.Controls.Add(LabelNoDataRecorded, 0, 1);
 
-                   dataGridViewBackOffice.Visible = false;                                    
+                    dataGridViewBackOffice.Visible = false;
                 }
 
             }
@@ -434,13 +434,13 @@ namespace MKproject.Management
             {
                 UCClient = new UCTextBoxFilterOriginal();
                 UCClient.TextBoxClicked += UCClient_TextBoxClicked;
-                UCClient.TextBoxTextChanged += UCClient_TextBoxTextChanged;
                 UCClient.Title = "Client";
                 UCClient.PlaceHolderOfTextBox = "Search by name or phone number...";
                 RandomFunctions.SetWidth(UCClient, UCClient.textBox, UCClient.labelTitle);
                 FLPFilters.Controls.Add(UCClient);
             }
 
+            FilterDatable();
 
 
         }//try catch 
@@ -471,22 +471,26 @@ namespace MKproject.Management
             }
         }
 
-        private void UCClient_TextBoxTextChanged(object sender, EventArgs e)//CBsearch form, hiyye el wahide li bet ghayyir
-        {
-            if (!string.IsNullOrEmpty(UCClient.textBox.Text))
-            {
-                FilterDatable();//should be async kermel el taeakhor tabaa el textbox changing
-            }
-        }
+
         private void UCClient_TextBoxClicked(object sender, EventArgs e)
         {
-            
+
             Search searchname = new Search(UCClient.textBox, ClientForFilter);
+            searchname.ChosenClientChanged += Searchname_ChosenClientChanged;
             searchname.Deactivate += Searchname_Deactivate;
             Point locationRelativeToScreen = UCClient.textBox.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-2, -2);
             searchname.Location = locationRelativeToScreen;
             searchname.Show();
+
+        }
+
+        private void Searchname_ChosenClientChanged(object sender, EventArgs e)
+        {
+            Search searchname = (Search)sender;
+            ClientForFilter = searchname.NewDesiredClient;
+
+            FilterDatable();//should be async kermel el taeakhor tabaa el textbox changing
 
         }
 
@@ -506,7 +510,7 @@ namespace MKproject.Management
                 FilteredBackOfficeDt.AcceptChanges();
                 SetDataGridViewMode(FilteredBackOfficeDt);
             }
-         
+
 
             OriginalBackOfficeDt.PrimaryKey = new DataColumn[] { OriginalBackOfficeDt.Columns["archive_id"] };//kermel el refresh           
             DataRow DesiredRowO = OriginalBackOfficeDt.Rows.Find(ArchiveId);
@@ -597,7 +601,7 @@ namespace MKproject.Management
                                     DeletingDatagridRows(DesiredArchiveID);
                                 }
 
-                                }
+                            }
 
                             //design
                             DeletingDatagridRows(ArchiveId);

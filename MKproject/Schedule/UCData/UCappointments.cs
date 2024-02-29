@@ -95,7 +95,7 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false && ucday.IsHistory == false)
             {
-                Appointment appointmentupdate = new Appointment(this);
+                Appointment appointmentupdate = new Appointment(desiredappointment);
                 appointmentupdate.ShowDialog();
             }
             else

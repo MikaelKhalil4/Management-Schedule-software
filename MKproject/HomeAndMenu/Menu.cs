@@ -48,7 +48,7 @@ namespace MKproject
                 buttonStatistics.Visible = true;
             else buttonStatistics.Visible = false;
 
-            if (LOGIN.Employee.CanAccessBackOffice)
+            if (LOGIN.Employee.CanAccessSevicesProductsEmployees)
             {
                 buttonEmployee.Visible = true;
                 buttonBundlesAndProducts.Visible = true;
@@ -82,7 +82,7 @@ namespace MKproject
                 ParentFormHome.panelContainer.Controls.RemoveAt(0);
                 OpenendForm.TopLevel = true;
             }
-            ParentFormHome.buttonBackHome.Visible = false;
+            ParentFormHome.buttonBackHome.Visible = false;//ejbare, in case tloona men el form, men el menu, mesh men el backhome btn
 
 
 
@@ -98,11 +98,11 @@ namespace MKproject
 
                 }
             }
-            else
+            else//in case we re going lal client profile, el Activated Form bte2a el search w el sous activated hiyye el profile ha tkun
             {
                 SousActivatedForm = DesiredFormToOpen;
             }
-
+            DesiredFormToOpen.Size = ParentFormHome.panelContainer.Size;
             DesiredFormToOpen.TopLevel = false;
             DesiredFormToOpen.FormBorderStyle = FormBorderStyle.None;
             DesiredFormToOpen.Dock = DockStyle.Fill;
@@ -116,36 +116,50 @@ namespace MKproject
 
         private void buttonSearchClient_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             OpenChildForm(new SearchCurrentClient(), buttonSearchClient, false);
             HideMenu();
-
+            Cursor = Cursors.Default;
+        }
+        private void buttonSchedule_Click(object sender, EventArgs e)
+        {
+            Cursor= Cursors.WaitCursor;
+            SousActivatedForm = null;
+            OpenChildForm(new MKproject.Schedule.Schedule(), buttonSchedule, false);
+            HideMenu();
+            Cursor = Cursors.Default;
         }
         private void buttonTransaction_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             SousActivatedForm = null;
             OpenChildForm(new BackOffice(null, null, null, null), buttonTransaction, false);
             HideMenu();
+            Cursor = Cursors.Default;
         }
         private void buttonStatistics_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             SousActivatedForm = null;
             OpenChildForm(new Statistics(), buttonStatistics, false);
             HideMenu();
-
+            Cursor = Cursors.Default;
         }
         private void buttonBundlesAndProducts_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             SousActivatedForm = null;
             OpenChildForm(new ViewBundlesAndProducts(), buttonBundlesAndProducts, false);
             HideMenu();
-
+            Cursor = Cursors.Default;
         }
         private void buttonEmployee_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             SousActivatedForm = null;
             OpenChildForm(new ViewEmployee(), buttonEmployee, false);
             HideMenu();
-
+            Cursor = Cursors.Default;
         }
         private void buttonLogout_Click(object sender, EventArgs e)
         {
@@ -173,6 +187,7 @@ namespace MKproject
                 {
                     Program.GreyForm.Close();
                     Program.GreyForm = null;
+                   
                 }
             }
         }
@@ -228,5 +243,7 @@ namespace MKproject
             Appointment app = new Appointment();
             app.ShowDialog();
         }
+
+       
     }
 }

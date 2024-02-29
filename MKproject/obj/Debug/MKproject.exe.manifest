@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CustomizedTools.dll" size="66560">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CustomizedTools.dll" size="67072">
       <assemblyIdentity name="CustomizedTools" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NvtBEsAzd1kA1WBt5O/oKGssUhYTUsW+cd8+lNohM+8=</dsig:DigestValue>
+        <dsig:DigestValue>798UN8Qb6iLE68msvjdehJRwhkz8cavwdF4mGP3xzVk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>p7qjePCwkWq0Zgkh3r+ODebWXq+FgLayrlZGmOX7V3Y=</dsig:DigestValue>
+        <dsig:DigestValue>PKpmAYQ/P9rHvqhuSkZrEEUtChMaaJbY6kqaHr3BM3w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="1983896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2010520">
       <assemblyIdentity name="MKproject" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/vd3KFEe4wM8YEEwNnmJIXrVqg8C24rTlcDMaEtArN0=</dsig:DigestValue>
+        <dsig:DigestValue>gUwUWIoWCJfk6qPh9rXq7Nj9Q1ZkIhnKpQ7Psz0eVrE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -359,6 +359,15 @@
       <dsig:DigestValue>m7SODmsQttZ/u7Dzy26v8tynYfh9gjWM0gJxM/TNyo8=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="images\search2.png" size="12456">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>PMzJaiCidaaeJJFNSk7rkKsEk5V6Hy5FuQojzxwvUSQ=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="images\user.png" size="7901">
     <hash>
       <dsig:Transforms>
@@ -449,13 +458,13 @@
       <dsig:DigestValue>Q4IebUNivkcDcNl0iCma5A7u5Cl4KgS+CgOAWdsaZaY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="nlog.config" size="470">
+  <file name="nlog.config" size="456">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RKlX7xghEKWJ5+rOJJO6o2qiYUyzbY0hedzgZnXUaro=</dsig:DigestValue>
+      <dsig:DigestValue>e+l7JIeJ6clq+oXOio6GTpja8ObNgaTWwA6X+xfvfzc=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

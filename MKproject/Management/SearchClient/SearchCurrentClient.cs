@@ -365,7 +365,6 @@ namespace MKproject.Management
                     Program.clientManagementProfile.LoadData(DesiredCLient, false);
                 }
 
-                Program.clientManagementProfile.Size = this.Size;
                 Program.clientManagementProfile.SearchCurrentClientform = this;
                 menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
                 ((Home)this.Tag).buttonBackHome.Visible = true;
@@ -748,12 +747,12 @@ namespace MKproject.Management
             Program.GreyForm.Show();
             if (Program.NewRegisterForm == null)
             {
-                Program.NewRegisterForm = new NewRegister(null, null);
+                Program.NewRegisterForm = new NewRegister(null, false);
             }
             else
             {
                 Program.NewRegisterForm.Resetcontrols();
-                Program.NewRegisterForm.LoadForm(null, null);
+                Program.NewRegisterForm.LoadForm(null, false);
             }
             Program.NewRegisterForm.SearchCurrentClientForm = this;
             Program.NewRegisterForm.ShowDialog();

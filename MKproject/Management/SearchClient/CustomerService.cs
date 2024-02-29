@@ -12,13 +12,13 @@ namespace MKproject.Management
         public SearchCurrentClient ParentFormSearch { get; set; }
         Label LabelNoDataRecordedBirthday;
         private DataTable Birthdt;
-      
-      
-        
+
+
+
         public CustomerService()
         {
             InitializeComponent();
-        
+
             LoadBirthdaysData();
 
             this.Opacity = 0;
@@ -31,7 +31,7 @@ namespace MKproject.Management
         }
 
 
-      
+
 
         //birthdays
         void CreatingTheNoDataLabelBirthday()
@@ -80,10 +80,14 @@ namespace MKproject.Management
                 int daysTillBirthday = (nextBirthday - today).Days;
 
                 row["DaysLeft"] = daysTillBirthday;
-                if (daysTillBirthday != 0)
+                if (daysTillBirthday > 1)
+                {
+                    row["Days till Birthday"] = daysTillBirthday + " days left";
+
+                }
+                else if (daysTillBirthday == 1)
                 {
                     row["Days till Birthday"] = daysTillBirthday + " day left";
-
                 }
                 else
                 {
@@ -92,6 +96,7 @@ namespace MKproject.Management
 
 
                 row["FakeBirthday"] = RandomFunctions.SetDateFormatWithDayWithoutHour(row["Birthday"].ToString());
+
                 row["Up coming Age"] = RandomFunctions.AgeCalculator(Convert.ToDateTime(row["Birthday"])) + 1;
             }
 
@@ -143,13 +148,13 @@ namespace MKproject.Management
             dataGridViewBirthClients.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel taamil stretch aa kell surface  horizontally
             dataGridViewBirthClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//kermel taamil stretch aa kell surface  horizontally
             dataGridViewBirthClients.RowTemplate.MinimumHeight = 40; // Set minimum row height
-           
+
             dataGridViewBirthClients.Columns["Name"].FillWeight = 30;
             dataGridViewBirthClients.Columns["Days till Birthday"].FillWeight = 20;
             dataGridViewBirthClients.Columns["Up coming Age"].FillWeight = 20;
             dataGridViewBirthClients.Columns["FakeBirthday"].FillWeight = 30;
-           
-          
+
+
 
 
 
@@ -257,6 +262,6 @@ namespace MKproject.Management
             }
         }
 
-      
+
     }
 }

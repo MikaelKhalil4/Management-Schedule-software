@@ -25,11 +25,14 @@ namespace MKproject.Schedule
                 isClientModeOn = value;
                 if (isClientModeOn == true)
                 {
-                    ClientModeOn();
+                    ClientModeOnDesign();
                 }
                 else
                 {
-                    OthersModeOn();
+                    ucClientApp.DesiredAppointment.DesiredClient = null;//fine shil ucClientApp., same references
+                    ucClientApp.ResetDesiredAppointmentspecificValues();
+                    ucClientApp.SetDesignMode(null);
+                    OthersModeOnDesign();
                 }
             }
         }
@@ -44,17 +47,35 @@ namespace MKproject.Schedule
         int coach_id;
 
       
-        ClassAppointment DesiredAppointment = new ClassAppointment();
+        ClassAppointment DesiredAppointment;
 
         UCOthersApp ucOthersApp;
         UCClientApp ucClientApp;
 
 
         //Initialise:
-        public Appointment(UCappointments ucappointments)
+        public Appointment()//will be deleted
         {
             InitializeComponent();
+            SetUCSlidebutton();
+
+            DesiredAppointment = new ClassAppointment();
+
+            ucClientApp = new UCClientApp(DesiredAppointment);
+
+            ClientModeOnDesign();
         }
+
+        public Appointment(ClassAppointment desiredAppointment)//for update
+        {
+            InitializeComponent();
+
+            DesiredAppointment = desiredAppointment;
+            ucClientApp = new UCClientApp(DesiredAppointment);
+
+            ClientModeOnDesign();
+        }
+
         public Appointment(UCDay form2, UCTime form1, int number1)
         {
             InitializeComponent();
@@ -72,6 +93,14 @@ namespace MKproject.Schedule
         {
             SetUCSlidebutton();
 
+            DesiredAppointment = new ClassAppointment();
+
+            ucClientApp = new UCClientApp(DesiredAppointment);
+
+            ClientModeOnDesign();
+
+
+            //
             TimeSpan endtime;
             if (uctime.Time == new TimeSpan(23, 0, 0))
             {
@@ -127,9 +156,7 @@ namespace MKproject.Schedule
         ///UCSlidebutton
         void SetUCSlidebutton()
         {
-            //Awal ma yenkhala2 lform byenkhala2 lobject
-            ucClientApp = new UCClientApp();
-            ClientModeOn();
+           
 
             ucSlideButtonClientOrOthers.Button1Clicked += UcSlideButtonPayOrEdit_Button1Clicked;
             ucSlideButtonClientOrOthers.Button2Clicked += UcSlideButtonPayOrEdit_Button2Clicked;
@@ -137,7 +164,7 @@ namespace MKproject.Schedule
             ucSlideButtonClientOrOthers.button1.Text = "Client";
             ucSlideButtonClientOrOthers.button2.Text = "Others";
         }
-        void ClientModeOn()
+        void ClientModeOnDesign()
         {
             if (TLPGlobal.Controls.Contains(ucOthersApp))
             {
@@ -146,7 +173,7 @@ namespace MKproject.Schedule
             TLPGlobal.Controls.Add(ucClientApp, 0, 1);
             ucClientApp.Dock = DockStyle.Fill;
         }
-        void OthersModeOn()
+        void OthersModeOnDesign()
         {
             if (TLPGlobal.Controls.Contains(ucClientApp))
             {
