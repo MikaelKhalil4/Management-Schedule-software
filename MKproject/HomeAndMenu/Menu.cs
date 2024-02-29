@@ -240,8 +240,8 @@ namespace MKproject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Appointment app = new Appointment();
-            app.ShowDialog();
+            //Appointment app = new Appointment();
+            //app.ShowDialog();
         }
 
        

@@ -16,7 +16,7 @@ namespace MKproject.Schedule.UCData
         public string Reminder { get; set; }
         public ClassClient DesiredClient { get; set; }
         public string Repeat { get; set; }
-        public string[] PartsPartsrepeat { get; set; }
+        public string[] Partsrepeat { get; set; }
         public string LabelQuote { get; set; }
         public DateTime StartTime { get; set; }
         public bool IsChecked { get; set; }
@@ -58,7 +58,7 @@ namespace MKproject.Schedule.UCData
         }
 
 
-        public  int AddRemindertoSQL()
+        public  void AddRemindertoSQL()
         {
             int idreminder;
             IsChecked = false;
@@ -87,7 +87,7 @@ namespace MKproject.Schedule.UCData
             int.TryParse(result.ToString(), out idreminder);//we got the idreminder second command
             con.Close();
 
-            return idreminder;
+            Idreminder = idreminder;
 
         }
         public  void UpdateFromRemindertoSQL()

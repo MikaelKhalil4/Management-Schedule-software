@@ -103,24 +103,24 @@ namespace MKproject.Schedule
             checkBoxSaturday.Text = Reminder.Saturday;
             checkBoxSunday.Text = Reminder.Sunday;
 
-            monthCalendarStart.SelectionStart = ucreminder.Starttime;
+            monthCalendarStart.SelectionStart = ucreminder.DesiredReminder.StartTime;
             monthCalendarStart.MinDate = DateTime.Today;
 
-            textBoxReminder.Text = ucreminder.Reminder;
-            labelrepeat.Text = ucreminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
-            labelQuote.Text = ucreminder.LabelQuote;
+            textBoxReminder.Text = ucreminder.DesiredReminder.Reminder;
+            labelrepeat.Text = ucreminder.DesiredReminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
+            labelQuote.Text = ucreminder.DesiredReminder.LabelQuote;
 
 
             //if it's every week then we have to make panelDaysofTheWeek visible and check the dates
-            if (ucreminder.Partsrepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
+            if (ucreminder.DesiredReminder.Partsrepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
             {
                 panelDaysofTheWeek.Visible = true;
                 int i = 1;
                 foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)
                 {
-                    if (i != ucreminder.Partsrepeat.Length)
+                    if (i != ucreminder.DesiredReminder.Partsrepeat.Length)
                     {
-                        if (checkbox.Text == ucreminder.Partsrepeat[i])
+                        if (checkbox.Text == ucreminder.DesiredReminder.Partsrepeat[i])
                         {
                             checkbox.Checked = true;
                             i++;
@@ -205,24 +205,24 @@ namespace MKproject.Schedule
             checkBoxSaturday.Text = Reminder.Saturday;
             checkBoxSunday.Text = Reminder.Sunday;
 
-            monthCalendarStart.SelectionStart = ucreminder.Starttime;
+            monthCalendarStart.SelectionStart = ucreminder.DesiredReminder.StartTime;
             monthCalendarStart.MinDate = DateTime.Today;
 
-            textBoxReminder.Text = ucreminder.Reminder;
-            labelrepeat.Text = ucreminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
-            labelQuote.Text = ucreminder.LabelQuote;
+            textBoxReminder.Text = ucreminder.DesiredReminder.Reminder;
+            labelrepeat.Text = ucreminder.DesiredReminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
+            labelQuote.Text = ucreminder.DesiredReminder.LabelQuote;
 
 
             //if it's every week then we have to make panelDaysofTheWeek visible and check the dates
-            if (ucreminder.Partsrepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
+            if (ucreminder.DesiredReminder.Partsrepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
             {
                 panelDaysofTheWeek.Visible = true;
                 int i = 1;
                 foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)
                 {
-                    if (i != ucreminder.Partsrepeat.Length)
+                    if (i != ucreminder.DesiredReminder.Partsrepeat.Length)
                     {
-                        if (checkbox.Text == ucreminder.Partsrepeat[i])
+                        if (checkbox.Text == ucreminder.DesiredReminder.Partsrepeat[i])
                         {
                             checkbox.Checked = true;
                             i++;
@@ -257,7 +257,7 @@ namespace MKproject.Schedule
             else
             {
                 string repeat = labelrepeat.Text;
-                if(labelrepeat.Text == Reminder.Everyweek)
+                if (labelrepeat.Text == Reminder.Everyweek)
                 {
                     foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)//exemple:Monday/Friday
                     {
@@ -276,37 +276,35 @@ namespace MKproject.Schedule
                     if (Isclientreminder)
                     {
                         //We are getting the ucreminder just for the id
-                        UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.Idreminder == ucreminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
+                        UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == ucreminder.DesiredReminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
 
-                        DesiredReminder.Idreminder = foundUcReminder.Idreminder;
-                        DesiredReminder.DesiredClient = DesiredClient;
+                        DesiredReminder.Idreminder = foundUcReminder.DesiredReminder.Idreminder;
                         DesiredReminder.Reminder = textBoxReminder.Text;
                         DesiredReminder.Repeat = repeat;
                         DesiredReminder.StartTime = monthCalendarStart.SelectionStart;
                         DesiredReminder.LabelQuote = labelQuote.Text;
 
-                        int? clientid;
-                        string clientname;
+
+                        //Bade Ekhoud desiredclient men algorithme mikael w hone fi ykoun null
+
                         if (this.textBoxFullName.Text == this.textBoxFullName.PlaceholderText)
                         {
-                            clientname = String.Empty;
-                            clientid = null;
+                            DesiredReminder.DesiredClient = null;
                         }
                         else
                         {
-                            clientname = DesiredClient.FullName;
-                            clientid = DesiredClient.ClientId;
+                            DesiredReminder.DesiredClient = DesiredClient;
                         }
 
 
                         //SQL
-                        //ProjectToSql.UpdateFromRemindertoSQL(foundUcReminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                        DesiredReminder.UpdateFromRemindertoSQL();
 
 
 
                         //DESIGN
                         //DESIGN Schedule
-                        foundUcReminder.UpdateReminder(clientid, clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);//we update also the ucreminder that's in the schedule
+                        foundUcReminder.UpdateReminder(DesiredReminder);//we update also the ucreminder that's in the schedule
                         //Addinds or removing a reminder in panelreminder
                         if (ucday.isThedayofUCreminder(foundUcReminder, ucday.DateUCDay) == false)
                         {
@@ -327,7 +325,7 @@ namespace MKproject.Schedule
                         if (DesiredClient.ClientId == clientReminder.ClientId)
                         {
                             //the ucreminder that we clicked on to update
-                            ucreminder.UpdateReminder(clientid, clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                            ucreminder.UpdateReminder(DesiredReminder);
                         }
 
                         //if it's not we have to remove from the clientReminder.panelreminder because the reminder isn't linked anymore to this client
@@ -354,11 +352,11 @@ namespace MKproject.Schedule
                             clientid = DesiredClient.ClientId;
                         }
                         //SQL
-                        //ProjectToSql.UpdateFromRemindertoSQL(ucreminder.Idreminder, clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                        DesiredReminder.UpdateFromRemindertoSQL();
 
 
                         //DESIGN Schedule
-                        ucreminder.UpdateReminder(clientid, clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);//we update also the ucreminder that's in the schedule
+                        ucreminder.UpdateReminder(DesiredReminder);//we update also the ucreminder that's in the schedule
                         if (ucday.isThedayofUCreminder(ucreminder, ucday.DateUCDay) == false)
                         {
                             schedule.panelreminder.Controls.Remove(ucreminder);
@@ -384,11 +382,18 @@ namespace MKproject.Schedule
                         clientname = DesiredClient.FullName;
                         clientid = DesiredClient.ClientId;
                     }
+
+                    DesiredReminder.Reminder = textBoxReminder.Text;
+                    DesiredReminder.Repeat = repeat;
+                    DesiredReminder.StartTime = monthCalendarStart.SelectionStart;
+                    DesiredReminder.LabelQuote = labelQuote.Text;
+                    DesiredReminder.IsChecked = false;
+
                     //SQL
-                    //int idreminder = ProjectToSql.AddRemindertoSQL(clientid, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text);
+                    DesiredReminder.AddRemindertoSQL();
 
                     //BackEnd
-                    //UCreminder ucreminder = new UCreminder(idreminder,clientid,clientname, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text, ucday, schedule);//we add it to the SQL in the same time
+                    UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule);//we add it to the SQL in the same time
                     ucday.ListUCreminder.Add(ucreminder);//li2anno nehna aam men mashe lprogram lezim na3mello add
 
                     //DESIGN SCHEDULE
@@ -402,7 +407,7 @@ namespace MKproject.Schedule
                     //DESIGN IF IT'S IN ClientReminder
                     if (Isclientreminder && DesiredClient.ClientId == clientReminder.ClientId)
                     {
-                        UCreminder ucreminder1 = new UCreminder(ucreminder.Idreminder, ucreminder.ClientId, textBoxReminder.Text, repeat, monthCalendarStart.SelectionStart, labelQuote.Text, false, ucreminder.ClientName, ucday, schedule, true, clientReminder);
+                        UCreminder ucreminder1 = new UCreminder(DesiredReminder , ucday, schedule, true, clientReminder);
                         clientReminder.panelreminder.Controls.Add(ucreminder1);
                         ucreminder1.Dock = DockStyle.Top;
                         clientReminder.TouchscrollPanelclientreminder.ReAssignEventPanelclientreminder(clientReminder.panelreminder);
@@ -425,7 +430,7 @@ namespace MKproject.Schedule
         private void textBoxFullName_Click(object sender, EventArgs e)
         {
             Search searchname = new Search(textBoxFullName, DesiredClient);
-            searchname.Deactivate += Searchname_Deactivate; 
+            searchname.Deactivate += Searchname_Deactivate;
             Point locationRelativeToScreen = textBoxFullName.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(0, 0);
             searchname.Location = locationRelativeToScreen;
@@ -470,7 +475,7 @@ namespace MKproject.Schedule
                 //}
             }
         }
-        
+
         ///-Check Boxes Changed(monday to sunday):
         private void checkBoxMonday_CheckedChanged(object sender, EventArgs e)
         {

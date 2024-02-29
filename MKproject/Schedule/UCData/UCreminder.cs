@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using MKproject.Schedule.UCData;
 
 namespace MKproject.Schedule
 {
@@ -11,64 +12,23 @@ namespace MKproject.Schedule
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 
         //PROPERTY:
-        private int idreminder;
-        public int Idreminder
+        private ClassReminder desiredreminder;
+        public ClassReminder DesiredReminder
         {
-            get { return idreminder; }
-            set { idreminder = value; }
-        }
-
-
-        private string reminder;
-        public string Reminder
-        {
-            get { return reminder; }
-            set { reminder = value; checkBoxReminder.Text = reminder; }
-        }
-
-
-        private string repeat;
-        public string Repeat
-        {
-            get { return repeat; }
-            set { repeat = value; }
-        }
-
-        private string[] partsrepeat;
-        public string[] Partsrepeat
-        {
-            get { partsrepeat = Repeat.Split('/'); return partsrepeat; }
-            set { partsrepeat = value; }
-        }
-
-        private DateTime starttime;
-        public DateTime Starttime
-        {
-            get { return starttime; }
-            set { starttime = value; }
-        }
-
-        private string clientName;
-        public string ClientName
-        {
-            get { return clientName; }
-            set
+            get
             {
-                clientName = value;
-                linkLabelName.Text = clientName;
+                desiredreminder.Partsrepeat = desiredreminder.Repeat.Split('/'); 
+                return desiredreminder;
+            }
+            set 
+            {
+                desiredreminder = value;
+                checkBoxReminder.Checked = desiredreminder.IsChecked;
+                checkBoxReminder.Text = desiredreminder.Reminder;
+                linkLabelName.Text = desiredreminder.DesiredClient.FullName;
+
             }
         }
-
-        private bool ischecked;
-        public bool IsChecked
-        {
-            get { return ischecked; }
-            set { ischecked = value; checkBoxReminder.Checked = ischecked; }
-        }
-
-        public string LabelQuote { get; set; }
-        public int? ClientId { get; set; }
-
 
         //Variables:
         UCDay ucday;
@@ -85,22 +45,18 @@ namespace MKproject.Schedule
 
         //In Schedule
         //we want to add a ucreminder
-        public UCreminder(int idreminder, int? clientid, string clientname, string reminder, string repeat, DateTime starttime, string labelquote, UCDay form1, Schedule form2)
+        public UCreminder(ClassReminder desiredreminder, UCDay form1, Schedule form2)
         {
             InitializeComponent();
             Isclientreminder = false;
-            Idreminder = idreminder;
-            ClientId = clientid;
-            ClientName = clientname;
-            Reminder = reminder;
-            Repeat = repeat;
-            Starttime = starttime;
-            LabelQuote = labelquote;
+
+            DesiredReminder = desiredreminder;
+
             ucday = form1;
             schedule = form2;
 
             buttonDelete.Hide();
-            if (ClientId == null)
+            if (DesiredReminder.DesiredClient.ClientId == null)
             {
                 linkLabelName.Visible = false;
             }
@@ -111,69 +67,46 @@ namespace MKproject.Schedule
         }
 
         //we want to display from SQL
-        public UCreminder(int idreminder, int? clientid, string reminder, string repeat, DateTime starttime, string labelquote, bool ischecked, string clientname, UCDay form1, Schedule form2, bool isclientreminder)
+        public UCreminder(ClassReminder desiredreminder, UCDay form1, Schedule form2, bool isclientreminder)
         {
             InitializeComponent();
-            Idreminder = idreminder;
-            IsChecked = ischecked;
-            Reminder = reminder;
-            Repeat = repeat;
-            Starttime = starttime;
-            LabelQuote = labelquote;
-            ClientName = clientname;
-            ClientId = clientid;
             ucday = form1;
             schedule = form2;
 
+            DesiredReminder = desiredreminder;
+
             Isclientreminder = isclientreminder;
             buttonDelete.Hide();
-            if (clientid == null)
+            if (DesiredReminder.DesiredClient.ClientId == null)
             {
                 linkLabelName.Visible = false;
-                ClientName = String.Empty;
-                ClientId = null;
             }
             else
             {
                 linkLabelName.Visible = true;
-                ClientName = clientname;
-                ClientId = clientid;
             }
         }
 
 
         //In ClientReminder(from select SQL once we open ClientReminder or when we ADD in ClientReminder)
-        public UCreminder(int idreminder, int? clientid, string reminder, string repeat, DateTime starttime, string labelquote, bool ischecked, string clientname, UCDay form1, Schedule form2, bool isclientreminder, ClientReminder clientreminder)
+        public UCreminder(ClassReminder desiredreminder , UCDay form1, Schedule form2, bool isclientreminder, ClientReminder clientreminder)
         {
             InitializeComponent();
-            Idreminder = idreminder;
-            IsChecked = ischecked;
-            Reminder = reminder;
-            Repeat = repeat;
-            Starttime = starttime;
-            LabelQuote = labelquote;
-            ClientName = clientname;
-            ClientId = clientid;
             ucday = form1;
             schedule = form2;
+            DesiredReminder = desiredreminder;
 
             clientReminder = clientreminder;
             Isclientreminder = isclientreminder;
 
             linkLabelName.Visible = false;
-
         }
 
 
         //Function
-        public void UpdateReminder(int? clientid, string clientname, string reminder, string repeat, DateTime starttime, string labelquote)
+        public void UpdateReminder(ClassReminder desiredreminder)
         {
-            Reminder = reminder;
-            Repeat = repeat;
-            Starttime = starttime;
-            LabelQuote = labelquote;
-            ClientId = clientid;
-            ClientName = clientname;
+           DesiredReminder = desiredreminder;
 
             if (Isclientreminder)
             {
@@ -181,7 +114,7 @@ namespace MKproject.Schedule
             }
             else
             {
-                if (ClientId == null)
+                if (DesiredReminder.DesiredClient.ClientId == null)
                 {
                     linkLabelName.Visible = false;
                 }
@@ -210,10 +143,10 @@ namespace MKproject.Schedule
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             //SQL:
-            //ProjectToSql.DeleteReminderSQL(Idreminder);
+            DesiredReminder.DeleteReminderSQL();
 
 
-            UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.idreminder == Idreminder);
+            UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
 
             //BackEnd
             ucday.ListUCreminder.Remove(foundUcReminder);
@@ -231,24 +164,24 @@ namespace MKproject.Schedule
         private void checkBoxReminder_Click(object sender, EventArgs e)
         {
             //SQL
-            //ProjectToSql.checkBoxReminderChangedToSQL(Idreminder, checkBoxReminder.Checked);
+            DesiredReminder.checkBoxReminderChangedToSQL();
 
             //BackEnd
-            IsChecked = checkBoxReminder.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
+            DesiredReminder.IsChecked = checkBoxReminder.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
 
             //Design
             if (Isclientreminder)
             {
-                if (IsChecked)//hone lezim nzido
+                if (DesiredReminder.IsChecked)//hone lezim nzido
                 {
-                    UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.idreminder == Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
-                    foundUcReminder.IsChecked = true;
+                    UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
+                    foundUcReminder.DesiredReminder.IsChecked = true;
                     schedule.panelreminder.Controls.Remove(foundUcReminder);
                 }
                 else
                 {
-                    UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.idreminder == Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
-                    foundUcReminder.IsChecked = false;
+                    UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
+                    foundUcReminder.DesiredReminder.IsChecked = false;
                     foundUcReminder.tableLayoutPanel1.BackColor = Color.White;
 
                     foundUcReminder.Dock = DockStyle.Top;
@@ -257,7 +190,7 @@ namespace MKproject.Schedule
             }
             else
             {
-                if (IsChecked)//hone lezim nzido
+                if (DesiredReminder.IsChecked)//hone lezim nzido
                 {
                     this.tableLayoutPanel1.BackColor = Color.Lime;
                     TimerReminderDispose.Start();
@@ -287,7 +220,7 @@ namespace MKproject.Schedule
 
 
                 //if they put the check and try to remove it it will be always checked
-                IsChecked = true;
+                DesiredReminder.IsChecked = true;
 
             }
         }

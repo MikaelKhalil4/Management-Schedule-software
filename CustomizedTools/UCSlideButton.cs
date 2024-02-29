@@ -48,7 +48,6 @@ namespace CustomizedTools
 
         public event EventHandler Button1Clicked;
         public event EventHandler Button2Clicked;
-
         public void button1_Click(object sender, EventArgs e)
         {
             button1.BackColor = ColorClicked;
