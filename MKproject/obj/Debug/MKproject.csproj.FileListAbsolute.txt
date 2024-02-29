@@ -1823,3 +1823,4 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramewo
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCClientApp.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCOthersApp.resources
+C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.ChooseService.resources

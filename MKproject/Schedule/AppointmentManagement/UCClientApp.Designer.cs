@@ -164,7 +164,6 @@
 
         private System.Windows.Forms.TableLayoutPanel TLPglobal;
         public CustomizedTools.TextBoxWithPlaceHolder textBoxSearch;
-        public System.Windows.Forms.PictureBox pictureBoxSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel TLPAddNewClient;
         private System.Windows.Forms.PictureBox pictureBox1;

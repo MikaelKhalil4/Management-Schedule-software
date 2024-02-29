@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Data.SqlClient;
 using MKproject.Schedule.Appointmentform;
+using MKproject.Schedule.UCData;
 
 namespace MKproject.Schedule
 {
@@ -216,10 +217,11 @@ namespace MKproject.Schedule
             //REMINDER
             //CREATING ALL THE ucreminder and putting it on a list
             ListUCreminder = new List<UCreminder>();
-            tablereminder = SQLToProject.DisplayReminder();
+            tablereminder = ClassReminder.DisplayReminder();
 
             foreach (DataRow dr in tablereminder.Rows)
             {
+                //Badna nt2akad eza lezim ton3ata lal DesiredReminder.DesiredClient
                 int? clientid = dr[1] as int?;//hayde fi hal kenit null
                 string clientname;
                 if (dr.IsNull(7))
@@ -230,12 +232,21 @@ namespace MKproject.Schedule
                 {
                     clientname = (string)dr[7] + " " + (string)dr[8];
                 }
-                UCreminder ucreminder = new UCreminder((int)dr[0], clientid, (string)dr[2], (string)dr[3], (DateTime)dr[4], (string)dr[5], (bool)dr[6], clientname, this, schedule, false);//li2anno manna bi client reminder
+
+                ClassReminder DesiredReminder = new ClassReminder();
+                DesiredReminder.Idreminder = (int)dr[0];
+                DesiredReminder.DesiredClient.ClientId = clientid;
+                DesiredReminder.Reminder = (string)dr[2];
+                DesiredReminder.Repeat = (string)dr[3];
+                DesiredReminder.StartTime = (DateTime)dr[4];
+                DesiredReminder.LabelQuote = (string)dr[5];
+                DesiredReminder.IsChecked = (bool)dr[6];
+                UCreminder ucreminder = new UCreminder(DesiredReminder, this, schedule, false);//li2anno manna bi client reminder
 
                 ListUCreminder.Add(ucreminder);
 
                 //If it's Checked, then it will not appear in schedule.panelreminder
-                if (ucreminder.IsChecked == false)
+                if (ucreminder.DesiredReminder.IsChecked == false)
                 {
                     if (isThedayofUCreminder(ucreminder, DateUCDay))
                     {
@@ -1445,20 +1456,20 @@ namespace MKproject.Schedule
         public bool isThedayofUCreminder(UCreminder ucreminder, DateTime date)
         {
             //For every day, no repeat
-            if (ucreminder.Partsrepeat.Length == 1)
+            if (ucreminder.DesiredReminder.Partsrepeat.Length == 1)
             {
-                if (ucreminder.Partsrepeat[0] == Reminder.NoRepeat)
+                if (ucreminder.DesiredReminder.Partsrepeat[0] == Reminder.NoRepeat)
                 {
-                    if (date.Date == ucreminder.Starttime.Date)
+                    if (date.Date == ucreminder.DesiredReminder.StartTime.Date)
                     {
                         return true;
                     }
 
                 }
 
-                else if (ucreminder.Partsrepeat[0] == Reminder.Everyday)
+                else if (ucreminder.DesiredReminder.Partsrepeat[0] == Reminder.Everyday)
                 {
-                    if (date.Date >= ucreminder.Starttime.Date)
+                    if (date.Date >= ucreminder.DesiredReminder.StartTime.Date)
                     {
                         return true;
                     }
@@ -1470,11 +1481,11 @@ namespace MKproject.Schedule
             //For every week
             else
             {
-                if (date.Date >= ucreminder.Starttime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
+                if (date.Date >= ucreminder.DesiredReminder.StartTime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
                 {
-                    for (int i = 1; i < ucreminder.Partsrepeat.Length; i++)
+                    for (int i = 1; i < ucreminder.DesiredReminder.Partsrepeat.Length; i++)
                     {
-                        if (date.DayOfWeek.ToString() == ucreminder.Partsrepeat[i])
+                        if (date.DayOfWeek.ToString() == ucreminder.DesiredReminder.Partsrepeat[i])
                         {
                             return true;
                         }
@@ -1492,7 +1503,7 @@ namespace MKproject.Schedule
             schedule.panelreminder.Controls.Clear();
             foreach (UCreminder ucreminder in ListUCreminder)
             {
-                if (ucreminder.IsChecked == false)//moujarad ma ykoun checked bel ucday ma bi bayin
+                if (ucreminder.DesiredReminder.IsChecked == false)//moujarad ma ykoun checked bel ucday ma bi bayin
                 {
                     if (isThedayofUCreminder(ucreminder, DateUCDay))
                     {
