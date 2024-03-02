@@ -447,11 +447,11 @@
     <Compile Include="Schedule\Availabilityform\AvailabilityLayout.designer.cs">
       <DependentUpon>AvailabilityLayout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Schedule\Availabilityform\Coach.cs">
+    <Compile Include="Schedule\Availabilityform\Employee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Schedule\Availabilityform\Coach.designer.cs">
-      <DependentUpon>Coach.cs</DependentUpon>
+    <Compile Include="Schedule\Availabilityform\Employee.designer.cs">
+      <DependentUpon>Employee.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\Availabilityform\UCTimeavailability.cs">
       <SubType>UserControl</SubType>
@@ -552,17 +552,17 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Schedule\UCData\ClassReminder.cs" />
-    <Compile Include="Schedule\UCData\UCappointments.cs">
+    <Compile Include="Schedule\UCData\UCappointment.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\UCData\UCappointments.designer.cs">
-      <DependentUpon>UCappointments.cs</DependentUpon>
+    <Compile Include="Schedule\UCData\UCappointment.designer.cs">
+      <DependentUpon>UCappointment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Schedule\UCData\UCcoach.cs">
+    <Compile Include="Schedule\UCData\UCEmployee.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\UCData\UCcoach.designer.cs">
-      <DependentUpon>UCcoach.cs</DependentUpon>
+    <Compile Include="Schedule\UCData\UCEmployee.designer.cs">
+      <DependentUpon>UCEmployee.cs</DependentUpon>
     </Compile>
     <Compile Include="Schedule\UCData\UCreminder.cs">
       <SubType>UserControl</SubType>
@@ -719,8 +719,8 @@
     <EmbeddedResource Include="Schedule\Availabilityform\AvailabilityLayout.resx">
       <DependentUpon>AvailabilityLayout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Availabilityform\Coach.resx">
-      <DependentUpon>Coach.cs</DependentUpon>
+    <EmbeddedResource Include="Schedule\Availabilityform\Employee.resx">
+      <DependentUpon>Employee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\Availabilityform\UCTimeavailability.resx">
       <DependentUpon>UCTimeavailability.cs</DependentUpon>
@@ -761,11 +761,11 @@
     <EmbeddedResource Include="Schedule\Reminderform\Reminder.resx">
       <DependentUpon>Reminder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\UCData\UCappointments.resx">
-      <DependentUpon>UCappointments.cs</DependentUpon>
+    <EmbeddedResource Include="Schedule\UCData\UCappointment.resx">
+      <DependentUpon>UCappointment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\UCData\UCcoach.resx">
-      <DependentUpon>UCcoach.cs</DependentUpon>
+    <EmbeddedResource Include="Schedule\UCData\UCEmployee.resx">
+      <DependentUpon>UCEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schedule\UCData\UCData.resx" />
     <EmbeddedResource Include="Schedule\UCData\UCreminder.resx">

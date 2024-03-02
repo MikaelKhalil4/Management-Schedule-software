@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MKproject.Management;
+using MKproject.Schedule.UCData;
+using System;
 using System.Data;
 using System.Windows.Forms;
 
@@ -24,23 +26,31 @@ namespace MKproject.Schedule
 
         Schedule schedule;
         UCDay ucday;
+        ClassClient DesiredClient;
+        ClassReminder DesiredReminder;
 
         public ClientReminder()
         {
             InitializeComponent();
         }
-        public ClientReminder(int? clientid, string clientname, Schedule form1, UCDay uc1)
+        public ClientReminder(ClassClient desiredclient, Schedule form1, UCDay uc1)
         {
             InitializeComponent();
-            ClientId = clientid;
-            ClientName = clientname;
+            DesiredClient = desiredclient;  
             schedule = form1;
             ucday = uc1;
             panelreminder.Controls.Clear();
             //tablereminder = SQLToProject.DisplayReminderByClientName(ClientId);
             foreach (DataRow dr in tablereminder.Rows)
             {
-                UCreminder ucreminder = new UCreminder((int)dr[0], ClientId, (string)dr[1], (string)dr[2], (DateTime)dr[3], (string)dr[4], (bool)dr[5], ClientName, ucday, schedule, true, this);//zedna true kermel naeemela construction khas la ela
+                DesiredReminder.Idreminder = (int)dr[0];
+                DesiredReminder.DesiredClient = DesiredClient;
+                DesiredReminder.Reminder = (string)dr[1];
+                DesiredReminder.Repeat = (string)dr[2];
+                DesiredReminder.StartTime = (DateTime)dr[3];
+                DesiredReminder.LabelQuote = (string)dr[4];
+                DesiredReminder.IsChecked = (bool)dr[5];
+                UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, true, this);//zedna true kermel naeemela construction khas la ela
                 ucreminder.Dock = DockStyle.Top;
                 panelreminder.Controls.Add(ucreminder);
 

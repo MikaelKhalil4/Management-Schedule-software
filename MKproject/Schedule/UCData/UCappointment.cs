@@ -8,7 +8,7 @@ using MKproject.Management;
 
 namespace MKproject.Schedule
 {
-    public partial class UCappointments : UserControl
+    public partial class UCappointment : UserControl
     {
         //PROPERTY:
         private ClassAppointment desiredappointment;
@@ -55,35 +55,32 @@ namespace MKproject.Schedule
             }
         }
 
-
+        public int ColumnPosition { get; set; }
+        public int RowPosition { get; set; }
 
         //VARIABLE
         UCDay ucday;
         public static int OriginalWidth = 230;
 
         //INITIALISE
-        public UCappointments()
+        public UCappointment()
         {
             InitializeComponent();
         }
 
 
         //ADD and SELECT (remember in add there's no uctime but in select there's)
-        public UCappointments(ClassAppointment desiredappointment,UCDay uCDay)
+        public UCappointment(ClassAppointment desiredappointment,UCDay uCDay)
         {
             InitializeComponent();
             DesiredAppointment = desiredappointment;
             ucday = uCDay;
-            //ClientType = DesiredAppointment;
         }
 
 
         //UPDATE
         public void UpdateAppointments(ClassAppointment desiredappointment)
         {
-            //SQL
-            desiredappointment.UpdateFromAppoitementtoSQL();
-
             //UPDATE DESIGN
             DesiredAppointment = desiredappointment;
         }
@@ -95,7 +92,7 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false && ucday.IsHistory == false)
             {
-                Appointment appointmentupdate = new Appointment(desiredappointment);
+                Appointment appointmentupdate = new Appointment(this,desiredappointment,ucday);
                 appointmentupdate.ShowDialog();
             }
             else
@@ -125,15 +122,15 @@ namespace MKproject.Schedule
             //DESIGN
             TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;
             int positionrow = starttimeTimeSpan.Hours;
-            int positioncol = ucday.ListCoach_idChecked.IndexOf(DesiredAppointment.IdCoach) + 1;
-            FlowLayoutPanel clickedflowLayoutPanel = ucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position coach bel list-1 
+            int positioncol = ucday.ListEmployee_idChecked.IndexOf(DesiredAppointment.EmployeeId) + 1;
+            FlowLayoutPanel clickedflowLayoutPanel = ucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
             this.Dispose();
 
 
             //Fi hal ucdata ma ken eendoun originale lwidth lezim nredoun la na3if eza byo2ta3 limit
-            foreach (UCappointments ucappointment in clickedflowLayoutPanel.Controls.OfType<UCappointments>())
+            foreach (UCappointment ucappointment in clickedflowLayoutPanel.Controls.OfType<UCappointment>())
             {
-                ucappointment.Width = UCappointments.OriginalWidth;//UCAddClick.Width it's static width that I declared it
+                ucappointment.Width = UCappointment.OriginalWidth;//UCAddClick.Width it's static width that I declared it
             }
 
 
@@ -181,7 +178,7 @@ namespace MKproject.Schedule
                 if (clickedflowLayoutPanel.Controls.Count == 0 && havethemaxucdata)
                 {
                     RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
-                    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPCoaches);
+                    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
                 }
 
                 //eza ken lflow layout panel li mahayna fiyo ucappointment aando akbar aada hone it may edit the size of the absolute column
@@ -195,7 +192,7 @@ namespace MKproject.Schedule
                 {
                     int columnwidth = ucday.TLPAppointment.GetColumnWidths()[positioncol];
                     //eza ee edit width
-                    if (((UCappointments.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ucday.KeepSpace) > columnwidth)
+                    if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ucday.KeepSpace) > columnwidth)
                     {
                         ucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
                     }
@@ -207,7 +204,7 @@ namespace MKproject.Schedule
             {
                 int columnwidth = ucday.TLPAppointment.GetColumnWidths()[positioncol];
                 //eza ee edit width
-                if (((UCappointments.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ucday.KeepSpace) > columnwidth)
+                if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ucday.KeepSpace) > columnwidth)
                 {
                     ucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
                 }

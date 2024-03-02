@@ -131,9 +131,9 @@ namespace MKproject.Schedule
                         control.BackColor = ucday.StaticColorFLP;
                     }
                 }
-                else if (control is UCappointments)
+                else if (control is UCappointment)
                 {
-                    UCappointments ucappointments = (UCappointments)control;
+                    UCappointment ucappointments = (UCappointment)control;
                     if (ucappointments.tableLayoutPanel2.BackColor == ucday.DisableColorTBUca)
                     {
 

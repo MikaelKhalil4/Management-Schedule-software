@@ -15,20 +15,20 @@ namespace MKproject.Schedule.Appointmentform
         //SQL
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 
-        public static DataTable DisplayMeetingsWhereCoaches(UCDay ucday, List<int> listrankcoaches_id)
+        public static DataTable DisplayMeetingsWhereEmployees(UCDay ucday, List<int> listrankemployees_id)
         {
             StringBuilder queryBuilder = new StringBuilder();
-            queryBuilder.AppendLine(@"SELECT appointment_id , coach_id, title, start_time, end_time, Note, onpending
+            queryBuilder.AppendLine(@"SELECT appointment_id , employee_id, title, start_time, end_time, Note, onpending
                                       FROM appointments
                                       WHERE CAST(start_time AS DATE) = @value1 AND  isappointment = @isappointment ");
-            if (listrankcoaches_id.Count > 0)
+            if (listrankemployees_id.Count > 0)
             {
-                queryBuilder.AppendLine("AND coach_id IN (");
+                queryBuilder.AppendLine("AND employee_id IN (");
 
-                for (int i = 0; i < listrankcoaches_id.Count; i++)
+                for (int i = 0; i < listrankemployees_id.Count; i++)
                 {
-                    queryBuilder.Append($"@coachId{i}");
-                    if (i < listrankcoaches_id.Count - 1)
+                    queryBuilder.Append($"@employee_id{i}");
+                    if (i < listrankemployees_id.Count - 1)
                     {
                         queryBuilder.Append(", ");
                     }
@@ -41,9 +41,9 @@ namespace MKproject.Schedule.Appointmentform
             string[] date = datetime.Split(' ');
             command1.Parameters.AddWithValue("@value1", date[0]);
             command1.Parameters.AddWithValue("@isappointment", false);
-            for (int i = 0; i < listrankcoaches_id.Count; i++)
+            for (int i = 0; i < listrankemployees_id.Count; i++)
             {
-                command1.Parameters.AddWithValue($"@coachId{i}", listrankcoaches_id[i]);
+                command1.Parameters.AddWithValue($"@employee_id{i}", listrankemployees_id[i]);
             }
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
@@ -53,15 +53,15 @@ namespace MKproject.Schedule.Appointmentform
             con.Close();
             return dt1;
         }
-        public static DataTable DisplayMeetingsOneCoach(UCDay ucday, int coach_id)
+        public static DataTable DisplayMeetingsOneEmployee(UCDay ucday, int employee_id)
         {
-            SqlCommand command1 = new SqlCommand(@"SELECT appointment_id , coach_id, title, start_time, end_time, Note, onpending
+            SqlCommand command1 = new SqlCommand(@"SELECT appointment_id , employee_id, title, start_time, end_time, Note, onpending
                                                    FROM appointments
-                                                   WHERE CAST(start_time AS DATE) = @value1 AND  isappointment = @isappointment AND coach_id =@coach_id", con);
+                                                   WHERE CAST(start_time AS DATE) = @value1 AND  isappointment = @isappointment AND employee_id =@employee_id", con);
             string datetime = ucday.DateUCDay.ToString();
             string[] date = datetime.Split(' ');
             command1.Parameters.AddWithValue("@value1", date[0]);
-            command1.Parameters.AddWithValue("@coach_id", coach_id);
+            command1.Parameters.AddWithValue("@employee_id", employee_id);
             command1.Parameters.AddWithValue("@isappointment", false);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
@@ -75,15 +75,15 @@ namespace MKproject.Schedule.Appointmentform
 
 
 
-        public static int AddFromMeetingtoSQL(int idcoach, string title, DateTime starttime, DateTime endtime, string Note, bool onpending)
+        public static int AddFromMeetingtoSQL(int idemployee, string title, DateTime starttime, DateTime endtime, string Note, bool onpending)
         {
             int idmeeting;
-            SqlCommand command = new SqlCommand(@"INSERT INTO appointments(coach_id,title,start_time,end_time,Note,onpending,isappointment) 
-                                                                  VALUES (@coach_id,@title,@start_time, @end_time, @Note, @onpending, @isappointment) ", con);
+            SqlCommand command = new SqlCommand(@"INSERT INTO appointments(employee_id,title,start_time,end_time,Note,onpending,isappointment) 
+                                                                  VALUES (@employee_id,@title,@start_time, @end_time, @Note, @onpending, @isappointment) ", con);
             SqlCommand cmd = new SqlCommand("SELECT Max(appointment_id) FROM appointments", con);
 
 
-            command.Parameters.AddWithValue("@coach_id", idcoach);
+            command.Parameters.AddWithValue("@employee_id", idemployee);
             command.Parameters.AddWithValue("@title", title);
             command.Parameters.AddWithValue("@start_time", starttime);
             command.Parameters.AddWithValue("@end_time", endtime);

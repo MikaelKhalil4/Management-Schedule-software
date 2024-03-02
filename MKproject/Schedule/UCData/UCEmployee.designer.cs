@@ -1,6 +1,6 @@
 ﻿namespace MKproject.Schedule
 {
-    partial class UCCoach
+    partial class UCEmployee
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCCoach));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCEmployee));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelRank = new System.Windows.Forms.Label();
             this.CheckBoxAppearance = new System.Windows.Forms.CheckBox();
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
-            this.LabelNamecoach = new System.Windows.Forms.Label();
+            this.LabelNameemployee = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +53,7 @@
             this.tableLayoutPanel1.Controls.Add(this.CheckBoxAppearance, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.buttonUp, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.buttonDown, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.LabelNamecoach, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.LabelNameemployee, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -63,9 +63,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.876543F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(247, 49);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Click += new System.EventHandler(this.UCCoach_Click);
-            this.tableLayoutPanel1.MouseLeave += new System.EventHandler(this.UCCoach_MouseLeave);
-            this.tableLayoutPanel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCCoach_MouseMove);
+            this.tableLayoutPanel1.Click += new System.EventHandler(this.UCEmployee_Click);
+            this.tableLayoutPanel1.MouseLeave += new System.EventHandler(this.UCEmployee_MouseLeave);
+            this.tableLayoutPanel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCEmployee_MouseMove);
             // 
             // panel1
             // 
@@ -89,8 +89,8 @@
             this.labelRank.TabIndex = 7;
             this.labelRank.Text = "1";
             this.labelRank.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelRank.MouseLeave += new System.EventHandler(this.UCCoach_MouseLeave);
-            this.labelRank.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCCoach_MouseMove);
+            this.labelRank.MouseLeave += new System.EventHandler(this.UCEmployee_MouseLeave);
+            this.labelRank.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCEmployee_MouseMove);
             // 
             // CheckBoxAppearance
             // 
@@ -107,8 +107,8 @@
             this.CheckBoxAppearance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CheckBoxAppearance.UseVisualStyleBackColor = true;
             this.CheckBoxAppearance.CheckStateChanged += new System.EventHandler(this.CheckBoxAppearance_CheckStateChanged);
-            this.CheckBoxAppearance.MouseLeave += new System.EventHandler(this.UCCoach_MouseLeave);
-            this.CheckBoxAppearance.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCCoach_MouseMove);
+            this.CheckBoxAppearance.MouseLeave += new System.EventHandler(this.UCEmployee_MouseLeave);
+            this.CheckBoxAppearance.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCEmployee_MouseMove);
             // 
             // buttonUp
             // 
@@ -123,8 +123,8 @@
             this.buttonUp.TabIndex = 9;
             this.buttonUp.UseVisualStyleBackColor = true;
             this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
-            this.buttonUp.MouseLeave += new System.EventHandler(this.UCCoach_MouseLeave);
-            this.buttonUp.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCCoach_MouseMove);
+            this.buttonUp.MouseLeave += new System.EventHandler(this.UCEmployee_MouseLeave);
+            this.buttonUp.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCEmployee_MouseMove);
             // 
             // buttonDown
             // 
@@ -139,35 +139,35 @@
             this.buttonDown.TabIndex = 6;
             this.buttonDown.UseVisualStyleBackColor = true;
             this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
-            this.buttonDown.MouseLeave += new System.EventHandler(this.UCCoach_MouseLeave);
-            this.buttonDown.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCCoach_MouseMove);
+            this.buttonDown.MouseLeave += new System.EventHandler(this.UCEmployee_MouseLeave);
+            this.buttonDown.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCEmployee_MouseMove);
             // 
-            // LabelNamecoach
+            // LabelNameemployee
             // 
-            this.LabelNamecoach.AutoSize = true;
-            this.LabelNamecoach.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LabelNamecoach.Font = new System.Drawing.Font("Calibri", 11.25F);
-            this.LabelNamecoach.Location = new System.Drawing.Point(50, 0);
-            this.LabelNamecoach.Name = "LabelNamecoach";
-            this.LabelNamecoach.Size = new System.Drawing.Size(133, 44);
-            this.LabelNamecoach.TabIndex = 10;
-            this.LabelNamecoach.Text = "Elie Khalil";
-            this.LabelNamecoach.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LabelNamecoach.Click += new System.EventHandler(this.UCCoach_Click);
-            this.LabelNamecoach.MouseLeave += new System.EventHandler(this.UCCoach_MouseLeave);
-            this.LabelNamecoach.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCCoach_MouseMove);
+            this.LabelNameemployee.AutoSize = true;
+            this.LabelNameemployee.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LabelNameemployee.Font = new System.Drawing.Font("Calibri", 11.25F);
+            this.LabelNameemployee.Location = new System.Drawing.Point(50, 0);
+            this.LabelNameemployee.Name = "LabelNameemployee";
+            this.LabelNameemployee.Size = new System.Drawing.Size(133, 44);
+            this.LabelNameemployee.TabIndex = 10;
+            this.LabelNameemployee.Text = "Elie Khalil";
+            this.LabelNameemployee.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LabelNameemployee.Click += new System.EventHandler(this.UCEmployee_Click);
+            this.LabelNameemployee.MouseLeave += new System.EventHandler(this.UCEmployee_MouseLeave);
+            this.LabelNameemployee.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCEmployee_MouseMove);
             // 
-            // UCCoach
+            // UCEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "UCCoach";
+            this.Name = "UCEmployee";
             this.Size = new System.Drawing.Size(247, 49);
-            this.Click += new System.EventHandler(this.UCCoach_Click);
-            this.MouseLeave += new System.EventHandler(this.UCCoach_MouseLeave);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCCoach_MouseMove);
+            this.Click += new System.EventHandler(this.UCEmployee_Click);
+            this.MouseLeave += new System.EventHandler(this.UCEmployee_MouseLeave);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCEmployee_MouseMove);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -181,7 +181,7 @@
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Label labelRank;
         private System.Windows.Forms.Button buttonUp;
-        private System.Windows.Forms.Label LabelNamecoach;
+        private System.Windows.Forms.Label LabelNameemployee;
         public System.Windows.Forms.CheckBox CheckBoxAppearance;
     }
 }

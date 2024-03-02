@@ -42,9 +42,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanelDay = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.VScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.TLPAppointment = new MKproject.Schedule.TableLayoutPanelBuffered();
-            this.TLPCoaches = new MKproject.Schedule.TableLayoutPanelDoubleBufferedNoscroll();
+            this.VScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.TLPEmployees = new MKproject.Schedule.TableLayoutPanelDoubleBufferedNoscroll();
             this.panelMembers.SuspendLayout();
             this.flowLayoutPanelDoubleBufferedcs2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -70,6 +70,7 @@
             // 
             // flowLayoutPanelDoubleBufferedcs2
             // 
+            this.flowLayoutPanelDoubleBufferedcs2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelDoubleBufferedcs2.Controls.Add(this.labelMember);
             this.flowLayoutPanelDoubleBufferedcs2.Controls.Add(this.pictureBox1);
             this.flowLayoutPanelDoubleBufferedcs2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -216,7 +217,7 @@
             this.tableLayoutPanelDay.Controls.Add(this.panelMembers, 0, 0);
             this.tableLayoutPanelDay.Controls.Add(this.panel1, 0, 3);
             this.tableLayoutPanelDay.Controls.Add(this.panel3, 0, 2);
-            this.tableLayoutPanelDay.Controls.Add(this.TLPCoaches, 0, 1);
+            this.tableLayoutPanelDay.Controls.Add(this.TLPEmployees, 0, 1);
             this.tableLayoutPanelDay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDay.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelDay.Margin = new System.Windows.Forms.Padding(0);
@@ -239,18 +240,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1104, 574);
             this.panel3.TabIndex = 67;
-            // 
-            // VScrollBar1
-            // 
-            this.VScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.VScrollBar1.LargeChange = 200;
-            this.VScrollBar1.Location = new System.Drawing.Point(1087, 0);
-            this.VScrollBar1.Maximum = 1421;
-            this.VScrollBar1.Name = "VScrollBar1";
-            this.VScrollBar1.Size = new System.Drawing.Size(17, 574);
-            this.VScrollBar1.SmallChange = 100;
-            this.VScrollBar1.TabIndex = 66;
-            this.VScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScrollBar1_Scroll);
             // 
             // TLPAppointment
             // 
@@ -293,19 +282,31 @@
             this.TLPAppointment.TabIndex = 67;
             this.TLPAppointment.VerticalScrollBarTable = null;
             // 
-            // TLPCoaches
+            // VScrollBar1
             // 
-            this.TLPCoaches.ColumnCount = 2;
-            this.TLPCoaches.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.05152F));
-            this.TLPCoaches.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.94848F));
-            this.TLPCoaches.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPCoaches.Location = new System.Drawing.Point(0, 38);
-            this.TLPCoaches.Margin = new System.Windows.Forms.Padding(0, 0, 17, 0);
-            this.TLPCoaches.Name = "TLPCoaches";
-            this.TLPCoaches.RowCount = 1;
-            this.TLPCoaches.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPCoaches.Size = new System.Drawing.Size(1087, 43);
-            this.TLPCoaches.TabIndex = 68;
+            this.VScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.VScrollBar1.LargeChange = 200;
+            this.VScrollBar1.Location = new System.Drawing.Point(1087, 0);
+            this.VScrollBar1.Maximum = 1421;
+            this.VScrollBar1.Name = "VScrollBar1";
+            this.VScrollBar1.Size = new System.Drawing.Size(17, 574);
+            this.VScrollBar1.SmallChange = 100;
+            this.VScrollBar1.TabIndex = 66;
+            this.VScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScrollBar1_Scroll);
+            // 
+            // TLPEmployees
+            // 
+            this.TLPEmployees.ColumnCount = 2;
+            this.TLPEmployees.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.05152F));
+            this.TLPEmployees.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.94848F));
+            this.TLPEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TLPEmployees.Location = new System.Drawing.Point(0, 38);
+            this.TLPEmployees.Margin = new System.Windows.Forms.Padding(0, 0, 17, 0);
+            this.TLPEmployees.Name = "TLPEmployees";
+            this.TLPEmployees.RowCount = 1;
+            this.TLPEmployees.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TLPEmployees.Size = new System.Drawing.Size(1087, 43);
+            this.TLPEmployees.TabIndex = 68;
             // 
             // UCDay
             // 
@@ -341,7 +342,7 @@
         private System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.VScrollBar VScrollBar1;
         public TableLayoutPanelBuffered TLPAppointment;
-        public TableLayoutPanelDoubleBufferedNoscroll TLPCoaches;
+        public TableLayoutPanelDoubleBufferedNoscroll TLPEmployees;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelDoubleBufferedcs1;
         private System.Windows.Forms.Button buttonToday;
         private System.Windows.Forms.PictureBox DownArrow;

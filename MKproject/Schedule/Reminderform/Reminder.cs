@@ -52,92 +52,30 @@ namespace MKproject.Schedule
 
             StaticClass.StaticClientNameChanged += HandleClientNameChanged;
 
-            checkBoxMonday.Text = Reminder.Monday;
-            checkBoxTuesday.Text = Reminder.Tuesday;
-            checkBoxWednesday.Text = Reminder.Wednesday;
-            checkBoxThursday.Text = Reminder.Thursday;
-            checkBoxFriday.Text = Reminder.Friday;
-            checkBoxSaturday.Text = Reminder.Saturday;
-            checkBoxSunday.Text = Reminder.Sunday;
 
             monthCalendarStart.SelectionStart = DateTime.Today;
             monthCalendarStart.MinDate = DateTime.Today;
         }
         ///UPDATE
-        public Reminder(UCreminder form1, UCDay form2, Schedule form3, bool isclientreminder, ClientReminder clientreminder)
+        public Reminder(ClassReminder desiredreminder, UCDay form2, Schedule form3, bool isclientreminder, ClientReminder clientreminder)
         {
             InitializeComponent();
-            ucreminder = form1;
+
+            DesiredReminder = desiredreminder;
+
             ucday = form2;
             schedule = form3;
+
             clientReminder = clientreminder;
 
             //Getting The Type Of this form from where it comes and if it's update or add
             isupdate = true;
             Isclientreminder = isclientreminder;
 
-            //Getting the properties of the ucreminder that we clicked on
-            DesiredClient.FullName = ucreminder.ClientName;
-            DesiredClient.ClientId = (int)ucreminder.ClientId;
+            
             StaticClass.StaticClientNameChanged += HandleClientNameChanged;//Event for the name if he changed
 
-
-            if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
-            {
-                typerepeats3 = 1;
-            }
-            else if (labelrepeat.Text == Reminder.Everyday)
-            {
-                typerepeats3 = 2;
-            }
-            else
-            {
-                typerepeats3 = 3;
-            }
-
-            checkBoxMonday.Text = Reminder.Monday;
-            checkBoxTuesday.Text = Reminder.Tuesday;
-            checkBoxWednesday.Text = Reminder.Wednesday;
-            checkBoxThursday.Text = Reminder.Thursday;
-            checkBoxFriday.Text = Reminder.Friday;
-            checkBoxSaturday.Text = Reminder.Saturday;
-            checkBoxSunday.Text = Reminder.Sunday;
-
-            monthCalendarStart.SelectionStart = ucreminder.DesiredReminder.StartTime;
-            monthCalendarStart.MinDate = DateTime.Today;
-
-            textBoxReminder.Text = ucreminder.DesiredReminder.Reminder;
-            labelrepeat.Text = ucreminder.DesiredReminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
-            labelQuote.Text = ucreminder.DesiredReminder.LabelQuote;
-
-
-            //if it's every week then we have to make panelDaysofTheWeek visible and check the dates
-            if (ucreminder.DesiredReminder.Partsrepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
-            {
-                panelDaysofTheWeek.Visible = true;
-                int i = 1;
-                foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)
-                {
-                    if (i != ucreminder.DesiredReminder.Partsrepeat.Length)
-                    {
-                        if (checkbox.Text == ucreminder.DesiredReminder.Partsrepeat[i])
-                        {
-                            checkbox.Checked = true;
-                            i++;
-                        }
-                    }
-                }
-            }
-
-            if (ucreminder.ClientId == null)
-            {
-                textBoxFullName.Text = textBoxFullName.PlaceholderText;
-            }
-            else
-            {
-                textBoxFullName.Text = ucreminder.ClientName;
-            }
-
+            Updateform();
         }
 
 
@@ -156,22 +94,16 @@ namespace MKproject.Schedule
 
             StaticClass.StaticClientNameChanged += HandleClientNameChanged;
 
-            checkBoxMonday.Text = Reminder.Monday;
-            checkBoxTuesday.Text = Reminder.Tuesday;
-            checkBoxWednesday.Text = Reminder.Wednesday;
-            checkBoxThursday.Text = Reminder.Thursday;
-            checkBoxFriday.Text = Reminder.Friday;
-            checkBoxSaturday.Text = Reminder.Saturday;
-            checkBoxSunday.Text = Reminder.Sunday;
 
             monthCalendarStart.SelectionStart = DateTime.Today;
             monthCalendarStart.MinDate = DateTime.Today;
         }
         ///UPDATE
-        public Reminder(UCreminder form1, UCDay form2, Schedule form3, bool isclientreminder)
+        public Reminder(ClassReminder desiredreminder, UCDay form2, Schedule form3, bool isclientreminder)
         {
             InitializeComponent();
-            ucreminder = form1;
+
+            DesiredReminder = desiredreminder;
             ucday = form2;
             schedule = form3;
 
@@ -179,67 +111,9 @@ namespace MKproject.Schedule
             isupdate = true;
             Isclientreminder = isclientreminder;
 
-            //Getting the properties of the ucreminder that we clicked on
-            DesiredClient.FullName = ucreminder.ClientName;
-            DesiredClient.ClientId = ucreminder.ClientId;
             StaticClass.StaticClientNameChanged += HandleClientNameChanged;
 
-            if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
-            {
-                typerepeats3 = 1;
-            }
-            else if (labelrepeat.Text == Reminder.Everyday)
-            {
-                typerepeats3 = 2;
-            }
-            else
-            {
-                typerepeats3 = 3;
-            }
-
-            checkBoxMonday.Text = Reminder.Monday;
-            checkBoxTuesday.Text = Reminder.Tuesday;
-            checkBoxWednesday.Text = Reminder.Wednesday;
-            checkBoxThursday.Text = Reminder.Thursday;
-            checkBoxFriday.Text = Reminder.Friday;
-            checkBoxSaturday.Text = Reminder.Saturday;
-            checkBoxSunday.Text = Reminder.Sunday;
-
-            monthCalendarStart.SelectionStart = ucreminder.DesiredReminder.StartTime;
-            monthCalendarStart.MinDate = DateTime.Today;
-
-            textBoxReminder.Text = ucreminder.DesiredReminder.Reminder;
-            labelrepeat.Text = ucreminder.DesiredReminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
-            labelQuote.Text = ucreminder.DesiredReminder.LabelQuote;
-
-
-            //if it's every week then we have to make panelDaysofTheWeek visible and check the dates
-            if (ucreminder.DesiredReminder.Partsrepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
-            {
-                panelDaysofTheWeek.Visible = true;
-                int i = 1;
-                foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)
-                {
-                    if (i != ucreminder.DesiredReminder.Partsrepeat.Length)
-                    {
-                        if (checkbox.Text == ucreminder.DesiredReminder.Partsrepeat[i])
-                        {
-                            checkbox.Checked = true;
-                            i++;
-                        }
-                    }
-                }
-            }
-
-            if (ucreminder.ClientId == null)
-            {
-                textBoxFullName.Text = textBoxFullName.PlaceholderText;
-            }
-            else
-            {
-                textBoxFullName.Text = ucreminder.ClientName;
-            }
-
+            Updateform();
         }
 
 
@@ -272,36 +146,37 @@ namespace MKproject.Schedule
                 //UPDATE
                 if (isupdate)
                 {
+                    //We are getting the ucreminder just for the id
+                    UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == ucreminder.DesiredReminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
+
+                    DesiredReminder.Idreminder = foundUcReminder.DesiredReminder.Idreminder;
+                    DesiredReminder.Reminder = textBoxReminder.Text;
+                    DesiredReminder.Repeat = repeat;
+                    DesiredReminder.StartTime = monthCalendarStart.SelectionStart;
+                    DesiredReminder.LabelQuote = labelQuote.Text;
+
+
+                    //Bade Ekhoud desiredclient men algorithme mikael w hone fi ykoun null
+
+                    if (this.textBoxFullName.Text == this.textBoxFullName.PlaceholderText)
+                    {
+                        DesiredReminder.DesiredClient = null;
+                    }
+                    else
+                    {
+                        DesiredReminder.DesiredClient = DesiredClient;
+                    }
+
+
+                    //SQL
+                    DesiredReminder.UpdateFromRemindertoSQL();
+
+
+
                     //FROM ClientReminder
                     if (Isclientreminder)
                     {
-                        //We are getting the ucreminder just for the id
-                        UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == ucreminder.DesiredReminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
-
-                        DesiredReminder.Idreminder = foundUcReminder.DesiredReminder.Idreminder;
-                        DesiredReminder.Reminder = textBoxReminder.Text;
-                        DesiredReminder.Repeat = repeat;
-                        DesiredReminder.StartTime = monthCalendarStart.SelectionStart;
-                        DesiredReminder.LabelQuote = labelQuote.Text;
-
-
-                        //Bade Ekhoud desiredclient men algorithme mikael w hone fi ykoun null
-
-                        if (this.textBoxFullName.Text == this.textBoxFullName.PlaceholderText)
-                        {
-                            DesiredReminder.DesiredClient = null;
-                        }
-                        else
-                        {
-                            DesiredReminder.DesiredClient = DesiredClient;
-                        }
-
-
-                        //SQL
-                        DesiredReminder.UpdateFromRemindertoSQL();
-
-
-
+                        
                         //DESIGN
                         //DESIGN Schedule
                         foundUcReminder.UpdateReminder(DesiredReminder);//we update also the ucreminder that's in the schedule
@@ -339,18 +214,6 @@ namespace MKproject.Schedule
                     //FROM Schedule
                     else
                     {
-                        int? clientid;
-                        string clientname;
-                        if (this.textBoxFullName.Text == this.textBoxFullName.PlaceholderText)
-                        {
-                            clientname = String.Empty;
-                            clientid = null;
-                        }
-                        else
-                        {
-                            clientname = DesiredClient.FullName;
-                            clientid = DesiredClient.ClientId;
-                        }
                         //SQL
                         DesiredReminder.UpdateFromRemindertoSQL();
 
@@ -387,7 +250,7 @@ namespace MKproject.Schedule
                     DesiredReminder.Repeat = repeat;
                     DesiredReminder.StartTime = monthCalendarStart.SelectionStart;
                     DesiredReminder.LabelQuote = labelQuote.Text;
-                    DesiredReminder.IsChecked = false;
+
 
                     //SQL
                     DesiredReminder.AddRemindertoSQL();
@@ -519,7 +382,58 @@ namespace MKproject.Schedule
             }
             return false; // The control is not in the panel
         }
+        private void Updateform()
+        {
+            if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
+            {
+                typerepeats3 = 1;
+            }
+            else if (labelrepeat.Text == Reminder.Everyday)
+            {
+                typerepeats3 = 2;
+            }
+            else
+            {
+                typerepeats3 = 3;
+            }
 
+            
+            monthCalendarStart.SelectionStart = ucreminder.DesiredReminder.StartTime;
+            monthCalendarStart.MinDate = DateTime.Today;
+
+            textBoxReminder.Text = ucreminder.DesiredReminder.Reminder;
+            labelrepeat.Text = ucreminder.DesiredReminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
+            labelQuote.Text = ucreminder.DesiredReminder.LabelQuote;
+
+
+            //if it's every week then we have to make panelDaysofTheWeek visible and check the dates
+            if (ucreminder.DesiredReminder.Partsrepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
+            {
+                panelDaysofTheWeek.Visible = true;
+                int i = 1;
+                foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)
+                {
+                    if (i != ucreminder.DesiredReminder.Partsrepeat.Length)
+                    {
+                        if (checkbox.Text == ucreminder.DesiredReminder.Partsrepeat[i])
+                        {
+                            checkbox.Checked = true;
+                            i++;
+                        }
+                    }
+                }
+            }
+
+            if (DesiredReminder.DesiredClient == null)
+            {
+                textBoxFullName.Text = textBoxFullName.PlaceholderText;
+            }
+            else
+            {
+                textBoxFullName.Text = DesiredReminder.DesiredClient.FullName;
+            }
+
+        }
 
 
         //DESIGN

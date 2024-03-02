@@ -12,9 +12,13 @@ namespace MKproject.Schedule
 {
     public partial class UCOthersApp : UserControl
     {
-        public UCOthersApp()
+        public UCOthersApp(ClassAppointment desiredappointment)
         {
             InitializeComponent();
+            if(desiredappointment.Title != null)
+            {
+                textBoxOthers.Text = desiredappointment.Title;
+            }
         }
     }
 }

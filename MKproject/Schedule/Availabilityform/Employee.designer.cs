@@ -1,6 +1,6 @@
 ﻿namespace MKproject.Schedule
 {
-    partial class Coach
+    partial class Employee
     {
         /// <summary>
         /// Required designer variable.
@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Coach));
-            this.panelContainsCoaches = new System.Windows.Forms.Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Employee));
+            this.panelContainsEmployees = new System.Windows.Forms.Panel();
             this.buttonD = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panelContainsCoaches
+            // panelContainsEmployees
             // 
-            this.panelContainsCoaches.AutoScroll = true;
-            this.panelContainsCoaches.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainsCoaches.Location = new System.Drawing.Point(0, 0);
-            this.panelContainsCoaches.Margin = new System.Windows.Forms.Padding(0);
-            this.panelContainsCoaches.Name = "panelContainsCoaches";
-            this.panelContainsCoaches.Size = new System.Drawing.Size(234, 255);
-            this.panelContainsCoaches.TabIndex = 0;
+            this.panelContainsEmployees.AutoScroll = true;
+            this.panelContainsEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContainsEmployees.Location = new System.Drawing.Point(0, 0);
+            this.panelContainsEmployees.Margin = new System.Windows.Forms.Padding(0);
+            this.panelContainsEmployees.Name = "panelContainsEmployees";
+            this.panelContainsEmployees.Size = new System.Drawing.Size(234, 255);
+            this.panelContainsEmployees.TabIndex = 0;
             // 
             // buttonD
             // 
@@ -70,7 +70,7 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.buttonD, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panelContainsCoaches, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panelContainsEmployees, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -80,7 +80,7 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(234, 296);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
-            // Coach
+            // Employee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -88,11 +88,11 @@
             this.ClientSize = new System.Drawing.Size(244, 303);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Coach";
+            this.Name = "Employee";
             this.Padding = new System.Windows.Forms.Padding(5, 7, 5, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Coach";
-            this.Deactivate += new System.EventHandler(this.Coach_Deactivate);
+            this.Text = "Employee";
+            this.Deactivate += new System.EventHandler(this.Employee_Deactivate);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -100,7 +100,7 @@
 
         #endregion
         public System.Windows.Forms.Button buttonD;
-        private System.Windows.Forms.Panel panelContainsCoaches;
+        private System.Windows.Forms.Panel panelContainsEmployees;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

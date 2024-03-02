@@ -1,6 +1,6 @@
 ﻿namespace MKproject.Schedule
 {
-    partial class UCappointments
+    partial class UCappointment
     {
         /// <summary> 
         /// Required designer variable.

@@ -11,36 +11,36 @@ namespace MKproject.Schedule
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 
-        //coach
-        public static string DisplayCoachName(int coach_id)
+        //employee
+        public static string DisplayEmployeeName(int employee_id)
         {
-            string coachName = string.Empty;
-            SqlCommand command1 = new SqlCommand(@"SELECT name , family_name 
-                                                   FROM coach
-                                                   WHERE coach_id = @coach_id;", con);
-            command1.Parameters.AddWithValue("@coach_id", coach_id);
+            string employeeName = string.Empty;
+            SqlCommand command1 = new SqlCommand(@"SELECT first_name , last_name 
+                                                   FROM employee
+                                                   WHERE employee_id = @employee_id;", con);
+            command1.Parameters.AddWithValue("@employee_id", employee_id);
             con.Open();
             using (SqlDataReader reader = command1.ExecuteReader())
             {
                 if (reader.Read())
                 {
-                    string firstName = reader["name"].ToString();
-                    string lastName = reader["family_name"].ToString();
+                    string firstName = reader["first_name"].ToString();
+                    string lastName = reader["last_name"].ToString();
 
-                    coachName = $"{firstName} {lastName}";
+                    employeeName = $"{firstName} {lastName}";
                 }
             }
             con.Close();
-            return coachName;
+            return employeeName;
 
         }
 
-        //CoachAvailability
-        public static DataTable DisplayCoachAvailabilityASC()
+        //EmployeeAvailability
+        public static DataTable DisplayEmployeeAvailabilityASC()
         {
-            string query = "SELECT a.availability_id, a.coach_id, c.name, c.family_name, a.availability, a.rank, a.is_checked " +
-                           "FROM coach_availability a " +
-                           "JOIN coach c ON a.coach_id = c.coach_id " +
+            string query = "SELECT a.availability_id, a.employee_id, e.first_name, e.last_name, a.availability, a.rank, a.is_checked " +
+                           "FROM employee_availability a " +
+                           "JOIN employee e ON a.employee_id = e.employee_id " +
                            "WHERE a.is_active = @is_active " +
                            "ORDER BY a.rank ASC";
 
@@ -66,10 +66,10 @@ namespace MKproject.Schedule
             }
         }
 
-        //HistoryCoachavailibility
-        public static DataTable DisplayRankCoachesNAvailability(DateTime history_date)
+        //HistoryEmployeeavailibility
+        public static DataTable DisplayRankEmployeesNAvailability(DateTime history_date)
         {
-            SqlCommand command = new SqlCommand("SELECT  rank_coaches, availability_coaches FROM history_coach_availability WHERE CAST(history_date AS DATE) = @history_date", con);
+            SqlCommand command = new SqlCommand("SELECT  rank_employees, availability_employees FROM history_employee_availability WHERE CAST(history_date AS DATE) = @history_date", con);
             command.Parameters.AddWithValue("@history_date", history_date.Date);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
@@ -82,7 +82,7 @@ namespace MKproject.Schedule
         public static bool DataExistsForToday(DateTime dateToCheck)
         {
             int count;
-            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM history_coach_availability WHERE CAST(history_date AS DATE) = @history_date", con);
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM history_employee_availability WHERE CAST(history_date AS DATE) = @history_date", con);
             cmd.Parameters.AddWithValue("@history_date", dateToCheck.Date);
             con.Open();
             object result = cmd.ExecuteScalar();//return the first cell
@@ -96,7 +96,7 @@ namespace MKproject.Schedule
         //client
         public static DataTable DisplayDataGidViewSearchName()
         {
-            SqlCommand cmd = new SqlCommand("SELECT client_id,name, family_name, phone_number,Registration_Date,check_in FROM client", con);
+            SqlCommand cmd = new SqlCommand("SELECT client_id,first_name, last_name, phone_number,Registration_Date,check_in FROM client", con);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable(); 
             adapter.Fill(dt);
