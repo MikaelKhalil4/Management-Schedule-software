@@ -14,7 +14,7 @@ namespace MKproject.Schedule
 {
     public partial class Appointment : Form
     {
-        //testing the push
+        //testing the pu
         //Property
         TimeSpan DifferenceTime { get; set; }
         private bool isClientModeOn = true;
