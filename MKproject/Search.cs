@@ -24,7 +24,6 @@ namespace MKproject
         {
             InitializeComponent();
             DesiredTextbox = desiredTextbox;
-            NewDesiredClient = new ClassClient();
             ComingDesiredClient = comingDesiredClient;
 
             LoadForm();
@@ -170,6 +169,7 @@ namespace MKproject
                 string LName = row.Cells["family_name"].Value.ToString();
                 int Id = Convert.ToInt16(row.Cells["client_id"].Value);
 
+                NewDesiredClient = new ClassClient();
                 NewDesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
                 NewDesiredClient.Fname = FName;
                 NewDesiredClient.Lname = LName;

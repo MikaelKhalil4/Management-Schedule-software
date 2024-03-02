@@ -19,7 +19,20 @@ namespace MKproject.Schedule.UCData
         public string[] Partsrepeat { get; set; }
         public string LabelQuote { get; set; }
         public DateTime StartTime { get; set; }
-        public bool IsChecked { get; set; }
+
+        //Awal ma yenkhala2 is checked ha ykou false
+        private bool ischecked = false;
+        public bool IsChecked
+        {
+            get
+            {
+                return ischecked;
+            }
+            set
+            {
+                ischecked = value;
+            }
+        }
 
         //SQL
         static SqlConnection con = new SqlConnection(Program.DataLocation);
@@ -28,7 +41,7 @@ namespace MKproject.Schedule.UCData
         //Reminder
         public static DataTable DisplayReminder()
         {
-            SqlCommand command1 = new SqlCommand(@"SELECT reminder.*, client.name, client.family_name
+            SqlCommand command1 = new SqlCommand(@"SELECT reminder.*, client.name , client.family_name
                                                    FROM reminder
                                                    LEFT JOIN client ON reminder.client_id = client.client_id", con);
 

@@ -132,11 +132,11 @@ namespace MKproject.Schedule
             Reminder reminder;
             if (Isclientreminder)
             {
-                reminder = new Reminder(this, ucday, schedule, Isclientreminder, clientReminder);
+                reminder = new Reminder(desiredreminder, ucday, schedule, Isclientreminder, clientReminder);
             }
             else
             {
-                reminder = new Reminder(this, ucday, schedule, Isclientreminder);
+                reminder = new Reminder(desiredreminder, ucday, schedule, Isclientreminder);
             }
             reminder.Show();
         }
@@ -158,7 +158,7 @@ namespace MKproject.Schedule
         }
         private void linkLabelName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ClientReminder clientreminder = new ClientReminder(ClientId, ClientName, schedule, ucday);
+            ClientReminder clientreminder = new ClientReminder(DesiredReminder.DesiredClient, schedule, ucday);
             clientreminder.ShowDialog();
         }
         private void checkBoxReminder_Click(object sender, EventArgs e)

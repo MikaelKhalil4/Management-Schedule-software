@@ -14,7 +14,7 @@ namespace MKproject.Schedule
         int FutureValue;
         public Color ActiveColor = Color.FromArgb(158, 251, 79), DisactiveColor = Color.White;
 
-        UCCoach uccoach;
+        UCEmployee UCemployee;
 
         //INITIALISE:
         public AvailabilityLayout()
@@ -85,18 +85,18 @@ namespace MKproject.Schedule
 
 
         //FUNCTION:
-        public void AvailibilitySpecificCoach(UCCoach ucdata)
+        public void AvailibilitySpecificEmployee(UCEmployee ucemployee)
         {
-            uccoach = ucdata;
+            UCemployee = ucemployee;
 
             //SCROLL:
             tableLayoutPanelAvailability.VerticalScroll.Value = tableLayoutPanelAvailability.rowHeight * 6;
 
             //Getting The name:
-            labelfullname.Text = uccoach.Fullname;
+            labelfullname.Text = UCemployee.Fullname;
 
 
-            string[] HoursOfTheday = uccoach.Availability.Split('/');//each cell has the hours of the day for exemple day Monday cell[0] Sunday cell[6]...
+            string[] HoursOfTheday = UCemployee.Availability.Split('/');//each cell has the hours of the day for exemple day Monday cell[0] Sunday cell[6]...
             for (int i = 1; i < 8; i++)
             {
                 string HoursOfThisday = HoursOfTheday[i - 1];//First Monday as 0
@@ -167,10 +167,10 @@ namespace MKproject.Schedule
         private void buttonD_Click(object sender, EventArgs e)
         {
             //getting the old availability
-            string oldavailability = uccoach.Availability;
+            string oldavailability = UCemployee.Availability;
 
             //it's a reset
-            uccoach.Availability = "";
+            UCemployee.Availability = "";
 
             //i is a reference for the days: Monday...
             for (int i = 1; i < 8; i++)
@@ -182,7 +182,7 @@ namespace MKproject.Schedule
                     var control = tableLayoutPanelAvailability.GetControlFromPosition(i, j); // Replace YourUserControl with the actual UserControl type
                     if (control.BackColor == ActiveColor)
                     {
-                        uccoach.Availability += j.ToString() + "-";
+                        UCemployee.Availability += j.ToString() + "-";
                     }
                     else
                     {
@@ -190,61 +190,61 @@ namespace MKproject.Schedule
                     }
 
                 }
-                if (uccoach.Availability == "")//none hours
+                if (UCemployee.Availability == "")//none hours
                 {
 
                 }
-                else if (uccoach.Availability[uccoach.Availability.Length - 1] == '-')//Exemple: 1-2-4-6- so we will have to substract (-)
+                else if (UCemployee.Availability[UCemployee.Availability.Length - 1] == '-')//Exemple: 1-2-4-6- so we will have to substract (-)
                 {
-                    uccoach.Availability = uccoach.Availability.Substring(0, uccoach.Availability.Length - 1);
+                    UCemployee.Availability = UCemployee.Availability.Substring(0, UCemployee.Availability.Length - 1);
                 }
                 else//se3eta ma bi shil / fabyotla3 Monday//Thuesday
                 {
 
                 }
-                uccoach.Availability += "/";
+                UCemployee.Availability += "/";
             }
 
             //result:7-8/8//8-9/9-10/8-9-10-11/   (from 0 to 6 like from Monday to Sunday)
-            uccoach.Availability = uccoach.Availability.Substring(0, uccoach.Availability.Length - 1);
+            UCemployee.Availability = UCemployee.Availability.Substring(0, UCemployee.Availability.Length - 1);
 
             //Checking if the availibibility has changed if yes then we have to update SQL and the 2 datatables: the originale and the copy
-            if (oldavailability != uccoach.Availability)
+            if (oldavailability != UCemployee.Availability)
             {
                 //SQL:
-                ProjectToSql.UpdateCoachAvailabilitySQL(uccoach.Availability_id, uccoach.Availability);
+                ProjectToSql.UpdateEmployeeAvailabilitySQL(UCemployee.Availability_id, UCemployee.Availability);
 
-                //UPDATE DataTableCoachavailability
-                foreach (DataRow row in uccoach.coaches.schedule.ucday.DataTableCoachavailability.Rows)
+                //UPDATE DataTableEmployeeavailability
+                foreach (DataRow row in UCemployee.employees.schedule.ucday.DataTableEmployeeavailability.Rows)
                 {
-                    if ((int)row["availability_id"] == uccoach.Availability_id)
+                    if ((int)row["availability_id"] == UCemployee.Availability_id)
                     {
-                        row["availability"] = uccoach.Availability;
+                        row["availability"] = UCemployee.Availability;
                     }
                 }
 
-                //UPDATE DataTableCoachavailabilityCopy
-                foreach (DataRow row in uccoach.coaches.DataTableCoachavailabilityCopy.Rows)
+                //UPDATE DataTableEmployeeavailabilityCopy
+                foreach (DataRow row in UCemployee.employees.DataTableEmployeeavailabilityCopy.Rows)
                 {
-                    if ((int)row["availability_id"] == uccoach.Availability_id)
+                    if ((int)row["availability_id"] == UCemployee.Availability_id)
                     {
-                        row["availability"] = uccoach.Availability;
+                        row["availability"] = UCemployee.Availability;
                     }
                 }
 
-                //Then We have to change the design of TLP because the coach is in the TLP
-                if (uccoach.IsChecked == true)
+                //Then We have to change the design of TLP because the employee is in the TLP
+                if (UCemployee.IsChecked == true)
                 {
                     //Design So we have to just cahnge the availibility of the column
-                    int dayOfWeekInt = ((int)uccoach.coaches.schedule.ucday.DateUCDay.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
-                    var query = from row in uccoach.coaches.schedule.ucday.DataTableCoachavailability.AsEnumerable()
-                                where row.Field<int>("coach_id") == uccoach.Coach_id
+                    int dayOfWeekInt = ((int)UCemployee.employees.schedule.ucday.DateUCDay.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+                    var query = from row in UCemployee.employees.schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
+                                where row.Field<int>("employee_id") == UCemployee.Employee_id
                                 select row.Field<string>("availability");
 
                     string availibility = query.First();
                     string[] HoursOfThedays = availibility.Split('/');
                     string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');
-                    uccoach.coaches.schedule.ucday.AvailibilityColumnChanged(uccoach.Rank, HoursOfTheday);//The Rank have the same number of with column the coach is in
+                    UCemployee.employees.schedule.ucday.AvailibilityColumnChanged(UCemployee.Rank, HoursOfTheday);//The Rank have the same number of with column the employee is in
                 }
             }
             this.Close();

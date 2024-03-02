@@ -1788,7 +1788,6 @@ C:\MKproject\MKproject\obj\Debug\MKproject.Management.UCCamera.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Management.UCDoubleCombo.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.Appointment.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.AvailabilityLayout.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.Coach.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCTimeavailability.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.CBdisplayTime.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.CBrepeat.resources
@@ -1802,8 +1801,6 @@ C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCDays.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCMonth.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.ClientReminder.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.Reminder.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCappointments.resources
-C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCCoach.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCData.UCData.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCreminder.resources
 C:\MKproject\MKproject\obj\Debug\MKproject.Search.resources
@@ -1952,3 +1949,8 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramewo
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\bin\Debug\images\search2.png
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.UCOthersApp.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .NetFramework\MKproject\obj\Debug\MKproject.Schedule.ChooseService.resources
+C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.ChooseService.resources
+C:\MKproject\MKproject\bin\Debug\images\search2.png
+C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCEmployee.resources
+C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.Employee.resources
+C:\MKproject\MKproject\obj\Debug\MKproject.Schedule.UCappointment.resources

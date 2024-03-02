@@ -45,13 +45,17 @@ namespace MKproject.Schedule
 
         DateTime dateTime;
         bool isstarttime;
-        int coach_id;
+        bool isAdd;
 
-      
+        int PositionCol;
+        int PositionRow;
+
+
         ClassAppointment DesiredAppointment;
 
         UCOthersApp ucOthersApp;
         UCClientApp ucClientApp;
+        UCappointment ucappointment;
 
 
         //Initialise:
@@ -67,41 +71,66 @@ namespace MKproject.Schedule
             ClientModeOnDesign();
         }
 
-        public Appointment(ClassAppointment desiredAppointment)//for update
+        ///ADD
+        public Appointment(UCDay UCday, UCTime UCtime, int employeeid)
         {
             InitializeComponent();
+            isAdd = true;
+            uctime = UCtime;
+            ucday = UCday;
 
-            DesiredAppointment = desiredAppointment;
+            SetUCSlidebutton();
+
+            DesiredAppointment = new ClassAppointment();
+            DesiredAppointment.EmployeeId = employeeid;
+
             ucClientApp = new UCClientApp(DesiredAppointment);
 
             ClientModeOnDesign();
+
+            LoadAddForm();
         }
 
-        public Appointment(UCDay form2, UCTime form1, int number1)
+        ///UPDATE
+        public Appointment(UCappointment UCappointment, ClassAppointment desiredAppointment, UCDay UCday)
         {
             InitializeComponent();
-            uctime = form1;
-            ucday = form2;
-            coach_id = number1;
+            isAdd = false;
+            ucday = UCday;
 
-            LoadForm();
+            ucappointment = UCappointment;
+            DesiredAppointment = desiredAppointment;
+
+            //Aam nekhoud Col and Row pos taba3 lucappointment
+            TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
+            int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
+            int employeePosition = ucday.ListEmployee_idAllTime.IndexOf(DesiredAppointment.EmployeeId);
+
+            ucappointment.ColumnPosition = employeePosition + 1;//position flowlayoutpanel hiye position employee bel list-1 
+            ucappointment.RowPosition = HourOfTheAppointment;
+
+            SetUCSlidebutton();
+
+            if (DesiredAppointment.DesiredClient != null && DesiredAppointment.Title == null)
+            {
+                ucClientApp = new UCClientApp(DesiredAppointment);
+                ClientModeOnDesign();
+            }
+            else if (DesiredAppointment.DesiredClient == null && DesiredAppointment.Title != null)
+            {
+                ucOthersApp = new UCOthersApp(DesiredAppointment);
+                OthersModeOnDesign();
+            }
+
+            LoadUpdateForm();
         }
 
 
         //Functions:
         ///Initialise
-        private void LoadForm()
+        private void LoadAddForm()
         {
-            SetUCSlidebutton();
-
-            DesiredAppointment = new ClassAppointment();
-
-            ucClientApp = new UCClientApp(DesiredAppointment);
-
-            ClientModeOnDesign();
-
-
-            //
+            //Give StartTime and EndTime based on the panel clicked in ucday
             TimeSpan endtime;
             if (uctime.Time == new TimeSpan(23, 0, 0))
             {
@@ -123,42 +152,27 @@ namespace MKproject.Schedule
             DifferenceTime = DesiredAppointment.EndTime.TimeOfDay - DesiredAppointment.StartTime.TimeOfDay;
             labelDifferenceTime.Text = DifferenceTime.ToString(@"hh\:mm\:ss");
             labelDifferenceTime.Select();
+
+            textBoxNotes.Text = DesiredAppointment.Notes;
         }
 
-        ///DifferenceTime
-        public void HandleDifferenceTimeChanged()
+        //Get the starttime and endtime from the desiredappointment
+        private void LoadUpdateForm()
         {
-            string formattedTime;
+            DifferenceTime = DesiredAppointment.EndTime.TimeOfDay - DesiredAppointment.StartTime.TimeOfDay;
 
-            //00:00:00
-            if (DifferenceTime.Minutes == 0 && DifferenceTime.Hours == 0)
-            {
-                formattedTime = DifferenceTime.ToString(@"hh\:mm\:ss");
-            }
-            //3h
-            else if (DifferenceTime.Minutes == 0)
-            {
-                formattedTime = $"{(int)DifferenceTime.Hours}h";
-            }
-            //3m
-            else if (DifferenceTime.Hours == 0)
-            {
-                formattedTime = $"{(int)DifferenceTime.Minutes}m";
-            }
-            //3h 20m
-            else
-            {
-                formattedTime = $"{(int)DifferenceTime.Hours}h {(int)DifferenceTime.Minutes}m";
-            }
-            labelDifferenceTime.Text = formattedTime;
+            textBoxStartTime.Text = DesiredAppointment.StartTime.ToString("h:mm tt");
+            textBoxEndTime.Text = DesiredAppointment.EndTime.ToString("h:mm tt");
+            labelDifferenceTime.Text = DifferenceTime.ToString(@"hh\:mm\:ss");
+
             labelDifferenceTime.Select();
+            textBoxNotes.Text = DesiredAppointment.Notes;
         }
+
 
         ///UCSlidebutton
         void SetUCSlidebutton()
         {
-           
-
             ucSlideButtonClientOrOthers.Button1Clicked += UcSlideButtonPayOrEdit_Button1Clicked;
             ucSlideButtonClientOrOthers.Button2Clicked += UcSlideButtonPayOrEdit_Button2Clicked;
 
@@ -201,13 +215,35 @@ namespace MKproject.Schedule
 
             //ekhir shi lba2we
             DesiredAppointment.Notes = textBoxNotes.Text;
-            DesiredAppointment.OnPending = false;//if it's checked ,thn it's true
 
-            //SQL:
-            int idappointment = DesiredAppointment.AddFromAppoitementtoSQL();
-            DesiredAppointment.IdAppointment = idappointment;   
 
-            ucday.AddUCappointments(DesiredAppointment);
+            if (isAdd)
+            {
+                //SQL:
+                int idappointment = DesiredAppointment.AddFromAppoitementtoSQL();
+                DesiredAppointment.IdAppointment = idappointment;
+
+
+                //Design
+                ucday.AddUCappointments(DesiredAppointment,PositionCol,PositionRow);
+            }
+            else
+            {
+                //SQL:
+                DesiredAppointment.UpdateFromAppoitementtoSQL();
+
+                //Design
+                bool IsUCAppPosChanged;
+                if (ucappointment.RowPosition == PositionRow && ucappointment.ColumnPosition == PositionCol)
+                {
+                    IsUCAppPosChanged = false;
+                }
+                else
+                {
+                    IsUCAppPosChanged = true;
+                }
+                ucday.UpdateUCappointments(ucappointment,DesiredAppointment, PositionCol, PositionRow, IsUCAppPosChanged);
+            }
 
             this.Close();
         }
@@ -261,6 +297,11 @@ namespace MKproject.Schedule
             //Eza Kenna aa Others mana nrouh aa Client
             if (IsClientModeOn == false)
             {
+                //Hek eza kabasana button1 la awal marra se3eta mnekhla2 lobject
+                if (ucClientApp == null)
+                {
+                    ucClientApp = new UCClientApp(DesiredAppointment);
+                }
                 IsClientModeOn = true;//men wara set value ha taeemil lfunctions
             }
         }
@@ -270,9 +311,9 @@ namespace MKproject.Schedule
             if (IsClientModeOn)
             {
                 //Hek eza kabasana button2 la awal marra se3eta mnekhla2 lobject
-                if(ucOthersApp == null)
+                if (ucOthersApp == null)
                 {
-                    ucOthersApp = new UCOthersApp();
+                    ucOthersApp = new UCOthersApp(DesiredAppointment);
                 }
                 IsClientModeOn = false;//men wara set value ha taeemil lfunctions
             }
@@ -282,31 +323,59 @@ namespace MKproject.Schedule
         ///Done Button
         private void ButtonDone_Click(object sender, EventArgs e)
         {
-            if (isClientModeOn)
+            TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
+            int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
+            int employeePosition = ucday.ListEmployee_idAllTime.IndexOf(DesiredAppointment.EmployeeId);
+
+            //ListEmployee_idAllTime and EmployeeAvailabilityByOrder both are ranked by order => both same index
+            bool IsPanelAvailable = false;
+            string HoursAvailability = ucday.EmployeeAvailabilityByOrder[employeePosition];
+            string[] TheHoursAvailability = HoursAvailability.Split('-');
+            for (int i = 0; i < TheHoursAvailability.Count(); i++)
             {
-                if (DesiredAppointment.DesiredClient.ClientId == null)
+                string positionrowstring = HourOfTheAppointment.ToString();
+
+                if (TheHoursAvailability[i] == positionrowstring)
                 {
-                    MessageBox.Show("Enter the Name of the client");
+                    IsPanelAvailable = true;
+                    break;
+                }
+            }
+
+            PositionCol = employeePosition + 1;//position flowlayoutpanel hiye position employee bel list-1 
+            PositionRow = HourOfTheAppointment;
+
+            if (IsPanelAvailable)
+            {
+                if (isClientModeOn)
+                {
+                    if (DesiredAppointment.DesiredClient == null)
+                    {
+                        MessageBox.Show("Enter the Name of the client");
+                    }
+                    else
+                    {
+                        //DesiredClient byekhdo deghre men search eza ken fi
+                        SetUPUCAppointment();
+                    }
                 }
                 else
                 {
-                    //awal shi manna nekhoud title
-                    //DesiredAppointment.DesiredClient = ucClientApp.textBoxSearch.Text;
-                    SetUPUCAppointment();
+                    if (ucOthersApp.textBoxOthers.Text == ucOthersApp.textBoxOthers.PlaceholderText)
+                    {
+                        MessageBox.Show("Enter the Title");
+                    }
+                    else
+                    {
+                        //awal shi manna nekhoud title
+                        DesiredAppointment.Title = ucOthersApp.textBoxOthers.Text;
+                        SetUPUCAppointment();
+                    }
                 }
             }
             else
             {
-                if (ucOthersApp.textBoxOthers.Text == ucOthersApp.textBoxOthers.PlaceholderText)
-                {
-                    MessageBox.Show("Enter the Title");
-                }
-                else
-                {
-                    //awal shi manna nekhoud title
-                    DesiredAppointment.Title = ucOthersApp.textBoxOthers.Text;
-                    SetUPUCAppointment();
-                }
+                MessageBox.Show("This Time is not available");
             }
         }
     }

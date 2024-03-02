@@ -12,7 +12,7 @@ namespace MKproject.Schedule
         //VARIABLES:
         public UCMonth ucmonths;
         public UCDay ucday;
-        public Coach coach;
+        public Employee employee;
         
      
 
