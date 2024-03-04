@@ -17,7 +17,7 @@ namespace MKproject.Schedule
         //testing the pu
         //Property
         TimeSpan DifferenceTime { get; set; }
-        private bool isClientModeOn = true;
+        private bool isClientModeOn;
         public bool IsClientModeOn
         {
             get { return isClientModeOn; }
@@ -111,20 +111,17 @@ namespace MKproject.Schedule
             SetUCSlidebutton();
             SetStartTimeAndEndTimeInDesign();
 
+            ucOthersApp = new UCOthersApp(DesiredAppointment);
+            ucClientApp = new UCClientApp(DesiredAppointment);
 
             if (DesiredAppointment.DesiredClient != null && DesiredAppointment.Title == null)
             {
-                ucClientApp = new UCClientApp(DesiredAppointment);
-                ClientModeOnDesign();
+                IsClientModeOn = true;
             }
             else if (DesiredAppointment.DesiredClient == null && DesiredAppointment.Title != null)
             {
-                ucOthersApp = new UCOthersApp(DesiredAppointment);
-                OthersModeOnDesign();
+                IsClientModeOn = false;
             }
-
-           
-        }
 
 
         //Functions:
@@ -216,7 +213,8 @@ namespace MKproject.Schedule
                 {
                     IsUCAppPosChanged = true;
                 }
-                ucday.UpdateUCappointments(ucappointment,DesiredAppointment, PositionCol, PositionRow, IsUCAppPosChanged);
+                ucappointment.UpdateAppointments(DesiredAppointment);
+                ucday.ChangePositionUCappointments(ucappointment,DesiredAppointment, PositionCol, PositionRow, IsUCAppPosChanged);
             }
 
             this.Close();

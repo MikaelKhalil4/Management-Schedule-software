@@ -36,15 +36,14 @@ namespace MKproject.Schedule
 
         //used in UCClientApp
         public ClassClient DesiredClient { get; set; }
-          
+
         public ClassChosenClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
         public List<ClassBundles> ChosenServicesList;//used when selecting new services
         public string ChosenServicesDetails;//e.g: hair/Beard
-                                           
+
         //SQL
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 
-        //zid title
         public static List<int> DisplayEmployeesIdWhoTrained(UCDay ucday, List<int> listrankemployees_id)
         {
             StringBuilder queryBuilder = new StringBuilder();
@@ -88,11 +87,11 @@ namespace MKproject.Schedule
             return employeeIdsWithAppointments;
         }
 
-        //zid title
+
         public static DataTable DisplayAppointmentsWhereEmployees(UCDay ucday, List<int> listrankemployees_id)
         {
             StringBuilder queryBuilder = new StringBuilder();
-            queryBuilder.AppendLine(@"SELECT t.appointment_id , t.employee_id, c.client_id, c.name,  c.family_name,
+            queryBuilder.AppendLine(@"SELECT t.appointment_id , t.employee_id, c.client_id, c.name,  c.family_name, t.title,
                                       t.start_time, t.end_time, t.Note, t.onpending, t.client_type
                                       FROM appointments t
                                       JOIN client c ON t.client_id = c.client_id
@@ -116,7 +115,6 @@ namespace MKproject.Schedule
             string datetime = ucday.DateUCDay.ToString();
             string[] date = datetime.Split(' ');
             command1.Parameters.AddWithValue("@value1", date[0]);
-            command1.Parameters.AddWithValue("@isappointment", true);
             for (int i = 0; i < listrankemployees_id.Count; i++)
             {
                 command1.Parameters.AddWithValue($"@employeeId{i}", listrankemployees_id[i]);
@@ -129,11 +127,9 @@ namespace MKproject.Schedule
             con.Close();
             return dt1;
         }
-
-        //zid title
         public static DataTable DisplayAppointmentsOneEmployee(UCDay ucday, int employee_id)
         {
-            SqlCommand command1 = new SqlCommand(@"SELECT t.appointment_id, c.client_id, c.name,  c.family_name,
+            SqlCommand command1 = new SqlCommand(@"SELECT t.appointment_id, c.client_id, c.name,  c.family_name, t.title,
                                                    t.start_time, t.end_time, t.Note, t.onpending, t.client_type
                                                    FROM appointments t JOIN client c ON t.client_id = c.client_id 
                                                    WHERE CAST(t.start_time AS DATE) = @value1  AND t.employee_id =@employee_id", con);
@@ -141,7 +137,6 @@ namespace MKproject.Schedule
             string[] date = datetime.Split(' ');
             command1.Parameters.AddWithValue("@value1", date[0]);
             command1.Parameters.AddWithValue("@employee_id", employee_id);
-            command1.Parameters.AddWithValue("@isappointment", true);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
@@ -152,12 +147,12 @@ namespace MKproject.Schedule
 
         }
 
-        //if
+
         public int AddFromAppoitementtoSQL()//na2is ClientType
         {
             int idappointment;
-            SqlCommand command = new SqlCommand(@"INSERT INTO appointments (employee_id,client_id,start_time,end_time,Note,onpending,client_type) 
-                                                                  VALUES (@employee_id,@client_id,@start_time, @end_time, @Note, @onpending, @client_type) ", con);
+            SqlCommand command = new SqlCommand(@"INSERT INTO appointments (employee_id, client_id, title, start_time, end_time, Note, onpending, client_type) 
+                                                                  VALUES (@employee_id, @client_id, @title, @start_time, @end_time, @Note, @onpending, @client_type) ", con);
             SqlCommand cmd = new SqlCommand("SELECT Max(appointment_id) FROM appointments", con);
             //string[] parts = fullname.Split(' ');
 
@@ -165,10 +160,12 @@ namespace MKproject.Schedule
             if (DesiredClient != null && Title == null)
             {
                 command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
+                command.Parameters.AddWithValue("@title", DBNull.Value);
             }
-            else if(DesiredClient == null && Title != null)
+            else if (DesiredClient == null && Title != null)
             {
                 command.Parameters.AddWithValue("@client_id", DBNull.Value);
+                command.Parameters.AddWithValue("@title", Title);
             }
             command.Parameters.AddWithValue("@start_time", StartTime);
             command.Parameters.AddWithValue("@end_time", EndTime);
@@ -188,15 +185,23 @@ namespace MKproject.Schedule
             return idappointment;
 
         }
-        //if
         public void UpdateFromAppoitementtoSQL()
         {
             SqlCommand command = new SqlCommand(@"UPDATE appointments
-                                                  SET client_id=@client_id, start_time=@start_time, end_time=@end_time, Note=@Note, onpending=@onpending,client_type=@client_type
+                                                  SET client_id=@client_id, title= @title, start_time=@start_time, end_time=@end_time, Note=@Note, onpending=@onpending,client_type=@client_type
                                                   WHERE appointment_id =@appointment_id", con);
 
 
-            command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
+            if (DesiredClient != null && Title == null)
+            {
+                command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
+                command.Parameters.AddWithValue("@title", DBNull.Value);
+            }
+            else if (DesiredClient == null && Title != null)
+            {
+                command.Parameters.AddWithValue("@client_id", DBNull.Value);
+                command.Parameters.AddWithValue("@title", Title);
+            }
             command.Parameters.AddWithValue("@start_time", StartTime);
             command.Parameters.AddWithValue("@end_time", EndTime);
             command.Parameters.AddWithValue("@Note", Notes);

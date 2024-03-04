@@ -20,7 +20,15 @@ namespace MKproject.Schedule
                 desiredappointment = value;
 
                 //Name
-                checkBoxAppointment.Text = desiredappointment.DesiredClient.Fname + " " + desiredappointment.DesiredClient.Lname;
+                if (desiredappointment.DesiredClient != null && desiredappointment.Title == null)
+                {
+                    checkBoxAppointment.Text = desiredappointment.DesiredClient.Fname + " " + desiredappointment.DesiredClient.Lname;
+
+                }
+                else
+                {
+                    checkBoxAppointment.Text = desiredappointment.Title;
+                }
 
                 //StartTime
                 string timestring = desiredappointment.StartTime.ToString("h:mm tt");
