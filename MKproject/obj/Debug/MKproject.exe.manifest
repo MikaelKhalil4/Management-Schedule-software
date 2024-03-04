@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2011032">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2012056">
       <assemblyIdentity name="MKproject" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3/WOdZ/b+RyFMm97la1rUWGL5OGdT5yr67Vwydckewk=</dsig:DigestValue>
+        <dsig:DigestValue>okfHhlhaXhm+sG+aSZ0mng09sA90rWX5IEDBH2v4Cd8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -246,6 +246,7 @@ namespace MKproject.Schedule
 
                 ListUCreminder.Add(ucreminder);
 
+                schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
                 //If it's Checked, then it will not appear in schedule.panelreminder
                 if (ucreminder.DesiredReminder.IsChecked == false)
                 {
@@ -257,12 +258,6 @@ namespace MKproject.Schedule
                 }
                 else
                 {
-
-                    //    }
-                    //}
-                    schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
-
-
                     //HistoryEmployeeAvailability
                     //Putting the  Availability And The ID of the Employees   who are in the ListEmployee_idChecked of today in the historyemployeeavailability
                     if (SQLToProject.DataExistsForToday(DateTime.Now))//eza exists update 
@@ -829,7 +824,7 @@ namespace MKproject.Schedule
         public void AddUCappointments(ClassAppointment DesiredAppointment, int positioncol, int positionrow)
         {
             //Design
-          
+
             FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;
             UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
             ucappointments.Width = UCappointment.OriginalWidth;
@@ -904,11 +899,8 @@ namespace MKproject.Schedule
 
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
         }
-        public void UpdateUCappointments(UCappointment ucappointmentclicked,ClassAppointment DesiredAppointment, int newpositioncol, int newpositionrow, bool IsUCAppPosChanged)
+        public void ChangePositionUCappointments(UCappointment ucappointmentclicked, ClassAppointment DesiredAppointment, int newpositioncol, int newpositionrow, bool IsUCAppPosChanged)
         {
-
-            ucappointmentclicked.UpdateAppointments(DesiredAppointment);
-
             if (IsUCAppPosChanged == false)
             {
 
@@ -928,6 +920,7 @@ namespace MKproject.Schedule
                 AddflowLayoutPanel.Controls.Add(ucappointmentclicked);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
 
+                //FOR ADD
 
                 //Absolute
                 if (TLPAppointment.ColumnStyles[newpositioncol].SizeType is SizeType.Absolute)
@@ -967,6 +960,8 @@ namespace MKproject.Schedule
                             EditWidthAppointment(AddflowLayoutPanel, columnwidth);
                         }
                     }
+
+
 
                     //FOR THE REMOVE
 
@@ -1149,18 +1144,31 @@ namespace MKproject.Schedule
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
             {
                 ClassAppointment DesiredAppointment = new ClassAppointment();
-                DesiredAppointment.IdAppointment = Convert.ToInt32(dr[0]);
-                DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr[1]);
 
-                DesiredAppointment.DesiredClient.Fname = dr[2].ToString();
-                DesiredAppointment.DesiredClient.Lname = dr[3].ToString();
+                DesiredAppointment.IdAppointment = Convert.ToInt32(dr["appointment_id"]);
 
-                DesiredAppointment.StartTime = (DateTime)dr[4];
-                DesiredAppointment.EndTime = (DateTime)dr[5];
+                if(dr["client_id"] != DBNull.Value && dr["title"] == DBNull.Value)
+                {
+                    DesiredAppointment.DesiredClient = new ClassClient();
+                    DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
+                    DesiredAppointment.DesiredClient.Fname = dr["name"].ToString();
+                    DesiredAppointment.DesiredClient.Lname = dr["family_name"].ToString();
 
-                DesiredAppointment.Notes = dr[6].ToString();
+                    DesiredAppointment.Title = null;
+                }
+                else
+                {
+                    DesiredAppointment.DesiredClient = null;
+                    DesiredAppointment.Title = dr["title"].ToString();
+                }
+                
 
-                DesiredAppointment.OnPending = Convert.ToBoolean(dr[7]);
+                DesiredAppointment.StartTime = (DateTime)dr["start_time"];
+                DesiredAppointment.EndTime = (DateTime)dr["end_time"];
+
+                DesiredAppointment.Notes = dr["Note"].ToString();
+
+                DesiredAppointment.OnPending = Convert.ToBoolean(dr["onpending"]);
                 DesiredAppointment.EmployeeId = employee_id;
 
                 //string clienttype = dr[8].ToString();
@@ -1260,24 +1268,33 @@ namespace MKproject.Schedule
         {
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
             {
+
                 ClassAppointment DesiredAppointment = new ClassAppointment();
-                DesiredAppointment.DesiredClient = new ClassClient();
 
+                DesiredAppointment.IdAppointment = Convert.ToInt32(dr["appointment_id"]);
+                DesiredAppointment.EmployeeId = Convert.ToInt32(dr["employee_id"]);
 
-                DesiredAppointment.IdAppointment = Convert.ToInt32(dr[0]);
-                DesiredAppointment.EmployeeId = Convert.ToInt32(dr[1]);
+                if (dr["client_id"] != DBNull.Value && dr["title"] == DBNull.Value)
+                {
+                    DesiredAppointment.DesiredClient = new ClassClient();
+                    DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
+                    DesiredAppointment.DesiredClient.Fname = dr["name"].ToString();
+                    DesiredAppointment.DesiredClient.Lname = dr["family_name"].ToString();
 
-                DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr[2]);
+                    DesiredAppointment.Title = null;
+                }
+                else
+                {
+                    DesiredAppointment.DesiredClient = null;
+                    DesiredAppointment.Title = dr["title"].ToString();
+                }
 
-                DesiredAppointment.DesiredClient.Fname = dr[3].ToString();
-                DesiredAppointment.DesiredClient.Lname = dr[4].ToString();
+                DesiredAppointment.StartTime = (DateTime)dr["start_time"];
+                DesiredAppointment.EndTime = (DateTime)dr["end_time"];
 
-                DesiredAppointment.StartTime = (DateTime)dr[5];
-                DesiredAppointment.EndTime = (DateTime)dr[6];
+                DesiredAppointment.Notes = dr["Note"].ToString();
 
-                DesiredAppointment.Notes = dr[7].ToString();
-
-                DesiredAppointment.OnPending = Convert.ToBoolean(dr[8]);
+                DesiredAppointment.OnPending = Convert.ToBoolean(dr["onpending"]);
 
 
                 //string clienttype = dr[9].ToString();
