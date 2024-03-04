@@ -114,7 +114,7 @@ namespace MKproject.Schedule
             ParentFormucClientApp.DesiredAppointment.ChosenServicesList = null;
             ParentFormucClientApp.DesiredAppointment.ChosenServicesDetails = null;
             ParentFormucClientApp.FillObjectAndDesignOfAvailablePackage(DesiredBundPackage.DesiredRow);
-            ParentFormucClientApp.SetDesignMode(false);
+            ParentFormucClientApp.SetDesignMode(false,false);
             this.Close();
         }
 
@@ -148,7 +148,7 @@ namespace MKproject.Schedule
             ParentFormucClientApp.DesiredAppointment.ChosenServicesList = new List<ClassBundles>(BundleList);//the bundle list is being filled bel ucapp
             ParentFormucClientApp.DesiredAppointment.DesiredClientBalance = null;
             ParentFormucClientApp.FillObjectAndDesignOfNewServices();
-            ParentFormucClientApp.SetDesignMode(false);
+            ParentFormucClientApp.SetDesignMode(false, false);
             this.Close();
         }
 

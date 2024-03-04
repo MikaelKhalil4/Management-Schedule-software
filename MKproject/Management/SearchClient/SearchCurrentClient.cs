@@ -358,7 +358,7 @@ namespace MKproject.Management
                 Menu menu = ((Home)this.Tag).menu;
                 if (Program.clientManagementProfile == null)
                 {
-                    Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient,false);
+                    Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient, false);
                 }
                 else
                 {
@@ -538,6 +538,7 @@ namespace MKproject.Management
                         cell.Style.SelectionForeColor = Color.FromArgb(64, 64, 64); ;
                     }
                 }
+              
             }
         }
         private void dataGridViewClients_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

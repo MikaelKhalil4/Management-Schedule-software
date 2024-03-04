@@ -91,8 +91,8 @@
             // 
             this.ucSlideButtonClientOrOthers.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ucSlideButtonClientOrOthers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
-            this.ucSlideButtonClientOrOthers.Button1text = null;
-            this.ucSlideButtonClientOrOthers.Button2text = null;
+            this.ucSlideButtonClientOrOthers.Button1text = "Clients";
+            this.ucSlideButtonClientOrOthers.Button2text = "Others";
             this.ucSlideButtonClientOrOthers.ClickedButton = null;
             this.ucSlideButtonClientOrOthers.Location = new System.Drawing.Point(124, 4);
             this.ucSlideButtonClientOrOthers.Margin = new System.Windows.Forms.Padding(4);

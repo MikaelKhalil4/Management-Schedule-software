@@ -246,6 +246,8 @@ namespace MKproject.Schedule
 
                 ListUCreminder.Add(ucreminder);
 
+                schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+
                 //If it's Checked, then it will not appear in schedule.panelreminder
                 if (ucreminder.DesiredReminder.IsChecked == false)
                 {
@@ -260,7 +262,6 @@ namespace MKproject.Schedule
 
                     //    }
                     //}
-                    schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
 
 
                     //HistoryEmployeeAvailability
@@ -1287,7 +1288,7 @@ namespace MKproject.Schedule
 
                 TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
                 int positionrow = starttimeTimeSpan.Hours;
-                int positioncol = rankemployees_id.IndexOf(DesiredAppointment.EmployeeId) + 1;
+                int positioncol = rankemployees_id.IndexOf((int)DesiredAppointment.EmployeeId) + 1;
                 FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
 
 

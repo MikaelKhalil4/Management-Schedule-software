@@ -15,6 +15,7 @@ namespace MKproject.Management
 
         public enum enumFeatures
         {
+
             [StringValue("Insert Or Edit Clients")]
             EditClients,
             [StringValue("Delete Clients")]

@@ -13,12 +13,13 @@ namespace MKproject.Schedule
     public class ClassAppointment
     {
         //Property
-        public int IdAppointment { get; set; }
-        public int EmployeeId { get; set; }
+        public int? IdAppointment { get; set; }
+        public int? EmployeeId { get; set; }
         public string Title { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Notes { get; set; }
+     
         //just when it will be created it will be false
         private bool onPending = false;
         public bool OnPending
@@ -160,7 +161,7 @@ namespace MKproject.Schedule
             SqlCommand cmd = new SqlCommand("SELECT Max(appointment_id) FROM appointments", con);
             //string[] parts = fullname.Split(' ');
 
-            command.Parameters.AddWithValue("@employee_id", EmployeeId);
+            command.Parameters.AddWithValue("@employee_id", (int)EmployeeId);
             if (DesiredClient != null && Title == null)
             {
                 command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
@@ -201,7 +202,7 @@ namespace MKproject.Schedule
             command.Parameters.AddWithValue("@Note", Notes);
             command.Parameters.AddWithValue("@onpending", OnPending);
             command.Parameters.AddWithValue("@client_type", DBNull.Value);
-            command.Parameters.AddWithValue("@appointment_id", IdAppointment);
+            command.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
 
 
             con.Open();
@@ -210,8 +211,8 @@ namespace MKproject.Schedule
         }
         public void DeleteAppointment()
         {
-            SqlCommand command = new SqlCommand("DELETE FROM appointments WHERE appointment_id = @value1 ", con);
-            command.Parameters.AddWithValue("@value1", IdAppointment);
+            SqlCommand command = new SqlCommand("DELETE FROM appointments WHERE appointment_id = @appointment_id ", con);
+            command.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
@@ -222,13 +223,17 @@ namespace MKproject.Schedule
                                                   SET onpending=@onpending
                                                   WHERE appointment_id =@appointment_id", con);
             command.Parameters.AddWithValue("@onpending", OnPending);
-            command.Parameters.AddWithValue("@appointment_id", IdAppointment);
+            command.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
         }
 
 
-
+        // Method to clone the object
+        public ClassAppointment Copy()
+        {
+            return (ClassAppointment)this.MemberwiseClone();
+        }
     }
 }

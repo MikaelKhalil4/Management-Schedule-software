@@ -122,7 +122,7 @@ namespace MKproject.Schedule
             //DESIGN
             TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;
             int positionrow = starttimeTimeSpan.Hours;
-            int positioncol = ucday.ListEmployee_idChecked.IndexOf(DesiredAppointment.EmployeeId) + 1;
+            int positioncol = ucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointment.EmployeeId) + 1;
             FlowLayoutPanel clickedflowLayoutPanel = ucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
             this.Dispose();
 

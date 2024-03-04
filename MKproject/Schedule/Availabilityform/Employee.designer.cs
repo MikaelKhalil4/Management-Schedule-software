@@ -87,7 +87,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(246)))), ((int)(((byte)(254)))));
             this.ClientSize = new System.Drawing.Size(244, 303);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Employee";
             this.Padding = new System.Windows.Forms.Padding(5, 7, 5, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

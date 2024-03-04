@@ -19,6 +19,9 @@ namespace MKproject.Management
         public string Access { get; set; }
         public bool Status { get; set; }
 
+
+        public bool IsAScheduleMember { get; set; }
+        public bool CanAccesSchedule { get; set; }
         public bool CanEditOffre { get; set; }
         public bool CanAccessStatistics { get; set; }
         public bool CanAccessSevicesProductsEmployees { get; set; }

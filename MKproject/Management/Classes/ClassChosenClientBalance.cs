@@ -21,7 +21,7 @@ namespace MKproject.Management
         public bool ISSessionsOrDays { get; set; }
 
        
-        public static string SetPackageRemainingsFormat(DataRow dtrow )
+        public static string SetPackageRemainingsFormat(DataRow dtrow)
         {
            string PackageRemainings = dtrow["Description"] + ": ";//Description = Bundle Name
             if (dtrow["due_date"] != DBNull.Value)

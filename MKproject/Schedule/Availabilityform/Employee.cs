@@ -285,7 +285,7 @@ namespace MKproject.Schedule
 
         private void Employee_Deactivate(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
     }
 
