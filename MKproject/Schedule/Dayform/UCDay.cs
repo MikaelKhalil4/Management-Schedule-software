@@ -236,7 +236,10 @@ namespace MKproject.Schedule
                 ClassReminder DesiredReminder = new ClassReminder();
                 DesiredReminder.DesiredClient = new ClassClient();
                 DesiredReminder.Idreminder = (int)dr[0];
-                DesiredReminder.DesiredClient.ClientId = clientid;
+                if (clientid != null)
+                {
+                    DesiredReminder.DesiredClient.ClientId = (int)clientid;
+                }
                 DesiredReminder.Reminder = (string)dr[2];
                 DesiredReminder.Repeat = (string)dr[3];
                 DesiredReminder.StartTime = (DateTime)dr[4];

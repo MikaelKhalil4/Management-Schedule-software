@@ -680,7 +680,7 @@ namespace MKproject.Management
         {
 
             //sql
-            int lastClientId = (int)ParentFormClientMan.Client.ClientId;
+            int lastClientId = ParentFormClientMan.Client.ClientId;
             if (BundleId != null)
             {
                 ProjectToSQL.InsertToClientBalance(lastClientId, (int)BundleId, BundleType.ToString());
@@ -703,7 +703,7 @@ namespace MKproject.Management
             {
                 action = "Purchased the " + BundleDescription + " Package.";
             }
-            ClassBackOffice backOffice = new ClassBackOffice((int)ParentFormClientMan.Client.ClientId, action, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, DateTime.Now);
+            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, action, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, DateTime.Now);
             backOffice.InsertToArchiveSQL();
 
 
@@ -805,9 +805,9 @@ namespace MKproject.Management
             int UpdatedSessionLeft = SessionDaysLeft - 1;
             DateTime Date = DateTime.Now;
             ProjectToSQL.UpdateClientBalanceOnEditingSessions(ID, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
-            ClassClient.UpdateClientCheckInSQL((int)ParentFormClientMan.Client.ClientId, Date);
-            ProjectToSQL.InsertToClientAttendance((int)ParentFormClientMan.Client.ClientId);
-            ClassBackOffice backOffice = new ClassBackOffice((int)ParentFormClientMan.Client.ClientId, "Completed a session.", ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, Id, null, SQLToProject.GetLAstInsertedAttendance(), null, null, Date);
+            ClassClient.UpdateClientCheckInSQL(ParentFormClientMan.Client.ClientId, Date);
+            ProjectToSQL.InsertToClientAttendance(ParentFormClientMan.Client.ClientId);
+            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, "Completed a session.", ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, Id, null, SQLToProject.GetLAstInsertedAttendance(), null, null, Date);
             backOffice.InsertToArchiveSQL();
 
             //design
@@ -856,7 +856,7 @@ namespace MKproject.Management
             double EntetityAmount = (double)foundRow["balance"];
 
 
-            Payment payment = new Payment((int)ParentFormClientMan.Client.ClientId, EntetityAmount, ParentFormClientMan.RetrievingSpecificRowsInDt(false, Id), ParentFormClientMan);
+            Payment payment = new Payment(ParentFormClientMan.Client.ClientId, EntetityAmount, ParentFormClientMan.RetrievingSpecificRowsInDt(false, Id), ParentFormClientMan);
             payment.ClientManagementProfileParentForm = this.ParentFormClientMan;
             payment.Show();
         }

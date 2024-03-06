@@ -25,7 +25,7 @@ namespace MKproject.Schedule
                 desiredreminder = value;
                 checkBoxReminder.Checked = desiredreminder.IsChecked;
                 checkBoxReminder.Text = desiredreminder.Reminder;
-                linkLabelName.Text = desiredreminder.DesiredClient.FullName;
+                linkLabelName.Text = desiredreminder.DesiredClient.Fname+" " + desiredreminder.DesiredClient.Lname;
 
             }
         }
@@ -56,7 +56,7 @@ namespace MKproject.Schedule
             schedule = form2;
 
             buttonDelete.Hide();
-            if (DesiredReminder.DesiredClient.ClientId == null)
+            if (DesiredReminder.DesiredClient == null)
             {
                 linkLabelName.Visible = false;
             }
@@ -77,7 +77,7 @@ namespace MKproject.Schedule
 
             Isclientreminder = isclientreminder;
             buttonDelete.Hide();
-            if (DesiredReminder.DesiredClient.ClientId == null)
+            if (DesiredReminder.DesiredClient == null)
             {
                 linkLabelName.Visible = false;
             }
@@ -114,7 +114,7 @@ namespace MKproject.Schedule
             }
             else
             {
-                if (DesiredReminder.DesiredClient.ClientId == null)
+                if (DesiredReminder.DesiredClient == null)
                 {
                     linkLabelName.Visible = false;
                 }

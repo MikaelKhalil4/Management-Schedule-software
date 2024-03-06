@@ -406,7 +406,7 @@ namespace MKproject.Management
                    
 
                     //SQL
-                    backOffice = new ClassBackOffice((int)ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmoutPerRow + " for the " + BackOfficeCatName + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null, null, null, Date);
+                    backOffice = new ClassBackOffice(ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmoutPerRow + " for the " + BackOfficeCatName + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null, null, null, Date);
                     backOffice.InsertToArchiveSQL();
 
 
@@ -448,7 +448,7 @@ namespace MKproject.Management
                     //logic ended
 
                     //Sql
-                    backOffice = new ClassBackOffice((int)ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmountPaid + " for the " + BackOfficeCatName + " " + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaid, null, null, null, Date);
+                    backOffice = new ClassBackOffice(ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmountPaid + " for the " + BackOfficeCatName + " " + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaid, null, null, null, Date);
                     backOffice.InsertToArchiveSQL();
 
                     //Design

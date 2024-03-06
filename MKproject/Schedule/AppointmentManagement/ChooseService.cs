@@ -76,7 +76,7 @@ namespace MKproject.Schedule
                         FLPAvailablePackages.FlowDirection = FlowDirection.LeftToRight;
                         FLPAvailablePackages.AutoScroll = true;
                         FLPAvailablePackages.Padding = new Padding(0);
-                        for (int i = ParentFormucClientApp.PackageRemainingsDt.Rows.Count - 1; i >= 0; i--)
+                        for (int i = 0; i < ParentFormucClientApp.PackageRemainingsDt.Rows.Count; i++)//since it s a flp
                         {
                             DataRow DesiredRow = ParentFormucClientApp.PackageRemainingsDt.Rows[i];
                             if (DesiredRow["bundle_id"] != DBNull.Value && DesiredRow["session_left_days"] != DBNull.Value)//since we have a condition on session left, which mean we re talking abt bundles or session nor products

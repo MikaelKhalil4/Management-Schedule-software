@@ -14,7 +14,7 @@ namespace MKproject.Management
         static SqlConnection con = new SqlConnection(Program.DataLocation);
         //? bas btonhatt lal int w double ta neoul enno hole can be null, or string image, datetime by default fiyun yehkhdo nullvalues
         //personal
-        public int? ClientId { get; set; }
+        public int ClientId { get; set; }
         public string FullName { get; set; }//mesh mawjude bel db, bas btenaaz bi osas bel schdule
         public string Fname { get; set; }
         public string Lname { get; set; }
@@ -496,8 +496,8 @@ namespace MKproject.Management
             {
                 action = "Purchased a " + Bundle.Name + ".";
                 actiontype = ActionsEnum.SoloPurchases;
-                ClassClient.UpdateClientCheckInSQL((int)Client.ClientId, Date);
-                ProjectToSQL.InsertToClientAttendance((int)Client.ClientId);
+                ClassClient.UpdateClientCheckInSQL(Client.ClientId, Date);
+                ProjectToSQL.InsertToClientAttendance(Client.ClientId);
                 StructId = SQLToProject.GetLAstInsertedAttendance();//ejbare tahet InsertToClientAttendance
             }
             else
@@ -507,11 +507,11 @@ namespace MKproject.Management
                 StructId = null;
             }
 
-            ProjectToSQL.InsertToClientBalance((int)Client.ClientId, Bundle.ID, Bundle.EnumBundletype.ToString());
+            ProjectToSQL.InsertToClientBalance(Client.ClientId, Bundle.ID, Bundle.EnumBundletype.ToString());
             DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                                            
 
-            ClassBackOffice backOffice = new ClassBackOffice((int)Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
             backOffice.InsertToArchiveSQL();
 
             ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date, Client.AlbumType);//kermel el count
@@ -521,13 +521,13 @@ namespace MKproject.Management
         public static DataTable PurchaseAProduce(ClassProduct product , DateTime Date, ClassClient Client)
         {
             //SQL
-            ProjectToSQL.InsertToClientBalance((int)Client.ClientId, product.ID, null);
+            ProjectToSQL.InsertToClientBalance(Client.ClientId, product.ID, null);
             DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
            
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
 
-            ClassBackOffice backOffice = new ClassBackOffice((int)Client.ClientId, "Purchased " + product.Name + ".", ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, "Purchased " + product.Name + ".", ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, Date);
             backOffice.InsertToArchiveSQL();
 
             ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date,Client.AlbumType);//kermel el count

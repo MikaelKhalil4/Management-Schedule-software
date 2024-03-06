@@ -81,12 +81,12 @@ namespace MKproject.Schedule
             //badde yehoun kermel bel display ma hada yotlaee fo2 tene
             DesiredAppointment.StartTime = ucday.DateUCDay.Date + uctime.Time;
             DesiredAppointment.EndTime = ucday.DateUCDay.Date + endtime;
-            
+
             ucClientApp = new UCClientApp(DesiredAppointment);
 
             //Fill Design
+            IsClientModeOn = true;
             SetUCSlidebutton();
-            ClientModeOnDesign();
             SetStartTimeAndEndTimeInDesign();
         }
 
@@ -122,7 +122,7 @@ namespace MKproject.Schedule
             {
                 IsClientModeOn = false;
             }
-
+        }
 
         //Functions:
 

@@ -81,7 +81,7 @@ namespace MKproject.Schedule.UCData
           
 
             command.Parameters.AddWithValue("@reminder", Reminder);
-            if(DesiredClient.ClientId != null)
+            if(DesiredClient != null)
             {
                 command.Parameters.Add(DesiredClient.ClientId);
             }
@@ -109,7 +109,7 @@ namespace MKproject.Schedule.UCData
 
 
             command.Parameters.AddWithValue("@reminder", Reminder);
-            if (DesiredClient.ClientId != null)
+            if (DesiredClient != null)
             {
                 command.Parameters.Add(DesiredClient.ClientId);
             }

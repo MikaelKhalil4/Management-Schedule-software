@@ -160,10 +160,7 @@ namespace MKproject.Schedule
                 chooseService.ShowDialog();
             }
         }
-        void FillifUpdate()
-        {
-            
-        }
+      
         public void SetDesignMode(bool? IsNewServiceOrOneOfMultipleIsSelected, bool IsUpdateAndCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
         {
 
@@ -213,7 +210,7 @@ namespace MKproject.Schedule
 
             if (DesiredAppointment.DesiredClient != null)
             {
-                OldClientId = (int)DesiredAppointment.DesiredClient.ClientId;
+                OldClientId = DesiredAppointment.DesiredClient.ClientId;
             }
             else
             {
@@ -229,10 +226,14 @@ namespace MKproject.Schedule
                     {
                         //Sql
                         PackageRemainingsDt = Management.SQLToProject.GetClientBalanceNotExpiredPackage(DesiredAppointment.DesiredClient.ClientId);
+
                         if (DesiredAppointment.ChosenServicesList == null)//in case ma kenet mnaea wala service
                         {
-                            if (OldPackageRemainingsDtDesiredClient == null || !AreTablesTheSame(OldPackageRemainingsDtDesiredClient, PackageRemainingsDt))//in case baadna meal3in el form, old=null ha nfout/ w eza ghayarna shi bel packages tb3 profile ha nfout
+                            if (OldPackageRemainingsDtDesiredClient == null || !AreTablesTheSame(OldPackageRemainingsDtDesiredClient, PackageRemainingsDt))//after choosing a client, old=null ha nfout/ w eza ghayarna shi bel packages tb3 profile ha nfout
                             {
+
+                                OldPackageRemainingsDtDesiredClient = PackageRemainingsDt.Copy();
+
                                 //chosing the right service
                                 if (PackageRemainingsDt.Rows.Count == 1)
                                 {
@@ -267,7 +268,6 @@ namespace MKproject.Schedule
                                         SetDesignModeIfMultiplePackagesExist();
                                     }
                                 }
-                                OldPackageRemainingsDtDesiredClient = PackageRemainingsDt.Copy();
                             }
                         }
                     }
@@ -283,7 +283,7 @@ namespace MKproject.Schedule
                 if (DesiredAppointment.DesiredClient != null)
                 {
                     PackageRemainingsDt = Management.SQLToProject.GetClientBalanceNotExpiredPackage(DesiredAppointment.DesiredClient.ClientId);
-
+                    OldPackageRemainingsDtDesiredClient = PackageRemainingsDt;
                     if (DesiredAppointment.DesiredClientBalance != null)
                     {
                         SetDesignIfServiceOrPackageSelected();
@@ -435,11 +435,11 @@ namespace MKproject.Schedule
 
             if (Program.clientManagementProfile == null)
             {
-                Program.clientManagementProfile = new ClientManagementProfile(ClassClient.CreateClientObject((int)DesiredAppointment.DesiredClient.ClientId), true);
+                Program.clientManagementProfile = new ClientManagementProfile(ClassClient.CreateClientObject(DesiredAppointment.DesiredClient.ClientId), true);
             }
             else
             {
-                Program.clientManagementProfile.LoadData(ClassClient.CreateClientObject((int)DesiredAppointment.DesiredClient.ClientId), true);
+                Program.clientManagementProfile.LoadData(ClassClient.CreateClientObject(DesiredAppointment.DesiredClient.ClientId), true);
                 // ma aam tozbat el formatdatatgrid men wara el show dialog, bas eemlna glitch bel event visible chnaged on the form
             }
             Program.clientManagementProfile.Size = new Size(1000, 659);

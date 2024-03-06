@@ -45,7 +45,9 @@ namespace MKproject.Schedule
             typerepeats3 = 1;
 
             //Getting the needed values
-            DesiredClient.FullName = clientreminder.ClientName;
+
+            //Ma tensa thott el taadela
+            //DesiredClient.FullName = clientreminder.ClientName; 
             DesiredClient.ClientId = (int)clientreminder.ClientId;
             textBoxFullName.Text = clientreminder.ClientName;
 
@@ -242,7 +244,7 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        clientname = DesiredClient.FullName;
+                        clientname = DesiredClient.Fname + " " + DesiredClient.Lname;
                         clientid = DesiredClient.ClientId;
                     }
 
@@ -304,7 +306,7 @@ namespace MKproject.Schedule
         ///-Change:
         public void HandleClientNameChanged(object sender, EventArgs e)
         {
-            textBoxFullName.Text = DesiredClient.FullName;
+            textBoxFullName.Text = DesiredClient.Fname+" "+ DesiredClient.Lname;
             pictureBox1.Select();
         }
         private void monthCalendarStart_DateChanged(object sender, DateRangeEventArgs e)
@@ -430,7 +432,7 @@ namespace MKproject.Schedule
             }
             else
             {
-                textBoxFullName.Text = DesiredReminder.DesiredClient.FullName;
+                textBoxFullName.Text = DesiredReminder.DesiredClient.Fname+" " + DesiredReminder.DesiredClient.Lname;
             }
 
         }

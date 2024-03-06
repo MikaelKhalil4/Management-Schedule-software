@@ -112,7 +112,7 @@ namespace MKproject.Management
 
 
 
-            dtClientBalanceOriginal = SQLToProject.GetClientBalanceSpecificOrLastInsert(Client.ClientId);
+            dtClientBalanceOriginal = SQLToProject.GetClientBalanceSpecificOrLastInsert((int)Client.ClientId);
 
             FormatOriginalDt(dtClientBalanceOriginal);
             DataTableToDatagridView();
@@ -516,7 +516,7 @@ namespace MKproject.Management
             //SQL
             if (UpdateMode)//lieanno fi matarih men kun aam naamil update la sql men gher matrah
             {
-                ClassClient.UpdateClientTotalPaymentSQL((int)Client.ClientId, TotalPayment);
+                ClassClient.UpdateClientTotalPaymentSQL(Client.ClientId, TotalPayment);
             }
 
             //design
@@ -549,7 +549,7 @@ namespace MKproject.Management
             //SQL
             if (UpdateMode)//lieanno fi matarih men kun aam naamil update la sql men gher matrah
             {
-                ClassClient.UpdateClientTotalBalanceSQL((int)Client.ClientId, TotalBalanceAmount);//hayde kermel el table el client el asesie
+                ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, TotalBalanceAmount);//hayde kermel el table el client el asesie
 
             }
 
@@ -1173,7 +1173,7 @@ namespace MKproject.Management
 
                     Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
                     Program.GreyForm.Show();
-                    Payment payment = new Payment((int)Client.ClientId, Convert.ToDouble(EntetityAmount), RetrievingSpecificRowsInDt(false, ClientBalanceId), this);
+                    Payment payment = new Payment(Client.ClientId, Convert.ToDouble(EntetityAmount), RetrievingSpecificRowsInDt(false, ClientBalanceId), this);
                     payment.ClientManagementProfileParentForm = this;
                     payment.ShowDialog();
 
@@ -1231,7 +1231,7 @@ namespace MKproject.Management
         {
             Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
             Program.GreyForm.Show();
-            Payment payment = new Payment((int)Client.ClientId, Convert.ToDouble(TotalBalanceAmount), RetrievingSpecificRowsInDt(true, null), this);
+            Payment payment = new Payment(Client.ClientId, Convert.ToDouble(TotalBalanceAmount), RetrievingSpecificRowsInDt(true, null), this);
             payment.ClientManagementProfileParentForm = this;
             payment.ShowDialog();
 
@@ -1441,7 +1441,7 @@ namespace MKproject.Management
                 {
                     Discount = CurrencySymbol + Discount + " Addition";
                 }
-                ClassBackOffice backOffice = new ClassBackOffice((int)Client.ClientId, "Received an offer on the " + BackOfficeCatName + " " + BackOfficeCatType + ":" + Currency.Symbol + Math.Abs(FromBalance) + "->" + Currency.Symbol + Math.Abs(ToBalance) + " (" + Discount + ")" + ".", ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, true, FromBalance + "/" + ToBalance, (DateTime)Date);
+                ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, "Received an offer on the " + BackOfficeCatName + " " + BackOfficeCatType + ":" + Currency.Symbol + Math.Abs(FromBalance) + "->" + Currency.Symbol + Math.Abs(ToBalance) + " (" + Discount + ")" + ".", ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, true, FromBalance + "/" + ToBalance, (DateTime)Date);
                 backOffice.InsertToArchiveSQL();
 
             }
@@ -1587,7 +1587,7 @@ namespace MKproject.Management
             if (Date != null)//yaane payment form
             {
                 //Backoffice
-                ClassBackOffice backOffice = new ClassBackOffice((int)Client.ClientId, "Received an offer on the " + BackOfficeCatName + " " + BackOfficeCatType + ":" + FromSessionOrDays + " " + type + "->" + ToSessionOrDays + " " + type + ".", ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, false, FromSessionOrDays + "/" + ToSessionOrDays, (DateTime)Date);
+                ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, "Received an offer on the " + BackOfficeCatName + " " + BackOfficeCatType + ":" + FromSessionOrDays + " " + type + "->" + ToSessionOrDays + " " + type + ".", ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, false, FromSessionOrDays + "/" + ToSessionOrDays, (DateTime)Date);
                 backOffice.InsertToArchiveSQL();
             }
 

@@ -251,7 +251,7 @@ namespace MKproject.Management
 
                 if (UCClient != null && ClientForFilter!= null)// awwal condition eza kena feytin men profile nshuf all transaction tb3 a client/scd condtion eza feytin backoffice w aam nshuf eza eemelna search aa client
                 {
-                    Filtereddt = FiltersDataTable.FilterDatatableIFIntEquality("client_id", (int)ClientForFilter.ClientId, Filtereddt);
+                    Filtereddt = FiltersDataTable.FilterDatatableIFIntEquality("client_id", ClientForFilter.ClientId, Filtereddt);
                 }
 
                 FillBackOfficeDataGridView(Filtereddt);

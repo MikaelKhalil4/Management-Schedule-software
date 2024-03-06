@@ -213,7 +213,7 @@ namespace MKproject.Management
                     if (OneOfThePackgesIsMemberShip == true && ParentFormClientMang.Client.RegistrationDate == null)
                     {
                         //sql
-                        ClassClient.MakeClientMemberSQL((int)ParentFormClientMang.Client.ClientId);
+                        ClassClient.MakeClientMemberSQL(ParentFormClientMang.Client.ClientId);
                         ///design
                         ParentFormClientMang.UCMemberSince.Detail = RandomFunctions.SetDateFormat(Date.ToString());
                         ParentFormClientMang.Client.RegistrationDate = Date;
