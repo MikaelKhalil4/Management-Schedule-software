@@ -32,7 +32,6 @@ namespace MKproject.Management
         {
             this.components = new System.ComponentModel.Container();
             this.TLPMain = new System.Windows.Forms.TableLayoutPanel();
-            this.panelButtons = new System.Windows.Forms.Panel();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -45,10 +44,11 @@ namespace MKproject.Management
             this.FLPFeatures = new System.Windows.Forms.FlowLayoutPanel();
             this.checkBoxStatus = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TLPMain.SuspendLayout();
-            this.panelButtons.SuspendLayout();
             this.FLPTop.SuspendLayout();
             this.groupBoxFeatures.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TLPMain
@@ -56,7 +56,7 @@ namespace MKproject.Management
             this.TLPMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
             this.TLPMain.ColumnCount = 1;
             this.TLPMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPMain.Controls.Add(this.panelButtons, 0, 1);
+            this.TLPMain.Controls.Add(this.tableLayoutPanel1, 0, 1);
             this.TLPMain.Controls.Add(this.FLPTop, 0, 0);
             this.TLPMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TLPMain.Location = new System.Drawing.Point(0, 0);
@@ -68,18 +68,6 @@ namespace MKproject.Management
             this.TLPMain.Size = new System.Drawing.Size(435, 596);
             this.TLPMain.TabIndex = 9;
             // 
-            // panelButtons
-            // 
-            this.panelButtons.Controls.Add(this.buttonDelete);
-            this.panelButtons.Controls.Add(this.buttonCancel);
-            this.panelButtons.Controls.Add(this.buttonSave);
-            this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelButtons.Location = new System.Drawing.Point(0, 561);
-            this.panelButtons.Margin = new System.Windows.Forms.Padding(0);
-            this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(435, 35);
-            this.panelButtons.TabIndex = 3;
-            // 
             // buttonDelete
             // 
             this.buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -90,8 +78,7 @@ namespace MKproject.Management
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDelete.ForeColor = System.Drawing.Color.White;
-            this.buttonDelete.Location = new System.Drawing.Point(6, 3);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(10, 5, 15, 5);
+            this.buttonDelete.Location = new System.Drawing.Point(3, 3);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(103, 29);
             this.buttonDelete.TabIndex = 739;
@@ -109,7 +96,7 @@ namespace MKproject.Management
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(235, 2);
+            this.buttonCancel.Location = new System.Drawing.Point(238, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(93, 29);
             this.buttonCancel.TabIndex = 737;
@@ -127,8 +114,7 @@ namespace MKproject.Management
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSave.ForeColor = System.Drawing.Color.White;
-            this.buttonSave.Location = new System.Drawing.Point(334, 2);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(15, 5, 45, 5);
+            this.buttonSave.Location = new System.Drawing.Point(339, 3);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(93, 29);
             this.buttonSave.TabIndex = 2;
@@ -269,6 +255,24 @@ namespace MKproject.Management
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonDelete, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonSave, 2, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 561);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 35);
+            this.tableLayoutPanel1.TabIndex = 7;
+            // 
             // EditEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,10 +289,10 @@ namespace MKproject.Management
             this.Text = "EditEmployee";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditEmployee_FormClosing);
             this.TLPMain.ResumeLayout(false);
-            this.panelButtons.ResumeLayout(false);
             this.FLPTop.ResumeLayout(false);
             this.FLPTop.PerformLayout();
             this.groupBoxFeatures.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -302,12 +306,12 @@ namespace MKproject.Management
         public CustomGroupBox groupBoxFeatures;
         private System.Windows.Forms.FlowLayoutPanel FLPFeatures;
         private System.Windows.Forms.TableLayoutPanel TLPMain;
-        private System.Windows.Forms.Panel panelButtons;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.FlowLayoutPanel FLPTop;
         private System.Windows.Forms.CheckBox checkBoxStatus;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

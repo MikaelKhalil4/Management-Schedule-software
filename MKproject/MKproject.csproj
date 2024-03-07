@@ -168,7 +168,7 @@
     <Compile Include="Management\BackOffice\BackOffice.designer.cs">
       <DependentUpon>BackOffice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Management\BackOffice\ClassBackOffice.cs" />
+    <Compile Include="Management\Classes\ClassBackOffice.cs" />
     <Compile Include="Management\buyBundlesOrProductsComponents\BuyBundleOrProudct.cs">
       <SubType>Form</SubType>
     </Compile>

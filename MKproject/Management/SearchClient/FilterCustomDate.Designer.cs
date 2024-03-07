@@ -34,11 +34,9 @@
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonDone = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.buttonDone = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -51,7 +49,7 @@
             this.tableLayoutPanel1.Controls.Add(this.dateTimePickerStart, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label10, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.buttonDone, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -121,37 +119,27 @@
             this.label1.Text = "Ending Date:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // panel1
+            // timer1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.buttonDone);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 173);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(432, 33);
-            this.panel1.TabIndex = 34;
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // buttonDone
             // 
+            this.buttonDone.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonDone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
             this.buttonDone.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonDone.FlatAppearance.BorderSize = 0;
             this.buttonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDone.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.buttonDone.ForeColor = System.Drawing.Color.White;
-            this.buttonDone.Location = new System.Drawing.Point(334, 4);
+            this.buttonDone.Location = new System.Drawing.Point(342, 175);
             this.buttonDone.Name = "buttonDone";
             this.buttonDone.Size = new System.Drawing.Size(93, 29);
-            this.buttonDone.TabIndex = 3;
+            this.buttonDone.TabIndex = 34;
             this.buttonDone.Text = "Done";
             this.buttonDone.UseVisualStyleBackColor = false;
-            this.buttonDone.Click += new System.EventHandler(this.buttonDone_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FilterCustomDate
             // 
@@ -168,7 +156,6 @@
             this.Deactivate += new System.EventHandler(this.FilterCustomDate_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FilterCustomDate_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -180,8 +167,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePickerEnd;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonDone;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonDone;
     }
 }

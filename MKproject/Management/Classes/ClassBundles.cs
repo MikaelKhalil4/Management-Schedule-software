@@ -41,6 +41,7 @@ namespace MKproject.Management
         public int Qty { get; set; }//only used lamma badde eshtere item 
         public bool Status { get; set; }
 
+
         public ClassBundles()
         {
 
@@ -72,20 +73,7 @@ namespace MKproject.Management
             // Return the results as a tuple
             return (dt.Rows[0]["bundle_name"].ToString());
         }
-        public static bool FindBundleIfMembership(int categoryId)
-        {
-
-            string query = "Select is_member_ship From bundles where bundle_id='" + categoryId + "'";
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-
-            // Return the results as a tuple
-
-            return ((Boolean)dt.Rows[0]["is_member_ship"]);
-        }
-
+    
         public static DataTable GetLastInsertBundle()
         {
             string Query = "Select * from bundles where  bundle_id=(Select MAX(bundle_id) from bundles)";

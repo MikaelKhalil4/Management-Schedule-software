@@ -31,12 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.TLPExercises = new System.Windows.Forms.TableLayoutPanel();
             this.FLPSelectedItems = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.buttonBuy = new System.Windows.Forms.Button();
             this.UCItemCost = new MKproject.Management.UCPayments();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.TLPExercises.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TLPExercises
@@ -45,8 +43,8 @@
             this.TLPExercises.ColumnCount = 1;
             this.TLPExercises.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TLPExercises.Controls.Add(this.FLPSelectedItems, 0, 1);
-            this.TLPExercises.Controls.Add(this.panel1, 0, 3);
             this.TLPExercises.Controls.Add(this.UCItemCost, 0, 0);
+            this.TLPExercises.Controls.Add(this.buttonBuy, 0, 3);
             this.TLPExercises.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TLPExercises.Location = new System.Drawing.Point(0, 0);
             this.TLPExercises.Name = "TLPExercises";
@@ -68,15 +66,6 @@
             this.FLPSelectedItems.TabIndex = 737;
             this.FLPSelectedItems.WrapContents = false;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.buttonBuy);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 409);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(578, 44);
-            this.panel1.TabIndex = 738;
-            // 
             // buttonBuy
             // 
             this.buttonBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -87,7 +76,7 @@
             this.buttonBuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBuy.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.buttonBuy.ForeColor = System.Drawing.Color.White;
-            this.buttonBuy.Location = new System.Drawing.Point(482, 8);
+            this.buttonBuy.Location = new System.Drawing.Point(488, 419);
             this.buttonBuy.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.buttonBuy.Name = "buttonBuy";
             this.buttonBuy.Size = new System.Drawing.Size(93, 29);
@@ -130,7 +119,6 @@
             this.Deactivate += new System.EventHandler(this.BuyBundleOrProudct_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BuyBundleOrProudct_FormClosing);
             this.TLPExercises.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -140,7 +128,6 @@
         private System.Windows.Forms.TableLayoutPanel TLPExercises;
         private System.Windows.Forms.Button buttonBuy;
         private System.Windows.Forms.FlowLayoutPanel FLPSelectedItems;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer timer1;
         public UCPayments UCItemCost;
     }

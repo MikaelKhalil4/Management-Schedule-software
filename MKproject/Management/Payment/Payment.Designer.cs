@@ -36,9 +36,6 @@ namespace MKproject.Management
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TLPForm = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewBalance = new System.Windows.Forms.DataGridView();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonUpdateOrPay = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.TLPEditInfo = new System.Windows.Forms.TableLayoutPanel();
             this.labelPaymentSession = new System.Windows.Forms.Label();
             this.TLPBalance = new System.Windows.Forms.TableLayoutPanel();
@@ -46,11 +43,14 @@ namespace MKproject.Management
             this.labelBalance = new System.Windows.Forms.Label();
             this.ucSlideButtonPayOrEdit = new CustomizedTools.UCSlideButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonUpdateOrPay = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.TLPForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBalance)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
             this.TLPEditInfo.SuspendLayout();
             this.TLPBalance.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TLPForm
@@ -60,10 +60,10 @@ namespace MKproject.Management
             this.TLPForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.TLPForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.TLPForm.Controls.Add(this.dataGridViewBalance, 0, 2);
-            this.TLPForm.Controls.Add(this.flowLayoutPanel1, 0, 3);
             this.TLPForm.Controls.Add(this.TLPEditInfo, 1, 1);
             this.TLPForm.Controls.Add(this.TLPBalance, 0, 1);
             this.TLPForm.Controls.Add(this.ucSlideButtonPayOrEdit, 0, 0);
+            this.TLPForm.Controls.Add(this.flowLayoutPanel1, 0, 3);
             this.TLPForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TLPForm.Location = new System.Drawing.Point(0, 0);
             this.TLPForm.Name = "TLPForm";
@@ -125,56 +125,6 @@ namespace MKproject.Management
             this.dataGridViewBalance.Size = new System.Drawing.Size(840, 194);
             this.dataGridViewBalance.TabIndex = 24;
             this.dataGridViewBalance.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewBalance_CellFormatting);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.TLPForm.SetColumnSpan(this.flowLayoutPanel1, 2);
-            this.flowLayoutPanel1.Controls.Add(this.buttonUpdateOrPay);
-            this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 440);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(854, 36);
-            this.flowLayoutPanel1.TabIndex = 9;
-            // 
-            // buttonUpdateOrPay
-            // 
-            this.buttonUpdateOrPay.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonUpdateOrPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonUpdateOrPay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonUpdateOrPay.FlatAppearance.BorderSize = 0;
-            this.buttonUpdateOrPay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
-            this.buttonUpdateOrPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonUpdateOrPay.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonUpdateOrPay.ForeColor = System.Drawing.Color.White;
-            this.buttonUpdateOrPay.Location = new System.Drawing.Point(761, 4);
-            this.buttonUpdateOrPay.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.buttonUpdateOrPay.Name = "buttonUpdateOrPay";
-            this.buttonUpdateOrPay.Size = new System.Drawing.Size(93, 29);
-            this.buttonUpdateOrPay.TabIndex = 732;
-            this.buttonUpdateOrPay.Text = "Pay";
-            this.buttonUpdateOrPay.UseVisualStyleBackColor = false;
-            this.buttonUpdateOrPay.Click += new System.EventHandler(this.buttonUpdateOrPay_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCancel.FlatAppearance.BorderSize = 0;
-            this.buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(661, 3);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 3, 7, 3);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(93, 29);
-            this.buttonCancel.TabIndex = 737;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // TLPEditInfo
             // 
@@ -264,6 +214,54 @@ namespace MKproject.Management
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // flowLayoutPanel1
+            // 
+            this.TLPForm.SetColumnSpan(this.flowLayoutPanel1, 2);
+            this.flowLayoutPanel1.Controls.Add(this.buttonUpdateOrPay);
+            this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 440);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(854, 36);
+            this.flowLayoutPanel1.TabIndex = 26;
+            // 
+            // buttonUpdateOrPay
+            // 
+            this.buttonUpdateOrPay.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonUpdateOrPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            this.buttonUpdateOrPay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonUpdateOrPay.FlatAppearance.BorderSize = 0;
+            this.buttonUpdateOrPay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
+            this.buttonUpdateOrPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUpdateOrPay.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.buttonUpdateOrPay.ForeColor = System.Drawing.Color.White;
+            this.buttonUpdateOrPay.Location = new System.Drawing.Point(761, 4);
+            this.buttonUpdateOrPay.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.buttonUpdateOrPay.Name = "buttonUpdateOrPay";
+            this.buttonUpdateOrPay.Size = new System.Drawing.Size(93, 29);
+            this.buttonUpdateOrPay.TabIndex = 732;
+            this.buttonUpdateOrPay.Text = "Pay";
+            this.buttonUpdateOrPay.UseVisualStyleBackColor = false;
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
+            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonCancel.FlatAppearance.BorderSize = 0;
+            this.buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.buttonCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonCancel.Location = new System.Drawing.Point(661, 3);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 3, 7, 3);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(93, 29);
+            this.buttonCancel.TabIndex = 737;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = false;
+            // 
             // Payment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -279,11 +277,11 @@ namespace MKproject.Management
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Payment_FormClosing);
             this.TLPForm.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBalance)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.TLPEditInfo.ResumeLayout(false);
             this.TLPEditInfo.PerformLayout();
             this.TLPBalance.ResumeLayout(false);
             this.TLPBalance.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -298,9 +296,9 @@ namespace MKproject.Management
         private System.Windows.Forms.Label labelBalance;
         private UCPayments UCBalance;
         private System.Windows.Forms.Timer timer1;
+        private UCSlideButton ucSlideButtonPayOrEdit;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonUpdateOrPay;
-        private UCSlideButton ucSlideButtonPayOrEdit;
         private System.Windows.Forms.Button buttonCancel;
     }
 }
