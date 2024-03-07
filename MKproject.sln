@@ -1,13 +1,13 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32728.150
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MKproject", "MKproject\MKproject.csproj", "{94B083B7-73A8-4E76-8907-723974B4EEAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKproject", "MKproject\MKproject.csproj", "{94B083B7-73A8-4E76-8907-723974B4EEAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomizedTools", "CustomizedTools\CustomizedTools.csproj", "{4F6F3CC1-0775-4AEA-AB80-55BB94D3ED31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomizedTools", "CustomizedTools\CustomizedTools.csproj", "{4F6F3CC1-0775-4AEA-AB80-55BB94D3ED31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalFunctions", "GlobalFunctions\GlobalFunctions.csproj", "{22547F07-6436-4C93-8007-188A1E6DFBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalFunctions", "GlobalFunctions\GlobalFunctions.csproj", "{22547F07-6436-4C93-8007-188A1E6DFBC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

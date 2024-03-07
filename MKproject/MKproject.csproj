@@ -1,22 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EmguCV.3.1.0.1\build\EmguCV.props" Condition="Exists('..\packages\EmguCV.3.1.0.1\build\EmguCV.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94B083B7-73A8-4E76-8907-723974B4EEAB}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MKproject</RootNamespace>
-    <AssemblyName>MKproject</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkProfile />
     <PublishUrl>C:\Users\USER\Downloads\ELKAPP\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -33,25 +19,10 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>2E7FA559FF954D002AFBFE582250A1BBBC23026F</ManifestCertificateThumbprint>
@@ -66,715 +37,123 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.5.2.5\lib\net46\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.1.1.2225.0\lib\net20\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.GLControl.1.1.2225.0\lib\net20\OpenTK.GLControl.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Drawing.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Drawing.Primitives.4.3.0\lib\net45\System.Drawing.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Json, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.8.0.1\lib\net462\System.Text.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms.DataVisualization" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Management\AddEditEmplOrServices\EditBundleProduct.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\AddEditEmplOrServices\EditBundleProduct.designer.cs">
-      <DependentUpon>EditBundleProduct.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\AddEditEmplOrServices\EditEmployee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\AddEditEmplOrServices\EditEmployee.designer.cs">
-      <DependentUpon>EditEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\AddEditEmplOrServices\ViewBundlesAndProducts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\AddEditEmplOrServices\ViewBundlesAndProducts.designer.cs">
-      <DependentUpon>ViewBundlesAndProducts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\AddEditEmplOrServices\ViewEmployee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\AddEditEmplOrServices\ViewEmployee.designer.cs">
-      <DependentUpon>ViewEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\BackOffice\BackOffice.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\BackOffice\BackOffice.designer.cs">
-      <DependentUpon>BackOffice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Classes\ClassBackOffice.cs" />
-    <Compile Include="Management\buyBundlesOrProductsComponents\BuyBundleOrProudct.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\buyBundlesOrProductsComponents\BuyBundleOrProudct.Designer.cs">
-      <DependentUpon>BuyBundleOrProudct.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\buyBundlesOrProductsComponents\UCBundlesOutput.cs">
+    <Compile Update="Management\buyBundlesOrProductsComponents\UCBundlesOutput.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\buyBundlesOrProductsComponents\UCBundlesOutput.designer.cs">
-      <DependentUpon>UCBundlesOutput.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\buyBundlesOrProductsComponents\UCProductOutput.cs">
+    <Compile Update="Management\buyBundlesOrProductsComponents\UCProductOutput.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\buyBundlesOrProductsComponents\UCProductOutput.designer.cs">
-      <DependentUpon>UCProductOutput.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\CalenderComponents\UCCalanderMonth.cs">
+    <Compile Update="Management\CalenderComponents\UCCalanderMonth.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\CalenderComponents\UCCalanderMonth.designer.cs">
-      <DependentUpon>UCCalanderMonth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Classes\ClassChosenClientBalance.cs" />
-    <Compile Include="Management\NewRegister\UserControls\Camera.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\NewRegister\UserControls\Camera.designer.cs">
-      <DependentUpon>Camera.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Classes\ClassOptionsInsideFields.cs" />
-    <Compile Include="Management\NewRegister\UserControls\UCNumberComboButt.cs">
+    <Compile Update="Management\NewRegister\UserControls\UCNumberComboButt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCNumberComboButt.Designer.cs">
-      <DependentUpon>UCNumberComboButt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="HomeAndMenu\Menu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HomeAndMenu\Menu.Designer.cs">
-      <DependentUpon>Menu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\ChildParent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\NewRegister\ChildParent.designer.cs">
-      <DependentUpon>ChildParent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Classes\ClassClient.cs" />
-    <Compile Include="Management\Classes\ClassEmployee.cs" />
-    <Compile Include="Management\Classes\ClassBundles.cs" />
-    <Compile Include="Management\Classes\ClassProduct.cs" />
-    <Compile Include="Management\Classes\Features.cs" />
-    <Compile Include="Management\Classes\ProjectToSQL.cs" />
-    <Compile Include="Management\Classes\Currency.cs" />
-    <Compile Include="Management\Classes\SQLToProject.cs" />
-    <Compile Include="Management\ClientProfile\ClientManagementProfile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\ClientProfile\ClientManagementProfile.designer.cs">
-      <DependentUpon>ClientManagementProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\SearchClient\CustomerService.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\SearchClient\CustomerService.designer.cs">
-      <DependentUpon>CustomerService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\CalenderComponents\LabelMonth.cs">
+    <Compile Update="Management\CalenderComponents\LabelMonth.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Management\NewRegister\UserControls\LabelWithIndex.cs">
+    <Compile Update="Management\NewRegister\UserControls\LabelWithIndex.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Management\CalenderComponents\LabelYear.cs">
+    <Compile Update="Management\CalenderComponents\LabelYear.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="HomeAndMenu\Home.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HomeAndMenu\Home.designer.cs">
-      <DependentUpon>Home.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\RelatedChildrens.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\RelatedChildrens.designer.cs">
-      <DependentUpon>RelatedChildrens.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\TransferData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\TransferData.Designer.cs">
-      <DependentUpon>TransferData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Statistics\UCComboFilterStat.cs">
+    <Compile Update="Management\Statistics\UCComboFilterStat.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\BackOffice\UCComboBoxFilterBackOffice.cs">
+    <Compile Update="Management\BackOffice\UCComboBoxFilterBackOffice.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\BackOffice\UCComboBoxFilterBackOffice.Designer.cs">
-      <DependentUpon>UCComboBoxFilterBackOffice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\buyBundlesOrProductsComponents\UCItem.cs">
+    <Compile Update="Management\buyBundlesOrProductsComponents\UCItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\buyBundlesOrProductsComponents\UCItem.Designer.cs">
-      <DependentUpon>UCItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\UserControls\TLPCheckboxesAndRadioOptions.cs">
+    <Compile Update="Management\NewRegister\UserControls\TLPCheckboxesAndRadioOptions.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Management\NewRegister\UserControls\TLPOtherOptions.cs">
+    <Compile Update="Management\NewRegister\UserControls\TLPOtherOptions.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Management\SearchClient\UCLabelFilterSearch.cs">
+    <Compile Update="Management\SearchClient\UCLabelFilterSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\Statistics\UCLabelFilterStatistics.cs">
+    <Compile Update="Management\Statistics\UCLabelFilterStatistics.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\SearchClient\FilterCheckListSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\SearchClient\FilterCheckListSearch.Designer.cs">
-      <DependentUpon>FilterCheckListSearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\SearchClient\FilterCustomDate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\SearchClient\FilterCustomDate.Designer.cs">
-      <DependentUpon>FilterCustomDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\ImageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\ImageForm.designer.cs">
-      <DependentUpon>ImageForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\LOGIN.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\LOGIN.designer.cs">
-      <DependentUpon>LOGIN.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\NewRegister.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\NewRegister\NewRegister.designer.cs">
-      <DependentUpon>NewRegister.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Payment\Payment.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\Payment\Payment.Designer.cs">
-      <DependentUpon>Payment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Management\NewRegister\RegistrationFields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\NewRegister\RegistrationFields.designer.cs">
-      <DependentUpon>RegistrationFields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\Album.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\NewRegister\Album.designer.cs">
-      <DependentUpon>Album.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\SearchClient\SearchCurrentClient.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\SearchClient\SearchCurrentClient.designer.cs">
-      <DependentUpon>SearchCurrentClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Statistics\Statistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\Statistics\Statistics.Designer.cs">
-      <DependentUpon>Statistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\ClientProfile\UCBundlePackage.cs">
+    <Compile Update="Management\ClientProfile\UCBundlePackage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\ClientProfile\UCBundlePackage.Designer.cs">
-      <DependentUpon>UCBundlePackage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\CalenderComponents\Calander.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\CalenderComponents\Calander.designer.cs">
-      <DependentUpon>Calander.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\CalenderComponents\Calanderyear.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\CalenderComponents\Calanderyear.designer.cs">
-      <DependentUpon>Calanderyear.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\CalenderComponents\UCCalanderYear.cs">
+    <Compile Update="Management\CalenderComponents\UCCalanderYear.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\CalenderComponents\UCCalanderYear.Designer.cs">
-      <DependentUpon>UCCalanderYear.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\SearchClient\UCComboBoxFilterSearch.cs">
+    <Compile Update="Management\SearchClient\UCComboBoxFilterSearch.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\SearchClient\UCComboBoxFilterSearch.Designer.cs">
-      <DependentUpon>UCComboBoxFilterSearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\Payment\UCPayments.cs">
+    <Compile Update="Management\Payment\UCPayments.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\Payment\UCPayments.Designer.cs">
-      <DependentUpon>UCPayments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCNumberButt.cs">
+    <Compile Update="Management\NewRegister\UserControls\UCNumberButt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCNumberButt.Designer.cs">
-      <DependentUpon>UCNumberButt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCNumberLabelButt.cs">
+    <Compile Update="Management\NewRegister\UserControls\UCNumberLabelButt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCNumberLabelButt.designer.cs">
-      <DependentUpon>UCNumberLabelButt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCCamera.cs">
+    <Compile Update="Management\NewRegister\UserControls\UCCamera.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCCamera.designer.cs">
-      <DependentUpon>UCCamera.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCDoubleCombo.cs">
+    <Compile Update="Management\NewRegister\UserControls\UCDoubleCombo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Management\NewRegister\UserControls\UCDoubleCombo.designer.cs">
-      <DependentUpon>UCDoubleCombo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Appointmentform\Appointment.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Appointmentform\Appointment.Designer.cs">
-      <DependentUpon>Appointment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Appointmentform\ClassAppointment.cs" />
-    <Compile Include="Schedule\Appointmentform\ClassAppOthers.cs" />
-    <Compile Include="Schedule\Appointmentform\UCOthersApp.cs">
+    <Compile Update="Schedule\Appointmentform\UCOthersApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Appointmentform\UCOthersApp.Designer.cs">
-      <DependentUpon>UCOthersApp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\AppointmentManagement\ChooseService.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\AppointmentManagement\ChooseService.Designer.cs">
-      <DependentUpon>ChooseService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\AppointmentManagement\UCClientApp.cs">
+    <Compile Update="Schedule\AppointmentManagement\UCClientApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\AppointmentManagement\UCClientApp.designer.cs">
-      <DependentUpon>UCClientApp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Availabilityform\AvailabilityLayout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Availabilityform\AvailabilityLayout.designer.cs">
-      <DependentUpon>AvailabilityLayout.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Availabilityform\Employee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Availabilityform\Employee.designer.cs">
-      <DependentUpon>Employee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Availabilityform\UCTimeavailability.cs">
+    <Compile Update="Schedule\Availabilityform\UCTimeavailability.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Availabilityform\UCTimeavailability.designer.cs">
-      <DependentUpon>UCTimeavailability.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Classes\ProjectToSql.cs" />
-    <Compile Include="Schedule\Classes\RandomFunctionSchedule.cs" />
-    <Compile Include="Schedule\Classes\SQLToProject.cs" />
-    <Compile Include="Schedule\Classes\StaticClass.cs" />
-    <Compile Include="Schedule\Classes\TouchScroll.cs" />
-    <Compile Include="Schedule\CustomisedComboBox\CBdisplayTime.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\CustomisedComboBox\CBdisplayTime.designer.cs">
-      <DependentUpon>CBdisplayTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\CustomisedComboBox\CBrepeat.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\CustomisedComboBox\CBrepeat.designer.cs">
-      <DependentUpon>CBrepeat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\CustomisedComboBox\LabelTime.cs">
+    <Compile Update="Schedule\CustomisedComboBox\LabelTime.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Schedule\Dayform\UCDay.cs">
+    <Compile Update="Schedule\Dayform\UCDay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Dayform\UCDay.designer.cs">
-      <DependentUpon>UCDay.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Dayform\UCTime.cs">
+    <Compile Update="Schedule\Dayform\UCTime.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Dayform\UCTime.designer.cs">
-      <DependentUpon>UCTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Mainform\Schedule.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Mainform\Schedule.designer.cs">
-      <DependentUpon>Schedule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Monthform\LabelMonth.cs">
+    <Compile Update="Schedule\Monthform\LabelMonth.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Schedule\Monthform\LabelYearcs.cs">
+    <Compile Update="Schedule\Monthform\LabelYearcs.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Schedule\Monthform\UCCalanderday.cs">
+    <Compile Update="Schedule\Monthform\UCCalanderday.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Monthform\UCCalanderday.designer.cs">
-      <DependentUpon>UCCalanderday.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Monthform\UCCalandermonth.cs">
+    <Compile Update="Schedule\Monthform\UCCalandermonth.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Monthform\UCCalandermonth.designer.cs">
-      <DependentUpon>UCCalandermonth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Monthform\UCCalanderyear.cs">
+    <Compile Update="Schedule\Monthform\UCCalanderyear.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Monthform\UCCalanderyear.designer.cs">
-      <DependentUpon>UCCalanderyear.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Monthform\UCDays.cs">
+    <Compile Update="Schedule\Monthform\UCDays.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\Monthform\UCDays.designer.cs">
-      <DependentUpon>UCDays.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Monthform\UCMonth.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Monthform\UCMonth.designer.cs">
-      <DependentUpon>UCMonth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Reminderform\ClientReminder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Reminderform\ClientReminder.designer.cs">
-      <DependentUpon>ClientReminder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Reminderform\Reminder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule\Reminderform\Reminder.designer.cs">
-      <DependentUpon>Reminder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Tools\TableLayoutPanelBuffered.cs">
+    <Compile Update="Schedule\Tools\TableLayoutPanelBuffered.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
+    <Compile Update="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Schedule\UCData\ClassReminder.cs" />
-    <Compile Include="Schedule\UCData\UCappointment.cs">
+    <Compile Update="Schedule\UCData\UCappointment.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\UCData\UCappointment.designer.cs">
-      <DependentUpon>UCappointment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\UCData\UCEmployee.cs">
+    <Compile Update="Schedule\UCData\UCEmployee.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\UCData\UCEmployee.designer.cs">
-      <DependentUpon>UCEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\UCData\UCreminder.cs">
+    <Compile Update="Schedule\UCData\UCreminder.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Schedule\UCData\UCreminder.designer.cs">
-      <DependentUpon>UCreminder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Search.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Search.designer.cs">
-      <DependentUpon>Search.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Management\AddEditEmplOrServices\EditBundleProduct.resx">
-      <DependentUpon>EditBundleProduct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\AddEditEmplOrServices\EditEmployee.resx">
-      <DependentUpon>EditEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\AddEditEmplOrServices\ViewBundlesAndProducts.resx">
-      <DependentUpon>ViewBundlesAndProducts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\AddEditEmplOrServices\ViewEmployee.resx">
-      <DependentUpon>ViewEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\BackOffice\BackOffice.resx">
-      <DependentUpon>BackOffice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\buyBundlesOrProductsComponents\BuyBundleOrProudct.resx">
-      <DependentUpon>BuyBundleOrProudct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\buyBundlesOrProductsComponents\UCBundlesOutput.resx">
-      <DependentUpon>UCBundlesOutput.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\buyBundlesOrProductsComponents\UCProductOutput.resx">
-      <DependentUpon>UCProductOutput.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\CalenderComponents\UCCalanderMonth.resx">
-      <DependentUpon>UCCalanderMonth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\UserControls\Camera.resx">
-      <DependentUpon>Camera.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\UserControls\UCNumberButt.resx">
-      <DependentUpon>UCNumberButt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\UserControls\UCNumberComboButt.resx">
-      <DependentUpon>UCNumberComboButt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HomeAndMenu\Menu.resx">
-      <DependentUpon>Menu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\ChildParent.resx">
-      <DependentUpon>ChildParent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\ClientProfile\ClientManagementProfile.resx">
-      <DependentUpon>ClientManagementProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\SearchClient\CustomerService.resx">
-      <DependentUpon>CustomerService.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HomeAndMenu\Home.resx">
-      <DependentUpon>Home.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\RelatedChildrens.resx">
-      <DependentUpon>RelatedChildrens.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\TransferData.resx">
-      <DependentUpon>TransferData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\buyBundlesOrProductsComponents\UCItem.resx">
-      <DependentUpon>UCItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\SearchClient\FilterCheckListSearch.resx">
-      <DependentUpon>FilterCheckListSearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\SearchClient\FilterCustomDate.resx">
-      <DependentUpon>FilterCustomDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\ImageForm.resx">
-      <DependentUpon>ImageForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\LOGIN.resx">
-      <DependentUpon>LOGIN.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\NewRegister.resx">
-      <DependentUpon>NewRegister.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\Payment\Payment.resx">
-      <DependentUpon>Payment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="Management\NewRegister\RegistrationFields.resx">
-      <DependentUpon>RegistrationFields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\Album.resx">
-      <DependentUpon>Album.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\SearchClient\SearchCurrentClient.resx">
-      <DependentUpon>SearchCurrentClient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\Statistics\Statistics.resx">
-      <DependentUpon>Statistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\ClientProfile\UCBundlePackage.resx">
-      <DependentUpon>UCBundlePackage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\CalenderComponents\Calander.resx">
-      <DependentUpon>Calander.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\CalenderComponents\Calanderyear.resx">
-      <DependentUpon>Calanderyear.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\CalenderComponents\UCCalanderYear.resx">
-      <DependentUpon>UCCalanderYear.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\SearchClient\UCComboBoxFilterSearch.resx">
-      <DependentUpon>UCComboBoxFilterSearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\Payment\UCPayments.resx">
-      <DependentUpon>UCPayments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\UserControls\UCNumberLabelButt.resx">
-      <DependentUpon>UCNumberLabelButt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\UserControls\UCCamera.resx">
-      <DependentUpon>UCCamera.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Management\NewRegister\UserControls\UCDoubleCombo.resx">
-      <DependentUpon>UCDoubleCombo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Appointmentform\Appointment.resx">
-      <DependentUpon>Appointment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Appointmentform\UCOthersApp.resx">
-      <DependentUpon>UCOthersApp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\AppointmentManagement\ChooseService.resx">
-      <DependentUpon>ChooseService.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\AppointmentManagement\UCClientApp.resx">
-      <DependentUpon>UCClientApp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Availabilityform\AvailabilityLayout.resx">
-      <DependentUpon>AvailabilityLayout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Availabilityform\Employee.resx">
-      <DependentUpon>Employee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Availabilityform\UCTimeavailability.resx">
-      <DependentUpon>UCTimeavailability.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\CustomisedComboBox\CBdisplayTime.resx">
-      <DependentUpon>CBdisplayTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\CustomisedComboBox\CBrepeat.resx">
-      <DependentUpon>CBrepeat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Dayform\UCDay.resx">
-      <DependentUpon>UCDay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Dayform\UCTime.resx">
-      <DependentUpon>UCTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Mainform\Schedule.resx">
-      <DependentUpon>Schedule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Monthform\UCCalanderday.resx">
-      <DependentUpon>UCCalanderday.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Monthform\UCCalandermonth.resx">
-      <DependentUpon>UCCalandermonth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Monthform\UCCalanderyear.resx">
-      <DependentUpon>UCCalanderyear.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Monthform\UCDays.resx">
-      <DependentUpon>UCDays.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Monthform\UCMonth.resx">
-      <DependentUpon>UCMonth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Reminderform\ClientReminder.resx">
-      <DependentUpon>ClientReminder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\Reminderform\Reminder.resx">
-      <DependentUpon>Reminder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\UCData\UCappointment.resx">
-      <DependentUpon>UCappointment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\UCData\UCEmployee.resx">
-      <DependentUpon>UCEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule\UCData\UCData.resx" />
-    <EmbeddedResource Include="Schedule\UCData\UCreminder.resx">
-      <DependentUpon>UCreminder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Search.resx">
-      <DependentUpon>Search.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="MKproject_TemporaryKey.pfx" />
     <Content Include="images\BackOfficeBig.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -850,23 +229,9 @@
     <Content Include="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="NLog.xsd">
+    <None Update="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="OpenTK.dll.config" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -881,20 +246,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomizedTools\CustomizedTools.csproj">
-      <Project>{4F6F3CC1-0775-4AEA-AB80-55BB94D3ED31}</Project>
-      <Name>CustomizedTools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GlobalFunctions\GlobalFunctions.csproj">
-      <Project>{22547f07-6436-4c93-8007-188a1e6dfbc7}</Project>
-      <Name>GlobalFunctions</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\CustomizedTools\CustomizedTools.csproj" />
+    <ProjectReference Include="..\GlobalFunctions\GlobalFunctions.csproj" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="HIC.System.Windows.Forms.DataVisualization" Version="1.0.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Home\Home.cs" />
+    <Compile Remove="Home\Home.designer.cs" />
+    <EmbeddedResource Remove="Home\Home.resx" />
+  </ItemGroup>
 </Project>

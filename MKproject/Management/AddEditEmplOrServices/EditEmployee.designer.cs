@@ -30,271 +30,275 @@ namespace MKproject.Management
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.TLPMain = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.FLPTop = new System.Windows.Forms.FlowLayoutPanel();
-            this.ucTextboxFirstName = new CustomizedTools.UCTextbox1();
-            this.ucTextboxLastName = new CustomizedTools.UCTextbox1();
-            this.ucTextboxPhoneNumber = new CustomizedTools.UCTextbox1();
-            this.ucTextboxPassword = new CustomizedTools.UCTextbox1();
-            this.groupBoxFeatures = new CustomizedTools.CustomGroupBox();
-            this.FLPFeatures = new System.Windows.Forms.FlowLayoutPanel();
-            this.checkBoxStatus = new System.Windows.Forms.CheckBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.TLPMain.SuspendLayout();
-            this.FLPTop.SuspendLayout();
-            this.groupBoxFeatures.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            TLPMain = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            buttonCancel = new System.Windows.Forms.Button();
+            buttonDelete = new System.Windows.Forms.Button();
+            buttonSave = new System.Windows.Forms.Button();
+            FLPTop = new System.Windows.Forms.FlowLayoutPanel();
+            ucTextboxFirstName = new UCTextbox1();
+            ucTextboxLastName = new UCTextbox1();
+            ucTextboxPhoneNumber = new UCTextbox1();
+            ucTextboxPassword = new UCTextbox1();
+            groupBoxFeatures = new CustomGroupBox();
+            FLPFeatures = new System.Windows.Forms.FlowLayoutPanel();
+            checkBoxStatus = new System.Windows.Forms.CheckBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            TLPMain.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            FLPTop.SuspendLayout();
+            groupBoxFeatures.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPMain
             // 
-            this.TLPMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPMain.ColumnCount = 1;
-            this.TLPMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPMain.Controls.Add(this.tableLayoutPanel1, 0, 1);
-            this.TLPMain.Controls.Add(this.FLPTop, 0, 0);
-            this.TLPMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPMain.Location = new System.Drawing.Point(0, 0);
-            this.TLPMain.Margin = new System.Windows.Forms.Padding(0);
-            this.TLPMain.Name = "TLPMain";
-            this.TLPMain.RowCount = 2;
-            this.TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 99.99999F));
-            this.TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.TLPMain.Size = new System.Drawing.Size(435, 596);
-            this.TLPMain.TabIndex = 9;
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.buttonDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDelete.FlatAppearance.BorderSize = 0;
-            this.buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDelete.ForeColor = System.Drawing.Color.White;
-            this.buttonDelete.Location = new System.Drawing.Point(3, 3);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(103, 29);
-            this.buttonDelete.TabIndex = 739;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.UseVisualStyleBackColor = false;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCancel.FlatAppearance.BorderSize = 0;
-            this.buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(238, 3);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(93, 29);
-            this.buttonCancel.TabIndex = 737;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonSave.FlatAppearance.BorderSize = 0;
-            this.buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(112)))), ((int)(((byte)(214)))));
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.ForeColor = System.Drawing.Color.White;
-            this.buttonSave.Location = new System.Drawing.Point(339, 3);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(93, 29);
-            this.buttonSave.TabIndex = 2;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = false;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // FLPTop
-            // 
-            this.FLPTop.Controls.Add(this.ucTextboxFirstName);
-            this.FLPTop.Controls.Add(this.ucTextboxLastName);
-            this.FLPTop.Controls.Add(this.ucTextboxPhoneNumber);
-            this.FLPTop.Controls.Add(this.ucTextboxPassword);
-            this.FLPTop.Controls.Add(this.groupBoxFeatures);
-            this.FLPTop.Controls.Add(this.checkBoxStatus);
-            this.FLPTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FLPTop.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.FLPTop.Location = new System.Drawing.Point(0, 0);
-            this.FLPTop.Margin = new System.Windows.Forms.Padding(0);
-            this.FLPTop.Name = "FLPTop";
-            this.FLPTop.Size = new System.Drawing.Size(435, 561);
-            this.FLPTop.TabIndex = 5;
-            // 
-            // ucTextboxFirstName
-            // 
-            this.ucTextboxFirstName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucTextboxFirstName.HasRightEmailFormat = true;
-            this.ucTextboxFirstName.Index = 0;
-            this.ucTextboxFirstName.IsEmail = false;
-            this.ucTextboxFirstName.IsPhoneNumber = false;
-            this.ucTextboxFirstName.IsRequired = false;
-            this.ucTextboxFirstName.Location = new System.Drawing.Point(3, 5);
-            this.ucTextboxFirstName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
-            this.ucTextboxFirstName.Name = "ucTextboxFirstName";
-            this.ucTextboxFirstName.NextControl = null;
-            this.ucTextboxFirstName.ParentOfNextControl = null;
-            this.ucTextboxFirstName.Size = new System.Drawing.Size(420, 75);
-            this.ucTextboxFirstName.StringType = null;
-            this.ucTextboxFirstName.TabIndex = 0;
-            this.ucTextboxFirstName.Value = null;
-            // 
-            // ucTextboxLastName
-            // 
-            this.ucTextboxLastName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucTextboxLastName.HasRightEmailFormat = true;
-            this.ucTextboxLastName.Index = 0;
-            this.ucTextboxLastName.IsEmail = false;
-            this.ucTextboxLastName.IsPhoneNumber = false;
-            this.ucTextboxLastName.IsRequired = false;
-            this.ucTextboxLastName.Location = new System.Drawing.Point(3, 80);
-            this.ucTextboxLastName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.ucTextboxLastName.Name = "ucTextboxLastName";
-            this.ucTextboxLastName.NextControl = null;
-            this.ucTextboxLastName.ParentOfNextControl = null;
-            this.ucTextboxLastName.Size = new System.Drawing.Size(420, 75);
-            this.ucTextboxLastName.StringType = null;
-            this.ucTextboxLastName.TabIndex = 1;
-            this.ucTextboxLastName.Value = null;
-            // 
-            // ucTextboxPhoneNumber
-            // 
-            this.ucTextboxPhoneNumber.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucTextboxPhoneNumber.HasRightEmailFormat = true;
-            this.ucTextboxPhoneNumber.Index = 0;
-            this.ucTextboxPhoneNumber.IsEmail = false;
-            this.ucTextboxPhoneNumber.IsPhoneNumber = false;
-            this.ucTextboxPhoneNumber.IsRequired = false;
-            this.ucTextboxPhoneNumber.Location = new System.Drawing.Point(3, 155);
-            this.ucTextboxPhoneNumber.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.ucTextboxPhoneNumber.Name = "ucTextboxPhoneNumber";
-            this.ucTextboxPhoneNumber.NextControl = null;
-            this.ucTextboxPhoneNumber.ParentOfNextControl = null;
-            this.ucTextboxPhoneNumber.Size = new System.Drawing.Size(420, 75);
-            this.ucTextboxPhoneNumber.StringType = null;
-            this.ucTextboxPhoneNumber.TabIndex = 2;
-            this.ucTextboxPhoneNumber.Value = null;
-            // 
-            // ucTextboxPassword
-            // 
-            this.ucTextboxPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucTextboxPassword.HasRightEmailFormat = true;
-            this.ucTextboxPassword.Index = 0;
-            this.ucTextboxPassword.IsEmail = false;
-            this.ucTextboxPassword.IsPhoneNumber = false;
-            this.ucTextboxPassword.IsRequired = false;
-            this.ucTextboxPassword.Location = new System.Drawing.Point(3, 230);
-            this.ucTextboxPassword.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.ucTextboxPassword.Name = "ucTextboxPassword";
-            this.ucTextboxPassword.NextControl = null;
-            this.ucTextboxPassword.ParentOfNextControl = null;
-            this.ucTextboxPassword.Size = new System.Drawing.Size(420, 75);
-            this.ucTextboxPassword.StringType = null;
-            this.ucTextboxPassword.TabIndex = 3;
-            this.ucTextboxPassword.Value = null;
-            // 
-            // groupBoxFeatures
-            // 
-            this.groupBoxFeatures.BorderColor = System.Drawing.Color.Transparent;
-            this.groupBoxFeatures.BorderSize = 1;
-            this.groupBoxFeatures.Controls.Add(this.FLPFeatures);
-            this.groupBoxFeatures.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFeatures.Location = new System.Drawing.Point(3, 310);
-            this.groupBoxFeatures.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.groupBoxFeatures.Name = "groupBoxFeatures";
-            this.groupBoxFeatures.Size = new System.Drawing.Size(420, 168);
-            this.groupBoxFeatures.TabIndex = 8;
-            this.groupBoxFeatures.TabStop = false;
-            this.groupBoxFeatures.Text = "Features";
-            // 
-            // FLPFeatures
-            // 
-            this.FLPFeatures.AutoScroll = true;
-            this.FLPFeatures.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FLPFeatures.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.FLPFeatures.Location = new System.Drawing.Point(3, 29);
-            this.FLPFeatures.Margin = new System.Windows.Forms.Padding(0);
-            this.FLPFeatures.Name = "FLPFeatures";
-            this.FLPFeatures.Size = new System.Drawing.Size(414, 136);
-            this.FLPFeatures.TabIndex = 0;
-            this.FLPFeatures.WrapContents = false;
-            // 
-            // checkBoxStatus
-            // 
-            this.checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBoxStatus.AutoSize = true;
-            this.checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxStatus.Location = new System.Drawing.Point(176, 488);
-            this.checkBoxStatus.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.checkBoxStatus.Name = "checkBoxStatus";
-            this.checkBoxStatus.Size = new System.Drawing.Size(74, 25);
-            this.checkBoxStatus.TabIndex = 1;
-            this.checkBoxStatus.Text = "Status";
-            this.checkBoxStatus.UseVisualStyleBackColor = true;
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            TLPMain.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            TLPMain.ColumnCount = 1;
+            TLPMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPMain.Controls.Add(tableLayoutPanel1, 0, 1);
+            TLPMain.Controls.Add(FLPTop, 0, 0);
+            TLPMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPMain.Location = new System.Drawing.Point(0, 0);
+            TLPMain.Margin = new System.Windows.Forms.Padding(0);
+            TLPMain.Name = "TLPMain";
+            TLPMain.RowCount = 2;
+            TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 99.99999F));
+            TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            TLPMain.Size = new System.Drawing.Size(507, 640);
+            TLPMain.TabIndex = 9;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonDelete, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonSave, 2, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 561);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 35);
-            this.tableLayoutPanel1.TabIndex = 7;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
+            tableLayoutPanel1.Controls.Add(buttonCancel, 1, 0);
+            tableLayoutPanel1.Controls.Add(buttonDelete, 0, 0);
+            tableLayoutPanel1.Controls.Add(buttonSave, 2, 0);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 600);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(507, 40);
+            tableLayoutPanel1.TabIndex = 7;
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonCancel.BackColor = System.Drawing.Color.FromArgb(95, 97, 99);
+            buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonCancel.FlatAppearance.BorderSize = 0;
+            buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(105, 107, 109);
+            buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonCancel.ForeColor = System.Drawing.Color.White;
+            buttonCancel.Location = new System.Drawing.Point(276, 3);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(108, 33);
+            buttonCancel.TabIndex = 737;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = false;
+            buttonCancel.Click += buttonCancel_Click;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            buttonDelete.BackColor = System.Drawing.Color.FromArgb(255, 50, 50);
+            buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonDelete.FlatAppearance.BorderSize = 0;
+            buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+            buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonDelete.ForeColor = System.Drawing.Color.White;
+            buttonDelete.Location = new System.Drawing.Point(4, 3);
+            buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new System.Drawing.Size(120, 33);
+            buttonDelete.TabIndex = 739;
+            buttonDelete.Text = "Delete";
+            buttonDelete.UseVisualStyleBackColor = false;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
+            // buttonSave
+            // 
+            buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonSave.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonSave.FlatAppearance.BorderSize = 0;
+            buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(100, 112, 214);
+            buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonSave.ForeColor = System.Drawing.Color.White;
+            buttonSave.Location = new System.Drawing.Point(395, 3);
+            buttonSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new System.Drawing.Size(108, 33);
+            buttonSave.TabIndex = 2;
+            buttonSave.Text = "Save";
+            buttonSave.UseVisualStyleBackColor = false;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // FLPTop
+            // 
+            FLPTop.Controls.Add(ucTextboxFirstName);
+            FLPTop.Controls.Add(ucTextboxLastName);
+            FLPTop.Controls.Add(ucTextboxPhoneNumber);
+            FLPTop.Controls.Add(ucTextboxPassword);
+            FLPTop.Controls.Add(groupBoxFeatures);
+            FLPTop.Controls.Add(checkBoxStatus);
+            FLPTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            FLPTop.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            FLPTop.Location = new System.Drawing.Point(0, 0);
+            FLPTop.Margin = new System.Windows.Forms.Padding(0);
+            FLPTop.Name = "FLPTop";
+            FLPTop.Size = new System.Drawing.Size(507, 600);
+            FLPTop.TabIndex = 5;
+            // 
+            // ucTextboxFirstName
+            // 
+            ucTextboxFirstName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ucTextboxFirstName.HasRightEmailFormat = true;
+            ucTextboxFirstName.Index = 0;
+            ucTextboxFirstName.IsEmail = false;
+            ucTextboxFirstName.IsPhoneNumber = false;
+            ucTextboxFirstName.IsRequired = false;
+            ucTextboxFirstName.Location = new System.Drawing.Point(4, 6);
+            ucTextboxFirstName.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
+            ucTextboxFirstName.Name = "ucTextboxFirstName";
+            ucTextboxFirstName.NextControl = null;
+            ucTextboxFirstName.ParentOfNextControl = null;
+            ucTextboxFirstName.Size = new System.Drawing.Size(490, 87);
+            ucTextboxFirstName.StringType = null;
+            ucTextboxFirstName.TabIndex = 0;
+            ucTextboxFirstName.Value = null;
+            // 
+            // ucTextboxLastName
+            // 
+            ucTextboxLastName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ucTextboxLastName.HasRightEmailFormat = true;
+            ucTextboxLastName.Index = 0;
+            ucTextboxLastName.IsEmail = false;
+            ucTextboxLastName.IsPhoneNumber = false;
+            ucTextboxLastName.IsRequired = false;
+            ucTextboxLastName.Location = new System.Drawing.Point(4, 93);
+            ucTextboxLastName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ucTextboxLastName.Name = "ucTextboxLastName";
+            ucTextboxLastName.NextControl = null;
+            ucTextboxLastName.ParentOfNextControl = null;
+            ucTextboxLastName.Size = new System.Drawing.Size(490, 87);
+            ucTextboxLastName.StringType = null;
+            ucTextboxLastName.TabIndex = 1;
+            ucTextboxLastName.Value = null;
+            // 
+            // ucTextboxPhoneNumber
+            // 
+            ucTextboxPhoneNumber.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ucTextboxPhoneNumber.HasRightEmailFormat = true;
+            ucTextboxPhoneNumber.Index = 0;
+            ucTextboxPhoneNumber.IsEmail = false;
+            ucTextboxPhoneNumber.IsPhoneNumber = false;
+            ucTextboxPhoneNumber.IsRequired = false;
+            ucTextboxPhoneNumber.Location = new System.Drawing.Point(4, 180);
+            ucTextboxPhoneNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ucTextboxPhoneNumber.Name = "ucTextboxPhoneNumber";
+            ucTextboxPhoneNumber.NextControl = null;
+            ucTextboxPhoneNumber.ParentOfNextControl = null;
+            ucTextboxPhoneNumber.Size = new System.Drawing.Size(490, 87);
+            ucTextboxPhoneNumber.StringType = null;
+            ucTextboxPhoneNumber.TabIndex = 2;
+            ucTextboxPhoneNumber.Value = null;
+            // 
+            // ucTextboxPassword
+            // 
+            ucTextboxPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ucTextboxPassword.HasRightEmailFormat = true;
+            ucTextboxPassword.Index = 0;
+            ucTextboxPassword.IsEmail = false;
+            ucTextboxPassword.IsPhoneNumber = false;
+            ucTextboxPassword.IsRequired = false;
+            ucTextboxPassword.Location = new System.Drawing.Point(4, 267);
+            ucTextboxPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ucTextboxPassword.Name = "ucTextboxPassword";
+            ucTextboxPassword.NextControl = null;
+            ucTextboxPassword.ParentOfNextControl = null;
+            ucTextboxPassword.Size = new System.Drawing.Size(490, 87);
+            ucTextboxPassword.StringType = null;
+            ucTextboxPassword.TabIndex = 3;
+            ucTextboxPassword.Value = null;
+            // 
+            // groupBoxFeatures
+            // 
+            groupBoxFeatures.BorderColor = System.Drawing.Color.Transparent;
+            groupBoxFeatures.BorderSize = 1;
+            groupBoxFeatures.Controls.Add(FLPFeatures);
+            groupBoxFeatures.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            groupBoxFeatures.Location = new System.Drawing.Point(4, 360);
+            groupBoxFeatures.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            groupBoxFeatures.Name = "groupBoxFeatures";
+            groupBoxFeatures.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBoxFeatures.Size = new System.Drawing.Size(490, 194);
+            groupBoxFeatures.TabIndex = 8;
+            groupBoxFeatures.TabStop = false;
+            groupBoxFeatures.Text = "Features";
+            // 
+            // FLPFeatures
+            // 
+            FLPFeatures.AutoScroll = true;
+            FLPFeatures.Dock = System.Windows.Forms.DockStyle.Fill;
+            FLPFeatures.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            FLPFeatures.Location = new System.Drawing.Point(4, 29);
+            FLPFeatures.Margin = new System.Windows.Forms.Padding(0);
+            FLPFeatures.Name = "FLPFeatures";
+            FLPFeatures.Size = new System.Drawing.Size(482, 162);
+            FLPFeatures.TabIndex = 0;
+            FLPFeatures.WrapContents = false;
+            // 
+            // checkBoxStatus
+            // 
+            checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxStatus.AutoSize = true;
+            checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxStatus.Location = new System.Drawing.Point(212, 566);
+            checkBoxStatus.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            checkBoxStatus.Name = "checkBoxStatus";
+            checkBoxStatus.Size = new System.Drawing.Size(74, 25);
+            checkBoxStatus.TabIndex = 1;
+            checkBoxStatus.Text = "Status";
+            checkBoxStatus.UseVisualStyleBackColor = true;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
             // 
             // EditEmployee
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(435, 596);
-            this.Controls.Add(this.TLPMain);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "EditEmployee";
-            this.Opacity = 0D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "EditEmployee";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditEmployee_FormClosing);
-            this.TLPMain.ResumeLayout(false);
-            this.FLPTop.ResumeLayout(false);
-            this.FLPTop.PerformLayout();
-            this.groupBoxFeatures.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.White;
+            ClientSize = new System.Drawing.Size(507, 640);
+            Controls.Add(TLPMain);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "EditEmployee";
+            Opacity = 0D;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "EditEmployee";
+            FormClosing += EditEmployee_FormClosing;
+            TLPMain.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            FLPTop.ResumeLayout(false);
+            FLPTop.PerformLayout();
+            groupBoxFeatures.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

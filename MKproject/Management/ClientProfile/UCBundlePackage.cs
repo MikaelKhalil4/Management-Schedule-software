@@ -1,6 +1,5 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
-using OpenTK;
 using System;
 using System.Data;
 using System.Drawing;
