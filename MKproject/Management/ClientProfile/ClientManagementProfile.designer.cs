@@ -143,7 +143,7 @@ namespace MKproject.Management
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
-            this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
+            this.TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
             this.TLPBalance.Controls.Add(this.buttonBackOffice, 5, 0);
             this.TLPBalance.Controls.Add(this.dataGridViewBalance, 0, 1);
             this.TLPBalance.Controls.Add(this.buttonPayTotalBalance, 3, 0);
@@ -170,10 +170,10 @@ namespace MKproject.Management
             this.buttonBackOffice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBackOffice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBackOffice.ForeColor = System.Drawing.Color.White;
-            this.buttonBackOffice.Location = new System.Drawing.Point(555, 10);
+            this.buttonBackOffice.Location = new System.Drawing.Point(553, 10);
             this.buttonBackOffice.Margin = new System.Windows.Forms.Padding(10);
             this.buttonBackOffice.Name = "buttonBackOffice";
-            this.buttonBackOffice.Size = new System.Drawing.Size(97, 51);
+            this.buttonBackOffice.Size = new System.Drawing.Size(99, 51);
             this.buttonBackOffice.TabIndex = 23;
             this.buttonBackOffice.Text = "All Transactions";
             this.buttonBackOffice.UseVisualStyleBackColor = false;
@@ -270,7 +270,7 @@ namespace MKproject.Management
             this.buttonPayTotalBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPayTotalBalance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPayTotalBalance.ForeColor = System.Drawing.Color.White;
-            this.buttonPayTotalBalance.Location = new System.Drawing.Point(453, 10);
+            this.buttonPayTotalBalance.Location = new System.Drawing.Point(451, 10);
             this.buttonPayTotalBalance.Margin = new System.Windows.Forms.Padding(10);
             this.buttonPayTotalBalance.Name = "buttonPayTotalBalance";
             this.buttonPayTotalBalance.Size = new System.Drawing.Size(82, 51);
@@ -322,10 +322,10 @@ namespace MKproject.Management
             this.panelTotalBalance.Controls.Add(this.labelTotalBalance);
             this.panelTotalBalance.Controls.Add(this.label5);
             this.panelTotalBalance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTotalBalance.Location = new System.Drawing.Point(302, 7);
+            this.panelTotalBalance.Location = new System.Drawing.Point(301, 7);
             this.panelTotalBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelTotalBalance.Name = "panelTotalBalance";
-            this.panelTotalBalance.Size = new System.Drawing.Size(134, 57);
+            this.panelTotalBalance.Size = new System.Drawing.Size(133, 57);
             this.panelTotalBalance.TabIndex = 1;
             // 
             // labelTotalBalance
@@ -336,7 +336,7 @@ namespace MKproject.Management
             this.labelTotalBalance.Location = new System.Drawing.Point(0, 21);
             this.labelTotalBalance.Name = "labelTotalBalance";
             this.labelTotalBalance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelTotalBalance.Size = new System.Drawing.Size(134, 30);
+            this.labelTotalBalance.Size = new System.Drawing.Size(133, 30);
             this.labelTotalBalance.TabIndex = 1;
             this.labelTotalBalance.Text = "-$300";
             this.labelTotalBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -348,7 +348,7 @@ namespace MKproject.Management
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(134, 21);
+            this.label5.Size = new System.Drawing.Size(133, 21);
             this.label5.TabIndex = 0;
             this.label5.Text = "Total Balance";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -362,7 +362,7 @@ namespace MKproject.Management
             this.panelProductBalance.Location = new System.Drawing.Point(154, 7);
             this.panelProductBalance.Margin = new System.Windows.Forms.Padding(7);
             this.panelProductBalance.Name = "panelProductBalance";
-            this.panelProductBalance.Size = new System.Drawing.Size(134, 57);
+            this.panelProductBalance.Size = new System.Drawing.Size(133, 57);
             this.panelProductBalance.TabIndex = 2;
             // 
             // labelProductBalance
@@ -373,7 +373,7 @@ namespace MKproject.Management
             this.labelProductBalance.Location = new System.Drawing.Point(0, 21);
             this.labelProductBalance.Name = "labelProductBalance";
             this.labelProductBalance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelProductBalance.Size = new System.Drawing.Size(134, 30);
+            this.labelProductBalance.Size = new System.Drawing.Size(133, 30);
             this.labelProductBalance.TabIndex = 1;
             this.labelProductBalance.Text = "-$150";
             this.labelProductBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -385,7 +385,7 @@ namespace MKproject.Management
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(134, 21);
+            this.label6.Size = new System.Drawing.Size(133, 21);
             this.label6.TabIndex = 0;
             this.label6.Text = "Product Balance";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

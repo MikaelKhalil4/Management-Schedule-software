@@ -122,7 +122,7 @@ namespace MKproject.Management
         public static DataTable GetBackOffice(bool IsOneYearORAll, int? ClientBalanceId, int? ClientID)
         {
             SqlCommand cmd;
-            string query = @"SELECT ar.archive_id,ar.client_id ,ar.action as [Activity History], ar.action_type,ar.employee_id ,ar.date AS RealDate,
+            string query = @"SELECT ar.archive_id,ar.client_id ,ar.action as [Activity History], ar.action_type,ar.employee_id ,ar.date ,
                            ar.attendance_id,ar.id_client_balance,ar.amount_paid,ar.is_moneyOrsession_offre,ar.previousBalanceOrSession_Offre , 
                            emp.first_name as EmployeeFN,emp.last_name as EmpoyeeLN,cl.name as ClientFN,family_name as ClientLN,cl.phone_number as ClientPhoneNumber
                           from archive ar JOIN employee emp  
@@ -429,12 +429,10 @@ namespace MKproject.Management
                 //design
                 double OldBalance = (double)backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"];
                 string balance = Convert.ToString(OldBalance - AmountPaid);//eza kenit balance=-50 w paid 50 bet sir balance -100
-                backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"] = balance;
 
                 //updating backoffice datatgridbalancce
-                backofficeform.DesiredBalanceRowsdt.Rows[0]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
+                backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"] = balance;
                 backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"] = (double)backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"] - AmountPaid;
-                backofficeform.DesiredBalanceRowsdt.Rows[0]["Paid"] = Currency.Symbol + backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"];
                 bool IsExpired = (bool)backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];
                 if (IsExpired == true)
                 {
@@ -443,9 +441,7 @@ namespace MKproject.Management
                 //updating original datatbalance
                 DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(backofficeform.DesiredBalanceRowsdt.Rows[0]["ID"]);
                 rowToEdit["balance"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"];
-                rowToEdit["FakeBalance"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["FakeBalance"];
                 rowToEdit["amount_paid"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"];
-                rowToEdit["Paid"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["Paid"];
                 if (IsExpired)
                 {
                     rowToEdit["is_expired"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];

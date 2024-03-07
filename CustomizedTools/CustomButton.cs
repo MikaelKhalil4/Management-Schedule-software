@@ -19,8 +19,7 @@ namespace CustomizedTools
             {
                 backAndMouseHoverColor = value;
                 base.BackColor = value;
-                FlatAppearance.MouseOverBackColor = Color.FromArgb(backAndMouseHoverColor.R + 20, backAndMouseHoverColor.G + 20, backAndMouseHoverColor.B + 20); 
-                // You can add additional logic here if needed
+                FlatAppearance.MouseOverBackColor = Color.FromArgb( Math.Min(backAndMouseHoverColor.R + 20, 255),Math.Min(backAndMouseHoverColor.G + 20, 255), Math.Min(backAndMouseHoverColor.B + 20, 255));
             }
         }
         public CustomButton()

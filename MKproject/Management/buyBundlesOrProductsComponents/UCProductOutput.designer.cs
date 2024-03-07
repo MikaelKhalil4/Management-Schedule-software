@@ -31,11 +31,7 @@ namespace MKproject.Management
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewProducts = new DoubleBufferAndCustomScrollDataGrid();
-            this.ColumnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewProducts = new CustomizedTools.DoubleBufferAndCustomScrollDataGrid();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,11 +49,6 @@ namespace MKproject.Management
             this.dataGridViewProducts.ColumnHeadersHeight = 50;
             this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewProducts.ColumnHeadersVisible = false;
-            this.dataGridViewProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnCheck,
-            this.ProductId,
-            this.ProductName,
-            this.Price});
             this.dataGridViewProducts.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -85,37 +76,8 @@ namespace MKproject.Management
             this.dataGridViewProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProducts.Size = new System.Drawing.Size(443, 320);
             this.dataGridViewProducts.TabIndex = 1;
-            this.dataGridViewProducts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellClick);
-            // 
-            // ColumnCheck
-            // 
-            this.ColumnCheck.FillWeight = 10F;
-            this.ColumnCheck.HeaderText = "ColumnCheck";
-            this.ColumnCheck.Name = "ColumnCheck";
-            this.ColumnCheck.ReadOnly = true;
-            this.ColumnCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColumnCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ProductId
-            // 
-            this.ProductId.HeaderText = "ProductId";
-            this.ProductId.Name = "ProductId";
-            this.ProductId.ReadOnly = true;
-            this.ProductId.Visible = false;
-            // 
-            // ProductName
-            // 
-            this.ProductName.FillWeight = 22.5F;
-            this.ProductName.HeaderText = "ProductName";
-            this.ProductName.Name = "ProductName";
-            this.ProductName.ReadOnly = true;
-            // 
-            // Price
-            // 
-            this.Price.FillWeight = 22.5F;
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
+            this.dataGridViewProducts.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProducts_CellFormatting);
+            this.dataGridViewProducts.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewProducts_CellMouseDown);
             // 
             // UCProductOutput
             // 
@@ -132,9 +94,5 @@ namespace MKproject.Management
         #endregion
 
         private DoubleBufferAndCustomScrollDataGrid dataGridViewProducts;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
     }
 }

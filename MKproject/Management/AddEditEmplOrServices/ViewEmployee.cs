@@ -9,6 +9,7 @@ using CustomizedTools;
 
 namespace MKproject.Management
 {
+
     public partial class ViewEmployee : Form
     {
         public DataTable dtEmployee;
@@ -21,7 +22,6 @@ namespace MKproject.Management
         private void ViewEmployee_Load(object sender, EventArgs e)
         {
             dataGridViewEdit.ClearSelection();
-            FormatDatagridViewColors();
         }
 
 
@@ -41,11 +41,10 @@ namespace MKproject.Management
 
         public void FormatOriginaldt(DataTable Desireddt)
         {
-            Desireddt.Columns.Add("FakeAccess", typeof(string));
             Desireddt.Columns.Add("FakeStatus", typeof(string));
             foreach (DataRow row in Desireddt.Rows)
             {
-                FixColumnFakeAccess(row);
+                FixColumnFakeAccess((string)row["access"]);
 
                 if ((bool)row["status"] == true)
                 {
@@ -83,7 +82,7 @@ namespace MKproject.Management
 
 
 
-            columnIndexToMove = Desireddt.Columns.IndexOf("FakeAccess"); // Replace with the actual column name
+            columnIndexToMove = Desireddt.Columns.IndexOf("access"); // Replace with the actual column name
             newIndex = 4; // The new desired index
             Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
@@ -95,50 +94,43 @@ namespace MKproject.Management
 
 
 
-
         }
-        public void FixColumnFakeAccess(DataRow row)
+
+        public string FixColumnFakeAccess(string access)
         {
-            row["FakeAccess"] = row["access"];
-           
-            if (!Features.Schedule && row["FakeAccess"].ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
+
+            if (!Features.Schedule && access.ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
             {
-                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Schedule.GetStringValue()+"/", "");
+                access = access.ToString().Replace(Features.enumFeatures.Schedule.GetStringValue() + "/", "");
             }
             if (!Features.Management)
             {
-                if(row["FakeAccess"].ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
-                row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.EditOffres.GetStringValue()+"/", "");
-       
-                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
-                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Transactions.GetStringValue() + "/", "");
-               
-                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
-                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()+"/", "");
-              
-                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
-                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.Statistics.GetStringValue() + "/", "");
+                if (access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
+                    access = access.ToString().Replace(Features.enumFeatures.EditOffres.GetStringValue() + "/", "");
 
-                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
-                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.RegistrationFields.GetStringValue() + "/", "");
+                if (access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
+                    access = access.ToString().Replace(Features.enumFeatures.Transactions.GetStringValue() + "/", "");
 
-                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
-                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.DeleteClients.GetStringValue() + "/", "");
+                if (access.ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
+                    access = access.ToString().Replace(Features.enumFeatures.ServicesProductsEmployees.GetStringValue() + "/", "");
 
-                if (row["FakeAccess"].ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
-                    row["FakeAccess"] = row["FakeAccess"].ToString().Replace(Features.enumFeatures.EditClients.GetStringValue() + "/", "");
+                if (access.ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
+                    access = access.ToString().Replace(Features.enumFeatures.Statistics.GetStringValue() + "/", "");
 
+                if (access.ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
+                    access = access.ToString().Replace(Features.enumFeatures.RegistrationFields.GetStringValue() + "/", "");
+
+                if (access.ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
+                    access = access.ToString().Replace(Features.enumFeatures.DeleteClients.GetStringValue() + "/", "");
+
+                if (access.ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
+                    access = access.ToString().Replace(Features.enumFeatures.EditClients.GetStringValue() + "/", "");
             }
-           
-            if (row["FakeAccess"].ToString() == "" || row["FakeAccess"] == null)
-            {
-                row["FakeAccess"] = "N/A";
-            }
-            else
-            {
-                row["FakeAccess"] = ReplaceLastCharacterWithDot(row["FakeAccess"].ToString(), '/');
-                row["FakeAccess"] = ((string)row["FakeAccess"]).Replace("/", ", ");
-            }
+
+            access = ReplaceLastCharacterWithDot(access.ToString(), '/');
+            access = ((string)access).Replace("/", ", ");
+
+            return access;
 
 
         }
@@ -152,7 +144,6 @@ namespace MKproject.Management
             }
 
             dataGridViewEdit.Columns["employee_id"].Visible = false;
-            dataGridViewEdit.Columns["access"].Visible = false;
             dataGridViewEdit.Columns["status"].Visible = false;
 
             dataGridViewEdit.Columns["first_name"].HeaderCell.Value = "First Name";
@@ -160,14 +151,14 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["phone_number"].HeaderCell.Value = "Phone Number";
             dataGridViewEdit.Columns["password"].HeaderCell.Value = "Password";
             dataGridViewEdit.Columns["FakeStatus"].HeaderCell.Value = "Status";
-            dataGridViewEdit.Columns["FakeAccess"].HeaderCell.Value = "Access";
+            dataGridViewEdit.Columns["access"].HeaderCell.Value = "Access";
 
 
             dataGridViewEdit.Columns["first_name"].FillWeight = 12;
             dataGridViewEdit.Columns["last_name"].FillWeight = 12;
             dataGridViewEdit.Columns["phone_number"].FillWeight = 12;
             dataGridViewEdit.Columns["password"].FillWeight = 12;
-            dataGridViewEdit.Columns["FakeAccess"].FillWeight = 30;
+            dataGridViewEdit.Columns["access"].FillWeight = 30;
             dataGridViewEdit.Columns["Edit"].FillWeight = 15;
             dataGridViewEdit.Columns["FakeStatus"].FillWeight = 7;
             //
@@ -178,25 +169,41 @@ namespace MKproject.Management
 
             dataGridViewEdit.ApplyStyle1();
         }
-        public void FormatDatagridViewColors()
+      
+
+        private void dataGridViewEdit_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridViewEdit.Rows)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                DataGridViewCell cell = (DataGridViewCell)row.Cells["FakeStatus"];
-                if (Convert.ToString(cell.Value) == "False")
+                if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {
-                    cell.Style.ForeColor = Color.Red;
-                    cell.Style.SelectionForeColor = Color.Red;
+                    e.Value = "N/A";
                 }
                 else
                 {
-                    cell.Style.ForeColor = Color.Green;
-                    cell.Style.SelectionForeColor = Color.Green;
+                    //text display
+                    if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "access")
+                    {
+                        e.Value = FixColumnFakeAccess(e.Value.ToString());
+                    }
                 }
-
+                //Design Display
+                if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "FakeStatus")
+                {
+                    DataGridViewCell cell = dataGridViewEdit.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    if (Convert.ToString(cell.Value) == "False")
+                    {
+                        cell.Style.ForeColor = Color.Red;
+                        cell.Style.SelectionForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        cell.Style.ForeColor = Color.Green;
+                        cell.Style.SelectionForeColor = Color.Green;
+                    }
+                }
             }
         }
-
 
         string ReplaceLastCharacterWithDot(string input, char targetCharacter)
         {
@@ -253,7 +260,7 @@ namespace MKproject.Management
             p.ShowDialog();
 
         }
-         protected override CreateParams CreateParams
+        protected override CreateParams CreateParams
         {
             get
             {
@@ -262,6 +269,6 @@ namespace MKproject.Management
                 return cp;
             }
         }
-     
+
     }
 }

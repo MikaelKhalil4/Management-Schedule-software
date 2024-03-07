@@ -4,6 +4,7 @@ using MKproject.Schedule;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -50,6 +51,27 @@ namespace MKproject
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new LOGIN();
             Application.Run(LoginForm);       
-        }      
+        }
+
+
+
+        //some global functions
+        public static string SetCashFormat(string cash)
+        {
+            return Currency.Symbol + cash;
+        }
+        public static string SetBalanceFormat(string balance)//balance in the parameter it s going to be only a number: -5 0 -100
+        {
+            if (balance.Contains('-'))
+            {
+                balance = balance.Substring(1);
+                balance = "-" + Currency.Symbol + balance;
+            }
+            else
+            {
+                balance = Currency.Symbol + balance;
+            }
+            return balance;
+        }
     }
 }

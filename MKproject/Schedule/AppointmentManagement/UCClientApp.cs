@@ -371,7 +371,7 @@ namespace MKproject.Schedule
             }
 
             //balance
-            DesiredAppointment.DesiredClientBalance.ClientBalanceDetails = ClassChosenClientBalance.SetBalanceFormat(DesiredRow["balance"].ToString());
+            DesiredAppointment.DesiredClientBalance.ClientBalanceDetails = Program.SetBalanceFormat(DesiredRow["balance"].ToString());
             DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails = ServiceName + ": " + DesiredAppointment.DesiredClientBalance.ClientBalanceSessionLeftDetails + " / " + DesiredAppointment.DesiredClientBalance.ClientBalanceDetails;
 
             //design

@@ -32,15 +32,15 @@ namespace MKproject.Management
         ClassClient ClientForFilter;
 
 
-        public BackOffice(ClientManagementProfile clientManagement, int? ClientBalanceId, DataTable desiredRowsdt, int? clientId)//we have 3 modes: child mode(1-spcifc baland and specific client/2-specific client) mode 3: all backoffice
+        public BackOffice(ClientManagementProfile clientManagement, int? ClientBalanceId, DataTable desiredBalanceRowsdt, int? clientId)//we have 3 modes: child mode(1-spcifc baland and specific client/2-specific client) mode 3: all backoffice
         {
             InitializeComponent();
             ParentFormClientManagem = clientManagement;
             ClientId = clientId;
-            if ((ParentFormClientManagem != null && ClientBalanceId != null && desiredRowsdt != null) || ClientId != null)//child mode
+            if ((ParentFormClientManagem != null && ClientBalanceId != null && desiredBalanceRowsdt != null) || ClientId != null)//child mode
             {
                 IsChildMode = true;
-                DesiredBalanceRowsdt = desiredRowsdt;//it will be null if AllTransactionofSpecificClient = true
+                DesiredBalanceRowsdt = desiredBalanceRowsdt;//it will be null if AllTransactionofSpecificClient = true
                 SetLogicMode(ClientBalanceId);
             }
             else
@@ -73,7 +73,6 @@ namespace MKproject.Management
         {
             OriginalBackOfficeDt.Columns.Add("Clients", typeof(string));
             OriginalBackOfficeDt.Columns.Add("Employees", typeof(string));
-            OriginalBackOfficeDt.Columns.Add("Date", typeof(string));
 
             foreach (DataRow row in OriginalBackOfficeDt.Rows)
             {
@@ -85,7 +84,6 @@ namespace MKproject.Management
 
                 row["Clients"] = Client;
                 row["Employees"] = row["EmployeeFN"] + " " + row["EmpoyeeLN"];
-                row["Date"] = RandomFunctions.SetDateFormat(row["RealDate"].ToString());
 
             }
 
@@ -109,7 +107,7 @@ namespace MKproject.Management
             newIndex = 1; // The new desired index
             OriginalBackOfficeDt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = OriginalBackOfficeDt.Columns.IndexOf("Date");
+            columnIndexToMove = OriginalBackOfficeDt.Columns.IndexOf("date");
             newIndex = 2; // The new desired index
             OriginalBackOfficeDt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
@@ -119,6 +117,13 @@ namespace MKproject.Management
 
 
 
+        }
+        private void dataGridViewBackOffice_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridViewBackOffice.Columns[e.ColumnIndex].Name == "date")
+            {
+                e.Value = RandomFunctions.SetDateFormat(e.Value.ToString());
+            }
         }
         public void FillBackOfficeDataGridView(DataTable DesiredDataTable)//it could original or filters
         {
@@ -132,7 +137,10 @@ namespace MKproject.Management
         {
             foreach (DataGridViewColumn col in dataGridViewBackOffice.Columns)
             {
-                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                if (col.Name != "date")
+                {
+                    col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
             }
 
             dataGridViewBackOffice.Columns["client_id"].Visible = false;
@@ -140,7 +148,6 @@ namespace MKproject.Management
             dataGridViewBackOffice.Columns["archive_id"].Visible = false;
             dataGridViewBackOffice.Columns["id_client_balance"].Visible = false;
             dataGridViewBackOffice.Columns["action_type"].Visible = false;
-            dataGridViewBackOffice.Columns["RealDate"].Visible = false;
             dataGridViewBackOffice.Columns["amount_paid"].Visible = false;
             dataGridViewBackOffice.Columns["attendance_id"].Visible = false;
             dataGridViewBackOffice.Columns["is_moneyOrsession_offre"].Visible = false;
@@ -150,11 +157,13 @@ namespace MKproject.Management
                 dataGridViewBackOffice.Columns["Clients"].Visible = false;
             }
 
+          
             ////
             dataGridViewBackOffice.Columns["Action"].DisplayIndex = dataGridViewBackOffice.ColumnCount - 1;
             dataGridViewBackOffice.Columns["Action"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewBackOffice.Columns["Action"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             ////
+             dataGridViewBackOffice.ApplyStyle1();//ejbare foe el dusplay cells
             dataGridViewBackOffice.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel yaamlo wrap kell el colunns li mawjudin aal sheshe w ma btaamil delay metel all cels, w eza hattina abel, it can cause us delays bel visible = false
             dataGridViewBackOffice.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//kermel taamil stretch aa kell surface  horizontally
             dataGridViewBackOffice.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -162,12 +171,12 @@ namespace MKproject.Management
             ///
             dataGridViewBackOffice.Columns["Clients"].FillWeight = 25;
             dataGridViewBackOffice.Columns["Activity History"].FillWeight = 25;
-            dataGridViewBackOffice.Columns["Date"].FillWeight = 15;
+            dataGridViewBackOffice.Columns["date"].FillWeight = 15;
             dataGridViewBackOffice.Columns["Employees"].FillWeight = 10;
             dataGridViewBackOffice.Columns["Action"].FillWeight = 10;
 
-            dataGridViewBackOffice.ApplyStyle1();
         }
+
         public void FilterDatable()
         {
             DataTable Filtereddt = OriginalBackOfficeDt.Copy();
@@ -246,10 +255,10 @@ namespace MKproject.Management
                     {
                         StartDate = EndDate;
                     }
-                    Filtereddt = FiltersDataTable.FilterDatatableDateCustomDate("RealDate", Filtereddt, StartDate, EndDate);
+                    Filtereddt = FiltersDataTable.FilterDatatableDateCustomDate("date", Filtereddt, StartDate, EndDate);
                 }
 
-                if (UCClient != null && ClientForFilter!= null)// awwal condition eza kena feytin men profile nshuf all transaction tb3 a client/scd condtion eza feytin backoffice w aam nshuf eza eemelna search aa client
+                if (UCClient != null && ClientForFilter != null)// awwal condition eza kena feytin men profile nshuf all transaction tb3 a client/scd condtion eza feytin backoffice w aam nshuf eza eemelna search aa client
                 {
                     Filtereddt = FiltersDataTable.FilterDatatableIFIntEquality("client_id", ClientForFilter.ClientId, Filtereddt);
                 }
@@ -342,7 +351,7 @@ namespace MKproject.Management
                     dataGridViewBalance.RowTemplate.MinimumHeight = 40; // Set minimum row height
                     if (DesiredBalanceRowsdt.Rows[0]["due_date"] != DBNull.Value)
                     {
-                        dataGridViewBalance.Columns["DueDate"].Visible = true;
+                        dataGridViewBalance.Columns["due_date"].Visible = true;
                     }
                     FormatBackOfficeOriginalDt();
 
@@ -634,7 +643,7 @@ namespace MKproject.Management
                     {
 
                         double AmountPaid = Convert.ToDouble(dataGridViewBackOffice.Rows[e.RowIndex].Cells["amount_paid"].Value);
-                        DateTime ArchiveDate = Convert.ToDateTime(dataGridViewBackOffice.Rows[e.RowIndex].Cells["RealDate"].Value);
+                        DateTime ArchiveDate = Convert.ToDateTime(dataGridViewBackOffice.Rows[e.RowIndex].Cells["date"].Value);
 
                         DialogResult dialogResult = CustomMessageBox.Show("Are you sure you want to proceed?", CustomMessageBox.Type.YesNo);
                         if (dialogResult == DialogResult.Yes)
@@ -677,21 +686,7 @@ namespace MKproject.Management
 
         private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0) // Assuming "balance" is the name of your balance column
-            {
-                DataGridViewCell cell = dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                if (e.ColumnIndex == dataGridViewBalance.Columns["FakeBalance"].Index)
-                {
-                    if (Convert.ToString(cell.Value) != "$0")
-                    {
-                        cell.Style.ForeColor = Color.Red;
-                    }
-                    else
-                    {
-                        cell.Style.ForeColor = Color.Black;
-                    }
-                }
-            }
+            ParentFormClientManagem.FixCellsFormat(dataGridViewBalance, e);
         }
 
 
@@ -745,5 +740,7 @@ namespace MKproject.Management
                 return cp;
             }
         }
+
+
     }
 }

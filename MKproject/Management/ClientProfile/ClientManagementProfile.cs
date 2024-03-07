@@ -67,12 +67,10 @@ namespace MKproject.Management
         public ClientManagementProfile(ClassClient client, bool isFromSchedule)//new register
         {
             InitializeComponent();
-
+        
             LoadImages();
 
-
             LoadData(client, isFromSchedule);
-
             dataGridViewBalance.ApplyStyle1();
         }
 
@@ -161,77 +159,19 @@ namespace MKproject.Management
         {
 
 
-            DtClientBalanceOriginal.Columns.Add("Purchase date", typeof(string));
-            DtClientBalanceOriginal.Columns.Add("DueDate", typeof(string));
-            DtClientBalanceOriginal.Columns.Add("FakeOrignalOffre", typeof(string));
-            DtClientBalanceOriginal.Columns.Add("FakeOffer", typeof(string));
-            DtClientBalanceOriginal.Columns.Add("Paid", typeof(string));
-            DtClientBalanceOriginal.Columns.Add("FakeBalance", typeof(string));
-
-
-            foreach (DataRow d in DtClientBalanceOriginal.Rows)
-            {
-                string currency = (string)d["Symbol"];
-                string balance = Convert.ToString((double)d["balance"]);
-                string PurchaseDate = "";
-                string DueDate = "";
-
-                DateTime dateTimeValue;
-
-                if (DateTime.TryParse(d["purchase_date"].ToString(), out dateTimeValue))
-                {
-                    // Convert the DateTime value to a string in the format "MM/dd/yy"
-                    PurchaseDate = dateTimeValue.ToString("MMMM/dd/yyyy");
-                }
-                else
-                {
-                    PurchaseDate = NotAvailableText;
-                }
-
-                if (DateTime.TryParse(d["due_date"].ToString(), out dateTimeValue))
-                {
-                    // Convert the DateTime value to a string in the format "MM/dd/yy"
-                    DueDate = dateTimeValue.ToString("MMMM/dd/yyyy");
-                }
-
-                if (d["offre"] != DBNull.Value)
-                {
-                    d["FakeOffer"] = currency + d["offre"];
-                }
-                else
-                {
-                    d["FakeOffer"] = NotAvailableText;
-                }
-
-                if (d["original_offre"] != DBNull.Value)
-                {
-                    d["FakeOrignalOffre"] = currency + d["original_offre"];
-                }
-                else
-                {
-                    d["FakeOrignalOffre"] = NotAvailableText;
-                }
-
-                d["Purchase date"] = PurchaseDate;
-                d["DueDate"] = DueDate;
-                d["Paid"] = currency + d["amount_paid"];
-                d["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
-            }
-
-            // Add auto-increment column to existing DataTable
             DtClientBalanceOriginal.Columns.Add("AutoIncrementColumn", typeof(int));
             DtClientBalanceOriginal.Columns["AutoIncrementColumn"].AutoIncrement = true;
             DtClientBalanceOriginal.Columns["AutoIncrementColumn"].AutoIncrementSeed = 1;
             DtClientBalanceOriginal.Columns["AutoIncrementColumn"].AutoIncrementStep = 1;
-            // Populate the auto-increment column
             int currentAutoIncrementValue = 1;
+
             foreach (DataRow row in DtClientBalanceOriginal.Rows)
             {
                 row["AutoIncrementColumn"] = currentAutoIncrementValue;
                 currentAutoIncrementValue++;
             }
             DtClientBalanceOriginal.PrimaryKey = new DataColumn[] { DtClientBalanceOriginal.Columns["ID"] };
-            //
+
 
 
             //ordering
@@ -246,27 +186,27 @@ namespace MKproject.Management
             newIndex = 1; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("Purchase date"); // Replace with the actual column name
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("purchase_date"); // Replace with the actual column name
             newIndex = 2; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("DueDate"); // Replace with the actual column name
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("due_date"); // Replace with the actual column name
             newIndex = 3; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("FakeOrignalOffre"); // Replace with the actual column name
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("original_offre"); // Replace with the actual column name
             newIndex = 4; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("FakeOffer"); // Replace with the actual column name
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("offre"); // Replace with the actual column name
             newIndex = 5; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("Paid"); // Replace with the actual column name
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("amount_paid"); // Replace with the actual column name
             newIndex = 6; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("FakeBalance"); // Replace with the actual column name
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("balance"); // Replace with the actual column name
             newIndex = 7; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
@@ -280,6 +220,9 @@ namespace MKproject.Management
             }
 
         }
+
+
+
         public void DataTableToDatagridView()
         {
             ResortOriginalDataTableAndSetDatasource();
@@ -300,18 +243,12 @@ namespace MKproject.Management
             DesiredDataGrid.Columns["bundle_id"].Visible = false;
             DesiredDataGrid.Columns["bundle_name"].Visible = false;
             DesiredDataGrid.Columns["product_id"].Visible = false;
-            DesiredDataGrid.Columns["purchase_date"].Visible = false;
-            DesiredDataGrid.Columns["original_offre"].Visible = false;
-            DesiredDataGrid.Columns["offre"].Visible = false;
-            DesiredDataGrid.Columns["amount_paid"].Visible = false;
-            DesiredDataGrid.Columns["balance"].Visible = false;
             DesiredDataGrid.Columns["session_left_days"].Visible = false;
-            DesiredDataGrid.Columns["due_date"].Visible = false;
             DesiredDataGrid.Columns["is_freezed"].Visible = false;
             DesiredDataGrid.Columns["is_expired"].Visible = false;
             DesiredDataGrid.Columns["Currency_Name"].Visible = false;
             DesiredDataGrid.Columns["Symbol"].Visible = false;
-            DesiredDataGrid.Columns["DueDate"].Visible = false;
+            DesiredDataGrid.Columns["due_date"].Visible = false;
 
             if (IsProfile)
             {
@@ -323,28 +260,74 @@ namespace MKproject.Management
 
             DesiredDataGrid.Columns["AutoIncrementColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             DesiredDataGrid.Columns["Description"].FillWeight = 13;
-            DesiredDataGrid.Columns["Purchase date"].FillWeight = 20;
-            DesiredDataGrid.Columns["FakeOrignalOffre"].FillWeight = 17;
-            DesiredDataGrid.Columns["FakeOffer"].FillWeight = 17;
-            DesiredDataGrid.Columns["Paid"].FillWeight = 9;
-            DesiredDataGrid.Columns["FakeBalance"].FillWeight = 12;
-            DesiredDataGrid.Columns["DueDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            DesiredDataGrid.Columns["purchase_date"].FillWeight = 20;
+            DesiredDataGrid.Columns["original_offre"].FillWeight = 17;
+            DesiredDataGrid.Columns["offre"].FillWeight = 17;
+            DesiredDataGrid.Columns["amount_paid"].FillWeight = 9;
+            DesiredDataGrid.Columns["balance"].FillWeight = 12;
+            DesiredDataGrid.Columns["due_date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             //
-            DesiredDataGrid.Columns["FakeBalance"].HeaderText = "Balance";
+            DesiredDataGrid.Columns["balance"].HeaderText = "Balance";
             DesiredDataGrid.Columns["AutoIncrementColumn"].HeaderText = "ID";
-            DesiredDataGrid.Columns["FakeOrignalOffre"].HeaderText = "Offre";
-            DesiredDataGrid.Columns["FakeOffer"].HeaderText = "Deal";
-
-
-
+            DesiredDataGrid.Columns["original_offre"].HeaderText = "Offre";
+            DesiredDataGrid.Columns["offre"].HeaderText = "Deal";
+            DesiredDataGrid.Columns["amount_paid"].HeaderText = "Paid";
+            DesiredDataGrid.Columns["purchase_date"].HeaderText = "PurchaseDate";
         }
-        public void FormatDatagridviewDesign()
+
+        private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
 
-            foreach (DataGridViewRow row in dataGridViewBalance.Rows)
+            if (dataGridViewBalance.Columns[e.ColumnIndex].Name != "PayOrEdit" && dataGridViewBalance.Columns[e.ColumnIndex].Name != "BackOffice")
             {
-                DataGridViewCell cell = (DataGridViewCell)row.Cells["FakeBalance"];
-                if (Convert.ToString(cell.Value) != "$0")
+                FixCellsFormat(dataGridViewBalance, e);
+            }
+
+        }
+        
+        public void FixCellsFormat(DataGridView DesiredDatagrid,DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (e.Value == DBNull.Value || e.Value == null)
+                {
+                    e.Value = "N/A";
+                }
+                else
+                {
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "balance")
+                    {
+                        e.Value = Program.SetBalanceFormat(e.Value.ToString());
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "amount_paid")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "original_offre")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());// $ + 350/ 20 sess
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "offre")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "due_date")
+                    {
+                        e.Value = ((DateTime)e.Value).ToString("MMMM/dd/yyyy");
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "purchase_date")
+                    {
+                        e.Value = ((DateTime)e.Value).ToString("MMMM/dd/yyyy");
+                    }
+                }
+
+            }
+            //Design Display
+            if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "balance")
+            {
+
+                DataGridViewCell cell = DesiredDatagrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (Convert.ToDouble(cell.Value) != 0)
                 {
                     cell.Style.ForeColor = Color.Red;
                     cell.Style.SelectionForeColor = Color.Red;
@@ -354,6 +337,15 @@ namespace MKproject.Management
                     cell.Style.ForeColor = Color.Black;
                     cell.Style.SelectionForeColor = Color.Black;
                 }
+            }
+        }
+      
+        //it wont work bel cell formating , lieanno on mousehover aam tetezii
+        public void FormatDatagridviewDesign()
+        {
+
+            foreach (DataGridViewRow row in dataGridViewBalance.Rows)
+            {
 
                 DataGridViewCell cell1 = (DataGridViewCell)row.Cells["PayOrEdit"];
                 if (Convert.ToBoolean(row.Cells["is_expired"].Value) == false)
@@ -371,50 +363,10 @@ namespace MKproject.Management
             }
             dataGridViewBalance.ClearSelection();
         }
-        //it wont work , lieanno on mousehover aam tetezii
-        private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            //DataGridViewCell cell = dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-            //if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Assuming "balance" is the name of your balance column
-            //{
-            //    DataGridViewCell CellToModifie;
 
-            //    if (e.ColumnIndex == dataGridViewBalance.Columns["FakeBalance"].Index)
-            //    {
-            //        CellToModifie = dataGridViewBalance.Rows[e.RowIndex].Cells["FakeBalance"];
-            //        if (Convert.ToString(CellToModifie.Value) != "$0")
-            //        {
-            //            CellToModifie.Style.ForeColor = Color.Red;
-            //            CellToModifie.Style.SelectionForeColor = Color.Red;
-            //        }
-            //        else
-            //        {
-            //            CellToModifie.Style.ForeColor = Color.Black;
-            //            CellToModifie.Style.SelectionForeColor = Color.Black;
-            //        }
-            //    }
 
-            //    if (e.ColumnIndex == dataGridViewBalance.Columns["PayOrEdit"].Index)
-            //    {
-            //        CellToModifie= dataGridViewBalance.Rows[e.RowIndex].Cells["PayOrEdit"];
-            //        if (Convert.ToBoolean(dataGridViewBalance.Rows[e.RowIndex].Cells["is_expired"].Value) == false)
-            //        {
-            //            CellToModifie.Value = PayOrEditImage;
-            //        }
-            //        else
-            //        {
-            //            CellToModifie.Value = EmptyImage;
-            //        }
-            //    }
 
-            //    if (e.ColumnIndex == dataGridViewBalance.Columns["BackOffice"].Index)
-            //    {
-            //        CellToModifie = dataGridViewBalance.Rows[e.RowIndex].Cells["BackOffice"];
-            //        CellToModifie.Value = BackOfficeImage;
-            //    }
-            //}
-        }
         //public static void ResortOriginalDataTable(DataTable Desireddt)//MAFINA!!! gher nebaat el datatbale as argument because we re losing the reference, still dk why
         //{
 
@@ -520,12 +472,13 @@ namespace MKproject.Management
             }
 
             //design
+
             Client.TotalPayment = TotalPayment;
-            UCpaymentsTotal.Detail = Currency.Symbol + Convert.ToString(TotalPayment);
+            UCpaymentsTotal.Detail = Program.SetCashFormat(Convert.ToString(TotalPayment));
             UCTokenServices.Detail = Convert.ToString(TokenBundles);
-            UCpaymentsServices.Detail = Currency.Symbol + Convert.ToString(BundlePayments);
+            UCpaymentsServices.Detail = Program.SetCashFormat(Convert.ToString(BundlePayments));
             UCTokenProducts.Detail = Convert.ToString(TokenProducts);
-            UCpaymentsProducts.Detail = Currency.Symbol + Convert.ToString(ProductPayments);
+            UCpaymentsProducts.Detail = Program.SetCashFormat(Convert.ToString(ProductPayments));
         }//try catch
         public void CalculatingTotalBalances(bool UpdateMode)
         {
@@ -556,46 +509,40 @@ namespace MKproject.Management
             //Design 
             Client.TotalBalance = TotalBalanceAmount;
 
+
+            labelServiceBalance.Text = Program.SetBalanceFormat(bundleBalance.ToString());
             if (Math.Abs(bundleBalance) != 0)
             {
-                labelServiceBalance.Text = "-" + Currency.Symbol + Math.Abs(bundleBalance).ToString();
                 labelServiceBalance.ForeColor = Color.Red;
             }
             else
             {
-                labelServiceBalance.Text = Currency.Symbol + Math.Abs(bundleBalance).ToString();
                 labelServiceBalance.ForeColor = Color.Black;
             }
 
 
-
+            labelProductBalance.Text = Program.SetBalanceFormat(ProductBalance.ToString());
             if (Math.Abs(ProductBalance) != 0)
             {
-                labelProductBalance.Text = "-" + Currency.Symbol + Math.Abs(ProductBalance).ToString();
                 labelProductBalance.ForeColor = Color.Red;
             }
             else
             {
-                labelProductBalance.Text = Currency.Symbol + Math.Abs(ProductBalance).ToString();
                 labelProductBalance.ForeColor = Color.Black;
             }
 
 
-
-
+            labelTotalBalance.Text = Program.SetBalanceFormat(TotalBalanceAmount.ToString());
             if (Math.Abs(TotalBalanceAmount) != 0)
             {
-                labelTotalBalance.Text = "-" + Currency.Symbol + Math.Abs(TotalBalanceAmount).ToString();
                 labelTotalBalance.ForeColor = Color.Red;
                 buttonPayTotalBalance.Enabled = true;
             }
             else
             {
-                labelTotalBalance.Text = Currency.Symbol + Math.Abs(TotalBalanceAmount).ToString();
                 labelTotalBalance.ForeColor = Color.Black;
                 buttonPayTotalBalance.Enabled = false;
             }
-
 
         }//try catch
 
@@ -624,8 +571,6 @@ namespace MKproject.Management
                 {
                     DesiredUC.Detail = NotAvailableText;
                 }
-
-
             }
             else
             {
@@ -1157,7 +1102,7 @@ namespace MKproject.Management
         }
 
 
-
+        //mawjude matrahen hone w bel payment
         private void dataGridViewBalance_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -1302,7 +1247,7 @@ namespace MKproject.Management
                 if (!IsFromSchedule)
                 {
                     ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
-                   
+
                 }
                 else
                 {
@@ -1450,17 +1395,13 @@ namespace MKproject.Management
             //Design
             //datagrid payment form
             DesiredRowsdt.Rows[0]["balance"] = UpdatedBalance;
-            DesiredRowsdt.Rows[0]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(UpdatedBalance); ;
             DesiredRowsdt.Rows[0]["offre"] = UpdatedOffre;
-            DesiredRowsdt.Rows[0]["FakeOffer"] = CurrencySymbol + UpdatedOffre;
             DesiredRowsdt.Rows[0]["is_expired"] = NewIsExpired;
 
             ///datagridgrid profile form
             DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
             rowToEdit["offre"] = DesiredRowsdt.Rows[0]["offre"];
-            rowToEdit["FakeOffer"] = DesiredRowsdt.Rows[0]["FakeOffer"];
             rowToEdit["balance"] = DesiredRowsdt.Rows[0]["balance"];
-            rowToEdit["FakeBalance"] = DesiredRowsdt.Rows[0]["FakeBalance"];
             rowToEdit["is_expired"] = DesiredRowsdt.Rows[0]["is_expired"];
 
             //IsExpired State
@@ -1595,7 +1536,6 @@ namespace MKproject.Management
             //design
             //datatgrid Payment form
             DesiredRowsdt.Rows[0]["offre"] = offre;
-            DesiredRowsdt.Rows[0]["FakeOffer"] = (string)DesiredRowsdt.Rows[0]["Symbol"] + offre;
             DesiredRowsdt.Rows[0]["is_expired"] = NewIsExpired;
             if (DueDate == null)//session bundle
             {
@@ -1605,15 +1545,12 @@ namespace MKproject.Management
             {
                 DesiredRowsdt.Rows[0]["session_left_days"] = UpdatedSessionLeftORNoDays;
                 DesiredRowsdt.Rows[0]["due_date"] = NewDueDate;
-                DesiredRowsdt.Rows[0]["DueDate"] = ((DateTime)NewDueDate).ToString("MMMM/dd/yyyy");
             }
             //datagrid profile form
             DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
             rowToEdit["offre"] = DesiredRowsdt.Rows[0]["offre"];
-            rowToEdit["FakeOffer"] = DesiredRowsdt.Rows[0]["FakeOffer"];
             rowToEdit["session_left_days"] = DesiredRowsdt.Rows[0]["session_left_days"];
             rowToEdit["due_date"] = DesiredRowsdt.Rows[0]["due_date"];
-            rowToEdit["DueDate"] = DesiredRowsdt.Rows[0]["DueDate"];
             rowToEdit["is_expired"] = DesiredRowsdt.Rows[0]["is_expired"];
             FormatDatagridviewDesign();
 
@@ -1629,11 +1566,11 @@ namespace MKproject.Management
 
                 if (DueDate == null)// package of session
                 {
-                    ResetUCMode(ClientBalanceID, ToSessionOrDays, null);
+                    ResetUCMode(ClientBalanceID, UpdatedSessionLeftORNoDays, null);
                 }
                 else// package of days
                 {
-                    ResetUCMode(ClientBalanceID, ToSessionOrDays, (DateTime)NewDueDate);
+                    ResetUCMode(ClientBalanceID, UpdatedSessionLeftORNoDays, (DateTime)NewDueDate);
                 }
             }
 
@@ -1761,8 +1698,6 @@ namespace MKproject.Management
 
                 if (DesiredRowF == null && DesiredRowO == null)//adding a row
                 {
-
-
 
                     DesiredRowF = SearchCurrentClientform.Filtereddt.NewRow();
                     DesiredRowO = SearchCurrentClientform.Originaldt.NewRow();
@@ -1958,24 +1893,19 @@ namespace MKproject.Management
                     }
 
 
-                    string balance = Client.TotalBalance.ToString();//cannnot be null
-                    if (balance.Contains('-'))
-                    {
-                        balance = balance.Substring(1);
-                        DesiredRowF["Total Balance"] = "-" + Currency.Symbol + balance;
-                        DesiredRowO["Total Balance"] = "-" + Currency.Symbol + balance;
-                        DesiredRowF["total_balance"] = "-" + balance;
-                        DesiredRowO["total_balance"] = "-" + balance;
+                    string balance = Program.SetBalanceFormat(Client.TotalBalance.ToString());//cannnot be null                                        
+                    DesiredRowF["Total Balance"] = balance;
+                    DesiredRowO["Total Balance"] = balance;
+                    DesiredRowF["total_balance"] = Client.TotalBalance;
+                    DesiredRowO["total_balance"] = Client.TotalBalance;
 
-                    }
-                    else
-                    {
-                        DesiredRowF["Total Balance"] = Currency.Symbol + balance;
-                        DesiredRowO["Total Balance"] = Currency.Symbol + balance;
-                        DesiredRowF["total_balance"] = balance;
-                        DesiredRowO["total_balance"] = balance;
 
-                    }
+
+                    string Payment = Program.SetCashFormat(Client.TotalPayment.ToString());//cannnot be null
+                    DesiredRowF["Total payment"] = Payment;
+                    DesiredRowO["Total payment"] = Payment;
+                    DesiredRowF["total_payment"] = Client.TotalPayment;
+                    DesiredRowO["total_payment"] = Client.TotalPayment;
 
 
 
@@ -1995,24 +1925,6 @@ namespace MKproject.Management
                     DesiredRowF["Type"] = ClientType;
                     DesiredRowO["Type"] = ClientType;
 
-
-                    string Payment = Client.TotalPayment.ToString();//cannnot be null
-                    if (Payment != "0")
-                    {
-
-                        DesiredRowF["Total payment"] = "+" + Currency.Symbol + Payment;
-                        DesiredRowO["Total payment"] = "+" + Currency.Symbol + Payment;
-                        DesiredRowF["total_payment"] = "+" + Payment;
-                        DesiredRowO["total_payment"] = "+" + Payment;
-
-                    }
-                    else
-                    {
-                        DesiredRowF["Total payment"] = Currency.Symbol + Payment;
-                        DesiredRowO["Total payment"] = Currency.Symbol + Payment;
-                        DesiredRowF["total_payment"] = Payment;
-                        DesiredRowO["total_payment"] = Payment;
-                    }
                 }
             }
 

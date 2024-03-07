@@ -35,7 +35,7 @@ namespace MKproject.Management
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerService));
             this.TLPBirthday = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridViewBirthClients = new CustomDataGridView();
+            this.dataGridViewBirthClients = new CustomizedTools.CustomDataGridView();
             this.labelClientsBirthday = new System.Windows.Forms.Label();
             this.pictureBoxBirthdayCake = new System.Windows.Forms.PictureBox();
             this.TLPMain = new System.Windows.Forms.TableLayoutPanel();
@@ -78,7 +78,7 @@ namespace MKproject.Management
             this.dataGridViewBirthClients.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
@@ -118,6 +118,7 @@ namespace MKproject.Management
             this.dataGridViewBirthClients.Size = new System.Drawing.Size(530, 363);
             this.dataGridViewBirthClients.TabIndex = 28;
             this.dataGridViewBirthClients.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBirthClients_CellClick);
+            this.dataGridViewBirthClients.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewBirthClients_CellFormatting);
             // 
             // labelClientsBirthday
             // 

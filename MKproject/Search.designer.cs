@@ -115,6 +115,7 @@ namespace MKproject
             this.dataGridViewMembers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMembers.Size = new System.Drawing.Size(351, 153);
             this.dataGridViewMembers.TabIndex = 19;
+            this.dataGridViewMembers.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewMembers_CellFormatting);
             this.dataGridViewMembers.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewMembers_CellMouseClick);
             this.dataGridViewMembers.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMembers_CellMouseLeave);
             this.dataGridViewMembers.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewMembers_CellMouseMove);

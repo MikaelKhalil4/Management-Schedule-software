@@ -41,7 +41,7 @@ namespace MKproject.Management
 
             FormatOriginaldt();
             FillDataGridview();
-    
+
             ucSlideButton.button1.Text = "Select existing parent";
             ucSlideButton.button2.Text = "Add a new parent";
             ucSlideButton.Button1Clicked += UcSlideButton_Button1Clicked;
@@ -53,7 +53,7 @@ namespace MKproject.Management
             TLPGlobal.Dock = DockStyle.Fill;
             ucSlideButton.button1_Click(null, EventArgs.Empty);
 
-        
+
 
         }//try catch
         private void ChildParent_Load(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace MKproject.Management
                 DataTable dt = SQLToProject.GetChildParentVisibleFields();
 
                 //Design
-                int controlsWidth = FLPAddParent.Width-10;
+                int controlsWidth = FLPAddParent.Width - 10;
                 foreach (DataRow row in dt.Rows)
                 {
                     bool isRequired = (bool)row["Required"];
@@ -245,22 +245,7 @@ namespace MKproject.Management
             string NotAvailable = "N/A";
             foreach (DataRow d in Originaldt.Rows)
             {
-
-                string phone_number = NotAvailable;
-                if (d["Phone Number"] != DBNull.Value)
-                {
-                    phone_number = d["Phone Number"].ToString();
-                }
-
-                string Adress = NotAvailable;
-                if (d["Adress"] != DBNull.Value)
-                {
-                    Adress = d["Adress"].ToString();
-                }
-
-                d["Full Name"] = d["name"] + " " + d["family_name"];
-                d["Phone Number"] = phone_number;
-                d["Adress"] = Adress;
+               d["Full Name"] = d["name"] + " " + d["family_name"];       
             }
 
 
@@ -284,6 +269,16 @@ namespace MKproject.Management
 
             FilterDt = Originaldt;
 
+        }
+        private void dataGridViewSelectParent_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
+                {
+                    e.Value = "N/A";
+                }
+            }
         }
         private void FillDataGridview()
         {
@@ -332,7 +327,7 @@ namespace MKproject.Management
                     adress = null;
                 }
 
-             
+
 
                 ParentFormNewRegist.ParentId = parenId;
 
@@ -369,7 +364,7 @@ namespace MKproject.Management
 
         private void UcSlideButton_Button2Clicked(object sender, EventArgs e)
         {
-            SetModeDesign(false);         
+            SetModeDesign(false);
             fillAddParentWithControls();
         }
         private void UcSlideButton_Button1Clicked(object sender, EventArgs e)
@@ -403,6 +398,6 @@ namespace MKproject.Management
             this.Close();
         }
 
-
+      
     }
 }

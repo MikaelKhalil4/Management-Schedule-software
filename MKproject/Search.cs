@@ -54,16 +54,8 @@ namespace MKproject
         {
             Originaldt.Columns.Add("Full Name", typeof(string));
 
-            string NotAvailable = "N/A";
             foreach (DataRow d in Originaldt.Rows)
             {
-                string phone_number = NotAvailable;
-                if (d["Phone Number"] != DBNull.Value)
-                {
-                    phone_number = d["Phone Number"].ToString();
-                }
-                d["Phone Number"] = phone_number;
-
                 d["Full Name"] = d["name"] + " " + d["family_name"];
             }
             //ordering
@@ -85,6 +77,18 @@ namespace MKproject
             FilterDt = Originaldt;
 
         }
+        private void dataGridViewMembers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
+                {
+                    e.Value = "N/A";
+                }
+             
+            }
+        }
+
         private void FillDataGridview()
         {
 
@@ -209,5 +213,7 @@ namespace MKproject
                 return cp;
             }
         }
+
+
     }
 }

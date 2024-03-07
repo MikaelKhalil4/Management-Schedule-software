@@ -1,5 +1,6 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
+using OpenTK;
 using System;
 using System.Data;
 using System.Drawing;
@@ -10,18 +11,17 @@ namespace MKproject.Management
 {
     public partial class UCBundlePackage : UserControl
     {
-        Currency Currency = new Currency();
         Label labelBalanceDetails;
         Label labelBalance;
-        Button buttonRemove;
-        Button buttonRenew;
-        Button buttonReduceSession;
-        Button buttonFreeze;
+        CustomButton buttonRemove;
+        CustomButton buttonRenew;
+        CustomButton buttonReduceSession;
+        CustomButton buttonFreeze;
         //Button buttonReduceSession = new Button();
         bool IsActiveMode = false;
         bool IsDesactiveMode = false;
 
-        public Color ColorMouseOver = Color.WhiteSmoke;
+        public Color ColorMouseOver = Color.FromArgb(222, 222, 222);
         public Color ColorDedault = Color.White;
 
         Color ColorActiveMode = Color.FromArgb(128, 128, 255);
@@ -180,7 +180,7 @@ namespace MKproject.Management
                     if (!IsFromSchedule)
                     {
                         buttonFreeze.Text = Freeze;
-                        buttonFreeze.BackColor = ColorActiveMode;
+                        buttonFreeze.BackAndMouseHoverColor = ColorActiveMode;
                     }
                     labelSessiosOrDaysDetails.ForeColor = Color.Green;
                     labelDueDateDetails.ForeColor = Color.Black;
@@ -191,7 +191,7 @@ namespace MKproject.Management
                     if (!IsFromSchedule)
                     {
                         buttonFreeze.Text = "Reacticate";
-                        buttonFreeze.BackColor = ColorFreezing;
+                        buttonFreeze.BackAndMouseHoverColor = ColorFreezing;
                     }
                     labelSessiosOrDaysDetails.ForeColor = ColorFreezing;
                     labelDueDateDetails.ForeColor = ColorFreezing;
@@ -300,52 +300,44 @@ namespace MKproject.Management
         }
         void CreateButtons()
         {
-            buttonReduceSession = new Button();
-            buttonReduceSession.Text = Reduce;
+            buttonReduceSession = new CustomButton();
+            buttonReduceSession.Text ="Reduce";
             buttonReduceSession.Size = new Size(122, 34);
             buttonReduceSession.Margin = new Padding(5);
-            buttonReduceSession.BackColor = Color.FromArgb(109, 122, 224);
-            buttonReduceSession.ForeColor = Color.White;
-            buttonReduceSession.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            buttonReduceSession.BackAndMouseHoverColor = Color.FromArgb(109, 122, 224);
             buttonReduceSession.Anchor = AnchorStyles.None;
-            buttonReduceSession.FlatStyle = FlatStyle.Flat;
-            buttonReduceSession.Cursor = Cursors.Hand;
             buttonReduceSession.Click += ButtonReduceSession_Click;
+            buttonReduceSession.MouseMove += Control_MouseMove;
+            buttonReduceSession.MouseLeave += Control_MouseLeave;
 
-            buttonFreeze = new Button();
+            buttonFreeze = new CustomButton();
             buttonFreeze.Size = new Size(122, 34);
             buttonFreeze.Margin = new Padding(5);
-            buttonFreeze.BackColor = Color.FromArgb(109, 122, 224);
-            buttonFreeze.ForeColor = Color.White;
-            buttonFreeze.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            buttonFreeze.BackAndMouseHoverColor = Color.FromArgb(109, 122, 224);
             buttonFreeze.Anchor = AnchorStyles.None;
-            buttonFreeze.FlatStyle = FlatStyle.Flat;
-            buttonFreeze.Cursor = Cursors.Hand;
             buttonFreeze.Click += ButtonFreeze_Click;
+            buttonFreeze.MouseMove += Control_MouseMove;
+            buttonFreeze.MouseLeave += Control_MouseLeave;
 
-            buttonRemove = new Button();
-            buttonRemove.Anchor = AnchorStyles.Top;
+            buttonRemove = new CustomButton();
             buttonRemove.Size = new Size(128, 34);
             buttonRemove.Margin = new Padding(5);
-            buttonRemove.BackColor = Color.Red;
-            buttonRemove.ForeColor = Color.White;
-            buttonRemove.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            buttonRemove.BackAndMouseHoverColor = Color.Red;
+            buttonRemove.FlatAppearance.MouseOverBackColor= Color.FromArgb(255 - 30, 0, 0);
+           buttonRemove.FlatAppearance.MouseDownBackColor= Color.FromArgb(255 - 90, 0, 0);
             buttonRemove.Anchor = AnchorStyles.None;
-            buttonRemove.FlatStyle = FlatStyle.Flat;
-            buttonRemove.Cursor = Cursors.Hand;
             buttonRemove.Click += ButtonRemove_Click;
+            buttonRemove.MouseMove += Control_MouseMove;
+            buttonRemove.MouseLeave += Control_MouseLeave;
 
-            buttonRenew = new Button();
-            buttonRenew.Anchor = AnchorStyles.Bottom;
+            buttonRenew = new CustomButton();
             buttonRenew.Size = new Size(126, 34);
             buttonRenew.Margin = new Padding(5);
-            buttonRenew.BackColor = Color.FromArgb(109, 122, 224);
-            buttonRenew.ForeColor = Color.White;
-            buttonRenew.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            buttonRenew.BackAndMouseHoverColor = Color.FromArgb(109, 122, 224);
             buttonRenew.Anchor = AnchorStyles.None;
-            buttonRenew.FlatStyle = FlatStyle.Flat;
-            buttonRenew.Cursor = Cursors.Hand;
             buttonRenew.Click += ButtonRenew_Click;
+            buttonRenew.MouseMove += Control_MouseMove;
+            buttonRenew.MouseLeave += Control_MouseLeave;
         }
 
         public void CreateUCPackage(DataRow dr)
@@ -411,7 +403,7 @@ namespace MKproject.Management
                     labelBalanceDetails.ForeColor = Color.Black;
                     this.IsInDebt = false;
                 }
-                labelBalanceDetails.Text = ClassChosenClientBalance.SetBalanceFormat(balance); 
+                labelBalanceDetails.Text = Program.SetBalanceFormat(balance); 
 
             }
 
@@ -427,7 +419,7 @@ namespace MKproject.Management
             }
             foreach (Control control in TLPglobal.Controls)
             {
-                if (!(control is Button))
+                if (!(control is CustomButton))
                 {
                     control.MouseClick += Control_MouseClick;
                 }

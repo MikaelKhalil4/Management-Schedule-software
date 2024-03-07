@@ -501,7 +501,7 @@ namespace MKproject.Management
                 employee.UpdateEmployee();
 
 
-                //design
+                //design in datatgrid
                 if (DesiredRow != null)
                 {
                     DesiredRow["first_name"] = employee.Fname;
@@ -511,7 +511,6 @@ namespace MKproject.Management
                     DesiredRow["access"] = employee.Access;
                     DesiredRow["FakeStatus"] = employee.Status;
                     DesiredRow["status"] = employee.Status;
-                    ParentFormViewEmpl.FixColumnFakeAccess(DesiredRow);
                 }
                 this.Close();
 
@@ -526,12 +525,10 @@ namespace MKproject.Management
                 if (DesiredRow != null || EmployeeId != null)
                 {
                     UpdateEmployee();
-                    ParentFormViewEmpl.FormatDatagridViewColors();
                 }
                 else
                 {
                     AddEmployee();
-                    ParentFormViewEmpl.FormatDatagridViewColors();
                 }
               
             }

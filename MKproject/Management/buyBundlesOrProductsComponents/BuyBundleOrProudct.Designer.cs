@@ -33,7 +33,7 @@
             this.FLPSelectedItems = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonBuy = new System.Windows.Forms.Button();
-            this.UCItemCost = new UCPayments();
+            this.UCItemCost = new MKproject.Management.UCPayments();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.TLPExercises.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -92,7 +92,7 @@
             this.buttonBuy.Name = "buttonBuy";
             this.buttonBuy.Size = new System.Drawing.Size(93, 29);
             this.buttonBuy.TabIndex = 732;
-            this.buttonBuy.Text = "Buy";
+            this.buttonBuy.Text = "Purchase";
             this.buttonBuy.UseVisualStyleBackColor = false;
             this.buttonBuy.Click += new System.EventHandler(this.buttonBuy_Click);
             // 

@@ -75,6 +75,7 @@ namespace MKproject.Management
             this.dataGridViewBundles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewBundles.Size = new System.Drawing.Size(443, 320);
             this.dataGridViewBundles.TabIndex = 0;
+            this.dataGridViewBundles.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewBundles_CellFormatting);
             this.dataGridViewBundles.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewBundles_CellMouseDown);
             // 
             // UCBundlesOutput

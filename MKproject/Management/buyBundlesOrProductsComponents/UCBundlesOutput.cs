@@ -31,35 +31,24 @@ namespace MKproject.Management
 
 
 
-        String StringMembership = "MemberShip", StringNotMembership = "Not MemberShip";
         public void FormatdtBundles(DataTable dt)
         {
             dt.Columns.Add("ColumnCheck", typeof(bool));
             dt.Columns.Add("Membership", typeof(string));
-            dt.Columns.Add("FakePrice", typeof(string));
             dt.Columns.Add("BundleDetails", typeof(string));
             foreach (DataRow row in dt.Rows)
             {
-                if (row["description"] == DBNull.Value)
-                {
-                    row["description"] = "N/A";
-                }
-                else
-                {
-                    row["description"] = row["description"].ToString();
-                }
-
+              
                 if ((bool)row["is_member_ship"] == true)
                 {
-                    row["Membership"] = StringMembership;
+                    row["Membership"] = "MemberShip";
                 }
                 else
                 {
-                    row["Membership"] = StringNotMembership;
+                    row["Membership"] = "Not MemberShip";
                 }
 
                 row["ColumnCheck"] = false;
-                row["FakePrice"] = Currency.Symbol + row["price"];
                 row["BundleDetails"] = row["sessions_numb"] + " " + row["bundle_type"];
             }
 
@@ -86,7 +75,7 @@ namespace MKproject.Management
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
-            columnIndexToMove = dt.Columns.IndexOf("FakePrice"); // Replace with the actual column name
+            columnIndexToMove = dt.Columns.IndexOf("price"); // Replace with the actual column name
             newIndex = 4; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
@@ -95,11 +84,31 @@ namespace MKproject.Management
             newIndex = 5; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
         }
+
+        private void dataGridViewBundles_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
+                {
+                    e.Value = "N/A";
+                }
+                else
+                {
+                    //text display
+                    if (dataGridViewBundles.Columns[e.ColumnIndex].Name == "price")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());
+                    }
+                }
+            }
+        }
+
+
         public void FormatDatagridViewBundles(DataTable dtBundles)
         {
             dataGridViewBundles.DataSource = dtBundles;
 
-            dataGridViewBundles.Columns["price"].Visible = false;
             dataGridViewBundles.Columns["is_member_ship"].Visible = false;
             dataGridViewBundles.Columns["Currency_Name"].Visible = false;
             dataGridViewBundles.Columns["bundle_id"].Visible = false;
@@ -114,9 +123,8 @@ namespace MKproject.Management
             dataGridViewBundles.Columns["ColumnCheck"].FillWeight = 8;
             dataGridViewBundles.Columns["bundle_name"].FillWeight = 22;
             dataGridViewBundles.Columns["BundleDetails"].FillWeight = 22;
-            dataGridViewBundles.Columns["FakePrice"].FillWeight = 11;
+            dataGridViewBundles.Columns["price"].FillWeight = 11;
             dataGridViewBundles.Columns["description"].FillWeight = 15;
-
 
         }
 
@@ -193,6 +201,7 @@ namespace MKproject.Management
             }
         }
 
+
         void FillingBundleDetails(DataGridViewRow DesiredRow, ClassBundles Bundle)
         {
             Bundle.ID = Convert.ToInt16(DesiredRow.Cells["bundle_id"].Value);
@@ -211,7 +220,7 @@ namespace MKproject.Management
 
             Bundle.Price = Convert.ToDouble(RandomFunctions.ExtractDigits(Convert.ToString(DesiredRow.Cells["price"].Value)));
 
-            if (DesiredRow.Cells["Membership"].Value.ToString() == StringMembership)
+            if ((bool)DesiredRow.Cells["is_member_ship"].Value)
             {
                 Bundle.IsMemberShip = true;
             }

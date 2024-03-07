@@ -8,9 +8,6 @@ namespace MKproject.Management
 {
     public partial class UCPayments : UserControl
     {
-
-        Currency Currency = new Currency();
-
         private bool editModeOn;
 
 
@@ -162,15 +159,12 @@ namespace MKproject.Management
                     // Remove the character behind the cursor
                     textBox.Text = textBox.Text.Remove(cursorPosition - 1, 1);
 
-                    // Move the cursor back one position
                     textBox.SelectionStart = cursorPosition - 1;
 
-                    // Suppress the key event to prevent default Backspace behavior
                     e.SuppressKeyPress = true;
                 }
                 else
                 {
-                    // Suppress the key event to prevent default Backspace behavior
                     e.SuppressKeyPress = true;
                 }
             }

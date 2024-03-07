@@ -36,11 +36,7 @@ namespace MKproject.Management
             TLPGlobal.Click += ClearDataGridSelectionOnClick_Click;
             panelResults.Click += ClearDataGridSelectionOnClick_Click;
             //FilterOn
-
-
             LoadForm();
-
-
         }
         private void SearchCurrentClient_Load(object sender, EventArgs e)
         {
@@ -137,7 +133,7 @@ namespace MKproject.Management
 
         public void FormatOrginaldt()
         {
-
+            //this methode has been used, for not loosing the order while changing the values
             //creating the new columns and deletening the old ones
             Originaldt.Columns.Add("Full Name", typeof(string));
             Originaldt.Columns.Add("Age Category", typeof(string));
@@ -148,6 +144,8 @@ namespace MKproject.Management
             Originaldt.Columns.Add("Last Visit", typeof(string));
             Originaldt.Columns.Add("Registration Date", typeof(string));
             Originaldt.Columns.Add("Total Attendance", typeof(int));
+
+            //related for the packages
             Originaldt.Columns.Add("Packages Remaining", typeof(string));
             Originaldt.Columns.Add("Packages Status", typeof(int));//ha ykun fiya only 3 values, 2:black,1:orange,0: red, so when we order, it will order respecteing to the status
             Originaldt.Columns.Add("Packages HasStatus", typeof(int));//ha ykun fiya only 2 values 1:if value exisit 0,if value is null
@@ -155,12 +153,6 @@ namespace MKproject.Management
             string NotAvailable = "N/A";
             foreach (DataRow d in Originaldt.Rows)
             {
-
-                string phone_number = NotAvailable;
-                if (d["Phone Number"] != DBNull.Value)
-                {
-                    phone_number = d["Phone Number"].ToString();
-                }
 
 
                 string ClientType = NotAvailable;
@@ -178,13 +170,6 @@ namespace MKproject.Management
                 }
 
 
-
-                string Album = NotAvailable;
-                if (d["Album"] != DBNull.Value)
-                {
-                    Album = d["Album"].ToString();
-                }
-
                 string SaveDate = NotAvailable;
                 if (d["save_date"] != DBNull.Value)
                 {
@@ -198,11 +183,13 @@ namespace MKproject.Management
                     LastVisit = RandomFunctions.SetDateFormat(d["check_in"].ToString());
                 }
 
+
                 string RegistrationDate = NotAvailable;
                 if (d["Registration_Date"] != DBNull.Value)
                 {
                     RegistrationDate = RandomFunctions.SetDateFormat(d["Registration_Date"].ToString());
                 }
+
 
                 string AgeCategory = NotAvailable;
                 if (d["IsChild"] != DBNull.Value)
@@ -213,56 +200,22 @@ namespace MKproject.Management
                         AgeCategory = UCComboBoxFilterSearch.Adult;
                 }
 
-                string Gender = NotAvailable;
-                if (d["Gender"] != DBNull.Value)
-                {
-                    Gender = d["Gender"].ToString();
-                }
 
-                string Job = NotAvailable;
-                if (d["Job"] != DBNull.Value)
-                {
-                    Job = d["job"].ToString();
-                }
+                string balance = Program.SetBalanceFormat(d["total_balance"].ToString());//cannnot be null
 
-
-                string Adress = NotAvailable;
-                if (d["Adress"] != DBNull.Value)
-                {
-                    Adress = d["Adress"].ToString();
-                }
-
-                string balance = d["total_balance"].ToString();//cannnot be null
-
-                string Payment = d["total_payment"].ToString();//cannnot be null
-                if (Payment != "0")
-                {
-
-                    Payment = "+" + Currency.Symbol + Payment;
-
-                }
-                else
-                {
-                    Payment = Currency.Symbol + Payment;
-                }
-
-
+                string Payment =Program.SetCashFormat(d["total_payment"].ToString());//cannnot be null
+            
 
 
 
                 //new original dt
                 d["Full Name"] = d["name"] + " " + d["family_name"];
-                d["Phone Number"] = phone_number;
-                d["Gender"] = Gender;
                 d["Age Category"] = AgeCategory;
-                d["Job"] = Job;
-                d["Adress"] = Adress;
                 d["Type"] = ClientType;
-                d["Album"] = Album;
                 d["Save Date"] = SaveDate;
                 d["Last Visit"] = LastVisit;
                 d["Registration Date"] = RegistrationDate;
-                d["Total Balance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
+                d["Total Balance"] = balance;
                 d["Total payment"] = Payment;
 
                 //the rest should obligatory have values
@@ -324,6 +277,53 @@ namespace MKproject.Management
             dataGridViewClients.RowTemplate.MinimumHeight = 40; // Set minimum row height
             pictureBoxSearch.Select();
 
+        }
+        private void dataGridViewClients_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//ejbare hone estaamil this methode, lieanno mb3rf exactly leh bas iguess  men warar el visibility
+        {
+
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                //textdisplay
+                if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
+                {
+                    e.Value = "N/A";
+                }
+                else
+                {
+                    //eza fi osas gher
+                }
+
+                //design
+                DataGridViewCell cell = dataGridViewClients.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Total Balance")
+                {
+                    if (!Convert.ToString(cell.Value).Contains("$0"))
+                    {
+                        cell.Style.ForeColor = Color.Red;
+                        cell.Style.SelectionForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        cell.Style.ForeColor = Color.FromArgb(64, 64, 64); ;
+                        cell.Style.SelectionForeColor = Color.FromArgb(64, 64, 64); ;
+                    }
+                }
+                else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Total Payment")
+                {
+                    if (!Convert.ToString(cell.Value).Contains("$0"))
+                    {
+                        cell.Style.ForeColor = Color.Green;
+                        cell.Style.SelectionForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        cell.Style.ForeColor = Color.FromArgb(64, 64, 64); ;
+                        cell.Style.SelectionForeColor = Color.FromArgb(64, 64, 64); ;
+                    }
+                }
+
+            }
         }
 
 
@@ -507,40 +507,6 @@ namespace MKproject.Management
             dataGridViewClients.ClearSelection();
             buttonResetOrder.Visible = true;
         } //sorting
-        private void dataGridViewClients_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//ejbare hone estaamil this methode, lieanno mb3rf exactly leh bas iguess  men warar el visibility
-        {
-            if (e.RowIndex >= 0) // Assuming "balance" is the name of your balance column
-            {
-                DataGridViewCell cell = dataGridViewClients.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                if (e.ColumnIndex == dataGridViewClients.Columns["Total Balance"].Index)
-                {
-                    if (!Convert.ToString(cell.Value).Contains("$0"))
-                    {
-                        cell.Style.ForeColor = Color.Red;
-                        cell.Style.SelectionForeColor = Color.Red;
-                    }
-                    else
-                    {
-                        cell.Style.ForeColor = Color.FromArgb(64, 64, 64); ;
-                        cell.Style.SelectionForeColor = Color.FromArgb(64, 64, 64); ;
-                    }
-                }
-                else if (e.ColumnIndex == dataGridViewClients.Columns["Total Payment"].Index)
-                {
-                    if (!Convert.ToString(cell.Value).Contains("$0"))
-                    {
-                        cell.Style.ForeColor = Color.Green;
-                        cell.Style.SelectionForeColor = Color.Green;
-                    }
-                    else
-                    {
-                        cell.Style.ForeColor = Color.FromArgb(64, 64, 64); ;
-                        cell.Style.SelectionForeColor = Color.FromArgb(64, 64, 64); ;
-                    }
-                }
-              
-            }
-        }
         private void dataGridViewClients_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.ColumnIndex == dataGridViewClients.Columns["Packages Remaining"].Index && e.RowIndex >= 0)

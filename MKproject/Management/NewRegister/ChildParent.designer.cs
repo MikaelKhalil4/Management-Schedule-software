@@ -114,6 +114,9 @@ namespace MKproject.Management
             // 
             this.ucSlideButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ucSlideButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
+            this.ucSlideButton.Button1text = null;
+            this.ucSlideButton.Button2text = null;
+            this.ucSlideButton.ClickedButton = null;
             this.ucSlideButton.Location = new System.Drawing.Point(20, 3);
             this.ucSlideButton.Name = "ucSlideButton";
             this.ucSlideButton.Size = new System.Drawing.Size(311, 39);
@@ -228,6 +231,7 @@ namespace MKproject.Management
             this.dataGridViewSelectParent.Size = new System.Drawing.Size(328, 354);
             this.dataGridViewSelectParent.TabIndex = 31;
             this.dataGridViewSelectParent.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSelectParent_CellDoubleClick);
+            this.dataGridViewSelectParent.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewSelectParent_CellFormatting);
             // 
             // textBoxSearch
             // 

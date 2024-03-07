@@ -35,9 +35,9 @@ namespace MKproject.Management
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TLPMain = new System.Windows.Forms.TableLayoutPanel();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.dataGridViewEdit = new CustomDataGridView();
+            this.dataGridViewEdit = new CustomizedTools.CustomDataGridView();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ucSlideButtonBundleProduct = new UCSlideButton();
+            this.ucSlideButtonBundleProduct = new CustomizedTools.UCSlideButton();
             this.TLPMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEdit)).BeginInit();
             this.SuspendLayout();
@@ -92,7 +92,7 @@ namespace MKproject.Management
             this.dataGridViewEdit.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
@@ -133,6 +133,7 @@ namespace MKproject.Management
             this.dataGridViewEdit.Size = new System.Drawing.Size(813, 537);
             this.dataGridViewEdit.TabIndex = 23;
             this.dataGridViewEdit.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEdit_CellContentClick);
+            this.dataGridViewEdit.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewEdit_CellFormatting);
             // 
             // Edit
             // 
@@ -156,6 +157,9 @@ namespace MKproject.Management
             // 
             this.ucSlideButtonBundleProduct.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ucSlideButtonBundleProduct.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
+            this.ucSlideButtonBundleProduct.Button1text = null;
+            this.ucSlideButtonBundleProduct.Button2text = null;
+            this.ucSlideButtonBundleProduct.ClickedButton = null;
             this.ucSlideButtonBundleProduct.Location = new System.Drawing.Point(294, 13);
             this.ucSlideButtonBundleProduct.Name = "ucSlideButtonBundleProduct";
             this.ucSlideButtonBundleProduct.Size = new System.Drawing.Size(230, 40);

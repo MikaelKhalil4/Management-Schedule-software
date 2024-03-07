@@ -31,21 +31,21 @@ namespace MKproject.Management
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TLPForm = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewBalance = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonUpdateOrPay = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.TLPEditInfo = new System.Windows.Forms.TableLayoutPanel();
             this.labelPaymentSession = new System.Windows.Forms.Label();
             this.TLPBalance = new System.Windows.Forms.TableLayoutPanel();
+            this.UCBalance = new MKproject.Management.UCPayments();
             this.labelBalance = new System.Windows.Forms.Label();
+            this.ucSlideButtonPayOrEdit = new CustomizedTools.UCSlideButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.UCBalance = new UCPayments();
-            this.ucSlideButtonPayOrEdit = new UCSlideButton();
             this.TLPForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBalance)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -81,33 +81,33 @@ namespace MKproject.Management
             this.dataGridViewBalance.AllowUserToDeleteRows = false;
             this.dataGridViewBalance.AllowUserToResizeColumns = false;
             this.dataGridViewBalance.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.dataGridViewBalance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridViewBalance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewBalance.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewBalance.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewBalance.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewBalance.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewBalance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewBalance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewBalance.ColumnHeadersHeight = 50;
             this.dataGridViewBalance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TLPForm.SetColumnSpan(this.dataGridViewBalance, 2);
             this.dataGridViewBalance.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewBalance.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewBalance.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewBalance.EnableHeadersVisualStyles = false;
             this.dataGridViewBalance.Location = new System.Drawing.Point(10, 240);
@@ -157,6 +157,25 @@ namespace MKproject.Management
             this.buttonUpdateOrPay.UseVisualStyleBackColor = false;
             this.buttonUpdateOrPay.Click += new System.EventHandler(this.buttonUpdateOrPay_Click);
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
+            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonCancel.FlatAppearance.BorderSize = 0;
+            this.buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.buttonCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonCancel.Location = new System.Drawing.Point(661, 3);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 3, 7, 3);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(93, 29);
+            this.buttonCancel.TabIndex = 737;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = false;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
             // TLPEditInfo
             // 
             this.TLPEditInfo.BackColor = System.Drawing.Color.White;
@@ -202,43 +221,6 @@ namespace MKproject.Management
             this.TLPBalance.Size = new System.Drawing.Size(330, 122);
             this.TLPBalance.TabIndex = 22;
             // 
-            // labelBalance
-            // 
-            this.labelBalance.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labelBalance.AutoSize = true;
-            this.labelBalance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBalance.Location = new System.Drawing.Point(125, 6);
-            this.labelBalance.Name = "labelBalance";
-            this.labelBalance.Size = new System.Drawing.Size(80, 25);
-            this.labelBalance.TabIndex = 5;
-            this.labelBalance.Text = "Balance";
-            this.labelBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCancel.FlatAppearance.BorderSize = 0;
-            this.buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(661, 3);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 3, 7, 3);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(93, 29);
-            this.buttonCancel.TabIndex = 737;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // UCBalance
             // 
             this.UCBalance.Amount = 200D;
@@ -251,15 +233,36 @@ namespace MKproject.Management
             this.UCBalance.Size = new System.Drawing.Size(324, 79);
             this.UCBalance.TabIndex = 1;
             // 
+            // labelBalance
+            // 
+            this.labelBalance.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelBalance.AutoSize = true;
+            this.labelBalance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBalance.Location = new System.Drawing.Point(125, 6);
+            this.labelBalance.Name = "labelBalance";
+            this.labelBalance.Size = new System.Drawing.Size(80, 25);
+            this.labelBalance.TabIndex = 5;
+            this.labelBalance.Text = "Balance";
+            this.labelBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ucSlideButtonPayOrEdit
             // 
             this.ucSlideButtonPayOrEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ucSlideButtonPayOrEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
+            this.ucSlideButtonPayOrEdit.Button1text = null;
+            this.ucSlideButtonPayOrEdit.Button2text = null;
+            this.ucSlideButtonPayOrEdit.ClickedButton = null;
             this.TLPForm.SetColumnSpan(this.ucSlideButtonPayOrEdit, 2);
             this.ucSlideButtonPayOrEdit.Location = new System.Drawing.Point(315, 4);
             this.ucSlideButtonPayOrEdit.Name = "ucSlideButtonPayOrEdit";
             this.ucSlideButtonPayOrEdit.Size = new System.Drawing.Size(230, 40);
             this.ucSlideButtonPayOrEdit.TabIndex = 25;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Payment
             // 

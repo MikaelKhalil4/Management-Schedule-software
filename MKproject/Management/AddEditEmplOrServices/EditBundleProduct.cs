@@ -222,7 +222,6 @@ namespace MKproject.Management
             DesiredRow["bundle_name"] = bundle.Name;
             DesiredRow["bundle_type"] = bundle.Bundletype;
             DesiredRow["price"] = bundle.Price;
-            DesiredRow["FakePrice"] = Currency.Symbol + bundle.Price;
             DesiredRow["status"] = bundle.Status;
             DesiredRow["FakeStatus"] = bundle.Status;
             DesiredRow["is_member_ship"] = bundle.IsMemberShip;
@@ -393,7 +392,6 @@ namespace MKproject.Management
             //design
             DesiredRow["product_name"] = product.Name;
             DesiredRow["product_price"] = product.Price;
-            DesiredRow["FakePrice"] = Currency.Symbol + product.Price;
             DesiredRow["status"] = product.Status;
             DesiredRow["FakeStatus"] = product.Status;
         }
@@ -450,7 +448,6 @@ namespace MKproject.Management
                         if (!BundleNameExists(UCBundleName.myTextBox1.Text))
                         {
                             UpdateBundle();
-                            ParentFormViewBundle.FormatDatagridViewColors();
                             this.Close();
                         }
                     }
@@ -459,7 +456,6 @@ namespace MKproject.Management
                         if (!BundleNameExists(UCBundleName.myTextBox1.Text))
                         {
                             AddBundle();
-                            ParentFormViewBundle.FormatDatagridViewColors();
                             this.Close();
                         }
                     }
@@ -474,7 +470,6 @@ namespace MKproject.Management
                         if (!ProductNameExists(UCBundleName.myTextBox1.Text))
                         {
                             UpdateProduct();
-                            ParentFormViewBundle.FormatDatagridViewColors();
                             this.Close();
                         }
                     }
@@ -483,7 +478,6 @@ namespace MKproject.Management
                         if (!ProductNameExists(UCBundleName.myTextBox1.Text))
                         {
                             AddProduct();
-                            ParentFormViewBundle.FormatDatagridViewColors();
                             this.Close();
                         }
                     }

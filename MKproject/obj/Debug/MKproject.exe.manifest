@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>798UN8Qb6iLE68msvjdehJRwhkz8cavwdF4mGP3xzVk=</dsig:DigestValue>
+        <dsig:DigestValue>OzIuLwMFM6bm7//5bkmUqSTbtByzF3DbglZpukRIic4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2012568">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MKproject.exe" size="2010008">
       <assemblyIdentity name="MKproject" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>M47V2M2coA3jomMlVPI+cIp4IB6b6IT3J0qBqOYI+jI=</dsig:DigestValue>
+        <dsig:DigestValue>ZG+gDZvMmEYXDRP0no7DLxmOQSj+LSclb6mmZ4KaO2w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

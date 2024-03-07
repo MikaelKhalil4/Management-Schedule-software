@@ -71,7 +71,6 @@ namespace MKproject.Management
 
             this.Opacity = 0;
             this.TopMost = true;
-
         }
 
 
@@ -143,11 +142,12 @@ namespace MKproject.Management
             dataGridViewBalance.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewBalance.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel taamil stretch aa kell surface  horizontally
             dataGridViewBalance.RowTemplate.MinimumHeight = 40; // Set minimum row height
+        
             if (DesiredRowsdt.Rows.Count == 1)//ma lezim tkun =0, this execption should be handled by design
             {
                 if (DesiredRowsdt.Rows[0]["due_date"] != DBNull.Value)
                 {
-                    dataGridViewBalance.Columns["DueDate"].Visible = true;
+                    dataGridViewBalance.Columns["due_date"].Visible = true;
                 }
             }
 
@@ -170,6 +170,8 @@ namespace MKproject.Management
             }
             IsPayementMode = true;
         }
+
+       
         void SetUCSlidebutton()
         {
 
@@ -412,9 +414,7 @@ namespace MKproject.Management
 
                     //Design
                     DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                     DesiredRowsdt.Rows[i]["amount_paid"] = AmoutPerRow + (double)DesiredRowsdt.Rows[i]["amount_paid"];
-                    DesiredRowsdt.Rows[i]["Paid"] = DesiredRowsdt.Rows[i]["Symbol"].ToString() + DesiredRowsdt.Rows[i]["amount_paid"].ToString();
                     //IsExpired and only for products cz bundles mesh men hone
                     if (!IsBundleOrProduct)//product or sevice
                     {
@@ -453,9 +453,7 @@ namespace MKproject.Management
 
                     //Design
                     DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["FakeBalance"] = ClassChosenClientBalance.SetBalanceFormat(balance);
                     DesiredRowsdt.Rows[i]["amount_paid"] = AmountPaid + (double)DesiredRowsdt.Rows[i]["amount_paid"];
-                    DesiredRowsdt.Rows[i]["Paid"] = DesiredRowsdt.Rows[i]["Symbol"].ToString() + DesiredRowsdt.Rows[i]["amount_paid"].ToString();
                     ListFinanceUpdates.Add((AmountPaid, ClientBalanceId));
 
                     //
@@ -482,9 +480,7 @@ namespace MKproject.Management
             {
                 DataRow rowToEdit = ClientManagementProfileParentForm.dtClientBalanceOriginal.Rows.Find(DesiredRowsdt.Rows[k]["ID"]);
                 rowToEdit["balance"] = DesiredRowsdt.Rows[k]["balance"];
-                rowToEdit["FakeBalance"] = DesiredRowsdt.Rows[k]["FakeBalance"];
                 rowToEdit["amount_paid"] = DesiredRowsdt.Rows[k]["amount_paid"];
-                rowToEdit["Paid"] = DesiredRowsdt.Rows[k]["Paid"];
                 rowToEdit["is_expired"] = DesiredRowsdt.Rows[k]["is_expired"];
 
                 if (IsProduct ||(IsPackageOrSolo!=null && !(bool)IsPackageOrSolo))//lieano el bundle men shello el expiry bel remove or renew
@@ -532,24 +528,7 @@ namespace MKproject.Management
 
 
 
-        private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.RowIndex >= 0) // Assuming "balance" is the name of your balance column
-            {
-                DataGridViewCell cell = dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                if (e.ColumnIndex == dataGridViewBalance.Columns["FakeBalance"].Index)
-                {
-                    if (Convert.ToString(cell.Value) != "$0")
-                    {
-                        cell.Style.ForeColor = Color.Red;
-                    }
-                    else
-                    {
-                        cell.Style.ForeColor = Color.Black;
-                    }
-                }
-            }
-        }
+      
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Opacity == 1)
@@ -573,6 +552,12 @@ namespace MKproject.Management
                 Program.GreyForm.Close();
                 Program.GreyForm = null;
             }
+        }
+     
+        //mawjude matrahen hone w bel profile
+        private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            ClientManagementProfileParentForm.FixCellsFormat(dataGridViewBalance, e);
         }
     }
 }

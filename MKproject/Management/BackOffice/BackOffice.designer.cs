@@ -43,7 +43,7 @@ namespace MKproject.Management
             this.dataGridViewBalance = new System.Windows.Forms.DataGridView();
             this.TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.dataGridViewBackOffice = new CustomDataGridView();
+            this.dataGridViewBackOffice = new CustomizedTools.CustomDataGridView();
             this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBalance)).BeginInit();
             this.TLPGlobal.SuspendLayout();
@@ -169,7 +169,7 @@ namespace MKproject.Management
             this.dataGridViewBackOffice.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
@@ -210,6 +210,7 @@ namespace MKproject.Management
             this.dataGridViewBackOffice.Size = new System.Drawing.Size(1177, 437);
             this.dataGridViewBackOffice.TabIndex = 31;
             this.dataGridViewBackOffice.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBackOffice_CellContentClick);
+            this.dataGridViewBackOffice.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewBackOffice_CellFormatting);
             // 
             // Action
             // 

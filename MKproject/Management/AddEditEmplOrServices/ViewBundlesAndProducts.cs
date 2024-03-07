@@ -26,7 +26,6 @@ namespace MKproject.Management
         private void ViewBundlesAndProducts_Load(object sender, EventArgs e)
         {
             dataGridViewEdit.ClearSelection();
-            FormatDatagridViewColors();
         }
 
         public void LoadInfo()
@@ -49,24 +48,16 @@ namespace MKproject.Management
 
         public void FormatdtBundles(DataTable dt)
         {
-            dt.Columns.Add("FakePrice", typeof(string));
             dt.Columns.Add("Bundle", typeof(string));
             dt.Columns.Add("FakeMemberShip", typeof(string));
             dt.Columns.Add("FakeStatus", typeof(string));
 
             foreach (DataRow row in dt.Rows)
             {
-                string priceNoCurrency = row["price"].ToString();
-                row["FakePrice"] = Currency.Symbol + priceNoCurrency;
                 //
                 string bundle = row["sessions_numb"].ToString() + " " + row["bundle_type"].ToString();
                 row["Bundle"] = bundle;
                 //
-                if (row["description"] == DBNull.Value)
-                {
-                    row["description"] = "N/A";
-                }
-
                 if ((bool)row["is_member_ship"] == true)
                 {
                     row["FakeMemberShip"] = "True";
@@ -84,7 +75,6 @@ namespace MKproject.Management
                 {
                     row["FakeStatus"] = "False";
                 }
-
             }
 
             //ordering
@@ -107,7 +97,7 @@ namespace MKproject.Management
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
-            columnIndexToMove = dt.Columns.IndexOf("FakePrice"); // Replace with the actual column name
+            columnIndexToMove = dt.Columns.IndexOf("price"); // Replace with the actual column name
             newIndex = 3; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
@@ -142,7 +132,6 @@ namespace MKproject.Management
             }
             // Hide the "PriceNoCurrency" column by referencing its name
             //
-            dataGridViewEdit.Columns["price"].Visible = false;
             dataGridViewEdit.Columns["bundle_type"].Visible = false;
             dataGridViewEdit.Columns["sessions_numb"].Visible = false;
             dataGridViewEdit.Columns["bundle_id"].Visible = false;
@@ -156,7 +145,7 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["description"].HeaderCell.Value = "Description";
             dataGridViewEdit.Columns["FakeMemberShip"].HeaderCell.Value = "MemberShip";
             dataGridViewEdit.Columns["FakeStatus"].HeaderCell.Value = "Status";
-            dataGridViewEdit.Columns["FakePrice"].HeaderCell.Value = "Price";
+            dataGridViewEdit.Columns["price"].HeaderCell.Value = "Price";
 
             dataGridViewEdit.Columns["FakeMemberShip"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewEdit.Columns["FakeMemberShip"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -169,36 +158,13 @@ namespace MKproject.Management
             dataGridViewEdit.ClearSelection();
             FixDisplayingCells();
         }
-        public void FormatDatagridViewColors()
-        {
-            foreach (DataGridViewRow row in dataGridViewEdit.Rows)
-            {
-                DataGridViewCell cell = (DataGridViewCell)row.Cells["FakeStatus"];
-                if (Convert.ToString(cell.Value) == "False")
-                {
-                    cell.Style.ForeColor = Color.Red;
-                    cell.Style.SelectionForeColor = Color.Red;
-                }
-                else
-                {
-                    cell.Style.ForeColor = Color.Green;
-                    cell.Style.SelectionForeColor = Color.Green;
-                }
-
-            }
-        }
 
         public void FormatdtProducts(DataTable dt)
         {
-            dt.Columns.Add("FakePrice", typeof(string));
             dt.Columns.Add("FakeStatus", typeof(string));
-
 
             foreach (DataRow row in dt.Rows)
             {
-                string priceNoCurrency = row["product_price"].ToString();
-                row["FakePrice"] = Currency.Symbol + priceNoCurrency;
-
                 if ((bool)row["status"] == true)
                 {
                     row["FakeStatus"] = "True";
@@ -217,10 +183,9 @@ namespace MKproject.Management
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
-            columnIndexToMove = dt.Columns.IndexOf("FakePrice"); // Replace with the actual column name
+            columnIndexToMove = dt.Columns.IndexOf("product_price"); // Replace with the actual column name
             newIndex = 1; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
-
 
 
             columnIndexToMove = dt.Columns.IndexOf("FakeStatus"); // Replace with the actual column name
@@ -248,17 +213,15 @@ namespace MKproject.Management
 
 
 
-            dataGridViewEdit.Columns["product_id"].Visible = false;
-            dataGridViewEdit.Columns["product_price"].Visible = false;
+            dataGridViewEdit.Columns["product_id"].Visible = false;  
             dataGridViewEdit.Columns["Currency_Name"].Visible = false;
             dataGridViewEdit.Columns["status"].Visible = false;
             dataGridViewEdit.Columns["Edit"].DisplayIndex = dtProducts.Columns.Count;
 
             dataGridViewEdit.Columns["product_name"].HeaderCell.Value = "Product Name";
             dataGridViewEdit.Columns["FakeStatus"].HeaderCell.Value = "Status";
-            dataGridViewEdit.Columns["FakePrice"].HeaderCell.Value = "Price";
+            dataGridViewEdit.Columns["product_price"].HeaderCell.Value = "Price";
 
-            dataGridViewEdit.Columns["FakeStatus"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewEdit.Columns["FakeStatus"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             dataGridViewEdit.Columns["Edit"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -266,7 +229,48 @@ namespace MKproject.Management
             dataGridViewEdit.ClearSelection();
             FixDisplayingCells();
         }
-      
+
+
+
+        private void dataGridViewEdit_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            //for both table bundles and product , so make sure that the status same in db
+            //Text Display
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
+                {
+                    e.Value = "N/A";
+                }
+                else
+                {
+                    if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "price")
+                    {
+                        e.Value =Program.SetCashFormat(e.Value.ToString());
+                    }
+                    if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "product_price")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());
+                    }
+                }
+                //Design Display
+                if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "FakeStatus")
+                {
+
+                    DataGridViewCell cell = dataGridViewEdit.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    if (Convert.ToString(cell.Value) == "False")
+                    {
+                        cell.Style.ForeColor = Color.Red;
+                        cell.Style.SelectionForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        cell.Style.ForeColor = Color.Green;
+                        cell.Style.SelectionForeColor = Color.Green;
+                    }
+                }
+            }
+        }
         //performance wise, cz we know aal visible on w flase eza displaycell kenit byekhdo waet
         void FixDisplayingCells()
         {
@@ -297,11 +301,10 @@ namespace MKproject.Management
             {
                 RuinDisplayingCells();
                 FormatDatagridViewProducts();
-                FormatDatagridViewColors();
                 buttonAdd.Text = "Add Product";
                 ButtonBundleClicked = false;
             }
-           
+
         }
         private void UcSlideButtonBundleProduct_Button1Clicked(object sender, EventArgs e)
         {
@@ -309,13 +312,10 @@ namespace MKproject.Management
             {
                 RuinDisplayingCells();
                 FormatDatagridViewBundles();
-                FormatDatagridViewColors();
                 buttonAdd.Text = "Add services";
                 ButtonBundleClicked = true;
-
             }
         }
-
 
 
         private void dataGridViewEdit_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -398,6 +398,7 @@ namespace MKproject.Management
                 return cp;
             }
         }
+
 
     }
 }
