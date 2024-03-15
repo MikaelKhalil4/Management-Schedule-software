@@ -31,7 +31,7 @@ namespace MKproject.Management
         public void LoadInfo()
         {
 
-            dtBundles = ClassBundles.RetrieveAllBundle();
+            dtBundles = ClassBundles.RetrieveAllBundle(null);
             FormatdtBundles(dtBundles);
 
             dtProducts = ClassProduct.RetrieveAllProducts();

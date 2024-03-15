@@ -56,7 +56,7 @@ namespace MKproject.Management
             tableLayoutPanelForm.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
             tableLayoutPanelForm.ColumnCount = 2;
             tableLayoutPanelForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanelForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 581F));
+            tableLayoutPanelForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 489F));
             tableLayoutPanelForm.Controls.Add(buttonDelete, 0, 2);
             tableLayoutPanelForm.Controls.Add(TLPEditClient, 0, 0);
             tableLayoutPanelForm.Controls.Add(flowLayoutPanel1, 1, 2);
@@ -69,7 +69,7 @@ namespace MKproject.Management
             tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
             tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.16028F));
             tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.839721F));
-            tableLayoutPanelForm.Size = new System.Drawing.Size(740, 633);
+            tableLayoutPanelForm.Size = new System.Drawing.Size(732, 633);
             tableLayoutPanelForm.TabIndex = 1;
             // 
             // buttonDelete
@@ -111,7 +111,7 @@ namespace MKproject.Management
             TLPEditClient.RowCount = 2;
             TLPEditClient.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 56.79012F));
             TLPEditClient.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.20988F));
-            TLPEditClient.Size = new System.Drawing.Size(732, 68);
+            TLPEditClient.Size = new System.Drawing.Size(724, 68);
             TLPEditClient.TabIndex = 0;
             // 
             // iconButtonSettings
@@ -196,10 +196,10 @@ namespace MKproject.Management
             flowLayoutPanel1.Controls.Add(buttonAddToAlbumAndSave);
             flowLayoutPanel1.Controls.Add(buttonCancel);
             flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new System.Drawing.Point(163, 592);
+            flowLayoutPanel1.Location = new System.Drawing.Point(247, 592);
             flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(573, 38);
+            flowLayoutPanel1.Size = new System.Drawing.Size(481, 38);
             flowLayoutPanel1.TabIndex = 4;
             // 
             // buttonSave
@@ -212,7 +212,7 @@ namespace MKproject.Management
             buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonSave.ForeColor = System.Drawing.Color.White;
-            buttonSave.Location = new System.Drawing.Point(462, 3);
+            buttonSave.Location = new System.Drawing.Point(370, 3);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new System.Drawing.Size(108, 33);
             buttonSave.TabIndex = 1;
@@ -230,7 +230,7 @@ namespace MKproject.Management
             buttonAddToAlbumAndSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAddToAlbumAndSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonAddToAlbumAndSave.ForeColor = System.Drawing.Color.White;
-            buttonAddToAlbumAndSave.Location = new System.Drawing.Point(240, 3);
+            buttonAddToAlbumAndSave.Location = new System.Drawing.Point(148, 3);
             buttonAddToAlbumAndSave.Name = "buttonAddToAlbumAndSave";
             buttonAddToAlbumAndSave.Size = new System.Drawing.Size(216, 33);
             buttonAddToAlbumAndSave.TabIndex = 2;
@@ -247,7 +247,7 @@ namespace MKproject.Management
             buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCancel.ForeColor = System.Drawing.Color.White;
-            buttonCancel.Location = new System.Drawing.Point(126, 3);
+            buttonCancel.Location = new System.Drawing.Point(34, 3);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new System.Drawing.Size(108, 33);
             buttonCancel.TabIndex = 736;
@@ -264,7 +264,7 @@ namespace MKproject.Management
             FLPInfo.Location = new System.Drawing.Point(6, 80);
             FLPInfo.Margin = new System.Windows.Forms.Padding(6);
             FLPInfo.Name = "FLPInfo";
-            FLPInfo.Size = new System.Drawing.Size(728, 503);
+            FLPInfo.Size = new System.Drawing.Size(720, 503);
             FLPInfo.TabIndex = 2;
             FLPInfo.WrapContents = false;
             FLPInfo.Scroll += flowLayoutPanelInfo_Scroll;
@@ -279,7 +279,7 @@ namespace MKproject.Management
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(740, 633);
+            ClientSize = new System.Drawing.Size(732, 633);
             Controls.Add(tableLayoutPanelForm);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

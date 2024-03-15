@@ -20,14 +20,14 @@ namespace MKproject.Schedule
                 desiredappointment = value;
 
                 //Name
-                if (desiredappointment.DesiredClient != null && desiredappointment.Title == null)
+                if (desiredappointment.DesiredClient != null )
                 {
                     checkBoxAppointment.Text = desiredappointment.DesiredClient.Fname + " " + desiredappointment.DesiredClient.Lname;
 
                 }
                 else
                 {
-                    checkBoxAppointment.Text = desiredappointment.Title;
+                    checkBoxAppointment.Text = "No Client Chosen";
                 }
 
                 //StartTime
@@ -100,7 +100,7 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false && ucday.IsHistory == false)
             {
-                Appointment appointmentupdate = new Appointment(this,desiredappointment,ucday);
+                Appointment appointmentupdate = new Appointment(this, DesiredAppointment, ucday);
                 appointmentupdate.ShowDialog();
             }
             else

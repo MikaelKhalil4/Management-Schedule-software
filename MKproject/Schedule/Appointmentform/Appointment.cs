@@ -1,4 +1,5 @@
-﻿using MKproject.Management;
+﻿using CustomizedTools;
+using MKproject.Management;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace MKproject.Schedule
@@ -17,26 +19,7 @@ namespace MKproject.Schedule
         //testing the pu
         //Property
         TimeSpan DifferenceTime { get; set; }
-        private bool isClientModeOn;
-        public bool IsClientModeOn
-        {
-            get { return isClientModeOn; }
-            set
-            {
-                isClientModeOn = value;
-                if (isClientModeOn == true)
-                {
-                    ClientModeOnDesign();
-                }
-                else
-                {
-                    //ucClientApp.DesiredAppointment.DesiredClient = null;//fine shil ucClientApp., same references
-                    //ucClientApp.ResetDesiredAppointmentspecificValues();
-                    //ucClientApp.SetDesignMode(null);
-                    OthersModeOnDesign();
-                }
-            }
-        }
+
 
 
         //VARIABLES
@@ -52,12 +35,11 @@ namespace MKproject.Schedule
 
         ClassAppointment DesiredAppointment;
 
-        UCOthersApp ucOthersApp;
         UCClientApp ucClientApp;
         UCappointment ucappointment;
 
 
-       
+
         ///ADD
         public Appointment(UCDay UCday, UCTime UCtime, int employeeid)
         {
@@ -66,9 +48,9 @@ namespace MKproject.Schedule
             uctime = UCtime;
             ucday = UCday;
 
-          
+
             DesiredAppointment = new ClassAppointment();
-            DesiredAppointment.EmployeeId = employeeid;                      
+            DesiredAppointment.EmployeeId = employeeid;
             TimeSpan endtime;
             if (uctime.Time == new TimeSpan(23, 0, 0))
             {
@@ -85,8 +67,7 @@ namespace MKproject.Schedule
             ucClientApp = new UCClientApp(DesiredAppointment);
 
             //Fill Design
-            IsClientModeOn = true;
-            SetUCSlidebutton();
+            CreateUCClientDesign();
             SetStartTimeAndEndTimeInDesign();
         }
 
@@ -108,27 +89,27 @@ namespace MKproject.Schedule
             ucappointment.ColumnPosition = employeePosition + 1;//position flowlayoutpanel hiye position employee bel list-1 
             ucappointment.RowPosition = HourOfTheAppointment;
 
-            SetUCSlidebutton();
+
             SetStartTimeAndEndTimeInDesign();
 
-            ucOthersApp = new UCOthersApp(DesiredAppointment);
             ucClientApp = new UCClientApp(DesiredAppointment);
 
-            if (DesiredAppointment.DesiredClient != null && DesiredAppointment.Title == null)
-            {
-                IsClientModeOn = true;
-            }
-            else if (DesiredAppointment.DesiredClient == null && DesiredAppointment.Title != null)
-            {
-                IsClientModeOn = false;
-            }
+            //Fill Design
+            CreateUCClientDesign();
+
+        }
+        void CreateUCClientDesign()
+        {
+            TLPGlobal.Controls.Add(ucClientApp, 0, 0);
+            TLPGlobal.SetColumnSpan(ucClientApp, 2);
+            ucClientApp.Dock = DockStyle.Fill;
         }
 
         //Functions:
 
         private void SetStartTimeAndEndTimeInDesign()
         {
-          
+
             textBoxStartTime.Text = DesiredAppointment.StartTime.ToString("h:mm tt");
 
             textBoxEndTime.Text = DesiredAppointment.EndTime.ToString("h:mm tt");
@@ -138,36 +119,14 @@ namespace MKproject.Schedule
             labelDifferenceTime.Text = DifferenceTime.ToString(@"hh\:mm\:ss");
             labelDifferenceTime.Select();
 
-            textBoxNotes.Text = DesiredAppointment.Notes;
+            if (!string.IsNullOrEmpty(DesiredAppointment.Notes))
+            {
+                textBoxNotes.Text = DesiredAppointment.Notes;
+            }
         }
 
-      
+
         ///UCSlidebutton
-        void SetUCSlidebutton()
-        {
-            ucSlideButtonClientOrOthers.Button1Clicked += UcSlideButtonPayOrEdit_Button1Clicked;
-            ucSlideButtonClientOrOthers.Button2Clicked += UcSlideButtonPayOrEdit_Button2Clicked;
-
-         
-        }
-        void ClientModeOnDesign()
-        {
-            if (TLPGlobal.Controls.Contains(ucOthersApp))
-            {
-                TLPGlobal.Controls.Remove(ucOthersApp);
-            }
-            TLPGlobal.Controls.Add(ucClientApp, 0, 1);
-            ucClientApp.Dock = DockStyle.Fill;
-        }
-        void OthersModeOnDesign()
-        {
-            if (TLPGlobal.Controls.Contains(ucClientApp))
-            {
-                TLPGlobal.Controls.Remove(ucClientApp);
-            }
-            TLPGlobal.Controls.Add(ucOthersApp, 0, 1);
-            ucOthersApp.Dock = DockStyle.Fill;
-        }
 
         ///Appointment
         void SetUPUCAppointment()
@@ -184,24 +143,31 @@ namespace MKproject.Schedule
             DesiredAppointment.StartTime = ucday.DateUCDay.Date + HourStartTime.TimeOfDay;
             DesiredAppointment.EndTime = ucday.DateUCDay.Date + HourEndTime.TimeOfDay;
 
-            //ekhir shi lba2we
-            DesiredAppointment.Notes = textBoxNotes.Text;
-
+           
+            string Note = textBoxNotes.Text;
+            if (Note != textBoxNotes.PlaceholderText && !string.IsNullOrEmpty(Note))
+            {
+                DesiredAppointment.Notes = Note;
+            }
+            else
+            {
+                DesiredAppointment.Notes = null;
+            }
 
             if (isAdd)
             {
                 //SQL:
-                int idappointment = DesiredAppointment.AddFromAppoitementtoSQL();
-                DesiredAppointment.IdAppointment = idappointment;
 
-
+                 DesiredAppointment.InsertOrUpdateAppointment(true);
+                 DesiredAppointment.IdAppointment = ClassAppointment.GetLastAppointmentId();
+ 
                 //Design
-                ucday.AddUCappointments(DesiredAppointment,PositionCol,PositionRow);
+                ucday.AddUCappointments(DesiredAppointment, PositionCol, PositionRow);
             }
             else
             {
                 //SQL:
-                DesiredAppointment.UpdateFromAppoitementtoSQL();
+                DesiredAppointment.InsertOrUpdateAppointment(false);
 
                 //Design
                 bool IsUCAppPosChanged;
@@ -214,7 +180,7 @@ namespace MKproject.Schedule
                     IsUCAppPosChanged = true;
                 }
                 ucappointment.UpdateAppointments(DesiredAppointment);
-                ucday.ChangePositionUCappointments(ucappointment,DesiredAppointment, PositionCol, PositionRow, IsUCAppPosChanged);
+                ucday.ChangePositionUCappointments(ucappointment, DesiredAppointment, PositionCol, PositionRow, IsUCAppPosChanged);
             }
 
             this.Close();
@@ -263,39 +229,30 @@ namespace MKproject.Schedule
         }
 
 
-        ///SetUCSlidebutton
-        private void UcSlideButtonPayOrEdit_Button1Clicked(object sender, EventArgs e)
-        {
-            //Eza Kenna aa Others mana nrouh aa Client
-            if (IsClientModeOn == false)
-            {
-                //Hek eza kabasana button1 la awal marra se3eta mnekhla2 lobject
-                if (ucClientApp == null)
-                {
-                    ucClientApp = new UCClientApp(DesiredAppointment);
-                }
-                IsClientModeOn = true;//men wara set value ha taeemil lfunctions
-            }
-        }
-        private void UcSlideButtonPayOrEdit_Button2Clicked(object sender, EventArgs e)
-        {
-            //Eza Kenna aa Client mana nrouh aa Others
-            if (IsClientModeOn)
-            {
-                //Hek eza kabasana button2 la awal marra se3eta mnekhla2 lobject
-                if (ucOthersApp == null)
-                {
-                    ucOthersApp = new UCOthersApp(DesiredAppointment);
-                }
-                IsClientModeOn = false;//men wara set value ha taeemil lfunctions
-            }
-        }
 
 
         ///Done Button
         private void ButtonDone_Click(object sender, EventArgs e)
         {
+
+            if (ucClientApp.IsServiceOrOthersMode)//service
+            {
+                ucClientApp.DesiredAppointment.Title = null;
+            }
+            else//others
+            {
+                string title = ucClientApp.textBoxTitle.Text;
+                if (!String.IsNullOrEmpty(title) && title != ucClientApp.textBoxTitle.PlaceholderText)
+                {
+                    ucClientApp.FillObjectIfTitle(title);
+                }
+
+                ucClientApp.DesiredAppointment.ChosenBundlesList = null;
+                ucClientApp.DesiredAppointment.DesiredClientBalance = null;
+            }
             DesiredAppointment = ucClientApp.DesiredAppointment;
+
+
             //
             TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
             int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
@@ -321,36 +278,43 @@ namespace MKproject.Schedule
 
             if (IsPanelAvailable)
             {
-                if (isClientModeOn)
+                if (ucClientApp.IsServiceOrOthersMode)
                 {
+
                     if (DesiredAppointment.DesiredClient == null)
                     {
-                        MessageBox.Show("Enter the Name of the client");
+                        ucClientApp.textBoxSearch.IsRequiredModeOn = true;
+                    }
+                    else if (DesiredAppointment.DesiredClientBalance == null && (DesiredAppointment.ChoseBundlesString == null && DesiredAppointment.ChosenBundlesList == null))
+                    {
+                       CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
                     }
                     else
                     {
-                        //DesiredClient byekhdo deghre men search eza ken fi
                         SetUPUCAppointment();
                     }
+
                 }
-                else
+                else if (!ucClientApp.IsServiceOrOthersMode)
                 {
-                    if (ucOthersApp.textBoxOthers.Text == ucOthersApp.textBoxOthers.PlaceholderText)
+                    if (DesiredAppointment.Title == null)
                     {
-                        MessageBox.Show("Enter the Title");
+                        ucClientApp.textBoxTitle.IsRequiredModeOn = true;
                     }
                     else
                     {
-                        //awal shi manna nekhoud title
-                        DesiredAppointment.Title = ucOthersApp.textBoxOthers.Text;
                         SetUPUCAppointment();
                     }
-                }
+                }          
             }
             else
             {
-                MessageBox.Show("This Time is not available");
+               CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.Ok);
             }
+        }
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

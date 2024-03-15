@@ -12,12 +12,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Converters;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MKproject.Schedule
 {
     public partial class UCClientApp : UserControl
     {
-
+        public TextBoxWithPlaceHolder textBoxTitle;
         Label LabelServiceOutput;
         Label LabelServiceBundle;
         Label LabelNoDataRecorded;
@@ -31,19 +33,31 @@ namespace MKproject.Schedule
         public DataTable OldPackageRemainingsDtDesiredClient;//will be reset to null, kell ma ngahyyir client
 
         bool NewClientIsAdded = false;
-
+        public bool IsServiceOrOthersMode;
         public UCClientApp(ClassAppointment appointmentToUpdate)//used in appointment form
         {
             InitializeComponent();
             DesiredAppointment = appointmentToUpdate.Copy();
-           
-            if (DesiredAppointment.IdAppointment == null)//adding new appointment
+            CreatingTheClientModeOn();
+
+            if (DesiredAppointment.Title == null)
             {
-                SetDesignMode(null,false);
+                //since by default bet kunaa l button service
+                IsServiceOrOthersMode = true;
+                if (DesiredAppointment.IdAppointment == null)//adding new appointment
+                {
+                    SetDesignMode(false, false);
+                }
+                else//update form
+                {
+                    SetDesignMode(false, true);
+                }
+
             }
-            else//update form
+            else
             {
-                SetDesignMode(null, true);
+              ucSlideButtonServicerOthers.button2_Click(null, EventArgs.Empty);
+              textBoxTitle.Text = DesiredAppointment.Title;
             }
 
         }
@@ -78,21 +92,33 @@ namespace MKproject.Schedule
             ButtonChangeORChooseService.Font = new Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             ButtonChangeORChooseService.Click += ButtonChangeORChooseService_Click;
             ButtonChangeORChooseService.Anchor = AnchorStyles.Left;
+            ButtonChangeORChooseService.Margin = new Padding(0, 0, 6, 0);
 
             LabelServiceOutput = new Label();
             LabelServiceOutput.Text = "Service:";
-            LabelServiceOutput.Font = new Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            LabelServiceOutput.Margin = new Padding(6);
+            LabelServiceOutput.Font = new Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular);
             LabelServiceOutput.AutoSize = true;
-            LabelServiceOutput.Margin = new Padding(0);
-            LabelServiceOutput.Anchor = AnchorStyles.None;
-
+            LabelServiceOutput.Anchor = AnchorStyles.Left;
 
 
             LabelServiceBundle = new Label();
             LabelServiceBundle.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             LabelServiceBundle.AutoSize = true;
-            LabelServiceBundle.Margin = new Padding(0);
+            LabelServiceBundle.Margin = new Padding(6);
             LabelServiceBundle.Anchor = AnchorStyles.Left;
+
+
+
+
+            textBoxTitle = new TextBoxWithPlaceHolder();
+            textBoxTitle.PlaceholderText = "Title";
+            textBoxTitle.BackColor = this.BackColor;
+            textBoxTitle.BorderStyle = BorderStyle.Fixed3D;
+            textBoxTitle.Margin = new Padding(0);
+            textBoxTitle.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            textBoxTitle.Multiline = true;
+            textBoxTitle.Dock = DockStyle.Fill;
 
             //LabelServiceBalance = new Label();
             //LabelServiceBalance.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
@@ -100,10 +126,6 @@ namespace MKproject.Schedule
             //LabelServiceBalance.Margin = new Padding(0);
             //LabelServiceBalance.Anchor = AnchorStyles.Left;
 
-
-        }
-        void CreatingTheClientModeOff()
-        {
             LabelNoDataRecorded = new Label();
             LabelNoDataRecorded.Text = "No client chosen yet";
             LabelNoDataRecorded.Font = new Font("Segoe UI", 12, FontStyle.Italic);
@@ -120,91 +142,187 @@ namespace MKproject.Schedule
             pictureBoxSearch.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "search2.png");
             pictureBoxSearch.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxSearch.Anchor = AnchorStyles.Right;
+
+
+            ucSlideButtonServicerOthers.Button1Clicked += UcSlideButtonClientOrOthers_Button1Clicked;
+            ucSlideButtonServicerOthers.Button2Clicked += UcSlideButtonClientOrOthers_Button2Clicked;
+        }
+        private void UcSlideButtonClientOrOthers_Button1Clicked(object sender, EventArgs e)
+        {
+            if (ucSlideButtonServicerOthers.ClickedButton != ucSlideButtonServicerOthers.button1)
+            {
+                SetDesignMode(false, false);
+                IsServiceOrOthersMode = true;
+            }
+        }
+        private void UcSlideButtonClientOrOthers_Button2Clicked(object sender, EventArgs e)
+        {
+            if (ucSlideButtonServicerOthers.ClickedButton != ucSlideButtonServicerOthers.button2)
+            {
+                SetDesignIfOthersMode();
+                IsServiceOrOthersMode = false;
+            }
         }
 
 
-        void SetDesignIfServiceOrPackageSelected()//sous level design, lamma naee service maayane it will b called
+
+
+
+
+
+        public void SetDesignMode(bool IsNewServiceOrOneOfMultipleIsSelected, bool IsUpdateAndCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
         {
-
-            if (!TLPglobal.Controls.Contains(LabelServiceBundle))
-            {
-                TLPglobal.Controls.Add(LabelServiceBundle, 1, 1);
-            }
-            TLPglobal.SetColumn(ButtonChangeORChooseService, 2);
-            TLPglobal.SetRow(ButtonChangeORChooseService, 1);
-            ButtonChangeORChooseService.Text = "Change";
-
-        }
-
-        void SetDesignModeIfMultiplePackagesExist()
-        {
-            if (TLPglobal.Controls.Contains(LabelServiceBundle))
-            {
-                TLPglobal.Controls.Remove(LabelServiceBundle);
-            }
-            TLPglobal.SetColumn(ButtonChangeORChooseService, 1);
-            TLPglobal.SetRow(ButtonChangeORChooseService, 1);
-
-
-            if (PackageRemainingsDt.Rows.Count > 1)
-            {
-                ButtonChangeORChooseService.Text = "Choose an available package";
-            }
-            else if (PackageRemainingsDt.Rows.Count == 0)
-            {
-                ButtonChangeORChooseService.Text = "Choose one or more service";
-            }
-            if (OldClientId != DesiredAppointment.DesiredClient.ClientId && NewClientIsAdded == false)
-            {
-                ChooseService chooseService = new ChooseService(this);
-                chooseService.ShowDialog();
-            }
-        }
-      
-        public void SetDesignMode(bool? IsNewServiceOrOneOfMultipleIsSelected, bool IsUpdateAndCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
-        {
+            textBoxSearch.PlaceholderText = "By name or phone";
+            textBoxSearch.IsRequiredModeOn = false;
 
             //Design Higher level
-            if (DesiredAppointment.DesiredClient != null)
+            if (DesiredAppointment.DesiredClient != null || DesiredAppointment.Title != null)
             {
                 textBoxSearch.Text = DesiredAppointment.DesiredClient.Fname + " " + DesiredAppointment.DesiredClient.Lname;
-                if (TLPglobal.Controls.Contains(LabelNoDataRecorded))
+
+                if (TLPglobal.Controls.Contains(pictureBoxSearch))
                 {
-                    pictureBoxSearch.Dispose();
-                    LabelNoDataRecorded.Dispose();
-                    LabelNoDataRecorded = null;
-                    pictureBoxSearch = null;
+                    TLPglobal.Controls.Remove(pictureBoxSearch);
                 }
-                if (!TLPglobal.Controls.Contains(IconProfile) && !TLPglobal.Controls.Contains(LabelServiceOutput) && !TLPglobal.Controls.Contains(ButtonChangeORChooseService))
+
+                if (!TLPglobal.Controls.Contains(IconProfile))
                 {
-                    CreatingTheClientModeOn();
-                    TLPglobal.Controls.Add(IconProfile, 0, 0);
-                    TLPglobal.Controls.Add(LabelServiceOutput, 0, 1);
-                    TLPglobal.Controls.Add(ButtonChangeORChooseService);
+                    TLPglobal.Controls.Add(IconProfile, 0, 1);  //the scd row will be set tahet hasab el conditions    
                 }
+
+
             }
             else
             {
+                RemoveAllControlsAtRowIndex(TLPglobal, 2);//ejbare awwal shi
+
+
                 if (TLPglobal.Controls.Contains(IconProfile))
                 {
                     TLPglobal.Controls.Remove(IconProfile);
-                    TLPglobal.Controls.Remove(ButtonChangeORChooseService);
-                    TLPglobal.Controls.Remove(LabelServiceOutput);
-                    TLPglobal.Controls.Remove(LabelServiceBundle);
                 }
-                if (LabelNoDataRecorded == null)
+
+                if (!TLPglobal.Controls.Contains(pictureBoxSearch))
                 {
-
-                    CreatingTheClientModeOff();
-                    TLPglobal.Controls.Add(pictureBoxSearch, 0, 0);
-
-                    TLPglobal.Controls.Add(LabelNoDataRecorded, 0, 1);
-                    TLPglobal.SetRowSpan(LabelNoDataRecorded, 2);
-                    TLPglobal.SetColumnSpan(LabelNoDataRecorded, 5);
+                    TLPglobal.Controls.Add(pictureBoxSearch, 0, 1);
+                }
+                if (!TLPglobal.Controls.Contains(LabelNoDataRecorded))
+                {
+                    TLPglobal.Controls.Add(LabelNoDataRecorded, 0, 2);
+                    TLPglobal.SetColumnSpan(LabelNoDataRecorded, 3);
                 }
 
                 textBoxSearch.Text = textBoxSearch.PlaceholderText;
                 pictureBoxSearch.Select();
+            }
+
+
+
+           
+
+
+            if (!IsUpdateAndCallingFromConstruction)
+            {
+                if (!IsNewServiceOrOneOfMultipleIsSelected)
+                {
+
+
+                    if (DesiredAppointment.DesiredClient != null)
+                    {
+                        //Sql
+                        PackageRemainingsDt =ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointment.DesiredClient.ClientId);
+
+                        if (DesiredAppointment.ChosenBundlesList == null)//in case ma kenet mnaea wala service
+                        {
+                            //Menfout eza kenna aam nruh men other la service bel slide buttons (First Or),eza kenna bel serviceMode, men fout eza (scd OR) true) 
+                            if (!IsServiceOrOthersMode || (OldPackageRemainingsDtDesiredClient == null || !AreTablesTheSame(OldPackageRemainingsDtDesiredClient, PackageRemainingsDt)))//after choosing a client, old=null ha nfout/ w eza ghayarna shi bel packages tb3 profile ha nfout
+                            {
+
+                                OldPackageRemainingsDtDesiredClient = PackageRemainingsDt.Copy();
+
+                                //chosing the right service
+                                if (PackageRemainingsDt.Rows.Count == 1)
+                                {
+                                    SetDesignIfServiceOrPackageSelected();                                  
+                                    FillObjectOfAvailablePackage(PackageRemainingsDt.Rows[0]);
+                                    LabelServiceBundle.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
+                                }
+                                else //no packages or multiple packages
+                                {
+                                    if (PackageRemainingsDt.Rows.Count > 1)//mutiple packages
+                                    {
+                                        if (DesiredAppointment.DesiredClientBalance == null)//fi kaza package w mesh mnaeyin wala wahad abel
+                                        {
+                                            SetDesignModeIfMultipleOrNoPackagesExist();
+                                        }
+                                        else//fi kaza package bas mna2yin wahad already, w hayda el wahad mnerjaa mnaamelo update always, maybe ghayrna shi fi aw mayble shelne men el profile
+                                        {
+                                            DataRow[] selectedRows = PackageRemainingsDt.Select("ID =" + DesiredAppointment.DesiredClientBalance.ClientBalanceID);
+                                            if (selectedRows.Length == 1)
+                                            {
+                                                SetDesignIfServiceOrPackageSelected();
+                                                FillObjectOfAvailablePackage(selectedRows[0]);
+                                                LabelServiceBundle.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
+                                            }
+                                            else//in case ken fi selected package, w shelne men profil bas still fi kaza package
+                                            {
+                                                SetDesignModeIfMultipleOrNoPackagesExist();
+                                            }
+                                        }
+                                    }
+                                    else//no packages at all
+                                    {
+                                        SetDesignModeIfMultipleOrNoPackagesExist();                                     
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            SetDesignIfServiceOrPackageSelected();
+                            LabelServiceBundle.Text = DesiredAppointment.ChoseBundlesString;
+
+                        }
+                    }
+
+
+
+                }
+                else
+                {
+                    if (DesiredAppointment.ChosenBundlesList != null)
+                    {
+                        SetDesignIfServiceOrPackageSelected();
+                        LabelServiceBundle.Text = DesiredAppointment.ChoseBundlesString;
+                    }
+                    else if (DesiredAppointment.DesiredClientBalance != null)
+                    {
+                        SetDesignIfServiceOrPackageSelected();
+                        LabelServiceBundle.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
+                    }
+                    else
+                    {
+                        SetDesignModeIfMultipleOrNoPackagesExist();
+                    }
+                }        
+            }
+            else//bet fout fiya bas eza update mode w awwal ma neftah el form
+            {
+                if (DesiredAppointment.DesiredClient != null)
+                {
+                    PackageRemainingsDt = Management.ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointment.DesiredClient.ClientId);
+                    OldPackageRemainingsDtDesiredClient = PackageRemainingsDt;
+                    if (DesiredAppointment.DesiredClientBalance != null)
+                    {
+                        SetDesignIfServiceOrPackageSelected();
+                        LabelServiceBundle.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
+                    }
+                    else if (DesiredAppointment.ChoseBundlesString != null && DesiredAppointment.ChosenBundlesList != null)
+                    {
+                        SetDesignIfServiceOrPackageSelected();
+                        LabelServiceBundle.Text = DesiredAppointment.ChoseBundlesString;
+                    }
+                }
             }
 
 
@@ -216,167 +334,122 @@ namespace MKproject.Schedule
             {
                 OldClientId = -1;
             }
+        }
+        void SetDesignIfOthersMode()
+        {
+            textBoxSearch.PlaceholderText = "By name or phone (Optional)";
+            textBoxSearch.IsRequiredModeOn = false;
 
-
-            if (!IsUpdateAndCallingFromConstruction)
+            if (DesiredAppointment.DesiredClient != null)
             {
-                if (DesiredAppointment.DesiredClient != null)
-                {
-                    if (IsNewServiceOrOneOfMultipleIsSelected == null)
-                    {
-                        //Sql
-                        PackageRemainingsDt = Management.SQLToProject.GetClientBalanceNotExpiredPackage(DesiredAppointment.DesiredClient.ClientId);
-
-                        if (DesiredAppointment.ChosenServicesList == null)//in case ma kenet mnaea wala service
-                        {
-                            if (OldPackageRemainingsDtDesiredClient == null || !AreTablesTheSame(OldPackageRemainingsDtDesiredClient, PackageRemainingsDt))//after choosing a client, old=null ha nfout/ w eza ghayarna shi bel packages tb3 profile ha nfout
-                            {
-
-                                OldPackageRemainingsDtDesiredClient = PackageRemainingsDt.Copy();
-
-                                //chosing the right service
-                                if (PackageRemainingsDt.Rows.Count == 1)
-                                {
-                                    SetDesignIfServiceOrPackageSelected();
-                                    FillObjectAndDesignOfAvailablePackage(PackageRemainingsDt.Rows[0]);
-                                }
-                                else //no packages or multiple packages
-                                {
-                                    if (PackageRemainingsDt.Rows.Count > 1)//mutiple packages
-                                    {
-                                        if (DesiredAppointment.DesiredClientBalance == null)//fi kaza package w mesh mnaeyin wala wahad abel
-                                        {
-
-                                            SetDesignModeIfMultiplePackagesExist();
-
-                                        }
-                                        else//fi kaza package bas mna2yin wahad already, w hayda el wahad mnerjaa mnaamelo update always, maybe ghayrna shi fi aw mayble shelne men el profile
-                                        {
-                                            DataRow[] selectedRows = PackageRemainingsDt.Select("ID =" + DesiredAppointment.DesiredClientBalance.ClientBalanceID);
-                                            if (selectedRows.Length == 1)
-                                            {
-                                                FillObjectAndDesignOfAvailablePackage(selectedRows[0]);
-                                            }
-                                            else//in case ken fi selected package, w shelne men profil
-                                            {
-                                                SetDesignModeIfMultiplePackagesExist();
-                                            }
-                                        }
-                                    }
-                                    else//no packages at all
-                                    {
-                                        SetDesignModeIfMultiplePackagesExist();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        SetDesignIfServiceOrPackageSelected();
-                    }
-                }
-
+                textBoxSearch.Text = DesiredAppointment.DesiredClient.Fname + " " + DesiredAppointment.DesiredClient.Lname;
             }
-            else//bet fout fiya bas eza update mode w awwal ma neftah el form
-            {
-                if (DesiredAppointment.DesiredClient != null)
-                {
-                    PackageRemainingsDt = Management.SQLToProject.GetClientBalanceNotExpiredPackage(DesiredAppointment.DesiredClient.ClientId);
-                    OldPackageRemainingsDtDesiredClient = PackageRemainingsDt;
-                    if (DesiredAppointment.DesiredClientBalance != null)
-                    {
-                        SetDesignIfServiceOrPackageSelected();
-                        LabelServiceBundle.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
-                    }
-                    else if (DesiredAppointment.ChosenServicesDetails != null && DesiredAppointment.ChosenServicesList != null)
-                    {
-                        SetDesignIfServiceOrPackageSelected();
-                        LabelServiceBundle.Text = DesiredAppointment.ChosenServicesDetails;
-                    }
-                }
-            }
+
+
+            RemoveAllControlsAtRowIndex(TLPglobal, 2);
+            TLPglobal.Controls.Add(textBoxTitle, 1, 2);
+
+         
         }
 
 
 
-        bool AreTablesTheSame(DataTable table1, DataTable table2)
-        {
-            if (table1.Rows.Count != table2.Rows.Count || table1.Columns.Count != table2.Columns.Count)
-                return false;
 
-            for (int i = 0; i < table1.Rows.Count; i++)
+
+        void SetDesignIfServiceOrPackageSelected()
+        {
+            RemoveAllControlsAtRowIndex(TLPglobal, 2);
+
+            TLPglobal.Controls.Add(LabelServiceOutput, 0, 2);
+
+            TLPglobal.Controls.Add(LabelServiceBundle, 1, 2);
+
+            TLPglobal.Controls.Add(ButtonChangeORChooseService);
+            TLPglobal.SetColumn(ButtonChangeORChooseService, 2);
+            TLPglobal.SetRow(ButtonChangeORChooseService, 2);
+
+
+            ButtonChangeORChooseService.Text = "Change";
+        }
+        void SetDesignModeIfMultipleOrNoPackagesExist()
+        {
+   
+            RemoveAllControlsAtRowIndex(TLPglobal, 2);
+
+            TLPglobal.Controls.Add(LabelServiceOutput, 0, 2);
+
+            TLPglobal.Controls.Add(ButtonChangeORChooseService);
+            TLPglobal.SetColumn(ButtonChangeORChooseService, 1);
+            TLPglobal.SetRow(ButtonChangeORChooseService, 2);
+
+
+            if (PackageRemainingsDt.Rows.Count > 1)
             {
-                for (int j = 0; j < table1.Columns.Count; j++)
-                {
-                    if (!Equals(table1.Rows[i][j], table2.Rows[i][j]))
-                        return false;
-                }
+                ButtonChangeORChooseService.Text = "Choose an available package";
+            }
+            else if (PackageRemainingsDt.Rows.Count == 0)
+            {
+                ButtonChangeORChooseService.Text = "Choose one or more service";
             }
 
-            return true;
+
+            if (OldClientId != DesiredAppointment.DesiredClient.ClientId && NewClientIsAdded == false)
+            {
+                ChooseService chooseService = new ChooseService(this);
+                chooseService.ShowDialog();
+            }
+
+
+
         }
 
 
 
-        public void FillObjectAndDesignOfNewServices()
+
+
+        public void FillObjectIfTitle(string Title)
         {
-            string details = "";
-            foreach (ClassBundles Bundle in DesiredAppointment.ChosenServicesList)
+            DesiredAppointment.Title = Title;
+        }
+        public void FillObjectOfNewChosenBundles(List<ClassBundles> BundleList)
+        {
+
+            if (BundleList != null)
             {
-                details += Bundle.Name + "/";
+                DesiredAppointment.ChosenBundlesList = new List<ClassBundles>(BundleList);
+                //and chosenservice string is set automatically by default bel set tb3 ChosenServicesList
+
             }
-            if (details.Length > 0)
+            else
             {
-                details = details.Remove(details.Length - 1);
+                DesiredAppointment.ChosenBundlesList = null;
             }
-            DesiredAppointment.ChosenServicesDetails = details;
-            LabelServiceBundle.Text = DesiredAppointment.ChosenServicesDetails;
+        }
+        public void FillObjectOfAvailablePackage(DataRow DesiredRow)//only used if we were selecting an available package ( a specified balance) from table sql clientbalance
+        {
+
+            if (DesiredRow != null)
+            {
+                DesiredAppointment.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)PackageRemainingsDt.Rows[0]["ID"]);
+                DesiredAppointment.DesiredClientBalance.SetStringDetailsIfBundle();         
+            }
+            else
+            {
+                DesiredAppointment.DesiredClientBalance = null;
+            }
+
         }
 
-        public void FillObjectAndDesignOfAvailablePackage(DataRow DesiredRow)//only used if we were selecting an available package ( a specified balance) from table sql clientbalance
+
+
+
+
+        public void ResetDesiredAppointmentspecificValues()
         {
-            //Filling the object
-
-            //Number Of Sessions or days
-            string ServiceName;
-            ServiceName = (string)DesiredRow["Description"];
-            DesiredAppointment.DesiredClientBalance = new ClassChosenClientBalance();
-            DesiredAppointment.DesiredClientBalance.ClientBalanceID = Convert.ToInt32(DesiredRow["ID"]);
-            //sessionleft
-            if (DesiredRow["due_date"] == DBNull.Value)//package of sessions
-            {
-                DesiredAppointment.DesiredClientBalance.ISSessionsOrDays = true;
-                DesiredAppointment.DesiredClientBalance.SessionLeft = Convert.ToInt32(DesiredRow["session_left_days"]);
-                DesiredAppointment.DesiredClientBalance.ClientBalanceSessionLeftDetails = DesiredRow["session_left_days"] + " sess";
-            }
-            else if (DesiredRow["due_date"] != DBNull.Value)//package of days
-            {
-                DesiredAppointment.DesiredClientBalance.ISSessionsOrDays = false;
-
-                if ((bool)DesiredRow["is_freezed"] == false)//only packgae of days not freezed
-                {
-                    int daysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredRow["due_date"]);
-                    if (daysLeft < 0)
-                    {
-                        daysLeft = 0;
-                    }
-                    DesiredAppointment.DesiredClientBalance.ClientBalanceSessionLeftDetails = daysLeft + " days";//tene wahde - awwal wahde
-                }
-                else//package days freezed
-                {
-                    ServiceName += "(Freezed)";
-                }
-
-            }
-
-            //balance
-            DesiredAppointment.DesiredClientBalance.ClientBalanceDetails = Program.SetBalanceFormat(DesiredRow["balance"].ToString());
-            DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails = ServiceName + ": " + DesiredAppointment.DesiredClientBalance.ClientBalanceSessionLeftDetails + " / " + DesiredAppointment.DesiredClientBalance.ClientBalanceDetails;
-
-            //design
-            LabelServiceBundle.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
-
+            DesiredAppointment.ChosenBundlesList = null;
+            DesiredAppointment.DesiredClientBalance = null;
+            DesiredAppointment.Title = null;
+            OldPackageRemainingsDtDesiredClient = null;
         }
 
 
@@ -390,14 +463,6 @@ namespace MKproject.Schedule
 
 
 
-        public void ResetDesiredAppointmentspecificValues()
-        {
-            DesiredAppointment.ChosenServicesList = null;
-            DesiredAppointment.ChosenServicesDetails = null;
-            DesiredAppointment.DesiredClientBalance = null;
-            OldPackageRemainingsDtDesiredClient = null;
-        }
-
 
 
         private void textBoxSearch_Click(object sender, EventArgs e)
@@ -410,21 +475,22 @@ namespace MKproject.Schedule
             searchname.Location = locationRelativeToScreen;
             searchname.Show();
         }
-
         private void Searchname_ChosenClientChanged(object sender, EventArgs e)
         {
             //reset
             Search searchname = (Search)sender;
             DesiredAppointment.DesiredClient = searchname.NewDesiredClient;
             ResetDesiredAppointmentspecificValues();
-            SetDesignMode(null, false);
-
+            if (IsServiceOrOthersMode)//only eza kenna bel survice mode
+            {
+                SetDesignMode(false, false);
+            }
         }
-
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
             label1.Select();
         }
+
 
 
 
@@ -451,7 +517,6 @@ namespace MKproject.Schedule
             Cursor = Cursors.Default;
 
         }
-
         private void ClientManagementProfile_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -465,11 +530,20 @@ namespace MKproject.Schedule
             {
                 ResetDesiredAppointmentspecificValues();
             }
-            SetDesignMode(null, false);
+            SetDesignMode(false, false);
         }
 
 
 
+
+        private void TLPAddNewClient_MouseMove(object sender, MouseEventArgs e)
+        {
+            TLPAddNewClient.BackColor = Color.FromArgb(Program.BoldColor.R + 20, Program.BoldColor.G + 20, Program.BoldColor.B + 20);
+        }
+        private void TLPAddNewClient_MouseLeave(object sender, EventArgs e)
+        {
+            TLPAddNewClient.BackColor = Program.BoldColor;
+        }
         private void TLPAddNewClient_Click(object sender, EventArgs e)
         {
             if (Program.NewRegisterForm == null)
@@ -490,17 +564,45 @@ namespace MKproject.Schedule
             DesiredAppointment.DesiredClient = newRegister.TheNewInsertedClient;
             ResetDesiredAppointmentspecificValues();
             NewClientIsAdded = true;//set
-            SetDesignMode(null, false);//fi shi depends men hal value, open choose service
+            SetDesignMode(false, false);//fi shi depends men hal value, open choose service
             NewClientIsAdded = false;//reset
             Program.NewRegisterForm.FormClosed -= NewRegisterForm_ClientSaved;
         }
-        private void TLPAddNewClient_MouseMove(object sender, MouseEventArgs e)
+
+
+
+
+
+
+        bool AreTablesTheSame(DataTable table1, DataTable table2)
         {
-            TLPAddNewClient.BackColor = Color.FromArgb(Program.BoldColor.R + 20, Program.BoldColor.G + 20, Program.BoldColor.B + 20);
+            if (table1.Rows.Count != table2.Rows.Count || table1.Columns.Count != table2.Columns.Count)
+                return false;
+
+            for (int i = 0; i < table1.Rows.Count; i++)
+            {
+                for (int j = 0; j < table1.Columns.Count; j++)
+                {
+                    if (!Equals(table1.Rows[i][j], table2.Rows[i][j]))
+                        return false;
+                }
+            }
+
+            return true;
         }
-        private void TLPAddNewClient_MouseLeave(object sender, EventArgs e)
+        void RemoveAllControlsAtRowIndex(TableLayoutPanel desiredtlp, int row)
         {
-            TLPAddNewClient.BackColor = Program.BoldColor;
+            for (int i = desiredtlp.Controls.Count - 1; i >= 0; i--)
+            {
+                var control = desiredtlp.Controls[i];
+                if (desiredtlp.GetRow(control) == row) // If the control is in row 2 (index 1)
+                {
+                    desiredtlp.Controls.Remove(control);
+                }
+            }
+
         }
+
+
     }
 }

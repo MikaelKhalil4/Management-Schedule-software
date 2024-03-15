@@ -58,7 +58,7 @@ namespace CustomizedTools
 
             if (labelwidth < itemWidth)
             {
-               this.Width = itemWidth + buttonRemove.Width + buttonSwitch.Width + 3 * buttonSwitch.Margin.Left + 30;
+               this.Width = itemWidth + buttonRemove.Width + buttonSwitch.Width + 3 * buttonSwitch.Margin.Left + 50;
             }
             else
             {

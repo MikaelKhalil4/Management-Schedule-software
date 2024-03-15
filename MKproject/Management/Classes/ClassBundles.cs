@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
+using Azure.Core;
 
 
 namespace MKproject.Management
@@ -15,32 +16,32 @@ namespace MKproject.Management
             Product = 1,
 
         }
-        public enum bundle
+        public enum enumBundle
         {
             Days,
             Sessions,
             Solo
         }
 
-        public int ID { get; set; }
+        public int BundleID { get; set; }
 
-        public string Name { get; set; }
+        public string BundleName { get; set; }
 
         public string Description { get; set; }
 
         public int? SessionDaysNumber { get; set; }//null if solo
 
-        public bundle EnumBundletype { get; set; }//2:solo 1:sessions 0: days
-
-        public string Bundletype { get; set; }
+        public enumBundle EnumBundletype { get; set; }//2:solo 1:sessions 0: days
 
         public Double Price { get; set; }
 
         public bool IsMemberShip { get; set; }
 
-        public int Qty { get; set; }//only used lamma badde eshtere item 
         public bool Status { get; set; }
+        public string CurrencyName { get; set; }
 
+
+        public int Qty { get; set; }//only used lamma badde eshtere item 
 
         public ClassBundles()
         {
@@ -73,7 +74,7 @@ namespace MKproject.Management
             // Return the results as a tuple
             return (dt.Rows[0]["bundle_name"].ToString());
         }
-    
+
         public static DataTable GetLastInsertBundle()
         {
             string Query = "Select * from bundles where  bundle_id=(Select MAX(bundle_id) from bundles)";
@@ -92,10 +93,15 @@ namespace MKproject.Management
             sda.Fill(dt);
             return dt;
         }
-
-        public static DataTable RetrieveAllBundle()
+        public static DataTable RetrieveAllBundle(int? bundleId)
         {
-            string query = "Select * From bundles ORDER by status Desc, bundle_id Desc";
+            string query = "Select * From bundles ";
+            if (bundleId != null)
+            {
+                query += " Where bundle_id= '"+ bundleId + "' ";
+            }
+            query += " ORDER by status Desc, bundle_id Desc ";
+
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -111,7 +117,7 @@ namespace MKproject.Management
                            "VALUES (@bundle_name, @description, @SessionsNumb,@bundle_type, @Price, @Status,@is_member_ship,@Currency_Name)";
 
             SqlCommand command = new SqlCommand(query, con);
-            command.Parameters.AddWithValue("@bundle_name", Name);
+            command.Parameters.AddWithValue("@bundle_name", BundleName);
             if (Description == null)
             {
                 command.Parameters.AddWithValue("@description", DBNull.Value);
@@ -131,7 +137,7 @@ namespace MKproject.Management
             {
                 command.Parameters.AddWithValue("@SessionsNumb", SessionDaysNumber);
             }
-            command.Parameters.AddWithValue("@bundle_type", Bundletype);
+            command.Parameters.AddWithValue("@bundle_type", EnumBundletype);
             command.Parameters.AddWithValue("@Price", Price);
             command.Parameters.AddWithValue("@Status", 1);
             command.Parameters.AddWithValue("@is_member_ship", IsMemberShip);
@@ -155,7 +161,7 @@ namespace MKproject.Management
                            WHERE bundle_id = @bundle_id";
 
             SqlCommand command = new SqlCommand(query, con);
-            command.Parameters.AddWithValue("@bundle_name", Name);
+            command.Parameters.AddWithValue("@bundle_name", BundleName);
             if (Description == null)
             {
                 command.Parameters.AddWithValue("@description", DBNull.Value);
@@ -174,10 +180,10 @@ namespace MKproject.Management
             {
                 command.Parameters.AddWithValue("@SessionsNumb", SessionDaysNumber);
             }
-            command.Parameters.AddWithValue("@bundle_type", Bundletype);
+            command.Parameters.AddWithValue("@bundle_type", EnumBundletype);
             command.Parameters.AddWithValue("@Price", Price);
             command.Parameters.AddWithValue("@Status", Status);
-            command.Parameters.AddWithValue("@bundle_id", ID);
+            command.Parameters.AddWithValue("@bundle_id", BundleID);
             command.Parameters.AddWithValue("@is_member_ship", IsMemberShip);
             con.Open();
 
@@ -188,7 +194,7 @@ namespace MKproject.Management
         public void DeleteBundle()
         {
 
-            SqlCommand cmd = new SqlCommand("Delete bundles where bundle_id='" + ID + "'", con);
+            SqlCommand cmd = new SqlCommand("Delete bundles where bundle_id='" + BundleID + "'", con);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
@@ -198,7 +204,7 @@ namespace MKproject.Management
         public bool CheckIBundletHasReferences()
         {
             string query = @"Select Count(*) from bundles as p
-                         where bundle_id='" + ID + "' And  Exists ( Select * from client_balance as c where c.bundle_id=p.bundle_id)";
+                         where bundle_id='" + BundleID + "' And  Exists ( Select * from client_balance as c where c.bundle_id=p.bundle_id)";
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -215,5 +221,30 @@ namespace MKproject.Management
                 return true;
             }
         }
+
+        public static ClassBundles CreateBundleObject(int BundleId)
+        {
+            DataTable dt;
+            dt = RetrieveAllBundle(BundleId);
+            DataRow dataRow = dt.Rows[0];//since we re expecting one row of return
+
+
+            ClassBundles bundle = new ClassBundles();
+
+            bundle.BundleID = (int)dataRow["bundle_id"];
+            bundle.BundleName =(string)dataRow["bundle_name"];
+            bundle.Description = dataRow["description"] is DBNull ? null : (string)dataRow["description"];
+            bundle.SessionDaysNumber = dataRow["sessions_numb"] is DBNull ? null : (int)dataRow["sessions_numb"];
+            bundle.EnumBundletype = (ClassBundles.enumBundle)Enum.Parse(typeof(ClassBundles.enumBundle), (string)dataRow["bundle_type"]);
+            bundle.Price = (double)dataRow["price"];
+            bundle.IsMemberShip = (bool)dataRow["is_member_ship"];
+            bundle.Status = (bool)dataRow["status"];
+            bundle.CurrencyName = dataRow["Currency_Name"] is DBNull ? null : (string)dataRow["Currency_Name"];
+
+
+            return bundle;
+        }
+
+
     }
 }

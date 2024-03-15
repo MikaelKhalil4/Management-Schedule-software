@@ -130,20 +130,20 @@ namespace MKproject.Management
 
         private void UCBundlesOutput_Load(object sender, EventArgs e)
         {
-            if (ParentFormChooseService != null && ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenServicesList != null)
+            if (ParentFormChooseService != null && ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenBundlesList != null)
             {
-                SelectChosenServices();
+                SelectChosenNewBundles();
             }
             dataGridViewBundles.ClearSelection();
         }
 
-        public void SelectChosenServices()
+        public void SelectChosenNewBundles()
         {
             foreach (DataGridViewRow row in dataGridViewBundles.Rows)
             {
-                foreach (ClassBundles bundle in ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenServicesList)
+                foreach (ClassBundles bundle in ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenBundlesList)
                 {
-                    if (bundle.ID == (int)row.Cells["bundle_id"].Value)
+                    if (bundle.BundleID == (int)row.Cells["bundle_id"].Value)
                     {
                         row.DefaultCellStyle.BackColor = Color.FromArgb(229, 226, 244);
                         row.Cells["ColumnCheck"].Value = true;
@@ -190,13 +190,13 @@ namespace MKproject.Management
                 //design
                 if (ParentFormBuy != null)//only in buyproduct
                 {
-                    ParentFormBuy.RemoveButton(Bundle.ID, Bundle.Price);
+                    ParentFormBuy.RemoveButton(Bundle.BundleID, Bundle.Price);
                     //list
-                    ParentFormBuy.BundleList.RemoveAll(p => p.ID == Bundle.ID);
+                    ParentFormBuy.BundleList.RemoveAll(p => p.BundleID == Bundle.BundleID);
                 }
                 else if (ParentFormChooseService != null)
                 {
-                    ParentFormChooseService.BundleList.RemoveAll(p => p.ID == Bundle.ID);
+                    ParentFormChooseService.BundleList.RemoveAll(p => p.BundleID == Bundle.BundleID);
                 }
             }
         }
@@ -204,11 +204,11 @@ namespace MKproject.Management
 
         void FillingBundleDetails(DataGridViewRow DesiredRow, ClassBundles Bundle)
         {
-            Bundle.ID = Convert.ToInt16(DesiredRow.Cells["bundle_id"].Value);
-            Bundle.Name = DesiredRow.Cells["bundle_name"].Value.ToString();
+            Bundle.BundleID = Convert.ToInt16(DesiredRow.Cells["bundle_id"].Value);
+            Bundle.BundleName = DesiredRow.Cells["bundle_name"].Value.ToString();
             Bundle.Description = DesiredRow.Cells["description"].Value.ToString();
 
-            if (DesiredRow.Cells["bundle_type"].Value.ToString() != ClassBundles.bundle.Solo.ToString())
+            if (DesiredRow.Cells["bundle_type"].Value.ToString() != ClassBundles.enumBundle.Solo.ToString())
             {
                 Bundle.SessionDaysNumber = Convert.ToInt16(RandomFunctions.ExtractDigits(Convert.ToString(DesiredRow.Cells["sessions_numb"].Value)));
             }
@@ -229,20 +229,9 @@ namespace MKproject.Management
                 Bundle.IsMemberShip = false;
             }
 
-            string bundletype = DesiredRow.Cells["bundle_type"].Value.ToString();
+            Bundle.EnumBundletype = (ClassBundles.enumBundle)Enum.Parse(typeof(ClassBundles.enumBundle), (string)DesiredRow.Cells["bundle_type"].Value);
 
-            if (bundletype == ClassBundles.bundle.Sessions.ToString())
-            {
-                Bundle.EnumBundletype = ClassBundles.bundle.Sessions;
-            }
-            else if (bundletype == ClassBundles.bundle.Days.ToString())
-            {
-                Bundle.EnumBundletype = ClassBundles.bundle.Days;
-            }
-            else if (bundletype == ClassBundles.bundle.Solo.ToString())
-            {
-                Bundle.EnumBundletype = ClassBundles.bundle.Solo;
-            }
+    
 
             Bundle.Qty = 1;
         }

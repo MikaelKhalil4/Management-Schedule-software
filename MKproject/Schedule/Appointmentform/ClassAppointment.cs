@@ -12,6 +12,7 @@ namespace MKproject.Schedule
 {
     public class ClassAppointment
     {
+        static SqlConnection con = new SqlConnection(Program.DataLocation);
         //Property
         public int? IdAppointment { get; set; }
         public int? EmployeeId { get; set; }
@@ -19,7 +20,7 @@ namespace MKproject.Schedule
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Notes { get; set; }
-     
+
         //just when it will be created it will be false
         private bool onPending = false;
         public bool OnPending
@@ -37,13 +38,61 @@ namespace MKproject.Schedule
         //used in UCClientApp
         public ClassClient DesiredClient { get; set; }
 
-        public ClassChosenClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
-        public List<ClassBundles> ChosenServicesList;//used when selecting new services
-        public string ChosenServicesDetails;//e.g: hair/Beard
+        //Service
+        public ClassClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
+        //others
+        private List<ClassBundles> chosenBundlesList;//used when selecting new services
+        public List<ClassBundles> ChosenBundlesList
+        {
+            get { return chosenBundlesList; }
+            set
+            {
+                chosenBundlesList = value;
+                if (value == null)
+                {
+                    ChoseBundlesString = null;
+                }
+                else
+                {
+                    string details = "";
+                    foreach (ClassBundles Bundle in ChosenBundlesList)
+                    {
+                        details += Bundle.BundleName + "/";
+                    }
+                    if (details.Length > 0)
+                    {
+                        details = details.Remove(details.Length - 1);
+                    }
+                    ChoseBundlesString = details;
+                }
+            }
+        }
+        public string ChoseBundlesString;//e.g: hair/Beard
 
-        //SQL
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        public ClassAppointment()
+        {
 
+        }
+
+        //SQL    
+        public static DataTable GetAllAppointmentInfoSql(int appointmentId)
+        {
+            SqlCommand cmd = new SqlCommand("select * from appointments where appointment_id=@appointment_id", con);
+            cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            return dt;
+        }
+        public static DataTable GetAllNewChosenBundles(int appointmentId)
+        {
+            SqlCommand cmd = new SqlCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id", con);
+            cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            return dt;
+        }
         public static List<int> DisplayEmployeesIdWhoTrained(UCDay ucday, List<int> listrankemployees_id)
         {
             StringBuilder queryBuilder = new StringBuilder();
@@ -86,13 +135,11 @@ namespace MKproject.Schedule
             con.Close();
             return employeeIdsWithAppointments;
         }
-
-
         public static DataTable DisplayAppointmentsWhereEmployees(UCDay ucday, List<int> listrankemployees_id)
         {
             StringBuilder queryBuilder = new StringBuilder();
             queryBuilder.AppendLine(@"SELECT t.appointment_id , t.employee_id, c.client_id, c.name,  c.family_name, t.title,
-                                      t.start_time, t.end_time, t.Note, t.onpending, t.client_type
+                                      t.start_time, t.end_time, t.Note, t.onpending 
                                       FROM appointments t
                                       JOIN client c ON t.client_id = c.client_id
                                       WHERE CAST(t.start_time AS DATE) = @value1");
@@ -130,9 +177,10 @@ namespace MKproject.Schedule
         public static DataTable DisplayAppointmentsOneEmployee(UCDay ucday, int employee_id)
         {
             SqlCommand command1 = new SqlCommand(@"SELECT t.appointment_id, c.client_id, c.name,  c.family_name, t.title,
-                                                   t.start_time, t.end_time, t.Note, t.onpending, t.client_type
+                                                   t.start_time, t.end_time, t.Note, t.onpending 
                                                    FROM appointments t JOIN client c ON t.client_id = c.client_id 
                                                    WHERE CAST(t.start_time AS DATE) = @value1  AND t.employee_id =@employee_id", con);
+
             string datetime = ucday.DateUCDay.ToString();
             string[] date = datetime.Split(' ');
             command1.Parameters.AddWithValue("@value1", date[0]);
@@ -146,73 +194,138 @@ namespace MKproject.Schedule
             return dt1;
 
         }
-
-
-        public int AddFromAppoitementtoSQL()//na2is ClientType
+        public static int GetLastAppointmentId()
         {
-            int idappointment;
-            SqlCommand command = new SqlCommand(@"INSERT INTO appointments (employee_id, client_id, title, start_time, end_time, Note, onpending, client_type) 
-                                                                  VALUES (@employee_id, @client_id, @title, @start_time, @end_time, @Note, @onpending, @client_type) ", con);
             SqlCommand cmd = new SqlCommand("SELECT Max(appointment_id) FROM appointments", con);
-            //string[] parts = fullname.Split(' ');
-
-            command.Parameters.AddWithValue("@employee_id", (int)EmployeeId);
-            if (DesiredClient != null && Title == null)
-            {
-                command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
-                command.Parameters.AddWithValue("@title", DBNull.Value);
-            }
-            else if (DesiredClient == null && Title != null)
-            {
-                command.Parameters.AddWithValue("@client_id", DBNull.Value);
-                command.Parameters.AddWithValue("@title", Title);
-            }
-            command.Parameters.AddWithValue("@start_time", StartTime);
-            command.Parameters.AddWithValue("@end_time", EndTime);
-            command.Parameters.AddWithValue("@Note", Notes);
-            command.Parameters.AddWithValue("@onpending", OnPending);
-            command.Parameters.AddWithValue("@client_type", DBNull.Value);
-
-            command.Parameters.AddWithValue("@isappointment", true);
-
-
             con.Open();
-            command.ExecuteNonQuery();//first command
             object result = cmd.ExecuteScalar();//return the first cell
-            int.TryParse(result.ToString(), out idappointment);//we got the idtime second command
             con.Close();
-
-            return idappointment;
-
+            return (int)result;
         }
-        public void UpdateFromAppoitementtoSQL()
+
+
+
+
+        public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
-            SqlCommand command = new SqlCommand(@"UPDATE appointments
-                                                  SET client_id=@client_id, title= @title, start_time=@start_time, end_time=@end_time, Note=@Note, onpending=@onpending,client_type=@client_type
-                                                  WHERE appointment_id =@appointment_id", con);
+            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, desired_client_balance_id,title, start_time, end_time, Note, onpending) 
+                                                                  VALUES (@employee_id, @client_id,@desired_client_balance_id ,@title, @start_time, @end_time, @Note, @onpending) ";
+
+            string queryUpdate = @"  Update appointments SET  
+                            employee_id=@employee_id ,client_id=@client_id , desired_client_balance_id=@desired_client_balance_id, title=@title, start_time=@start_time, end_time=@end_time, Note=@Note, onpending=@onpending
+                                                                WHERE  appointment_id=@appointment_id ";
+
+            SqlCommand cmdInsertOrUpdateApp;
+            if (InsertOrUpdate)
+            {
+                cmdInsertOrUpdateApp = new SqlCommand(queryInsert, con);
+
+            }
+            else
+            {
+                cmdInsertOrUpdateApp = new SqlCommand(queryUpdate, con);
+
+            }
 
 
-            if (DesiredClient != null && Title == null)
+            if (!InsertOrUpdate)
             {
-                command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
-                command.Parameters.AddWithValue("@title", DBNull.Value);
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@appointment_id", IdAppointment);
             }
-            else if (DesiredClient == null && Title != null)
+
+
+            if (DesiredClient != null)
             {
-                command.Parameters.AddWithValue("@client_id", DBNull.Value);
-                command.Parameters.AddWithValue("@title", Title);
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
             }
-            command.Parameters.AddWithValue("@start_time", StartTime);
-            command.Parameters.AddWithValue("@end_time", EndTime);
-            command.Parameters.AddWithValue("@Note", Notes);
-            command.Parameters.AddWithValue("@onpending", OnPending);
-            command.Parameters.AddWithValue("@client_type", DBNull.Value);
-            command.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
+            else
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_id", DBNull.Value);
+
+            }
+
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@employee_id", (int)EmployeeId);
+
+
+
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@start_time", StartTime);
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@end_time", EndTime);
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@onpending", OnPending);
+
+
+            if (Notes != null)
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@Note", Notes);
+            }
+            else
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@Note", DBNull.Value);
+            }
+
+            if (Title != null)
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@title", Title);
+            }
+            else
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@title", DBNull.Value);
+            }
+            //wahad mennun only ha ykun mawjud, ya el bundles ya chosen balance
+            if (DesiredClientBalance != null)
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@desired_client_balance_id", DesiredClientBalance.ClientBalanceID);
+            }
+            else
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@desired_client_balance_id", DBNull.Value);
+            }
 
 
             con.Open();
-            command.ExecuteNonQuery();
+            cmdInsertOrUpdateApp.ExecuteNonQuery();//ejbare foe el cmd tahet mahalla    
             con.Close();
+
+
+            if (!InsertOrUpdate)
+            {
+                SqlCommand cmdDeleteOldBundlesToApp = new SqlCommand(@"Delete from appointment_has_bundles WHERE  appointment_id = @appointment_id ", con);
+                cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
+                con.Open();
+                cmdDeleteOldBundlesToApp.ExecuteNonQuery();
+                con.Close();
+            }
+
+
+            if (chosenBundlesList != null && chosenBundlesList.Count > 0)
+            {
+                int DesiredAppointmentId;
+
+                if (InsertOrUpdate)
+                {
+                    DesiredAppointmentId = GetLastAppointmentId();
+                }
+                else
+                {
+                    DesiredAppointmentId = (int)IdAppointment;
+
+
+                }
+
+
+                foreach (ClassBundles bundle in chosenBundlesList)
+                {
+                    SqlCommand cmdInsertBundleToApp = new SqlCommand(@"INSERT INTO appointment_has_bundles (appointment_id, bundle_id) 
+                                                                  VALUES (@appointment_id, @bundle_id) ", con);
+
+                    cmdInsertBundleToApp.Parameters.AddWithValue("@appointment_id", DesiredAppointmentId);
+                    cmdInsertBundleToApp.Parameters.AddWithValue("@bundle_id", bundle.BundleID);
+                    con.Open();
+                    cmdInsertBundleToApp.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+
+
         }
         public void DeleteAppointment()
         {
@@ -234,6 +347,63 @@ namespace MKproject.Schedule
             con.Close();
         }
 
+
+
+        public static ClassAppointment CreateObjectClassAppointment (int appointmentId)
+        {
+            DataTable dt;
+            dt = ClassAppointment.GetAllAppointmentInfoSql(appointmentId);
+            DataRow datarow = dt.Rows[0];//since we re expecting one row of return
+
+
+            ClassAppointment DesiredApp = new ClassAppointment();
+
+
+            DesiredApp.IdAppointment = (int)datarow["appointment_id"];//noway ykun bel db fi client ma endo clientid
+           
+            if (!(datarow["client_id"] is DBNull))
+            {
+                //DesiredApp.DesiredClient = ClassClient.CreateClientObject((int)datarow["client_id"]);
+                //less time men el fawea this method
+                DesiredApp.DesiredClient = new ClassClient();
+                DataTable dtClient = ClassClient.GetAllClientsInfoSQL((int)datarow["client_id"]);
+
+                DesiredApp.DesiredClient.ClientId = (int)dtClient.Rows[0]["client_id"];//noway ykun bel db fi client ma endo clientid
+                DesiredApp.DesiredClient.Fname = dtClient.Rows[0]["name"] is DBNull ? null : (string)dtClient.Rows[0]["name"];
+                DesiredApp.DesiredClient.Lname = dtClient.Rows[0]["family_name"] is DBNull ? null : (string)dtClient.Rows[0]["family_name"];
+            }
+          
+            
+            DesiredApp.EmployeeId = datarow["employee_id"] is DBNull ? (int?)null : (int)datarow["employee_id"];  
+            DesiredApp.Title = datarow["title"] is DBNull ? null : (string)datarow["title"];
+            DesiredApp.Notes = datarow["Note"] is DBNull ? null : (string)datarow["Note"];
+
+            DesiredApp.StartTime = (DateTime)datarow["start_time"];
+            DesiredApp.EndTime = (DateTime)datarow["end_time"];
+         
+            
+            if (!(datarow["desired_client_balance_id"] is DBNull))
+            {
+                DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)datarow["desired_client_balance_id"]);
+                DesiredApp.DesiredClientBalance.SetStringDetailsIfBundle();
+            }
+
+
+            DataTable ChosenBundles = GetAllNewChosenBundles((int)DesiredApp.IdAppointment);
+            if (ChosenBundles.Rows.Count > 0)
+            {
+                List<ClassBundles> bundles = new List<ClassBundles>();
+                foreach (DataRow dr in ChosenBundles.Rows)
+                {
+                    bundles.Add(ClassBundles.CreateBundleObject((int)dr["bundle_id"]));
+                }
+                DesiredApp.ChosenBundlesList= bundles;//ased eemelneha kermel yenkhalae el string ma3a
+            }
+
+            // baaed fi bundle object detection 
+
+            return DesiredApp;
+        }
 
         // Method to clone the object
         public ClassAppointment Copy()

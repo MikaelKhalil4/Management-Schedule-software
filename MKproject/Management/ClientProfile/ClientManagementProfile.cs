@@ -110,7 +110,7 @@ namespace MKproject.Management
 
 
 
-            dtClientBalanceOriginal = SQLToProject.GetClientBalanceSpecificOrLastInsert((int)Client.ClientId);
+            dtClientBalanceOriginal = ClassClientBalance.GetClientBalanceSpecificOrLastInsert((int)Client.ClientId);
 
             FormatOriginalDt(dtClientBalanceOriginal);
             DataTableToDatagridView();
@@ -1371,7 +1371,7 @@ namespace MKproject.Management
             //Calculations ended
 
             //SqlUpdate        
-            ProjectToSQL.UpdateClientBalanceOnEditingOffre(ClientBalanceID, UpdatedOffre, Convert.ToDouble(UpdatedBalance), NewIsExpired);
+            ClassClientBalance.UpdateClientBalanceOnEditingOffre(ClientBalanceID, UpdatedOffre, Convert.ToDouble(UpdatedBalance), NewIsExpired);
             //back office, ejbare  abel ma nghayyir el initialbalance
             if (Date != null)//yaane payment form
             {
@@ -1519,11 +1519,11 @@ namespace MKproject.Management
             //SQL                     
             if (DueDate == null)
             {
-                ProjectToSQL.UpdateClientBalanceOnEditingSessions(ClientBalanceID, UpdatedSessionLeftORNoDays, offre, null, NewIsExpired);
+                ClassClientBalance.UpdateClientBalanceOnEditingSessions(ClientBalanceID, UpdatedSessionLeftORNoDays, offre, null, NewIsExpired);
             }
             else
             {
-                ProjectToSQL.UpdateClientBalanceOnEditingSessions(ClientBalanceID, UpdatedSessionLeftORNoDays, offre, (DateTime)NewDueDate, NewIsExpired);//
+                ClassClientBalance.UpdateClientBalanceOnEditingSessions(ClientBalanceID, UpdatedSessionLeftORNoDays, offre, (DateTime)NewDueDate, NewIsExpired);//
             }
             if (Date != null)//yaane payment form
             {

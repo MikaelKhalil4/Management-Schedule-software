@@ -388,7 +388,7 @@ namespace MKproject.Management
         {
 
             double NewAmountPaid, NewBalance;
-            (NewAmountPaid, NewBalance) = SQLToProject.GetClientBalanceSpecificItem(ClientBalanceId);
+            (NewAmountPaid, NewBalance) = ClassClientBalance.GetClientBalanceSpecificItem(ClientBalanceId);
             NewAmountPaid -= AmountPaid;
             NewBalance -= AmountPaid;
 

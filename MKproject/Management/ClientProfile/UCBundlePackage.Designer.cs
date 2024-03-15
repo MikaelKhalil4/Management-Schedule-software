@@ -28,144 +28,150 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.TLPglobal = new System.Windows.Forms.TableLayoutPanel();
-            this.labelBundle = new System.Windows.Forms.Label();
-            this.labelSessiosOrDays = new System.Windows.Forms.Label();
-            this.labelBundleDescription = new System.Windows.Forms.Label();
-            this.labelSessiosOrDaysDetails = new System.Windows.Forms.Label();
-            this.labelID = new System.Windows.Forms.Label();
-            this.labelIDDetails = new System.Windows.Forms.Label();
-            this.panelColor = new System.Windows.Forms.Panel();
-            this.TLPglobal.SuspendLayout();
-            this.SuspendLayout();
+            TLPglobal = new System.Windows.Forms.TableLayoutPanel();
+            labelBundle = new System.Windows.Forms.Label();
+            labelSessiosOrDays = new System.Windows.Forms.Label();
+            labelBundleDescription = new System.Windows.Forms.Label();
+            labelSessiosOrDaysDetails = new System.Windows.Forms.Label();
+            labelID = new System.Windows.Forms.Label();
+            labelIDDetails = new System.Windows.Forms.Label();
+            panelColor = new System.Windows.Forms.Panel();
+            TLPglobal.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPglobal
             // 
-            this.TLPglobal.BackColor = System.Drawing.Color.White;
-            this.TLPglobal.ColumnCount = 3;
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
-            this.TLPglobal.Controls.Add(this.labelBundle, 0, 2);
-            this.TLPglobal.Controls.Add(this.labelSessiosOrDays, 0, 4);
-            this.TLPglobal.Controls.Add(this.labelBundleDescription, 1, 2);
-            this.TLPglobal.Controls.Add(this.labelSessiosOrDaysDetails, 1, 4);
-            this.TLPglobal.Controls.Add(this.labelID, 0, 1);
-            this.TLPglobal.Controls.Add(this.labelIDDetails, 1, 1);
-            this.TLPglobal.Controls.Add(this.panelColor, 0, 0);
-            this.TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPglobal.Location = new System.Drawing.Point(0, 0);
-            this.TLPglobal.Margin = new System.Windows.Forms.Padding(0);
-            this.TLPglobal.Name = "TLPglobal";
-            this.TLPglobal.RowCount = 5;
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.TLPglobal.Size = new System.Drawing.Size(407, 201);
-            this.TLPglobal.TabIndex = 0;
+            TLPglobal.BackColor = System.Drawing.Color.White;
+            TLPglobal.ColumnCount = 3;
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
+            TLPglobal.Controls.Add(labelBundle, 0, 2);
+            TLPglobal.Controls.Add(labelSessiosOrDays, 0, 4);
+            TLPglobal.Controls.Add(labelBundleDescription, 1, 2);
+            TLPglobal.Controls.Add(labelSessiosOrDaysDetails, 1, 4);
+            TLPglobal.Controls.Add(labelID, 0, 1);
+            TLPglobal.Controls.Add(labelIDDetails, 1, 1);
+            TLPglobal.Controls.Add(panelColor, 0, 0);
+            TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPglobal.Location = new System.Drawing.Point(0, 0);
+            TLPglobal.Margin = new System.Windows.Forms.Padding(0);
+            TLPglobal.Name = "TLPglobal";
+            TLPglobal.RowCount = 5;
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            TLPglobal.Size = new System.Drawing.Size(398, 232);
+            TLPglobal.TabIndex = 0;
             // 
             // labelBundle
             // 
-            this.labelBundle.BackColor = System.Drawing.Color.Transparent;
-            this.labelBundle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelBundle.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.labelBundle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.labelBundle.Location = new System.Drawing.Point(3, 44);
-            this.labelBundle.Name = "labelBundle";
-            this.labelBundle.Size = new System.Drawing.Size(103, 58);
-            this.labelBundle.TabIndex = 0;
-            this.labelBundle.Text = "Bundle:";
-            this.labelBundle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelBundle.BackColor = System.Drawing.Color.Transparent;
+            labelBundle.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelBundle.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelBundle.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            labelBundle.Location = new System.Drawing.Point(4, 51);
+            labelBundle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelBundle.Name = "labelBundle";
+            labelBundle.Size = new System.Drawing.Size(98, 67);
+            labelBundle.TabIndex = 0;
+            labelBundle.Text = "Bundle:";
+            labelBundle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelSessiosOrDays
             // 
-            this.labelSessiosOrDays.BackColor = System.Drawing.Color.Transparent;
-            this.labelSessiosOrDays.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelSessiosOrDays.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.labelSessiosOrDays.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.labelSessiosOrDays.Location = new System.Drawing.Point(3, 160);
-            this.labelSessiosOrDays.Name = "labelSessiosOrDays";
-            this.labelSessiosOrDays.Size = new System.Drawing.Size(103, 41);
-            this.labelSessiosOrDays.TabIndex = 1;
-            this.labelSessiosOrDays.Text = "Sessions Left:";
-            this.labelSessiosOrDays.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelSessiosOrDays.BackColor = System.Drawing.Color.Transparent;
+            labelSessiosOrDays.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelSessiosOrDays.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelSessiosOrDays.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            labelSessiosOrDays.Location = new System.Drawing.Point(4, 185);
+            labelSessiosOrDays.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelSessiosOrDays.Name = "labelSessiosOrDays";
+            labelSessiosOrDays.Size = new System.Drawing.Size(98, 47);
+            labelSessiosOrDays.TabIndex = 1;
+            labelSessiosOrDays.Text = "Sessions Left:";
+            labelSessiosOrDays.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBundleDescription
             // 
-            this.labelBundleDescription.BackColor = System.Drawing.Color.Transparent;
-            this.labelBundleDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelBundleDescription.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.labelBundleDescription.ForeColor = System.Drawing.Color.Black;
-            this.labelBundleDescription.Location = new System.Drawing.Point(112, 44);
-            this.labelBundleDescription.Name = "labelBundleDescription";
-            this.labelBundleDescription.Size = new System.Drawing.Size(144, 58);
-            this.labelBundleDescription.TabIndex = 0;
-            this.labelBundleDescription.Text = " Gold diamond 12 sessions";
-            this.labelBundleDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelBundleDescription.BackColor = System.Drawing.Color.Transparent;
+            labelBundleDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelBundleDescription.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelBundleDescription.ForeColor = System.Drawing.Color.Black;
+            labelBundleDescription.Location = new System.Drawing.Point(110, 51);
+            labelBundleDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelBundleDescription.Name = "labelBundleDescription";
+            labelBundleDescription.Size = new System.Drawing.Size(150, 67);
+            labelBundleDescription.TabIndex = 0;
+            labelBundleDescription.Text = " Gold diamond 12 sessions";
+            labelBundleDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelSessiosOrDaysDetails
             // 
-            this.labelSessiosOrDaysDetails.BackColor = System.Drawing.Color.Transparent;
-            this.labelSessiosOrDaysDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelSessiosOrDaysDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.labelSessiosOrDaysDetails.Location = new System.Drawing.Point(112, 160);
-            this.labelSessiosOrDaysDetails.Name = "labelSessiosOrDaysDetails";
-            this.labelSessiosOrDaysDetails.Size = new System.Drawing.Size(144, 41);
-            this.labelSessiosOrDaysDetails.TabIndex = 0;
-            this.labelSessiosOrDaysDetails.Text = "3";
-            this.labelSessiosOrDaysDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelSessiosOrDaysDetails.BackColor = System.Drawing.Color.Transparent;
+            labelSessiosOrDaysDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelSessiosOrDaysDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelSessiosOrDaysDetails.Location = new System.Drawing.Point(110, 185);
+            labelSessiosOrDaysDetails.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelSessiosOrDaysDetails.Name = "labelSessiosOrDaysDetails";
+            labelSessiosOrDaysDetails.Size = new System.Drawing.Size(150, 47);
+            labelSessiosOrDaysDetails.TabIndex = 0;
+            labelSessiosOrDaysDetails.Text = "3";
+            labelSessiosOrDaysDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelID
             // 
-            this.labelID.BackColor = System.Drawing.Color.Transparent;
-            this.labelID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelID.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.labelID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.labelID.Location = new System.Drawing.Point(3, 5);
-            this.labelID.Name = "labelID";
-            this.labelID.Size = new System.Drawing.Size(103, 39);
-            this.labelID.TabIndex = 0;
-            this.labelID.Text = "ID:";
-            this.labelID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelID.BackColor = System.Drawing.Color.Transparent;
+            labelID.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelID.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelID.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            labelID.Location = new System.Drawing.Point(4, 6);
+            labelID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelID.Name = "labelID";
+            labelID.Size = new System.Drawing.Size(98, 45);
+            labelID.TabIndex = 0;
+            labelID.Text = "ID:";
+            labelID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelIDDetails
             // 
-            this.labelIDDetails.BackColor = System.Drawing.Color.Transparent;
-            this.labelIDDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelIDDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.labelIDDetails.ForeColor = System.Drawing.Color.Black;
-            this.labelIDDetails.Location = new System.Drawing.Point(112, 5);
-            this.labelIDDetails.Name = "labelIDDetails";
-            this.labelIDDetails.Size = new System.Drawing.Size(144, 39);
-            this.labelIDDetails.TabIndex = 0;
-            this.labelIDDetails.Text = "12";
-            this.labelIDDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelIDDetails.BackColor = System.Drawing.Color.Transparent;
+            labelIDDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelIDDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelIDDetails.ForeColor = System.Drawing.Color.Black;
+            labelIDDetails.Location = new System.Drawing.Point(110, 6);
+            labelIDDetails.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelIDDetails.Name = "labelIDDetails";
+            labelIDDetails.Size = new System.Drawing.Size(150, 45);
+            labelIDDetails.TabIndex = 0;
+            labelIDDetails.Text = "12";
+            labelIDDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelColor
             // 
-            this.panelColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.TLPglobal.SetColumnSpan(this.panelColor, 3);
-            this.panelColor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelColor.Location = new System.Drawing.Point(0, 0);
-            this.panelColor.Margin = new System.Windows.Forms.Padding(0);
-            this.panelColor.Name = "panelColor";
-            this.panelColor.Size = new System.Drawing.Size(407, 5);
-            this.panelColor.TabIndex = 2;
+            panelColor.BackColor = System.Drawing.Color.FromArgb(128, 128, 255);
+            TLPglobal.SetColumnSpan(panelColor, 3);
+            panelColor.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelColor.Location = new System.Drawing.Point(0, 0);
+            panelColor.Margin = new System.Windows.Forms.Padding(0);
+            panelColor.Name = "panelColor";
+            panelColor.Size = new System.Drawing.Size(400, 6);
+            panelColor.TabIndex = 2;
             // 
             // UCBundlePackage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.TLPglobal);
-            this.Name = "UCBundlePackage";
-            this.Padding = new System.Windows.Forms.Padding(0, 0, 13, 0);
-            this.Size = new System.Drawing.Size(420, 201);
-            this.TLPglobal.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.Transparent;
+            Controls.Add(TLPglobal);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "UCBundlePackage";
+            Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            Size = new System.Drawing.Size(413, 232);
+            TLPglobal.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

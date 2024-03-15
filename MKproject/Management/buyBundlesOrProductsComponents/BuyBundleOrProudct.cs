@@ -61,8 +61,8 @@ namespace MKproject.Management
                 ucBundle.TextBoxValueTextChange += ucBundle_TextBoxValueTextChange;
                 FLPSelectedItems.Controls.Add(ucBundle);
 
-                ucBundle.Id = bundle.ID;
-                ucBundle.Title = bundle.Name;
+                ucBundle.Id = bundle.BundleID;
+                ucBundle.Title = bundle.BundleName;
                 ucBundle.NOItem = 1;
                 price = bundle.Price;
                 BundleList.Add(bundle);
@@ -113,7 +113,7 @@ namespace MKproject.Management
             double Amount = 0;
             foreach (var bundle in BundleList)
             {
-                if (bundle.ID == ucBundle.Id)
+                if (bundle.BundleID == ucBundle.Id)
                 {
                     // Modify the property you want to change
                     bundle.Qty = ucBundle.ucNOItem.Number;
@@ -189,7 +189,7 @@ namespace MKproject.Management
 
                             }
 
-                            if (Bundle.EnumBundletype == ClassBundles.bundle.Solo)
+                            if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
                             {
                                 ParentFormClientMang.UCLastVisit.Detail = RandomFunctions.SetDateFormat(Date.ToString());
                                 ParentFormClientMang.Client.LastVisit = Date;
