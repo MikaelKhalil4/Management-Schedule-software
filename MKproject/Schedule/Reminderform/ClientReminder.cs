@@ -9,14 +9,14 @@ namespace MKproject.Schedule
     public partial class ClientReminder : Form
     {
 
-        private string clientName;
-        public string ClientName
+        private ClassClient desiredclient;
+        public ClassClient DesiredClient
         {
-            get { return clientName; }
+            get { return desiredclient; }
             set
             {
-                clientName = value;
-                labelFullName.Text = clientName;
+                desiredclient = value;
+                labelFullName.Text = desiredclient.Fname + " " + desiredclient.Lname;
             }
         }
 
@@ -26,8 +26,7 @@ namespace MKproject.Schedule
 
         Schedule schedule;
         UCDay ucday;
-        ClassClient DesiredClient;
-        ClassReminder DesiredReminder;
+      
 
         public ClientReminder()
         {
@@ -40,20 +39,22 @@ namespace MKproject.Schedule
             schedule = form1;
             ucday = uc1;
             panelreminder.Controls.Clear();
-            //tablereminder = SQLToProject.DisplayReminderByClientName(ClientId);
+            tablereminder = ClassReminder.DisplayReminderByClientName(DesiredClient);
             foreach (DataRow dr in tablereminder.Rows)
             {
-                DesiredReminder.Idreminder = (int)dr[0];
+                ClassReminder DesiredReminder = new ClassReminder();
+                DesiredReminder.Idreminder = (int)dr["reminder_id"];
                 DesiredReminder.DesiredClient = DesiredClient;
-                DesiredReminder.Reminder = (string)dr[1];
-                DesiredReminder.Repeat = (string)dr[2];
-                DesiredReminder.StartTime = (DateTime)dr[3];
-                DesiredReminder.LabelQuote = (string)dr[4];
-                DesiredReminder.IsChecked = (bool)dr[5];
-                UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, true, this);//zedna true kermel naeemela construction khas la ela
+                DesiredReminder.Reminder = (string)dr["reminder"];
+                DesiredReminder.Repeat = (string)dr["repeat"];
+                DesiredReminder.StartTime = (DateTime)dr["starttime"];
+                DesiredReminder.LabelQuote = (string)dr["labelquote"];
+                DesiredReminder.IsChecked = (bool)dr["is_checked"];
+
+
+                UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, this);//zedna true kermel naeemela construction khas la ela
                 ucreminder.Dock = DockStyle.Top;
                 panelreminder.Controls.Add(ucreminder);
-
             }
             TouchscrollPanelclientreminder = new TouchScroll(panelreminder, this);
             //panelreminder.PerformLayout();
@@ -65,7 +66,7 @@ namespace MKproject.Schedule
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
             Reminder reminder = new Reminder(schedule, ucday, this);
             reminder.ShowDialog();

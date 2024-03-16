@@ -15,7 +15,7 @@ namespace MKproject.Schedule
         //VARIABLES:
         DateTime date; int month, year, days; string monthname;//just copies
         public Schedule schedule; public UCDay ucday; public UCCalanderday uccalanderday; public UCCalandermonth uccalandermonth; public UCCalanderyear uccalanderyear;
-        public UCDays ucdaycopy; public LabelMonth labelmonthcopy; public LabelYear labelyearcopy;//for their borders
+        public UCDays ucdayOfDateUCDay; public UCDays ucdayOfToday; public LabelMonth labelmonthcopy; public LabelYear labelyearcopy;//for their borders
 
         public int wichuccalander;//1:uccalanderday  2:uccalandermonth  3:uccalanderyear
         public int NODifferenceYears = 11;
@@ -248,23 +248,37 @@ namespace MKproject.Schedule
         }//we displayed the ucdays now we just have to edit them
         public void PickUC()
         {
-            bool ucdaycopyexist = false;
+            bool ucdayOfDateUCDayexist = false;
+            bool ucdayOfTodayexist = false;
+
             foreach (UCDays u in uccalanderday.tableLayoutPanel1.Controls.OfType<UCDays>())
             {
-                if (u.DateUCdays.Date == ucday.DateUCDay.Date)
+                //Hayda lucday eza zabat w akhad today w se2abit 3endo kamen DateUCDay byekoud today bass
+                if (u.DateUCdays.Date == DateTime.Now.Date)
+                {
+                    u.labelDay.BackColor = Color.FromArgb(196, 210, 245); //sdawa luc li na2ayne
+                    ucdayOfToday = u;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
+                    ucdayOfTodayexist = true;
+                }
+
+                else if (u.DateUCdays.Date == ucday.DateUCDay.Date)
                 {
                     u.labelDay.BackColor = Color.FromArgb(229, 226, 244); //sdawa luc li na2ayne
-                    ucdaycopy = u;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
-                    ucdaycopyexist = true;
+                    ucdayOfDateUCDay = u;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
+                    ucdayOfDateUCDayexist = true;
                 }
                 else
                 {
                     u.labelDay.BackColor = Color.White;
                 }
             }
-            if(ucdaycopyexist == false)
+            if(ucdayOfDateUCDayexist == false)
             {
-                ucdaycopy = null;
+                ucdayOfDateUCDay = null;
+            }
+            if(ucdayOfTodayexist == false)
+            {
+                ucdayOfToday = null;
             }
         }//to pick the ucdays by it's date
         public void HighlightSelectedMonth()

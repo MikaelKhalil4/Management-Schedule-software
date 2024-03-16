@@ -34,19 +34,18 @@ namespace MKproject.Schedule
 
         private void labelDays_MouseEnter(object sender, EventArgs e)
         {
+            if (ucmonths.ucdayOfDateUCDay != this && ucmonths.ucdayOfToday != this)
+            {
+                labelDay.BackColor = Color.FromArgb(229, 226, 244);
+            }
 
-            labelDay.BackColor = Color.FromArgb(229, 226, 244);
 
         }
         private void labelDays_MouseLeave(object sender, EventArgs e)
         {
-            if (ucmonths.ucdaycopy != this)
+            if (ucmonths.ucdayOfDateUCDay != this && ucmonths.ucdayOfToday != this)
             {
                 labelDay.BackColor = Color.White;
-            }
-            else
-            {
-
             }
         }
     }

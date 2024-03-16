@@ -17,7 +17,6 @@ namespace MKproject.Schedule
         {
             get
             {
-                desiredreminder.Partsrepeat = desiredreminder.Repeat.Split('/'); 
                 return desiredreminder;
             }
             set 
@@ -25,8 +24,15 @@ namespace MKproject.Schedule
                 desiredreminder = value;
                 checkBoxReminder.Checked = desiredreminder.IsChecked;
                 checkBoxReminder.Text = desiredreminder.Reminder;
-                linkLabelName.Text = desiredreminder.DesiredClient.Fname+" " + desiredreminder.DesiredClient.Lname;
-
+                if(desiredreminder.DesiredClient == null || Isclientreminder)
+                {
+                    linkLabelName.Hide();
+                }
+                else
+                {
+                    linkLabelName.Show();
+                    linkLabelName.Text = desiredreminder.DesiredClient.Fname + " " + desiredreminder.DesiredClient.Lname;
+                }
             }
         }
 
@@ -44,86 +50,29 @@ namespace MKproject.Schedule
         }
 
         //In Schedule
-        //we want to add a ucreminder
-        public UCreminder(ClassReminder desiredreminder, UCDay form1, Schedule form2)
+        //we want to add a ucreminder or we want to display from SQL
+        public UCreminder(ClassReminder desiredReminder, UCDay form1, Schedule form2)
         {
             InitializeComponent();
             Isclientreminder = false;
-
-            DesiredReminder = desiredreminder;
+            DesiredReminder = desiredReminder;
 
             ucday = form1;
             schedule = form2;
-
-            buttonDelete.Hide();
-            if (DesiredReminder.DesiredClient == null)
-            {
-                linkLabelName.Visible = false;
-            }
-            else
-            {
-                linkLabelName.Visible = true;
-            }
         }
-
-        //we want to display from SQL
-        public UCreminder(ClassReminder desiredreminder, UCDay form1, Schedule form2, bool isclientreminder)
-        {
-            InitializeComponent();
-            ucday = form1;
-            schedule = form2;
-
-            DesiredReminder = desiredreminder;
-
-            Isclientreminder = isclientreminder;
-            buttonDelete.Hide();
-            if (DesiredReminder.DesiredClient == null)
-            {
-                linkLabelName.Visible = false;
-            }
-            else
-            {
-                linkLabelName.Visible = true;
-            }
-        }
-
 
         //In ClientReminder(from select SQL once we open ClientReminder or when we ADD in ClientReminder)
-        public UCreminder(ClassReminder desiredreminder , UCDay form1, Schedule form2, bool isclientreminder, ClientReminder clientreminder)
+        public UCreminder(ClassReminder desiredReminder , UCDay form1, Schedule form2 , ClientReminder clientreminder)
         {
             InitializeComponent();
-            ucday = form1;
-            schedule = form2;
-            DesiredReminder = desiredreminder;
+            Isclientreminder = true;
+            DesiredReminder = desiredReminder;
 
             clientReminder = clientreminder;
-            Isclientreminder = isclientreminder;
-
-            linkLabelName.Visible = false;
+            ucday = form1;
+            schedule = form2;
         }
 
-
-        //Function
-        public void UpdateReminder(ClassReminder desiredreminder)
-        {
-           DesiredReminder = desiredreminder;
-
-            if (Isclientreminder)
-            {
-                linkLabelName.Visible = false;
-            }
-            else
-            {
-                if (DesiredReminder.DesiredClient == null)
-                {
-                    linkLabelName.Visible = false;
-                }
-                else
-                {
-                    linkLabelName.Visible = true;
-                }
-            }
-        }
 
 
         //EVENTS
@@ -132,11 +81,11 @@ namespace MKproject.Schedule
             Reminder reminder;
             if (Isclientreminder)
             {
-                reminder = new Reminder(desiredreminder, ucday, schedule, Isclientreminder, clientReminder);
+                reminder = new Reminder(this, ucday, schedule, Isclientreminder, clientReminder);
             }
             else
             {
-                reminder = new Reminder(desiredreminder, ucday, schedule, Isclientreminder);
+                reminder = new Reminder(DesiredReminder, ucday, schedule, Isclientreminder);
             }
             reminder.Show();
         }
@@ -145,16 +94,28 @@ namespace MKproject.Schedule
             //SQL:
             DesiredReminder.DeleteReminderSQL();
 
+            //Design:
+            if(Isclientreminder)
+            {
+                UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
 
-            UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
 
-            //BackEnd
-            ucday.ListUCreminder.Remove(foundUcReminder);
-            schedule.panelreminder.Controls.Remove(foundUcReminder);
+                ucday.ListUCreminder.Remove(foundUcReminder);
+                schedule.panelreminder.Controls.Remove(foundUcReminder);
+                clientReminder.panelreminder.Controls.Remove(this);
 
-            //Design
-            foundUcReminder.Dispose();
-            this.Dispose();
+
+                foundUcReminder.Dispose();
+                this.Dispose();
+            }
+            else
+            {
+                ucday.ListUCreminder.Remove(this);
+                schedule.panelreminder.Controls.Remove(this);
+
+                this.Dispose();
+            }
+          
         }
         private void linkLabelName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -184,8 +145,11 @@ namespace MKproject.Schedule
                     foundUcReminder.DesiredReminder.IsChecked = false;
                     foundUcReminder.tableLayoutPanel1.BackColor = Color.White;
 
-                    foundUcReminder.Dock = DockStyle.Top;
-                    schedule.panelreminder.Controls.Add(foundUcReminder);
+                    if(ucday.isThedayofUCreminder(foundUcReminder,ucday.DateUCDay))
+                    {
+                        foundUcReminder.Dock = DockStyle.Top;
+                        schedule.panelreminder.Controls.Add(foundUcReminder);
+                    }
                 }
             }
             else

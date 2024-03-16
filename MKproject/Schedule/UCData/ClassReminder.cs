@@ -15,8 +15,18 @@ namespace MKproject.Schedule.UCData
         public int Idreminder { get; set; }
         public string Reminder { get; set; }
         public ClassClient DesiredClient { get; set; }
-        public string Repeat { get; set; }
+      
         public string[] Partsrepeat { get; set; }
+        private string repeat;
+        public string Repeat
+        {
+            get { return repeat; }
+            set { 
+                repeat = value;
+                Partsrepeat =Repeat.Split('/');
+            }
+        }
+
         public string LabelQuote { get; set; }
         public DateTime StartTime { get; set; }
 
@@ -54,12 +64,12 @@ namespace MKproject.Schedule.UCData
             con.Close();
             return dt1;
         }
-        public static DataTable DisplayReminderByClientName(ClassReminder DesiredReminder)
+        public static DataTable DisplayReminderByClientName(ClassClient DesiredClient)
         {
             SqlCommand command1 = new SqlCommand(@"SELECT reminder_id, reminder, repeat, starttime, labelquote, is_checked
                                                    FROM reminder
                                                    WHERE client_id = @client_id", con);
-            command1.Parameters.AddWithValue("@client_id", DesiredReminder.DesiredClient.ClientId);
+            command1.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
@@ -83,11 +93,11 @@ namespace MKproject.Schedule.UCData
             command.Parameters.AddWithValue("@reminder", Reminder);
             if(DesiredClient != null)
             {
-                command.Parameters.Add(DesiredClient.ClientId);
+                command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
             }
             else
             {
-                command.Parameters.Add(DBNull.Value);
+                command.Parameters.AddWithValue("@client_id",DBNull.Value);
             }
             command.Parameters.AddWithValue("@repeat", Repeat);
             command.Parameters.AddWithValue("@starttime", StartTime);
@@ -111,11 +121,11 @@ namespace MKproject.Schedule.UCData
             command.Parameters.AddWithValue("@reminder", Reminder);
             if (DesiredClient != null)
             {
-                command.Parameters.Add(DesiredClient.ClientId);
+                command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
             }
             else
             {
-                command.Parameters.Add(DBNull.Value);
+                command.Parameters.AddWithValue("@client_id", DBNull.Value);
             }
             command.Parameters.AddWithValue("@repeat", Repeat);
             command.Parameters.AddWithValue("@starttime", StartTime);

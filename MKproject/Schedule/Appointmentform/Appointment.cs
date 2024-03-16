@@ -157,6 +157,7 @@ namespace MKproject.Schedule
                 TLPGlobal.Controls.Remove(ucOthersApp);
             }
             TLPGlobal.Controls.Add(ucClientApp, 0, 1);
+            TLPGlobal.SetColumnSpan(ucClientApp, 2);
             ucClientApp.Dock = DockStyle.Fill;
         }
         void OthersModeOnDesign()
@@ -166,6 +167,7 @@ namespace MKproject.Schedule
                 TLPGlobal.Controls.Remove(ucClientApp);
             }
             TLPGlobal.Controls.Add(ucOthersApp, 0, 1);
+            TLPGlobal.SetColumnSpan(ucOthersApp, 2);
             ucOthersApp.Dock = DockStyle.Fill;
         }
 

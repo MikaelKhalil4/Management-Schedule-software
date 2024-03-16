@@ -222,30 +222,24 @@ namespace MKproject.Schedule
             foreach (DataRow dr in tablereminder.Rows)
             {
                 //Badna nt2akad eza lezim ton3ata lal DesiredReminder.DesiredClient
-                int? clientid = dr[1] as int?;//hayde fi hal kenit null
-                string clientname;
-                if (dr.IsNull(7))
-                {
-                    clientname = "";
-                }
-                else
-                {
-                    clientname = (string)dr["name"] + " " + (string)dr["family_name"];
-                }
-
                 ClassReminder DesiredReminder = new ClassReminder();
-                DesiredReminder.DesiredClient = new ClassClient();
-                DesiredReminder.Idreminder = (int)dr[0];
-                if (clientid != null)
+
+                //Fill DesiredReminder
+                DesiredReminder.Idreminder = (int)dr["reminder_id"];
+                if (dr["client_id"] != DBNull.Value)
                 {
-                    DesiredReminder.DesiredClient.ClientId = (int)clientid;
+                    DesiredReminder.DesiredClient = new ClassClient();
+                    DesiredReminder.DesiredClient.ClientId = (int)dr["client_id"];
+                    DesiredReminder.DesiredClient.Fname = (string)dr["name"];
+                    DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
+                    DesiredReminder.DesiredClient.FullName = (string)dr["name"] + " " + (string)dr["family_name"];
                 }
-                DesiredReminder.Reminder = (string)dr[2];
-                DesiredReminder.Repeat = (string)dr[3];
-                DesiredReminder.StartTime = (DateTime)dr[4];
-                DesiredReminder.LabelQuote = (string)dr[5];
-                DesiredReminder.IsChecked = (bool)dr[6];
-                UCreminder ucreminder = new UCreminder(DesiredReminder, this, schedule, false);//li2anno manna bi client reminder
+                DesiredReminder.Reminder = (string)dr["reminder"];
+                DesiredReminder.Repeat = (string)dr["repeat"];
+                DesiredReminder.StartTime = (DateTime)dr["starttime"];
+                DesiredReminder.LabelQuote = (string)dr["labelquote"];
+                DesiredReminder.IsChecked = (bool)dr["is_checked"];
+                UCreminder ucreminder = new UCreminder(DesiredReminder, this, schedule);//li2anno manna bi client reminder
 
                 ListUCreminder.Add(ucreminder);
 
@@ -262,9 +256,9 @@ namespace MKproject.Schedule
                 else
                 {
 
-                    //    }
-                    //}
-                    schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+                    ////    }
+                    ////}
+                    //schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
 
 
                     //HistoryEmployeeAvailability
