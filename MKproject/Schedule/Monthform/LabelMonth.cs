@@ -28,7 +28,7 @@ namespace MKproject.Schedule
         public LabelMonth()
         {
             //DESIGN
-            this.Font = new Font("Segoe UI", 14.25f);
+            this.Font = new Font("Segoe UI", 5.75f);
             this.BackColor = Color.White;
             this.ForeColor = Color.FromArgb(109, 122, 224);
             this.Margin = new Padding(0);
@@ -54,7 +54,6 @@ namespace MKproject.Schedule
             ucmonths.tableLayoutPanelMonth.Controls.Add(ucmonths.uccalanderday);
 
             ucmonths.EditLabelUCdays();
-            ucmonths.buttonTypeDateChange.Text = "Month";
         }
 
         

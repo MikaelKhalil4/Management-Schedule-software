@@ -28,35 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelDay = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            labelDay = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
             // labelDay
             // 
-            this.labelDay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(132)))), ((int)(((byte)(234)))));
-            this.labelDay.Location = new System.Drawing.Point(0, 0);
-            this.labelDay.Name = "labelDay";
-            this.labelDay.Size = new System.Drawing.Size(145, 99);
-            this.labelDay.TabIndex = 3;
-            this.labelDay.Text = "00";
-            this.labelDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelDay.Click += new System.EventHandler(this.UCDays_Click);
-            this.labelDay.MouseEnter += new System.EventHandler(this.labelDays_MouseEnter);
-            this.labelDay.MouseLeave += new System.EventHandler(this.labelDays_MouseLeave);
+            labelDay.BackColor = System.Drawing.Color.Transparent;
+            labelDay.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelDay.ForeColor = System.Drawing.Color.FromArgb(119, 132, 234);
+            labelDay.Location = new System.Drawing.Point(0, 0);
+            labelDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelDay.Name = "labelDay";
+            labelDay.Size = new System.Drawing.Size(169, 114);
+            labelDay.TabIndex = 3;
+            labelDay.Text = "00";
+            labelDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelDay.Click += UCDays_Click;
+            labelDay.MouseEnter += labelDays_MouseEnter;
+            labelDay.MouseLeave += labelDays_MouseLeave;
             // 
             // UCDays
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelDay);
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "UCDays";
-            this.Size = new System.Drawing.Size(145, 99);
-            this.Click += new System.EventHandler(this.UCDays_Click);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.White;
+            BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            Controls.Add(labelDay);
+            DoubleBuffered = true;
+            Margin = new System.Windows.Forms.Padding(0);
+            Name = "UCDays";
+            Size = new System.Drawing.Size(169, 114);
+            Click += UCDays_Click;
+            ResumeLayout(false);
         }
 
         #endregion
