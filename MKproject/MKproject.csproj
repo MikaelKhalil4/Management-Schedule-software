@@ -226,6 +226,9 @@
     <Content Include="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Update="images\circle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

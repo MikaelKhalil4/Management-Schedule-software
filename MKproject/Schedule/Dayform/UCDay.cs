@@ -586,7 +586,6 @@ namespace MKproject.Schedule
 
             }
 
-            schedule.ucmonths.buttonTypeDateChange.Text = "Month";
             schedule.ucmonths.EditLabelUCdays();
 
         }

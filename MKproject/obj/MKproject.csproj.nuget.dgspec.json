@@ -1,35 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\MKproject.csproj": {}
+    "C:\\MKProject code\\MKproject\\MKproject\\MKproject.csproj": {}
   },
   "projects": {
-    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj": {
+    "C:\\MKProject code\\MKproject\\CustomizedTools\\CustomizedTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj",
+        "projectUniqueName": "C:\\MKProject code\\MKproject\\CustomizedTools\\CustomizedTools.csproj",
         "projectName": "CustomizedTools",
-        "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\obj\\",
+        "projectPath": "C:\\MKProject code\\MKproject\\CustomizedTools\\CustomizedTools.csproj",
+        "packagesPath": "C:\\Users\\GK\\.nuget\\packages\\",
+        "outputPath": "C:\\MKProject code\\MKproject\\CustomizedTools\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0-windows"
         ],
         "sources": {
-          "c:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj": {
-                "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj"
+              "C:\\MKProject code\\MKproject\\GlobalFunctions\\GlobalFunctions.csproj": {
+                "projectPath": "C:\\MKProject code\\MKproject\\GlobalFunctions\\GlobalFunctions.csproj"
               }
             }
           }
@@ -38,6 +42,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -64,20 +73,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -86,28 +81,32 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\Program Files\\dotnet\\sdk\\8.0.100-rc.1.23455.8\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj": {
+    "C:\\MKProject code\\MKproject\\GlobalFunctions\\GlobalFunctions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj",
+        "projectUniqueName": "C:\\MKProject code\\MKproject\\GlobalFunctions\\GlobalFunctions.csproj",
         "projectName": "GlobalFunctions",
-        "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\obj\\",
+        "projectPath": "C:\\MKProject code\\MKproject\\GlobalFunctions\\GlobalFunctions.csproj",
+        "packagesPath": "C:\\Users\\GK\\.nuget\\packages\\",
+        "outputPath": "C:\\MKProject code\\MKproject\\GlobalFunctions\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0-windows"
         ],
         "sources": {
-          "c:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -120,6 +119,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -146,20 +150,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -168,39 +158,43 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\Program Files\\dotnet\\sdk\\8.0.100-rc.1.23455.8\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\MKproject.csproj": {
+    "C:\\MKProject code\\MKproject\\MKproject\\MKproject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\MKproject.csproj",
+        "projectUniqueName": "C:\\MKProject code\\MKproject\\MKproject\\MKproject.csproj",
         "projectName": "MKproject",
-        "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\MKproject.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\obj\\",
+        "projectPath": "C:\\MKProject code\\MKproject\\MKproject\\MKproject.csproj",
+        "packagesPath": "C:\\Users\\GK\\.nuget\\packages\\",
+        "outputPath": "C:\\MKProject code\\MKproject\\MKproject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0-windows"
         ],
         "sources": {
-          "c:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj": {
-                "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj"
+              "C:\\MKProject code\\MKproject\\CustomizedTools\\CustomizedTools.csproj": {
+                "projectPath": "C:\\MKProject code\\MKproject\\CustomizedTools\\CustomizedTools.csproj"
               },
-              "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj": {
-                "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj"
+              "C:\\MKProject code\\MKproject\\GlobalFunctions\\GlobalFunctions.csproj": {
+                "projectPath": "C:\\MKProject code\\MKproject\\GlobalFunctions\\GlobalFunctions.csproj"
               }
             }
           }
@@ -209,6 +203,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -255,24 +254,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.22, 6.0.22]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.22, 6.0.22]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -281,7 +262,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\Program Files\\dotnet\\sdk\\8.0.100-rc.1.23455.8\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

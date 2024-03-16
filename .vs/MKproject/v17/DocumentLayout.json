@@ -1,0 +1,294 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\MKProject code\\MKproject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|c:\\mkproject code\\mkproject\\mkproject\\schedule\\monthform\\uccalandermonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\uccalandermonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|c:\\mkproject code\\mkproject\\mkproject\\schedule\\monthform\\uccalanderyear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\uccalanderyear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\uccalanderday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\uccalanderday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\ucmonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\ucmonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|c:\\mkproject code\\mkproject\\mkproject\\schedule\\monthform\\uccalanderyear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\uccalanderyear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|c:\\mkproject code\\mkproject\\mkproject\\schedule\\monthform\\uccalandermonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\uccalandermonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\ucdays.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\ucdays.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\labelmonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\labelmonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|c:\\mkproject code\\mkproject\\mkproject\\schedule\\monthform\\ucmonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\ucmonth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\labelyearcs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\labelyearcs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\uccalanderday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\uccalanderday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|c:\\mkproject code\\mkproject\\mkproject\\schedule\\monthform\\ucmonth.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\ucmonth.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\ucdays.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\ucdays.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\dayform\\ucday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\dayform\\ucday.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|C:\\MKProject code\\MKproject\\mkproject\\schedule\\monthform\\ucdays.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94B083B7-73A8-4E76-8907-723974B4EEAB}|MKproject\\MKproject.csproj|solutionrelative:mkproject\\schedule\\monthform\\ucdays.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UCMonth.cs [Design]",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCMonth.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCMonth.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCMonth.cs [Design]",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCMonth.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:09:59.424Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UCMonth.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCMonth.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCMonth.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCMonth.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCMonth.cs",
+              "ViewState": "AQIAABgBAAAAAAAAAAAvwGUBAABJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T09:59:28.212Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UCCalanderday.cs [Design]",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderday.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCCalanderday.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderday.cs [Design]",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCCalanderday.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:22:00.903Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UCCalanderyear.cs [Design]",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderyear.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCCalanderyear.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderyear.cs [Design]",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCCalanderyear.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T14:07:22.373Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UCCalanderyear.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderyear.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCCalanderyear.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderyear.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCCalanderyear.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T14:07:20.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UCCalandermonth.cs [Design]",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalandermonth.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCCalandermonth.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalandermonth.cs [Design]",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCCalandermonth.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T14:06:39.224Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UCCalandermonth.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalandermonth.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCCalandermonth.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalandermonth.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCCalandermonth.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T14:06:37.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UCMonth.designer.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCMonth.designer.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCMonth.designer.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCMonth.designer.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCMonth.designer.cs",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAswF8AAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T13:49:56.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Program.cs",
+              "RelativeDocumentMoniker": "MKproject\\Program.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Program.cs",
+              "RelativeToolTip": "MKproject\\Program.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABQAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T11:01:48.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UCDays.cs [Design]",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCDays.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCDays.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCDays.cs [Design]",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCDays.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:58:45.287Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UCDays.designer.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCDays.designer.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCDays.designer.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCDays.designer.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCDays.designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:30:14.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UCCalanderday.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderday.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCCalanderday.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCCalanderday.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCCalanderday.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:22:05.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UCDays.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCDays.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\UCDays.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\UCDays.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\UCDays.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAAABgAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:21:11.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LabelMonth.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\LabelMonth.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\LabelMonth.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\LabelMonth.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\LabelMonth.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAAwB4AAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:01:39.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LabelYearcs.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\LabelYearcs.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Monthform\\LabelYearcs.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Monthform\\LabelYearcs.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Monthform\\LabelYearcs.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAQwBcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:01:31.087Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UCDay.cs",
+              "DocumentMoniker": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Dayform\\UCDay.cs",
+              "RelativeDocumentMoniker": "MKproject\\Schedule\\Dayform\\UCDay.cs",
+              "ToolTip": "C:\\MKProject code\\MKproject\\MKproject\\Schedule\\Dayform\\UCDay.cs",
+              "RelativeToolTip": "MKproject\\Schedule\\Dayform\\UCDay.cs",
+              "ViewState": "AQIAAGgCAAAAAAAAAAAAAEwCAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-16T10:01:23.582Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
