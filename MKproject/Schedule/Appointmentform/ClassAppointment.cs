@@ -20,20 +20,7 @@ namespace MKproject.Schedule
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Notes { get; set; }
-
-        //just when it will be created it will be false
-        private bool onPending = false;
-        public bool OnPending
-        {
-            get
-            {
-                return onPending;
-            }
-            set
-            {
-                onPending = value;
-            }
-        }
+        public string HistoryClientBalance { get; set; }
 
         //used in UCClientApp
         public ClassClient DesiredClient { get; set; }
@@ -138,8 +125,7 @@ namespace MKproject.Schedule
         public static DataTable DisplayAppointmentsWhereEmployees(UCDay ucday, List<int> listrankemployees_id)
         {
             StringBuilder queryBuilder = new StringBuilder();
-            queryBuilder.AppendLine(@"SELECT t.appointment_id , t.employee_id, c.client_id, c.name,  c.family_name, t.title,
-                                      t.start_time, t.end_time, t.Note, t.onpending 
+            queryBuilder.AppendLine(@"SELECT t.appointment_id , c.client_id , c.name, c.family_name  
                                       FROM appointments t
                                       JOIN client c ON t.client_id = c.client_id
                                       WHERE CAST(t.start_time AS DATE) = @value1");
@@ -176,8 +162,7 @@ namespace MKproject.Schedule
         }
         public static DataTable DisplayAppointmentsOneEmployee(UCDay ucday, int employee_id)
         {
-            SqlCommand command1 = new SqlCommand(@"SELECT t.appointment_id, c.client_id, c.name,  c.family_name, t.title,
-                                                   t.start_time, t.end_time, t.Note, t.onpending 
+            SqlCommand command1 = new SqlCommand(@"SELECT t.appointment_id, c.client_id, c.name,  c.family_name 
                                                    FROM appointments t JOIN client c ON t.client_id = c.client_id 
                                                    WHERE CAST(t.start_time AS DATE) = @value1  AND t.employee_id =@employee_id", con);
 
@@ -208,11 +193,11 @@ namespace MKproject.Schedule
 
         public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
-            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, desired_client_balance_id,title, start_time, end_time, Note, onpending) 
-                                                                  VALUES (@employee_id, @client_id,@desired_client_balance_id ,@title, @start_time, @end_time, @Note, @onpending) ";
+            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, desired_client_balance_id,title, start_time, end_time, Note) 
+                                                                  VALUES (@employee_id, @client_id,@desired_client_balance_id ,@title, @start_time, @end_time, @Note) ";
 
             string queryUpdate = @"  Update appointments SET  
-                            employee_id=@employee_id ,client_id=@client_id , desired_client_balance_id=@desired_client_balance_id, title=@title, start_time=@start_time, end_time=@end_time, Note=@Note, onpending=@onpending
+                            employee_id=@employee_id ,client_id=@client_id , desired_client_balance_id=@desired_client_balance_id, title=@title, start_time=@start_time, end_time=@end_time, Note=@Note
                                                                 WHERE  appointment_id=@appointment_id ";
 
             SqlCommand cmdInsertOrUpdateApp;
@@ -250,7 +235,6 @@ namespace MKproject.Schedule
 
             cmdInsertOrUpdateApp.Parameters.AddWithValue("@start_time", StartTime);
             cmdInsertOrUpdateApp.Parameters.AddWithValue("@end_time", EndTime);
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@onpending", OnPending);
 
 
             if (Notes != null)
@@ -335,17 +319,7 @@ namespace MKproject.Schedule
             command.ExecuteNonQuery();
             con.Close();
         }
-        public void UpdateAppointmentCheck()
-        {
-            SqlCommand command = new SqlCommand(@"UPDATE appointments
-                                                  SET onpending=@onpending
-                                                  WHERE appointment_id =@appointment_id", con);
-            command.Parameters.AddWithValue("@onpending", OnPending);
-            command.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
-            con.Open();
-            command.ExecuteNonQuery();
-            con.Close();
-        }
+   
 
 
 

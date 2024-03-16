@@ -44,6 +44,7 @@
             ButtonDone = new CustomizedTools.CustomButton();
             ButtonCancel = new CustomizedTools.CustomButton();
             label1 = new System.Windows.Forms.Label();
+            buttonDelete = new System.Windows.Forms.Button();
             TLPGlobal.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DownArrowEndTime).BeginInit();
@@ -86,6 +87,7 @@
             textBoxNotes.Dock = System.Windows.Forms.DockStyle.Fill;
             textBoxNotes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             textBoxNotes.ForeColor = System.Drawing.Color.Gray;
+            textBoxNotes.IsRequiredModeOn = false;
             textBoxNotes.Location = new System.Drawing.Point(3, 316);
             textBoxNotes.Multiline = true;
             textBoxNotes.Name = "textBoxNotes";
@@ -221,6 +223,7 @@
             // 
             TLPGlobal.SetColumnSpan(flowLayoutPanel3, 2);
             flowLayoutPanel3.Controls.Add(ButtonDone);
+            flowLayoutPanel3.Controls.Add(buttonDelete);
             flowLayoutPanel3.Controls.Add(ButtonCancel);
             flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
@@ -261,7 +264,7 @@
             ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonCancel.ForeColor = System.Drawing.Color.White;
-            ButtonCancel.Location = new System.Drawing.Point(200, 3);
+            ButtonCancel.Location = new System.Drawing.Point(90, 3);
             ButtonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ButtonCancel.Name = "ButtonCancel";
             ButtonCancel.Size = new System.Drawing.Size(102, 33);
@@ -282,6 +285,25 @@
             label1.TabIndex = 1;
             label1.Text = "Duration:";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            buttonDelete.BackColor = System.Drawing.Color.FromArgb(255, 50, 50);
+            buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonDelete.FlatAppearance.BorderSize = 0;
+            buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+            buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonDelete.ForeColor = System.Drawing.Color.White;
+            buttonDelete.Location = new System.Drawing.Point(200, 3);
+            buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new System.Drawing.Size(102, 33);
+            buttonDelete.TabIndex = 740;
+            buttonDelete.Text = "Delete";
+            buttonDelete.UseVisualStyleBackColor = false;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // Appointment
             // 
@@ -322,5 +344,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         public CustomizedTools.TextBoxWithPlaceHolder textBoxNotes;
         public CustomizedTools.CustomButton ButtonDone;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

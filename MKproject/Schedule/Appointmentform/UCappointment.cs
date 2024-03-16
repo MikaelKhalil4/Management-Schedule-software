@@ -15,51 +15,10 @@ namespace MKproject.Schedule
         public ClassAppointment DesiredAppointment
         {
             get { return desiredappointment; }
-            set 
+            set
             {
                 desiredappointment = value;
-
-                //Name
-                if (desiredappointment.DesiredClient != null )
-                {
-                    checkBoxAppointment.Text = desiredappointment.DesiredClient.Fname + " " + desiredappointment.DesiredClient.Lname;
-
-                }
-                else
-                {
-                    checkBoxAppointment.Text = "No Client Chosen";
-                }
-
-                //StartTime
-                string timestring = desiredappointment.StartTime.ToString("h:mm tt");
-                string[] partstime = timestring.Split(' ');
-                labelStartTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
-
-                //EndTime
-                timestring = desiredappointment.EndTime.ToString("h:mm tt");
-                partstime = timestring.Split(' ');
-                labelEndTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
-
-                //OnPending
-                checkBoxAppointment.Checked = desiredappointment.OnPending;
-
-                //ClientType
-                //if (clienttype == StaticClass.AppointmentType.Member.ToString())
-                //{
-                //    this.BackColor = Color.FromArgb(109, 122, 224);
-                //}
-                //else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
-                //{
-                //    this.BackColor = Color.FromArgb(202, 88, 229);
-                //}
-                //else if (clienttype == StaticClass.AppointmentType.Solo.ToString())
-                //{
-                //    this.BackColor = Color.FromArgb(74, 220, 168);
-                //}
-                //else//Meeting
-                //{
-                //    this.BackColor = Color.FromArgb(255, 102, 147);
-                //}
+                SetDesign();
             }
         }
 
@@ -78,7 +37,7 @@ namespace MKproject.Schedule
 
 
         //ADD and SELECT (remember in add there's no uctime but in select there's)
-        public UCappointment(ClassAppointment desiredappointment,UCDay uCDay)
+        public UCappointment(ClassAppointment desiredappointment, UCDay uCDay)
         {
             InitializeComponent();
             DesiredAppointment = desiredappointment;
@@ -86,6 +45,47 @@ namespace MKproject.Schedule
         }
 
 
+        void SetDesign()
+        {
+            //Name
+            if (DesiredAppointment.DesiredClient != null)
+            {
+                labelFullName.Text = DesiredAppointment.DesiredClient.Fname + " " + DesiredAppointment.DesiredClient.Lname;
+            }
+            else
+            {
+                labelFullName.Text = "No Client Chosen";
+            }
+
+
+            //Service
+            if (DesiredAppointment.DesiredClientBalance != null)
+            {
+                labelService.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
+            }
+            else if (DesiredAppointment.ChosenBundlesList != null && DesiredAppointment.ChoseBundlesString != null)
+            {
+                labelService.Text = DesiredAppointment.ChoseBundlesString;
+            }
+            else if (DesiredAppointment.Title != null)
+            {
+                labelService.Text = DesiredAppointment.Title;
+            }
+
+
+            //StartTime
+            string timestring = DesiredAppointment.StartTime.ToString("h:mm tt");
+
+            string[] partstime = timestring.Split(' ');
+            labelTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
+
+            //EndTime
+            timestring = DesiredAppointment.EndTime.ToString("h:mm tt");
+            partstime = timestring.Split(' ');
+            labelTime.Text += " - " + partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
+
+
+        }
         //UPDATE
         public void UpdateAppointments(ClassAppointment desiredappointment)
         {
@@ -107,19 +107,6 @@ namespace MKproject.Schedule
             {
 
             }
-        }
-        private void checkBoxOnPending_Click(object sender, EventArgs e)
-        {
-            //Class
-            DesiredAppointment.OnPending = checkBoxAppointment.Checked;
-
-            //SQL
-            DesiredAppointment.UpdateAppointmentCheck();
-
-            //DESIGN
-
-            DesiredAppointment.OnPending = checkBoxAppointment.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
-           
         }
 
         public void RemoveAppointment()
@@ -218,15 +205,11 @@ namespace MKproject.Schedule
                 }
             }
         }
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            RemoveAppointment();
-              
-        }
 
 
 
-        
+
+
 
 
         //DESIGN
@@ -252,5 +235,7 @@ namespace MKproject.Schedule
             }
         }
 
+       
+        
     }
 }

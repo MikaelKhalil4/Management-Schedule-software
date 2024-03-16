@@ -1244,10 +1244,6 @@ namespace MKproject.Schedule
         {
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
             {
-                ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);
-            }
-            foreach (DataRow dr in thisdaydatatableAppointments.Rows)
-            {
 
                 ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);             
                 UCappointment ucappointments = new UCappointment(DesiredAppointment, this);

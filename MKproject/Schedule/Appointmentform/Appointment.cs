@@ -69,6 +69,7 @@ namespace MKproject.Schedule
             //Fill Design
             CreateUCClientDesign();
             SetStartTimeAndEndTimeInDesign();
+            buttonDelete.Visible = false;
         }
 
         ///UPDATE
@@ -96,7 +97,7 @@ namespace MKproject.Schedule
 
             //Fill Design
             CreateUCClientDesign();
-
+            buttonDelete.Visible = true;
         }
         void CreateUCClientDesign()
         {
@@ -143,7 +144,7 @@ namespace MKproject.Schedule
             DesiredAppointment.StartTime = ucday.DateUCDay.Date + HourStartTime.TimeOfDay;
             DesiredAppointment.EndTime = ucday.DateUCDay.Date + HourEndTime.TimeOfDay;
 
-           
+
             string Note = textBoxNotes.Text;
             if (Note != textBoxNotes.PlaceholderText && !string.IsNullOrEmpty(Note))
             {
@@ -158,9 +159,9 @@ namespace MKproject.Schedule
             {
                 //SQL:
 
-                 DesiredAppointment.InsertOrUpdateAppointment(true);
-                 DesiredAppointment.IdAppointment = ClassAppointment.GetLastAppointmentId();
- 
+                DesiredAppointment.InsertOrUpdateAppointment(true);
+                DesiredAppointment.IdAppointment = ClassAppointment.GetLastAppointmentId();
+
                 //Design
                 ucday.AddUCappointments(DesiredAppointment, PositionCol, PositionRow);
             }
@@ -287,7 +288,7 @@ namespace MKproject.Schedule
                     }
                     else if (DesiredAppointment.DesiredClientBalance == null && (DesiredAppointment.ChoseBundlesString == null && DesiredAppointment.ChosenBundlesList == null))
                     {
-                       CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
+                        CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
                     }
                     else
                     {
@@ -305,15 +306,21 @@ namespace MKproject.Schedule
                     {
                         SetUPUCAppointment();
                     }
-                }          
+                }
             }
             else
             {
-               CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.Ok);
             }
         }
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            ucappointment.RemoveAppointment();
             this.Close();
         }
     }

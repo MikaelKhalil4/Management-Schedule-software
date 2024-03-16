@@ -28,111 +28,100 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBoxAppointment = new System.Windows.Forms.CheckBox();
-            this.labelStartTime = new System.Windows.Forms.Label();
-            this.labelEndTime = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            labelTime = new System.Windows.Forms.Label();
+            labelFullName = new System.Windows.Forms.Label();
+            labelService = new System.Windows.Forms.Label();
+            tableLayoutPanel2.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.60825F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.checkBoxAppointment, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.labelStartTime, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.labelEndTime, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 4);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.4375F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.56251F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(230, 66);
-            this.tableLayoutPanel2.TabIndex = 0;
-            this.tableLayoutPanel2.Click += new System.EventHandler(this.UCappointments_Click);
-            this.tableLayoutPanel2.MouseLeave += new System.EventHandler(this.UCappointments_MouseLeave);
-            this.tableLayoutPanel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCappointments_MouseMove);
+            tableLayoutPanel2.BackColor = System.Drawing.Color.White;
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
+            tableLayoutPanel2.Controls.Add(labelTime, 1, 1);
+            tableLayoutPanel2.Controls.Add(labelFullName, 0, 1);
+            tableLayoutPanel2.Controls.Add(labelService, 0, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(0, 5);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.1578941F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.8421059F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(268, 76);
+            tableLayoutPanel2.TabIndex = 0;
+            tableLayoutPanel2.Click += UCappointments_Click;
+            tableLayoutPanel2.MouseLeave += UCappointments_MouseLeave;
+            tableLayoutPanel2.MouseMove += UCappointments_MouseMove;
             // 
-            // checkBoxAppointment
+            // labelTime
             // 
-            this.checkBoxAppointment.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.checkBoxAppointment.AutoSize = true;
-            this.checkBoxAppointment.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxAppointment.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAppointment.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.checkBoxAppointment.Location = new System.Drawing.Point(3, 30);
-            this.checkBoxAppointment.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
-            this.checkBoxAppointment.Name = "checkBoxAppointment";
-            this.checkBoxAppointment.Size = new System.Drawing.Size(88, 21);
-            this.checkBoxAppointment.TabIndex = 14;
-            this.checkBoxAppointment.Text = "Full Name";
-            this.checkBoxAppointment.UseVisualStyleBackColor = false;
-            this.checkBoxAppointment.Click += new System.EventHandler(this.checkBoxOnPending_Click);
-            this.checkBoxAppointment.MouseLeave += new System.EventHandler(this.UCappointments_MouseLeave);
-            this.checkBoxAppointment.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCappointments_MouseMove);
+            labelTime.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            labelTime.AutoSize = true;
+            labelTime.BackColor = System.Drawing.Color.Transparent;
+            labelTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelTime.ForeColor = System.Drawing.Color.DarkGray;
+            labelTime.Location = new System.Drawing.Point(181, 34);
+            labelTime.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            labelTime.Name = "labelTime";
+            labelTime.Size = new System.Drawing.Size(87, 19);
+            labelTime.TabIndex = 2;
+            labelTime.Text = "10:00 - 11:00";
+            labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelTime.Click += UCappointments_Click;
+            labelTime.MouseLeave += UCappointments_MouseLeave;
+            labelTime.MouseMove += UCappointments_MouseMove;
             // 
-            // labelStartTime
+            // labelFullName
             // 
-            this.labelStartTime.AutoSize = true;
-            this.labelStartTime.BackColor = System.Drawing.Color.Transparent;
-            this.labelStartTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelStartTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold);
-            this.labelStartTime.ForeColor = System.Drawing.Color.Silver;
-            this.labelStartTime.Location = new System.Drawing.Point(127, 15);
-            this.labelStartTime.Margin = new System.Windows.Forms.Padding(0);
-            this.labelStartTime.Name = "labelStartTime";
-            this.labelStartTime.Size = new System.Drawing.Size(103, 51);
-            this.labelStartTime.TabIndex = 2;
-            this.labelStartTime.Text = "10:00";
-            this.labelStartTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelStartTime.Click += new System.EventHandler(this.UCappointments_Click);
-            this.labelStartTime.MouseLeave += new System.EventHandler(this.UCappointments_MouseLeave);
-            this.labelStartTime.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCappointments_MouseMove);
+            labelFullName.AutoSize = true;
+            labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelFullName.ForeColor = System.Drawing.Color.FromArgb(89, 102, 204);
+            labelFullName.Location = new System.Drawing.Point(3, 34);
+            labelFullName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            labelFullName.Name = "labelFullName";
+            labelFullName.Size = new System.Drawing.Size(73, 19);
+            labelFullName.TabIndex = 15;
+            labelFullName.Text = "Full Name";
             // 
-            // labelEndTime
+            // labelService
             // 
-            this.labelEndTime.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labelEndTime.AutoSize = true;
-            this.labelEndTime.BackColor = System.Drawing.Color.Transparent;
-            this.labelEndTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold);
-            this.labelEndTime.ForeColor = System.Drawing.Color.Silver;
-            this.labelEndTime.Location = new System.Drawing.Point(158, 0);
-            this.labelEndTime.Margin = new System.Windows.Forms.Padding(0);
-            this.labelEndTime.Name = "labelEndTime";
-            this.labelEndTime.Size = new System.Drawing.Size(40, 15);
-            this.labelEndTime.TabIndex = 6;
-            this.labelEndTime.Text = "11:00";
-            this.labelEndTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelEndTime.Click += new System.EventHandler(this.UCappointments_Click);
-            this.labelEndTime.MouseLeave += new System.EventHandler(this.UCappointments_MouseLeave);
-            this.labelEndTime.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCappointments_MouseMove);
+            labelService.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            labelService.AutoSize = true;
+            tableLayoutPanel2.SetColumnSpan(labelService, 2);
+            labelService.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelService.ForeColor = System.Drawing.Color.FromArgb(74, 74, 74);
+            labelService.Location = new System.Drawing.Point(3, 6);
+            labelService.Name = "labelService";
+            labelService.Size = new System.Drawing.Size(51, 17);
+            labelService.TabIndex = 16;
+            labelService.Text = "Service";
             // 
-            // UCappointments
+            // UCappointment
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.Controls.Add(this.tableLayoutPanel2);
-            this.Name = "UCappointments";
-            this.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            this.Size = new System.Drawing.Size(230, 70);
-            this.Click += new System.EventHandler(this.UCappointments_Click);
-            this.MouseLeave += new System.EventHandler(this.UCappointments_MouseLeave);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UCappointments_MouseMove);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            Controls.Add(tableLayoutPanel2);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "UCappointment";
+            Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            Size = new System.Drawing.Size(268, 81);
+            Click += UCappointments_Click;
+            MouseLeave += UCappointments_MouseLeave;
+            MouseMove += UCappointments_MouseMove;
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
-        public System.Windows.Forms.Label labelStartTime;
-        public System.Windows.Forms.Label labelEndTime;
-        public System.Windows.Forms.CheckBox checkBoxAppointment;
+        public System.Windows.Forms.Label labelTime;
         public System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label labelFullName;
+        private System.Windows.Forms.Label labelService;
     }
 }
