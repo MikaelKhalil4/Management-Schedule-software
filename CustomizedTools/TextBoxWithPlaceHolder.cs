@@ -9,6 +9,26 @@ namespace CustomizedTools
     public class TextBoxWithPlaceHolder : TextBox
     {
         private string placeholderText;
+        private bool isRequiredModeOn;
+
+        public bool IsRequiredModeOn
+        {
+            get { return isRequiredModeOn; }
+            set
+            {
+                isRequiredModeOn = value;
+                if (isRequiredModeOn)
+                {
+                    if (!PlaceholderText.Contains(" *"))
+                    {
+                    PlaceholderText += " *";
+                    }
+                }              
+            }
+
+
+
+        }
 
         public TextBoxWithPlaceHolder()
         {
@@ -37,7 +57,7 @@ namespace CustomizedTools
         {
             base.OnTextChanged(e);
             if (Text != placeholderText)//kermel eza ghayarna el text by code
-            {              
+            {
                 ForeColor = Color.Black;
             }
             else
@@ -70,9 +90,8 @@ namespace CustomizedTools
         {
             ForeColor = Color.FromArgb(80, 80, 80);
             Text = placeholderText;
-            if (Text.Contains("*"))
-            {
-
+            if (IsRequiredModeOn)
+            {           
                 ForeColor = Color.Red;
             }
             else

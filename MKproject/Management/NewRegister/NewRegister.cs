@@ -97,7 +97,7 @@ namespace MKproject.Management
 
             this.Size = new Size();
             this.Opacity = 0;
-            this.Size = new Size(660, 650);//kell shi aam nhotoo juwwa aam naamela width=600, which is not accurate, try bi wpf taamil dock top
+            this.Size = new Size(660, 670);//kell shi aam nhotoo juwwa aam naamela width=600, which is not accurate, try bi wpf taamil dock top
             ControlsWidthInsideFLP = 600;
             LoadForm(Clients, isclientFromSchedule);
 

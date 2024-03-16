@@ -473,7 +473,7 @@ namespace MKproject.Management
         void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct,bool? IsPackageOrSolo, DateTime Date)
         {
             //SQL
-            ProjectToSQL.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredRowsdt, AffectedRow, ListFinanceUpdates, Date, ClientManagementProfileParentForm.Client.AlbumType);//mafik tsil affected row, ma32oul affected row awal men el count tabaa el desired dt
+            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredRowsdt, AffectedRow, ListFinanceUpdates, Date, ClientManagementProfileParentForm.Client.AlbumType);//mafik tsil affected row, ma32oul affected row awal men el count tabaa el desired dt
 
             ////transfering info to the parent form
             for (int k = 0; k < AffectedRow; k++)

@@ -11,72 +11,7 @@ namespace MKproject.Management
       
 
         //client_balance
-        public static DataTable GetClientBalanceSpecificOrLastInsert(int? ClientId)
-        {
 
-            String query = @"SELECT
-                       cl.ID,  cl.bundle_id,b.bundle_name, cl.product_id, cl.purchase_date, cl.original_offre, cl.offre, cl.amount_paid, cl.balance, cl.session_left_days, cl.due_date,  cl.is_freezed,cl.is_expired,  cu.Currency_Name, cu.Symbol,            
-                      CASE
-                       WHEN cl.bundle_id IS NOT NULL THEN b.bundle_name
-                          WHEN cl.product_id IS NOT NULL THEN p.product_name
-                          ELSE 'Others' 
-                         END AS Description  
-                        FROM client_balance cl  
-                        JOIN
-                        Currencies cu ON cl.Currency_Name = cu.Currency_Name
-                        LEFT JOIN
-                        bundles b ON cl.bundle_id = b.bundle_id
-                        LEFT JOIN
-                        products p ON cl.product_id = p.product_id ";
-
-            SqlCommand cmd = null;
-            if (ClientId != null)
-            {
-                query += " Where cl.client_id = @client_id ORDER BY purchase_date ASC";
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@client_id", ClientId);
-            }
-            else
-            {
-                query += " WHERE cl.ID = (SELECT MAX(ID) FROM client_balance)";
-                cmd = new SqlCommand(query, con);
-            }
-
-
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dtClientBalance = new DataTable();
-            sda.Fill(dtClientBalance);
-            return dtClientBalance;
-        }
-        public static (double, double) GetClientBalanceSpecificItem(int ClientBalanceId)
-        {
-            string query = "Select amount_paid,balance from client_balance WHERE ID=@ID";
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@ID", ClientBalanceId);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            return ((double)dt.Rows[0]["amount_paid"], Convert.ToDouble(dt.Rows[0]["balance"]));
-
-        }
-        public static DataTable GetClientBalanceNotExpiredPackage(int? clientID)
-        {
-            string query = @"Select	c.ID,c.client_id,c.bundle_id,b.bundle_name as Description,c.session_left_days,c.due_date,c.is_freezed,c.balance                           
-                            from client_balance as c ,bundles  as b
-                              where session_left_days is not null And is_expired='false' and c.bundle_id is not null and c.bundle_id=b.bundle_id ";
-
-            if (clientID != null)
-            {
-                query += " And client_id='"+ (int)clientID + "'";
-            }
-            query += " Order by is_expired ASC , purchase_date DESC ";
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dtClientBalance = new DataTable();
-            sda.Fill(dtClientBalance);
-            return dtClientBalance;
-
-        }
 
 
         //client_struct

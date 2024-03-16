@@ -29,126 +29,129 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCLabelFilterOriginal));
-            this.TLPLastVisitCutomDate = new System.Windows.Forms.TableLayoutPanel();
-            this.labelTitle = new System.Windows.Forms.Label();
-            this.TLPAll = new System.Windows.Forms.TableLayoutPanel();
-            this.labelDetail = new System.Windows.Forms.Label();
-            this.buttonRemove = new System.Windows.Forms.Button();
-            this.buttonSwitch = new System.Windows.Forms.Button();
-            this.TLPLastVisitCutomDate.SuspendLayout();
-            this.TLPAll.SuspendLayout();
-            this.SuspendLayout();
+            TLPLastVisitCutomDate = new System.Windows.Forms.TableLayoutPanel();
+            labelTitle = new System.Windows.Forms.Label();
+            TLPAll = new System.Windows.Forms.TableLayoutPanel();
+            labelDetail = new System.Windows.Forms.Label();
+            buttonRemove = new System.Windows.Forms.Button();
+            buttonSwitch = new System.Windows.Forms.Button();
+            TLPLastVisitCutomDate.SuspendLayout();
+            TLPAll.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPLastVisitCutomDate
             // 
-            this.TLPLastVisitCutomDate.ColumnCount = 1;
-            this.TLPLastVisitCutomDate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.TLPLastVisitCutomDate.Controls.Add(this.labelTitle, 0, 0);
-            this.TLPLastVisitCutomDate.Controls.Add(this.TLPAll, 0, 1);
-            this.TLPLastVisitCutomDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPLastVisitCutomDate.Location = new System.Drawing.Point(0, 0);
-            this.TLPLastVisitCutomDate.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.TLPLastVisitCutomDate.Name = "TLPLastVisitCutomDate";
-            this.TLPLastVisitCutomDate.RowCount = 2;
-            this.TLPLastVisitCutomDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.TLPLastVisitCutomDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.TLPLastVisitCutomDate.Size = new System.Drawing.Size(289, 57);
-            this.TLPLastVisitCutomDate.TabIndex = 24;
+            TLPLastVisitCutomDate.ColumnCount = 1;
+            TLPLastVisitCutomDate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            TLPLastVisitCutomDate.Controls.Add(labelTitle, 0, 0);
+            TLPLastVisitCutomDate.Controls.Add(TLPAll, 0, 1);
+            TLPLastVisitCutomDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPLastVisitCutomDate.Location = new System.Drawing.Point(0, 0);
+            TLPLastVisitCutomDate.Margin = new System.Windows.Forms.Padding(4, 12, 4, 3);
+            TLPLastVisitCutomDate.Name = "TLPLastVisitCutomDate";
+            TLPLastVisitCutomDate.RowCount = 2;
+            TLPLastVisitCutomDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            TLPLastVisitCutomDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            TLPLastVisitCutomDate.Size = new System.Drawing.Size(337, 66);
+            TLPLastVisitCutomDate.TabIndex = 24;
             // 
             // labelTitle
             // 
-            this.labelTitle.BackColor = System.Drawing.Color.Transparent;
-            this.labelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(0, 0);
-            this.labelTitle.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(286, 20);
-            this.labelTitle.TabIndex = 2;
-            this.labelTitle.Text = "Title";
-            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelTitle.BackColor = System.Drawing.Color.Transparent;
+            labelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            labelTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelTitle.Location = new System.Drawing.Point(0, 0);
+            labelTitle.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            labelTitle.Name = "labelTitle";
+            labelTitle.Size = new System.Drawing.Size(333, 23);
+            labelTitle.TabIndex = 2;
+            labelTitle.Text = "Title";
+            labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TLPAll
             // 
-            this.TLPAll.BackColor = System.Drawing.Color.White;
-            this.TLPAll.ColumnCount = 3;
-            this.TLPAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.TLPAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.TLPAll.Controls.Add(this.labelDetail, 0, 0);
-            this.TLPAll.Controls.Add(this.buttonRemove, 2, 0);
-            this.TLPAll.Controls.Add(this.buttonSwitch, 1, 0);
-            this.TLPAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPAll.Location = new System.Drawing.Point(3, 25);
-            this.TLPAll.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.TLPAll.Name = "TLPAll";
-            this.TLPAll.RowCount = 1;
-            this.TLPAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPAll.Size = new System.Drawing.Size(283, 32);
-            this.TLPAll.TabIndex = 6;
+            TLPAll.BackColor = System.Drawing.Color.White;
+            TLPAll.ColumnCount = 3;
+            TLPAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            TLPAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            TLPAll.Controls.Add(labelDetail, 0, 0);
+            TLPAll.Controls.Add(buttonRemove, 2, 0);
+            TLPAll.Controls.Add(buttonSwitch, 1, 0);
+            TLPAll.Dock = System.Windows.Forms.DockStyle.Top;
+            TLPAll.Location = new System.Drawing.Point(4, 29);
+            TLPAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 0);
+            TLPAll.MaximumSize = new System.Drawing.Size(0, 29);
+            TLPAll.Name = "TLPAll";
+            TLPAll.RowCount = 1;
+            TLPAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPAll.Size = new System.Drawing.Size(329, 29);
+            TLPAll.TabIndex = 6;
             // 
             // labelDetail
             // 
-            this.labelDetail.AutoSize = true;
-            this.labelDetail.BackColor = System.Drawing.Color.White;
-            this.labelDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelDetail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDetail.Location = new System.Drawing.Point(0, 0);
-            this.labelDetail.Margin = new System.Windows.Forms.Padding(0);
-            this.labelDetail.Name = "labelDetail";
-            this.labelDetail.Size = new System.Drawing.Size(228, 32);
-            this.labelDetail.TabIndex = 3;
-            this.labelDetail.Text = "Date...";
-            this.labelDetail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelDetail.AutoSize = true;
+            labelDetail.BackColor = System.Drawing.Color.White;
+            labelDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelDetail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelDetail.Location = new System.Drawing.Point(0, 0);
+            labelDetail.Margin = new System.Windows.Forms.Padding(0);
+            labelDetail.Name = "labelDetail";
+            labelDetail.Size = new System.Drawing.Size(265, 29);
+            labelDetail.TabIndex = 3;
+            labelDetail.Text = "Date...";
+            labelDetail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttonRemove
             // 
-            this.buttonRemove.BackColor = System.Drawing.Color.White;
-            this.buttonRemove.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonRemove.BackgroundImage")));
-            this.buttonRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonRemove.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonRemove.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRemove.FlatAppearance.BorderSize = 0;
-            this.buttonRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
-            this.buttonRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRemove.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemove.ForeColor = System.Drawing.Color.White;
-            this.buttonRemove.Location = new System.Drawing.Point(260, 3);
-            this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(20, 26);
-            this.buttonRemove.TabIndex = 5;
-            this.buttonRemove.UseVisualStyleBackColor = false;
+            buttonRemove.BackColor = System.Drawing.Color.White;
+            buttonRemove.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonRemove.BackgroundImage");
+            buttonRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonRemove.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonRemove.Dock = System.Windows.Forms.DockStyle.Fill;
+            buttonRemove.FlatAppearance.BorderSize = 0;
+            buttonRemove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
+            buttonRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonRemove.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonRemove.ForeColor = System.Drawing.Color.White;
+            buttonRemove.Location = new System.Drawing.Point(303, 3);
+            buttonRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonRemove.Name = "buttonRemove";
+            buttonRemove.Size = new System.Drawing.Size(22, 23);
+            buttonRemove.TabIndex = 5;
+            buttonRemove.UseVisualStyleBackColor = false;
             // 
             // buttonSwitch
             // 
-            this.buttonSwitch.BackColor = System.Drawing.Color.White;
-            this.buttonSwitch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonSwitch.BackgroundImage")));
-            this.buttonSwitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonSwitch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonSwitch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSwitch.FlatAppearance.BorderSize = 0;
-            this.buttonSwitch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
-            this.buttonSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSwitch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSwitch.ForeColor = System.Drawing.Color.White;
-            this.buttonSwitch.Location = new System.Drawing.Point(231, 3);
-            this.buttonSwitch.Name = "buttonSwitch";
-            this.buttonSwitch.Size = new System.Drawing.Size(23, 26);
-            this.buttonSwitch.TabIndex = 4;
-            this.buttonSwitch.UseVisualStyleBackColor = false;
+            buttonSwitch.BackColor = System.Drawing.Color.White;
+            buttonSwitch.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonSwitch.BackgroundImage");
+            buttonSwitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonSwitch.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonSwitch.Dock = System.Windows.Forms.DockStyle.Fill;
+            buttonSwitch.FlatAppearance.BorderSize = 0;
+            buttonSwitch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
+            buttonSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonSwitch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonSwitch.ForeColor = System.Drawing.Color.White;
+            buttonSwitch.Location = new System.Drawing.Point(269, 3);
+            buttonSwitch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonSwitch.Name = "buttonSwitch";
+            buttonSwitch.Size = new System.Drawing.Size(26, 23);
+            buttonSwitch.TabIndex = 4;
+            buttonSwitch.UseVisualStyleBackColor = false;
             // 
-            // UCLabelFilter
+            // UCLabelFilterOriginal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.TLPLastVisitCutomDate);
-            this.Name = "UCLabelFilter";
-            this.Size = new System.Drawing.Size(289, 57);
-            this.TLPLastVisitCutomDate.ResumeLayout(false);
-            this.TLPAll.ResumeLayout(false);
-            this.TLPAll.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(TLPLastVisitCutomDate);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "UCLabelFilterOriginal";
+            Size = new System.Drawing.Size(337, 66);
+            TLPLastVisitCutomDate.ResumeLayout(false);
+            TLPAll.ResumeLayout(false);
+            TLPAll.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

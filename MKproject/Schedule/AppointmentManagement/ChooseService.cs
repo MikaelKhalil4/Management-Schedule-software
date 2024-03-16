@@ -103,7 +103,7 @@ namespace MKproject.Schedule
 
             UCBundlePackage bundlePackage = new UCBundlePackage(true, DesiredRow);
             bundlePackage.UCMouseClick += BundlePackage_UCMouseClick; ;
-            bundlePackage.Margin = new Padding(100, 0, 0, 10);
+            bundlePackage.Margin = new Padding(132, 0, 0, 10);
             FLPAvailablePackages.Controls.Add(bundlePackage);
 
         }
@@ -111,10 +111,9 @@ namespace MKproject.Schedule
         private void BundlePackage_UCMouseClick(object sender, EventArgs e)
         {
             UCBundlePackage DesiredBundPackage = (UCBundlePackage)sender;
-            ParentFormucClientApp.DesiredAppointment.ChosenServicesList = null;
-            ParentFormucClientApp.DesiredAppointment.ChosenServicesDetails = null;
-            ParentFormucClientApp.FillObjectAndDesignOfAvailablePackage(DesiredBundPackage.DesiredRow);
-            ParentFormucClientApp.SetDesignMode(false,false);
+            ParentFormucClientApp.FillObjectOfNewChosenBundles(null);
+            ParentFormucClientApp.FillObjectOfAvailablePackage(DesiredBundPackage.DesiredRow);
+            ParentFormucClientApp.SetDesignMode(true, false);
             this.Close();
         }
 
@@ -145,10 +144,18 @@ namespace MKproject.Schedule
         }
         private void buttonChoose_Click(object sender, EventArgs e)
         {
-            ParentFormucClientApp.DesiredAppointment.ChosenServicesList = new List<ClassBundles>(BundleList);//the bundle list is being filled bel ucapp
-            ParentFormucClientApp.DesiredAppointment.DesiredClientBalance = null;
-            ParentFormucClientApp.FillObjectAndDesignOfNewServices();
-            ParentFormucClientApp.SetDesignMode(false, false);
+
+            ParentFormucClientApp.FillObjectOfAvailablePackage(null);
+            if (BundleList.Count > 0)
+            {
+                ParentFormucClientApp.FillObjectOfNewChosenBundles(new List<ClassBundles>(BundleList));
+            }
+            else
+            {
+                ParentFormucClientApp.FillObjectOfNewChosenBundles(null);
+            }
+
+            ParentFormucClientApp.SetDesignMode(true, false);
             this.Close();
         }
 

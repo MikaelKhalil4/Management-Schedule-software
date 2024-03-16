@@ -618,7 +618,7 @@ namespace MKproject.Management
             {
                 Cursor = Cursors.WaitCursor;
 
-                PackageRemainingsDt = SQLToProject.GetClientBalanceNotExpiredPackage(null);
+                PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(null);
                 foreach (DataRow row in ParentFormSearch.Originaldt.Rows)//we re filling both the original dt and filtered dt
                 {
                     string PackagesRemianing;
@@ -649,7 +649,7 @@ namespace MKproject.Management
             foreach (DataRow dtrow in DtRows)
             {
 
-                PackageRemainings += ClassChosenClientBalance.SetPackageRemainingsFormat(dtrow);               
+                PackageRemainings += ClassClientBalance.SetPackageRemainingsFormat(dtrow);               
                 PackageRemainings += Environment.NewLine;
             }
 

@@ -64,9 +64,9 @@ namespace MKproject.Management
 
 
             //
-            comboBoxBundle.Items.Add(ClassBundles.bundle.Sessions);
-            comboBoxBundle.Items.Add(ClassBundles.bundle.Days);
-            comboBoxBundle.Items.Add(ClassBundles.bundle.Solo);
+            comboBoxBundle.Items.Add(ClassBundles.enumBundle.Sessions);
+            comboBoxBundle.Items.Add(ClassBundles.enumBundle.Days);
+            comboBoxBundle.Items.Add(ClassBundles.enumBundle.Solo);
             comboBoxBundle.SelectedIndex = 0;
             //
 
@@ -166,12 +166,12 @@ namespace MKproject.Management
         {
             ClassBundles bundle = new ClassBundles();
 
-            bundle.Name = UCBundleName.Value;
+            bundle.BundleName = UCBundleName.Value;
             bundle.Description = UCDescription.Value;
             bundle.Price = ucPaymentsPrice.Amount;
-            bundle.Bundletype = comboBoxBundle.SelectedItem.ToString();
+            bundle.EnumBundletype = (ClassBundles.enumBundle)Enum.Parse(typeof(ClassBundles.enumBundle), comboBoxBundle.SelectedItem.ToString());
 
-            if (bundle.Bundletype == ClassBundles.bundle.Solo.ToString())
+            if (bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
             {
                 bundle.SessionDaysNumber = null;
             }
@@ -198,13 +198,13 @@ namespace MKproject.Management
         {
             ClassBundles bundle = new ClassBundles();
 
-            bundle.ID = (int)DesiredRow["bundle_id"];
-            bundle.Name = UCBundleName.Value;
+            bundle.BundleID = (int)DesiredRow["bundle_id"];
+            bundle.BundleName = UCBundleName.Value;
             bundle.Description = UCDescription.Value;
             bundle.Price = ucPaymentsPrice.Amount;
-            bundle.Bundletype = comboBoxBundle.SelectedItem.ToString();
+            bundle.EnumBundletype = (ClassBundles.enumBundle)Enum.Parse(typeof(ClassBundles.enumBundle), comboBoxBundle.SelectedItem.ToString());
 
-            if (bundle.Bundletype == ClassBundles.bundle.Solo.ToString())
+            if (bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
             {
                 bundle.SessionDaysNumber = null;
             }
@@ -219,8 +219,8 @@ namespace MKproject.Management
             bundle.UpdateBundle();
 
             //design
-            DesiredRow["bundle_name"] = bundle.Name;
-            DesiredRow["bundle_type"] = bundle.Bundletype;
+            DesiredRow["bundle_name"] = bundle.BundleName;
+            DesiredRow["bundle_type"] = bundle.EnumBundletype;
             DesiredRow["price"] = bundle.Price;
             DesiredRow["status"] = bundle.Status;
             DesiredRow["FakeStatus"] = bundle.Status;
@@ -228,13 +228,13 @@ namespace MKproject.Management
             DesiredRow["FakeMemberShip"] = bundle.IsMemberShip;
 
             string bundles;
-            if (bundle.Bundletype == ClassBundles.bundle.Solo.ToString())
+            if (bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
             {
-                bundles = bundle.Bundletype.ToString();
+                bundles = bundle.EnumBundletype.ToString();
             }
             else
             {
-                bundles = bundle.SessionDaysNumber.ToString() + " " + bundle.Bundletype.ToString();
+                bundles = bundle.SessionDaysNumber.ToString() + " " + bundle.EnumBundletype.ToString();
             }
 
             DesiredRow["Bundle"] = bundles;
@@ -282,7 +282,7 @@ namespace MKproject.Management
             {
                 a = false;
             }
-            if (comboBoxBundle.SelectedItem.ToString() != ClassBundles.bundle.Solo.ToString())
+            if (comboBoxBundle.SelectedItem.ToString() != ClassBundles.enumBundle.Solo.ToString())
             {
                 if (UCNOSessionsOrDay.Number == 0)
                 {
@@ -299,7 +299,7 @@ namespace MKproject.Management
         }
         private void comboBoxDetail_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxBundle.SelectedItem.ToString() == ClassBundles.bundle.Solo.ToString())
+            if (comboBoxBundle.SelectedItem.ToString() == ClassBundles.enumBundle.Solo.ToString())
             {
                 UCNOSessionsOrDay.Hide();
                 TLPBundle.SetColumnSpan(comboBoxBundle, 2);
@@ -514,7 +514,7 @@ namespace MKproject.Management
             if (BundleOrProduct)
             {
                 ClassBundles bundle = new ClassBundles();
-                bundle.ID = (int)DesiredRow["bundle_id"];
+                bundle.BundleID = (int)DesiredRow["bundle_id"];
                 if (bundle.CheckIBundletHasReferences())
                 {
                     CustomMessageBox.Show("Cannot delete this Bundle as there is some data attached to them.", CustomMessageBox.Type.Ok);

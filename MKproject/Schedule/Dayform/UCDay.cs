@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Data.SqlClient;
-using MKproject.Schedule.Appointmentform;
 using MKproject.Schedule.UCData;
 using MKproject.Management;
 
@@ -55,9 +54,7 @@ namespace MKproject.Schedule
         //VARIABLES:
         public Schedule schedule;
 
-        ///-This Day DataTable
-        DataTable thisdaydatatableAppointments;
-        DataTable thisdaydatatableMeetings;
+ 
 
 
 
@@ -1082,9 +1079,8 @@ namespace MKproject.Schedule
             }
 
             //Getting From SQL Appointments & Meetings of this day and the Listed Employees
-            thisdaydatatableAppointments = ClassAppointment.DisplayAppointmentsWhereEmployees(this, ListEmployee_idChecked);
 
-            UCappointmentsFill(ListEmployee_idChecked);
+            UCappointmentsFill(ClassAppointment.DisplayAppointmentsWhereEmployees(this, ListEmployee_idChecked), ListEmployee_idChecked);
 
             //TouchScroll
             if (IsFirstTimeTouchAssigned)//hiye ousoulan ejit true moujarad ma to2taee bi hayde bet sir aan aatoul false
@@ -1125,6 +1121,7 @@ namespace MKproject.Schedule
             }
 
         }//hone lal load,next,previous w eza jina mnel month
+
         public void UCappointmentsfillColumn(int columnindex, int employee_id, string employeename)
         {
 
@@ -1141,42 +1138,14 @@ namespace MKproject.Schedule
             //Editing TBP
             AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);
 
-            thisdaydatatableAppointments = ClassAppointment.DisplayAppointmentsOneEmployee(this, employee_id);
+           DataTable  AppointmentsOfOneEmployeeDt = ClassAppointment.DisplayAppointmentsOneEmployee(this, employee_id);
 
+          
 
-            foreach (DataRow dr in thisdaydatatableAppointments.Rows)
+            foreach (DataRow dr in AppointmentsOfOneEmployeeDt.Rows)
             {
-                ClassAppointment DesiredAppointment = new ClassAppointment();
-
-                DesiredAppointment.IdAppointment = Convert.ToInt32(dr["appointment_id"]);
-
-                if(dr["client_id"] != DBNull.Value && dr["title"] == DBNull.Value)
-                {
-                    DesiredAppointment.DesiredClient = new ClassClient();
-                    DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
-                    DesiredAppointment.DesiredClient.Fname = dr["name"].ToString();
-                    DesiredAppointment.DesiredClient.Lname = dr["family_name"].ToString();
-
-                    DesiredAppointment.Title = null;
-                }
-                else
-                {
-                    DesiredAppointment.DesiredClient = null;
-                    DesiredAppointment.Title = dr["title"].ToString();
-                }
-                
-
-                DesiredAppointment.StartTime = (DateTime)dr["start_time"];
-                DesiredAppointment.EndTime = (DateTime)dr["end_time"];
-
-                DesiredAppointment.Notes = dr["Note"].ToString();
-
-                DesiredAppointment.OnPending = Convert.ToBoolean(dr["onpending"]);
-                DesiredAppointment.EmployeeId = employee_id;
-
-                //string clienttype = dr[8].ToString();
-
-
+                ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);
+         
                 UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
 
 
@@ -1232,10 +1201,8 @@ namespace MKproject.Schedule
         {
 
             //now we have to display the appointemnts
-            thisdaydatatableAppointments = ClassAppointment.DisplayAppointmentsWhereEmployees(this, rankemployees_id);
+            UCappointmentsFill(ClassAppointment.DisplayAppointmentsWhereEmployees(this, rankemployees_id),rankemployees_id);
 
-
-            UCappointmentsFill(rankemployees_id);
 
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
 
@@ -1267,41 +1234,12 @@ namespace MKproject.Schedule
         }//hone lal load,next,previous w eza jina mnel month
 
         ///-Function to Fill by getting a List
-        private void UCappointmentsFill(List<int> rankemployees_id)
+        private void UCappointmentsFill(DataTable thisdaydatatableAppointments, List<int> rankemployees_id)
         {
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
             {
 
-                ClassAppointment DesiredAppointment = new ClassAppointment();
-
-                DesiredAppointment.IdAppointment = Convert.ToInt32(dr["appointment_id"]);
-                DesiredAppointment.EmployeeId = Convert.ToInt32(dr["employee_id"]);
-
-                if (dr["client_id"] != DBNull.Value && dr["title"] == DBNull.Value)
-                {
-                    DesiredAppointment.DesiredClient = new ClassClient();
-                    DesiredAppointment.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
-                    DesiredAppointment.DesiredClient.Fname = dr["name"].ToString();
-                    DesiredAppointment.DesiredClient.Lname = dr["family_name"].ToString();
-
-                    DesiredAppointment.Title = null;
-                }
-                else
-                {
-                    DesiredAppointment.DesiredClient = null;
-                    DesiredAppointment.Title = dr["title"].ToString();
-                }
-
-                DesiredAppointment.StartTime = (DateTime)dr["start_time"];
-                DesiredAppointment.EndTime = (DateTime)dr["end_time"];
-
-                DesiredAppointment.Notes = dr["Note"].ToString();
-
-                DesiredAppointment.OnPending = Convert.ToBoolean(dr["onpending"]);
-
-
-                //string clienttype = dr[9].ToString();
-
+                ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);             
                 UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
 
 

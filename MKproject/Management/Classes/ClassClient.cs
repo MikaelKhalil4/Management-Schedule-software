@@ -492,9 +492,9 @@ namespace MKproject.Management
             string action;
             ActionsEnum actiontype;
             int? StructId;
-            if (Bundle.EnumBundletype == ClassBundles.bundle.Solo)
+            if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
             {
-                action = "Purchased a " + Bundle.Name + ".";
+                action = "Purchased a " + Bundle.BundleName + ".";
                 actiontype = ActionsEnum.SoloPurchases;
                 ClassClient.UpdateClientCheckInSQL(Client.ClientId, Date);
                 ProjectToSQL.InsertToClientAttendance(Client.ClientId);
@@ -503,12 +503,12 @@ namespace MKproject.Management
             else
             {
                 actiontype = ActionsEnum.Purchases;
-                action = "Purchased the " + Bundle.Name + " Package.";
+                action = "Purchased the " + Bundle.BundleName + " Package.";
                 StructId = null;
             }
 
-            ProjectToSQL.InsertToClientBalance(Client.ClientId, Bundle.ID, Bundle.EnumBundletype.ToString());
-            DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
+            ClassClientBalance.InsertToClientBalance(Client.ClientId, Bundle.BundleID, Bundle.EnumBundletype.ToString());
+            DataTable dtinserteditem = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(null);
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                                            
 
             ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
@@ -521,8 +521,8 @@ namespace MKproject.Management
         public static DataTable PurchaseAProduce(ClassProduct product , DateTime Date, ClassClient Client)
         {
             //SQL
-            ProjectToSQL.InsertToClientBalance(Client.ClientId, product.ID, null);
-            DataTable dtinserteditem = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
+            ClassClientBalance.InsertToClientBalance(Client.ClientId, product.ID, null);
+            DataTable dtinserteditem = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(null);
            
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
@@ -980,8 +980,7 @@ namespace MKproject.Management
         public static ClassClient CreateClientObject(int ClientID)
         {
 
-            DataTable dt;
-            dt = ClassClient.GetAllClientsInfoSQL(ClientID);
+            DataTable dt = ClassClient.GetAllClientsInfoSQL(ClientID);
             DataRow datarow = dt.Rows[0];//since we re expecting one row of return
 
 

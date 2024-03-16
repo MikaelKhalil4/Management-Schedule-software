@@ -13,4 +13,117 @@
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="HomeAndMenu\Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HomeAndMenu\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\AddEditEmplOrServices\EditBundleProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\AddEditEmplOrServices\EditEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\AddEditEmplOrServices\ViewBundlesAndProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\AddEditEmplOrServices\ViewEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\BackOffice\BackOffice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\buyBundlesOrProductsComponents\BuyBundleOrProudct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\CalenderComponents\Calander.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\CalenderComponents\Calanderyear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\ClientProfile\ClientManagementProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\ImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\LOGIN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\NewRegister\Album.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\NewRegister\ChildParent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\NewRegister\NewRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\NewRegister\RegistrationFields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\NewRegister\UserControls\Camera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\Payment\Payment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\RelatedChildrens.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\SearchClient\CustomerService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\SearchClient\FilterCheckListSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\SearchClient\FilterCustomDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\SearchClient\SearchCurrentClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\Statistics\Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\TransferData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Appointmentform\Appointment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\AppointmentManagement\ChooseService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Availabilityform\AvailabilityLayout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Availabilityform\Employee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\CustomisedComboBox\CBdisplayTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\CustomisedComboBox\CBrepeat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Mainform\Schedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Monthform\UCMonth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Reminderform\ClientReminder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Reminderform\Reminder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

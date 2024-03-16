@@ -148,7 +148,7 @@ namespace CustomizedTools
             {
                 if (string.IsNullOrEmpty(this.Value))
                 {
-                    myTextBox1.PlaceholderText = StringType + " *";
+                    myTextBox1.IsRequiredModeOn = true;
                     groupBox1.Text = "";
                     return true;
                 }

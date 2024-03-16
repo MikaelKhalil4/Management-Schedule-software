@@ -1,6 +1,5 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
-using OpenTK;
 using System;
 using System.Data;
 using System.Drawing;
@@ -67,19 +66,19 @@ namespace MKproject.Management
         }
 
 
-        private ClassBundles.bundle bundleType;
-        public ClassBundles.bundle BundleType
+        private ClassBundles.enumBundle bundleType;
+        public ClassBundles.enumBundle BundleType
         {
             get { return bundleType; }
             set
             {
                 bundleType = value;
-                if (bundleType == ClassBundles.bundle.Sessions)
+                if (bundleType == ClassBundles.enumBundle.Sessions)
                 {
 
                     BundleSessionsMode();
                 }
-                else if (bundleType == ClassBundles.bundle.Days)
+                else if (bundleType == ClassBundles.enumBundle.Days)
                 {
 
                     BundleDaysMode();
@@ -113,7 +112,7 @@ namespace MKproject.Management
             {
                 sessionOrDaysLeft = value;
                 labelSessiosOrDaysDetails.Text = Convert.ToString(sessionOrDaysLeft);
-                if (bundleType == ClassBundles.bundle.Sessions)
+                if (bundleType == ClassBundles.enumBundle.Sessions)
                 {
                     if (sessionOrDaysLeft == 0)
                     {
@@ -132,7 +131,7 @@ namespace MKproject.Management
                         }
                     }
                 }
-                else if (bundleType == ClassBundles.bundle.Days)
+                else if (bundleType == ClassBundles.enumBundle.Days)
                 {
                     if (sessionOrDaysLeft < 0)
                     {
@@ -303,7 +302,7 @@ namespace MKproject.Management
             buttonReduceSession = new CustomButton();
             buttonReduceSession.Text ="Reduce";
             buttonReduceSession.Size = new Size(122, 34);
-            buttonReduceSession.Margin = new Padding(5);
+            buttonReduceSession.Margin = new Padding(0,0,5,0);
             buttonReduceSession.BackAndMouseHoverColor = Color.FromArgb(109, 122, 224);
             buttonReduceSession.Anchor = AnchorStyles.None;
             buttonReduceSession.Click += ButtonReduceSession_Click;
@@ -312,7 +311,7 @@ namespace MKproject.Management
 
             buttonFreeze = new CustomButton();
             buttonFreeze.Size = new Size(122, 34);
-            buttonFreeze.Margin = new Padding(5);
+            buttonFreeze.Margin = new Padding(0, 0, 5, 0);
             buttonFreeze.BackAndMouseHoverColor = Color.FromArgb(109, 122, 224);
             buttonFreeze.Anchor = AnchorStyles.None;
             buttonFreeze.Click += ButtonFreeze_Click;
@@ -320,8 +319,8 @@ namespace MKproject.Management
             buttonFreeze.MouseLeave += Control_MouseLeave;
 
             buttonRemove = new CustomButton();
-            buttonRemove.Size = new Size(128, 34);
-            buttonRemove.Margin = new Padding(5);
+            buttonRemove.Size = new Size(122, 34);
+            buttonRemove.Margin = new Padding(0, 0, 5, 0);
             buttonRemove.BackAndMouseHoverColor = Color.Red;
             buttonRemove.FlatAppearance.MouseOverBackColor= Color.FromArgb(255 - 30, 0, 0);
            buttonRemove.FlatAppearance.MouseDownBackColor= Color.FromArgb(255 - 90, 0, 0);
@@ -331,8 +330,8 @@ namespace MKproject.Management
             buttonRemove.MouseLeave += Control_MouseLeave;
 
             buttonRenew = new CustomButton();
-            buttonRenew.Size = new Size(126, 34);
-            buttonRenew.Margin = new Padding(5);
+            buttonRenew.Size = new Size(122, 34);
+            buttonRenew.Margin = new Padding(0, 0, 5, 0);
             buttonRenew.BackAndMouseHoverColor = Color.FromArgb(109, 122, 224);
             buttonRenew.Anchor = AnchorStyles.None;
             buttonRenew.Click += ButtonRenew_Click;
@@ -352,7 +351,7 @@ namespace MKproject.Management
 
             if (dr["due_date"] != DBNull.Value && dr["is_freezed"] != DBNull.Value)
             {
-                this.BundleType = ClassBundles.bundle.Days;
+                this.BundleType = ClassBundles.enumBundle.Days;
                 this.DueDate = (DateTime)dr["due_date"];
 
                 if ((bool)dr["is_freezed"] == true)
@@ -370,7 +369,7 @@ namespace MKproject.Management
             }
             else
             {
-                this.BundleType = ClassBundles.bundle.Sessions;
+                this.BundleType = ClassBundles.enumBundle.Sessions;
                 this.DueDate = null;
                 this.SessionDaysLeft = Convert.ToInt16(dr["session_left_days"]);
             }
@@ -552,7 +551,7 @@ namespace MKproject.Management
                 }
 
 
-                if (BundleType == ClassBundles.bundle.Sessions)
+                if (BundleType == ClassBundles.enumBundle.Sessions)
                 {
                     if (!TLPglobal.Controls.Contains(buttonReduceSession))
                     {
@@ -639,7 +638,7 @@ namespace MKproject.Management
         {
 
             //Sql
-            ProjectToSQL.UpdateIsexpiredClientBalanceRemoveUC(Id, true);//true because the bundle has expired
+            ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(Id, true);//true because the bundle has expired
 
             //Design
             this.Dispose();
@@ -675,19 +674,19 @@ namespace MKproject.Management
             int lastClientId = ParentFormClientMan.Client.ClientId;
             if (BundleId != null)
             {
-                ProjectToSQL.InsertToClientBalance(lastClientId, (int)BundleId, BundleType.ToString());
+                ClassClientBalance.InsertToClientBalance(lastClientId, (int)BundleId, BundleType.ToString());
             }
 
             //select the last inserted row 
-            DataTable dtRewedPackage = SQLToProject.GetClientBalanceSpecificOrLastInsert(null);
+            DataTable dtRewedPackage = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(null);
             ParentFormClientMan.FormatOriginalDt(dtRewedPackage);
             DataRow InsertedRow = dtRewedPackage.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
 
-            ProjectToSQL.UpdateIsexpiredClientBalanceRemoveUC(Id, true);//true because the bundle has expired
+            ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(Id, true);//true because the bundle has expired
                                                                         //backoffice
             string action;
-            if (BundleType == ClassBundles.bundle.Solo)
+            if (BundleType == ClassBundles.enumBundle.Solo)
             {
                 action = "Purchased a " + BundleDescription + ".";
             }
@@ -725,14 +724,14 @@ namespace MKproject.Management
             BundleDescription = NewRow["Description"].ToString();
             if (NewRow["due_date"] != DBNull.Value)
             {
-                BundleType = ClassBundles.bundle.Days;
+                BundleType = ClassBundles.enumBundle.Days;
                 DueDate = (DateTime)NewRow["due_date"];
                 isFreezingMode = false;
 
             }
             else
             {
-                BundleType = ClassBundles.bundle.Sessions;
+                BundleType = ClassBundles.enumBundle.Sessions;
                 DueDate = null;
             }
 
@@ -796,7 +795,7 @@ namespace MKproject.Management
             int ID = Id;
             int UpdatedSessionLeft = SessionDaysLeft - 1;
             DateTime Date = DateTime.Now;
-            ProjectToSQL.UpdateClientBalanceOnEditingSessions(ID, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
+            ClassClientBalance.UpdateClientBalanceOnEditingSessions(ID, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
             ClassClient.UpdateClientCheckInSQL(ParentFormClientMan.Client.ClientId, Date);
             ProjectToSQL.InsertToClientAttendance(ParentFormClientMan.Client.ClientId);
             ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, "Completed a session.", ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, Id, null, SQLToProject.GetLAstInsertedAttendance(), null, null, Date);
@@ -823,7 +822,7 @@ namespace MKproject.Management
             }
             else//we re freezing the ackage
             {
-                ProjectToSQL.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, null);
+                ClassClientBalance.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, null);
                 //design
                 IsFreezingMode = true;
                 DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
@@ -833,7 +832,7 @@ namespace MKproject.Management
         void ReActivateMode()
         {
             DateTime newDueDate = DateTime.Now.AddDays(sessionOrDaysLeft);
-            ProjectToSQL.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, newDueDate);
+            ClassClientBalance.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, newDueDate);
 
             //Design
             this.DueDate = newDueDate;

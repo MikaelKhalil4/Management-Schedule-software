@@ -176,7 +176,7 @@ namespace MKproject.Management
 
         private void AdjustFeaturesSize()
         {
-            int MaxHeight = 270;
+            int MaxHeight = 220;
             // Get the preferred size of FLPFeatures
             Size preferredSize = FLPFeatures.PreferredSize;
 
