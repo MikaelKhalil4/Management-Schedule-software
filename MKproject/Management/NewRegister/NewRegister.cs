@@ -2411,8 +2411,17 @@ namespace MKproject.Management
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (LOGIN.Employee.CanDeleteClient)
+            if (!LOGIN.Employee.CanDeleteClient)
             {
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+            }
+            else if (ClientManagementProfileForm.IsFromSchedule || IsFromSchedule)
+            {
+                CustomMessageBox.Show("You can't delete a client while you re in the Schedule, Please delete it from the Management", CustomMessageBox.Type.Ok);
+            }
+            else
+            {
+
                 if (Client.IsParent == false)
                 {
                     // Show a message box with "Yes" and "No" buttons
@@ -2440,11 +2449,7 @@ namespace MKproject.Management
                 {
                     CustomMessageBox.Show("In order to Delete this Client , you need first to remove all his childrens", CustomMessageBox.Type.Error);
                 }
-            }
-
-            else
-            {
-                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+            
             }
 
         }//try catch

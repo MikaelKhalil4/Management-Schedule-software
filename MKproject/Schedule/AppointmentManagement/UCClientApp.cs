@@ -430,7 +430,7 @@ namespace MKproject.Schedule
 
             if (DesiredRow != null)
             {
-                DesiredAppointment.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)PackageRemainingsDt.Rows[0]["ID"]);
+                DesiredAppointment.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)DesiredRow["ID"]);
                 DesiredAppointment.DesiredClientBalance.SetStringDetailsIfBundle();         
             }
             else

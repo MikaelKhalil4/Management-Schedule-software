@@ -1159,7 +1159,7 @@ namespace MKproject.Schedule
                 if (flowLayoutPanel.BackColor == DisableColorFLP)
                 {
                     ucappointments.BackColor = ErrorColor;
-                    ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                    ucappointments.TLPGlobal.BackColor = DisableColorTBUca;
                 }
 
                 flowLayoutPanel.Controls.Add(ucappointments);
@@ -1253,7 +1253,7 @@ namespace MKproject.Schedule
                 if (flowLayoutPanel.BackColor == DisableColorFLP)
                 {
                     ucappointments.BackColor = ErrorColor;
-                    ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                    ucappointments.TLPGlobal.BackColor = DisableColorTBUca;
                 }
                 flowLayoutPanel.Controls.Add(ucappointments);
                 //EditWidthAppointment(flowLayoutPanel);
@@ -1518,7 +1518,7 @@ namespace MKproject.Schedule
                                 {
                                     UCappointment ucappointments = (UCappointment)childControl;
                                     ucappointments.BackColor = MemberColor;
-                                    ucappointments.tableLayoutPanel2.BackColor = StaticColorTBUca;
+                                    ucappointments.TLPGlobal.BackColor = StaticColorTBUca;
                                 }
                             }
                         }
@@ -1538,7 +1538,7 @@ namespace MKproject.Schedule
                                 {
                                     UCappointment ucappointments = (UCappointment)childControl;
                                     ucappointments.BackColor = ErrorColor;
-                                    ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                                    ucappointments.TLPGlobal.BackColor = DisableColorTBUca;
                                 }
                             }
                         }
@@ -1556,7 +1556,7 @@ namespace MKproject.Schedule
                             {
                                 UCappointment ucappointments = (UCappointment)childControl;
                                 ucappointments.BackColor = ErrorColor;
-                                ucappointments.tableLayoutPanel2.BackColor = DisableColorTBUca;
+                                ucappointments.TLPGlobal.BackColor = DisableColorTBUca;
                             }
                         }
                     }

@@ -31,545 +31,559 @@ namespace MKproject.Schedule
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reminder));
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.FlowlayoutpanelDate = new System.Windows.Forms.FlowLayoutPanel();
-            this.labelDate = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labelQuote = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.labelStartTime = new System.Windows.Forms.Label();
-            this.panelDaysofTheWeek = new System.Windows.Forms.Panel();
-            this.checkBoxMonday = new System.Windows.Forms.CheckBox();
-            this.checkBoxTuesday = new System.Windows.Forms.CheckBox();
-            this.checkBoxWednesday = new System.Windows.Forms.CheckBox();
-            this.checkBoxThursday = new System.Windows.Forms.CheckBox();
-            this.checkBoxFriday = new System.Windows.Forms.CheckBox();
-            this.checkBoxSaturday = new System.Windows.Forms.CheckBox();
-            this.checkBoxSunday = new System.Windows.Forms.CheckBox();
-            this.flowLayoutPanelRepeat = new System.Windows.Forms.FlowLayoutPanel();
-            this.labelrepeat = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBoxSearch = new CustomizedTools.TextBoxWithPlaceHolder();
-            this.textBoxReminder = new CustomizedTools.TextBoxWithPlaceHolder();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.monthCalendarStart = new System.Windows.Forms.MonthCalendar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.ButtonCancel = new CustomizedTools.CustomButton();
-            this.ButtonDone = new CustomizedTools.CustomButton();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.FlowlayoutpanelDate.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.panel6.SuspendLayout();
-            this.panelDaysofTheWeek.SuspendLayout();
-            this.flowLayoutPanelRepeat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.panel5.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            panel4 = new System.Windows.Forms.Panel();
+            FlowlayoutpanelDate = new System.Windows.Forms.FlowLayoutPanel();
+            labelDate = new System.Windows.Forms.Label();
+            pictureBox3 = new System.Windows.Forms.PictureBox();
+            label1 = new System.Windows.Forms.Label();
+            labelQuote = new System.Windows.Forms.Label();
+            panel6 = new System.Windows.Forms.Panel();
+            labelStartTime = new System.Windows.Forms.Label();
+            panelDaysofTheWeek = new System.Windows.Forms.Panel();
+            checkBoxMonday = new System.Windows.Forms.CheckBox();
+            checkBoxTuesday = new System.Windows.Forms.CheckBox();
+            checkBoxWednesday = new System.Windows.Forms.CheckBox();
+            checkBoxThursday = new System.Windows.Forms.CheckBox();
+            checkBoxFriday = new System.Windows.Forms.CheckBox();
+            checkBoxSaturday = new System.Windows.Forms.CheckBox();
+            checkBoxSunday = new System.Windows.Forms.CheckBox();
+            flowLayoutPanelRepeat = new System.Windows.Forms.FlowLayoutPanel();
+            labelrepeat = new System.Windows.Forms.Label();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            panel2 = new System.Windows.Forms.Panel();
+            pictureBox2 = new System.Windows.Forms.PictureBox();
+            textBoxSearch = new TextBoxWithPlaceHolder();
+            textBoxReminder = new TextBoxWithPlaceHolder();
+            pictureBox4 = new System.Windows.Forms.PictureBox();
+            panel5 = new System.Windows.Forms.Panel();
+            panel1 = new System.Windows.Forms.Panel();
+            panel3 = new System.Windows.Forms.Panel();
+            monthCalendarStart = new System.Windows.Forms.MonthCalendar();
+            label3 = new System.Windows.Forms.Label();
+            ButtonCancel = new CustomButton();
+            ButtonDone = new CustomButton();
+            tableLayoutPanel1.SuspendLayout();
+            panel4.SuspendLayout();
+            FlowlayoutpanelDate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            panel6.SuspendLayout();
+            panelDaysofTheWeek.SuspendLayout();
+            flowLayoutPanelRepeat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            panel5.SuspendLayout();
+            panel1.SuspendLayout();
+            panel3.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panel6, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel5, 0, 3);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.91589F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.35514F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.24299F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.25234F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(582, 428);
-            this.tableLayoutPanel1.TabIndex = 3;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(panel4, 0, 2);
+            tableLayoutPanel1.Controls.Add(panel6, 0, 1);
+            tableLayoutPanel1.Controls.Add(panel2, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel5, 0, 3);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.91589F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.35514F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.24299F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.25234F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(679, 494);
+            tableLayoutPanel1.TabIndex = 3;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.FlowlayoutpanelDate);
-            this.panel4.Controls.Add(this.label1);
-            this.panel4.Controls.Add(this.labelQuote);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 228);
-            this.panel4.Margin = new System.Windows.Forms.Padding(0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(582, 138);
-            this.panel4.TabIndex = 9;
+            panel4.Controls.Add(FlowlayoutpanelDate);
+            panel4.Controls.Add(label1);
+            panel4.Controls.Add(labelQuote);
+            panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel4.Location = new System.Drawing.Point(0, 262);
+            panel4.Margin = new System.Windows.Forms.Padding(0);
+            panel4.Name = "panel4";
+            panel4.Size = new System.Drawing.Size(679, 159);
+            panel4.TabIndex = 9;
             // 
             // FlowlayoutpanelDate
             // 
-            this.FlowlayoutpanelDate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
-            this.FlowlayoutpanelDate.Controls.Add(this.labelDate);
-            this.FlowlayoutpanelDate.Controls.Add(this.pictureBox3);
-            this.FlowlayoutpanelDate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FlowlayoutpanelDate.Location = new System.Drawing.Point(211, 18);
-            this.FlowlayoutpanelDate.Margin = new System.Windows.Forms.Padding(0);
-            this.FlowlayoutpanelDate.Name = "FlowlayoutpanelDate";
-            this.FlowlayoutpanelDate.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.FlowlayoutpanelDate.Size = new System.Drawing.Size(201, 24);
-            this.FlowlayoutpanelDate.TabIndex = 74;
+            FlowlayoutpanelDate.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
+            FlowlayoutpanelDate.Controls.Add(labelDate);
+            FlowlayoutpanelDate.Controls.Add(pictureBox3);
+            FlowlayoutpanelDate.Cursor = System.Windows.Forms.Cursors.Hand;
+            FlowlayoutpanelDate.Location = new System.Drawing.Point(246, 21);
+            FlowlayoutpanelDate.Margin = new System.Windows.Forms.Padding(0);
+            FlowlayoutpanelDate.Name = "FlowlayoutpanelDate";
+            FlowlayoutpanelDate.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
+            FlowlayoutpanelDate.Size = new System.Drawing.Size(234, 28);
+            FlowlayoutpanelDate.TabIndex = 74;
             // 
             // labelDate
             // 
-            this.labelDate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
-            this.labelDate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.labelDate.ForeColor = System.Drawing.Color.White;
-            this.labelDate.Location = new System.Drawing.Point(5, 2);
-            this.labelDate.Margin = new System.Windows.Forms.Padding(0);
-            this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(170, 19);
-            this.labelDate.TabIndex = 65;
-            this.labelDate.Text = "Day,00 Week,Year";
-            this.labelDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelDate.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
+            labelDate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelDate.ForeColor = System.Drawing.Color.White;
+            labelDate.Location = new System.Drawing.Point(6, 2);
+            labelDate.Margin = new System.Windows.Forms.Padding(0);
+            labelDate.Name = "labelDate";
+            labelDate.Size = new System.Drawing.Size(198, 22);
+            labelDate.TabIndex = 65;
+            labelDate.Text = "Day,00 Week,Year";
+            labelDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.BackgroundImage")));
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Location = new System.Drawing.Point(175, 2);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(23, 19);
-            this.pictureBox3.TabIndex = 64;
-            this.pictureBox3.TabStop = false;
+            pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            pictureBox3.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox3.BackgroundImage");
+            pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBox3.Location = new System.Drawing.Point(204, 2);
+            pictureBox3.Margin = new System.Windows.Forms.Padding(0);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new System.Drawing.Size(27, 22);
+            pictureBox3.TabIndex = 64;
+            pictureBox3.TabStop = false;
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(127, 8);
-            this.label1.Margin = new System.Windows.Forms.Padding(5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 39);
-            this.label1.TabIndex = 73;
-            this.label1.Text = "Start Time:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.Location = new System.Drawing.Point(148, 9);
+            label1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(92, 45);
+            label1.TabIndex = 73;
+            label1.Text = "Start Time:";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelQuote
             // 
-            this.labelQuote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelQuote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.labelQuote.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelQuote.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuote.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.labelQuote.Location = new System.Drawing.Point(39, 73);
-            this.labelQuote.Margin = new System.Windows.Forms.Padding(0);
-            this.labelQuote.Name = "labelQuote";
-            this.labelQuote.Size = new System.Drawing.Size(492, 53);
-            this.labelQuote.TabIndex = 71;
-            this.labelQuote.Text = "Only for today";
-            this.labelQuote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelQuote.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            labelQuote.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            labelQuote.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            labelQuote.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelQuote.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            labelQuote.Location = new System.Drawing.Point(46, 84);
+            labelQuote.Margin = new System.Windows.Forms.Padding(0);
+            labelQuote.Name = "labelQuote";
+            labelQuote.Size = new System.Drawing.Size(574, 61);
+            labelQuote.TabIndex = 71;
+            labelQuote.Text = "Only for today";
+            labelQuote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.labelStartTime);
-            this.panel6.Controls.Add(this.panelDaysofTheWeek);
-            this.panel6.Controls.Add(this.flowLayoutPanelRepeat);
-            this.panel6.Location = new System.Drawing.Point(0, 158);
-            this.panel6.Margin = new System.Windows.Forms.Padding(0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(582, 70);
-            this.panel6.TabIndex = 12;
+            panel6.Controls.Add(labelStartTime);
+            panel6.Controls.Add(panelDaysofTheWeek);
+            panel6.Controls.Add(flowLayoutPanelRepeat);
+            panel6.Location = new System.Drawing.Point(0, 182);
+            panel6.Margin = new System.Windows.Forms.Padding(0);
+            panel6.Name = "panel6";
+            panel6.Size = new System.Drawing.Size(679, 80);
+            panel6.TabIndex = 12;
             // 
             // labelStartTime
             // 
-            this.labelStartTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStartTime.Location = new System.Drawing.Point(127, 8);
-            this.labelStartTime.Margin = new System.Windows.Forms.Padding(5);
-            this.labelStartTime.Name = "labelStartTime";
-            this.labelStartTime.Size = new System.Drawing.Size(72, 26);
-            this.labelStartTime.TabIndex = 72;
-            this.labelStartTime.Text = "Repeat:";
-            this.labelStartTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelStartTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelStartTime.Location = new System.Drawing.Point(148, 9);
+            labelStartTime.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            labelStartTime.Name = "labelStartTime";
+            labelStartTime.Size = new System.Drawing.Size(84, 30);
+            labelStartTime.TabIndex = 72;
+            labelStartTime.Text = "Repeat:";
+            labelStartTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelDaysofTheWeek
             // 
-            this.panelDaysofTheWeek.Controls.Add(this.checkBoxMonday);
-            this.panelDaysofTheWeek.Controls.Add(this.checkBoxTuesday);
-            this.panelDaysofTheWeek.Controls.Add(this.checkBoxWednesday);
-            this.panelDaysofTheWeek.Controls.Add(this.checkBoxThursday);
-            this.panelDaysofTheWeek.Controls.Add(this.checkBoxFriday);
-            this.panelDaysofTheWeek.Controls.Add(this.checkBoxSaturday);
-            this.panelDaysofTheWeek.Controls.Add(this.checkBoxSunday);
-            this.panelDaysofTheWeek.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelDaysofTheWeek.Location = new System.Drawing.Point(0, 40);
-            this.panelDaysofTheWeek.Name = "panelDaysofTheWeek";
-            this.panelDaysofTheWeek.Size = new System.Drawing.Size(582, 30);
-            this.panelDaysofTheWeek.TabIndex = 71;
-            this.panelDaysofTheWeek.Visible = false;
+            panelDaysofTheWeek.Controls.Add(checkBoxMonday);
+            panelDaysofTheWeek.Controls.Add(checkBoxTuesday);
+            panelDaysofTheWeek.Controls.Add(checkBoxWednesday);
+            panelDaysofTheWeek.Controls.Add(checkBoxThursday);
+            panelDaysofTheWeek.Controls.Add(checkBoxFriday);
+            panelDaysofTheWeek.Controls.Add(checkBoxSaturday);
+            panelDaysofTheWeek.Controls.Add(checkBoxSunday);
+            panelDaysofTheWeek.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelDaysofTheWeek.Location = new System.Drawing.Point(0, 45);
+            panelDaysofTheWeek.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelDaysofTheWeek.Name = "panelDaysofTheWeek";
+            panelDaysofTheWeek.Size = new System.Drawing.Size(679, 35);
+            panelDaysofTheWeek.TabIndex = 71;
+            panelDaysofTheWeek.Visible = false;
             // 
             // checkBoxMonday
             // 
-            this.checkBoxMonday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxMonday.AutoSize = true;
-            this.checkBoxMonday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBoxMonday.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.checkBoxMonday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.checkBoxMonday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxMonday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxMonday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.checkBoxMonday.Location = new System.Drawing.Point(11, 7);
-            this.checkBoxMonday.Name = "checkBoxMonday";
-            this.checkBoxMonday.Size = new System.Drawing.Size(67, 19);
-            this.checkBoxMonday.TabIndex = 0;
-            this.checkBoxMonday.Text = "Monday";
-            this.checkBoxMonday.UseVisualStyleBackColor = true;
-            this.checkBoxMonday.CheckedChanged += new System.EventHandler(this.checkBoxMonday_CheckedChanged);
+            checkBoxMonday.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBoxMonday.AutoSize = true;
+            checkBoxMonday.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxMonday.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            checkBoxMonday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            checkBoxMonday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            checkBoxMonday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxMonday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxMonday.Location = new System.Drawing.Point(24, 8);
+            checkBoxMonday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxMonday.Name = "checkBoxMonday";
+            checkBoxMonday.Size = new System.Drawing.Size(67, 19);
+            checkBoxMonday.TabIndex = 0;
+            checkBoxMonday.Text = "Monday";
+            checkBoxMonday.UseVisualStyleBackColor = true;
+            checkBoxMonday.CheckedChanged += checkBoxMonday_CheckedChanged;
             // 
             // checkBoxTuesday
             // 
-            this.checkBoxTuesday.AutoSize = true;
-            this.checkBoxTuesday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBoxTuesday.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.checkBoxTuesday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.checkBoxTuesday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxTuesday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxTuesday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.checkBoxTuesday.Location = new System.Drawing.Point(85, 7);
-            this.checkBoxTuesday.Name = "checkBoxTuesday";
-            this.checkBoxTuesday.Size = new System.Drawing.Size(67, 19);
-            this.checkBoxTuesday.TabIndex = 0;
-            this.checkBoxTuesday.Text = "Tuesday";
-            this.checkBoxTuesday.UseVisualStyleBackColor = true;
-            this.checkBoxTuesday.CheckedChanged += new System.EventHandler(this.checkBoxMonday_CheckedChanged);
+            checkBoxTuesday.AutoSize = true;
+            checkBoxTuesday.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxTuesday.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            checkBoxTuesday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            checkBoxTuesday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            checkBoxTuesday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxTuesday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxTuesday.Location = new System.Drawing.Point(99, 8);
+            checkBoxTuesday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxTuesday.Name = "checkBoxTuesday";
+            checkBoxTuesday.Size = new System.Drawing.Size(67, 19);
+            checkBoxTuesday.TabIndex = 0;
+            checkBoxTuesday.Text = "Tuesday";
+            checkBoxTuesday.UseVisualStyleBackColor = true;
+            checkBoxTuesday.CheckedChanged += checkBoxMonday_CheckedChanged;
             // 
             // checkBoxWednesday
             // 
-            this.checkBoxWednesday.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.checkBoxWednesday.AutoSize = true;
-            this.checkBoxWednesday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBoxWednesday.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.checkBoxWednesday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.checkBoxWednesday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxWednesday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxWednesday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.checkBoxWednesday.Location = new System.Drawing.Point(172, 7);
-            this.checkBoxWednesday.Name = "checkBoxWednesday";
-            this.checkBoxWednesday.Size = new System.Drawing.Size(87, 19);
-            this.checkBoxWednesday.TabIndex = 0;
-            this.checkBoxWednesday.Text = "Wednesday";
-            this.checkBoxWednesday.UseVisualStyleBackColor = true;
-            this.checkBoxWednesday.CheckedChanged += new System.EventHandler(this.checkBoxMonday_CheckedChanged);
+            checkBoxWednesday.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            checkBoxWednesday.AutoSize = true;
+            checkBoxWednesday.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxWednesday.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            checkBoxWednesday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            checkBoxWednesday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            checkBoxWednesday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxWednesday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxWednesday.Location = new System.Drawing.Point(201, 8);
+            checkBoxWednesday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxWednesday.Name = "checkBoxWednesday";
+            checkBoxWednesday.Size = new System.Drawing.Size(87, 19);
+            checkBoxWednesday.TabIndex = 0;
+            checkBoxWednesday.Text = "Wednesday";
+            checkBoxWednesday.UseVisualStyleBackColor = true;
+            checkBoxWednesday.CheckedChanged += checkBoxMonday_CheckedChanged;
             // 
             // checkBoxThursday
             // 
-            this.checkBoxThursday.AutoSize = true;
-            this.checkBoxThursday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBoxThursday.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.checkBoxThursday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.checkBoxThursday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxThursday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxThursday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.checkBoxThursday.Location = new System.Drawing.Point(274, 7);
-            this.checkBoxThursday.Name = "checkBoxThursday";
-            this.checkBoxThursday.Size = new System.Drawing.Size(73, 19);
-            this.checkBoxThursday.TabIndex = 0;
-            this.checkBoxThursday.Text = "Thursday";
-            this.checkBoxThursday.UseVisualStyleBackColor = true;
-            this.checkBoxThursday.CheckedChanged += new System.EventHandler(this.checkBoxMonday_CheckedChanged);
+            checkBoxThursday.AutoSize = true;
+            checkBoxThursday.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxThursday.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            checkBoxThursday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            checkBoxThursday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            checkBoxThursday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxThursday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxThursday.Location = new System.Drawing.Point(320, 8);
+            checkBoxThursday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxThursday.Name = "checkBoxThursday";
+            checkBoxThursday.Size = new System.Drawing.Size(73, 19);
+            checkBoxThursday.TabIndex = 0;
+            checkBoxThursday.Text = "Thursday";
+            checkBoxThursday.UseVisualStyleBackColor = true;
+            checkBoxThursday.CheckedChanged += checkBoxMonday_CheckedChanged;
             // 
             // checkBoxFriday
             // 
-            this.checkBoxFriday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxFriday.AutoSize = true;
-            this.checkBoxFriday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBoxFriday.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.checkBoxFriday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.checkBoxFriday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxFriday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxFriday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.checkBoxFriday.Location = new System.Drawing.Point(356, 7);
-            this.checkBoxFriday.Name = "checkBoxFriday";
-            this.checkBoxFriday.Size = new System.Drawing.Size(56, 19);
-            this.checkBoxFriday.TabIndex = 0;
-            this.checkBoxFriday.Text = "Friday";
-            this.checkBoxFriday.UseVisualStyleBackColor = true;
-            this.checkBoxFriday.CheckedChanged += new System.EventHandler(this.checkBoxMonday_CheckedChanged);
+            checkBoxFriday.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBoxFriday.AutoSize = true;
+            checkBoxFriday.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxFriday.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            checkBoxFriday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            checkBoxFriday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            checkBoxFriday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxFriday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxFriday.Location = new System.Drawing.Point(424, 8);
+            checkBoxFriday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxFriday.Name = "checkBoxFriday";
+            checkBoxFriday.Size = new System.Drawing.Size(56, 19);
+            checkBoxFriday.TabIndex = 0;
+            checkBoxFriday.Text = "Friday";
+            checkBoxFriday.UseVisualStyleBackColor = true;
+            checkBoxFriday.CheckedChanged += checkBoxMonday_CheckedChanged;
             // 
             // checkBoxSaturday
             // 
-            this.checkBoxSaturday.AutoSize = true;
-            this.checkBoxSaturday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBoxSaturday.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.checkBoxSaturday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.checkBoxSaturday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxSaturday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxSaturday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.checkBoxSaturday.Location = new System.Drawing.Point(418, 7);
-            this.checkBoxSaturday.Name = "checkBoxSaturday";
-            this.checkBoxSaturday.Size = new System.Drawing.Size(72, 19);
-            this.checkBoxSaturday.TabIndex = 0;
-            this.checkBoxSaturday.Text = "Saturday";
-            this.checkBoxSaturday.UseVisualStyleBackColor = true;
-            this.checkBoxSaturday.CheckedChanged += new System.EventHandler(this.checkBoxMonday_CheckedChanged);
+            checkBoxSaturday.AutoSize = true;
+            checkBoxSaturday.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxSaturday.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            checkBoxSaturday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            checkBoxSaturday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            checkBoxSaturday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxSaturday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxSaturday.Location = new System.Drawing.Point(488, 8);
+            checkBoxSaturday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxSaturday.Name = "checkBoxSaturday";
+            checkBoxSaturday.Size = new System.Drawing.Size(72, 19);
+            checkBoxSaturday.TabIndex = 0;
+            checkBoxSaturday.Text = "Saturday";
+            checkBoxSaturday.UseVisualStyleBackColor = true;
+            checkBoxSaturday.CheckedChanged += checkBoxMonday_CheckedChanged;
             // 
             // checkBoxSunday
             // 
-            this.checkBoxSunday.AutoSize = true;
-            this.checkBoxSunday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBoxSunday.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.checkBoxSunday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
-            this.checkBoxSunday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxSunday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.checkBoxSunday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.checkBoxSunday.Location = new System.Drawing.Point(507, 7);
-            this.checkBoxSunday.Name = "checkBoxSunday";
-            this.checkBoxSunday.Size = new System.Drawing.Size(63, 19);
-            this.checkBoxSunday.TabIndex = 0;
-            this.checkBoxSunday.Text = "Sunday";
-            this.checkBoxSunday.UseVisualStyleBackColor = true;
-            this.checkBoxSunday.CheckedChanged += new System.EventHandler(this.checkBoxMonday_CheckedChanged);
+            checkBoxSunday.AutoSize = true;
+            checkBoxSunday.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxSunday.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            checkBoxSunday.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            checkBoxSunday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            checkBoxSunday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxSunday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxSunday.Location = new System.Drawing.Point(592, 8);
+            checkBoxSunday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxSunday.Name = "checkBoxSunday";
+            checkBoxSunday.Size = new System.Drawing.Size(63, 19);
+            checkBoxSunday.TabIndex = 0;
+            checkBoxSunday.Text = "Sunday";
+            checkBoxSunday.UseVisualStyleBackColor = true;
+            checkBoxSunday.CheckedChanged += checkBoxMonday_CheckedChanged;
             // 
             // flowLayoutPanelRepeat
             // 
-            this.flowLayoutPanelRepeat.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.flowLayoutPanelRepeat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
-            this.flowLayoutPanelRepeat.Controls.Add(this.labelrepeat);
-            this.flowLayoutPanelRepeat.Controls.Add(this.pictureBox1);
-            this.flowLayoutPanelRepeat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.flowLayoutPanelRepeat.Location = new System.Drawing.Point(211, 10);
-            this.flowLayoutPanelRepeat.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanelRepeat.Name = "flowLayoutPanelRepeat";
-            this.flowLayoutPanelRepeat.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.flowLayoutPanelRepeat.Size = new System.Drawing.Size(201, 24);
-            this.flowLayoutPanelRepeat.TabIndex = 67;
-            this.flowLayoutPanelRepeat.Click += new System.EventHandler(this.flowLayoutPanelRepeat_Click);
-            this.flowLayoutPanelRepeat.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanelRepeat_Paint);
-            this.flowLayoutPanelRepeat.MouseLeave += new System.EventHandler(this.flowLayoutPanelRepeat_MouseLeave);
-            this.flowLayoutPanelRepeat.MouseMove += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanelRepeat_MouseMove);
+            flowLayoutPanelRepeat.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            flowLayoutPanelRepeat.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
+            flowLayoutPanelRepeat.Controls.Add(labelrepeat);
+            flowLayoutPanelRepeat.Controls.Add(pictureBox1);
+            flowLayoutPanelRepeat.Cursor = System.Windows.Forms.Cursors.Hand;
+            flowLayoutPanelRepeat.Location = new System.Drawing.Point(246, 12);
+            flowLayoutPanelRepeat.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanelRepeat.Name = "flowLayoutPanelRepeat";
+            flowLayoutPanelRepeat.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
+            flowLayoutPanelRepeat.Size = new System.Drawing.Size(234, 28);
+            flowLayoutPanelRepeat.TabIndex = 67;
+            flowLayoutPanelRepeat.Click += flowLayoutPanelRepeat_Click;
+            flowLayoutPanelRepeat.Paint += flowLayoutPanelRepeat_Paint;
+            flowLayoutPanelRepeat.MouseLeave += flowLayoutPanelRepeat_MouseLeave;
+            flowLayoutPanelRepeat.MouseMove += flowLayoutPanelRepeat_MouseMove;
             // 
             // labelrepeat
             // 
-            this.labelrepeat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(224)))));
-            this.labelrepeat.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.labelrepeat.ForeColor = System.Drawing.Color.White;
-            this.labelrepeat.Location = new System.Drawing.Point(5, 2);
-            this.labelrepeat.Margin = new System.Windows.Forms.Padding(0);
-            this.labelrepeat.Name = "labelrepeat";
-            this.labelrepeat.Size = new System.Drawing.Size(170, 19);
-            this.labelrepeat.TabIndex = 65;
-            this.labelrepeat.Text = "Does not repeat";
-            this.labelrepeat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelrepeat.Click += new System.EventHandler(this.flowLayoutPanelRepeat_Click);
-            this.labelrepeat.MouseLeave += new System.EventHandler(this.flowLayoutPanelRepeat_MouseLeave);
-            this.labelrepeat.MouseMove += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanelRepeat_MouseMove);
+            labelrepeat.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
+            labelrepeat.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelrepeat.ForeColor = System.Drawing.Color.White;
+            labelrepeat.Location = new System.Drawing.Point(6, 2);
+            labelrepeat.Margin = new System.Windows.Forms.Padding(0);
+            labelrepeat.Name = "labelrepeat";
+            labelrepeat.Size = new System.Drawing.Size(198, 22);
+            labelrepeat.TabIndex = 65;
+            labelrepeat.Text = "Does not repeat";
+            labelrepeat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelrepeat.Click += flowLayoutPanelRepeat_Click;
+            labelrepeat.MouseLeave += flowLayoutPanelRepeat_MouseLeave;
+            labelrepeat.MouseMove += flowLayoutPanelRepeat_MouseMove;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(175, 2);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 19);
-            this.pictureBox1.TabIndex = 64;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.flowLayoutPanelRepeat_Click);
-            this.pictureBox1.MouseLeave += new System.EventHandler(this.flowLayoutPanelRepeat_MouseLeave);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanelRepeat_MouseMove);
+            pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBox1.Location = new System.Drawing.Point(204, 2);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(27, 22);
+            pictureBox1.TabIndex = 64;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += flowLayoutPanelRepeat_Click;
+            pictureBox1.MouseLeave += flowLayoutPanelRepeat_MouseLeave;
+            pictureBox1.MouseMove += flowLayoutPanelRepeat_MouseMove;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.pictureBox2);
-            this.panel2.Controls.Add(this.textBoxSearch);
-            this.panel2.Controls.Add(this.textBoxReminder);
-            this.panel2.Controls.Add(this.pictureBox4);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(582, 158);
-            this.panel2.TabIndex = 11;
+            panel2.Controls.Add(pictureBox2);
+            panel2.Controls.Add(textBoxSearch);
+            panel2.Controls.Add(textBoxReminder);
+            panel2.Controls.Add(pictureBox4);
+            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel2.Location = new System.Drawing.Point(0, 0);
+            panel2.Margin = new System.Windows.Forms.Padding(0);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(679, 182);
+            panel2.TabIndex = 11;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(96, 57);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(27, 25);
-            this.pictureBox2.TabIndex = 33;
-            this.pictureBox2.TabStop = false;
+            pictureBox2.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox2.BackgroundImage");
+            pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBox2.Location = new System.Drawing.Point(112, 66);
+            pictureBox2.Margin = new System.Windows.Forms.Padding(2);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new System.Drawing.Size(31, 29);
+            pictureBox2.TabIndex = 33;
+            pictureBox2.TabStop = false;
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.textBoxSearch.ForeColor = System.Drawing.Color.Gray;
-            this.textBoxSearch.Location = new System.Drawing.Point(76, 12);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.PlaceholderText = "Enter the name of the client linked to this reminder(Optional)...";
-            this.textBoxSearch.Size = new System.Drawing.Size(477, 29);
-            this.textBoxSearch.TabIndex = 32;
-            this.textBoxSearch.Text = "Enter the name of the client linked to this reminder(Optional)...";
-            this.textBoxSearch.Click += new System.EventHandler(this.textBoxSearch_Click);
+            textBoxSearch.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            textBoxSearch.ForeColor = System.Drawing.Color.Gray;
+            textBoxSearch.IsRequiredModeOn = false;
+            textBoxSearch.Location = new System.Drawing.Point(89, 14);
+            textBoxSearch.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            textBoxSearch.Name = "textBoxSearch";
+            textBoxSearch.PlaceholderText = "Enter the name of the client linked to this reminder(Optional)...";
+            textBoxSearch.Size = new System.Drawing.Size(556, 29);
+            textBoxSearch.TabIndex = 32;
+            textBoxSearch.Text = "Enter the name of the client linked to this reminder(Optional)...";
+            textBoxSearch.Click += textBoxSearch_Click;
             // 
             // textBoxReminder
             // 
-            this.textBoxReminder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.textBoxReminder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxReminder.ForeColor = System.Drawing.Color.Gray;
-            this.textBoxReminder.Location = new System.Drawing.Point(130, 57);
-            this.textBoxReminder.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxReminder.Multiline = true;
-            this.textBoxReminder.Name = "textBoxReminder";
-            this.textBoxReminder.PlaceholderText = "Add Reminder...";
-            this.textBoxReminder.Size = new System.Drawing.Size(333, 74);
-            this.textBoxReminder.TabIndex = 13;
-            this.textBoxReminder.Text = "Add Reminder...";
+            textBoxReminder.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            textBoxReminder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            textBoxReminder.ForeColor = System.Drawing.Color.Gray;
+            textBoxReminder.IsRequiredModeOn = false;
+            textBoxReminder.Location = new System.Drawing.Point(152, 66);
+            textBoxReminder.Margin = new System.Windows.Forms.Padding(2);
+            textBoxReminder.Multiline = true;
+            textBoxReminder.Name = "textBoxReminder";
+            textBoxReminder.PlaceholderText = "Add Reminder...";
+            textBoxReminder.Size = new System.Drawing.Size(388, 85);
+            textBoxReminder.TabIndex = 13;
+            textBoxReminder.Text = "Add Reminder...";
             // 
             // pictureBox4
             // 
-            this.pictureBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.BackgroundImage")));
-            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox4.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.ErrorImage")));
-            this.pictureBox4.Location = new System.Drawing.Point(34, 10);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(23, 29);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 9;
-            this.pictureBox4.TabStop = false;
+            pictureBox4.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox4.BackgroundImage");
+            pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBox4.ErrorImage = (System.Drawing.Image)resources.GetObject("pictureBox4.ErrorImage");
+            pictureBox4.Location = new System.Drawing.Point(40, 12);
+            pictureBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new System.Drawing.Size(27, 33);
+            pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 9;
+            pictureBox4.TabStop = false;
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.panel1);
-            this.panel5.Controls.Add(this.ButtonCancel);
-            this.panel5.Controls.Add(this.ButtonDone);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 366);
-            this.panel5.Margin = new System.Windows.Forms.Padding(0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(582, 62);
-            this.panel5.TabIndex = 72;
+            panel5.Controls.Add(panel1);
+            panel5.Controls.Add(ButtonCancel);
+            panel5.Controls.Add(ButtonDone);
+            panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel5.Location = new System.Drawing.Point(0, 421);
+            panel5.Margin = new System.Windows.Forms.Padding(0);
+            panel5.Name = "panel5";
+            panel5.Size = new System.Drawing.Size(679, 73);
+            panel5.TabIndex = 72;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(9, 52);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0, 20, 0, 20);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(156, 5, 156, 5);
-            this.panel1.Size = new System.Drawing.Size(10, 10);
-            this.panel1.TabIndex = 13;
+            panel1.BackColor = System.Drawing.Color.White;
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(label3);
+            panel1.Location = new System.Drawing.Point(10, 60);
+            panel1.Margin = new System.Windows.Forms.Padding(0, 23, 0, 23);
+            panel1.Name = "panel1";
+            panel1.Padding = new System.Windows.Forms.Padding(182, 6, 182, 6);
+            panel1.Size = new System.Drawing.Size(12, 12);
+            panel1.TabIndex = 13;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.monthCalendarStart);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(156, 5);
-            this.panel3.Margin = new System.Windows.Forms.Padding(30);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(0, 0);
-            this.panel3.TabIndex = 3;
+            panel3.Controls.Add(monthCalendarStart);
+            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel3.Location = new System.Drawing.Point(182, 6);
+            panel3.Margin = new System.Windows.Forms.Padding(35, 35, 35, 35);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(0, 0);
+            panel3.TabIndex = 3;
             // 
             // monthCalendarStart
             // 
-            this.monthCalendarStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.monthCalendarStart.Location = new System.Drawing.Point(-1005, 9);
-            this.monthCalendarStart.MaxSelectionCount = 1;
-            this.monthCalendarStart.Name = "monthCalendarStart";
-            this.monthCalendarStart.TabIndex = 2;
-            this.monthCalendarStart.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendarStart_DateChanged);
+            monthCalendarStart.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
+            monthCalendarStart.Location = new System.Drawing.Point(-1349, 10);
+            monthCalendarStart.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            monthCalendarStart.MaxSelectionCount = 1;
+            monthCalendarStart.Name = "monthCalendarStart";
+            monthCalendarStart.TabIndex = 2;
+            monthCalendarStart.DateChanged += monthCalendarStart_DateChanged;
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(20, 68);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 20);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Initiation date:";
+            label3.BackColor = System.Drawing.Color.Transparent;
+            label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label3.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            label3.Location = new System.Drawing.Point(23, 78);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(120, 23);
+            label3.TabIndex = 1;
+            label3.Text = "Initiation date:";
             // 
             // ButtonCancel
             // 
-            this.ButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ButtonCancel.BackAndMouseHoverColor = System.Drawing.Color.Empty;
-            this.ButtonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.ButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ButtonCancel.FlatAppearance.BorderSize = 0;
-            this.ButtonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.ButtonCancel.ForeColor = System.Drawing.Color.White;
-            this.ButtonCancel.Location = new System.Drawing.Point(376, 21);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(87, 29);
-            this.ButtonCancel.TabIndex = 2;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = false;
+            ButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            ButtonCancel.BackAndMouseHoverColor = System.Drawing.Color.Empty;
+            ButtonCancel.BackColor = System.Drawing.Color.FromArgb(95, 97, 99);
+            ButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            ButtonCancel.FlatAppearance.BorderSize = 0;
+            ButtonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ButtonCancel.ForeColor = System.Drawing.Color.White;
+            ButtonCancel.Location = new System.Drawing.Point(439, 24);
+            ButtonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ButtonCancel.Name = "ButtonCancel";
+            ButtonCancel.Size = new System.Drawing.Size(102, 33);
+            ButtonCancel.TabIndex = 2;
+            ButtonCancel.Text = "Cancel";
+            ButtonCancel.UseVisualStyleBackColor = false;
             // 
             // ButtonDone
             // 
-            this.ButtonDone.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ButtonDone.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.ButtonDone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.ButtonDone.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ButtonDone.FlatAppearance.BorderSize = 0;
-            this.ButtonDone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
-            this.ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.ButtonDone.ForeColor = System.Drawing.Color.White;
-            this.ButtonDone.Location = new System.Drawing.Point(482, 21);
-            this.ButtonDone.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.ButtonDone.Name = "ButtonDone";
-            this.ButtonDone.Size = new System.Drawing.Size(87, 29);
-            this.ButtonDone.TabIndex = 1;
-            this.ButtonDone.Text = "Done";
-            this.ButtonDone.UseVisualStyleBackColor = false;
-            this.ButtonDone.Click += new System.EventHandler(this.buttonD_Click);
+            ButtonDone.Anchor = System.Windows.Forms.AnchorStyles.None;
+            ButtonDone.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            ButtonDone.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            ButtonDone.Cursor = System.Windows.Forms.Cursors.Hand;
+            ButtonDone.FlatAppearance.BorderSize = 0;
+            ButtonDone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
+            ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ButtonDone.ForeColor = System.Drawing.Color.White;
+            ButtonDone.Location = new System.Drawing.Point(562, 24);
+            ButtonDone.Margin = new System.Windows.Forms.Padding(4, 3, 6, 3);
+            ButtonDone.Name = "ButtonDone";
+            ButtonDone.Size = new System.Drawing.Size(102, 33);
+            ButtonDone.TabIndex = 1;
+            ButtonDone.Text = "Done";
+            ButtonDone.UseVisualStyleBackColor = false;
+            ButtonDone.Click += buttonD_Click;
             // 
             // Reminder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.ClientSize = new System.Drawing.Size(582, 428);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "Reminder";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Reminder";
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.FlowlayoutpanelDate.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panelDaysofTheWeek.ResumeLayout(false);
-            this.panelDaysofTheWeek.PerformLayout();
-            this.flowLayoutPanelRepeat.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            ClientSize = new System.Drawing.Size(679, 494);
+            Controls.Add(tableLayoutPanel1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "Reminder";
+            ShowIcon = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Reminder";
+            tableLayoutPanel1.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            FlowlayoutpanelDate.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            panel6.ResumeLayout(false);
+            panelDaysofTheWeek.ResumeLayout(false);
+            panelDaysofTheWeek.PerformLayout();
+            flowLayoutPanelRepeat.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            panel5.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

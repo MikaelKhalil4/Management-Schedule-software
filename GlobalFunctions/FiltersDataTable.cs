@@ -9,14 +9,26 @@ namespace GlobalFunctions
 {
     public class FiltersDataTable
     {
-        //this filter won t work , in case there were empty values in it, and all the filters also
+        //this filter won t work , in case there were empty values in it
         public static DataTable FilterDatatableIfContainsIgnoringCapitals(string DesiredColumnName, String DesiredTarget, DataTable Originaldt)
         {
 
             var filteredData = Originaldt.AsEnumerable();
             if (!string.IsNullOrEmpty(DesiredTarget))
             {
-                filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName).IndexOf(DesiredTarget, StringComparison.OrdinalIgnoreCase) >= 0);
+                filteredData = filteredData.Where(row =>
+                {
+                    var columnValue = row[DesiredColumnName];
+                    if (columnValue == DBNull.Value)
+                    {
+                        return false;
+                    }
+                    else
+                    {                  
+                        string stringValue = columnValue.ToString();
+                        return stringValue.IndexOf(DesiredTarget, StringComparison.OrdinalIgnoreCase) >= 0;
+                    }
+                });
             }
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : Originaldt.Clone();
             return filteredDataTable;

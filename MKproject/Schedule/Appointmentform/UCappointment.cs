@@ -50,13 +50,33 @@ namespace MKproject.Schedule
             //Name
             if (DesiredAppointment.DesiredClient != null)
             {
+                if (!TLPGlobal.Controls.Contains(labelFullName))
+                {
+                    TLPGlobal.Controls.Add(labelFullName, 0, 1);
+                    TLPGlobal.SetRowSpan(labelService, 1);
+                    TLPGlobal.SetColumnSpan(labelService, 2);
+
+                    TLPGlobal.SetRow(labelTime, 1);
+                    TLPGlobal.SetRowSpan(labelTime, 1);
+                    labelTime.Anchor = AnchorStyles.Top;
+                    labelTime.Margin = new Padding(0, 5, 0, 0);
+
+                }
+
                 labelFullName.Text = DesiredAppointment.DesiredClient.Fname + " " + DesiredAppointment.DesiredClient.Lname;
             }
             else
             {
-                labelFullName.Text = "No Client Chosen";
-            }
+                TLPGlobal.Controls.Remove(labelFullName);
 
+                TLPGlobal.SetRowSpan(labelService, 2);
+                TLPGlobal.SetColumnSpan(labelService, 1);
+
+                TLPGlobal.SetRow(labelTime, 0);
+                TLPGlobal.SetRowSpan(labelTime, 2);
+                labelTime.Anchor= AnchorStyles.None;
+                labelTime.Margin=new Padding(0,0,0,0);
+            }
 
             //Service
             if (DesiredAppointment.DesiredClientBalance != null)
@@ -68,7 +88,7 @@ namespace MKproject.Schedule
                 labelService.Text = DesiredAppointment.ChoseBundlesString;
             }
             else if (DesiredAppointment.Title != null)
-            {
+            {          
                 labelService.Text = DesiredAppointment.Title;
             }
 
@@ -217,9 +237,9 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false)
             {
-                if (tableLayoutPanel2.BackColor != ucday.DisableColorTBUca)//229, 226, 244
+                if (TLPGlobal.BackColor != ucday.DisableColorTBUca)//229, 226, 244
                 {
-                    tableLayoutPanel2.BackColor = Color.FromArgb(249, 246, 254);
+                    TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
                 }
             }
             else
@@ -229,9 +249,9 @@ namespace MKproject.Schedule
         }
         private void UCappointments_MouseLeave(object sender, EventArgs e)
         {
-            if (tableLayoutPanel2.BackColor != ucday.DisableColorTBUca)
+            if (TLPGlobal.BackColor != ucday.DisableColorTBUca)
             {
-                tableLayoutPanel2.BackColor = Color.White;
+                TLPGlobal.BackColor = Color.White;
             }
         }
 

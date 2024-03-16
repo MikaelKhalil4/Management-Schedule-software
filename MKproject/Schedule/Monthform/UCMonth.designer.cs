@@ -29,130 +29,134 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCMonth));
-            this.tableLayoutPanelMonth = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonTypeDateChange = new System.Windows.Forms.Button();
-            this.buttonPrevious = new System.Windows.Forms.Button();
-            this.buttonNext = new System.Windows.Forms.Button();
-            this.labelTitle = new System.Windows.Forms.Label();
-            this.tableLayoutPanelMonth.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanelMonth = new System.Windows.Forms.TableLayoutPanel();
+            panel2 = new System.Windows.Forms.Panel();
+            buttonTypeDateChange = new System.Windows.Forms.Button();
+            buttonPrevious = new System.Windows.Forms.Button();
+            buttonNext = new System.Windows.Forms.Button();
+            labelTitle = new System.Windows.Forms.Label();
+            tableLayoutPanelMonth.SuspendLayout();
+            panel2.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanelMonth
             // 
-            this.tableLayoutPanelMonth.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanelMonth.ColumnCount = 1;
-            this.tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMonth.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanelMonth.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelMonth.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelMonth.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanelMonth.Name = "tableLayoutPanelMonth";
-            this.tableLayoutPanelMonth.RowCount = 2;
-            this.tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.42029F));
-            this.tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.57971F));
-            this.tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanelMonth.Size = new System.Drawing.Size(560, 553);
-            this.tableLayoutPanelMonth.TabIndex = 0;
+            tableLayoutPanelMonth.BackColor = System.Drawing.Color.White;
+            tableLayoutPanelMonth.ColumnCount = 1;
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanelMonth.Controls.Add(panel2, 0, 0);
+            tableLayoutPanelMonth.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanelMonth.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanelMonth.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanelMonth.Name = "tableLayoutPanelMonth";
+            tableLayoutPanelMonth.RowCount = 2;
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.6853151F));
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.31468F));
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            tableLayoutPanelMonth.Size = new System.Drawing.Size(311, 286);
+            tableLayoutPanelMonth.TabIndex = 0;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.buttonTypeDateChange);
-            this.panel2.Controls.Add(this.buttonPrevious);
-            this.panel2.Controls.Add(this.buttonNext);
-            this.panel2.Controls.Add(this.labelTitle);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(560, 52);
-            this.panel2.TabIndex = 55;
+            panel2.Controls.Add(buttonTypeDateChange);
+            panel2.Controls.Add(buttonPrevious);
+            panel2.Controls.Add(buttonNext);
+            panel2.Controls.Add(labelTitle);
+            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel2.Location = new System.Drawing.Point(0, 0);
+            panel2.Margin = new System.Windows.Forms.Padding(0);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(311, 42);
+            panel2.TabIndex = 55;
             // 
             // buttonTypeDateChange
             // 
-            this.buttonTypeDateChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTypeDateChange.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonTypeDateChange.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonTypeDateChange.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
-            this.buttonTypeDateChange.FlatAppearance.BorderSize = 0;
-            this.buttonTypeDateChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTypeDateChange.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonTypeDateChange.Location = new System.Drawing.Point(13, 14);
-            this.buttonTypeDateChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.buttonTypeDateChange.Name = "buttonTypeDateChange";
-            this.buttonTypeDateChange.Size = new System.Drawing.Size(89, 27);
-            this.buttonTypeDateChange.TabIndex = 69;
-            this.buttonTypeDateChange.Text = "Month";
-            this.buttonTypeDateChange.UseVisualStyleBackColor = false;
-            this.buttonTypeDateChange.Click += new System.EventHandler(this.buttonTypeDateChange_Click);
+            buttonTypeDateChange.BackColor = System.Drawing.Color.WhiteSmoke;
+            buttonTypeDateChange.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonTypeDateChange.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            buttonTypeDateChange.FlatAppearance.BorderSize = 0;
+            buttonTypeDateChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonTypeDateChange.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonTypeDateChange.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonTypeDateChange.Location = new System.Drawing.Point(0, 13);
+            buttonTypeDateChange.Margin = new System.Windows.Forms.Padding(4);
+            buttonTypeDateChange.Name = "buttonTypeDateChange";
+            buttonTypeDateChange.Size = new System.Drawing.Size(78, 22);
+            buttonTypeDateChange.TabIndex = 69;
+            buttonTypeDateChange.Text = "Month";
+            buttonTypeDateChange.UseVisualStyleBackColor = false;
+            buttonTypeDateChange.Click += buttonTypeDateChange_Click;
             // 
             // buttonPrevious
             // 
-            this.buttonPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPrevious.BackColor = System.Drawing.Color.Transparent;
-            this.buttonPrevious.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonPrevious.BackgroundImage")));
-            this.buttonPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonPrevious.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonPrevious.FlatAppearance.BorderSize = 0;
-            this.buttonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
-            this.buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPrevious.ForeColor = System.Drawing.Color.Transparent;
-            this.buttonPrevious.Location = new System.Drawing.Point(144, 7);
-            this.buttonPrevious.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.buttonPrevious.Name = "buttonPrevious";
-            this.buttonPrevious.Size = new System.Drawing.Size(32, 38);
-            this.buttonPrevious.TabIndex = 55;
-            this.buttonPrevious.UseVisualStyleBackColor = false;
-            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click_1);
+            buttonPrevious.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonPrevious.BackColor = System.Drawing.Color.Transparent;
+            buttonPrevious.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonPrevious.BackgroundImage");
+            buttonPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonPrevious.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            buttonPrevious.FlatAppearance.BorderSize = 0;
+            buttonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
+            buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonPrevious.ForeColor = System.Drawing.Color.Transparent;
+            buttonPrevious.Location = new System.Drawing.Point(93, 16);
+            buttonPrevious.Margin = new System.Windows.Forms.Padding(4);
+            buttonPrevious.Name = "buttonPrevious";
+            buttonPrevious.Size = new System.Drawing.Size(28, 17);
+            buttonPrevious.TabIndex = 55;
+            buttonPrevious.UseVisualStyleBackColor = false;
+            buttonPrevious.Click += buttonPrevious_Click_1;
             // 
             // buttonNext
             // 
-            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNext.BackColor = System.Drawing.Color.Transparent;
-            this.buttonNext.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonNext.BackgroundImage")));
-            this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonNext.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.buttonNext.FlatAppearance.BorderSize = 0;
-            this.buttonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
-            this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNext.ForeColor = System.Drawing.Color.Transparent;
-            this.buttonNext.Location = new System.Drawing.Point(389, 7);
-            this.buttonNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(32, 38);
-            this.buttonNext.TabIndex = 56;
-            this.buttonNext.UseVisualStyleBackColor = false;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click_1);
+            buttonNext.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonNext.BackColor = System.Drawing.Color.Transparent;
+            buttonNext.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonNext.BackgroundImage");
+            buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonNext.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(255, 255, 128);
+            buttonNext.FlatAppearance.BorderSize = 0;
+            buttonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
+            buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonNext.ForeColor = System.Drawing.Color.Transparent;
+            buttonNext.Location = new System.Drawing.Point(237, 16);
+            buttonNext.Margin = new System.Windows.Forms.Padding(4);
+            buttonNext.Name = "buttonNext";
+            buttonNext.Size = new System.Drawing.Size(28, 17);
+            buttonNext.TabIndex = 56;
+            buttonNext.UseVisualStyleBackColor = false;
+            buttonNext.Click += buttonNext_Click_1;
             // 
             // labelTitle
             // 
-            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.labelTitle.Location = new System.Drawing.Point(183, 7);
-            this.labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(201, 38);
-            this.labelTitle.TabIndex = 53;
-            this.labelTitle.Text = "MONTH YEAR";
-            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelTitle.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            labelTitle.AutoSize = true;
+            labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            labelTitle.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            labelTitle.Location = new System.Drawing.Point(129, 16);
+            labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelTitle.Name = "labelTitle";
+            labelTitle.Size = new System.Drawing.Size(100, 17);
+            labelTitle.TabIndex = 53;
+            labelTitle.Text = "MONTH YEAR";
+            labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UCMonth
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(560, 553);
-            this.Controls.Add(this.tableLayoutPanelMonth);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "UCMonth";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Deactivate += new System.EventHandler(this.UCMonth_Deactivate);
-            this.tableLayoutPanelMonth.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.White;
+            ClientSize = new System.Drawing.Size(311, 286);
+            ControlBox = false;
+            Controls.Add(tableLayoutPanelMonth);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(0);
+            Name = "UCMonth";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            Deactivate += UCMonth_Deactivate;
+            tableLayoutPanelMonth.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

@@ -18,7 +18,7 @@ namespace MKproject.Management
         string NotAvailableText = "N/A";
         public bool IsClientDeleted = false;
         int? ParentIdInProfile;//eza ken child w eendo parent ha ha tkun not null 
-        bool IsFromSchedule;
+        public bool IsFromSchedule;
 
         public Panel panelBundles;//kermel lamma ykun eena bundles nhotta    
 
@@ -1725,8 +1725,6 @@ namespace MKproject.Management
 
                     SearchCurrentClientform.Originaldt.AcceptChanges();
                     SearchCurrentClientform.Filtereddt.AcceptChanges();
-
-
                 }
                 else//updating a row
                 {

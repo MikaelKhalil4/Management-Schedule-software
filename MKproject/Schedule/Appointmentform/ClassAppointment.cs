@@ -82,31 +82,24 @@ namespace MKproject.Schedule
         }
         public static List<int> DisplayEmployeesIdWhoTrained(UCDay ucday, List<int> listrankemployees_id)
         {
-            StringBuilder queryBuilder = new StringBuilder();
-            queryBuilder.AppendLine("SELECT DISTINCT employee_id FROM appointments WHERE CAST(start_time AS DATE) = @value1 ");
+            string querry = "SELECT DISTINCT employee_id FROM appointments WHERE CAST(start_time AS DATE) = @Date ";
             if (listrankemployees_id.Count > 0)
             {
-                queryBuilder.AppendLine("AND employee_id IN (");
+                querry += "AND employee_id IN (";
 
                 for (int i = 0; i < listrankemployees_id.Count; i++)
                 {
-                    queryBuilder.Append($"@employee_id{i}");
+                    querry += listrankemployees_id[i];
                     if (i < listrankemployees_id.Count - 1)
                     {
-                        queryBuilder.Append(", ");
+                        querry += ", ";
                     }
                 }
 
-                queryBuilder.AppendLine(")");
+                querry += ")";
             }
-            SqlCommand command1 = new SqlCommand(queryBuilder.ToString(), con);
-            string datetime = ucday.DateUCDay.ToString();
-            string[] date = datetime.Split(' ');
-            command1.Parameters.AddWithValue("@value1", date[0]);
-            for (int i = 0; i < listrankemployees_id.Count; i++)
-            {
-                command1.Parameters.AddWithValue($"@employee_id{i}", listrankemployees_id[i]);
-            }
+            SqlCommand command1 = new SqlCommand(querry, con);
+            command1.Parameters.AddWithValue("@Date", ucday.DateUCDay.Date);
             con.Open();
 
             // Execute the second query to get the list of employee IDs
@@ -124,34 +117,27 @@ namespace MKproject.Schedule
         }
         public static DataTable DisplayAppointmentsWhereEmployees(UCDay ucday, List<int> listrankemployees_id)
         {
-            StringBuilder queryBuilder = new StringBuilder();
-            queryBuilder.AppendLine(@"SELECT t.appointment_id , c.client_id , c.name, c.family_name  
-                                      FROM appointments t
-                                      JOIN client c ON t.client_id = c.client_id
-                                      WHERE CAST(t.start_time AS DATE) = @value1");
+            string query = @"SELECT appointment_id 
+                          FROM appointments                                 
+                          WHERE CAST(start_time AS DATE) = @Date ";
+
             if (listrankemployees_id.Count > 0)
             {
-                queryBuilder.AppendLine("AND t.employee_id IN (");
+                query += "AND employee_id IN (";
 
                 for (int i = 0; i < listrankemployees_id.Count; i++)
                 {
-                    queryBuilder.Append($"@employeeId{i}");
+                    query += listrankemployees_id[i];
                     if (i < listrankemployees_id.Count - 1)
                     {
-                        queryBuilder.Append(", ");
+                        query += ", ";
                     }
                 }
+                query += ")";
+            }
 
-                queryBuilder.AppendLine(")");
-            }
-            SqlCommand command1 = new SqlCommand(queryBuilder.ToString(), con);
-            string datetime = ucday.DateUCDay.ToString();
-            string[] date = datetime.Split(' ');
-            command1.Parameters.AddWithValue("@value1", date[0]);
-            for (int i = 0; i < listrankemployees_id.Count; i++)
-            {
-                command1.Parameters.AddWithValue($"@employeeId{i}", listrankemployees_id[i]);
-            }
+            SqlCommand command1 = new SqlCommand(query, con);
+            command1.Parameters.AddWithValue("@Date", ucday.DateUCDay.Date);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
@@ -162,13 +148,11 @@ namespace MKproject.Schedule
         }
         public static DataTable DisplayAppointmentsOneEmployee(UCDay ucday, int employee_id)
         {
-            SqlCommand command1 = new SqlCommand(@"SELECT t.appointment_id, c.client_id, c.name,  c.family_name 
-                                                   FROM appointments t JOIN client c ON t.client_id = c.client_id 
-                                                   WHERE CAST(t.start_time AS DATE) = @value1  AND t.employee_id =@employee_id", con);
+            SqlCommand command1 = new SqlCommand(@"SELECT appointment_id
+                                                   FROM appointments 
+                                                   WHERE CAST(start_time AS DATE) = @Date  AND employee_id =@employee_id", con);
 
-            string datetime = ucday.DateUCDay.ToString();
-            string[] date = datetime.Split(' ');
-            command1.Parameters.AddWithValue("@value1", date[0]);
+            command1.Parameters.AddWithValue("@Date", ucday.DateUCDay.Date);
             command1.Parameters.AddWithValue("@employee_id", employee_id);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
@@ -319,11 +303,11 @@ namespace MKproject.Schedule
             command.ExecuteNonQuery();
             con.Close();
         }
-   
 
 
 
-        public static ClassAppointment CreateObjectClassAppointment (int appointmentId)
+
+        public static ClassAppointment CreateObjectClassAppointment(int appointmentId)
         {
             DataTable dt;
             dt = ClassAppointment.GetAllAppointmentInfoSql(appointmentId);
@@ -334,7 +318,7 @@ namespace MKproject.Schedule
 
 
             DesiredApp.IdAppointment = (int)datarow["appointment_id"];//noway ykun bel db fi client ma endo clientid
-           
+
             if (!(datarow["client_id"] is DBNull))
             {
                 //DesiredApp.DesiredClient = ClassClient.CreateClientObject((int)datarow["client_id"]);
@@ -346,16 +330,16 @@ namespace MKproject.Schedule
                 DesiredApp.DesiredClient.Fname = dtClient.Rows[0]["name"] is DBNull ? null : (string)dtClient.Rows[0]["name"];
                 DesiredApp.DesiredClient.Lname = dtClient.Rows[0]["family_name"] is DBNull ? null : (string)dtClient.Rows[0]["family_name"];
             }
-          
-            
-            DesiredApp.EmployeeId = datarow["employee_id"] is DBNull ? (int?)null : (int)datarow["employee_id"];  
+
+
+            DesiredApp.EmployeeId = datarow["employee_id"] is DBNull ? (int?)null : (int)datarow["employee_id"];
             DesiredApp.Title = datarow["title"] is DBNull ? null : (string)datarow["title"];
             DesiredApp.Notes = datarow["Note"] is DBNull ? null : (string)datarow["Note"];
 
             DesiredApp.StartTime = (DateTime)datarow["start_time"];
             DesiredApp.EndTime = (DateTime)datarow["end_time"];
-         
-            
+
+
             if (!(datarow["desired_client_balance_id"] is DBNull))
             {
                 DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)datarow["desired_client_balance_id"]);
@@ -371,7 +355,7 @@ namespace MKproject.Schedule
                 {
                     bundles.Add(ClassBundles.CreateBundleObject((int)dr["bundle_id"]));
                 }
-                DesiredApp.ChosenBundlesList= bundles;//ased eemelneha kermel yenkhalae el string ma3a
+                DesiredApp.ChosenBundlesList = bundles;//ased eemelneha kermel yenkhalae el string ma3a
             }
 
             // baaed fi bundle object detection 
