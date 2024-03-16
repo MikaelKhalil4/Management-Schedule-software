@@ -42,9 +42,9 @@
             labelEndTime = new System.Windows.Forms.Label();
             flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             ButtonDone = new CustomizedTools.CustomButton();
+            buttonDelete = new System.Windows.Forms.Button();
             ButtonCancel = new CustomizedTools.CustomButton();
             label1 = new System.Windows.Forms.Label();
-            buttonDelete = new System.Windows.Forms.Button();
             TLPGlobal.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DownArrowEndTime).BeginInit();
@@ -244,14 +244,33 @@
             ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonDone.ForeColor = System.Drawing.Color.White;
-            ButtonDone.Location = new System.Drawing.Point(310, 3);
+            ButtonDone.Location = new System.Drawing.Point(314, 3);
             ButtonDone.Margin = new System.Windows.Forms.Padding(4, 3, 6, 3);
             ButtonDone.Name = "ButtonDone";
-            ButtonDone.Size = new System.Drawing.Size(102, 33);
+            ButtonDone.Size = new System.Drawing.Size(98, 33);
             ButtonDone.TabIndex = 0;
             ButtonDone.Text = "Done";
             ButtonDone.UseVisualStyleBackColor = false;
             ButtonDone.Click += ButtonDone_Click;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            buttonDelete.BackColor = System.Drawing.Color.FromArgb(255, 50, 50);
+            buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonDelete.FlatAppearance.BorderSize = 0;
+            buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+            buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonDelete.ForeColor = System.Drawing.Color.White;
+            buttonDelete.Location = new System.Drawing.Point(208, 3);
+            buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new System.Drawing.Size(98, 33);
+            buttonDelete.TabIndex = 740;
+            buttonDelete.Text = "Delete";
+            buttonDelete.UseVisualStyleBackColor = false;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // ButtonCancel
             // 
@@ -264,10 +283,10 @@
             ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonCancel.ForeColor = System.Drawing.Color.White;
-            ButtonCancel.Location = new System.Drawing.Point(90, 3);
+            ButtonCancel.Location = new System.Drawing.Point(102, 3);
             ButtonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ButtonCancel.Name = "ButtonCancel";
-            ButtonCancel.Size = new System.Drawing.Size(102, 33);
+            ButtonCancel.Size = new System.Drawing.Size(98, 33);
             ButtonCancel.TabIndex = 1;
             ButtonCancel.Text = "Cancel";
             ButtonCancel.UseVisualStyleBackColor = false;
@@ -285,25 +304,6 @@
             label1.TabIndex = 1;
             label1.Text = "Duration:";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // buttonDelete
-            // 
-            buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            buttonDelete.BackColor = System.Drawing.Color.FromArgb(255, 50, 50);
-            buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            buttonDelete.FlatAppearance.BorderSize = 0;
-            buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
-            buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            buttonDelete.ForeColor = System.Drawing.Color.White;
-            buttonDelete.Location = new System.Drawing.Point(200, 3);
-            buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new System.Drawing.Size(102, 33);
-            buttonDelete.TabIndex = 740;
-            buttonDelete.Text = "Delete";
-            buttonDelete.UseVisualStyleBackColor = false;
-            buttonDelete.Click += buttonDelete_Click;
             // 
             // Appointment
             // 
