@@ -49,9 +49,8 @@
             TLPGlobal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             TLPGlobal.Name = "TLPGlobal";
             TLPGlobal.RowCount = 2;
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.1578941F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.8421059F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             TLPGlobal.Size = new System.Drawing.Size(268, 76);
             TLPGlobal.TabIndex = 0;
             TLPGlobal.Click += UCappointments_Click;
@@ -64,7 +63,7 @@
             labelTime.AutoSize = true;
             labelTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelTime.ForeColor = System.Drawing.Color.DarkGray;
-            labelTime.Location = new System.Drawing.Point(181, 34);
+            labelTime.Location = new System.Drawing.Point(181, 35);
             labelTime.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             labelTime.Name = "labelTime";
             labelTime.Size = new System.Drawing.Size(87, 19);
@@ -80,12 +79,13 @@
             labelFullName.AutoSize = true;
             labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelFullName.ForeColor = System.Drawing.Color.FromArgb(89, 102, 204);
-            labelFullName.Location = new System.Drawing.Point(3, 34);
+            labelFullName.Location = new System.Drawing.Point(3, 35);
             labelFullName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             labelFullName.Name = "labelFullName";
             labelFullName.Size = new System.Drawing.Size(73, 19);
             labelFullName.TabIndex = 15;
             labelFullName.Text = "Full Name";
+            labelFullName.Click += UCappointments_Click;
             labelFullName.MouseLeave += UCappointments_MouseLeave;
             labelFullName.MouseMove += UCappointments_MouseMove;
             // 
@@ -101,6 +101,7 @@
             labelService.Size = new System.Drawing.Size(51, 17);
             labelService.TabIndex = 16;
             labelService.Text = "Service";
+            labelService.Click += UCappointments_Click;
             labelService.MouseLeave += UCappointments_MouseLeave;
             labelService.MouseMove += UCappointments_MouseMove;
             // 

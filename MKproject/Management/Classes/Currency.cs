@@ -13,7 +13,7 @@ namespace MKproject.Management
         public static void GetCurrency()
         {
 
-            SqlCommand cmd = new SqlCommand("select * from Currencies where id=1 ", con);//id=1 for default currency $
+            SqlCommand cmd = new SqlCommand("select * from Currencies where currency_id=1 ", con);//id=1 for default currency $
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();

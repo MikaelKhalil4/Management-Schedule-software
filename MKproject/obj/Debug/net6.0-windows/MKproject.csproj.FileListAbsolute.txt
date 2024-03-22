@@ -429,3 +429,4 @@ C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.pdb
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
 C:\MKProject code\MKproject\MKproject\bin\Debug\net6.0-windows\images\circle.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\images\circle.png

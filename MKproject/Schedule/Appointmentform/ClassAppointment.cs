@@ -14,13 +14,27 @@ namespace MKproject.Schedule
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
         //Property
-        public int? IdAppointment { get; set; }
-        public int? EmployeeId { get; set; }
+        public int AppointmentID { get; set; }
+      
+        private int employeeId;
+        public int EmployeeId
+        {
+            get { return employeeId; }
+            set {
+                
+                employeeId = value;
+                EmployeeFullName = ClassEmployee.GetEmployeeFullName(value);
+            }
+        }
+        public string EmployeeFullName { get; set; }//this one is additional
+
         public string Title { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Notes { get; set; }
         public string HistoryClientBalance { get; set; }
+        public bool IsCompleted { get; set; }//default false, which we want
+        public bool IsCanceled { get; set; }//default false, which we want
 
         //used in UCClientApp
         public ClassClient DesiredClient { get; set; }
@@ -73,7 +87,7 @@ namespace MKproject.Schedule
         }
         public static DataTable GetAllNewChosenBundles(int appointmentId)
         {
-            SqlCommand cmd = new SqlCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id", con);
+            SqlCommand cmd = new SqlCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id ORDER BY app_bundle_id ASC", con);
             cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -99,7 +113,7 @@ namespace MKproject.Schedule
                 querry += ")";
             }
             SqlCommand command1 = new SqlCommand(querry, con);
-            command1.Parameters.AddWithValue("@Date", ucday.DateUCDay.Date);
+            command1.Parameters.AddWithValue("@Date", ucday.SelectedDate.Date);
             con.Open();
 
             // Execute the second query to get the list of employee IDs
@@ -137,7 +151,7 @@ namespace MKproject.Schedule
             }
 
             SqlCommand command1 = new SqlCommand(query, con);
-            command1.Parameters.AddWithValue("@Date", ucday.DateUCDay.Date);
+            command1.Parameters.AddWithValue("@Date", ucday.SelectedDate.Date);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
@@ -152,7 +166,7 @@ namespace MKproject.Schedule
                                                    FROM appointments 
                                                    WHERE CAST(start_time AS DATE) = @Date  AND employee_id =@employee_id", con);
 
-            command1.Parameters.AddWithValue("@Date", ucday.DateUCDay.Date);
+            command1.Parameters.AddWithValue("@Date", ucday.SelectedDate.Date);
             command1.Parameters.AddWithValue("@employee_id", employee_id);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
@@ -171,17 +185,36 @@ namespace MKproject.Schedule
             con.Close();
             return (int)result;
         }
+        public static DataTable GetRelatedSoloBundles(int appointmentId)
+        {
+            SqlCommand cmd = new SqlCommand("Select * from appointment_has_bundles WHERE  appointment_id = @appointment_id", con);
+            cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            return dt;
+        }
+        public static void DeleteRelatedSoloBundle(int appointmentId,int bundleId)
+        {
+            SqlCommand cmdDeleteOldBundlesToApp = new SqlCommand(@"Delete from appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
+            cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", appointmentId);
+            cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@bundle_id", bundleId);
+            con.Open();
+            cmdDeleteOldBundlesToApp.ExecuteNonQuery();
+            con.Close();
+        }
 
 
 
 
         public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
-            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, desired_client_balance_id,title, start_time, end_time, Note) 
-                                                                  VALUES (@employee_id, @client_id,@desired_client_balance_id ,@title, @start_time, @end_time, @Note) ";
+            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, client_balance_id,title, start_time, end_time, Note,is_completed,is_canceled) 
+                                                                  VALUES (@employee_id, @client_id,@client_balance_id ,@title, @start_time, @end_time, @Note,@is_completed,@is_canceled) ";
 
             string queryUpdate = @"  Update appointments SET  
-                            employee_id=@employee_id ,client_id=@client_id , desired_client_balance_id=@desired_client_balance_id, title=@title, start_time=@start_time, end_time=@end_time, Note=@Note
+                            employee_id=@employee_id ,client_id=@client_id , client_balance_id=@client_balance_id, title=@title, 
+                                                        start_time=@start_time, end_time=@end_time, Note=@Note ,is_completed=@is_completed,is_canceled=@is_canceled
                                                                 WHERE  appointment_id=@appointment_id ";
 
             SqlCommand cmdInsertOrUpdateApp;
@@ -199,7 +232,7 @@ namespace MKproject.Schedule
 
             if (!InsertOrUpdate)
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@appointment_id", IdAppointment);
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@appointment_id", AppointmentID);
             }
 
 
@@ -219,6 +252,10 @@ namespace MKproject.Schedule
 
             cmdInsertOrUpdateApp.Parameters.AddWithValue("@start_time", StartTime);
             cmdInsertOrUpdateApp.Parameters.AddWithValue("@end_time", EndTime);
+
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@is_completed", IsCompleted);
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@is_canceled", IsCanceled);
+
 
 
             if (Notes != null)
@@ -241,11 +278,11 @@ namespace MKproject.Schedule
             //wahad mennun only ha ykun mawjud, ya el bundles ya chosen balance
             if (DesiredClientBalance != null)
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@desired_client_balance_id", DesiredClientBalance.ClientBalanceID);
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DesiredClientBalance.ClientBalanceID);
             }
             else
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@desired_client_balance_id", DBNull.Value);
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DBNull.Value);
             }
 
 
@@ -257,7 +294,7 @@ namespace MKproject.Schedule
             if (!InsertOrUpdate)
             {
                 SqlCommand cmdDeleteOldBundlesToApp = new SqlCommand(@"Delete from appointment_has_bundles WHERE  appointment_id = @appointment_id ", con);
-                cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
+                cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
                 con.Open();
                 cmdDeleteOldBundlesToApp.ExecuteNonQuery();
                 con.Close();
@@ -274,7 +311,7 @@ namespace MKproject.Schedule
                 }
                 else
                 {
-                    DesiredAppointmentId = (int)IdAppointment;
+                    DesiredAppointmentId = (int)AppointmentID;
 
 
                 }
@@ -294,19 +331,80 @@ namespace MKproject.Schedule
             }
 
 
-        }
+        } 
         public void DeleteAppointment()
         {
-            SqlCommand command = new SqlCommand("DELETE FROM appointments WHERE appointment_id = @appointment_id ", con);
-            command.Parameters.AddWithValue("@appointment_id", (int)IdAppointment);
+            //ejbare bhal order men wara el rlt
+            UndoCompletionAppointment();
+
             con.Open();
-            command.ExecuteNonQuery();
+
+            //Battal ela aaze Since aam yenma7o bel UndoCompletionAppointment
+            //string queryDeleteArchive = "DELETE FROM archive WHERE appointment_id='" + (int)AppointmentID + "'";
+            //SqlCommand cmd1 = new SqlCommand(queryDeleteArchive, con);
+            //cmd1.ExecuteNonQuery();
+
+            string queryDeleteRelation = "DELETE FROM appointment_has_bundles WHERE appointment_id='" + (int)AppointmentID + "'";
+            SqlCommand cmd3 = new SqlCommand(queryDeleteRelation, con);
+            cmd3.ExecuteNonQuery();
+
+
+            string QueryDeleteClientAttendace = "DELETE FROM client_services_attendance WHERE appointment_id = '" + (int)AppointmentID + "'";
+            SqlCommand cmd4 = new SqlCommand(QueryDeleteClientAttendace, con);
+            cmd4.ExecuteNonQuery();
+
+            string queryDelteApp = "DELETE FROM appointments WHERE appointment_id='" + (int)AppointmentID + "'";
+            SqlCommand cmd2 = new SqlCommand(queryDelteApp, con);
+            cmd2.ExecuteNonQuery();
+
+
             con.Close();
         }
+        public void UndoCompletionAppointment()
+        {
 
+            //kermel naamil Undo lal Purchases 
 
+            SqlCommand cmd = new SqlCommand("select archive_id,attendance_id,client_balance_id,action_type from archive where appointment_id=@appointment_id", con);
+            cmd.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+           
+            foreach (DataRow dr in dt.Rows)
+            {               
+                int ClientBalanceId = (int)dr["client_balance_id"];
+                if (dr["action_type"].ToString() == ActionsEnum.SoloPurchases.ToString())
+                {
+                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"],(int)dr["archive_id"], ClientBalanceId,null,null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
+                }
+                else if (dr["action_type"].ToString() == ActionsEnum.SessionDone.ToString())
+                {
+                    ClassBackOffice.UndoSessionDoneActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, false, null, null);
+                }
+            }
 
+            SetOrResetIsCompleted();       
 
+        }
+        public void SetOrResetIsCompleted()
+        {
+            SqlCommand cmdUpdateCompletion = new SqlCommand(@" Update appointments SET  is_completed=@is_completed  WHERE  appointment_id=@appointment_id ", con); ;
+            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+            cmdUpdateCompletion.Parameters.AddWithValue("@is_completed", IsCompleted);
+            con.Open();
+            cmdUpdateCompletion.ExecuteNonQuery();
+            con.Close();
+        }
+        public void SetOrResetIsCanceled()
+        {
+            SqlCommand cmdUpdateCompletion = new SqlCommand(@" Update appointments SET  is_canceled=@is_canceled  WHERE  appointment_id=@appointment_id ", con); ;
+            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+            cmdUpdateCompletion.Parameters.AddWithValue("@is_canceled", IsCanceled);
+            con.Open();
+            cmdUpdateCompletion.ExecuteNonQuery();
+            con.Close();
+        }
         public static ClassAppointment CreateObjectClassAppointment(int appointmentId)
         {
             DataTable dt;
@@ -317,7 +415,7 @@ namespace MKproject.Schedule
             ClassAppointment DesiredApp = new ClassAppointment();
 
 
-            DesiredApp.IdAppointment = (int)datarow["appointment_id"];//noway ykun bel db fi client ma endo clientid
+            DesiredApp.AppointmentID = (int)datarow["appointment_id"];//noway ykun bel db fi client ma endo clientid
 
             if (!(datarow["client_id"] is DBNull))
             {
@@ -329,25 +427,30 @@ namespace MKproject.Schedule
                 DesiredApp.DesiredClient.ClientId = (int)dtClient.Rows[0]["client_id"];//noway ykun bel db fi client ma endo clientid
                 DesiredApp.DesiredClient.Fname = dtClient.Rows[0]["name"] is DBNull ? null : (string)dtClient.Rows[0]["name"];
                 DesiredApp.DesiredClient.Lname = dtClient.Rows[0]["family_name"] is DBNull ? null : (string)dtClient.Rows[0]["family_name"];
+                DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ?  null : (DateTime)dtClient.Rows[0]["Registration_Date"];//kermel eza shataryna package with Membership
             }
 
-
-            DesiredApp.EmployeeId = datarow["employee_id"] is DBNull ? (int?)null : (int)datarow["employee_id"];
+            DesiredApp.EmployeeId = (int)datarow["employee_id"];
             DesiredApp.Title = datarow["title"] is DBNull ? null : (string)datarow["title"];
             DesiredApp.Notes = datarow["Note"] is DBNull ? null : (string)datarow["Note"];
+
 
             DesiredApp.StartTime = (DateTime)datarow["start_time"];
             DesiredApp.EndTime = (DateTime)datarow["end_time"];
 
 
-            if (!(datarow["desired_client_balance_id"] is DBNull))
+            DesiredApp.IsCompleted= (bool)datarow["is_completed"];
+            DesiredApp.IsCanceled = (bool)datarow["is_canceled"];
+
+
+            if (!(datarow["client_balance_id"] is DBNull))
             {
-                DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)datarow["desired_client_balance_id"]);
+                DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)datarow["client_balance_id"]);
                 DesiredApp.DesiredClientBalance.SetStringDetailsIfBundle();
             }
 
 
-            DataTable ChosenBundles = GetAllNewChosenBundles((int)DesiredApp.IdAppointment);
+            DataTable ChosenBundles = GetAllNewChosenBundles((int)DesiredApp.AppointmentID);
             if (ChosenBundles.Rows.Count > 0)
             {
                 List<ClassBundles> bundles = new List<ClassBundles>();

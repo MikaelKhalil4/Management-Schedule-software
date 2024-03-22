@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Data;
 using Azure.Core;
+using System.Globalization;
 
 
 namespace MKproject.Management
@@ -25,7 +26,13 @@ namespace MKproject.Management
 
         public int BundleID { get; set; }
 
-        public string BundleName { get; set; }
+        private string bundleName;
+
+        public string BundleName
+        {
+            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(bundleName.ToLower()); }
+            set { bundleName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower()); }
+        }
 
         public string Description { get; set; }
 
@@ -84,15 +91,21 @@ namespace MKproject.Management
             sda.Fill(dt);
             return dt;
         }
-        public static DataTable RetrieveAllBundleStatusOn()
+        public static DataTable RetrieveAllBundleStatusOn(bool IsOnlySolo)
         {
-            string query = "Select * From bundles where status=1 ORDER by bundle_id Desc";
+            string query = "Select * From bundles where status=1 ";
+            if (IsOnlySolo)
+            {
+                query += " AND bundle_type='"+ClassBundles.enumBundle.Solo+"' ";
+            }
+            query += " ORDER by bundle_id Desc ";
+
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
-        }
+        }    
         public static DataTable RetrieveAllBundle(int? bundleId)
         {
             string query = "Select * From bundles ";
@@ -137,7 +150,7 @@ namespace MKproject.Management
             {
                 command.Parameters.AddWithValue("@SessionsNumb", SessionDaysNumber);
             }
-            command.Parameters.AddWithValue("@bundle_type", EnumBundletype);
+            command.Parameters.AddWithValue("@bundle_type", EnumBundletype.ToString());
             command.Parameters.AddWithValue("@Price", Price);
             command.Parameters.AddWithValue("@Status", 1);
             command.Parameters.AddWithValue("@is_member_ship", IsMemberShip);
@@ -180,7 +193,7 @@ namespace MKproject.Management
             {
                 command.Parameters.AddWithValue("@SessionsNumb", SessionDaysNumber);
             }
-            command.Parameters.AddWithValue("@bundle_type", EnumBundletype);
+            command.Parameters.AddWithValue("@bundle_type", EnumBundletype.ToString());
             command.Parameters.AddWithValue("@Price", Price);
             command.Parameters.AddWithValue("@Status", Status);
             command.Parameters.AddWithValue("@bundle_id", BundleID);

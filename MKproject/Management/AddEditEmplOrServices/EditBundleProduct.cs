@@ -83,14 +83,14 @@ namespace MKproject.Management
             UCBundleName = new UCTextbox1("Service Name", true);
             FLPTop.Controls.Add(UCBundleName);
             FLPTop.Controls.SetChildIndex(UCBundleName, 0);
-            UCBundleName.Size = new Size(420, 72);
+            UCBundleName.Width = TLPBundle.Width;
             UCBundleName.Margin = new Padding(3, 10, 3, 10); // (left, top, right, bottom)
 
 
             UCDescription = new UCTextbox1("Description", false);
             FLPTop.Controls.Add(UCDescription);
             FLPTop.Controls.SetChildIndex(UCDescription, 1);
-            UCDescription.Size = new Size(420, 72);
+            UCDescription.Width = TLPBundle.Width;
             UCDescription.Margin = new Padding(3, 10, 3, 10); // (left, top, right, bottom)
 
 
@@ -112,7 +112,7 @@ namespace MKproject.Management
             string BundleName = DesiredRow["bundle_name"].ToString();
 
             string Description;
-            if (DesiredRow["description"].ToString() != "N/A")
+            if (DesiredRow["description"] != DBNull.Value)
             {
                 Description = DesiredRow["description"].ToString();
             }

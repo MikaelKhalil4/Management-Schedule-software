@@ -19,13 +19,22 @@ namespace MKproject.Management
         public UCBundlesOutput(ChooseService parentFormChooseService)//baatneha in argument for the reason , in the load event we re using it
         {
             InitializeComponent();
+            ParentFormChooseService = parentFormChooseService;
 
             dataGridViewBundles.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 226, 244);
-            DataTable dtBundle = ClassBundles.RetrieveAllBundleStatusOn();
+            bool IsOnlySolo;
+            if (ParentFormChooseService != null)//from schedule
+            {
+                IsOnlySolo = true;
+            }
+            else
+            {
+                IsOnlySolo = false;
+            }
+            DataTable dtBundle = ClassBundles.RetrieveAllBundleStatusOn(IsOnlySolo);
             FormatdtBundles(dtBundle);
             FormatDatagridViewBundles(dtBundle);
 
-            ParentFormChooseService = parentFormChooseService;
 
         }
 
@@ -87,7 +96,7 @@ namespace MKproject.Management
 
         private void dataGridViewBundles_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewBundles.Rows.Count && e.ColumnIndex < dataGridViewBundles.Columns.Count)
             {
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {
@@ -130,7 +139,7 @@ namespace MKproject.Management
 
         private void UCBundlesOutput_Load(object sender, EventArgs e)
         {
-            if (ParentFormChooseService != null && ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenBundlesList != null)
+            if (ParentFormChooseService != null && ParentFormChooseService.ParentFormucClientApp.DesiredAppointmentUCClientApp.ChosenBundlesList != null)
             {
                 SelectChosenNewBundles();
             }
@@ -141,7 +150,7 @@ namespace MKproject.Management
         {
             foreach (DataGridViewRow row in dataGridViewBundles.Rows)
             {
-                foreach (ClassBundles bundle in ParentFormChooseService.ParentFormucClientApp.DesiredAppointment.ChosenBundlesList)
+                foreach (ClassBundles bundle in ParentFormChooseService.ParentFormucClientApp.DesiredAppointmentUCClientApp.ChosenBundlesList)
                 {
                     if (bundle.BundleID == (int)row.Cells["bundle_id"].Value)
                     {

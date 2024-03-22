@@ -1,4 +1,5 @@
 ﻿
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CustomizedTools
@@ -16,10 +17,40 @@ namespace CustomizedTools
 
         public DoubleBufferAndCustomScrollDataGrid()
         {
-            DoubleBuffered = true;
+            DoubleBuffered = true;       
+        }
+         protected override void OnCellMouseEnter(DataGridViewCellEventArgs e)
+        {
+            base.OnCellMouseEnter(e);
 
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewCell cell = this.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-           
+                //if (!this.Focused) this.Focus();
+
+                if (cell.Value is Image)
+                {
+                    cell.ToolTipText = "";
+                    //cell.ToolTipText= cell.OwningColumn.Name;
+                }
+                else
+                {
+                   using (Graphics graphics = this.CreateGraphics())
+                    {
+                        SizeF textSize = graphics.MeasureString(cell.ToolTipText, this.Font);
+
+                        if (textSize.Width > cell.Size.Width)
+                        {
+                            cell.ToolTipText = cell.FormattedValue.ToString(); ;
+                        }
+                        else
+                        {
+                            cell.ToolTipText = "";
+                        }
+                    }
+                }
+            }
         }
         protected override void OnMouseWheel(MouseEventArgs e)
         {

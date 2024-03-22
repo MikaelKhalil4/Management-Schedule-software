@@ -236,7 +236,7 @@ namespace MKproject.Schedule
                 if (UCemployee.IsChecked == true)
                 {
                     //Design So we have to just cahnge the availibility of the column
-                    int dayOfWeekInt = ((int)UCemployee.employees.schedule.ucday.DateUCDay.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+                    int dayOfWeekInt = ((int)UCemployee.employees.schedule.ucday.SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
                     var query = from row in UCemployee.employees.schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
                                 where row.Field<int>("employee_id") == UCemployee.Employee_id
                                 select row.Field<string>("availability");

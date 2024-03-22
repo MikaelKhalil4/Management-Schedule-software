@@ -41,7 +41,7 @@ namespace MKproject.Management
             buttonBackOffice = new System.Windows.Forms.Button();
             dataGridViewBalance = new CustomDataGridView();
             PayOrEdit = new System.Windows.Forms.DataGridViewImageColumn();
-            BackOffice = new System.Windows.Forms.DataGridViewImageColumn();
+            Transactions = new System.Windows.Forms.DataGridViewImageColumn();
             buttonPayTotalBalance = new System.Windows.Forms.Button();
             panelServiceBalance = new System.Windows.Forms.Panel();
             labelServiceBalance = new System.Windows.Forms.Label();
@@ -109,7 +109,7 @@ namespace MKproject.Management
             TLPGlobal.Controls.Add(tableLayoutPanel1, 0, 0);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
-            TLPGlobal.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            TLPGlobal.Margin = new System.Windows.Forms.Padding(6);
             TLPGlobal.Name = "TLPGlobal";
             TLPGlobal.RowCount = 1;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -171,7 +171,7 @@ namespace MKproject.Management
             buttonBackOffice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonBackOffice.ForeColor = System.Drawing.Color.White;
             buttonBackOffice.Location = new System.Drawing.Point(641, 12);
-            buttonBackOffice.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            buttonBackOffice.Margin = new System.Windows.Forms.Padding(12);
             buttonBackOffice.Name = "buttonBackOffice";
             buttonBackOffice.Size = new System.Drawing.Size(117, 58);
             buttonBackOffice.TabIndex = 23;
@@ -200,7 +200,7 @@ namespace MKproject.Management
             dataGridViewBalance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewBalance.ColumnHeadersHeight = 50;
             dataGridViewBalance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewBalance.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { PayOrEdit, BackOffice });
+            dataGridViewBalance.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { PayOrEdit, Transactions });
             TLPBalance.SetColumnSpan(dataGridViewBalance, 5);
             dataGridViewBalance.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -248,15 +248,15 @@ namespace MKproject.Management
             PayOrEdit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             PayOrEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // BackOffice
+            // Transactions
             // 
-            BackOffice.FillWeight = 5F;
-            BackOffice.HeaderText = "";
-            BackOffice.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            BackOffice.Name = "BackOffice";
-            BackOffice.ReadOnly = true;
-            BackOffice.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            BackOffice.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            Transactions.FillWeight = 5F;
+            Transactions.HeaderText = "";
+            Transactions.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            Transactions.Name = "Transactions";
+            Transactions.ReadOnly = true;
+            Transactions.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            Transactions.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // buttonPayTotalBalance
             // 
@@ -269,7 +269,7 @@ namespace MKproject.Management
             buttonPayTotalBalance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonPayTotalBalance.ForeColor = System.Drawing.Color.White;
             buttonPayTotalBalance.Location = new System.Drawing.Point(522, 12);
-            buttonPayTotalBalance.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            buttonPayTotalBalance.Margin = new System.Windows.Forms.Padding(12);
             buttonPayTotalBalance.Name = "buttonPayTotalBalance";
             buttonPayTotalBalance.Size = new System.Drawing.Size(95, 58);
             buttonPayTotalBalance.TabIndex = 2;
@@ -284,7 +284,7 @@ namespace MKproject.Management
             panelServiceBalance.Controls.Add(label2);
             panelServiceBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             panelServiceBalance.Location = new System.Drawing.Point(8, 8);
-            panelServiceBalance.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            panelServiceBalance.Margin = new System.Windows.Forms.Padding(8);
             panelServiceBalance.Name = "panelServiceBalance";
             panelServiceBalance.Size = new System.Drawing.Size(154, 66);
             panelServiceBalance.TabIndex = 0;
@@ -323,7 +323,7 @@ namespace MKproject.Management
             panelTotalBalance.Controls.Add(label5);
             panelTotalBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             panelTotalBalance.Location = new System.Drawing.Point(348, 8);
-            panelTotalBalance.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            panelTotalBalance.Margin = new System.Windows.Forms.Padding(8);
             panelTotalBalance.Name = "panelTotalBalance";
             panelTotalBalance.Size = new System.Drawing.Size(154, 66);
             panelTotalBalance.TabIndex = 1;
@@ -362,7 +362,7 @@ namespace MKproject.Management
             panelProductBalance.Controls.Add(label6);
             panelProductBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             panelProductBalance.Location = new System.Drawing.Point(178, 8);
-            panelProductBalance.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            panelProductBalance.Margin = new System.Windows.Forms.Padding(8);
             panelProductBalance.Name = "panelProductBalance";
             panelProductBalance.Size = new System.Drawing.Size(154, 66);
             panelProductBalance.TabIndex = 2;
@@ -518,7 +518,7 @@ namespace MKproject.Management
             panelSecondaryInfo.BackColor = System.Drawing.Color.FromArgb(238, 241, 254);
             panelSecondaryInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             panelSecondaryInfo.Location = new System.Drawing.Point(319, 6);
-            panelSecondaryInfo.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            panelSecondaryInfo.Margin = new System.Windows.Forms.Padding(6);
             panelSecondaryInfo.Name = "panelSecondaryInfo";
             panelSecondaryInfo.Size = new System.Drawing.Size(306, 618);
             panelSecondaryInfo.TabIndex = 1;
@@ -534,7 +534,7 @@ namespace MKproject.Management
             tableLayoutPanel2.Controls.Add(iconButtonImage, 0, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel2.Location = new System.Drawing.Point(6, 6);
-            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(6);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 4;
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.45674F));
@@ -597,10 +597,10 @@ namespace MKproject.Management
             UCMemberSince.Detail = null;
             UCMemberSince.Dock = System.Windows.Forms.DockStyle.Top;
             UCMemberSince.Index = 0;
-            UCMemberSince.Location = new System.Drawing.Point(0, 95);
-            UCMemberSince.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCMemberSince.Location = new System.Drawing.Point(0, 89);
+            UCMemberSince.Margin = new System.Windows.Forms.Padding(5);
             UCMemberSince.Name = "UCMemberSince";
-            UCMemberSince.Size = new System.Drawing.Size(301, 52);
+            UCMemberSince.Size = new System.Drawing.Size(301, 42);
             UCMemberSince.TabIndex = 1;
             UCMemberSince.Type = "Member Since";
             // 
@@ -610,9 +610,9 @@ namespace MKproject.Management
             UCLastVisit.Dock = System.Windows.Forms.DockStyle.Top;
             UCLastVisit.Index = 0;
             UCLastVisit.Location = new System.Drawing.Point(0, 47);
-            UCLastVisit.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCLastVisit.Margin = new System.Windows.Forms.Padding(5);
             UCLastVisit.Name = "UCLastVisit";
-            UCLastVisit.Size = new System.Drawing.Size(301, 48);
+            UCLastVisit.Size = new System.Drawing.Size(301, 42);
             UCLastVisit.TabIndex = 0;
             UCLastVisit.Type = "Last Visit";
             // 
@@ -659,7 +659,7 @@ namespace MKproject.Management
             UCAlbum.Dock = System.Windows.Forms.DockStyle.Fill;
             UCAlbum.Index = 0;
             UCAlbum.Location = new System.Drawing.Point(5, 5);
-            UCAlbum.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCAlbum.Margin = new System.Windows.Forms.Padding(5);
             UCAlbum.Name = "UCAlbum";
             UCAlbum.Size = new System.Drawing.Size(230, 37);
             UCAlbum.TabIndex = 2;
@@ -727,7 +727,7 @@ namespace MKproject.Management
             UCpaymentsTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             UCpaymentsTotal.Index = 0;
             UCpaymentsTotal.Location = new System.Drawing.Point(317, 137);
-            UCpaymentsTotal.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCpaymentsTotal.Margin = new System.Windows.Forms.Padding(5);
             UCpaymentsTotal.Name = "UCpaymentsTotal";
             UCpaymentsTotal.Size = new System.Drawing.Size(309, 56);
             UCpaymentsTotal.TabIndex = 0;
@@ -739,7 +739,7 @@ namespace MKproject.Management
             UCpaymentsServices.Dock = System.Windows.Forms.DockStyle.Fill;
             UCpaymentsServices.Index = 0;
             UCpaymentsServices.Location = new System.Drawing.Point(317, 5);
-            UCpaymentsServices.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCpaymentsServices.Margin = new System.Windows.Forms.Padding(5);
             UCpaymentsServices.Name = "UCpaymentsServices";
             UCpaymentsServices.Size = new System.Drawing.Size(309, 56);
             UCpaymentsServices.TabIndex = 0;
@@ -751,11 +751,11 @@ namespace MKproject.Management
             UCTotalAttendance.Dock = System.Windows.Forms.DockStyle.Fill;
             UCTotalAttendance.Index = 0;
             UCTotalAttendance.Location = new System.Drawing.Point(5, 137);
-            UCTotalAttendance.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCTotalAttendance.Margin = new System.Windows.Forms.Padding(5);
             UCTotalAttendance.Name = "UCTotalAttendance";
             UCTotalAttendance.Size = new System.Drawing.Size(302, 56);
             UCTotalAttendance.TabIndex = 0;
-            UCTotalAttendance.Type = "Total Attendance";
+            UCTotalAttendance.Type = "Total Service Completions";
             // 
             // UCTokenServices
             // 
@@ -763,7 +763,7 @@ namespace MKproject.Management
             UCTokenServices.Dock = System.Windows.Forms.DockStyle.Fill;
             UCTokenServices.Index = 0;
             UCTokenServices.Location = new System.Drawing.Point(5, 5);
-            UCTokenServices.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCTokenServices.Margin = new System.Windows.Forms.Padding(5);
             UCTokenServices.Name = "UCTokenServices";
             UCTokenServices.Size = new System.Drawing.Size(302, 56);
             UCTokenServices.TabIndex = 0;
@@ -775,7 +775,7 @@ namespace MKproject.Management
             UCpaymentsProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             UCpaymentsProducts.Index = 0;
             UCpaymentsProducts.Location = new System.Drawing.Point(317, 71);
-            UCpaymentsProducts.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCpaymentsProducts.Margin = new System.Windows.Forms.Padding(5);
             UCpaymentsProducts.Name = "UCpaymentsProducts";
             UCpaymentsProducts.Size = new System.Drawing.Size(309, 56);
             UCpaymentsProducts.TabIndex = 0;
@@ -787,7 +787,7 @@ namespace MKproject.Management
             UCTokenProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             UCTokenProducts.Index = 0;
             UCTokenProducts.Location = new System.Drawing.Point(5, 71);
-            UCTokenProducts.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            UCTokenProducts.Margin = new System.Windows.Forms.Padding(5);
             UCTokenProducts.Name = "UCTokenProducts";
             UCTokenProducts.Size = new System.Drawing.Size(302, 56);
             UCTokenProducts.TabIndex = 0;
@@ -871,8 +871,6 @@ namespace MKproject.Management
         public UCLabelAndDetail UCMemberSince;
         private System.Windows.Forms.TableLayoutPanel TLPAlbum;
         private IconButton iconButtonImage;
-        private System.Windows.Forms.DataGridViewImageColumn PayOrEdit;
-        private System.Windows.Forms.DataGridViewImageColumn BackOffice;
         private IconButton buttonEditAlbum;
         private System.Windows.Forms.Button buttonBackOffice;
         private System.Windows.Forms.ToolTip toolTip1;
@@ -880,5 +878,7 @@ namespace MKproject.Management
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.DataGridViewImageColumn PayOrEdit;
+        private System.Windows.Forms.DataGridViewImageColumn Transactions;
     }
 }

@@ -18,7 +18,7 @@ namespace MKproject.Management
         public static DataTable GetAttendance()
         {
 
-            string query = "SELECT execute_date from client_attendance  ";
+            string query = "SELECT execute_date from client_services_attendance  ";
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -29,7 +29,7 @@ namespace MKproject.Management
         {
             int Id;
             con.Open();
-            string getLastIdQuery = "SELECT Max(attendance_id) FROM client_attendance";
+            string getLastIdQuery = "SELECT Max(attendance_id) FROM client_services_attendance";
             using (SqlCommand command = new SqlCommand(getLastIdQuery, con))
             {
                 Id = Convert.ToInt32(command.ExecuteScalar());
@@ -42,13 +42,13 @@ namespace MKproject.Management
             DataTable dt = new DataTable();
             string query = @"
             SELECT cs.client_id,cs.execute_date      
-            FROM client_attendance cs,client c
+            FROM client_services_attendance cs,client c
             WHERE cs.client_id = c.client_id  AND execute_date IS NOT NULL ";
            if (ClientId != null)
             {
                 query+= " And cs.client_id='" + ClientId + "'";
             }
-
+           
 
             con.Open();
             SqlCommand command = new SqlCommand(query, con);
@@ -117,9 +117,9 @@ namespace MKproject.Management
         //finance
         public static DataTable GetIncome()
         {
-            string query = @"SELECT f.id,f.id_client_balance,f.amount_paid,f.payment_date,cb.bundle_id,cb.bundle_id,cb.product_id
+            string query = @"SELECT f.finance_id,f.client_balance_id,f.amount_paid,f.payment_date,cb.bundle_id,cb.bundle_id,cb.product_id
                                 from finance f,client c,client_balance cb 
-                               WHERE f.id_client_balance=cb.ID AND cb.client_id=c.client_id";
+                               WHERE f.client_balance_id=cb.client_balance_id AND cb.client_id=c.client_id";
 
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);

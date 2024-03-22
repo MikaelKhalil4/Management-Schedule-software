@@ -97,8 +97,8 @@ namespace MKproject.Management
             tableLayoutPanelForm.SetColumnSpan(TLPEditClient, 2);
             TLPEditClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
             TLPEditClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
-            TLPEditClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 444F));
-            TLPEditClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            TLPEditClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPEditClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44F));
             TLPEditClient.Controls.Add(iconButtonSettings, 3, 0);
             TLPEditClient.Controls.Add(labelEditClient, 0, 0);
             TLPEditClient.Controls.Add(radioButtonChild, 2, 1);
@@ -124,12 +124,12 @@ namespace MKproject.Management
             iconButtonSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             iconButtonSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             iconButtonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            iconButtonSettings.Location = new System.Drawing.Point(689, 4);
+            iconButtonSettings.Location = new System.Drawing.Point(684, 4);
             iconButtonSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             iconButtonSettings.MotionHeight = true;
             iconButtonSettings.MotionWidth = true;
             iconButtonSettings.Name = "iconButtonSettings";
-            iconButtonSettings.Size = new System.Drawing.Size(37, 30);
+            iconButtonSettings.Size = new System.Drawing.Size(36, 30);
             iconButtonSettings.TabIndex = 10;
             iconButtonSettings.UseVisualStyleBackColor = false;
             iconButtonSettings.Click += buttonSettings_Click;

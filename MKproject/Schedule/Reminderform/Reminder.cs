@@ -246,7 +246,7 @@ namespace MKproject.Schedule
 
                         //Design Schedule
                         //Addinds or removing a reminder in panelreminder
-                        if (ucday.isThedayofUCreminder(UcReminderSchedule, ucday.DateUCDay) == false)
+                        if (ucday.isThedayofUCreminder(UcReminderSchedule, ucday.SelectedDate) == false)
                         {
                             //fik tzid condition IsControlInPanel(foundUcReminder, schedule.panelreminder) bas ma daroure law ma kenit mawjoude
                             schedule.panelreminder.Controls.Remove(UcReminderSchedule);
@@ -279,7 +279,7 @@ namespace MKproject.Schedule
                     else
                     {
                         //DESIGN Schedule
-                        if (ucday.isThedayofUCreminder(UcReminderSchedule, ucday.DateUCDay) == false)
+                        if (ucday.isThedayofUCreminder(UcReminderSchedule, ucday.SelectedDate) == false)
                         {
                             schedule.panelreminder.Controls.Remove(UcReminderSchedule);
                         }
@@ -300,7 +300,7 @@ namespace MKproject.Schedule
                     ucday.ListUCreminder.Add(ucreminder);//li2anno nehna aam men mashe lprogram lezim na3mello add
 
                     //DESIGN SCHEDULE
-                    if (ucday.isThedayofUCreminder(ucreminder, ucday.DateUCDay))//ma daroure chouf eza checked akid ha tkoun la2
+                    if (ucday.isThedayofUCreminder(ucreminder, ucday.SelectedDate))//ma daroure chouf eza checked akid ha tkoun la2
                     {
                         ucreminder.Dock = DockStyle.Top;
                         schedule.panelreminder.Controls.Add(ucreminder);

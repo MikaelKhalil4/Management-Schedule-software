@@ -585,10 +585,10 @@ namespace MKproject.Management
 
         void InsertToFinance(int BalanceId, string AlbumType, double AmountPaid, DateTime Date)
         {
-            string query = "Insert into finance (id_client_balance,AlbumType,amount_paid,payment_date,Currency_Name) Values (@id_client_balance,@AlbumType,@amount_paid,@payment_date,@Currency_Name)";
+            string query = "Insert into finance (client_balance_id,AlbumType,amount_paid,payment_date,Currency_Name) Values (@client_balance_id,@AlbumType,@amount_paid,@payment_date,@Currency_Name)";
             SqlCommand cmd = new SqlCommand(query, conNew);
 
-            cmd.Parameters.AddWithValue("@id_client_balance", BalanceId);
+            cmd.Parameters.AddWithValue("@client_balance_id", BalanceId);
             if (String.IsNullOrEmpty(AlbumType))
             {
                 cmd.Parameters.AddWithValue("@AlbumType", DBNull.Value);
@@ -757,7 +757,7 @@ namespace MKproject.Management
         int GetBalanceId(int ClientID, bool IsBundleOrProduct)
         {
             string query;
-            query = "Select ID from client_balance where client_id=@client_id And is_expired=1  ";
+            query = "Select client_balance_id from client_balance where client_id=@client_id And is_expired=1  ";
             if (IsBundleOrProduct)
             {
                 query += " And bundle_id IS Not Null";

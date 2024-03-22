@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.Globalization;
 
 
 namespace MKproject.Management
@@ -9,7 +10,15 @@ namespace MKproject.Management
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
         public int ID { get; set; }
-        public string Name { get; set; }
+        private string name;
+
+        public string Name
+        {
+            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower()); }
+            set { name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower()); }
+        }
+
+  
         public Double Price { get; set; }
         public bool Status { get; set; }
         public int Qty { get; set; }//only used lamma badde eshtere item 

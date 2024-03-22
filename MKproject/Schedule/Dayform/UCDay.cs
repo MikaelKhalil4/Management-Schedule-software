@@ -20,7 +20,7 @@ namespace MKproject.Schedule
 
         //PROPERTY:
         ///-Date
-        public DateTime DateUCDay { get; set; }
+        public DateTime SelectedDate { get; set; }
 
         ///-Reminder
         public DataTable tablereminder { get; set; }
@@ -244,7 +244,7 @@ namespace MKproject.Schedule
                 //If it's Checked, then it will not appear in schedule.panelreminder
                 if (ucreminder.DesiredReminder.IsChecked == false)
                 {
-                    if (isThedayofUCreminder(ucreminder, DateUCDay))
+                    if (isThedayofUCreminder(ucreminder, SelectedDate))
                     {
                         ucreminder.Dock = DockStyle.Top;
                         schedule.panelreminder.Controls.Add(ucreminder);
@@ -483,7 +483,7 @@ namespace MKproject.Schedule
         }//changing size column of the Table Layout Panel
         private void buttonToday_Click(object sender, EventArgs e)
         {
-            if (DateUCDay.Date != DateTime.Now.Date)
+            if (SelectedDate.Date != DateTime.Now.Date)
             {
                 Cursor = Cursors.WaitCursor;
                 displayNow();
@@ -498,23 +498,23 @@ namespace MKproject.Schedule
         private void buttonNext_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-            if (DateUCDay.Day != DateTime.DaysInMonth(DateUCDay.Year, DateUCDay.Month))//add day
+            if (SelectedDate.Day != DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month))//add day
             {
-                DateUCDay = DateUCDay.AddDays(+1);
+                SelectedDate = SelectedDate.AddDays(+1);
                 displayDay();
             }
-            else if (DateUCDay.Month != 12)//day=1, add month
+            else if (SelectedDate.Month != 12)//day=1, add month
             {
-                DateUCDay = DateUCDay.AddMonths(+1);
-                month = DateUCDay.Month;
-                year = DateUCDay.Year;
-                DateUCDay = new DateTime(year, month, 1);
+                SelectedDate = SelectedDate.AddMonths(+1);
+                month = SelectedDate.Month;
+                year = SelectedDate.Year;
+                SelectedDate = new DateTime(year, month, 1);
                 displayDay();
             }
             else//day=1,month=1,add year
             {
-                DateUCDay = DateUCDay.AddYears(+1);
-                DateUCDay = new DateTime(year, 1, 1);
+                SelectedDate = SelectedDate.AddYears(+1);
+                SelectedDate = new DateTime(year, 1, 1);
                 displayDay();
             }
 
@@ -532,24 +532,24 @@ namespace MKproject.Schedule
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-            if (DateUCDay.Day != 1)//remove day
+            if (SelectedDate.Day != 1)//remove day
             {
-                DateUCDay = DateUCDay.AddDays(-1);
+                SelectedDate = SelectedDate.AddDays(-1);
                 displayDay();
             }
-            else if (DateUCDay.Month != 1)//day= last day, remove month
+            else if (SelectedDate.Month != 1)//day= last day, remove month
             {
-                DateUCDay = DateUCDay.AddMonths(-1);
-                month = DateUCDay.Month;
-                year = DateUCDay.Year;
-                DateUCDay = new DateTime(year, month, DateTime.DaysInMonth(DateUCDay.Year, DateUCDay.Month));
+                SelectedDate = SelectedDate.AddMonths(-1);
+                month = SelectedDate.Month;
+                year = SelectedDate.Year;
+                SelectedDate = new DateTime(year, month, DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month));
                 displayDay();
             }
             else//day=last day,month=12,remove year
             {
-                DateUCDay = DateUCDay.AddYears(-1);
-                year = DateUCDay.Year;
-                DateUCDay = new DateTime(year, 12, DateTime.DaysInMonth(DateUCDay.Year, DateUCDay.Month));
+                SelectedDate = SelectedDate.AddYears(-1);
+                year = SelectedDate.Year;
+                SelectedDate = new DateTime(year, 12, DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month));
                 displayDay();
             }
             TLPAppointment.AutoScrollPosition = new Point(0, 0);
@@ -571,7 +571,7 @@ namespace MKproject.Schedule
 
 
             //Showing the ucmonth from the calanderday in the date that we are
-            schedule.ucmonths.DateUCMonth = DateUCDay;
+            schedule.ucmonths.DateUCMonth = SelectedDate;
             if (schedule.ucmonths.wichuccalander == 2)
             {
                 schedule.ucmonths.wichuccalander = 1;
@@ -662,9 +662,9 @@ namespace MKproject.Schedule
         ///-Display
         public void displayNow()
         {
-            if (DateTime.Now != DateUCDay)
+            if (DateTime.Now != SelectedDate)
             {
-                DateUCDay = DateTime.Now;
+                SelectedDate = DateTime.Now;
 
                 displayDay();
             }
@@ -676,22 +676,22 @@ namespace MKproject.Schedule
         public void displayDay()
         {
             //copies
-            date = DateUCDay;
-            year = DateUCDay.Year;
-            month = DateUCDay.Month;
-            day = DateUCDay.Day;
+            date = SelectedDate;
+            year = SelectedDate.Year;
+            month = SelectedDate.Month;
+            day = SelectedDate.Day;
 
 
             //Fill with ucappointments
 
             ///Now To Infinity or From History to now
-            if (DateTime.Now.Date <= DateUCDay.Date)
+            if (DateTime.Now.Date <= SelectedDate.Date)
             {
                 //We Have ListEmployee_idChecked now we have to get the availabily of each employee by the same order
                 List<string> availabilityrankorder = new List<string>();
                 for (int i = 0; i < ListEmployee_idChecked.Count(); i++)
                 {
-                    int dayOfWeekInt = ((int)DateUCDay.DayOfWeek + 6) % 7;
+                    int dayOfWeekInt = ((int)SelectedDate.DayOfWeek + 6) % 7;
                     var query = from row in DataTableEmployeeavailability.AsEnumerable()
                                 where row.Field<int>("employee_id") == ListEmployee_idChecked[i]
                                 select row.Field<string>("availability");
@@ -727,7 +727,7 @@ namespace MKproject.Schedule
                 IsHistory = true;
 
                 //Getting the Rank and Availability of the employees who were checked and trained in this day
-                DataTable RankNAvailabilityEmployees = SQLToProject.DisplayRankEmployeesNAvailability(DateUCDay);
+                DataTable RankNAvailabilityEmployees = SQLToProject.DisplayRankEmployeesNAvailability(SelectedDate);
 
                 //Variables
                 string[] rankEmployees;
@@ -812,7 +812,7 @@ namespace MKproject.Schedule
             }
 
             //Changing Date
-            dayname = DateUCDay.ToString("dddd");
+            dayname = SelectedDate.ToString("dddd");
             monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
             labelDate.Text = dayname + "," + monthname + " " + day + "," + year;
 
@@ -1059,7 +1059,7 @@ namespace MKproject.Schedule
         private void UCappointmentsfillTodayToFuture()
         {
 
-            int dayOfWeekInt = ((int)DateUCDay.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+            int dayOfWeekInt = ((int)SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
 
             //Clear all the flow layout panel
             for (int j = 1; j < TLPAppointment.ColumnCount; j++)//1 li2anno bala uctime BOOM
@@ -1124,7 +1124,7 @@ namespace MKproject.Schedule
         public void UCappointmentsfillColumn(int columnindex, int employee_id, string employeename)
         {
 
-            int dayOfWeekInt = ((int)DateUCDay.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+            int dayOfWeekInt = ((int)SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
                                                                    //Getting the Hours of Availibility of this Employee Of This Day
             var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
                         where row.Field<int>("employee_id") == ListEmployee_idChecked[columnindex - 1]
@@ -1618,7 +1618,7 @@ namespace MKproject.Schedule
             {
                 if (ucreminder.DesiredReminder.IsChecked == false)//moujarad ma ykoun checked bel ucday ma bi bayin
                 {
-                    if (isThedayofUCreminder(ucreminder, DateUCDay))
+                    if (isThedayofUCreminder(ucreminder, SelectedDate))
                     {
                         ucreminder.Dock = DockStyle.Top;
                         schedule.panelreminder.Controls.Add(ucreminder);

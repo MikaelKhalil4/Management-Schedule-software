@@ -3,6 +3,7 @@ using GlobalFunctions;
 using System;
 using System.Data;
 using System.Drawing;
+using System.Reflection.Metadata;
 using System.Windows.Forms;
 
 
@@ -26,6 +27,7 @@ namespace MKproject.Management
         UCTextBoxFilterOriginal UCClient;
 
 
+        bool IsAllIsRetrieved;
 
         Label LabelNoDataRecorded;
         //For Filter
@@ -120,11 +122,18 @@ namespace MKproject.Management
         }
         private void dataGridViewBackOffice_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataGridViewBackOffice.Columns[e.ColumnIndex].Name == "date")
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 &&  e.RowIndex < dataGridViewBackOffice.Rows.Count  && e.ColumnIndex < dataGridViewBackOffice.Columns.Count)
             {
-                e.Value = RandomFunctions.SetDateFormat(e.Value.ToString());
+                if (dataGridViewBackOffice.Columns[e.ColumnIndex].Name == "date")
+                {
+                    if (e.Value != null)
+                    {
+                        e.Value = RandomFunctions.SetDateFormat(e.Value.ToString());
+                    }
+                }
             }
         }
+
         public void FillBackOfficeDataGridView(DataTable DesiredDataTable)//it could original or filters
         {
             SetDataGridViewMode(DesiredDataTable);
@@ -146,7 +155,8 @@ namespace MKproject.Management
             dataGridViewBackOffice.Columns["client_id"].Visible = false;
             dataGridViewBackOffice.Columns["employee_id"].Visible = false;
             dataGridViewBackOffice.Columns["archive_id"].Visible = false;
-            dataGridViewBackOffice.Columns["id_client_balance"].Visible = false;
+            dataGridViewBackOffice.Columns["client_balance_id"].Visible = false;
+            dataGridViewBackOffice.Columns["appointment_id"].Visible = false;
             dataGridViewBackOffice.Columns["action_type"].Visible = false;
             dataGridViewBackOffice.Columns["amount_paid"].Visible = false;
             dataGridViewBackOffice.Columns["attendance_id"].Visible = false;
@@ -157,13 +167,13 @@ namespace MKproject.Management
                 dataGridViewBackOffice.Columns["Clients"].Visible = false;
             }
 
-          
+
             ////
             dataGridViewBackOffice.Columns["Action"].DisplayIndex = dataGridViewBackOffice.ColumnCount - 1;
             dataGridViewBackOffice.Columns["Action"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewBackOffice.Columns["Action"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             ////
-             dataGridViewBackOffice.ApplyStyle1();//ejbare foe el dusplay cells
+            dataGridViewBackOffice.ApplyStyle1();//ejbare foe el dusplay cells
             dataGridViewBackOffice.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel yaamlo wrap kell el colunns li mawjudin aal sheshe w ma btaamil delay metel all cels, w eza hattina abel, it can cause us delays bel visible = false
             dataGridViewBackOffice.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//kermel taamil stretch aa kell surface  horizontally
             dataGridViewBackOffice.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -176,6 +186,8 @@ namespace MKproject.Management
             dataGridViewBackOffice.Columns["Action"].FillWeight = 10;
 
         }
+
+
 
         public void FilterDatable()
         {
@@ -321,6 +333,9 @@ namespace MKproject.Management
             {
 
                 this.Opacity = 1;
+                OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(true, null, null);//all transac of this Speicific ClientBalance
+                IsAllIsRetrieved = false;
+                FormatBackOfficeOriginalDt();
                 CreateUCFilters();
                 //in this case   FormatBackOfficeOriginalDt() btenaamal bel event comboboxselectchanged/FillBackOfficeDataGridView(OriginalBackOfficeDt) btenaamal bel filterdata()
             }
@@ -335,17 +350,19 @@ namespace MKproject.Management
                 //sql
                 if (ClientId != null)//aam neshab all transaction tabaa specific client
                 {
-                    OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(true, null, ClientId);//only this year
+                    OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(false, null, ClientId);//all trans 
+                    IsAllIsRetrieved = true;
                     FormatBackOfficeOriginalDt();//since el event ma mnekhlaeo eza in this case so modtarin nzid ha hon w 
                     CreateUCFilters(); //FillBackOfficeDataGridView(OriginalBackOfficeDt) btenaamal bel filterdata()
 
                 }
                 else//aam beshab only el backoffice tabaa specific client for a specicf clientbalance
                 {
-                    OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(false, ClientBalanceId, null);//all transac
+                    OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(false, ClientBalanceId, null);//all transac of this Speicific ClientBalance
+                    IsAllIsRetrieved = true;
                     //scd datagridview 
                     dataGridViewBalance.DataSource = DesiredBalanceRowsdt;//badak that mahalla datatble aw mb#rf shu
-                    ParentFormClientManagem.FormatDatagridview(dataGridViewBalance, false);
+                    ClassClientBalance.FormatDatagridview(dataGridViewBalance, false);
                     dataGridViewBalance.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                     dataGridViewBalance.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel taamil stretch aa kell surface  horizontally
                     dataGridViewBalance.RowTemplate.MinimumHeight = 40; // Set minimum row height
@@ -454,30 +471,19 @@ namespace MKproject.Management
 
         }//try catch 
 
-        bool IsOneYearOrAll = false;//default value, lieanno we re selecting Today at the start, so badna nhatta kaeanno all kermel tfout bel condition tahet
         private void UCDate_ComboBoxDetailSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (UCDate.comboBoxDetail.SelectedItem.ToString() == UCComboBoxFilterBackOffice.All)
+            if (!IsAllIsRetrieved)
             {
-                if (IsOneYearOrAll == true)//to prevent repitions
+                if (UCDate.comboBoxDetail.SelectedItem.ToString() == UCComboBoxFilterBackOffice.All)
                 {
-                    OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(IsOneYearOrAll, null, null);
-                    IsOneYearOrAll = false;
+                    OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(false, null, null);
+                    IsAllIsRetrieved = true;//kell hal operation bi battil ela aaze since sar maana kell tabale hone
                     FormatBackOfficeOriginalDt();
-
-                }
-            }
-            else
-            {
-                if (IsOneYearOrAll == false)//eza kenit all bet fout fiya kermel nghayera
-                {
-                    OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(IsOneYearOrAll, null, null);
-                    IsOneYearOrAll = true;
-                    FormatBackOfficeOriginalDt();
-
                 }
 
             }
+
         }
 
 
@@ -526,8 +532,6 @@ namespace MKproject.Management
             DesiredRowO.Delete();
             OriginalBackOfficeDt.AcceptChanges();
 
-
-
         }
 
 
@@ -542,8 +546,9 @@ namespace MKproject.Management
                     string ActionType = dataGridViewBackOffice.Rows[e.RowIndex].Cells["action_type"].Value.ToString();
                     int clientId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["client_id"].Value);
                     int ArchiveId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value);
-                    int clientBalanceId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["id_client_balance"].Value);
-
+                    int clientBalanceId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["client_balance_id"].Value);
+                    var cellValue = dataGridViewBackOffice.Rows[e.RowIndex].Cells["appointment_id"].Value;
+                    int? AppointmentId = cellValue is DBNull ? (int?)null : Convert.ToInt32(cellValue);
 
 
 
@@ -572,7 +577,7 @@ namespace MKproject.Management
                             if (ActionType == ActionsEnum.Purchases.ToString())
                             {
 
-                                DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("id_client_balance = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
+                                DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
                                 for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
                                 {
 
@@ -581,7 +586,7 @@ namespace MKproject.Management
                                     if (foundOriginRows[i]["attendance_id"] != DBNull.Value)//only for packages, not for products,nor solo
                                     {
                                         int DesiredStructId = Convert.ToInt16(foundOriginRows[i]["attendance_id"]);
-                                        ClassBackOffice.UndoSessionDoneActionsSQL(clientId, DesiredStructId, DesiredArchiveID, clientBalanceId, true, backofficeform);//oly hayde lieanno eenda gher ab3ad(last visit) , or hawdik by cascade on delete bi tiro
+                                        ClassBackOffice.UndoSessionDoneActionsSQL(clientId, DesiredStructId, DesiredArchiveID, clientBalanceId, true, AppointmentId, backofficeform);//oly hayde lieanno eenda gher ab3ad(last visit) , or hawdik by cascade on delete bi tiro
 
                                     }
 
@@ -595,14 +600,25 @@ namespace MKproject.Management
                             }
                             else if (ActionType == ActionsEnum.SoloPurchases.ToString())
                             {
+                           
 
                                 int structId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
-                                ClassBackOffice.UndoSoloPurchaseActionsSQL(clientId, structId, ArchiveId, clientBalanceId, backofficeform);
 
+                               
+                                int? BundleId = null;
+                                if (AppointmentId !=null)
+                                {
+                                     BundleId = Convert.ToInt16(DesiredBalanceRowsdt.Rows[0]["bundle_id"]);
+                                }
+
+                                ClassBackOffice.UndoSoloPurchaseActionsSQL(clientId, structId, ArchiveId, clientBalanceId, AppointmentId, BundleId, backofficeform);
+
+                               
+                              
 
                                 //design
 
-                                DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("id_client_balance = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
+                                DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
                                 for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
                                 {
 
@@ -632,7 +648,7 @@ namespace MKproject.Management
                         if (dialogResult == DialogResult.Yes)
                         {
 
-                            ClassBackOffice.UndoSessionDoneActionsSQL(clientId, structId, ArchiveId, clientBalanceId, false, backofficeform);
+                            ClassBackOffice.UndoSessionDoneActionsSQL(clientId, structId, ArchiveId, clientBalanceId, false, AppointmentId, backofficeform);
                             //design
                             DeletingDatagridRows(ArchiveId);
                             dataGridViewBackOffice.ClearSelection();
@@ -686,7 +702,10 @@ namespace MKproject.Management
 
         private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            ParentFormClientManagem.FixCellsFormat(dataGridViewBalance, e);
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewBalance.Rows.Count && e.ColumnIndex < dataGridViewBalance.Columns.Count)
+            {
+                ClassClientBalance.FixCellsFormat(dataGridViewBalance, e);
+            }
         }
 
 

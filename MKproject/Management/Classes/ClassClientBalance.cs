@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MKproject.Management
 {
@@ -34,6 +35,7 @@ namespace MKproject.Management
 
 
 
+
         //additional
         public bool ISPackageSessionsOrDays { get; set; }
         public bool IsPackageOrSolo { get; set; }
@@ -51,7 +53,7 @@ namespace MKproject.Management
         {
 
             String query = @"SELECT
-                       cl.ID,  cl.bundle_id,b.bundle_name, cl.product_id, cl.purchase_date, cl.original_offre, cl.offre, cl.amount_paid, cl.balance, cl.session_left_days, cl.due_date,  cl.is_freezed,cl.is_expired,  cu.Currency_Name, cu.Symbol,            
+                       cl.client_balance_id,  cl.bundle_id,b.bundle_name, cl.product_id, cl.purchase_date, cl.original_offre, cl.offre, cl.amount_paid, cl.balance, cl.session_left_days, cl.due_date,  cl.is_freezed,cl.is_expired,  cu.Currency_Name, cu.Symbol,            
                       CASE
                        WHEN cl.bundle_id IS NOT NULL THEN b.bundle_name
                           WHEN cl.product_id IS NOT NULL THEN p.product_name
@@ -63,32 +65,30 @@ namespace MKproject.Management
                         LEFT JOIN
                         bundles b ON cl.bundle_id = b.bundle_id
                         LEFT JOIN
-                        products p ON cl.product_id = p.product_id ";
+                        products p ON cl.product_id = p.product_id WHERE 1=1 ";
 
-            SqlCommand cmd = null;
             if (ClientId != null)
             {
-                query += " Where cl.client_id = @client_id ORDER BY purchase_date ASC";
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@client_id", ClientId);
+                query += " And cl.client_id ='" + ClientId + "' ORDER BY purchase_date ASC ";
             }
             else
             {
-                query += " WHERE cl.ID = (SELECT MAX(ID) FROM client_balance)";
-                cmd = new SqlCommand(query, con);
+                query += " And cl.client_balance_id = (SELECT MAX(client_balance_id) FROM client_balance) ";
             }
 
 
+            SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dtClientBalance = new DataTable();
             sda.Fill(dtClientBalance);
+            ClassClientBalance.FormatClientBalanceDt(dtClientBalance);
             return dtClientBalance;
         }
         public static (double, double) GetClientBalanceSpecificItem(int ClientBalanceId)
         {
-            string query = "Select amount_paid,balance from client_balance WHERE ID=@ID";
+            string query = "Select amount_paid,balance from client_balance WHERE client_balance_id=@client_balance_id";
             SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@ID", ClientBalanceId);
+            cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -97,7 +97,7 @@ namespace MKproject.Management
         }
         public static DataTable GetClientBalanceNotExpiredPackage(int? clientID)
         {
-            string query = @"Select	c.ID,c.client_id,c.bundle_id,b.bundle_name as Description,c.session_left_days,c.due_date,c.is_freezed,c.balance                           
+            string query = @"Select	c.client_balance_id,c.client_id,c.bundle_id,b.bundle_name as Description,c.session_left_days,c.due_date,c.is_freezed,c.balance                           
                             from client_balance as c ,bundles  as b
                               where session_left_days is not null And is_expired='false' and c.bundle_id is not null and c.bundle_id=b.bundle_id ";
 
@@ -115,12 +115,25 @@ namespace MKproject.Management
         }
         public static DataTable GetClientBalanceAllInfoSql(int BalanceId)
         {
-            SqlCommand cmd = new SqlCommand("select * from client_balance where ID=@ID", con);
-            cmd.Parameters.AddWithValue("@ID", BalanceId);
+            SqlCommand cmd = new SqlCommand("select * from client_balance where client_balance_id=@client_balance_id", con);
+            cmd.Parameters.AddWithValue("@client_balance_id", BalanceId);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
+        }
+        public static (int?, int?, DateTime?, int? SessionLeftDays) GetBundleIdProductIdueDateSessions(int ClientBalanceId)
+        {
+            SqlCommand cmd = new SqlCommand("select bundle_id,product_id,due_date,session_left_days from client_balance where client_balance_id=@client_balance_id", con);
+            cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            int? BundleId = dt.Rows[0]["bundle_id"] is DBNull ? null : (int)dt.Rows[0]["bundle_id"];
+            int? productId = dt.Rows[0]["product_id"] is DBNull ? null : (int)dt.Rows[0]["product_id"];
+            DateTime? DueDate = dt.Rows[0]["due_date"] is DBNull ? null : (DateTime)dt.Rows[0]["due_date"];
+            int? SessionLeftDays = dt.Rows[0]["session_left_days"] is DBNull ? null : (int)dt.Rows[0]["session_left_days"];
+            return (BundleId, productId, DueDate, SessionLeftDays);
         }
 
         //Insert and update
@@ -263,15 +276,15 @@ namespace MKproject.Management
                 //client_balance update
                 if (IsExpired)
                 {
-                    queryUpdate = "UPDATE client_balance SET balance= @balance,amount_paid=@amount_paid,is_expired=@is_expired WHERE  ID=@id";
+                    queryUpdate = "UPDATE client_balance SET balance= @balance,amount_paid=@amount_paid,is_expired=@is_expired WHERE  client_balance_id=@client_balance_id";
                 }
                 else
                 {
-                    queryUpdate = "UPDATE client_balance SET balance= @balance,amount_paid=@amount_paid WHERE  ID=@id";
+                    queryUpdate = "UPDATE client_balance SET balance= @balance,amount_paid=@amount_paid WHERE  client_balance_id=@client_balance_id";
                 }
 
                 SqlCommand cmdUpdate = new SqlCommand(queryUpdate, con);
-                cmdUpdate.Parameters.AddWithValue("@id", DesiredRowsDt.Rows[i]["ID"]);
+                cmdUpdate.Parameters.AddWithValue("@client_balance_id", DesiredRowsDt.Rows[i]["client_balance_id"]);
                 cmdUpdate.Parameters.AddWithValue("@balance", DesiredRowsDt.Rows[i]["balance"]);
                 cmdUpdate.Parameters.AddWithValue("@amount_paid", DesiredRowsDt.Rows[i]["amount_paid"]);
                 cmdUpdate.Parameters.AddWithValue("@is_expired", DesiredRowsDt.Rows[i]["is_expired"]);
@@ -297,14 +310,14 @@ namespace MKproject.Management
             string query = "";
             if (isExpired)
             {
-                query = "UPDATE client_balance SET offre=@offre,balance=@balance,is_expired=@is_expired WHERE ID=@ID ";
+                query = "UPDATE client_balance SET offre=@offre,balance=@balance,is_expired=@is_expired WHERE client_balance_id=@client_balance_id ";
             }
             else
             {
-                query = "UPDATE client_balance SET offre=@offre,balance=@balance WHERE ID=@ID ";
+                query = "UPDATE client_balance SET offre=@offre,balance=@balance WHERE client_balance_id=@client_balance_id ";
             }
             SqlCommand cmdUpdate = new SqlCommand(query, con);
-            cmdUpdate.Parameters.AddWithValue("@ID", ID);
+            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ID);
             cmdUpdate.Parameters.AddWithValue("@balance", UpdatedBalance);
             cmdUpdate.Parameters.AddWithValue("@offre", UpdatedOffre);
             cmdUpdate.Parameters.AddWithValue("@is_expired", isExpired);
@@ -320,13 +333,13 @@ namespace MKproject.Management
             {
                 if (Newduedate == null)
                 {
-                    query = "UPDATE client_balance SET session_left_days=@session_left_days,offre=@offre,is_expired=@is_expired WHERE ID=@ID ";
+                    query = "UPDATE client_balance SET session_left_days=@session_left_days,offre=@offre,is_expired=@is_expired WHERE client_balance_id=@client_balance_id ";
                     cmdUpdate = new SqlCommand(query, con);
                     cmdUpdate.Parameters.AddWithValue("@offre", newoffre);
                 }
                 else//days, w baddak now tkammil men hone, shuf el save points
                 {
-                    query = "UPDATE client_balance SET session_left_days=@session_left_days,offre=@offre,due_date=@due_date,is_expired=@is_expired WHERE ID=@ID ";
+                    query = "UPDATE client_balance SET session_left_days=@session_left_days,offre=@offre,due_date=@due_date,is_expired=@is_expired WHERE client_balance_id=@client_balance_id ";
                     cmdUpdate = new SqlCommand(query, con);
                     cmdUpdate.Parameters.AddWithValue("@offre", newoffre);
                     //
@@ -340,12 +353,12 @@ namespace MKproject.Management
             {
                 if (Newduedate == null)//mafi reduce session lal bundle days that s why ma hattayna else
                 {
-                    query = "UPDATE client_balance SET session_left_days=@session_left_days,is_expired=@is_expired  WHERE ID=@ID ";
+                    query = "UPDATE client_balance SET session_left_days=@session_left_days,is_expired=@is_expired  WHERE client_balance_id=@client_balance_id ";
                     cmdUpdate = new SqlCommand(query, con);
                 }
             }
 
-            cmdUpdate.Parameters.AddWithValue("@ID", ID);
+            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ID);
             cmdUpdate.Parameters.AddWithValue("@session_left_days", UpdatedSessionOrDaysLeft);
             cmdUpdate.Parameters.AddWithValue("@is_expired", isExpired);
             con.Open();
@@ -361,7 +374,7 @@ namespace MKproject.Management
             bool IsFreezing;
             if (Newduedate == null)//freezing mode
             {
-                query = "UPDATE client_balance SET session_left_days=@session_left_days,is_freezed=@is_freezed WHERE ID=@ID ";
+                query = "UPDATE client_balance SET session_left_days=@session_left_days,is_freezed=@is_freezed WHERE client_balance_id=@client_balance_id ";
                 cmdUpdate = new SqlCommand(query, con);
                 //
                 IsFreezing = true;
@@ -369,7 +382,7 @@ namespace MKproject.Management
             else//reactivation mode
             {
 
-                query = "UPDATE client_balance SET session_left_days=@session_left_days,due_date=@due_date,is_freezed=@is_freezed WHERE ID=@ID ";
+                query = "UPDATE client_balance SET session_left_days=@session_left_days,due_date=@due_date,is_freezed=@is_freezed WHERE client_balance_id=@client_balance_id ";
                 cmdUpdate = new SqlCommand(query, con);
                 //
                 DateTime DueDate = (DateTime)Newduedate;
@@ -381,7 +394,7 @@ namespace MKproject.Management
             }
             cmdUpdate.Parameters.AddWithValue("@session_left_days", UpdatedSessionOrDaysLeft);
             cmdUpdate.Parameters.AddWithValue("@is_freezed", IsFreezing);
-            cmdUpdate.Parameters.AddWithValue("@ID", ID);
+            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ID);
 
             con.Open();
             cmdUpdate.ExecuteNonQuery();
@@ -390,12 +403,53 @@ namespace MKproject.Management
         }
         public static void UpdateIsexpiredClientBalanceRemoveUC(int ID, bool isExpired)
         {
-            string query = "UPDATE client_balance SET is_expired=@is_expired WHERE ID=@ID ";
+            string query = "UPDATE client_balance SET is_expired=@is_expired WHERE client_balance_id=@client_balance_id ";
             SqlCommand cmdUpdate = new SqlCommand(query, con);
-            cmdUpdate.Parameters.AddWithValue("@ID", ID);
+            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ID);
             cmdUpdate.Parameters.AddWithValue("@is_expired", isExpired);
             con.Open();
             cmdUpdate.ExecuteNonQuery();
+            con.Close();
+
+        }
+
+        public static void ReduceSessionFromPackageOfSessions(int ClientId, int DesiredClientBalanceId, int UpdatedSessionLeft, int? AppointmentId)
+        {
+            //Sql update
+            DateTime Date = DateTime.Now;
+            ClassClientBalance.UpdateClientBalanceOnEditingSessions(DesiredClientBalanceId, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
+            ClassClient.UpdateClientCheckInSQL(ClientId, Date);
+            ProjectToSQL.InsertToClientAttendance(ClientId, DesiredClientBalanceId, AppointmentId);
+
+            ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, Date);
+            DataTable dt = ClassClientBalance.GetClientBalanceAllInfoSql(DesiredClientBalanceId);//ma ela aaze bas mafina baleha, kermel CreateActionDetails, el clean code
+            backOffice.CreateActionDetails(dt.Rows[0]);
+            backOffice.InsertToArchiveSQL();
+        }
+
+        public static void DeleteClientBalance(int DesiredClientBalanceId)
+        {
+            //Eza ghayaret shi hone make sure tghayir also bel classClient on delete client
+            con.Open();
+
+            //hole el 4 ejbare bhal order kermel needir nemhe client balance
+            string QueryDeleteArchive = "DELETE FROM archive WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
+            SqlCommand cmd1 = new SqlCommand(QueryDeleteArchive, con);
+            cmd1.ExecuteNonQuery();
+
+            string QueryDeleteFinance = "DELETE FROM finance WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
+            SqlCommand cmd2 = new SqlCommand(QueryDeleteFinance, con);
+            cmd2.ExecuteNonQuery();
+
+            string QueryDeleteAppointments = "DELETE FROM appointments WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
+            SqlCommand cmd5 = new SqlCommand(QueryDeleteAppointments, con);
+            cmd5.ExecuteNonQuery();
+
+            string QueryDeleteClientBalance = "DELETE FROM client_balance WHERE client_balance_id ='" + DesiredClientBalanceId + "'";
+            SqlCommand cmd3 = new SqlCommand(QueryDeleteClientBalance, con);
+            cmd3.ExecuteNonQuery();
+
+
             con.Close();
 
         }
@@ -458,6 +512,164 @@ namespace MKproject.Management
         }
 
 
+
+
+
+
+
+        //kermel el design display tb3 clientBalance bel datatgridView
+        public static void FormatClientBalanceDt(DataTable DtClientBalanceOriginal)
+        {
+
+            DtClientBalanceOriginal.Columns.Add("AutoIncrementColumn", typeof(int));
+            DtClientBalanceOriginal.Columns["AutoIncrementColumn"].AutoIncrement = true;
+            DtClientBalanceOriginal.Columns["AutoIncrementColumn"].AutoIncrementSeed = 1;
+            DtClientBalanceOriginal.Columns["AutoIncrementColumn"].AutoIncrementStep = 1;
+            int currentAutoIncrementValue = 1;
+
+            foreach (DataRow row in DtClientBalanceOriginal.Rows)
+            {
+                row["AutoIncrementColumn"] = currentAutoIncrementValue;
+                currentAutoIncrementValue++;
+            }
+            DtClientBalanceOriginal.PrimaryKey = new DataColumn[] { DtClientBalanceOriginal.Columns["client_balance_id"] };
+
+            //ordering
+            int columnIndexToMove;
+            int newIndex;
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("AutoIncrementColumn"); // Replace with the actual column name
+            newIndex = 0; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("Description");//description bas kermel el design 
+            newIndex = 1; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("purchase_date"); // Replace with the actual column name
+            newIndex = 2; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("due_date"); // Replace with the actual column name
+            newIndex = 3; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("original_offre"); // Replace with the actual column name
+            newIndex = 4; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("offre"); // Replace with the actual column name
+            newIndex = 5; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("amount_paid"); // Replace with the actual column name
+            newIndex = 6; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("balance"); // Replace with the actual column name
+            newIndex = 7; // The new desired index
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+        }
+        public static void FixCellsFormat(DataGridView DesiredDatagrid, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < DesiredDatagrid.Rows.Count && e.ColumnIndex < DesiredDatagrid.Columns.Count)
+            {
+                if (e.Value == DBNull.Value || e.Value == null)
+                {
+                    e.Value = "N/A";
+                }
+                else
+                {
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "balance")
+                    {
+                        e.Value = Program.SetBalanceFormat(e.Value.ToString());
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "amount_paid")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "original_offre")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());// $ + 350/ 20 sess
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "offre")
+                    {
+                        e.Value = Program.SetCashFormat(e.Value.ToString());
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "due_date")
+                    {
+                        e.Value = ((DateTime)e.Value).ToString("MMMM/dd/yyyy");
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "purchase_date")
+                    {
+                        e.Value = ((DateTime)e.Value).ToString("MMMM/dd/yyyy");
+                    }
+                }
+
+            }
+            //Design Display
+            if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "balance")
+            {
+
+                DataGridViewCell cell = DesiredDatagrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (Convert.ToDouble(cell.Value) != 0)
+                {
+                    cell.Style.ForeColor = Color.Red;
+                    cell.Style.SelectionForeColor = Color.Red;
+                }
+                else
+                {
+                    cell.Style.ForeColor = Color.Black;
+                    cell.Style.SelectionForeColor = Color.Black;
+                }
+            }
+        }
+        public static void FormatDatagridview(DataGridView DesiredDataGrid, bool IsProfile)
+        {
+            foreach (DataGridViewColumn col in DesiredDataGrid.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+
+            DesiredDataGrid.Columns["client_balance_id"].Visible = false;
+            DesiredDataGrid.Columns["bundle_id"].Visible = false;
+            DesiredDataGrid.Columns["bundle_name"].Visible = false;
+            DesiredDataGrid.Columns["product_id"].Visible = false;
+            DesiredDataGrid.Columns["session_left_days"].Visible = false;
+            DesiredDataGrid.Columns["is_freezed"].Visible = false;
+            DesiredDataGrid.Columns["is_expired"].Visible = false;
+            DesiredDataGrid.Columns["Currency_Name"].Visible = false;
+            DesiredDataGrid.Columns["Symbol"].Visible = false;
+            DesiredDataGrid.Columns["due_date"].Visible = false;
+
+            if (IsProfile)
+            {
+                DesiredDataGrid.Columns["PayOrEdit"].DisplayIndex = DesiredDataGrid.ColumnCount - 2;
+                DesiredDataGrid.Columns["Transactions"].DisplayIndex = DesiredDataGrid.ColumnCount - 1;
+            }
+
+            ///
+
+            DesiredDataGrid.Columns["AutoIncrementColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            DesiredDataGrid.Columns["Description"].FillWeight = 13;
+            DesiredDataGrid.Columns["purchase_date"].FillWeight = 20;
+            DesiredDataGrid.Columns["original_offre"].FillWeight = 17;
+            DesiredDataGrid.Columns["offre"].FillWeight = 17;
+            DesiredDataGrid.Columns["amount_paid"].FillWeight = 9;
+            DesiredDataGrid.Columns["balance"].FillWeight = 12;
+            DesiredDataGrid.Columns["due_date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            //
+            DesiredDataGrid.Columns["balance"].HeaderText = "Balance";
+            DesiredDataGrid.Columns["AutoIncrementColumn"].HeaderText = "ID";
+            DesiredDataGrid.Columns["original_offre"].HeaderText = "Offre";
+            DesiredDataGrid.Columns["offre"].HeaderText = "Deal";
+            DesiredDataGrid.Columns["amount_paid"].HeaderText = "Paid";
+            DesiredDataGrid.Columns["purchase_date"].HeaderText = "PurchaseDate";
+        }
+
+
         //new function with sql
         public static List<ClassClientBalance> GetClientBalanceListNotExpiredPackage(int? clientID)
         {
@@ -478,7 +690,7 @@ namespace MKproject.Management
             sda.Fill(dtClientBalance);
             foreach (DataRow dr in dtClientBalance.Rows)
             {
-                ClientBalanceList.Add(CreateClientBalanceObject((int)dr["ID"]));
+                ClientBalanceList.Add(CreateClientBalanceObject((int)dr["client_balance_id"]));
             }
             return ClientBalanceList;
         }
@@ -493,7 +705,7 @@ namespace MKproject.Management
 
             ClassClientBalance DesiredClientBalance = new ClassClientBalance();
 
-            DesiredClientBalance.ClientBalanceID = (int)datarow["ID"];
+            DesiredClientBalance.ClientBalanceID = (int)datarow["client_balance_id"];
             DesiredClientBalance.ClientId = (int)datarow["client_id"];
             DesiredClientBalance.BundleId = datarow["bundle_id"] is DBNull ? null : (int)datarow["bundle_id"];
             DesiredClientBalance.ProductId = datarow["product_id"] is DBNull ? null : (int)datarow["product_id"];

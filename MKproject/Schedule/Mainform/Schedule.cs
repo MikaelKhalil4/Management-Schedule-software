@@ -252,9 +252,9 @@ namespace MKproject.Schedule
             ucday.TLPAppointment.currentRow = 6;
 
             //edit DateUCDay
-            if (ucday.DateUCDay.Date != ucmonths.DateUCMonth.Date)
+            if (ucday.SelectedDate.Date != ucmonths.DateUCMonth.Date)
             {
-                ucday.DateUCDay = ucmonths.DateUCMonth;
+                ucday.SelectedDate = ucmonths.DateUCMonth;
                 ucday.displayDay();
             }
 

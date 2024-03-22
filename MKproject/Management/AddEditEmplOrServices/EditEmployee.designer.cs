@@ -33,9 +33,9 @@ namespace MKproject.Management
             components = new System.ComponentModel.Container();
             TLPMain = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            buttonCancel = new System.Windows.Forms.Button();
-            buttonDelete = new System.Windows.Forms.Button();
-            buttonSave = new System.Windows.Forms.Button();
+            buttonCancel = new CustomButton();
+            buttonDelete = new CustomButton();
+            buttonSave = new CustomButton();
             FLPTop = new System.Windows.Forms.FlowLayoutPanel();
             ucTextboxFirstName = new UCTextbox1();
             ucTextboxLastName = new UCTextbox1();
@@ -65,7 +65,7 @@ namespace MKproject.Management
             TLPMain.RowCount = 2;
             TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 99.99999F));
             TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            TLPMain.Size = new System.Drawing.Size(507, 640);
+            TLPMain.Size = new System.Drawing.Size(507, 578);
             TLPMain.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -73,12 +73,12 @@ namespace MKproject.Management
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
             tableLayoutPanel1.Controls.Add(buttonCancel, 1, 0);
             tableLayoutPanel1.Controls.Add(buttonDelete, 0, 0);
             tableLayoutPanel1.Controls.Add(buttonSave, 2, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 600);
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 538);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
@@ -89,17 +89,19 @@ namespace MKproject.Management
             // buttonCancel
             // 
             buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            buttonCancel.BackColor = System.Drawing.Color.FromArgb(95, 97, 99);
+            buttonCancel.BackAndMouseHoverColor = System.Drawing.Color.DarkGray;
+            buttonCancel.BackColor = System.Drawing.Color.DarkGray;
             buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonCancel.FlatAppearance.BorderSize = 0;
-            buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(105, 107, 109);
+            buttonCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(129, 129, 129);
+            buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(149, 149, 149);
             buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCancel.ForeColor = System.Drawing.Color.White;
-            buttonCancel.Location = new System.Drawing.Point(276, 3);
+            buttonCancel.Location = new System.Drawing.Point(307, 5);
             buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new System.Drawing.Size(108, 33);
+            buttonCancel.Size = new System.Drawing.Size(93, 29);
             buttonCancel.TabIndex = 737;
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = false;
@@ -108,17 +110,19 @@ namespace MKproject.Management
             // buttonDelete
             // 
             buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            buttonDelete.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(255, 50, 50);
             buttonDelete.BackColor = System.Drawing.Color.FromArgb(255, 50, 50);
             buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonDelete.FlatAppearance.BorderSize = 0;
-            buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+            buttonDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(215, 10, 10);
+            buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(235, 30, 30);
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonDelete.ForeColor = System.Drawing.Color.White;
-            buttonDelete.Location = new System.Drawing.Point(4, 3);
+            buttonDelete.Location = new System.Drawing.Point(4, 5);
             buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new System.Drawing.Size(120, 33);
+            buttonDelete.Size = new System.Drawing.Size(93, 29);
             buttonDelete.TabIndex = 739;
             buttonDelete.Text = "Delete";
             buttonDelete.UseVisualStyleBackColor = false;
@@ -127,17 +131,19 @@ namespace MKproject.Management
             // buttonSave
             // 
             buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonSave.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(109, 122, 224);
             buttonSave.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonSave.FlatAppearance.BorderSize = 0;
-            buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(100, 112, 214);
+            buttonSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
+            buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(89, 102, 204);
             buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonSave.ForeColor = System.Drawing.Color.White;
-            buttonSave.Location = new System.Drawing.Point(395, 3);
+            buttonSave.Location = new System.Drawing.Point(410, 5);
             buttonSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new System.Drawing.Size(108, 33);
+            buttonSave.Size = new System.Drawing.Size(93, 29);
             buttonSave.TabIndex = 2;
             buttonSave.Text = "Save";
             buttonSave.UseVisualStyleBackColor = false;
@@ -156,7 +162,7 @@ namespace MKproject.Management
             FLPTop.Location = new System.Drawing.Point(0, 0);
             FLPTop.Margin = new System.Windows.Forms.Padding(0);
             FLPTop.Name = "FLPTop";
-            FLPTop.Size = new System.Drawing.Size(507, 600);
+            FLPTop.Size = new System.Drawing.Size(507, 538);
             FLPTop.TabIndex = 5;
             // 
             // ucTextboxFirstName
@@ -172,7 +178,7 @@ namespace MKproject.Management
             ucTextboxFirstName.Name = "ucTextboxFirstName";
             ucTextboxFirstName.NextControl = null;
             ucTextboxFirstName.ParentOfNextControl = null;
-            ucTextboxFirstName.Size = new System.Drawing.Size(490, 87);
+            ucTextboxFirstName.Size = new System.Drawing.Size(490, 69);
             ucTextboxFirstName.StringType = null;
             ucTextboxFirstName.TabIndex = 0;
             ucTextboxFirstName.Value = null;
@@ -185,12 +191,12 @@ namespace MKproject.Management
             ucTextboxLastName.IsEmail = false;
             ucTextboxLastName.IsPhoneNumber = false;
             ucTextboxLastName.IsRequired = false;
-            ucTextboxLastName.Location = new System.Drawing.Point(4, 93);
+            ucTextboxLastName.Location = new System.Drawing.Point(4, 75);
             ucTextboxLastName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             ucTextboxLastName.Name = "ucTextboxLastName";
             ucTextboxLastName.NextControl = null;
             ucTextboxLastName.ParentOfNextControl = null;
-            ucTextboxLastName.Size = new System.Drawing.Size(490, 87);
+            ucTextboxLastName.Size = new System.Drawing.Size(490, 69);
             ucTextboxLastName.StringType = null;
             ucTextboxLastName.TabIndex = 1;
             ucTextboxLastName.Value = null;
@@ -203,12 +209,12 @@ namespace MKproject.Management
             ucTextboxPhoneNumber.IsEmail = false;
             ucTextboxPhoneNumber.IsPhoneNumber = false;
             ucTextboxPhoneNumber.IsRequired = false;
-            ucTextboxPhoneNumber.Location = new System.Drawing.Point(4, 180);
+            ucTextboxPhoneNumber.Location = new System.Drawing.Point(4, 144);
             ucTextboxPhoneNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             ucTextboxPhoneNumber.Name = "ucTextboxPhoneNumber";
             ucTextboxPhoneNumber.NextControl = null;
             ucTextboxPhoneNumber.ParentOfNextControl = null;
-            ucTextboxPhoneNumber.Size = new System.Drawing.Size(490, 87);
+            ucTextboxPhoneNumber.Size = new System.Drawing.Size(490, 69);
             ucTextboxPhoneNumber.StringType = null;
             ucTextboxPhoneNumber.TabIndex = 2;
             ucTextboxPhoneNumber.Value = null;
@@ -221,12 +227,12 @@ namespace MKproject.Management
             ucTextboxPassword.IsEmail = false;
             ucTextboxPassword.IsPhoneNumber = false;
             ucTextboxPassword.IsRequired = false;
-            ucTextboxPassword.Location = new System.Drawing.Point(4, 267);
+            ucTextboxPassword.Location = new System.Drawing.Point(4, 213);
             ucTextboxPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             ucTextboxPassword.Name = "ucTextboxPassword";
             ucTextboxPassword.NextControl = null;
             ucTextboxPassword.ParentOfNextControl = null;
-            ucTextboxPassword.Size = new System.Drawing.Size(490, 87);
+            ucTextboxPassword.Size = new System.Drawing.Size(490, 69);
             ucTextboxPassword.StringType = null;
             ucTextboxPassword.TabIndex = 3;
             ucTextboxPassword.Value = null;
@@ -237,7 +243,7 @@ namespace MKproject.Management
             groupBoxFeatures.BorderSize = 1;
             groupBoxFeatures.Controls.Add(FLPFeatures);
             groupBoxFeatures.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            groupBoxFeatures.Location = new System.Drawing.Point(4, 360);
+            groupBoxFeatures.Location = new System.Drawing.Point(4, 288);
             groupBoxFeatures.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             groupBoxFeatures.Name = "groupBoxFeatures";
             groupBoxFeatures.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -263,7 +269,7 @@ namespace MKproject.Management
             checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             checkBoxStatus.AutoSize = true;
             checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            checkBoxStatus.Location = new System.Drawing.Point(212, 566);
+            checkBoxStatus.Location = new System.Drawing.Point(212, 494);
             checkBoxStatus.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             checkBoxStatus.Name = "checkBoxStatus";
             checkBoxStatus.Size = new System.Drawing.Size(74, 25);
@@ -282,7 +288,7 @@ namespace MKproject.Management
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(507, 640);
+            ClientSize = new System.Drawing.Size(507, 578);
             Controls.Add(TLPMain);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -310,12 +316,12 @@ namespace MKproject.Management
         public CustomGroupBox groupBoxFeatures;
         private System.Windows.Forms.FlowLayoutPanel FLPFeatures;
         private System.Windows.Forms.TableLayoutPanel TLPMain;
-        private System.Windows.Forms.Button buttonSave;
+        private CustomButton buttonSave;
         private System.Windows.Forms.FlowLayoutPanel FLPTop;
         private System.Windows.Forms.CheckBox checkBoxStatus;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonDelete;
+        private CustomButton buttonCancel;
+        private CustomButton buttonDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

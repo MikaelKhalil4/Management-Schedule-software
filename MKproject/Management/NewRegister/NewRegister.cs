@@ -143,7 +143,6 @@ namespace MKproject.Management
             if (IsUpdateOrInsert)
             {
 
-
                 buttonAddToAlbumAndSave.Visible = false;
                 buttonDelete.Visible = true;
                 buttonSave.Text = "Update";
@@ -156,7 +155,6 @@ namespace MKproject.Management
 
             else
             {
-
                 buttonAddToAlbumAndSave.Visible = true;
                 buttonDelete.Visible = false;
                 buttonSave.Text = "Save";

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
 using GlobalFunctions;
 using static MKproject.Management.ClassBundles;
 
@@ -16,8 +18,22 @@ namespace MKproject.Management
         //personal
         public int ClientId { get; set; }
         public string FullName { get; set; }//mesh mawjude bel db, bas btenaaz bi osas bel schdule
-        public string Fname { get; set; }
-        public string Lname { get; set; }
+
+        private string fname;
+        public string Fname
+        {
+            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fname.ToLower()); }
+            set { fname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower()); }
+        }
+
+        private string lname;
+
+        public string Lname
+        {
+            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lname.ToLower()); }
+            set { lname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower()); }
+        }
+
         public string PhoneNumber { get; set; }
         public string Gender { get; set; }
         public string Job { get; set; }
@@ -92,9 +108,9 @@ namespace MKproject.Management
         public string FightingSkills { get; set; }
 
 
-    
 
-      
+
+
 
 
         public enum ClientGender
@@ -222,7 +238,7 @@ namespace MKproject.Management
         public static DataTable GetAllClientSpecificInfoSQL()
         {
             string queryClient = "select client_id,name,family_name, phone_number as \"Phone Number\",Registration_Date from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
-     
+
             SqlCommand cmd = new SqlCommand(queryClient, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -329,22 +345,22 @@ namespace MKproject.Management
             DataTable dt = new DataTable();
             string query = "SELECT client_id,name,family_name,phone_number as \"Phone Number\",adress as \"Adress\",IsParent FROM Client WHERE IsChild='false' ";
             SqlCommand command = null;
-          
+
             if (ClientId != null)//update form
             {
-                query += " AND client_id!=@client_id ";        
+                query += " AND client_id!=@client_id ";
             }
             query += " ORDER BY last_time_searched  DESC";
-          
+
 
             command = new SqlCommand(query, con);
 
 
             if (ClientId != null)//update form
-            {              
+            {
                 command.Parameters.AddWithValue("@client_id", ClientId);
             }
-            
+
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dt);
@@ -357,7 +373,7 @@ namespace MKproject.Management
             string query = @"DECLARE @Today DATE = GETDATE();
                     DECLARE @In14Days DATE = DATEADD(DAY, 30, @Today);
                     SELECT 
-                      client_id AS ID,  
+                      client_id,  
                       CONCAT(name, ' ', family_name) AS Name, 
                       date_of_birth AS Birthday
                     FROM 
@@ -389,7 +405,7 @@ namespace MKproject.Management
 
 
         //UpdateAndInsert
- 
+
         public static void UpdateClientCheckInSQL(int ClientID, DateTime Date)
         {
             string query = "UPDATE client SET check_in=@check_in WHERE client_id=@client_id ";
@@ -457,7 +473,7 @@ namespace MKproject.Management
 
             string updateQuery = "UPDATE client " +
                                 "SET AlbumType = @AlbumType " +
-                                "WHERE client_id = @ID";
+                                "WHERE client_id = @client_id";
             SqlCommand command = new SqlCommand(updateQuery, con);
             if (AlbumName != null)
             {
@@ -467,7 +483,7 @@ namespace MKproject.Management
             {
                 command.Parameters.AddWithValue("@AlbumType", DBNull.Value);
             }
-            command.Parameters.AddWithValue("@ID", ClientId);
+            command.Parameters.AddWithValue("@client_id", ClientId);
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
@@ -484,53 +500,62 @@ namespace MKproject.Management
             cmd.ExecuteNonQuery();
             con.Close();
         }
-        
+
         //when a client purchase eenda connection maa many forms, that swhy
-        public static DataTable PurchaseAService(ClassBundles Bundle,DateTime Date,ClassClient Client)
+        public static DataTable PurchaseAService(ClassBundles Bundle, DateTime Date, ClassClient Client, int? appointmentId)
         {
             //SQLAndLogic                        
             string action;
             ActionsEnum actiontype;
-            int? StructId;
-            if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
-            {
-                action = "Purchased a " + Bundle.BundleName + ".";
-                actiontype = ActionsEnum.SoloPurchases;
-                ClassClient.UpdateClientCheckInSQL(Client.ClientId, Date);
-                ProjectToSQL.InsertToClientAttendance(Client.ClientId);
-                StructId = SQLToProject.GetLAstInsertedAttendance();//ejbare tahet InsertToClientAttendance
-            }
-            else
-            {
-                actiontype = ActionsEnum.Purchases;
-                action = "Purchased the " + Bundle.BundleName + " Package.";
-                StructId = null;
-            }
+            int? AttendanceId;
 
             ClassClientBalance.InsertToClientBalance(Client.ClientId, Bundle.BundleID, Bundle.EnumBundletype.ToString());
             DataTable dtinserteditem = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(null);
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                                            
+            int ClientBalanceId = (int)InsertedRow["client_balance_id"];
 
-            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, action, actiontype, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, StructId, null, null, Date);
+            if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
+            {
+                actiontype = ActionsEnum.SoloPurchases;
+                UpdateClientCheckInSQL(Client.ClientId, Date);
+                ProjectToSQL.InsertToClientAttendance(Client.ClientId, ClientBalanceId, appointmentId);
+                AttendanceId = SQLToProject.GetLAstInsertedAttendance();//ejbare tahet InsertToClientAttendance
+            }
+            else
+            {
+                actiontype = ActionsEnum.Purchases;
+                AttendanceId = null;
+            }
+
+
+
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, LOGIN.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, Date);
+            backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
-            ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date, Client.AlbumType);//kermel el count
+            ProjectToSQL.InsertToFinance((int)InsertedRow["client_balance_id"], 0, Date, Client.AlbumType);//kermel el count
+         
+            if (Client.RegistrationDate == null && Bundle.IsMemberShip == true)
+            {
+                MakeClientMemberSQL(Client.ClientId);
 
+            }
             return dtinserteditem;
         }
-        public static DataTable PurchaseAProduce(ClassProduct product , DateTime Date, ClassClient Client)
+        public static DataTable PurchaseAProduce(ClassProduct product, DateTime Date, ClassClient Client)
         {
             //SQL
             ClassClientBalance.InsertToClientBalance(Client.ClientId, product.ID, null);
             DataTable dtinserteditem = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(null);
-           
+
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
 
-            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, "Purchased " + product.Name + ".", ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["client_balance_id"], null, null, null, null, null, Date);
+            backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
-            ProjectToSQL.InsertToFinance((int)InsertedRow["ID"], 0, Date,Client.AlbumType);//kermel el count
+            ProjectToSQL.InsertToFinance((int)InsertedRow["client_balance_id"], 0, Date, Client.AlbumType);//kermel el count
             return dtinserteditem;
         }
 
@@ -540,7 +565,7 @@ namespace MKproject.Management
         public void InsertClientToSQL()
         {
 
-           
+
             // Phone number does not exist, proceed with insertion
             string insertQuery = "INSERT INTO client (name, family_name, gender, date_of_birth, muscles_focus_on, weight, height, hand, body_shape_target, injuries, sessions_per_week, phone_number, adress, job, special_note, insta_user, IsChild,IsParent,AlbumType,last_time_searched,save_date,Registration_Date,check_in,total_balance,total_payment,email,marital_status,know_about_us,timeline_goals,smoking_consumption,alcohol_consumption,exercise_history,sleep_patterns,stress_levels,profile_image_path,fighting_skills) " +
                                  "VALUES (@Name, @FamilyName, @Gender, @DateOfBirth, @MusclesFocusOn, @Weight, @Height, @Hand, @BodyShapeTarget, @Injuries, @SessionsPerWeek, @PhoneNumber, @Adress, @Job, @SpecialNote, @InstaUser, @IsChild,@IsParent,@AlbumType,@last_time_searched,@save_date,@Registration_Date,@check_in,@total_balance,@total_payment,@Email,@MaritalStatus,@KnowAboutUs,@TimelineGoals,@Smoking,@Alcohol,@ExerciseHistory,@SleepPattern,@StressLevel,@profile_image_path,@fighting_skills)";
@@ -550,7 +575,7 @@ namespace MKproject.Management
             if (ProfileImage != null)
             {
                 int InsertedClientId = GetLastClientIDSQL() + 1;
-                ImagesFunctions.SaveImage(this.ProfileImage, Program.FolderProfileImagePath, ImageName+ InsertedClientId);
+                ImagesFunctions.SaveImage(this.ProfileImage, Program.FolderProfileImagePath, ImageName + InsertedClientId);
                 command.Parameters.AddWithValue("@profile_image_path", ImageName + InsertedClientId);
             }
             else
@@ -720,7 +745,7 @@ namespace MKproject.Management
             else
                 command.Parameters.AddWithValue("@AlbumType", AlbumType);
 
-          
+
             if (FightingSkills == null)
                 command.Parameters.AddWithValue("@fighting_skills", DBNull.Value);
             else
@@ -736,12 +761,12 @@ namespace MKproject.Management
             command.Parameters.AddWithValue("@check_in", DBNull.Value);
             command.Parameters.AddWithValue("@Registration_Date", DBNull.Value);
             command.Parameters.AddWithValue("@last_time_searched", DateTime.Now);
-         
+
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
 
-        }  
+        }
         public void UpdateClientToSQL(bool PicisChanged)
         {
             string UpdateQuery;
@@ -759,7 +784,7 @@ namespace MKproject.Management
                      timeline_goals = @TimelineGoals, smoking_consumption = @Smoking, 
                      alcohol_consumption = @Alcohol, exercise_history = @ExerciseHistory, 
                      sleep_patterns = @SleepPattern, stress_levels = @StressLevel ,profile_image_path=@profile_image_path,fighting_skills = @fighting_skills 
-                     WHERE client_id = @ID";
+                     WHERE client_id = @client_id";
 
 
                 command = new SqlCommand(UpdateQuery, con);
@@ -771,7 +796,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    ImagesFunctions.SaveImage(this.ProfileImage,Program.FolderProfileImagePath, ImageName + ClientId);
+                    ImagesFunctions.SaveImage(this.ProfileImage, Program.FolderProfileImagePath, ImageName + ClientId);
                     command.Parameters.AddWithValue("@profile_image_path", ImageName + ClientId);
                 }
             }
@@ -788,7 +813,7 @@ namespace MKproject.Management
                      timeline_goals = @TimelineGoals, smoking_consumption = @Smoking, 
                      alcohol_consumption = @Alcohol, exercise_history = @ExerciseHistory, 
                      sleep_patterns = @SleepPattern, stress_levels = @StressLevel,fighting_skills = @fighting_skills 
-                     WHERE client_id = @ID";
+                     WHERE client_id = @client_id";
 
                 command = new SqlCommand(UpdateQuery, con);
 
@@ -951,7 +976,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@fighting_skills", FightingSkills);
 
             command.Parameters.AddWithValue("@IsChild", IsChild);
-            command.Parameters.AddWithValue("@ID", ClientId);
+            command.Parameters.AddWithValue("@client_id", ClientId);
 
             con.Open();
             command.ExecuteNonQuery();
@@ -960,12 +985,50 @@ namespace MKproject.Management
         }
         public void DeleteClientToSQL()
         {
+            //ejbare bi hal order men wara el relation baynetu
 
-            string sql = "DELETE FROM client WHERE client_id = @ID";
-            SqlCommand command = new SqlCommand(sql, con);
-            command.Parameters.AddWithValue("@ID", ClientId);
             con.Open();
-            command.ExecuteNonQuery();
+
+            //kermel el balance
+            string QueryDeleteArchive = "DELETE FROM archive WHERE client_id = '" + ClientId + "'";
+            SqlCommand cmd1 = new SqlCommand(QueryDeleteArchive, con);
+            cmd1.ExecuteNonQuery();
+
+            string QueryDeleteFinance = "DELETE FROM finance WHERE client_balance_id IN ( SELECT client_balance_id  FROM client_balance WHERE client_id = '" + ClientId + "')";
+            SqlCommand cmd2 = new SqlCommand(QueryDeleteFinance, con);
+            cmd2.ExecuteNonQuery();
+
+
+            //kermel el appintment
+            string QueryDeleteClientAttendace = "DELETE FROM client_services_attendance WHERE client_id = '" + ClientId + "'";
+            SqlCommand cmd4 = new SqlCommand(QueryDeleteClientAttendace, con);
+            cmd4.ExecuteNonQuery();
+
+            string QueryDeleteAppBundles = "DELETE FROM appointment_has_bundles WHERE appointment_id IN ( SELECT appointment_id  FROM appointments WHERE client_id = '" + ClientId + "')";
+            SqlCommand cmd8 = new SqlCommand(QueryDeleteAppBundles, con);
+            cmd8.ExecuteNonQuery();
+
+            string QueryDeleteAppointments = "DELETE FROM appointments WHERE client_id = '" + ClientId + "'";
+            SqlCommand cmd5 = new SqlCommand(QueryDeleteAppointments, con);
+            cmd5.ExecuteNonQuery();
+            //
+
+
+            string QueryDeleteClientBalance = "DELETE FROM client_balance WHERE client_id = '" + ClientId + "'";
+            SqlCommand cmd3 = new SqlCommand(QueryDeleteClientBalance, con);
+            cmd3.ExecuteNonQuery();
+            //
+
+
+            string QueryDeleteClientReminders = "DELETE FROM reminder WHERE client_id = '" + ClientId + "'";
+            SqlCommand cmd7 = new SqlCommand(QueryDeleteClientReminders, con);
+            cmd7.ExecuteNonQuery();
+
+            string QueryDeleteClient = "DELETE FROM client WHERE client_id = '" + ClientId + "'";
+            SqlCommand cmd6 = new SqlCommand(QueryDeleteClient, con);
+            cmd6.ExecuteNonQuery();
+
+
             con.Close();
 
         }
@@ -1008,9 +1071,9 @@ namespace MKproject.Management
             client.AlbumType = datarow["AlbumType"] is DBNull ? null : (string)datarow["AlbumType"];
 
 
-            client.ProfileImageName= datarow["profile_image_path"] is DBNull ? null : (string)datarow["profile_image_path"];
-            client.ProfileImage = ImagesFunctions.RetrieveImage(Program.FolderProfileImagePath,client.ProfileImageName);
-          
+            client.ProfileImageName = datarow["profile_image_path"] is DBNull ? null : (string)datarow["profile_image_path"];
+            client.ProfileImage = ImagesFunctions.RetrieveImage(Program.FolderProfileImagePath, client.ProfileImageName);
+
 
             client.SaveDate = datarow["save_date"] is DBNull ? (DateTime?)null : (DateTime)datarow["save_date"];
             client.LastVisit = datarow["check_in"] is DBNull ? (DateTime?)null : (DateTime)datarow["check_in"];

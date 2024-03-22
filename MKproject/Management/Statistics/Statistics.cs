@@ -478,7 +478,7 @@ namespace MKproject.Management
                 
 
 
-                int ClientBalanceId= (int)row["id_client_balance"];
+                int ClientBalanceId= (int)row["client_balance_id"];
                 OriginalAllServicesIncomeDt.Rows.Add(Item, CategoryId, ClientBalanceId, AmountPaid, Date);
 
 

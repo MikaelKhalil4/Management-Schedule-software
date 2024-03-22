@@ -11,17 +11,7 @@ namespace MKproject.Schedule
     public partial class UCappointment : UserControl
     {
         //PROPERTY:
-        private ClassAppointment desiredappointment;
-        public ClassAppointment DesiredAppointment
-        {
-            get { return desiredappointment; }
-            set
-            {
-                desiredappointment = value;
-                SetDesign();
-            }
-        }
-
+        private ClassAppointment DesiredAppointmentUCApp { get; set; }
         public int ColumnPosition { get; set; }
         public int RowPosition { get; set; }
 
@@ -40,15 +30,17 @@ namespace MKproject.Schedule
         public UCappointment(ClassAppointment desiredappointment, UCDay uCDay)
         {
             InitializeComponent();
-            DesiredAppointment = desiredappointment;
+            DesiredAppointmentUCApp = desiredappointment;
             ucday = uCDay;
+            SetUCDesign();
+
         }
 
 
-        void SetDesign()
+        public void SetUCDesign()
         {
             //Name
-            if (DesiredAppointment.DesiredClient != null)
+            if (DesiredAppointmentUCApp.DesiredClient != null)
             {
                 if (!TLPGlobal.Controls.Contains(labelFullName))
                 {
@@ -63,7 +55,7 @@ namespace MKproject.Schedule
 
                 }
 
-                labelFullName.Text = DesiredAppointment.DesiredClient.Fname + " " + DesiredAppointment.DesiredClient.Lname;
+                labelFullName.Text = DesiredAppointmentUCApp.DesiredClient.Fname + " " + DesiredAppointmentUCApp.DesiredClient.Lname;
             }
             else
             {
@@ -74,44 +66,54 @@ namespace MKproject.Schedule
 
                 TLPGlobal.SetRow(labelTime, 0);
                 TLPGlobal.SetRowSpan(labelTime, 2);
-                labelTime.Anchor= AnchorStyles.None;
-                labelTime.Margin=new Padding(0,0,0,0);
+                labelTime.Anchor = AnchorStyles.None;
+                labelTime.Margin = new Padding(0, 0, 0, 0);
             }
 
             //Service
-            if (DesiredAppointment.DesiredClientBalance != null)
+            if (DesiredAppointmentUCApp.DesiredClientBalance != null)
             {
-                labelService.Text = DesiredAppointment.DesiredClientBalance.ClientBalanceFullDetails;
+                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceFullDetails;
             }
-            else if (DesiredAppointment.ChosenBundlesList != null && DesiredAppointment.ChoseBundlesString != null)
+            else if (DesiredAppointmentUCApp.ChosenBundlesList != null && DesiredAppointmentUCApp.ChoseBundlesString != null)
             {
-                labelService.Text = DesiredAppointment.ChoseBundlesString;
+                labelService.Text = DesiredAppointmentUCApp.ChoseBundlesString;
             }
-            else if (DesiredAppointment.Title != null)
-            {          
-                labelService.Text = DesiredAppointment.Title;
+            else if (DesiredAppointmentUCApp.Title != null)
+            {
+                labelService.Text = DesiredAppointmentUCApp.Title;
+            }
+
+            //State
+            if (DesiredAppointmentUCApp.IsCompleted)
+            {
+                this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);
+            }
+            else if (DesiredAppointmentUCApp.IsCanceled)
+            {
+                this.BackColor = Color.FromArgb(244, 86, 7);
+            }
+            else
+            {
+                this.BackColor = Program.BoldColor;
             }
 
 
             //StartTime
-            string timestring = DesiredAppointment.StartTime.ToString("h:mm tt");
+            string timestring = DesiredAppointmentUCApp.StartTime.ToString("h:mm tt");
+
 
             string[] partstime = timestring.Split(' ');
             labelTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
 
             //EndTime
-            timestring = DesiredAppointment.EndTime.ToString("h:mm tt");
+            timestring = DesiredAppointmentUCApp.EndTime.ToString("h:mm tt");
             partstime = timestring.Split(' ');
             labelTime.Text += " - " + partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
 
 
         }
         //UPDATE
-        public void UpdateAppointments(ClassAppointment desiredappointment)
-        {
-            //UPDATE DESIGN
-            DesiredAppointment = desiredappointment;
-        }
 
 
         //EVENTS:
@@ -120,7 +122,8 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false && ucday.IsHistory == false)
             {
-                Appointment appointmentupdate = new Appointment(this, DesiredAppointment, ucday);
+                Appointment appointmentupdate = new Appointment(this, DesiredAppointmentUCApp, ucday);
+                appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
                 appointmentupdate.ShowDialog();
             }
             else
@@ -129,15 +132,22 @@ namespace MKproject.Schedule
             }
         }
 
+        private void Appointmentupdate_OnAppUpdate(object sender, EventArgs e)
+        {
+            Appointment appointmentupdate=(Appointment)sender;
+            DesiredAppointmentUCApp = appointmentupdate.DesiredAppointmentAppForm.Copy();
+            SetUCDesign();
+        }
+
         public void RemoveAppointment()
         {
             //SQL
-            DesiredAppointment.DeleteAppointment();
+            DesiredAppointmentUCApp.DeleteAppointment();
 
             //DESIGN
-            TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;
+            TimeSpan starttimeTimeSpan = DesiredAppointmentUCApp.StartTime.TimeOfDay;
             int positionrow = starttimeTimeSpan.Hours;
-            int positioncol = ucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointment.EmployeeId) + 1;
+            int positioncol = ucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointmentUCApp.EmployeeId) + 1;
             FlowLayoutPanel clickedflowLayoutPanel = ucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
             this.Dispose();
 
@@ -255,7 +265,6 @@ namespace MKproject.Schedule
             }
         }
 
-       
-        
+      
     }
 }

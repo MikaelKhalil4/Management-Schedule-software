@@ -30,288 +30,300 @@ namespace MKproject.Management
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.TLPMain = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.FLPTop = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBoxPrice = new CustomizedTools.CustomGroupBox();
-            this.ucPaymentsPrice = new MKproject.Management.UCPayments();
-            this.groupBoxNumberOfSessions = new CustomizedTools.CustomGroupBox();
-            this.TLPBundle = new System.Windows.Forms.TableLayoutPanel();
-            this.comboBoxBundle = new System.Windows.Forms.ComboBox();
-            this.UCNOSessionsOrDay = new MKproject.Management.UCNumberButt();
-            this.checkBoxMemberShip = new System.Windows.Forms.CheckBox();
-            this.checkBoxStatus = new System.Windows.Forms.CheckBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.TLPMain.SuspendLayout();
-            this.FLPTop.SuspendLayout();
-            this.groupBoxPrice.SuspendLayout();
-            this.groupBoxNumberOfSessions.SuspendLayout();
-            this.TLPBundle.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            TLPMain = new System.Windows.Forms.TableLayoutPanel();
+            FLPTop = new System.Windows.Forms.FlowLayoutPanel();
+            groupBoxPrice = new CustomGroupBox();
+            ucPaymentsPrice = new UCPayments();
+            groupBoxNumberOfSessions = new CustomGroupBox();
+            TLPBundle = new System.Windows.Forms.TableLayoutPanel();
+            comboBoxBundle = new System.Windows.Forms.ComboBox();
+            UCNOSessionsOrDay = new UCNumberButt();
+            checkBoxMemberShip = new System.Windows.Forms.CheckBox();
+            checkBoxStatus = new System.Windows.Forms.CheckBox();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            buttonSave = new CustomButton();
+            buttonCancel = new CustomButton();
+            buttonDelete = new CustomButton();
+            timer1 = new System.Windows.Forms.Timer(components);
+            TLPMain.SuspendLayout();
+            FLPTop.SuspendLayout();
+            groupBoxPrice.SuspendLayout();
+            groupBoxNumberOfSessions.SuspendLayout();
+            TLPBundle.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPMain
             // 
-            this.TLPMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPMain.ColumnCount = 1;
-            this.TLPMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPMain.Controls.Add(this.FLPTop, 0, 0);
-            this.TLPMain.Controls.Add(this.tableLayoutPanel1, 0, 1);
-            this.TLPMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPMain.Location = new System.Drawing.Point(0, 0);
-            this.TLPMain.Margin = new System.Windows.Forms.Padding(0);
-            this.TLPMain.Name = "TLPMain";
-            this.TLPMain.RowCount = 2;
-            this.TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.TLPMain.Size = new System.Drawing.Size(435, 574);
-            this.TLPMain.TabIndex = 0;
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.buttonDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDelete.FlatAppearance.BorderSize = 0;
-            this.buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDelete.ForeColor = System.Drawing.Color.White;
-            this.buttonDelete.Location = new System.Drawing.Point(3, 4);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(103, 29);
-            this.buttonDelete.TabIndex = 738;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.UseVisualStyleBackColor = false;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCancel.FlatAppearance.BorderSize = 0;
-            this.buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(234, 4);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(93, 29);
-            this.buttonCancel.TabIndex = 737;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click_1);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonSave.FlatAppearance.BorderSize = 0;
-            this.buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(112)))), ((int)(((byte)(214)))));
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.ForeColor = System.Drawing.Color.White;
-            this.buttonSave.Location = new System.Drawing.Point(334, 4);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(98, 29);
-            this.buttonSave.TabIndex = 2;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = false;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            TLPMain.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            TLPMain.ColumnCount = 1;
+            TLPMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPMain.Controls.Add(FLPTop, 0, 0);
+            TLPMain.Controls.Add(tableLayoutPanel1, 0, 1);
+            TLPMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPMain.Location = new System.Drawing.Point(0, 0);
+            TLPMain.Margin = new System.Windows.Forms.Padding(0);
+            TLPMain.Name = "TLPMain";
+            TLPMain.RowCount = 2;
+            TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            TLPMain.Size = new System.Drawing.Size(507, 592);
+            TLPMain.TabIndex = 0;
             // 
             // FLPTop
             // 
-            this.FLPTop.AutoScroll = true;
-            this.FLPTop.Controls.Add(this.groupBoxPrice);
-            this.FLPTop.Controls.Add(this.groupBoxNumberOfSessions);
-            this.FLPTop.Controls.Add(this.checkBoxMemberShip);
-            this.FLPTop.Controls.Add(this.checkBoxStatus);
-            this.FLPTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FLPTop.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.FLPTop.Location = new System.Drawing.Point(0, 0);
-            this.FLPTop.Margin = new System.Windows.Forms.Padding(0);
-            this.FLPTop.Name = "FLPTop";
-            this.FLPTop.Size = new System.Drawing.Size(435, 536);
-            this.FLPTop.TabIndex = 5;
+            FLPTop.AutoScroll = true;
+            FLPTop.Controls.Add(groupBoxPrice);
+            FLPTop.Controls.Add(groupBoxNumberOfSessions);
+            FLPTop.Controls.Add(checkBoxMemberShip);
+            FLPTop.Controls.Add(checkBoxStatus);
+            FLPTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            FLPTop.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            FLPTop.Location = new System.Drawing.Point(0, 0);
+            FLPTop.Margin = new System.Windows.Forms.Padding(0);
+            FLPTop.Name = "FLPTop";
+            FLPTop.Size = new System.Drawing.Size(507, 554);
+            FLPTop.TabIndex = 5;
             // 
             // groupBoxPrice
             // 
-            this.groupBoxPrice.BorderColor = System.Drawing.Color.White;
-            this.groupBoxPrice.BorderSize = 1;
-            this.groupBoxPrice.Controls.Add(this.ucPaymentsPrice);
-            this.groupBoxPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxPrice.Location = new System.Drawing.Point(3, 10);
-            this.groupBoxPrice.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.groupBoxPrice.Name = "groupBoxPrice";
-            this.groupBoxPrice.Size = new System.Drawing.Size(420, 100);
-            this.groupBoxPrice.TabIndex = 7;
-            this.groupBoxPrice.TabStop = false;
+            groupBoxPrice.BorderColor = System.Drawing.Color.White;
+            groupBoxPrice.BorderSize = 1;
+            groupBoxPrice.Controls.Add(ucPaymentsPrice);
+            groupBoxPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            groupBoxPrice.Location = new System.Drawing.Point(4, 12);
+            groupBoxPrice.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
+            groupBoxPrice.Name = "groupBoxPrice";
+            groupBoxPrice.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBoxPrice.Size = new System.Drawing.Size(490, 90);
+            groupBoxPrice.TabIndex = 7;
+            groupBoxPrice.TabStop = false;
             // 
             // ucPaymentsPrice
             // 
-            this.ucPaymentsPrice.Amount = 0D;
-            this.ucPaymentsPrice.BackColor = System.Drawing.Color.Transparent;
-            this.ucPaymentsPrice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucPaymentsPrice.EditModeOn = true;
-            this.ucPaymentsPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ucPaymentsPrice.Location = new System.Drawing.Point(3, 29);
-            this.ucPaymentsPrice.Margin = new System.Windows.Forms.Padding(6);
-            this.ucPaymentsPrice.Name = "ucPaymentsPrice";
-            this.ucPaymentsPrice.Sign = "+";
-            this.ucPaymentsPrice.Size = new System.Drawing.Size(414, 68);
-            this.ucPaymentsPrice.TabIndex = 4;
+            ucPaymentsPrice.Amount = 0D;
+            ucPaymentsPrice.BackColor = System.Drawing.Color.Transparent;
+            ucPaymentsPrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            ucPaymentsPrice.EditModeOn = true;
+            ucPaymentsPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ucPaymentsPrice.Location = new System.Drawing.Point(4, 29);
+            ucPaymentsPrice.Margin = new System.Windows.Forms.Padding(7);
+            ucPaymentsPrice.Name = "ucPaymentsPrice";
+            ucPaymentsPrice.Sign = "+";
+            ucPaymentsPrice.Size = new System.Drawing.Size(482, 58);
+            ucPaymentsPrice.TabIndex = 4;
             // 
             // groupBoxNumberOfSessions
             // 
-            this.groupBoxNumberOfSessions.BorderColor = System.Drawing.Color.White;
-            this.groupBoxNumberOfSessions.BorderSize = 1;
-            this.groupBoxNumberOfSessions.Controls.Add(this.TLPBundle);
-            this.groupBoxNumberOfSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxNumberOfSessions.Location = new System.Drawing.Point(3, 130);
-            this.groupBoxNumberOfSessions.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.groupBoxNumberOfSessions.Name = "groupBoxNumberOfSessions";
-            this.groupBoxNumberOfSessions.Size = new System.Drawing.Size(420, 100);
-            this.groupBoxNumberOfSessions.TabIndex = 8;
-            this.groupBoxNumberOfSessions.TabStop = false;
-            this.groupBoxNumberOfSessions.Text = "Bundle";
+            groupBoxNumberOfSessions.BorderColor = System.Drawing.Color.White;
+            groupBoxNumberOfSessions.BorderSize = 1;
+            groupBoxNumberOfSessions.Controls.Add(TLPBundle);
+            groupBoxNumberOfSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            groupBoxNumberOfSessions.Location = new System.Drawing.Point(4, 126);
+            groupBoxNumberOfSessions.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
+            groupBoxNumberOfSessions.Name = "groupBoxNumberOfSessions";
+            groupBoxNumberOfSessions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBoxNumberOfSessions.Size = new System.Drawing.Size(490, 115);
+            groupBoxNumberOfSessions.TabIndex = 8;
+            groupBoxNumberOfSessions.TabStop = false;
+            groupBoxNumberOfSessions.Text = "Bundle";
             // 
             // TLPBundle
             // 
-            this.TLPBundle.ColumnCount = 2;
-            this.TLPBundle.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPBundle.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPBundle.Controls.Add(this.comboBoxBundle, 0, 0);
-            this.TLPBundle.Controls.Add(this.UCNOSessionsOrDay, 1, 0);
-            this.TLPBundle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPBundle.Location = new System.Drawing.Point(3, 29);
-            this.TLPBundle.Name = "TLPBundle";
-            this.TLPBundle.RowCount = 1;
-            this.TLPBundle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPBundle.Size = new System.Drawing.Size(414, 68);
-            this.TLPBundle.TabIndex = 0;
+            TLPBundle.ColumnCount = 2;
+            TLPBundle.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            TLPBundle.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            TLPBundle.Controls.Add(comboBoxBundle, 0, 0);
+            TLPBundle.Controls.Add(UCNOSessionsOrDay, 1, 0);
+            TLPBundle.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPBundle.Location = new System.Drawing.Point(4, 29);
+            TLPBundle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TLPBundle.Name = "TLPBundle";
+            TLPBundle.RowCount = 1;
+            TLPBundle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            TLPBundle.Size = new System.Drawing.Size(482, 83);
+            TLPBundle.TabIndex = 0;
             // 
             // comboBoxBundle
             // 
-            this.comboBoxBundle.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.comboBoxBundle.BackColor = System.Drawing.Color.White;
-            this.comboBoxBundle.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.comboBoxBundle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxBundle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxBundle.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxBundle.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxBundle.FormattingEnabled = true;
-            this.comboBoxBundle.Location = new System.Drawing.Point(66, 15);
-            this.comboBoxBundle.Margin = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.comboBoxBundle.Name = "comboBoxBundle";
-            this.comboBoxBundle.Size = new System.Drawing.Size(126, 38);
-            this.comboBoxBundle.TabIndex = 13;
-            this.comboBoxBundle.DropDown += new System.EventHandler(this.comboBoxDetail_DropDown);
-            this.comboBoxBundle.SelectedIndexChanged += new System.EventHandler(this.comboBoxDetail_SelectedIndexChanged);
+            comboBoxBundle.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            comboBoxBundle.BackColor = System.Drawing.Color.White;
+            comboBoxBundle.Cursor = System.Windows.Forms.Cursors.Hand;
+            comboBoxBundle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxBundle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            comboBoxBundle.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            comboBoxBundle.ForeColor = System.Drawing.Color.Black;
+            comboBoxBundle.FormattingEnabled = true;
+            comboBoxBundle.Location = new System.Drawing.Point(77, 22);
+            comboBoxBundle.Margin = new System.Windows.Forms.Padding(0, 0, 18, 0);
+            comboBoxBundle.Name = "comboBoxBundle";
+            comboBoxBundle.Size = new System.Drawing.Size(146, 38);
+            comboBoxBundle.TabIndex = 13;
+            comboBoxBundle.DropDown += comboBoxDetail_DropDown;
+            comboBoxBundle.SelectedIndexChanged += comboBoxDetail_SelectedIndexChanged;
             // 
             // UCNOSessionsOrDay
             // 
-            this.UCNOSessionsOrDay.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.UCNOSessionsOrDay.BackColor = System.Drawing.Color.Transparent;
-            this.UCNOSessionsOrDay.ButtonSizeMinus = new System.Drawing.Size(37, 46);
-            this.UCNOSessionsOrDay.ButtonSizePlus = new System.Drawing.Size(38, 46);
-            this.UCNOSessionsOrDay.IsNegative = false;
-            this.UCNOSessionsOrDay.Location = new System.Drawing.Point(207, 11);
-            this.UCNOSessionsOrDay.Margin = new System.Windows.Forms.Padding(0);
-            this.UCNOSessionsOrDay.Maximum_number = 999;
-            this.UCNOSessionsOrDay.Minimum_number = 0;
-            this.UCNOSessionsOrDay.Name = "UCNOSessionsOrDay";
-            this.UCNOSessionsOrDay.Number = 0;
-            this.UCNOSessionsOrDay.Size = new System.Drawing.Size(162, 46);
-            this.UCNOSessionsOrDay.TabIndex = 14;
-            this.UCNOSessionsOrDay.TextBoxBackColor = System.Drawing.SystemColors.Window;
-            this.UCNOSessionsOrDay.TextBoxFont = new System.Drawing.Font("Segoe UI Semibold", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            UCNOSessionsOrDay.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            UCNOSessionsOrDay.BackColor = System.Drawing.Color.Transparent;
+            UCNOSessionsOrDay.ButtonSizeMinus = new System.Drawing.Size(43, 48);
+            UCNOSessionsOrDay.ButtonSizePlus = new System.Drawing.Size(44, 48);
+            UCNOSessionsOrDay.IsNegative = false;
+            UCNOSessionsOrDay.Location = new System.Drawing.Point(241, 17);
+            UCNOSessionsOrDay.Margin = new System.Windows.Forms.Padding(0);
+            UCNOSessionsOrDay.Maximum_number = 999;
+            UCNOSessionsOrDay.Minimum_number = 0;
+            UCNOSessionsOrDay.Name = "UCNOSessionsOrDay";
+            UCNOSessionsOrDay.Number = 0;
+            UCNOSessionsOrDay.Size = new System.Drawing.Size(189, 48);
+            UCNOSessionsOrDay.TabIndex = 14;
+            UCNOSessionsOrDay.TextBoxBackColor = System.Drawing.SystemColors.Window;
+            UCNOSessionsOrDay.TextBoxFont = new System.Drawing.Font("Segoe UI Semibold", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             // 
             // checkBoxMemberShip
             // 
-            this.checkBoxMemberShip.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBoxMemberShip.AutoSize = true;
-            this.checkBoxMemberShip.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxMemberShip.Location = new System.Drawing.Point(151, 250);
-            this.checkBoxMemberShip.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.checkBoxMemberShip.Name = "checkBoxMemberShip";
-            this.checkBoxMemberShip.Size = new System.Drawing.Size(124, 25);
-            this.checkBoxMemberShip.TabIndex = 1;
-            this.checkBoxMemberShip.Text = "MemberShip";
-            this.checkBoxMemberShip.UseVisualStyleBackColor = true;
+            checkBoxMemberShip.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxMemberShip.AutoSize = true;
+            checkBoxMemberShip.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxMemberShip.Location = new System.Drawing.Point(187, 265);
+            checkBoxMemberShip.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
+            checkBoxMemberShip.Name = "checkBoxMemberShip";
+            checkBoxMemberShip.Size = new System.Drawing.Size(124, 25);
+            checkBoxMemberShip.TabIndex = 1;
+            checkBoxMemberShip.Text = "MemberShip";
+            checkBoxMemberShip.UseVisualStyleBackColor = true;
             // 
             // checkBoxStatus
             // 
-            this.checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBoxStatus.AutoSize = true;
-            this.checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxStatus.Location = new System.Drawing.Point(176, 295);
-            this.checkBoxStatus.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.checkBoxStatus.Name = "checkBoxStatus";
-            this.checkBoxStatus.Size = new System.Drawing.Size(74, 25);
-            this.checkBoxStatus.TabIndex = 1;
-            this.checkBoxStatus.Text = "Status";
-            this.checkBoxStatus.UseVisualStyleBackColor = true;
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxStatus.AutoSize = true;
+            checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxStatus.Location = new System.Drawing.Point(212, 314);
+            checkBoxStatus.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
+            checkBoxStatus.Name = "checkBoxStatus";
+            checkBoxStatus.Size = new System.Drawing.Size(74, 25);
+            checkBoxStatus.TabIndex = 1;
+            checkBoxStatus.Text = "Status";
+            checkBoxStatus.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonSave, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonDelete, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 536);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(435, 38);
-            this.tableLayoutPanel1.TabIndex = 6;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            tableLayoutPanel1.Controls.Add(buttonSave, 2, 0);
+            tableLayoutPanel1.Controls.Add(buttonCancel, 1, 0);
+            tableLayoutPanel1.Controls.Add(buttonDelete, 0, 0);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 554);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(507, 38);
+            tableLayoutPanel1.TabIndex = 6;
+            // 
+            // buttonSave
+            // 
+            buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonSave.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonSave.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonSave.FlatAppearance.BorderSize = 0;
+            buttonSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
+            buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(89, 102, 204);
+            buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonSave.ForeColor = System.Drawing.Color.White;
+            buttonSave.Location = new System.Drawing.Point(410, 4);
+            buttonSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new System.Drawing.Size(93, 29);
+            buttonSave.TabIndex = 2;
+            buttonSave.Text = "Save";
+            buttonSave.UseVisualStyleBackColor = false;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonCancel.BackAndMouseHoverColor = System.Drawing.Color.DarkGray;
+            buttonCancel.BackColor = System.Drawing.Color.DarkGray;
+            buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonCancel.FlatAppearance.BorderSize = 0;
+            buttonCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(129, 129, 129);
+            buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(149, 149, 149);
+            buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonCancel.ForeColor = System.Drawing.Color.White;
+            buttonCancel.Location = new System.Drawing.Point(309, 4);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(93, 29);
+            buttonCancel.TabIndex = 737;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = false;
+            buttonCancel.Click += buttonCancel_Click_1;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            buttonDelete.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(255, 50, 50);
+            buttonDelete.BackColor = System.Drawing.Color.FromArgb(255, 50, 50);
+            buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonDelete.FlatAppearance.BorderSize = 0;
+            buttonDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(215, 10, 10);
+            buttonDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(235, 30, 30);
+            buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonDelete.ForeColor = System.Drawing.Color.White;
+            buttonDelete.Location = new System.Drawing.Point(4, 4);
+            buttonDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new System.Drawing.Size(93, 29);
+            buttonDelete.TabIndex = 738;
+            buttonDelete.Text = "Delete";
+            buttonDelete.UseVisualStyleBackColor = false;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
             // 
             // EditBundleProduct
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(435, 574);
-            this.Controls.Add(this.TLPMain);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "EditBundleProduct";
-            this.Opacity = 0D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "EditBundle";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditBundleProduct_FormClosing);
-            this.TLPMain.ResumeLayout(false);
-            this.FLPTop.ResumeLayout(false);
-            this.FLPTop.PerformLayout();
-            this.groupBoxPrice.ResumeLayout(false);
-            this.groupBoxNumberOfSessions.ResumeLayout(false);
-            this.TLPBundle.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.White;
+            ClientSize = new System.Drawing.Size(507, 592);
+            Controls.Add(TLPMain);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "EditBundleProduct";
+            Opacity = 0D;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "EditBundle";
+            FormClosing += EditBundleProduct_FormClosing;
+            TLPMain.ResumeLayout(false);
+            FLPTop.ResumeLayout(false);
+            FLPTop.PerformLayout();
+            groupBoxPrice.ResumeLayout(false);
+            groupBoxNumberOfSessions.ResumeLayout(false);
+            TLPBundle.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel TLPMain;
-        private System.Windows.Forms.Button buttonSave;
+        private CustomButton buttonSave;
         private System.Windows.Forms.FlowLayoutPanel FLPTop;
         private System.Windows.Forms.CheckBox checkBoxStatus;
         private CustomGroupBox groupBoxNumberOfSessions;
@@ -322,8 +334,8 @@ namespace MKproject.Management
         private UCNumberButt UCNOSessionsOrDay;
         private System.Windows.Forms.CheckBox checkBoxMemberShip;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonDelete;
+        private CustomButton buttonCancel;
+        private CustomButton buttonDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

@@ -135,7 +135,7 @@ namespace MKproject.Management
 
             dataGridViewBirthClients.ApplyStyle1();
 
-            dataGridViewBirthClients.Columns["ID"].Visible = false;
+            dataGridViewBirthClients.Columns["client_id"].Visible = false;
             dataGridViewBirthClients.Columns["DaysLeft"].Visible = false;
 
             dataGridViewBirthClients.Columns["Birthday"].HeaderCell.Value = "Birthdate";
@@ -155,7 +155,7 @@ namespace MKproject.Management
 
         private void dataGridViewBirthClients_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewBirthClients.Rows.Count && e.ColumnIndex < dataGridViewBirthClients.Columns.Count)
             {
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {
@@ -245,7 +245,7 @@ namespace MKproject.Management
         {
             if (e.RowIndex >= 0)
             {
-                object idValue = dataGridViewBirthClients.Rows[e.RowIndex].Cells["ID"].Value;
+                object idValue = dataGridViewBirthClients.Rows[e.RowIndex].Cells["client_id"].Value;
 
                 if (idValue != DBNull.Value)
                 {

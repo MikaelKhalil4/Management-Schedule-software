@@ -236,7 +236,7 @@ namespace MKproject.Management
         {
             //for both table bundles and product , so make sure that the status same in db
             //Text Display
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewEdit.Rows.Count &&  e.ColumnIndex < dataGridViewEdit.Columns.Count)
             {
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {
