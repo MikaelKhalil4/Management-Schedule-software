@@ -223,7 +223,7 @@ namespace MKproject.Schedule
 
 
 
-        public event EventHandler OnAppointmentUpdate;
+        public event EventHandler OnAppointmentUpdate;//this event change the desin of the uc appointment
         void UpdateOrAddAppointment()
         {
             // Desiredclient tb3 el appointform w ucclientapp form are refering to the same block
@@ -328,8 +328,7 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.InsertOrUpdateAppointment(false);
                 //Design
                 ChangeAppointmentLocation();//Aam taamil error lamma aamil undocompletion
-                //event
-                OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+              
             }
         }
         bool CheckIfTimeAvailableAndSetAppointmentPosition()
@@ -374,10 +373,7 @@ namespace MKproject.Schedule
             }
             UcDayParentForm.ChangePositionUCappointments(ucappointment, DesiredAppointmentAppForm, PositionCol, PositionRow, IsUCAppPosChanged);
         }
-
-
-
-        (double, DataTable) PurchaseNewServices()
+        (double, DataTable) PurchaseNewSoloServices()
         {
             DateTime Date = DateTime.Now;
             DataTable PurchasedBundles = null;
@@ -410,9 +406,13 @@ namespace MKproject.Schedule
             return (initialbalance, PurchasedBundles);
 
         }
+
+
+
         private void ButtonAddOrUpdate_Click(object sender, EventArgs e)
         {
             UpdateOrAddAppointment();
+            OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
         private void buttonCompleted_Click(object sender, EventArgs e)
@@ -424,7 +424,7 @@ namespace MKproject.Schedule
 
                 if (DesiredAppointmentAppForm.ChosenBundlesList != null && DesiredAppointmentAppForm.DesiredClient != null)
                 {
-                    (double initialbalance, DataTable PurchasedBundles) = PurchaseNewServices();
+                    (double initialbalance, DataTable PurchasedBundles) = PurchaseNewSoloServices();
 
                     Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, initialbalance, PurchasedBundles, null, true);
                     paymentform.ShowDialog();
@@ -437,7 +437,7 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        //we can t reduce we need to notice
+                        //we can t reduce we need to show a notice
                     }
                 }
             }
@@ -445,10 +445,11 @@ namespace MKproject.Schedule
             {
                 DesiredAppointmentAppForm.IsCompleted = false;
                 DesiredAppointmentAppForm.UndoCompletionAppointment();
-                this.Close();
             }
 
-            SetDesign();
+            OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+            this.Close();
+
         }
         private void buttonCanceled_Click(object sender, EventArgs e)
         {
@@ -465,7 +466,10 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.SetOrResetIsCanceled();
                 this.Close();
             }
-            SetDesign();
+
+            OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+            this.Close();
+
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
