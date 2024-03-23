@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MKproject.Schedule;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,18 +15,18 @@ namespace MKproject.Management
 
 
         ///Finance
-        
+
 
         public static void InsertToFinance(int ClientBalanceId, Double AmountPaid, DateTime Date, String AlbumType)
         {
 
-            string QueryInsert = @"INSERT INTO finance (id_client_balance,AlbumType,amount_paid,payment_date,Currency_Name) 
+            string QueryInsert = @"INSERT INTO finance (client_balance_id,AlbumType,amount_paid,payment_date,Currency_Name) 
                         VALUES
-                        (@id_client_balance,@AlbumType,@amount_paid,@payment_date,@Currency_Name) ";
+                        (@client_balance_id,@AlbumType,@amount_paid,@payment_date,@Currency_Name) ";
 
             SqlCommand cmdInsert = new SqlCommand(QueryInsert, con); // Initialize the SqlCommand inside the loop
 
-            cmdInsert.Parameters.AddWithValue("@id_client_balance", ClientBalanceId);
+            cmdInsert.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
 
             if (AlbumType == null)
             {
@@ -50,17 +51,26 @@ namespace MKproject.Management
 
 
         //client_struct table
-        public static void InsertToClientAttendance(int ClientID)
+        public static void InsertToClientAttendance(int ClientID, int clientBalanceId, int? AppointmentID)
         {
 
-            string QueryInsert = "insert into client_attendance (client_id,execute_date) values (@client_id,@execute_date)";
+            string QueryInsert = "insert into client_services_attendance (client_id,client_balance_id,appointment_id,execute_date) values (@client_id,@client_balance_id,@appointment_id,@execute_date)";
             SqlCommand cmdInsert = new SqlCommand(QueryInsert, con);
             cmdInsert.Parameters.AddWithValue("@client_id", ClientID);
+            cmdInsert.Parameters.AddWithValue("@client_balance_id", clientBalanceId);
+            if (AppointmentID == null)
+            {
+                cmdInsert.Parameters.AddWithValue("@appointment_id", DBNull.Value);
+
+            }
+            else
+            {
+                cmdInsert.Parameters.AddWithValue("@appointment_id", AppointmentID);
+            }
             cmdInsert.Parameters.AddWithValue("@execute_date", DateTime.Today);
             con.Open();
             cmdInsert.ExecuteNonQuery();
             con.Close();
-
 
         }
 
@@ -100,10 +110,10 @@ namespace MKproject.Management
         //registrationFidls
         public static void UpdateField(bool Isvisible, bool IsRequired, int id)
         {
-            SqlCommand command = new SqlCommand("UPDATE required_visible_fields SET Visible = @Visible, Required = @Required WHERE id = @ID", con);
+            SqlCommand command = new SqlCommand("UPDATE required_visible_fields SET Visible = @Visible, Required = @Required WHERE fields_id = @fields_id", con);
             command.Parameters.AddWithValue("@Visible", Isvisible);
             command.Parameters.AddWithValue("@Required", IsRequired);
-            command.Parameters.AddWithValue("@ID", id);
+            command.Parameters.AddWithValue("@fields_id", id);
             con.Open();
             command.ExecuteNonQuery();
             con.Close();

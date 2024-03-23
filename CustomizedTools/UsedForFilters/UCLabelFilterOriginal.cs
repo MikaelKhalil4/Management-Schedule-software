@@ -48,9 +48,9 @@ namespace CustomizedTools
         {
             InitializeComponent();
         }
-         
 
-        public  void SetLabelWidth()
+
+        public void SetLabelWidth()
         {
 
             int itemWidth = TextRenderer.MeasureText(Detail, labelDetail.Font).Width;
@@ -58,12 +58,12 @@ namespace CustomizedTools
 
             if (labelwidth < itemWidth)
             {
-               this.Width = itemWidth + buttonRemove.Width + buttonSwitch.Width + 3 * buttonSwitch.Margin.Left + 50;
+                this.Width = itemWidth + buttonRemove.Width + buttonSwitch.Width + 3 * buttonSwitch.Margin.Left + 40;
             }
             else
             {
-                this.Width = labelwidth + buttonRemove.Width + buttonSwitch.Width + 3 * buttonSwitch.Margin.Left;
-            }                  
+                this.Width = labelwidth + buttonRemove.Width + buttonSwitch.Width + 3 * buttonSwitch.Margin.Left + 40;
+            }
         }
     }
 }

@@ -272,7 +272,7 @@ namespace MKproject.Management
         }
         private void dataGridViewSelectParent_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewSelectParent.Rows.Count && e.ColumnIndex < dataGridViewSelectParent.Columns.Count)
             {
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {

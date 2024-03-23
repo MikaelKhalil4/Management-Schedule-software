@@ -62,7 +62,7 @@ namespace MKproject.Management
         }
         private void dataGridViewProducts_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewProducts.Rows.Count && e.ColumnIndex < dataGridViewProducts.Columns.Count)
             {
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {

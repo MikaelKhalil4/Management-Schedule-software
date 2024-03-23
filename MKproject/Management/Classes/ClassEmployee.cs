@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using GlobalFunctions;
 
 namespace MKproject.Management
@@ -9,8 +10,23 @@ namespace MKproject.Management
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
         public int EmployeeId { get; set; }
-        public string Fname { get; set; }
-        public string Lname { get; set; }
+
+        private string fname;
+
+        public string Fname
+        {
+            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fname.ToLower()); }
+            set { fname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower()); }
+        }
+        private string lname;
+
+        public string Lname
+        {
+            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lname.ToLower()); }
+            set { lname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower()); }
+        }
+
+
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public double? Cash { get; set; }
@@ -77,6 +93,16 @@ namespace MKproject.Management
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
+
+        }
+        public static string GetEmployeeFullName(int EmployeeID)
+        {
+            SqlCommand cmd = new SqlCommand("select first_name  ,last_name  from employee where employee_id=@employee_id", con);
+            cmd.Parameters.AddWithValue("@employee_id", EmployeeID);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            return ((string)dt.Rows[0]["first_name"] + " " + (string)dt.Rows[0]["last_name"]);
 
         }
         public static DataTable GetAllEmployees()
@@ -155,7 +181,7 @@ namespace MKproject.Management
             employee.ClearCashDate = datarow["clearcash_date"] is DBNull ? (DateTime?)null : (DateTime)datarow["clearcash_date"];
             employee.Status = (Boolean)datarow["status"];
             employee.Cash = (double)datarow["cash"];
-            
+
             if (Features.Management)
             {
                 if (employee.Access != null)
@@ -185,7 +211,7 @@ namespace MKproject.Management
             string query = " Select Count(*) from employee where password='" + Password + "'";
             if (OldPass != null)
             {
-                query+= " And password!='"+ OldPass + "'";
+                query += " And password!='" + OldPass + "'";
             }
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -278,7 +304,11 @@ namespace MKproject.Management
         {
             string query = @"
             Select Count(*) from employee as b
-            where employee_id='" + EmployeeId + "' And Exists(Select* from archive as a where a.employee_id = b.employee_id)";
+            where employee_id='" + EmployeeId + "' And (" +
+            " Exists(Select* from archive as a where a.employee_id = b.employee_id) " +
+            "Or" +
+            " Exists(Select* from appointments as a where a.employee_id = b.employee_id) )";
+
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

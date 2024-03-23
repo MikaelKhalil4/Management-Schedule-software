@@ -33,13 +33,13 @@ namespace MKproject.Management
         public int? BundleId { get; set; }// in order when we want to renew njib el original information of the bundle
 
 
-        private int id;//the real id of the bundle in the database and only used if it was a bundle,if product: Null
-        public int Id
+        private int desiredClientBalanceId;
+        public int DesiredClientBalanceId
         {
-            get { return id; }
+            get { return desiredClientBalanceId; }
             set
             {
-                id = value;
+                desiredClientBalanceId = value;
 
             }
         }
@@ -343,7 +343,7 @@ namespace MKproject.Management
         {
             DesiredRow = dr;
             this.BundleId = Convert.ToInt16(dr["bundle_id"]);
-            this.Id = Convert.ToInt16(dr["ID"]);
+            this.DesiredClientBalanceId = Convert.ToInt16(dr["client_balance_id"]);
 
             
             this.BundleDescription = dr["Description"].ToString();//Decription = bundle Name
@@ -638,11 +638,11 @@ namespace MKproject.Management
         {
 
             //Sql
-            ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(Id, true);//true because the bundle has expired
+            ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(DesiredClientBalanceId, true);//true because the bundle has expired
 
             //Design
             this.Dispose();
-            DataRow foundRow = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
+            DataRow foundRow = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             foundRow["is_expired"] = true;
             ParentFormClientMan.ResortOriginalDataTableAndSetDatasource();
             ParentFormClientMan.FormatDatagridviewDesign();
@@ -679,22 +679,14 @@ namespace MKproject.Management
 
             //select the last inserted row 
             DataTable dtRewedPackage = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(null);
-            ParentFormClientMan.FormatOriginalDt(dtRewedPackage);
             DataRow InsertedRow = dtRewedPackage.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
 
-            ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(Id, true);//true because the bundle has expired
+            ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(DesiredClientBalanceId, true);//true because the bundle has expired
                                                                         //backoffice
-            string action;
-            if (BundleType == ClassBundles.enumBundle.Solo)
-            {
-                action = "Purchased a " + BundleDescription + ".";
-            }
-            else
-            {
-                action = "Purchased the " + BundleDescription + " Package.";
-            }
-            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, action, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["ID"], null, null, null, null, DateTime.Now);
+          
+            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["client_balance_id"], null, null,null, null, null, DateTime.Now);
+            backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
 
@@ -708,7 +700,7 @@ namespace MKproject.Management
             NewRow["AutoIncrementColumn"] = Convert.ToInt32(ParentFormClientMan.dtClientBalanceOriginal.Compute("MAX(AutoIncrementColumn)", "")) + 1;
 
             //set is expiried for the old package
-            DataRow RowOldPackage = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
+            DataRow RowOldPackage = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             RowOldPackage["is_expired"] = true;
 
             //refresh parent form
@@ -719,7 +711,7 @@ namespace MKproject.Management
 
 
             //Setting the new values of teh uc for the new package
-            Id = Convert.ToInt16(NewRow["ID"]);
+            DesiredClientBalanceId = Convert.ToInt16(NewRow["client_balance_id"]);
             FakeId = Convert.ToInt16(NewRow["AutoIncrementColumn"]);//mafina nekhud this info gher men el orgnal table
             BundleDescription = NewRow["Description"].ToString();
             if (NewRow["due_date"] != DBNull.Value)
@@ -790,25 +782,18 @@ namespace MKproject.Management
         }//try catch      
         public void ReduceSession()
         {
-
             //Sql update
-            int ID = Id;
-            int UpdatedSessionLeft = SessionDaysLeft - 1;
-            DateTime Date = DateTime.Now;
-            ClassClientBalance.UpdateClientBalanceOnEditingSessions(ID, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
-            ClassClient.UpdateClientCheckInSQL(ParentFormClientMan.Client.ClientId, Date);
-            ProjectToSQL.InsertToClientAttendance(ParentFormClientMan.Client.ClientId);
-            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, "Completed a session.", ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, Id, null, SQLToProject.GetLAstInsertedAttendance(), null, null, Date);
-            backOffice.InsertToArchiveSQL();
+
+            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null);
 
             //design
             SessionDaysLeft--;
-            DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
+            DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             rowToEdit["session_left_days"] = sessionOrDaysLeft;
-
-            ParentFormClientMan.UCLastVisit.Detail = RandomFunctions.SetDateFormat(Date.ToString());
+          
+            ParentFormClientMan.UCLastVisit.Detail = RandomFunctions.SetDateFormat(DateTime.Now.ToString());
             ParentFormClientMan.Client.TotalAttendance++;
-            ParentFormClientMan.Client.LastVisit = Date;
+            ParentFormClientMan.Client.LastVisit = DateTime.Now;
             ParentFormClientMan.UCTotalAttendance.Detail = Convert.ToString(ParentFormClientMan.Client.TotalAttendance);
         }//try catch
 
@@ -822,32 +807,32 @@ namespace MKproject.Management
             }
             else//we re freezing the ackage
             {
-                ClassClientBalance.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, null);
+                ClassClientBalance.UpdateClientBalanceOnFreezingDays(DesiredClientBalanceId, sessionOrDaysLeft, null);
                 //design
                 IsFreezingMode = true;
-                DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
+                DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
                 rowToEdit["is_freezed"] = IsFreezingMode;
             }
         }//try catch
         void ReActivateMode()
         {
             DateTime newDueDate = DateTime.Now.AddDays(sessionOrDaysLeft);
-            ClassClientBalance.UpdateClientBalanceOnFreezingDays(Id, sessionOrDaysLeft, newDueDate);
+            ClassClientBalance.UpdateClientBalanceOnFreezingDays(DesiredClientBalanceId, sessionOrDaysLeft, newDueDate);
 
             //Design
             this.DueDate = newDueDate;
             IsFreezingMode = false;
-            DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
+            DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             rowToEdit["is_freezed"] = IsFreezingMode;
 
         }
         public void PayIfInDebt()
         {
-            DataRow foundRow = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(Id);
+            DataRow foundRow = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             double EntetityAmount = (double)foundRow["balance"];
 
 
-            Payment payment = new Payment(ParentFormClientMan.Client.ClientId, EntetityAmount, ParentFormClientMan.RetrievingSpecificRowsInDt(false, Id), ParentFormClientMan);
+            Payment payment = new Payment(ParentFormClientMan.Client, EntetityAmount, ParentFormClientMan.RetrievingSpecificRowsInDt(false, DesiredClientBalanceId), ParentFormClientMan,false);
             payment.ClientManagementProfileParentForm = this.ParentFormClientMan;
             payment.Show();
         }

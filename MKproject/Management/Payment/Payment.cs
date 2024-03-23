@@ -12,12 +12,12 @@ namespace MKproject.Management
 {
     public partial class Payment : Form
     {
-        private bool closed = true;//kermel l infinite loop 3l closing taba3 l form
-        DataTable DesiredRowsdt;
+        DataTable DesiredClientBalanceRowsdt;
 
         SqlConnection con = new SqlConnection(Program.DataLocation);
         public ClientManagementProfile ClientManagementProfileParentForm { get; set; }
-        public int client_id;
+        bool IsFromSchedule;
+        public ClassClient DesiredClient;
         private double initialbalance;
         private int OldSessionOrDaysNumber;
         DateTime Date;//kermel datetime.now el kell yekheda
@@ -57,15 +57,16 @@ namespace MKproject.Management
         }
 
         //DataTable here could be only one row or many rows if pay total
-        public Payment(int c, double AmountSigned, DataTable desiredRowsdt, ClientManagementProfile clientManagementProfile)
+        public Payment(ClassClient desiredClient, double AmountSigned, DataTable desiredClientBalanceRowsdt, ClientManagementProfile clientManagementProfile, bool isFromSchedule)
         {
             InitializeComponent();
             this.Opacity = 0;
 
+            IsFromSchedule = isFromSchedule;
             ClientManagementProfileParentForm = clientManagementProfile;
             initialbalance = AmountSigned;
-            DesiredRowsdt = desiredRowsdt;
-            client_id = c;
+            DesiredClientBalanceRowsdt = desiredClientBalanceRowsdt;
+            DesiredClient = desiredClient;
 
             LoadForm();
 
@@ -102,9 +103,9 @@ namespace MKproject.Management
             TLPEditInfo.Controls.Add(UCPay, 0, 1);
 
             //UCSESSIOn
-            if (DesiredRowsdt.Rows.Count > 0 && DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value)//bundles
+            if (DesiredClientBalanceRowsdt.Rows.Count > 0 && DesiredClientBalanceRowsdt.Rows[0]["bundle_id"] != DBNull.Value)//bundles
             {
-                if (DesiredRowsdt.Rows[0]["session_left_days"] != DBNull.Value)//package not solo
+                if (DesiredClientBalanceRowsdt.Rows[0]["session_left_days"] != DBNull.Value)//package not solo
                 {
                     UCNOSession = new UCNumberButt();
                     UCNOSession.Anchor = AnchorStyles.Top;
@@ -113,14 +114,14 @@ namespace MKproject.Management
                     TLPEditInfo.Controls.Add(UCNOSession, 0, 1);
 
 
-                    if (DesiredRowsdt.Rows[0]["due_date"] == DBNull.Value)
+                    if (DesiredClientBalanceRowsdt.Rows[0]["due_date"] == DBNull.Value)
                     {
-                        OldSessionOrDaysNumber = Convert.ToInt16(DesiredRowsdt.Rows[0]["session_left_days"]);
+                        OldSessionOrDaysNumber = Convert.ToInt16(DesiredClientBalanceRowsdt.Rows[0]["session_left_days"]);
 
                     }
                     else
                     {
-                        OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredRowsdt.Rows[0]["due_date"]);//tene wahde- awwal wahde                
+                        OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredClientBalanceRowsdt.Rows[0]["due_date"]);//tene wahde- awwal wahde                
                     }
                     if (OldSessionOrDaysNumber < 0)//SINCE HAYDE EL CALUE LI BET BAYYIN BEL update bel days w we know enno minimum bet kun 0 days , even law kenit negative men hott 0 as enno no days left
                     {
@@ -137,29 +138,34 @@ namespace MKproject.Management
 
 
             //DatagridView
-            dataGridViewBalance.DataSource = DesiredRowsdt;//badak that mahalla datatble aw mb#rf shu
-            ClientManagementProfileParentForm.FormatDatagridview(dataGridViewBalance, false);
+            dataGridViewBalance.DataSource = DesiredClientBalanceRowsdt;//badak that mahalla datatble aw mb#rf shu
+            ClassClientBalance.FormatDatagridview(dataGridViewBalance, false);
             dataGridViewBalance.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewBalance.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel taamil stretch aa kell surface  horizontally
             dataGridViewBalance.RowTemplate.MinimumHeight = 40; // Set minimum row height
-        
-            if (DesiredRowsdt.Rows.Count == 1)//ma lezim tkun =0, this execption should be handled by design
+
+            if (DesiredClientBalanceRowsdt.Rows.Count >= 1)//ma lezim tkun =0, this execption should be handled by design
             {
-                if (DesiredRowsdt.Rows[0]["due_date"] != DBNull.Value)
+                if (DesiredClientBalanceRowsdt.Rows[0]["due_date"] != DBNull.Value)
                 {
                     dataGridViewBalance.Columns["due_date"].Visible = true;
                 }
             }
+            if (IsFromSchedule)
+            {
+                dataGridViewBalance.Columns["AutoIncrementColumn"].Visible = false;
+            }
 
+            dataGridViewBalance.ApplyStyle1();
 
             // for the design
-            if (DesiredRowsdt.Rows.Count > 1)//in case of total payment 
+            if (DesiredClientBalanceRowsdt.Rows.Count > 1)//in case of total payment 
             {
                 ucSlideButtonPayOrEdit.Visible = false;
             }
-            else if (DesiredRowsdt.Rows.Count == 1)
+            else if (DesiredClientBalanceRowsdt.Rows.Count == 1 && !IsFromSchedule)
             {
-                if (DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredRowsdt.Rows[0]["session_left_days"] != DBNull.Value)//package
+                if (DesiredClientBalanceRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredClientBalanceRowsdt.Rows[0]["session_left_days"] != DBNull.Value)//package
                 {
                     IsEditForm1 = true;
                 }
@@ -171,7 +177,7 @@ namespace MKproject.Management
             IsPayementMode = true;
         }
 
-       
+
         void SetUCSlidebutton()
         {
 
@@ -197,7 +203,7 @@ namespace MKproject.Management
             {
                 CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
                 ucSlideButtonPayOrEdit.button1_Click(null, EventArgs.Empty);
-                
+
             }
 
         }
@@ -249,7 +255,7 @@ namespace MKproject.Management
 
             labelPaymentSession.Text = "Down Payment";
             labelPaymentSession.Visible = true;
-          
+
             TLPEditInfo.Visible = true;
             UCPay.Visible = true;
             UCPay.Amount = UCBalance.Amount;
@@ -269,7 +275,7 @@ namespace MKproject.Management
             UCBalance.EditModeOn = true;
 
             labelPaymentSession.Visible = true;
-            if (DesiredRowsdt.Rows[0]["due_date"] != DBNull.Value)
+            if (DesiredClientBalanceRowsdt.Rows[0]["due_date"] != DBNull.Value)
             {
                 labelPaymentSession.Text = "Days Left";
             }
@@ -294,14 +300,14 @@ namespace MKproject.Management
             UCBalance.EditModeOn = true;
             labelPaymentSession.Visible = false;
 
-             TLPEditInfo.Visible = false;
+            TLPEditInfo.Visible = false;
             UCPay.Visible = false;
             if (UCNOSession != null)
             {
                 UCNOSession.Visible = false;
             }
 
-         
+
 
 
         }
@@ -314,13 +320,14 @@ namespace MKproject.Management
             if (IsPayementMode == false)//edit mode
             {
                 Date = DateTime.Now;
+
                 if (Convert.ToDouble(UCBalance.Sign + UCBalance.Amount) != initialbalance)//products and solo
                 {
-                    ClientManagementProfileParentForm.UpdateBalance(DesiredRowsdt, Convert.ToDouble(UCBalance.Sign + UCBalance.Amount), ref initialbalance, Date);
+                    ClientManagementProfileParentForm.UpdateBalance(DesiredClientBalanceRowsdt, Convert.ToDouble(UCBalance.Sign + UCBalance.Amount), ref initialbalance, Date);
                 }
-                if (DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredRowsdt.Rows[0]["session_left_days"] != DBNull.Value && OldSessionOrDaysNumber != UCNOSession.Number)//packages /ucnosession ma32oul tkun null bas ma mnusalla men wara awwal condition
+                if (DesiredClientBalanceRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredClientBalanceRowsdt.Rows[0]["session_left_days"] != DBNull.Value && OldSessionOrDaysNumber != UCNOSession.Number)//packages /ucnosession ma32oul tkun null bas ma mnusalla men wara awwal condition
                 {
-                    ClientManagementProfileParentForm.UpdateSessionNumber(DesiredRowsdt, UCNOSession.Number, ref OldSessionOrDaysNumber, Date);
+                    ClientManagementProfileParentForm.UpdateSessionNumber(DesiredClientBalanceRowsdt, UCNOSession.Number, ref OldSessionOrDaysNumber, Date);
                 }
 
 
@@ -373,17 +380,16 @@ namespace MKproject.Management
             while (AmountPaid > 0)
             {
                 //logic started
-                if (DesiredRowsdt.Rows[i]["product_id"] != DBNull.Value)//product
+                if (DesiredClientBalanceRowsdt.Rows[i]["product_id"] != DBNull.Value)//product
                 {
                     IsBundleOrProduct = false;
-                    CategoryId = Convert.ToInt16(DesiredRowsdt.Rows[i]["product_id"]);
-                    BackOfficeCatName = ClassProduct.FindProductName(CategoryId);
-                    BackOfficeCatType = "";
+
                 }
                 else //bundle
                 {
+
                     IsBundleOrProduct = true;
-                    if (DesiredRowsdt.Rows[i]["session_left_days"] == DBNull.Value)//solo
+                    if (DesiredClientBalanceRowsdt.Rows[i]["session_left_days"] == DBNull.Value)//solo
                     {
                         IsPackageOrSolo = false;
                     }
@@ -391,48 +397,51 @@ namespace MKproject.Management
                     {
                         IsPackageOrSolo = true;
                     }
-                    CategoryId = Convert.ToInt16(DesiredRowsdt.Rows[i]["bundle_id"]);
-                    catregoryType = ClassBundles.Category.Package.ToString();
-                    BackOfficeCatName = ClassBundles.FindBundleName(CategoryId);
-                    BackOfficeCatType = " " + catregoryType;
+
                 }
 
 
-                AmoutPerRow = Math.Abs(Convert.ToDouble(DesiredRowsdt.Rows[i]["balance"].ToString()));
-                ClientBalanceId = (int)DesiredRowsdt.Rows[i]["ID"];
+                AmoutPerRow = Math.Abs(Convert.ToDouble(DesiredClientBalanceRowsdt.Rows[i]["balance"].ToString()));
+                ClientBalanceId = (int)DesiredClientBalanceRowsdt.Rows[i]["client_balance_id"];
 
                 if (AmountPaid >= AmoutPerRow)
                 {
                     //dt update
                     string balance = "0";
-                   
+
 
                     //SQL
-                    backOffice = new ClassBackOffice(ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmoutPerRow + " for the " + BackOfficeCatName + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null, null, null, Date);
+                    backOffice = new ClassBackOffice(DesiredClient.ClientId,ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null,null, null, null, Date);
+                    backOffice.CreateActionDetails(DesiredClientBalanceRowsdt.Rows[i]);
                     backOffice.InsertToArchiveSQL();
 
-
                     //Design
-                    DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["amount_paid"] = AmoutPerRow + (double)DesiredRowsdt.Rows[i]["amount_paid"];
+
+                    DesiredClientBalanceRowsdt.Rows[i]["balance"] = balance;
+                    DesiredClientBalanceRowsdt.Rows[i]["amount_paid"] = AmoutPerRow + (double)DesiredClientBalanceRowsdt.Rows[i]["amount_paid"];
                     //IsExpired and only for products cz bundles mesh men hone
                     if (!IsBundleOrProduct)//product or sevice
                     {
                         IsProduct = true;
-                        DesiredRowsdt.Rows[i]["is_expired"] = true;
+                        DesiredClientBalanceRowsdt.Rows[i]["is_expired"] = true;
                     }
                     else//if he is pakcage
                     {
                         if ((bool)IsPackageOrSolo)//package
                         {
-                            ClientManagementProfileParentForm.UpdateIsInDebteToUCBundle(Convert.ToInt16(DesiredRowsdt.Rows[i]["ID"]), false);
+                            if (ClientManagementProfileParentForm != null)
+                            {
+                                ClientManagementProfileParentForm.UpdateIsInDebteToUCBundle(Convert.ToInt16(DesiredClientBalanceRowsdt.Rows[i]["client_balance_id"]), false);
+                            }
                         }
                         else//solo
                         {
-                            DesiredRowsdt.Rows[i]["is_expired"] = true;
+                            DesiredClientBalanceRowsdt.Rows[i]["is_expired"] = true;
                         }
-
                     }
+
+
+
                     //finance
                     ListFinanceUpdates.Add((AmoutPerRow, ClientBalanceId));
 
@@ -448,14 +457,17 @@ namespace MKproject.Management
                     //logic ended
 
                     //Sql
-                    backOffice = new ClassBackOffice(ClientManagementProfileParentForm.Client.ClientId, "Paid " + Currency.Symbol + AmountPaid + " for the " + BackOfficeCatName + " " + BackOfficeCatType + ".", ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaid, null, null, null, Date);
+                    backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaid, null,null, null, null, Date);
+                    backOffice.CreateActionDetails(DesiredClientBalanceRowsdt.Rows[i]);
                     backOffice.InsertToArchiveSQL();
 
                     //Design
-                    DesiredRowsdt.Rows[i]["balance"] = balance;
-                    DesiredRowsdt.Rows[i]["amount_paid"] = AmountPaid + (double)DesiredRowsdt.Rows[i]["amount_paid"];
-                    ListFinanceUpdates.Add((AmountPaid, ClientBalanceId));
+                    DesiredClientBalanceRowsdt.Rows[i]["balance"] = balance;
+                    DesiredClientBalanceRowsdt.Rows[i]["amount_paid"] = AmountPaid + (double)DesiredClientBalanceRowsdt.Rows[i]["amount_paid"];
 
+
+                    //finance
+                    ListFinanceUpdates.Add((AmountPaid, ClientBalanceId));
                     //
                     AmountPaid = 0;
                     AffectedRow++;
@@ -467,35 +479,39 @@ namespace MKproject.Management
 
 
             PaymentRefreshParentANDSql(ListFinanceUpdates, IsProduct, IsPackageOrSolo, Date);//mahalla mazbut w mah ateassir law eemil crash backoffice masalan w el disign tabaa el payment ha yotlaa ghalat i agree bas el parent form ma tkun accurate, w eza tolii ghalat bel payment men sakkir el form fina
-            ClientManagementProfileParentForm.CalculatingClientHistory(true);
-
+            if (ClientManagementProfileParentForm != null)
+            {
+                ClientManagementProfileParentForm.CalculatingClientHistory(true);
+            }
         }//try catch
-        void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct,bool? IsPackageOrSolo, DateTime Date)
+        void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct, bool? IsPackageOrSolo, DateTime Date)
         {
             //SQL
-            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredRowsdt, AffectedRow, ListFinanceUpdates, Date, ClientManagementProfileParentForm.Client.AlbumType);//mafik tsil affected row, ma32oul affected row awal men el count tabaa el desired dt
+            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRowsdt, AffectedRow, ListFinanceUpdates, Date, DesiredClient.AlbumType);//mafik tsil affected row, ma32oul affected row awal men el count tabaa el desired dt
 
-            ////transfering info to the parent form
-            for (int k = 0; k < AffectedRow; k++)
+            if (ClientManagementProfileParentForm != null)
             {
-                DataRow rowToEdit = ClientManagementProfileParentForm.dtClientBalanceOriginal.Rows.Find(DesiredRowsdt.Rows[k]["ID"]);
-                rowToEdit["balance"] = DesiredRowsdt.Rows[k]["balance"];
-                rowToEdit["amount_paid"] = DesiredRowsdt.Rows[k]["amount_paid"];
-                rowToEdit["is_expired"] = DesiredRowsdt.Rows[k]["is_expired"];
-
-                if (IsProduct ||(IsPackageOrSolo!=null && !(bool)IsPackageOrSolo))//lieano el bundle men shello el expiry bel remove or renew
+                ////transfering info to the parent form
+                for (int k = 0; k < AffectedRow; k++)
                 {
-                    rowToEdit["is_expired"] = DesiredRowsdt.Rows[k]["is_expired"];
-                }
-            }
-            if (IsProduct || (IsPackageOrSolo != null && !(bool)IsPackageOrSolo))//lieanno el resorting only aal date which is fix and Is expired, since eza ma ken product isexpired ha teb2a metel a hiyye , so ma ela aaze ynaamal sorting lal bundle
-            {
-                ClientManagementProfileParentForm.ResortOriginalDataTableAndSetDatasource();
-            }
-            ClientManagementProfileParentForm.FormatDatagridviewDesign();
-            ClientManagementProfileParentForm.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
-            ClientManagementProfileParentForm.CalculatingTotalBalances(true);
+                    DataRow rowToEdit = ClientManagementProfileParentForm.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceRowsdt.Rows[k]["client_balance_id"]);
+                    rowToEdit["balance"] = DesiredClientBalanceRowsdt.Rows[k]["balance"];
+                    rowToEdit["amount_paid"] = DesiredClientBalanceRowsdt.Rows[k]["amount_paid"];
+                    rowToEdit["is_expired"] = DesiredClientBalanceRowsdt.Rows[k]["is_expired"];
 
+                    if (IsProduct || (IsPackageOrSolo != null && !(bool)IsPackageOrSolo))//lieano el bundle men shello el expiry bel remove or renew
+                    {
+                        rowToEdit["is_expired"] = DesiredClientBalanceRowsdt.Rows[k]["is_expired"];
+                    }
+                }
+                if (IsProduct || (IsPackageOrSolo != null && !(bool)IsPackageOrSolo))//lieanno el resorting only aal date which is fix and Is expired, since eza ma ken product isexpired ha teb2a metel a hiyye , so ma ela aaze ynaamal sorting lal bundle
+                {
+                    ClientManagementProfileParentForm.ResortOriginalDataTableAndSetDatasource();
+                }
+                ClientManagementProfileParentForm.FormatDatagridviewDesign();
+                ClientManagementProfileParentForm.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
+                ClientManagementProfileParentForm.CalculatingTotalBalances(true);
+            }
 
         }//try catch
         public bool SetIsExpired(DataRow row)
@@ -528,7 +544,7 @@ namespace MKproject.Management
 
 
 
-      
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Opacity == 1)
@@ -537,8 +553,8 @@ namespace MKproject.Management
             }
             Opacity += .1;
         }
-       
-       
+
+
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -553,11 +569,20 @@ namespace MKproject.Management
                 Program.GreyForm = null;
             }
         }
-     
+
         //mawjude matrahen hone w bel profile
         private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            ClientManagementProfileParentForm.FixCellsFormat(dataGridViewBalance, e);
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewBalance.Rows.Count && e.ColumnIndex < dataGridViewBalance.Columns.Count)
+            {
+                ClassClientBalance.FixCellsFormat(dataGridViewBalance, e);
+            }
+        }
+
+        private void Payment_Load(object sender, EventArgs e)
+        {
+            dataGridViewBalance.ClearSelection();
+
         }
     }
 }

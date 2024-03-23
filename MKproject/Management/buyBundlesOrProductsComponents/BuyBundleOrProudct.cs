@@ -158,12 +158,11 @@ namespace MKproject.Management
                         for (int i = 0; i < Bundle.Qty; i++)
                         {
                            //Sql And Logic
-                            DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, ParentFormClientMang.Client);//hattayneha global lieanno ha nestaamela men kaza mahal
+                            DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, ParentFormClientMang.Client,null);//hattayneha global lieanno ha nestaamela men kaza mahal
 
 
                             //Design
                             //updating originaldatable
-                            ParentFormClientMang.FormatOriginalDt(dtinserteditem);
                             DataRow InsertedRow = dtinserteditem.Rows[0];
 
                             DataRow NewRow = ParentFormClientMang.dtClientBalanceOriginal.NewRow();
@@ -212,9 +211,10 @@ namespace MKproject.Management
                     //Check if Member , if mo update in sql
                     if (OneOfThePackgesIsMemberShip == true && ParentFormClientMang.Client.RegistrationDate == null)
                     {
-                        //sql
-                        ClassClient.MakeClientMemberSQL(ParentFormClientMang.Client.ClientId);
-                        ///design
+                        //!!!!!sql naamalit bel  ClassClient.PurchaseAService kremel el schedule also
+                        //ClassClient.MakeClientMemberSQL(ParentFormClientMang.Client.ClientId);
+
+                        //design
                         ParentFormClientMang.UCMemberSince.Detail = RandomFunctions.SetDateFormat(Date.ToString());
                         ParentFormClientMang.Client.RegistrationDate = Date;
 
@@ -239,7 +239,6 @@ namespace MKproject.Management
 
                             //Design
                             //updating originaldatable
-                            ParentFormClientMang.FormatOriginalDt(dtinserteditem);
                             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one       
                             DataRow NewRow = ParentFormClientMang.dtClientBalanceOriginal.NewRow();
                             NewRow.ItemArray = InsertedRow.ItemArray; // Copy the data from InsertedRow to NewRow

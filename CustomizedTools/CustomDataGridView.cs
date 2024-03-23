@@ -39,33 +39,37 @@ namespace CustomizedTools
         }
 
 
-      
+
 
 
         public CustomDataGridView()
         {
             ColorDefault = this.DefaultCellStyle.BackColor;
+            this.DataError += new DataGridViewDataErrorEventHandler(CustomDataGridView_DataError);
         }
-      
-        
-        
+
+        private void CustomDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)//kermel el cell formating
+        {        
+            //e.ThrowException = false;
+            e.Cancel = true;
+        }
+
         protected override void OnCellClick(DataGridViewCellEventArgs e)
         {
             base.OnCellClick(e);
-           
-                if (!IsSelectRow)
-                {
-                    if (e.RowIndex > -1)
-                    {
 
-                        this.ClearSelection();
-                        if (Rows.Count > 0)//ejbare lamma nkun eemlin on mouse click tsakkir
-                        {
-                            this.Rows[e.RowIndex].DefaultCellStyle.BackColor = ColorOnMouseMove;
-                        }
+            if (!IsSelectRow)
+            {
+                if (e.RowIndex > -1)
+                {
+                    this.ClearSelection();
+                    if (Rows.Count > 0)//ejbare lamma nkun eemlin on mouse click tsakkir
+                    {
+                        //this.Rows[e.RowIndex].DefaultCellStyle.BackColor = ColorOnMouseMove;
                     }
                 }
-            
+            }
+
 
         }
         protected override void OnSelectionChanged(EventArgs e)
@@ -78,47 +82,44 @@ namespace CustomizedTools
             }
 
         }
-        protected override void OnCellMouseEnter(DataGridViewCellEventArgs e)
-        {
-            base.OnCellMouseEnter(e);
-        }
+
 
         protected override void OnCellMouseMove(DataGridViewCellMouseEventArgs e)
         {
             base.OnCellMouseMove(e);
 
-                if (IsRowColorChangeonMouseMove)
+            if (IsRowColorChangeonMouseMove)
+            {
+                if (e.RowIndex > -1)
                 {
+                    DataGridViewCellStyle style1 = new DataGridViewCellStyle();
+                    style1.BackColor = ColorOnMouseMove;
                     if (e.RowIndex > -1)
                     {
-                        DataGridViewCellStyle style1 = new DataGridViewCellStyle();
-                        style1.BackColor = ColorOnMouseMove;
-                        if (e.RowIndex > -1)
-                        {
-                            this.Rows[e.RowIndex].DefaultCellStyle = style1;
-                        }
+                        this.Rows[e.RowIndex].DefaultCellStyle = style1;
                     }
                 }
+            }
         }
         protected override void OnCellMouseLeave(DataGridViewCellEventArgs e)
         {
             base.OnCellMouseLeave(e);
             if (IsRowColorChangeonMouseMove)
             {
-              
+
+                if (e.RowIndex > -1)
+                {
+                    DataGridViewCellStyle style2 = new DataGridViewCellStyle();
+                    style2.BackColor = ColorDefault;
                     if (e.RowIndex > -1)
                     {
-                        DataGridViewCellStyle style2 = new DataGridViewCellStyle();
-                        style2.BackColor = ColorDefault;
-                        if (e.RowIndex > -1)
-                        {
-                            this.Rows[e.RowIndex].DefaultCellStyle = style2;
-                        }
+                        this.Rows[e.RowIndex].DefaultCellStyle = style2;
                     }
-                
+                }
+
             }
         }
-   
+
         public void ApplyStyle1()
         {
             Color HeaderColor = Color.FromArgb(109, 122, 224);
@@ -127,6 +128,7 @@ namespace CustomizedTools
             AllowUserToDeleteRows = false;
             AllowUserToResizeColumns = false;
             AllowUserToResizeRows = false;
+            ReadOnly = true;
             // Alternating rows style
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle
             {
@@ -190,7 +192,7 @@ namespace CustomizedTools
             RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
         }
-    
+
     }
 
 }

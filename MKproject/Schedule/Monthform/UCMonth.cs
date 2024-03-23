@@ -145,7 +145,7 @@ namespace MKproject.Schedule
             this.Hide();
 
 
-            DateUCMonth = ucday.DateUCDay;
+            DateUCMonth = ucday.SelectedDate;
 
 
         }
@@ -265,7 +265,7 @@ namespace MKproject.Schedule
                     ucdayOfTodayexist = true;
                 }
 
-                else if (ucdays.DateUCdays.Date == ucday.DateUCDay.Date)
+                else if (ucdays.DateUCdays.Date == ucday.SelectedDate.Date)
                 {
                     ucdays.BackColor = Color.FromArgb(229, 226, 244); //sdawa luc li na2ayne
                     ucdayOfDateUCDay = ucdays;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
@@ -296,7 +296,7 @@ namespace MKproject.Schedule
                     Control control = uccalandermonth.tableLayoutPanel1.GetControlFromPosition(j, i);//to get the labels by order
                     if (control is LabelMonth m)
                     {
-                        if (m.Month == ucday.DateUCDay.Month && DateUCMonth.Year == ucday.DateUCDay.Year)
+                        if (m.Month == ucday.SelectedDate.Month && DateUCMonth.Year == ucday.SelectedDate.Year)
                         {
                             m.BackColor = Color.FromArgb(229, 226, 244); //sdawa luc li na2ayne
                             labelmonthcopy = m;
@@ -330,7 +330,7 @@ namespace MKproject.Schedule
                     {
                         y.Year = yearint;//display
                         yearint++;
-                        if (y.Year == ucday.DateUCDay.Year)
+                        if (y.Year == ucday.SelectedDate.Year)
                         {
                             y.BackColor = Color.FromArgb(229, 226, 244); //sdawa luc li na2ayne
                             labelyearcopy = y;

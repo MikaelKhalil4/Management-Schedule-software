@@ -27,7 +27,7 @@ namespace MKproject.Schedule
             InitializeComponent();
             ParentFormucClientApp = uc;
 
-            labelFullName.Text = ParentFormucClientApp.DesiredAppointment.DesiredClient.Fname + " " + ParentFormucClientApp.DesiredAppointment.DesiredClient.Lname;
+            labelFullName.Text = ParentFormucClientApp.DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + ParentFormucClientApp.DesiredAppointmentUCClientApp.DesiredClient.Lname;
             SetUCSlidebutton();
             if (ParentFormucClientApp.PackageRemainingsDt.Rows.Count == 0)
             {

@@ -109,6 +109,7 @@ namespace MKproject
             DesiredFormToOpen.Tag = ParentFormHome;
             ParentFormHome.panelContainer.Controls.Add(DesiredFormToOpen);
             DesiredFormToOpen.Show();
+            DesiredFormToOpen.Focus();//ejbariye kermel el datatgridview el toooltip teb2a meshye
 
         }
 

@@ -281,7 +281,7 @@ namespace MKproject.Management
         private void dataGridViewClients_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)//ejbare hone estaamil this methode, lieanno mb3rf exactly leh bas iguess  men warar el visibility
         {
 
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewClients.Rows.Count && e.ColumnIndex < dataGridViewClients.Columns.Count)
             {
                 //textdisplay
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))

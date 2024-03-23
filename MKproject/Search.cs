@@ -79,7 +79,7 @@ namespace MKproject
         }
         private void dataGridViewMembers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewMembers.Rows.Count && e.ColumnIndex < dataGridViewMembers.Columns.Count)
             {
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {

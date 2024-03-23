@@ -56,13 +56,10 @@ namespace MKproject.Management
         {
 
             DataGridViewCell cell = dataGridViewFieldsNew.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Exclude header cells
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewFieldsNew.Rows.Count && e.ColumnIndex < dataGridViewFieldsNew.Columns.Count) // Exclude header cells
             {
                 cell.Style.SelectionBackColor = cell.Style.BackColor;
-            }
 
-            if (e.RowIndex >= 0) // Assuming "balance" is the name of your balance column
-            {
                 if (e.ColumnIndex == dataGridViewFieldsNew.Columns["Visible"].Index)
                 {
                     DataGridViewCell CellToModifie = dataGridViewFieldsNew.Rows[e.RowIndex].Cells["Required"];
@@ -259,7 +256,7 @@ namespace MKproject.Management
             }
 
             dataGridViewFieldsNew.Columns["design_index"].Visible = false;
-            dataGridViewFieldsNew.Columns["ID"].Visible = false;
+            dataGridViewFieldsNew.Columns["fields_id"].Visible = false;
             dataGridViewFieldsNew.Columns["Fields"].Visible = false;
             dataGridViewFieldsNew.Columns["Required"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewFieldsNew.Columns["Visible"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -274,7 +271,7 @@ namespace MKproject.Management
 
             foreach (DataGridViewRow row in dataGridViewFieldsNew.Rows)
             {
-                ProjectToSQL.UpdateField((bool)row.Cells["Visible"].Value, (bool)row.Cells["Required"].Value,(int)row.Cells["ID"].Value);
+                ProjectToSQL.UpdateField((bool)row.Cells["Visible"].Value, (bool)row.Cells["Required"].Value, (int)row.Cells["fields_id"].Value);
             }
 
 
@@ -311,18 +308,18 @@ namespace MKproject.Management
             }
         }
 
-      
 
 
 
 
 
-   
+
+
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-      
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Opacity == 1)
@@ -339,7 +336,7 @@ namespace MKproject.Management
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;
             }
-            
+
         }
 
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)

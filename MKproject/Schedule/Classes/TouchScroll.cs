@@ -134,13 +134,13 @@ namespace MKproject.Schedule
                 else if (control is UCappointment)
                 {
                     UCappointment ucappointments = (UCappointment)control;
-                    if (ucappointments.tableLayoutPanel2.BackColor == ucday.DisableColorTBUca)
+                    if (ucappointments.TLPGlobal.BackColor == ucday.DisableColorTBUca)
                     {
 
                     }
                     else
                     {
-                        ucappointments.tableLayoutPanel2.BackColor = ucday.StaticColorTBUca;
+                        ucappointments.TLPGlobal.BackColor = ucday.StaticColorTBUca;
                     }
 
                 }

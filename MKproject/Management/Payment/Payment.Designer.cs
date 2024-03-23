@@ -35,7 +35,7 @@ namespace MKproject.Management
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             TLPForm = new System.Windows.Forms.TableLayoutPanel();
-            dataGridViewBalance = new System.Windows.Forms.DataGridView();
+            dataGridViewBalance = new CustomDataGridView();
             TLPEditInfo = new System.Windows.Forms.TableLayoutPanel();
             labelPaymentSession = new System.Windows.Forms.Label();
             TLPBalance = new System.Windows.Forms.TableLayoutPanel();
@@ -73,7 +73,7 @@ namespace MKproject.Management
             TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.77778F));
             TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.95413F));
             TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            TLPForm.Size = new System.Drawing.Size(1003, 553);
+            TLPForm.Size = new System.Drawing.Size(747, 435);
             TLPForm.TabIndex = 5;
             // 
             // dataGridViewBalance
@@ -105,13 +105,16 @@ namespace MKproject.Management
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             dataGridViewBalance.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             dataGridViewBalance.EnableHeadersVisualStyles = false;
-            dataGridViewBalance.Location = new System.Drawing.Point(12, 277);
+            dataGridViewBalance.IsCustomScroll = true;
+            dataGridViewBalance.IsRowColorChangeonMouseMove = true;
+            dataGridViewBalance.IsSelectRow = false;
+            dataGridViewBalance.Location = new System.Drawing.Point(12, 213);
             dataGridViewBalance.Margin = new System.Windows.Forms.Padding(12, 0, 12, 3);
             dataGridViewBalance.Name = "dataGridViewBalance";
             dataGridViewBalance.ReadOnly = true;
@@ -123,24 +126,23 @@ namespace MKproject.Management
             dataGridViewBalance.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             dataGridViewBalance.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             dataGridViewBalance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            dataGridViewBalance.Size = new System.Drawing.Size(979, 224);
+            dataGridViewBalance.Size = new System.Drawing.Size(723, 171);
             dataGridViewBalance.TabIndex = 24;
             dataGridViewBalance.CellFormatting += dataGridViewBalance_CellFormatting;
             // 
             // TLPEditInfo
             // 
+            TLPEditInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             TLPEditInfo.BackColor = System.Drawing.Color.White;
             TLPEditInfo.ColumnCount = 1;
             TLPEditInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPEditInfo.Controls.Add(labelPaymentSession, 0, 0);
-            TLPEditInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            TLPEditInfo.Location = new System.Drawing.Point(559, 114);
-            TLPEditInfo.Margin = new System.Windows.Forms.Padding(58, 58, 58, 23);
+            TLPEditInfo.Location = new System.Drawing.Point(414, 74);
             TLPEditInfo.Name = "TLPEditInfo";
             TLPEditInfo.RowCount = 2;
             TLPEditInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.57895F));
             TLPEditInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.42105F));
-            TLPEditInfo.Size = new System.Drawing.Size(386, 140);
+            TLPEditInfo.Size = new System.Drawing.Size(291, 107);
             TLPEditInfo.TabIndex = 23;
             // 
             // labelPaymentSession
@@ -148,7 +150,7 @@ namespace MKproject.Management
             labelPaymentSession.Anchor = System.Windows.Forms.AnchorStyles.None;
             labelPaymentSession.AutoSize = true;
             labelPaymentSession.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelPaymentSession.Location = new System.Drawing.Point(119, 9);
+            labelPaymentSession.Location = new System.Drawing.Point(71, 4);
             labelPaymentSession.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelPaymentSession.Name = "labelPaymentSession";
             labelPaymentSession.Size = new System.Drawing.Size(148, 25);
@@ -158,19 +160,18 @@ namespace MKproject.Management
             // 
             // TLPBalance
             // 
+            TLPBalance.Anchor = System.Windows.Forms.AnchorStyles.None;
             TLPBalance.BackColor = System.Drawing.Color.White;
             TLPBalance.ColumnCount = 1;
             TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPBalance.Controls.Add(UCBalance, 0, 1);
             TLPBalance.Controls.Add(labelBalance, 0, 0);
-            TLPBalance.Dock = System.Windows.Forms.DockStyle.Fill;
-            TLPBalance.Location = new System.Drawing.Point(58, 114);
-            TLPBalance.Margin = new System.Windows.Forms.Padding(58, 58, 58, 23);
+            TLPBalance.Location = new System.Drawing.Point(41, 74);
             TLPBalance.Name = "TLPBalance";
             TLPBalance.RowCount = 2;
             TLPBalance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.52632F));
             TLPBalance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 69.47369F));
-            TLPBalance.Size = new System.Drawing.Size(385, 140);
+            TLPBalance.Size = new System.Drawing.Size(291, 107);
             TLPBalance.TabIndex = 22;
             // 
             // UCBalance
@@ -179,11 +180,11 @@ namespace MKproject.Management
             UCBalance.BackColor = System.Drawing.Color.White;
             UCBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             UCBalance.EditModeOn = false;
-            UCBalance.Location = new System.Drawing.Point(5, 45);
+            UCBalance.Location = new System.Drawing.Point(5, 35);
             UCBalance.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             UCBalance.Name = "UCBalance";
             UCBalance.Sign = "-";
-            UCBalance.Size = new System.Drawing.Size(375, 92);
+            UCBalance.Size = new System.Drawing.Size(281, 69);
             UCBalance.TabIndex = 1;
             // 
             // labelBalance
@@ -191,7 +192,7 @@ namespace MKproject.Management
             labelBalance.Anchor = System.Windows.Forms.AnchorStyles.None;
             labelBalance.AutoSize = true;
             labelBalance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelBalance.Location = new System.Drawing.Point(152, 8);
+            labelBalance.Location = new System.Drawing.Point(105, 3);
             labelBalance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelBalance.Name = "labelBalance";
             labelBalance.Size = new System.Drawing.Size(80, 25);
@@ -207,10 +208,10 @@ namespace MKproject.Management
             ucSlideButtonPayOrEdit.Button2text = null;
             ucSlideButtonPayOrEdit.ClickedButton = null;
             TLPForm.SetColumnSpan(ucSlideButtonPayOrEdit, 2);
-            ucSlideButtonPayOrEdit.Location = new System.Drawing.Point(367, 5);
+            ucSlideButtonPayOrEdit.Location = new System.Drawing.Point(239, 3);
             ucSlideButtonPayOrEdit.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             ucSlideButtonPayOrEdit.Name = "ucSlideButtonPayOrEdit";
-            ucSlideButtonPayOrEdit.Size = new System.Drawing.Size(268, 46);
+            ucSlideButtonPayOrEdit.Size = new System.Drawing.Size(268, 37);
             ucSlideButtonPayOrEdit.TabIndex = 25;
             // 
             // flowLayoutPanel1
@@ -220,10 +221,10 @@ namespace MKproject.Management
             flowLayoutPanel1.Controls.Add(buttonCancel);
             flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new System.Drawing.Point(4, 507);
+            flowLayoutPanel1.Location = new System.Drawing.Point(4, 390);
             flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(995, 43);
+            flowLayoutPanel1.Size = new System.Drawing.Size(739, 42);
             flowLayoutPanel1.TabIndex = 26;
             // 
             // buttonUpdateOrPay
@@ -236,7 +237,7 @@ namespace MKproject.Management
             buttonUpdateOrPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonUpdateOrPay.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonUpdateOrPay.ForeColor = System.Drawing.Color.White;
-            buttonUpdateOrPay.Location = new System.Drawing.Point(887, 4);
+            buttonUpdateOrPay.Location = new System.Drawing.Point(631, 4);
             buttonUpdateOrPay.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             buttonUpdateOrPay.Name = "buttonUpdateOrPay";
             buttonUpdateOrPay.Size = new System.Drawing.Size(108, 33);
@@ -255,7 +256,7 @@ namespace MKproject.Management
             buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCancel.ForeColor = System.Drawing.Color.White;
-            buttonCancel.Location = new System.Drawing.Point(771, 3);
+            buttonCancel.Location = new System.Drawing.Point(515, 3);
             buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 8, 3);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new System.Drawing.Size(108, 33);
@@ -274,7 +275,7 @@ namespace MKproject.Management
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1003, 553);
+            ClientSize = new System.Drawing.Size(747, 435);
             Controls.Add(TLPForm);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -284,6 +285,7 @@ namespace MKproject.Management
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Payment";
             FormClosing += Payment_FormClosing;
+            Load += Payment_Load;
             TLPForm.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewBalance).EndInit();
             TLPEditInfo.ResumeLayout(false);
@@ -297,7 +299,7 @@ namespace MKproject.Management
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel TLPForm;
-        private System.Windows.Forms.DataGridView dataGridViewBalance;
+        private CustomDataGridView dataGridViewBalance;
         private System.Windows.Forms.TableLayoutPanel TLPEditInfo;
         private System.Windows.Forms.Label labelPaymentSession;
         private System.Windows.Forms.TableLayoutPanel TLPBalance;

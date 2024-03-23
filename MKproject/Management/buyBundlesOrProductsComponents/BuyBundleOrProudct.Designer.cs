@@ -28,99 +28,102 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.TLPExercises = new System.Windows.Forms.TableLayoutPanel();
-            this.FLPSelectedItems = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonBuy = new System.Windows.Forms.Button();
-            this.UCItemCost = new MKproject.Management.UCPayments();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.TLPExercises.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            TLPExercises = new System.Windows.Forms.TableLayoutPanel();
+            FLPSelectedItems = new System.Windows.Forms.FlowLayoutPanel();
+            UCItemCost = new UCPayments();
+            buttonBuy = new System.Windows.Forms.Button();
+            timer1 = new System.Windows.Forms.Timer(components);
+            TLPExercises.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPExercises
             // 
-            this.TLPExercises.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPExercises.ColumnCount = 1;
-            this.TLPExercises.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPExercises.Controls.Add(this.FLPSelectedItems, 0, 1);
-            this.TLPExercises.Controls.Add(this.UCItemCost, 0, 0);
-            this.TLPExercises.Controls.Add(this.buttonBuy, 0, 3);
-            this.TLPExercises.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPExercises.Location = new System.Drawing.Point(0, 0);
-            this.TLPExercises.Name = "TLPExercises";
-            this.TLPExercises.RowCount = 4;
-            this.TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.52632F));
-            this.TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.80702F));
-            this.TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.70176F));
-            this.TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.74561F));
-            this.TLPExercises.Size = new System.Drawing.Size(584, 456);
-            this.TLPExercises.TabIndex = 739;
+            TLPExercises.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            TLPExercises.ColumnCount = 1;
+            TLPExercises.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPExercises.Controls.Add(FLPSelectedItems, 0, 1);
+            TLPExercises.Controls.Add(UCItemCost, 0, 0);
+            TLPExercises.Controls.Add(buttonBuy, 0, 3);
+            TLPExercises.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPExercises.Location = new System.Drawing.Point(0, 0);
+            TLPExercises.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TLPExercises.Name = "TLPExercises";
+            TLPExercises.RowCount = 4;
+            TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.52632F));
+            TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.80702F));
+            TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.70176F));
+            TLPExercises.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.74561F));
+            TLPExercises.Size = new System.Drawing.Size(544, 508);
+            TLPExercises.TabIndex = 739;
             // 
             // FLPSelectedItems
             // 
-            this.FLPSelectedItems.AutoScroll = true;
-            this.FLPSelectedItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FLPSelectedItems.Location = new System.Drawing.Point(3, 51);
-            this.FLPSelectedItems.Name = "FLPSelectedItems";
-            this.FLPSelectedItems.Size = new System.Drawing.Size(578, 98);
-            this.FLPSelectedItems.TabIndex = 737;
-            this.FLPSelectedItems.WrapContents = false;
-            // 
-            // buttonBuy
-            // 
-            this.buttonBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBuy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonBuy.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonBuy.FlatAppearance.BorderSize = 0;
-            this.buttonBuy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(112)))), ((int)(((byte)(214)))));
-            this.buttonBuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBuy.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonBuy.ForeColor = System.Drawing.Color.White;
-            this.buttonBuy.Location = new System.Drawing.Point(488, 419);
-            this.buttonBuy.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
-            this.buttonBuy.Name = "buttonBuy";
-            this.buttonBuy.Size = new System.Drawing.Size(93, 29);
-            this.buttonBuy.TabIndex = 732;
-            this.buttonBuy.Text = "Purchase";
-            this.buttonBuy.UseVisualStyleBackColor = false;
-            this.buttonBuy.Click += new System.EventHandler(this.buttonBuy_Click);
+            FLPSelectedItems.AutoScroll = true;
+            FLPSelectedItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            FLPSelectedItems.Location = new System.Drawing.Point(4, 56);
+            FLPSelectedItems.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            FLPSelectedItems.Name = "FLPSelectedItems";
+            FLPSelectedItems.Size = new System.Drawing.Size(536, 110);
+            FLPSelectedItems.TabIndex = 737;
+            FLPSelectedItems.WrapContents = false;
             // 
             // UCItemCost
             // 
-            this.UCItemCost.Amount = 0D;
-            this.UCItemCost.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.UCItemCost.BackColor = System.Drawing.Color.Transparent;
-            this.UCItemCost.EditModeOn = false;
-            this.UCItemCost.Location = new System.Drawing.Point(136, 3);
-            this.UCItemCost.Name = "UCItemCost";
-            this.UCItemCost.Sign = "+";
-            this.UCItemCost.Size = new System.Drawing.Size(311, 41);
-            this.UCItemCost.TabIndex = 739;
+            UCItemCost.Amount = 0D;
+            UCItemCost.Anchor = System.Windows.Forms.AnchorStyles.None;
+            UCItemCost.BackColor = System.Drawing.Color.Transparent;
+            UCItemCost.EditModeOn = false;
+            UCItemCost.Location = new System.Drawing.Point(90, 3);
+            UCItemCost.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            UCItemCost.Name = "UCItemCost";
+            UCItemCost.Sign = "+";
+            UCItemCost.Size = new System.Drawing.Size(363, 47);
+            UCItemCost.TabIndex = 739;
+            // 
+            // buttonBuy
+            // 
+            buttonBuy.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            buttonBuy.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonBuy.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonBuy.FlatAppearance.BorderSize = 0;
+            buttonBuy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(100, 112, 214);
+            buttonBuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonBuy.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonBuy.ForeColor = System.Drawing.Color.White;
+            buttonBuy.Location = new System.Drawing.Point(432, 466);
+            buttonBuy.Margin = new System.Windows.Forms.Padding(4, 9, 4, 9);
+            buttonBuy.Name = "buttonBuy";
+            buttonBuy.Size = new System.Drawing.Size(108, 33);
+            buttonBuy.TabIndex = 732;
+            buttonBuy.Text = "Purchase";
+            buttonBuy.UseVisualStyleBackColor = false;
+            buttonBuy.Click += buttonBuy_Click;
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
             // 
             // BuyBundleOrProudct
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(584, 456);
-            this.Controls.Add(this.TLPExercises);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "BuyBundleOrProudct";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BuyServiceOrProudct";
-            this.Deactivate += new System.EventHandler(this.BuyBundleOrProudct_Deactivate);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BuyBundleOrProudct_FormClosing);
-            this.TLPExercises.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.White;
+            ClientSize = new System.Drawing.Size(544, 508);
+            Controls.Add(TLPExercises);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "BuyBundleOrProudct";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "BuyServiceOrProudct";
+            Deactivate += BuyBundleOrProudct_Deactivate;
+            FormClosing += BuyBundleOrProudct_FormClosing;
+            TLPExercises.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

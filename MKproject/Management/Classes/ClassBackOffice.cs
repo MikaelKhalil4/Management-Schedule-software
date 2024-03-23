@@ -1,13 +1,16 @@
 ﻿using GlobalFunctions;
+using Microsoft.VisualBasic;
+using MKproject.Schedule;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using static MKproject.Management.ClassBundles;
 
 
 
 namespace MKproject.Management
-{ 
+{
     public enum ActionsEnum
     {
         [StringValue("Purchases")]
@@ -36,36 +39,36 @@ namespace MKproject.Management
         public string ActionDetails { get; set; }
         public ActionsEnum ActionType { get; set; }
         public int EmployeeID { get; set; }
-        public int? IdClientBalance { get; set; }//exist only when type is payments and purchase
+        public int? ClientBalanceId { get; set; }//exist only when type is payments and purchase
         public double? AmountPaid { get; set; }//exist only when type is payments
         public int? AttendanceId { get; set; }//exist only when type is SessionDone
+        public int? AppointmentId { get; set; }//exist only when type is sessionDone From schedule
         public bool? IsMoneyOrSessionOffre { get; set; }
 
         public string BalanceOrSessionOffre { get; set; }//fiya tkun session aw Balance has IsBundleOrSessionOffre: format: from/to  100/50   
 
         public DateTime Date { get; set; }
 
-        public ClassBackOffice(int clientID, string actionDetails, ActionsEnum actionType, int employeeID, int idClientBalance, double? amountPaid, int? structId, bool? isMoneyOrSessionOffre, string Offre, DateTime date)
+        public ClassBackOffice(int clientID, ActionsEnum actionType, int employeeID, int idClientBalance, double? amountPaid, int? attendanceId, int? appointmentId, bool? isMoneyOrSessionOffre, string Offre, DateTime date)
         {
             ClientID = clientID;
-            ActionDetails = actionDetails;
             ActionType = actionType;
             EmployeeID = employeeID;
-            IdClientBalance = idClientBalance;
+            ClientBalanceId = idClientBalance;
             AmountPaid = amountPaid;
-            AttendanceId = structId;
+            AttendanceId = attendanceId;
+            AppointmentId = appointmentId;
             IsMoneyOrSessionOffre = isMoneyOrSessionOffre;
             BalanceOrSessionOffre = Offre;
             Date = date;
-
         }
-       
+
 
         public void InsertToArchiveSQL()
         {
-            string query = @"INSERT INTO archive (client_id,action,action_type,employee_id,date,attendance_id,id_client_balance,amount_paid,is_moneyOrsession_offre,previousBalanceOrSession_Offre,Currency_Name) 
+            string query = @"INSERT INTO archive (client_id,action,action_type,employee_id,date,attendance_id,appointment_id,client_balance_id,amount_paid,is_moneyOrsession_offre,previousBalanceOrSession_Offre,Currency_Name) 
                                                                 VALUES
-                                                (@client_id,@action,@action_type,@employee_id,@date,@attendance_id,@id_client_balance,@amount_paid,@is_moneyOrsession_offre,@previousBalanceOrSession_Offre,@Currency_Name)";
+                                                (@client_id,@action,@action_type,@employee_id,@date,@attendance_id,@appointment_id,@client_balance_id,@amount_paid,@is_moneyOrsession_offre,@previousBalanceOrSession_Offre,@Currency_Name)";
 
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
@@ -73,13 +76,13 @@ namespace MKproject.Management
             cmd.Parameters.AddWithValue("@action_type", ActionType.ToString());
             cmd.Parameters.AddWithValue("@employee_id", EmployeeID);
 
-            if (IdClientBalance != null)
+            if (ClientBalanceId != null)
             {
-                cmd.Parameters.AddWithValue("@id_client_balance", IdClientBalance);
+                cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             }
             else
             {
-                cmd.Parameters.AddWithValue("@id_client_balance", DBNull.Value);
+                cmd.Parameters.AddWithValue("@client_balance_id", DBNull.Value);
             }
 
 
@@ -100,6 +103,13 @@ namespace MKproject.Management
                 cmd.Parameters.AddWithValue("@attendance_id", AttendanceId);
             else
                 cmd.Parameters.AddWithValue("@attendance_id", DBNull.Value);
+
+
+            if (AppointmentId != null)
+                cmd.Parameters.AddWithValue("@appointment_id", AppointmentId);
+            else
+                cmd.Parameters.AddWithValue("@appointment_id", DBNull.Value);
+
 
             if (IsMoneyOrSessionOffre != null)
             {
@@ -123,21 +133,21 @@ namespace MKproject.Management
         {
             SqlCommand cmd;
             string query = @"SELECT ar.archive_id,ar.client_id ,ar.action as [Activity History], ar.action_type,ar.employee_id ,ar.date ,
-                           ar.attendance_id,ar.id_client_balance,ar.amount_paid,ar.is_moneyOrsession_offre,ar.previousBalanceOrSession_Offre , 
+                           ar.attendance_id,ar.client_balance_id, ar.appointment_id,ar.amount_paid,ar.is_moneyOrsession_offre,ar.previousBalanceOrSession_Offre , 
                            emp.first_name as EmployeeFN,emp.last_name as EmpoyeeLN,cl.name as ClientFN,family_name as ClientLN,cl.phone_number as ClientPhoneNumber
                           from archive ar JOIN employee emp  
                          ON ar.employee_id=emp.employee_id 
                         JOIN client cl ON ar.client_id=cl.client_id WHERE 1=1 ";
-         
 
-            if ( (bool)IsOneYearORAll)
+
+            if ((bool)IsOneYearORAll)
             {
                 query += " And ar.date >= @StartDate ";
 
             }
             if (ClientBalanceId != null)
             {
-                query += " And ar.id_client_balance=@id_client_balance ";
+                query += " And ar.client_balance_id=@client_balance_id ";
             }
             if (ClientID != null)
             {
@@ -147,14 +157,14 @@ namespace MKproject.Management
 
             cmd = new SqlCommand(query, con);
 
-            if ( (bool)IsOneYearORAll)
+            if ((bool)IsOneYearORAll)
             {
                 DateTime startDate = DateTime.Now.AddDays(-365);
                 cmd.Parameters.AddWithValue("@StartDate", startDate);
             }
             if (ClientBalanceId != null)
             {
-                cmd.Parameters.AddWithValue("@id_client_balance", ClientBalanceId);
+                cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             }
             if (ClientID != null)
             {
@@ -167,8 +177,152 @@ namespace MKproject.Management
             return dt;
         }
 
+        public void CreateActionDetails(DataRow DesiredClientBalanceRow)// aa ases view model tkun w nshil ActionDetails men sql w nwaffir a lot of storage,bas bad performance bel view model aa desptop app,But web lvl good eza server awe (men waffir ktir storage)
+        {
+            if (DesiredClientBalanceRow != null)//till now kell archive elun aalea bel client balance, ma32oul tetghayar in the future
+            {
+                //!!!el maaloumet li bi hemmun men el clientBalanceId aam nnjibun mannun latest update since after this opearion bel mother form aam yenaamal new update
+                // bas nehna ma bi hemna gher maaloumet ma byetghayaro bhayetun aa wala update w ma aam notalaa aal values as null or not null ta naari type of package
+                int? bundleId = DesiredClientBalanceRow["bundle_id"] is DBNull ? null : (int)DesiredClientBalanceRow["bundle_id"];
+                int? productId = DesiredClientBalanceRow["product_id"] is DBNull ? null : (int)DesiredClientBalanceRow["product_id"];
+                DateTime? DueDate = DesiredClientBalanceRow["due_date"] is DBNull ? null : (DateTime)DesiredClientBalanceRow["due_date"];
+                int? SessionLeftDays = DesiredClientBalanceRow["session_left_days"] is DBNull ? null : (int)DesiredClientBalanceRow["session_left_days"];
 
-        public static void UndoSoloPurchaseActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int DesiredClientBalanceId, BackOffice backofficeform)
+
+                string BundleName = "";
+                String ProductName = "";
+                string BackOfficeCatName = "";
+                string BackOfficeCatType = "";
+                if (bundleId != null)
+                {
+                    BundleName = ClassBundles.FindBundleName((int)bundleId);
+
+                    BackOfficeCatName = BundleName;
+                    if (SessionLeftDays == null)//solo
+                    {
+                        BackOfficeCatType = "";
+                    }
+                    else
+                    {
+                        BackOfficeCatType = " Package";
+                    }
+                }
+                else
+                {
+                    ProductName = ClassProduct.FindProductName((int)productId);
+                    BackOfficeCatName = ProductName;
+                    BackOfficeCatType = "";
+                }
+
+
+
+                if (ActionType == ActionsEnum.Purchases)
+                {
+
+
+                    if (bundleId != null)
+                    {
+                        ActionDetails = "Purchased the " + BundleName + BackOfficeCatType;
+
+                    }
+                    else
+                    {
+                        ActionDetails = "Purchased " + ProductName;
+                    }
+
+
+
+                }
+                else if (ActionType == ActionsEnum.SoloPurchases)//only Bundles
+                {
+
+
+                    ActionDetails = "Purchased and Completed " + BundleName + BackOfficeCatType;
+
+
+                }
+                else if (ActionType == ActionsEnum.SessionDone)
+                {
+
+
+                    ActionDetails = "Completed a session";
+
+
+                }
+                else if (ActionType == ActionsEnum.Payments)
+                {
+
+
+                    ActionDetails = "Paid " + Currency.Symbol + AmountPaid + " for the " + BackOfficeCatName + BackOfficeCatType;
+
+
+                }
+                else if (ActionType == ActionsEnum.Offers)
+                {
+
+
+                    double FromOffre = Convert.ToDouble(BalanceOrSessionOffre.Split('/')[0]);
+                    double ToOffre = Convert.ToDouble(BalanceOrSessionOffre.Split('/')[1]);
+
+
+                    if ((bool)IsMoneyOrSessionOffre)
+                    {
+                        string Discount = Convert.ToString((ToOffre - FromOffre) * -1);//leh hone aam nehke bundle side, yaane eza zedtello 50 aal balance tabaao, means eemeltello bundle discount 50
+                        if (Discount.Contains('-'))
+                        {
+                            Discount = Discount.Substring(1);
+                            Discount = Currency.Symbol + Discount + " Discount";
+
+                        }
+                        else
+                        {
+                            Discount = Currency.Symbol + Discount + " Addition";
+                        }
+
+
+                        ActionDetails = "Received an offer on the " + BackOfficeCatName + BackOfficeCatType + ": " + Currency.Symbol + Math.Abs(FromOffre) + "->" + Currency.Symbol + Math.Abs(ToOffre) + " (" + Discount + ")";
+
+                    }
+                    else
+                    {
+                        string type;
+                        if (DueDate == null)
+                        {
+                            type = ClassBundles.Session;
+                        }
+                        else
+                        {
+                            type = ClassBundles.Days;
+                        }
+                        ActionDetails = "Received an offer on the " + BackOfficeCatName + BackOfficeCatType + ": " + FromOffre + " " + type + "->" + ToOffre + " " + type;
+
+                    }
+
+                }
+
+
+                if (ActionType != ActionsEnum.Payments && ActionType != ActionsEnum.Offers && productId == null)//only services, w it should be ya purchase ya sessionDone
+                {
+                    if (AppointmentId != null)
+                    {
+                        ActionDetails += " From the schedule.";
+                    }
+                    else
+                    {
+                        ActionDetails += " Manually.";
+                    }
+                }
+                else
+                {
+                    ActionDetails += ".";
+                }
+
+            }
+
+
+        }
+
+        public static void UndoSoloPurchaseActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int DesiredClientBalanceId, int? AppointmentIdReferringToBackoffice, int? BundleIdReferringToBackOffice, BackOffice backofficeform)
         {
 
 
@@ -176,23 +330,26 @@ namespace MKproject.Management
             con.Open();
 
 
-            string queryDeleteStruct = "DELETE client_attendance WHERE attendance_id=@attendance_id";
-            SqlCommand cmdDeleteStruct = new SqlCommand(queryDeleteStruct, con);
-            cmdDeleteStruct.Parameters.AddWithValue("@attendance_id", AttendanceID);
 
-            //update lastvisitsql
+
+            //Delete archive and update lastvisitsql
             DataTable dt1;
             DateTime? NewLastVistDate;
-            (NewLastVistDate, dt1) = UpdateLastVisitSql(ClientId, ArchiveId);
+            (NewLastVistDate, dt1) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
 
-            cmdDeleteStruct.ExecuteNonQuery(); //ejbare tkun tahet delete el archive kermel el fk       
+
+            //ejbare tkun tahet delete el archive kermel el fk 
+            string queryDeleteStruct = "DELETE client_services_attendance WHERE attendance_id=@attendance_id";
+            SqlCommand cmdDeleteStruct = new SqlCommand(queryDeleteStruct, con);
+            cmdDeleteStruct.Parameters.AddWithValue("@attendance_id", AttendanceID);
+            cmdDeleteStruct.ExecuteNonQuery();
             con.Close();
 
 
 
 
             //Sql Purchase Part
-            string querySelect1 = "Select ID,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
+            string querySelect1 = "Select client_balance_id,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
             SqlCommand cmdSelect1 = new SqlCommand(querySelect1, con);
             cmdSelect1.Parameters.AddWithValue("@client_id", ClientId);
             SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect1);
@@ -200,7 +357,7 @@ namespace MKproject.Management
             sda1.Fill(dtClientBalanceOriginal);
 
             //we re tracking el bundle li aam naamello undo now
-            dtClientBalanceOriginal.PrimaryKey = new DataColumn[] { dtClientBalanceOriginal.Columns["ID"] };
+            dtClientBalanceOriginal.PrimaryKey = new DataColumn[] { dtClientBalanceOriginal.Columns["client_balance_id"] };
             DataRow DesiredRow = dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
 
             DateTime? MembershipDate;
@@ -212,7 +369,7 @@ namespace MKproject.Management
             double TotalPayment = 0;
             foreach (DataRow row in dtClientBalanceOriginal.Rows)
             {
-                if ((int)row["ID"] != DesiredClientBalanceId)
+                if ((int)row["client_balance_id"] != DesiredClientBalanceId)
                 {
                     TotalBalanceAmount += Convert.ToDouble(row["balance"]);
                     TotalPayment += (double)row["amount_paid"];
@@ -223,26 +380,22 @@ namespace MKproject.Management
             ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount);
 
 
-            string queryDelete = "DELETE client_balance WHERE ID=@ID";
-            SqlCommand cmdDelete = new SqlCommand(queryDelete, con);
-            cmdDelete.Parameters.AddWithValue("@ID", DesiredClientBalanceId);
-            con.Open();
-            cmdDelete.ExecuteNonQuery();
-            con.Close();
+
+            ClassClientBalance.DeleteClientBalance(DesiredClientBalanceId);
 
 
-
-
-
+            if (AppointmentIdReferringToBackoffice != null && BundleIdReferringToBackOffice!=null)
+            {
+                UndoSoloPurchaseActionsSQLScheduleRelated((int)AppointmentIdReferringToBackoffice,(int)BundleIdReferringToBackOffice);
+            }
             //Design wise
             if (backofficeform != null)
             {
                 //Datagridview 
 
-              
 
                 //datagridbalance bel profile 
-           
+
                 DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
                 rowToEdit.Delete();
                 backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.AcceptChanges();
@@ -279,10 +432,27 @@ namespace MKproject.Management
 
             }
         }
+        public static void UndoSoloPurchaseActionsSQLScheduleRelated(int AppointmentId, int BundleId)
+        {
+            DataTable RelatedSoloBundles = ClassAppointment.GetRelatedSoloBundles(AppointmentId);
+            if (RelatedSoloBundles.Rows.Count == 1)
+            {
+                ClassAppointment classAppointment = (new ClassAppointment());
+                classAppointment.AppointmentID = AppointmentId;
+                classAppointment.IsCompleted = false;
+                classAppointment.UndoCompletionAppointment();//in this function UndoCompletionAppointment kell shi elo aalea bel archive ma elo aaze since eemelna undo bel backoffice abel ma nfout aa hal function
+            }
+            else if (RelatedSoloBundles.Rows.Count > 1)
+            {
+                ClassAppointment.DeleteRelatedSoloBundle(AppointmentId, BundleId);
+            }
+            //it can be 0 eza ken package mesh Solo Service 
+        }
+
         public static void UndoPurchaseActionsSQL(int ClientId, int DesiredClientBalanceId, BackOffice backofficeform)
         {
 
-            string querySelect1 = "Select ID,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
+            string querySelect1 = "Select client_balance_id,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
             SqlCommand cmdSelect1 = new SqlCommand(querySelect1, con);
             cmdSelect1.Parameters.AddWithValue("@client_id", ClientId);
             SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect1);
@@ -290,7 +460,7 @@ namespace MKproject.Management
             sda1.Fill(dtClientBalanceOriginal);
 
             //we re tracking el bundle li aam naamello undo now
-            dtClientBalanceOriginal.PrimaryKey = new DataColumn[] { dtClientBalanceOriginal.Columns["ID"] };
+            dtClientBalanceOriginal.PrimaryKey = new DataColumn[] { dtClientBalanceOriginal.Columns["client_balance_id"] };
             DataRow DesiredRow = dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             bool IsBundleOrProduct;
             int? BundleIDDesiredRow;
@@ -319,7 +489,7 @@ namespace MKproject.Management
             int totalsessionLeft = 0;
             foreach (DataRow row in dtClientBalanceOriginal.Rows)
             {
-                if ((int)row["ID"] != DesiredClientBalanceId)
+                if ((int)row["client_balance_id"] != DesiredClientBalanceId)
                 {
                     TotalBalanceAmount += Convert.ToDouble(row["balance"]);
                     TotalPayment += (double)row["amount_paid"];
@@ -334,23 +504,17 @@ namespace MKproject.Management
             ClassClient.UpdateClientTotalPaymentSQL(ClientId, TotalPayment);
             ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount);
 
-            
 
 
+            ClassClientBalance.DeleteClientBalance(DesiredClientBalanceId);
 
-            string queryDelete = "DELETE client_balance WHERE ID=@ID";
-            SqlCommand cmdDelete = new SqlCommand(queryDelete, con);
-            cmdDelete.Parameters.AddWithValue("@ID", DesiredClientBalanceId);
-            con.Open();
-            cmdDelete.ExecuteNonQuery();
-            con.Close();
 
 
 
             //Design wise 
             if (backofficeform != null)
             {
-               
+
 
                 //datagridBalance bel profile 
                 DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
@@ -392,22 +556,25 @@ namespace MKproject.Management
             NewAmountPaid -= AmountPaid;
             NewBalance -= AmountPaid;
 
-            string queryUpdateBalance = "UPDATE client_balance SET amount_paid=@amount_paid,balance=@balance,is_expired='false' WHERE  ID=@ID";
+            con.Open();
+
+            string queryUpdateBalance = "UPDATE client_balance SET amount_paid=@amount_paid,balance=@balance,is_expired='false' WHERE  client_balance_id=@client_balance_id";
             SqlCommand cmdUpdateBalance = new SqlCommand(queryUpdateBalance, con);
-            cmdUpdateBalance.Parameters.AddWithValue("@ID", ClientBalanceId);
+            cmdUpdateBalance.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             cmdUpdateBalance.Parameters.AddWithValue("@amount_paid", NewAmountPaid);
             cmdUpdateBalance.Parameters.AddWithValue("@balance", NewBalance);
+            cmdUpdateBalance.ExecuteNonQuery();
 
-            string queryDeleteIncome = "DELETE finance WHERE id_client_balance=@id_client_balance AND payment_date=@payment_date";
+            string queryDeleteIncome = "DELETE finance WHERE client_balance_id=@client_balance_id AND payment_date=@payment_date";
             SqlCommand cmdDeleteIncome = new SqlCommand(queryDeleteIncome, con);
-            cmdDeleteIncome.Parameters.AddWithValue("@id_client_balance", ClientBalanceId);
+            cmdDeleteIncome.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             cmdDeleteIncome.Parameters.AddWithValue("@payment_date", ArchiveDate);//we can do this, lieanno ana bel code eemela enno both yekhdome same datetime
-
+            cmdDeleteIncome.ExecuteNonQuery();
 
             string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
             SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
             cmdDeleteArchive.Parameters.AddWithValue("@archive_id", ArchiveId);
-
+            cmdDeleteArchive.ExecuteNonQuery();
 
 
             string queryUpdateClient = "UPDATE client SET total_payment-=@total_payment,total_balance-=@total_balance WHERE client_id=@client_id";
@@ -415,14 +582,10 @@ namespace MKproject.Management
             cmdUpdateClient.Parameters.AddWithValue("@client_id", ClientID);
             cmdUpdateClient.Parameters.AddWithValue("@total_payment", AmountPaid);
             cmdUpdateClient.Parameters.AddWithValue("@total_balance", AmountPaid);
-
-
-            con.Open();
-            cmdUpdateBalance.ExecuteNonQuery();
-            cmdDeleteArchive.ExecuteNonQuery();
-            cmdDeleteIncome.ExecuteNonQuery();
             cmdUpdateClient.ExecuteNonQuery();
+
             con.Close();
+
 
             if (backofficeform != null)
             {
@@ -439,7 +602,7 @@ namespace MKproject.Management
                     backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"] = false;
                 }
                 //updating original datatbalance
-                DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(backofficeform.DesiredBalanceRowsdt.Rows[0]["ID"]);
+                DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(backofficeform.DesiredBalanceRowsdt.Rows[0]["client_balance_id"]);
                 rowToEdit["balance"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"];
                 rowToEdit["amount_paid"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"];
                 if (IsExpired)
@@ -463,7 +626,7 @@ namespace MKproject.Management
                         backofficeform.ParentFormClientManagem.UpdateIsInDebteToUCBundle(ClientBalanceId, true);
                     }
                 }
-               
+
 
                 backofficeform.ParentFormClientManagem.FormatDatagridviewDesign();
                 //
@@ -471,16 +634,16 @@ namespace MKproject.Management
                 backofficeform.ParentFormClientManagem.CalculatingClientHistory(false);
             }
         }
-        public static void UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, BackOffice backofficeform)
+        public static void UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, int? AppointmentIdReferringToBackoffice, BackOffice backofficeform)
         {
             //SQL
             con.Open();
             SqlCommand cmdUpdateSession = null;
             if (!IsDeletingTheBundle)//cz ha aam naayetla marten yaa nehna w aam nmahe bundle ya aade, so to optimise
             {
-                string queryUpdateSession = "UPDATE client_balance SET session_left_days+=@session_left_days,is_expired='false' WHERE  ID=@ID";
+                string queryUpdateSession = "UPDATE client_balance SET session_left_days+=@session_left_days,is_expired='false' WHERE  client_balance_id=@client_balance_id";
                 cmdUpdateSession = new SqlCommand(queryUpdateSession, con);
-                cmdUpdateSession.Parameters.AddWithValue("@ID", ClientBalanceId);
+                cmdUpdateSession.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
                 cmdUpdateSession.Parameters.AddWithValue("session_left_days", 1);
 
 
@@ -488,7 +651,7 @@ namespace MKproject.Management
 
 
 
-            string queryDeleteStruct = "DELETE client_attendance WHERE attendance_id=@attendance_id";
+            string queryDeleteStruct = "DELETE client_services_attendance WHERE attendance_id=@attendance_id";
             SqlCommand cmdDeleteStruct = new SqlCommand(queryDeleteStruct, con);
             cmdDeleteStruct.Parameters.AddWithValue("@attendance_id", AttendanceID);
 
@@ -496,7 +659,7 @@ namespace MKproject.Management
             //update lastvisit
             DataTable dt1;
             DateTime? NewLastVistDate;
-            (NewLastVistDate, dt1) = UpdateLastVisitSql(ClientId, ArchiveId);
+            (NewLastVistDate, dt1) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
 
 
 
@@ -507,7 +670,13 @@ namespace MKproject.Management
             cmdDeleteStruct.ExecuteNonQuery(); //ejbare tkun tahet delete el archive kermel el fk       
             con.Close();
 
-
+            if (AppointmentIdReferringToBackoffice != null)
+            {
+                ClassAppointment classAppointment = new ClassAppointment();
+                classAppointment.AppointmentID = (int)AppointmentIdReferringToBackoffice;
+                classAppointment.IsCompleted = false;
+                classAppointment.SetOrResetIsCompleted();
+            }
 
 
             //Design wise
@@ -518,7 +687,7 @@ namespace MKproject.Management
                 if (!IsDeletingTheBundle)//lieannoo eza aam mahe bundle metel ma huwwe el uc bundle w el rows ha yenmeho kellun already
                 {
                     //Datagridview 
-                    int ClientBalanceID = Convert.ToInt16(backofficeform.DesiredBalanceRowsdt.Rows[0]["ID"]);
+                    int ClientBalanceID = Convert.ToInt16(backofficeform.DesiredBalanceRowsdt.Rows[0]["client_balance_id"]);
                     int NoOfSessions = Convert.ToInt16(backofficeform.DesiredBalanceRowsdt.Rows[0]["session_left_days"]) + 1;
                     bool IsExpired = (bool)backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];
 
@@ -571,10 +740,10 @@ namespace MKproject.Management
         public static bool UndoOffresSQL(int ClientID, int ArchiveId, int ClientBalanceId, bool IsMoneyOrsession, string BalanceOrSession_Offre, BackOffice backofficeform)
         {
 
-            string QuerySelect = "Select  MAX(archive_id) from archive Where client_id=@client_id and id_client_balance=@id_client_balance";
+            string QuerySelect = "Select  MAX(archive_id) from archive Where client_id=@client_id and client_balance_id=@client_balance_id";
             SqlCommand cmdSelect = new SqlCommand(QuerySelect, con);
             cmdSelect.Parameters.AddWithValue("@client_id", ClientID);
-            cmdSelect.Parameters.AddWithValue("@id_client_balance", ClientBalanceId);
+            cmdSelect.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect);
             DataTable dt1 = new DataTable();
             sda1.Fill(dt1);
@@ -634,7 +803,7 @@ namespace MKproject.Management
             backofficeform.ParentFormClientManagem.UCLastVisit.Detail = StringNewLastVisitDate;
             backofficeform.ParentFormClientManagem.Client.LastVisit = NewLastVistDate;
         }
-        static (DateTime?, DataTable) UpdateLastVisitSql(int ClientId, int ArchiveId)
+        static (DateTime?, DataTable) DeleteTheArchiveAndUpdateLastVisitSql(int ClientId, int ArchiveId)
         {
             string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
             SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
@@ -697,7 +866,7 @@ namespace MKproject.Management
             {
 
 
-                DataRow[] filteredRows = dtClientBalanceOriginal.Select("client_id = " + ClientId + " AND bundle_id IS NOT NULL AND ID <>" + DesiredClientBalanceId + "");
+                DataRow[] filteredRows = dtClientBalanceOriginal.Select("client_id = " + ClientId + " AND bundle_id IS NOT NULL AND client_balance_id <>" + DesiredClientBalanceId + "");
                 if (filteredRows.Length > 0)
                 {
                     // There were results
@@ -707,7 +876,7 @@ namespace MKproject.Management
                     {
                         if ((bool)row["isbundle_membership"] == true)
                         {
-                            if (row["purchase_date"]!= DBNull.Value && (DateTime)row["purchase_date"] < MembershipDate)
+                            if (row["purchase_date"] != DBNull.Value && (DateTime)row["purchase_date"] < MembershipDate)
                             {
                                 MembershipDate = (DateTime)row["purchase_date"];
                             }
@@ -741,7 +910,7 @@ namespace MKproject.Management
 
 
     }
-    
+
 
 
 }

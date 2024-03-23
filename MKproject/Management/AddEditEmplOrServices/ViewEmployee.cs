@@ -173,7 +173,7 @@ namespace MKproject.Management
 
         private void dataGridViewEdit_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewEdit.Rows.Count && e.ColumnIndex < dataGridViewEdit.Columns.Count)
             {
                 if (e.Value == DBNull.Value || string.IsNullOrEmpty(e.Value.ToString()))
                 {

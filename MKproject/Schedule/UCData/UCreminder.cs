@@ -145,7 +145,7 @@ namespace MKproject.Schedule
                     foundUcReminder.DesiredReminder.IsChecked = false;
                     foundUcReminder.panelColoredReminder.BackColor = Color.FromArgb(109, 122, 224);
 
-                    if(ucday.isThedayofUCreminder(foundUcReminder,ucday.DateUCDay))
+                    if(ucday.isThedayofUCreminder(foundUcReminder,ucday.SelectedDate))
                     {
                         foundUcReminder.Dock = DockStyle.Top;
                         schedule.panelreminder.Controls.Add(foundUcReminder);
