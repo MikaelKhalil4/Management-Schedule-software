@@ -392,7 +392,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>DNTIwwRpcJtpjV4ndxDUOhBH7mn9eW66bCqHlhGGpYI=</dsig:DigestValue>
+      <dsig:DigestValue>vs2tPkJKS3c4wy6Qm7lqQ6Ya0FCb6DvVbmyBzu+IP88=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">

@@ -115,12 +115,12 @@
             // panelColoredReminder
             // 
             panelColoredReminder.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            panelColoredReminder.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelColoredReminder.Dock = System.Windows.Forms.DockStyle.Left;
             panelColoredReminder.Location = new System.Drawing.Point(0, 0);
             panelColoredReminder.Margin = new System.Windows.Forms.Padding(0);
             panelColoredReminder.Name = "panelColoredReminder";
             tableLayoutPanel1.SetRowSpan(panelColoredReminder, 2);
-            panelColoredReminder.Size = new System.Drawing.Size(5, 77);
+            panelColoredReminder.Size = new System.Drawing.Size(4, 77);
             panelColoredReminder.TabIndex = 5;
             // 
             // checkBoxReminder
