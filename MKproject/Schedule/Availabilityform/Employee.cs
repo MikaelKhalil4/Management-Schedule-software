@@ -20,7 +20,7 @@ namespace MKproject.Schedule
 
         //Variable:
         public Schedule schedule;
-
+        public bool IsButtonAvailability = false;//Kermel watta yeftah lavailability form ma ysakir lemployee form
 
         //Initialise:
         public Employee(Schedule form1)
@@ -285,7 +285,15 @@ namespace MKproject.Schedule
 
         private void Employee_Deactivate(object sender, EventArgs e)
         {
-            //this.Close();
+            //Kermel watta yeftah lavailability form ma ysakir lemployee form
+            if (IsButtonAvailability == false)
+            {
+                this.Close();
+            }
+            else
+            {
+                IsButtonAvailability = false;//eza ken true byerjaee bi sir false
+            }
         }
     }
 

@@ -15,7 +15,7 @@ namespace MKproject.Schedule
 
         Schedule schedule;
         UCreminder ucreminderInClientReminder;
-        UCDay ucday;
+        public UCDay ucday;
         ClientReminder clientReminder;
 
         public bool isupdate;
@@ -51,10 +51,8 @@ namespace MKproject.Schedule
             DesiredReminder.DesiredClient = clientreminder.DesiredClient;
             textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredClient.Lname;
 
+            GetQuoteFromDate();
 
-
-            monthCalendarStart.SelectionStart = DateTime.Today;
-            monthCalendarStart.MinDate = DateTime.Today;
         }
         ///UPDATE
         public Reminder(UCreminder UCreminderfromClientReminder, UCDay form2, Schedule form3, bool isclientreminder, ClientReminder clientreminder)
@@ -90,8 +88,7 @@ namespace MKproject.Schedule
             }
 
 
-            monthCalendarStart.SelectionStart = DesiredReminder.StartTime;
-            monthCalendarStart.MinDate = DateTime.Today;
+            
 
             textBoxReminder.Text = DesiredReminder.Reminder;
             labelrepeat.Text = DesiredReminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
@@ -115,6 +112,7 @@ namespace MKproject.Schedule
                     }
                 }
             }
+            GetQuoteFromDate();
 
         }
 
@@ -131,10 +129,8 @@ namespace MKproject.Schedule
             Isclientreminder = false;
             isupdate = false;
             typerepeats3 = 1;
+            GetQuoteFromDate();
 
-
-            monthCalendarStart.SelectionStart = DateTime.Today;
-            monthCalendarStart.MinDate = DateTime.Today;
         }
         ///UPDATE
         public Reminder(ClassReminder desiredreminder, UCDay form2, Schedule form3, bool isclientreminder)
@@ -167,9 +163,7 @@ namespace MKproject.Schedule
             }
 
 
-            monthCalendarStart.SelectionStart = DesiredReminder.StartTime;
-            monthCalendarStart.MinDate = DateTime.Today;
-
+          
             textBoxReminder.Text = DesiredReminder.Reminder;
             labelrepeat.Text = DesiredReminder.Partsrepeat[0];//exemple:Every week/Monday/Friday
             labelQuote.Text = DesiredReminder.LabelQuote;
@@ -192,6 +186,7 @@ namespace MKproject.Schedule
                     }
                 }
             }
+            GetQuoteFromDate();
         }
 
 
@@ -223,7 +218,7 @@ namespace MKproject.Schedule
                 //Bi koun akhad lDesiredCient men abel
                 DesiredReminder.Reminder = textBoxReminder.Text;
                 DesiredReminder.Repeat = repeat;
-                DesiredReminder.StartTime = monthCalendarStart.SelectionStart;
+                DesiredReminder.StartTime = ucday.DateUCDay;
                 DesiredReminder.LabelQuote = labelQuote.Text;
 
                 //UPDATE
@@ -238,7 +233,7 @@ namespace MKproject.Schedule
                     UCreminder UcReminderSchedule = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
                     UcReminderSchedule.DesiredReminder = DesiredReminder;
 
-                    
+
 
                     //FROM ClientReminder
                     if (Isclientreminder)
@@ -264,7 +259,7 @@ namespace MKproject.Schedule
                         if (DesiredReminder.DesiredClient.ClientId == clientReminder.DesiredClient.ClientId)
                         {
                             //the ucreminder that we clicked on to update
-                            ucreminderInClientReminder.DesiredReminder  = DesiredReminder;
+                            ucreminderInClientReminder.DesiredReminder = DesiredReminder;
                         }
 
                         //if it's not we have to remove from the clientReminder.panelreminder because the reminder isn't linked anymore to this client ma daroure n3adela
@@ -323,9 +318,11 @@ namespace MKproject.Schedule
         private void flowLayoutPanelRepeat_Click(object sender, EventArgs e)
         {
             CBrepeat repeat = new CBrepeat(this);
-            flowLayoutPanelRepeat.Select();
-            Point locationRelativeToScreen = flowLayoutPanelRepeat.PointToScreen(Point.Empty);
-            locationRelativeToScreen.Offset(0, 24);
+            //Kermel Color tabaee ComboBoxRepeat ybayin active
+            TBLRepeat.BackColor = Color.FromArgb(109, 122, 224);
+            TBLRepeat.Select();
+            Point locationRelativeToScreen = TBLRepeat.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(-6, 27);
             repeat.Location = locationRelativeToScreen;
             repeat.Show();
 
@@ -357,41 +354,7 @@ namespace MKproject.Schedule
         }
 
 
-        ///-Change:
-
-        private void monthCalendarStart_DateChanged(object sender, DateRangeEventArgs e)
-        {
-            //Getting the Quote
-            string datestart;
-            if (monthCalendarStart.SelectionStart.Date == DateTime.Today.Date)
-            {
-                datestart = "today";
-            }
-            else
-            {
-                datestart = monthCalendarStart.SelectionStart.Date.ToString("dddd d MMMM");
-            }
-
-            //no repeat
-            if (typerepeats3 == 1)
-            {
-                labelQuote.Text = "Only for " + datestart;
-            }
-
-            //every day or every week
-            else
-            {
-                string[] parts = labelQuote.Text.Split(',');
-                labelQuote.Text = "Starting " + datestart + "," + parts[1];
-
-                //for (int i = 1; i < parts.Length; i++)//lalvirqule fi haken bein monday w sunday
-                //{
-                //    labelQuote.Text += parts[i];
-                //}
-            }
-        }
-
-
+     
 
         ///-Check Boxes Changed(monday to sunday):
         private void checkBoxMonday_CheckedChanged(object sender, EventArgs e)
@@ -415,7 +378,7 @@ namespace MKproject.Schedule
         ///-Close
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
-            label3.Select();
+            this.Select();
         }
 
 
@@ -432,7 +395,37 @@ namespace MKproject.Schedule
             }
             return false; // The control is not in the panel
         }
+        private void GetQuoteFromDate()
+        {
+            //Getting the Quote
+            string datestart;
+            if (ucday.DateUCDay.Date == DateTime.Today.Date)
+            {
+                datestart = "today";
+            }
+            else
+            {
+                datestart = ucday.DateUCDay.Date.ToString("dddd d MMMM");
+            }
 
+            //no repeat
+            if (typerepeats3 == 1)
+            {
+                labelQuote.Text = "Only for " + datestart;
+            }
+
+            //every day or every week
+            else
+            {
+                string[] parts = labelQuote.Text.Split(',');
+                labelQuote.Text = "Starting " + datestart + "," + parts[1];
+
+                //for (int i = 1; i < parts.Length; i++)//lalvirqule fi haken bein monday w sunday
+                //{
+                //    labelQuote.Text += parts[i];
+                //}
+            }
+        }
 
 
         //DESIGN
@@ -449,11 +442,11 @@ namespace MKproject.Schedule
         }
         private void flowLayoutPanelRepeat_MouseLeave(object sender, EventArgs e)
         {
-            labelrepeat.ForeColor = Color.White;
+            //labelrepeat.ForeColor = Color.White;
         }
         private void flowLayoutPanelRepeat_MouseMove(object sender, MouseEventArgs e)
         {
-            labelrepeat.ForeColor = Color.FromArgb(229, 226, 244);
+            //labelrepeat.ForeColor = Color.FromArgb(229, 226, 244);
         }
     }
 }

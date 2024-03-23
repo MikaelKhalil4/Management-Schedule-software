@@ -74,7 +74,7 @@ namespace MKproject.Schedule
         public int OneUCARowPosition, OneUCAColumnPosition;//hiye ousoulan lal flowlayoutpanel jouweta UCA
 
         ///-Color
-        public Color StaticColorFLP = Color.White, DisableColorFLP = Color.FromArgb(250, 246, 254), StaticColorTBUca = Color.White, DisableColorTBUca = Color.FromArgb(250, 246, 254)
+        public Color StaticColorFLP = Color.White, DisableColorFLP = Color.FromArgb(238, 241, 254) , StaticColorTBUca = Color.White, DisableColorTBUca = Color.FromArgb(250, 246, 254)
                   , MoveColor = Color.FromArgb(249, 246, 254)/*table taba3 lucap wel FLP*/
                   , ErrorColor = Color.FromArgb(252, 0, 5), MemberColor = Color.FromArgb(109, 122, 224)/*ucappointment*/;
 
@@ -144,8 +144,9 @@ namespace MKproject.Schedule
                     //Label Add
                     Label label = new Label();
                     label.Dock = DockStyle.Fill;
-                    label.BackColor = Color.FromArgb(229, 226, 244);
-                    label.Font = new Font("Segoe UI", 12);
+                    label.BackColor = Color.FromArgb(119, 132, 234);
+                    label.ForeColor = Color.White;
+                    label.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                     label.AutoSize = true;
                     label.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -565,7 +566,7 @@ namespace MKproject.Schedule
         {
             //UCmonth show
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
-            locationRelativeToScreen.Offset(0, 20);
+            locationRelativeToScreen.Offset(-6, 25);
             schedule.ucmonths.Location = locationRelativeToScreen;
             schedule.ucmonths.Show();
 
@@ -593,7 +594,7 @@ namespace MKproject.Schedule
         {
             Cursor = Cursors.WaitCursor;
             Point locationRelativeToScreen = labelMember.PointToScreen(Point.Empty);
-            locationRelativeToScreen.Offset(-150, 20);
+            locationRelativeToScreen.Offset(-200, 25);
             schedule.employee = new Employee(schedule);
             schedule.employee.Location = locationRelativeToScreen;
             schedule.employee.Show();
@@ -1433,8 +1434,9 @@ namespace MKproject.Schedule
             //Design 
             Label label = new Label();
             label.Dock = DockStyle.Fill;
-            label.BackColor = Color.FromArgb(229, 226, 244);
-            label.Font = new Font("Segoe UI", 12);
+            label.BackColor = Color.FromArgb(119, 132, 234);
+            label.ForeColor = Color.White;
+            label.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             label.AutoSize = true;
             label.TextAlign = ContentAlignment.MiddleCenter;
 

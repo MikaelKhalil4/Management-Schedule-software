@@ -752,6 +752,7 @@
             ucDays42.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             ucDays42.DateUCdays = new System.DateTime(0L);
             ucDays42.Dock = System.Windows.Forms.DockStyle.Fill;
+            ucDays42.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ucDays42.Location = new System.Drawing.Point(312, 290);
             ucDays42.Margin = new System.Windows.Forms.Padding(0);
             ucDays42.Name = "ucDays42";

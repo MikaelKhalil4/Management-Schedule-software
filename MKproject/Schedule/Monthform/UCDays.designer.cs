@@ -35,8 +35,8 @@
             // 
             labelDay.BackColor = System.Drawing.Color.Transparent;
             labelDay.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            labelDay.ForeColor = System.Drawing.Color.FromArgb(119, 132, 234);
+            labelDay.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelDay.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelDay.Location = new System.Drawing.Point(0, 0);
             labelDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelDay.Name = "labelDay";

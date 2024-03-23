@@ -80,7 +80,7 @@
             labelMonth12.AutoSize = true;
             labelMonth12.BackColor = System.Drawing.Color.White;
             labelMonth12.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth12.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth12.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth12.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth12.Location = new System.Drawing.Point(246, 228);
             labelMonth12.Margin = new System.Windows.Forms.Padding(0);
@@ -96,7 +96,7 @@
             labelMonth11.AutoSize = true;
             labelMonth11.BackColor = System.Drawing.Color.White;
             labelMonth11.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth11.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth11.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth11.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth11.Location = new System.Drawing.Point(164, 228);
             labelMonth11.Margin = new System.Windows.Forms.Padding(0);
@@ -112,7 +112,7 @@
             labelMonth10.AutoSize = true;
             labelMonth10.BackColor = System.Drawing.Color.White;
             labelMonth10.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth10.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth10.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth10.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth10.Location = new System.Drawing.Point(82, 228);
             labelMonth10.Margin = new System.Windows.Forms.Padding(0);
@@ -128,7 +128,7 @@
             labelMonth9.AutoSize = true;
             labelMonth9.BackColor = System.Drawing.Color.White;
             labelMonth9.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth9.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth9.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth9.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth9.Location = new System.Drawing.Point(0, 228);
             labelMonth9.Margin = new System.Windows.Forms.Padding(0);
@@ -144,7 +144,7 @@
             labelMonth8.AutoSize = true;
             labelMonth8.BackColor = System.Drawing.Color.White;
             labelMonth8.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth8.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth8.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth8.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth8.Location = new System.Drawing.Point(246, 114);
             labelMonth8.Margin = new System.Windows.Forms.Padding(0);
@@ -160,7 +160,7 @@
             labelMonth7.AutoSize = true;
             labelMonth7.BackColor = System.Drawing.Color.White;
             labelMonth7.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth7.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth7.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth7.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth7.Location = new System.Drawing.Point(164, 114);
             labelMonth7.Margin = new System.Windows.Forms.Padding(0);
@@ -176,7 +176,7 @@
             labelMonth6.AutoSize = true;
             labelMonth6.BackColor = System.Drawing.Color.White;
             labelMonth6.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth6.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth6.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth6.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth6.Location = new System.Drawing.Point(82, 114);
             labelMonth6.Margin = new System.Windows.Forms.Padding(0);
@@ -192,7 +192,7 @@
             labelMonth5.AutoSize = true;
             labelMonth5.BackColor = System.Drawing.Color.White;
             labelMonth5.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth5.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth5.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth5.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth5.Location = new System.Drawing.Point(0, 114);
             labelMonth5.Margin = new System.Windows.Forms.Padding(0);
@@ -208,7 +208,7 @@
             labelMonth4.AutoSize = true;
             labelMonth4.BackColor = System.Drawing.Color.White;
             labelMonth4.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth4.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth4.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth4.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth4.Location = new System.Drawing.Point(246, 0);
             labelMonth4.Margin = new System.Windows.Forms.Padding(0);
@@ -224,7 +224,7 @@
             labelMonth3.AutoSize = true;
             labelMonth3.BackColor = System.Drawing.Color.White;
             labelMonth3.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth3.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth3.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth3.Location = new System.Drawing.Point(164, 0);
             labelMonth3.Margin = new System.Windows.Forms.Padding(0);
@@ -240,7 +240,7 @@
             labelMonth2.AutoSize = true;
             labelMonth2.BackColor = System.Drawing.Color.White;
             labelMonth2.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth2.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth2.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth2.Location = new System.Drawing.Point(82, 0);
             labelMonth2.Margin = new System.Windows.Forms.Padding(0);
@@ -256,7 +256,7 @@
             labelMonth1.AutoSize = true;
             labelMonth1.BackColor = System.Drawing.Color.White;
             labelMonth1.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelMonth1.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelMonth1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMonth1.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelMonth1.Location = new System.Drawing.Point(0, 0);
             labelMonth1.Margin = new System.Windows.Forms.Padding(0);

@@ -143,7 +143,7 @@ namespace MKproject.Schedule
                 {
                     UCreminder foundUcReminder = ucday.ListUCreminder.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
                     foundUcReminder.DesiredReminder.IsChecked = false;
-                    foundUcReminder.tableLayoutPanel1.BackColor = Color.White;
+                    foundUcReminder.panelColoredReminder.BackColor = Color.FromArgb(109, 122, 224);
 
                     if(ucday.isThedayofUCreminder(foundUcReminder,ucday.DateUCDay))
                     {
@@ -156,7 +156,7 @@ namespace MKproject.Schedule
             {
                 if (DesiredReminder.IsChecked)//hone lezim nzido
                 {
-                    this.tableLayoutPanel1.BackColor = Color.Lime;
+                    this.panelColoredReminder.BackColor = Color.Lime;
                     TimerReminderDispose.Start();
                 }
                 else

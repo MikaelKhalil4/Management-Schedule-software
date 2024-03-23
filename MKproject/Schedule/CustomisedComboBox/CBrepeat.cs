@@ -37,13 +37,13 @@ namespace MKproject.Schedule
 
             //For the Quote
             string datestart;
-            if (reminder.monthCalendarStart.SelectionStart.Date == DateTime.Today.Date)
+            if (reminder.ucday.DateUCDay.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = reminder.monthCalendarStart.SelectionStart.Date.ToString("dddd d MMMM");
+                datestart = reminder.ucday.DateUCDay.Date.ToString("dddd d MMMM");
             }
             reminder.labelQuote.Text = "Only for " + datestart;
 
@@ -68,13 +68,13 @@ namespace MKproject.Schedule
             //For the Quote
             //badda teje deghre baeed awal virgule  daily repitition
             string datestart;
-            if (reminder.monthCalendarStart.SelectionStart.Date == DateTime.Today.Date)
+            if (reminder.ucday.DateUCDay.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = reminder.monthCalendarStart.SelectionStart.Date.ToString("dddd d MMMM");
+                datestart = reminder.ucday.DateUCDay.Date.ToString("dddd d MMMM");
             }
             reminder.labelQuote.Text = "Starting " + datestart + ", a daily repitition";
 
@@ -97,15 +97,15 @@ namespace MKproject.Schedule
             //For the Quote
             //badda teje deghre baeed awal virgule  daily repitition on Monday(hasab date tabaee lstart time)
             string dayname;
-            dayname = reminder.monthCalendarStart.SelectionStart.DayOfWeek.ToString();
+            dayname = reminder.ucday.DateUCDay.DayOfWeek.ToString();
             string datestart;
-            if (reminder.monthCalendarStart.SelectionStart.Date == DateTime.Today.Date)
+            if (reminder.ucday.DateUCDay.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = reminder.monthCalendarStart.SelectionStart.Date.ToString("dddd d MMMM");
+                datestart = reminder.ucday.DateUCDay.Date.ToString("dddd d MMMM");
             }
             reminder.labelQuote.Text = "Starting " + datestart + ", a weekley repitition on " + dayname;
 
@@ -134,6 +134,8 @@ namespace MKproject.Schedule
         }
         private void Repeat_Deactivate(object sender, EventArgs e)
         {
+            //Kermel Color tabaee ComboBoxRepeat ybayin disactive
+            reminder.TBLRepeat.BackColor = Color.FromArgb(206, 220, 255);
             this.Close();
         }
 

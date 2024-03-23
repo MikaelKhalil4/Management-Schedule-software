@@ -12,7 +12,7 @@ namespace MKproject.Schedule
         //VARIABLES:
         int PreviousValue;
         int FutureValue;
-        public Color ActiveColor = Color.FromArgb(158, 251, 79), DisactiveColor = Color.White;
+        public Color ActiveColor = Color.FromArgb(196, 210, 245), DisactiveColor = Color.White;
 
         UCEmployee UCemployee;
 
@@ -36,7 +36,7 @@ namespace MKproject.Schedule
 
 
             //Fill panels
-           for (int j = 1; j < 8; j++)//column
+            for (int j = 1; j < 8; j++)//column
             {
                 for (int i = 0; i < 24; i++)//row
                 {
@@ -61,7 +61,7 @@ namespace MKproject.Schedule
         {
             //SCROLL:
             tableLayoutPanelAvailability.rowHeight = tableLayoutPanelAvailability.GetRowHeights()[0];
-            tableLayoutPanelAvailability.AutoScrollPosition = new Point(0, tableLayoutPanelAvailability.rowHeight * 6);
+            tableLayoutPanelAvailability.AutoScrollPosition = new Point(0, (tableLayoutPanelAvailability.rowHeight * 6)-2);
             tableLayoutPanelAvailability.currentRow = 6;//for weel and touch scroll reason
 
 
@@ -306,6 +306,16 @@ namespace MKproject.Schedule
             {
 
             }
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

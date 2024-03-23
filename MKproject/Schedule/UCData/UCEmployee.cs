@@ -170,7 +170,7 @@ namespace MKproject.Schedule
             DataTable sortedTable = employees.DataTableEmployeeavailabilityCopy.DefaultView.ToTable();
             employees.DataTableEmployeeavailabilityCopy = sortedTable;
         }
-        private void UCEmployee_Click(object sender, EventArgs e)
+        private void buttonAvailability_Click(object sender, EventArgs e)
         {
             //Kermel yaeemil la marra wehde load w baeeden laa
             if(employees.availabilityLayout == null)
@@ -179,6 +179,9 @@ namespace MKproject.Schedule
                 employees.availabilityLayout = new AvailabilityLayout();
                 Cursor = Cursors.Default;
             }
+
+            employees.IsButtonAvailability = true;
+
             //Doing the design of availabilityLayout 
             employees.availabilityLayout.AvailibilitySpecificEmployee(this);
             employees.availabilityLayout.ShowDialog();
