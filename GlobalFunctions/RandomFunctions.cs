@@ -219,7 +219,14 @@ namespace GlobalFunctions
 
         }
 
-
+        public static float MeasureLabelText(Label label)
+        {
+            using (Graphics g = label.CreateGraphics())
+            {
+                SizeF size = g.MeasureString(label.Text, label.Font);
+                return size.Width;
+            }
+        }
 
 
         public static bool IsInternetConnected()

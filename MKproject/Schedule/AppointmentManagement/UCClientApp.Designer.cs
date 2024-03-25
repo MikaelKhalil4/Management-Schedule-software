@@ -54,11 +54,12 @@
             TLPglobal.Location = new System.Drawing.Point(0, 0);
             TLPglobal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             TLPglobal.Name = "TLPglobal";
-            TLPglobal.RowCount = 3;
+            TLPglobal.RowCount = 4;
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            TLPglobal.Size = new System.Drawing.Size(452, 166);
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            TLPglobal.Size = new System.Drawing.Size(452, 221);
             TLPglobal.TabIndex = 0;
             // 
             // TLPAddNewClient
@@ -154,7 +155,7 @@
             Controls.Add(TLPglobal);
             Margin = new System.Windows.Forms.Padding(0);
             Name = "UCClientApp";
-            Size = new System.Drawing.Size(452, 166);
+            Size = new System.Drawing.Size(452, 221);
             TLPglobal.ResumeLayout(false);
             TLPglobal.PerformLayout();
             TLPAddNewClient.ResumeLayout(false);

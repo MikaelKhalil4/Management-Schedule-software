@@ -1,4 +1,5 @@
-﻿using MKproject.Management;
+﻿using CustomizedTools;
+using MKproject.Management;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -103,7 +104,7 @@ namespace MKproject.Schedule
 
             UCBundlePackage bundlePackage = new UCBundlePackage(true, DesiredRow);
             bundlePackage.UCMouseClick += BundlePackage_UCMouseClick; ;
-            bundlePackage.Margin = new Padding(132, 0, 0, 10);
+            bundlePackage.Margin = new Padding(162, 0, 0, 10);
             FLPAvailablePackages.Controls.Add(bundlePackage);
 
         }
@@ -113,7 +114,7 @@ namespace MKproject.Schedule
             UCBundlePackage DesiredBundPackage = (UCBundlePackage)sender;
             ParentFormucClientApp.FillObjectOfNewChosenBundles(null);
             ParentFormucClientApp.FillObjectOfAvailablePackage(DesiredBundPackage.DesiredRow);
-            ParentFormucClientApp.SetDesignMode(true, false);
+            ParentFormucClientApp.SetLogicAndDesignMode(true, false);
             this.Close();
         }
 
@@ -149,14 +150,15 @@ namespace MKproject.Schedule
             if (BundleList.Count > 0)
             {
                 ParentFormucClientApp.FillObjectOfNewChosenBundles(new List<ClassBundles>(BundleList));
+                ParentFormucClientApp.SetLogicAndDesignMode(true, false);
+                this.Close();
             }
             else
             {
-                ParentFormucClientApp.FillObjectOfNewChosenBundles(null);
-            }
 
-            ParentFormucClientApp.SetDesignMode(true, false);
-            this.Close();
+                CustomMessageBox.Show("Please choose a service", CustomMessageBox.Type.Ok);
+            }
+           
         }
 
 

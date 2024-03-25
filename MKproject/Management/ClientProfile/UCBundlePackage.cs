@@ -262,18 +262,21 @@ namespace MKproject.Management
                 CreateBalanceLabels();
                 this.Padding = new Padding(0);
                 TLPglobal.ColumnCount -= 1;
-                TLPglobal.RowCount += 1;
-                TLPglobal.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
+              
 
                 TLPglobal.RowStyles[1].Height = 0;//ID ma badna yeha
                 TLPglobal.RowStyles[2].Height = 30;
                 TLPglobal.RowStyles[3].Height = 30;
                 TLPglobal.RowStyles[4].Height = 20;
 
-                TLPglobal.Controls.Add(labelBalance, 0, 5);
-                TLPglobal.Controls.Add(labelBalanceDetails, 1, 5);
+                //Eza badde bayyin el balace
+                //TLPglobal.RowCount += 1;
+                //TLPglobal.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
+                //TLPglobal.Controls.Add(labelBalance, 0, 5);
+                //TLPglobal.Controls.Add(labelBalanceDetails, 1, 5);
 
-                this.Width = Convert.ToInt16(TLPglobal.ColumnStyles[1].Width + TLPglobal.ColumnStyles[1].Width);
+                this.Width = Convert.ToInt16(TLPglobal.ColumnStyles[0].Width + TLPglobal.ColumnStyles[1].Width);
+                this.Height = this.Height - 20;
             }
 
             CreateUCPackage(DesiredRow);

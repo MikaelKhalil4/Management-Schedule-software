@@ -15,13 +15,14 @@ namespace MKproject.Schedule
         static SqlConnection con = new SqlConnection(Program.DataLocation);
         //Property
         public int AppointmentID { get; set; }
-      
+
         private int employeeId;
         public int EmployeeId
         {
             get { return employeeId; }
-            set {
-                
+            set
+            {
+
                 employeeId = value;
                 EmployeeFullName = ClassEmployee.GetEmployeeFullName(value);
             }
@@ -194,7 +195,7 @@ namespace MKproject.Schedule
             sda.Fill(dt);
             return dt;
         }
-        public static void DeleteRelatedSoloBundle(int appointmentId,int bundleId)
+        public static void DeleteRelatedSoloBundle(int appointmentId, int bundleId)
         {
             SqlCommand cmdDeleteOldBundlesToApp = new SqlCommand(@"Delete from appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
             cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", appointmentId);
@@ -331,7 +332,7 @@ namespace MKproject.Schedule
             }
 
 
-        } 
+        }
         public void DeleteAppointment()
         {
             //ejbare bhal order men wara el rlt
@@ -370,13 +371,13 @@ namespace MKproject.Schedule
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-           
+
             foreach (DataRow dr in dt.Rows)
-            {               
+            {
                 int ClientBalanceId = (int)dr["client_balance_id"];
                 if (dr["action_type"].ToString() == ActionsEnum.SoloPurchases.ToString())
                 {
-                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"],(int)dr["archive_id"], ClientBalanceId,null,null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
+                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, null, null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
                 }
                 else if (dr["action_type"].ToString() == ActionsEnum.SessionDone.ToString())
                 {
@@ -384,7 +385,7 @@ namespace MKproject.Schedule
                 }
             }
 
-            SetOrResetIsCompleted();       
+            SetOrResetIsCompleted();
 
         }
         public void SetOrResetIsCompleted()
@@ -405,6 +406,17 @@ namespace MKproject.Schedule
             cmdUpdateCompletion.ExecuteNonQuery();
             con.Close();
         }
+        public DataTable AllRelatedRowsInArchiveTable()
+        {
+            SqlCommand cmd = new SqlCommand("Select * from archive WHERE  appointment_id = @appointment_id", con);
+            cmd.Parameters.AddWithValue("@appointment_id", AppointmentID);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            return dt;
+        }
+
+
         public static ClassAppointment CreateObjectClassAppointment(int appointmentId)
         {
             DataTable dt;
@@ -427,7 +439,8 @@ namespace MKproject.Schedule
                 DesiredApp.DesiredClient.ClientId = (int)dtClient.Rows[0]["client_id"];//noway ykun bel db fi client ma endo clientid
                 DesiredApp.DesiredClient.Fname = dtClient.Rows[0]["name"] is DBNull ? null : (string)dtClient.Rows[0]["name"];
                 DesiredApp.DesiredClient.Lname = dtClient.Rows[0]["family_name"] is DBNull ? null : (string)dtClient.Rows[0]["family_name"];
-                DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ?  null : (DateTime)dtClient.Rows[0]["Registration_Date"];//kermel eza shataryna package with Membership
+                DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ? null : (DateTime)dtClient.Rows[0]["Registration_Date"];//kermel eza shataryna package with Membership
+                DesiredApp.DesiredClient.TotalBalance = (double)dtClient.Rows[0]["total_balance"];//noway ykun bel db fi client ma endo totalBalance;
             }
 
             DesiredApp.EmployeeId = (int)datarow["employee_id"];
@@ -439,7 +452,7 @@ namespace MKproject.Schedule
             DesiredApp.EndTime = (DateTime)datarow["end_time"];
 
 
-            DesiredApp.IsCompleted= (bool)datarow["is_completed"];
+            DesiredApp.IsCompleted = (bool)datarow["is_completed"];
             DesiredApp.IsCanceled = (bool)datarow["is_canceled"];
 
 

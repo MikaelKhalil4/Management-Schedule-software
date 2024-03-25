@@ -17,13 +17,22 @@ namespace CustomizedTools
             set
             {
                 isRequiredModeOn = value;
-                if (isRequiredModeOn)
+                if (PlaceholderText != null && isRequiredModeOn)
                 {
                     if (!PlaceholderText.Contains(" *"))
                     {
-                    PlaceholderText += " *";
+                     placeholderText += " *";//ased hattayna el miniscule
                     }
-                }              
+                    SetPlaceholder();
+                }  
+                else
+                {
+                    if (PlaceholderText!=null && PlaceholderText.Contains(" *"))
+                    {
+                        placeholderText=PlaceholderText.Replace("*", "");//ased hattayna el miniscule
+                    }
+                    SetPlaceholder();
+                }
             }
 
 

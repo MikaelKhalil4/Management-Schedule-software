@@ -5,19 +5,23 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using static MKproject.Schedule.StaticClass;
 using MKproject.Management;
+using GlobalFunctions;
 
 namespace MKproject.Schedule
 {
     public partial class UCappointment : UserControl
     {
         //PROPERTY:
-        private ClassAppointment DesiredAppointmentUCApp { get; set; }
+        public ClassAppointment DesiredAppointmentUCApp { get; set; }
         public int ColumnPosition { get; set; }
         public int RowPosition { get; set; }
 
         //VARIABLE
         UCDay ucday;
         public static int OriginalWidth = 230;
+
+        //
+        Label LabelBalance;
 
         //INITIALISE
         public UCappointment()
@@ -26,7 +30,7 @@ namespace MKproject.Schedule
         }
 
 
-        //ADD and SELECT (remember in add there's no uctime but in select there's)
+        //ADD and SELECT (remember in add there's no uctime but in select there's) 
         public UCappointment(ClassAppointment desiredappointment, UCDay uCDay)
         {
             InitializeComponent();
@@ -36,10 +40,19 @@ namespace MKproject.Schedule
 
         }
 
+        void CreationOfLabelBalance()
+        {
+            LabelBalance = new Label();
+            LabelBalance.Font = new Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            LabelBalance.AutoSize = true;
+            LabelBalance.Margin = new Padding(0, 5, 0, 0);
+            LabelBalance.ForeColor = Color.Red;
+            LabelBalance.Anchor = AnchorStyles.Top;
+        }
 
         public void SetUCDesign()
         {
-            //Name
+            //Client
             if (DesiredAppointmentUCApp.DesiredClient != null)
             {
                 if (!TLPGlobal.Controls.Contains(labelFullName))
@@ -56,6 +69,9 @@ namespace MKproject.Schedule
                 }
 
                 labelFullName.Text = DesiredAppointmentUCApp.DesiredClient.Fname + " " + DesiredAppointmentUCApp.DesiredClient.Lname;
+
+
+
             }
             else
             {
@@ -70,10 +86,55 @@ namespace MKproject.Schedule
                 labelTime.Margin = new Padding(0, 0, 0, 0);
             }
 
+            //Balance
+            if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0)
+            {
+                if (LabelBalance == null)
+                {
+                    CreationOfLabelBalance();
+                    //Eza badde bayyin el balace
+                    TLPGlobal.ColumnCount += 1;
+                    TLPGlobal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10));
+                    TLPGlobal.Controls.Add(LabelBalance, 2, 0);
+
+                    TLPGlobal.SetColumnSpan(labelTime, 2);
+
+                }
+
+
+                LabelBalance.Text = Program.SetBalanceFormat(DesiredAppointmentUCApp.DesiredClient.TotalBalance.ToString());
+                TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 20;
+
+                float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
+                if (RemaingBalance >= 0)
+                {
+                    TLPGlobal.ColumnStyles[1].Width = RemaingBalance + 10;
+                }
+                else
+                {
+                    TLPGlobal.ColumnStyles[1].Width = 0;
+                }
+
+            }
+            else
+            {
+                if (LabelBalance != null)
+                {
+                    LabelBalance.Dispose();
+                    LabelBalance = null;
+                    TLPGlobal.ColumnCount -= 1;
+                    TLPGlobal.ColumnStyles.RemoveAt(TLPGlobal.ColumnCount - 1);
+
+                    TLPGlobal.SetColumnSpan(labelTime, 1);
+                }
+                TLPGlobal.ColumnStyles[1].Width = RandomFunctions.MeasureLabelText(labelTime) + 10;
+            }
+
+
             //Service
             if (DesiredAppointmentUCApp.DesiredClientBalance != null)
             {
-                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceFullDetails;
+                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
             }
             else if (DesiredAppointmentUCApp.ChosenBundlesList != null && DesiredAppointmentUCApp.ChoseBundlesString != null)
             {
@@ -101,8 +162,6 @@ namespace MKproject.Schedule
 
             //StartTime
             string timestring = DesiredAppointmentUCApp.StartTime.ToString("h:mm tt");
-
-
             string[] partstime = timestring.Split(' ');
             labelTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
 
@@ -124,6 +183,8 @@ namespace MKproject.Schedule
             {
                 Appointment appointmentupdate = new Appointment(this, DesiredAppointmentUCApp, ucday);
                 appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
+                appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
+                appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion; 
                 appointmentupdate.ShowDialog();
             }
             else
@@ -132,9 +193,21 @@ namespace MKproject.Schedule
             }
         }
 
+        private void Appointmentupdate_OnAppointmentUndoCompletion(object sender, EventArgs e)
+        {
+            DesiredAppointmentUCApp.IsCompleted = false;
+            SetUCDesign();
+        }
+
+        private void Appointmentupdate_OnAppointmentUndoCancelation(object sender, EventArgs e)
+        {
+            DesiredAppointmentUCApp.IsCanceled = false;
+            SetUCDesign();
+        }
+
         private void Appointmentupdate_OnAppUpdate(object sender, EventArgs e)
         {
-            Appointment appointmentupdate=(Appointment)sender;
+            Appointment appointmentupdate = (Appointment)sender;
             DesiredAppointmentUCApp = appointmentupdate.DesiredAppointmentAppForm.Copy();
             SetUCDesign();
         }
@@ -142,7 +215,7 @@ namespace MKproject.Schedule
         public void RemoveAppointment()
         {
             //SQL
-            DesiredAppointmentUCApp.DeleteAppointment();
+            DesiredAppointmentUCApp.DeleteAppointment();//ejbare hone mahalla mesh bel appointment form
 
             //DESIGN
             TimeSpan starttimeTimeSpan = DesiredAppointmentUCApp.StartTime.TimeOfDay;
@@ -265,6 +338,6 @@ namespace MKproject.Schedule
             }
         }
 
-      
+
     }
 }

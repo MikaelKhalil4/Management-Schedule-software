@@ -388,6 +388,8 @@ namespace MKproject.Management
             {
                 UndoSoloPurchaseActionsSQLScheduleRelated((int)AppointmentIdReferringToBackoffice,(int)BundleIdReferringToBackOffice);
             }
+
+
             //Design wise
             if (backofficeform != null)
             {

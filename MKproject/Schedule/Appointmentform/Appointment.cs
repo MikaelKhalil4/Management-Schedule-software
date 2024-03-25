@@ -87,7 +87,9 @@ namespace MKproject.Schedule
             UcDayParentForm = UCday;
 
             ucappointment = UCappointment;
-            DesiredAppointmentAppForm = desiredAppointment;
+
+
+            DesiredAppointmentAppForm = desiredAppointment.Copy();//as we see hone eena copy aan el ucappointmnet, bas ucClientApp refers to the same DesiredAppointmentAppForm metel el appointment form
 
             //Aam nekhoud Col and Row pos taba3 lucappointment
             TimeSpan starttimeTimeSpan = DesiredAppointmentAppForm.StartTime.TimeOfDay;//bas kermel le2e uctime
@@ -100,11 +102,19 @@ namespace MKproject.Schedule
 
 
             ucClientApp = new UCClientApp(DesiredAppointmentAppForm);
+            ucClientApp.OnClientProfileInfoChanging += UcClientApp_OnClientProfileInfoChanging;
 
+            BackOffice.UndoHappened += BackOffice_UndoHappened;//khotra a static event lieanno baddak tentebih tnaesa kell marra bet sakkir el  form as we did tahet bel event on closed
+            ucClientApp.OnUpdatingTheChosenClientBalance += UcClientApp_OnUpdatingTheChosenClientBalance;
             SetDesign();
 
 
         }
+        private void Appointment_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            BackOffice.UndoHappened -= BackOffice_UndoHappened;
+        }
+
 
 
         void SetDesign()
@@ -223,56 +233,60 @@ namespace MKproject.Schedule
 
 
 
+
         public event EventHandler OnAppointmentUpdate;//this event change the desin of the uc appointment
+        public event EventHandler OnAppointmentUndoCompletion;//this event change the desin of the uc appointment
+        public event EventHandler OnAppointmentUndoCancelation;//this event change the desin of the uc appointment
         void UpdateOrAddAppointment()
         {
-            // Desiredclient tb3 el appointform w ucclientapp form are refering to the same block
+            //Object
+            FillDesiredClientObject();
 
-
+            if (!ISRequiredFieldsExists())
+            {
+                //Sql       
+                AddOrUpdateSQL();
+                this.Close();
+            }
+        }
+        bool ISRequiredFieldsExists()
+        {
             bool IsPanelAvailable = CheckIfTimeAvailableAndSetAppointmentPosition();//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela
 
             if (IsPanelAvailable)
             {
-                //Object
-                FillDesiredClientObject();
-
-                //Sql
                 if (ucClientApp.IsServiceOrOthersMode)
                 {
 
                     if (DesiredAppointmentAppForm.DesiredClient == null)
                     {
                         ucClientApp.textBoxSearch.IsRequiredModeOn = true;
+                        return true;
                     }
                     else if (DesiredAppointmentAppForm.DesiredClientBalance == null && (DesiredAppointmentAppForm.ChoseBundlesString == null && DesiredAppointmentAppForm.ChosenBundlesList == null))
                     {
                         CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
-                    }
-                    else
-                    {
-                        AddOrUpdateSQL();
+                        return true;
                     }
                 }
-                else if (!ucClientApp.IsServiceOrOthersMode)
+                else if (DesiredAppointmentAppForm.Title == null)
                 {
-                    if (DesiredAppointmentAppForm.Title == null)
-                    {
-                        ucClientApp.textBoxTitle.IsRequiredModeOn = true;
-                    }
-                    else
-                    {
-                        AddOrUpdateSQL();
-                    }
+                    ucClientApp.textBoxTitle.IsRequiredModeOn = true;
+                    return true;
                 }
-
             }
             else
             {
                 CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.Ok);
+                return true;
             }
+
+            return false;
+
         }
         void FillDesiredClientObject()
         {
+            //usually kell el valye elumn aalea bel chosen client aw balance, ha ykun aam yetaabo bel ucclient app
             if (ucClientApp.IsServiceOrOthersMode)//service
             {
                 DesiredAppointmentAppForm.Title = null;
@@ -321,6 +335,8 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.AppointmentID = ClassAppointment.GetLastAppointmentId();
                 //Design
                 UcDayParentForm.AddUCappointments(DesiredAppointmentAppForm, PositionCol, PositionRow);
+                OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+
             }
             else
             {
@@ -328,7 +344,9 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.InsertOrUpdateAppointment(false);
                 //Design
                 ChangeAppointmentLocation();//Aam taamil error lamma aamil undocompletion
-              
+                OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+
+
             }
         }
         bool CheckIfTimeAvailableAndSetAppointmentPosition()
@@ -406,75 +424,196 @@ namespace MKproject.Schedule
             return (initialbalance, PurchasedBundles);
 
         }
+        void SetAppointmentCompletedOrNot(bool IsCompleting)
+        {
+            if (IsCompleting)
+            {
+                DesiredAppointmentAppForm.IsCompleted = true;
+                UpdateOrAddAppointment();//ejbare tahet el completed
+                OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                DesiredAppointmentAppForm.IsCompleted = false;
+                DesiredAppointmentAppForm.UndoCompletionAppointment();
+                OnAppointmentUndoCompletion?.Invoke(this, EventArgs.Empty);//!!! Bas ejbare bel Undo nkun aam nemna3o yaamil update aa hayyala field(ReadOnly) aa hayalla field w ela ha yenzalo bel uCAppointment
+            }
+            this.Close();
+        }
+
+
 
 
 
         private void ButtonAddOrUpdate_Click(object sender, EventArgs e)
         {
             UpdateOrAddAppointment();
-            OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
-            this.Close();
         }
         private void buttonCompleted_Click(object sender, EventArgs e)
         {
-            if (!DesiredAppointmentAppForm.IsCompleted)
+            FillDesiredClientObject();
+            if (!ISRequiredFieldsExists())
             {
-                DesiredAppointmentAppForm.IsCompleted = true;
-                UpdateOrAddAppointment();//ejbare tahet el completed
-
-                if (DesiredAppointmentAppForm.ChosenBundlesList != null && DesiredAppointmentAppForm.DesiredClient != null)
+                //Package of sessions
+                if (DesiredAppointmentAppForm.DesiredClient != null && DesiredAppointmentAppForm.DesiredClientBalance != null)//Package Of Sessions
                 {
-                    (double initialbalance, DataTable PurchasedBundles) = PurchaseNewSoloServices();
-
-                    Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, initialbalance, PurchasedBundles, null, true);
-                    paymentform.ShowDialog();
-                }
-                else if (DesiredAppointmentAppForm.DesiredClientBalance != null && DesiredAppointmentAppForm.DesiredClient != null && DesiredAppointmentAppForm.DesiredClientBalance.ISPackageSessionsOrDays)
-                {
-                    if (DesiredAppointmentAppForm.DesiredClientBalance.SessionsLeft > 0)
+                    if (DesiredAppointmentAppForm.DesiredClientBalance.DueDate == null && DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays != null)
                     {
-                        ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionsLeft - 1,DesiredAppointmentAppForm.AppointmentID);
+                        if (!DesiredAppointmentAppForm.IsCompleted)
+                        {
+                            if (DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays > 0)
+                            {
+                                DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays--;
+                                DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
+                                ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID);
+
+                                //
+                                SetAppointmentCompletedOrNot(true);
+                            }
+                            else
+                            {
+                                CustomMessageBox.Show("Can't complete this appointment because there are no sessions left.\nPlease renew the package or choose another service.", CustomMessageBox.Type.Ok);
+                            }
+
+
+                        }
+                        else
+                        {
+                            DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays++;
+                            DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
+
+                            //
+                            SetAppointmentCompletedOrNot(false);
+                        }
+                    }
+                    else if (DesiredAppointmentAppForm.DesiredClientBalance.DueDate != null)
+                    {
+                        if (!DesiredAppointmentAppForm.IsCompleted)
+                        {
+                            SetAppointmentCompletedOrNot(true);
+                        }
+                        else
+                        {
+                            SetAppointmentCompletedOrNot(false);
+                        }
+                    }
+                }
+
+                else if (DesiredAppointmentAppForm.ChosenBundlesList != null && DesiredAppointmentAppForm.DesiredClient != null)
+                {
+
+                    if (!DesiredAppointmentAppForm.IsCompleted)
+                    {
+                        (double initialbalance, DataTable PurchasedBundles) = PurchaseNewSoloServices();
+
+
+                        Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, initialbalance, PurchasedBundles, null, true);
+                        paymentform.ShowDialog();
+
+                        //
+                        SetAppointmentCompletedOrNot(true);
                     }
                     else
                     {
-                        //we can t reduce we need to show a notice
+
+                        SetAppointmentCompletedOrNot(false);
                     }
                 }
-            }
-            else//in this case bi kun kell shi read only, that why ma mnaamil update la kell el info
-            {
-                DesiredAppointmentAppForm.IsCompleted = false;
-                DesiredAppointmentAppForm.UndoCompletionAppointment();
-            }
+                else if (DesiredAppointmentAppForm.Title != null)
+                {
+                    if (!DesiredAppointmentAppForm.IsCompleted)
+                    {
+                        SetAppointmentCompletedOrNot(true);
+                    }
+                    else
+                    {
+                        SetAppointmentCompletedOrNot(false);
+                    }
+                }
 
-            OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
-            this.Close();
+
+            }
 
         }
         private void buttonCanceled_Click(object sender, EventArgs e)
         {
-
-            if (!DesiredAppointmentAppForm.IsCanceled)
+            FillDesiredClientObject();
+            if (!ISRequiredFieldsExists())
             {
-                DesiredAppointmentAppForm.IsCanceled = true;
-                UpdateOrAddAppointment(); //ejabre tahtha
-            }
-            else//in this case bi kun kell shi read only, that why ma mnaamil update la kell el info
+                if (!DesiredAppointmentAppForm.IsCanceled)
+                {
+                    DesiredAppointmentAppForm.IsCanceled = true;
+                    UpdateOrAddAppointment(); //ejabre tahtha
+                    OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+                }
+                else//in this case bi kun kell shi read only, that why ma mnaamil update la kell el info
+                {
+                    DesiredAppointmentAppForm.IsCanceled = false;//lezim nemnaa yghayir hayalla shi foe, read only kello
+                    DesiredAppointmentAppForm.SetOrResetIsCanceled();
+                    OnAppointmentUndoCancelation?.Invoke(this, EventArgs.Empty);
+                }
 
-            {
-                DesiredAppointmentAppForm.IsCanceled = false;//lezim nemnaa yghayir hayalla shi foe, read only kello
-                DesiredAppointmentAppForm.SetOrResetIsCanceled();
                 this.Close();
             }
-
-            OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
-            this.Close();
 
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             ucappointment.RemoveAppointment();
             this.Close();
+        }
+        private void UcClientApp_OnClientProfileInfoChanging(object sender, EventArgs e)
+        {
+            ucappointment.DesiredAppointmentUCApp.DesiredClient = ucClientApp.DesiredAppointmentUCClientApp.DesiredClient;
+            ucappointment.SetUCDesign();
+        }
+        private void UcClientApp_OnUpdatingTheChosenClientBalance(object sender, EventArgs e)
+        {
+            ucappointment.DesiredAppointmentUCApp.DesiredClientBalance = ucClientApp.DesiredAppointmentUCClientApp.DesiredClientBalance;
+            ucappointment.SetUCDesign();
+        }
+        private void BackOffice_UndoHappened(object sender, EventArgs e)//this is only design wise cz kell shi  backend happened aal undo action
+        {
+            if (DesiredAppointmentAppForm.IsCompleted)
+            {
+               
+                if (DesiredAppointmentAppForm.DesiredClientBalance != null || DesiredAppointmentAppForm.ChosenBundlesList != null)
+                {
+                    DataTable dt = DesiredAppointmentAppForm.AllRelatedRowsInArchiveTable();
+                    if (dt.Rows.Count == 0)
+                    {
+                        //appointment form design
+                        DesiredAppointmentAppForm.IsCompleted = false;
+                        SetDesign();
+
+                        //ucApp design
+                        OnAppointmentUndoCompletion?.Invoke(this, EventArgs.Empty);
+                    }
+                }
+
+                if (DesiredAppointmentAppForm.ChosenBundlesList != null)
+                {
+                    DataTable dt = DesiredAppointmentAppForm.AllRelatedRowsInArchiveTable();
+                    if (dt.Rows.Count != DesiredAppointmentAppForm.ChosenBundlesList.Count())
+                    {
+                        DesiredAppointmentAppForm.ChosenBundlesList.Clear();
+
+                        DataTable ChosenBundles = ClassAppointment.GetAllNewChosenBundles(DesiredAppointmentAppForm.AppointmentID);
+                        if (ChosenBundles.Rows.Count > 0)
+                        {
+                            List<ClassBundles> bundles = new List<ClassBundles>();
+                            foreach (DataRow dr in ChosenBundles.Rows)
+                            {
+                                bundles.Add(ClassBundles.CreateBundleObject((int)dr["bundle_id"]));
+                            }
+                            DesiredAppointmentAppForm.ChosenBundlesList = bundles;//ased eemelneha kermel yenkhalae el string ma3a
+                            ucappointment.DesiredAppointmentUCApp.ChosenBundlesList =new List<ClassBundles>(DesiredAppointmentAppForm.ChosenBundlesList);
+                            ucappointment.SetUCDesign();
+                        }
+                    }
+
+                }
+            }
         }
 
 
@@ -487,6 +626,8 @@ namespace MKproject.Schedule
             }
             Opacity += .1;
         }
+
+
 
         protected override CreateParams CreateParams
         {

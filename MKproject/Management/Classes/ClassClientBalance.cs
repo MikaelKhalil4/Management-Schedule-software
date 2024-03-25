@@ -29,7 +29,26 @@ namespace MKproject.Management
         public string CurrencyName { get; set; }
         public int? SessionLeftDays { get; set; }//null if not package of session
         public bool? IsBundleMembership { get; set; }
-        public DateTime? DueDate { get; set; }
+
+        private DateTime? dueDate;
+        public DateTime? DueDate
+        {
+            get { return dueDate; }
+            set
+            {
+                dueDate = value;
+                if (value != null)
+                {
+                    DaysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DueDate);
+                    if (DaysLeft < 0)
+                    {
+                        DaysLeft = 0;
+                    }
+                }
+
+            }
+        }
+
         public bool? IsFreezed { get; set; }
         public bool? IsExpired { get; set; }
 
@@ -37,16 +56,12 @@ namespace MKproject.Management
 
 
         //additional
-        public bool ISPackageSessionsOrDays { get; set; }
-        public bool IsPackageOrSolo { get; set; }
-        public bool IsBundleOrProduct { get; set; }
-        public int? SessionsLeft { get; set; }
-        public int? DaysLeft { get; set; }
+        public int? DaysLeft { get; set; }//btenjeb men wara Due Date w DateTime.Now bel Set tb3 El Due Dtae
 
         //View 
         public string ClientBalanceSessionLeftDetails { get; set; }//additional,  it a string that describe the service,if package: adde baaed eendo session w masare,if solo: service name,
-        public string ClientBalanceDetails { get; set; }//additional, null if not package, its a string: currency + Balance
-        public string ClientBalanceFullDetails { get; set; }
+        //public string ClientBalanceBalanceDetails { get; set; }//additional, null if not package, its a string: currency + Balance
+        //public string ClientBalanceFullDetails { get; set; }
 
         //Select
         public static DataTable GetClientBalanceSpecificOrLastInsert(int? ClientId)
@@ -481,35 +496,6 @@ namespace MKproject.Management
             }
             return PackageRemainings;
         }
-        public void SetStringDetailsIfBundle()
-        {
-            //Number Of Sessions or days
-            if (BundleId != null)
-            {
-                string ServiceName;
-                ServiceName = ClassBundles.FindBundleName((int)BundleId);
-                //sessionleft
-                if (ISPackageSessionsOrDays)//package of sessions
-                {
-                    ClientBalanceSessionLeftDetails = SessionLeftDays + " sess";
-                }
-                else if (!ISPackageSessionsOrDays)//package of days
-                {
-                    if (IsFreezed == false)//only packgae of days not freezed
-                    {
-
-                        ClientBalanceSessionLeftDetails = DaysLeft + " days";//tene wahde - awwal wahde
-                    }
-                    else//package days freezed
-                    {
-                        ServiceName += "(Freezed)";
-                    }
-
-                }
-                ClientBalanceDetails = Program.SetBalanceFormat(Balance.ToString());
-                ClientBalanceFullDetails = ServiceName + ": " + ClientBalanceSessionLeftDetails + " / " + ClientBalanceDetails;
-            }
-        }
 
 
 
@@ -723,42 +709,37 @@ namespace MKproject.Management
 
 
 
-
-
-            if (DesiredClientBalance.BundleId != null)//Bundle
-            {
-                DesiredClientBalance.IsBundleOrProduct = true;
-
-                if (DesiredClientBalance.SessionLeftDays != null)//package
-                {
-                    DesiredClientBalance.IsPackageOrSolo = true;
-                    if (DesiredClientBalance.DueDate == null)// package of sessions
-                    {
-                        DesiredClientBalance.ISPackageSessionsOrDays = true;
-                        DesiredClientBalance.SessionsLeft = (int)DesiredClientBalance.SessionLeftDays;
-                    }
-                    else//package of days
-                    {
-                        DesiredClientBalance.ISPackageSessionsOrDays = false;
-                        DesiredClientBalance.DaysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredClientBalance.DueDate);
-                        if (DesiredClientBalance.DaysLeft < 0)
-                        {
-                            DesiredClientBalance.DaysLeft = 0;
-                        }
-                    }
-                }
-                else//solo
-                {
-                    DesiredClientBalance.IsPackageOrSolo = false;
-                }
-            }
-            else//product
-            {
-                DesiredClientBalance.IsBundleOrProduct = false;
-            }
-
             return DesiredClientBalance;
 
+        }
+        public void SetStringDetailsIfBundle()
+        {
+            //Number Of Sessions or days
+            if (BundleId != null)
+            {
+                string ServiceName;
+                ServiceName = ClassBundles.FindBundleName((int)BundleId);
+
+                string Details = "";
+                //sessionleft
+                if (DueDate == null)//package of sessions
+                {
+                    Details = SessionLeftDays + " sess";
+                }
+                else if (DueDate != null)//package of days
+                {
+
+                    Details = DaysLeft + " days";//tene wahde - awwal wahde
+
+                    if (IsFreezed == true)
+
+                    {
+                        Details += " (Freezed)";
+                    }
+
+                }
+                ClientBalanceSessionLeftDetails = ServiceName + ": " + Details;
+            }
         }
 
         public ClassClientBalance Copy()

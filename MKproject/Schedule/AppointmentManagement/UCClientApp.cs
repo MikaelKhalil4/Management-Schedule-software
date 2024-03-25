@@ -21,7 +21,9 @@ namespace MKproject.Schedule
     {
         public TextBoxWithPlaceHolder textBoxTitle;
         Label LabelServiceOutput;
-        Label LabelServiceBundle;
+        Label LabelService;
+        Label LabelBalanceOutput;
+        Label LabelBalance;
         Label LabelNoDataRecorded;
         IconButton IconProfile;
         PictureBox pictureBoxSearch;
@@ -46,11 +48,11 @@ namespace MKproject.Schedule
                 IsServiceOrOthersMode = true;
                 if (DesiredAppointmentUCClientApp.AppointmentID == null)//adding new appointment
                 {
-                    SetDesignMode(false, false);
+                    SetLogicAndDesignMode(false, false);
                 }
                 else//update form
                 {
-                    SetDesignMode(false, true);
+                    SetLogicAndDesignMode(false, true);
                 }
 
             }
@@ -60,7 +62,9 @@ namespace MKproject.Schedule
                 textBoxTitle.Text = DesiredAppointmentUCClientApp.Title;
             }
 
+         
         }
+
 
 
         void CreatingTheClientModeOn()
@@ -102,13 +106,25 @@ namespace MKproject.Schedule
             LabelServiceOutput.Anchor = AnchorStyles.Left;
 
 
-            LabelServiceBundle = new Label();
-            LabelServiceBundle.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            LabelServiceBundle.AutoSize = true;
-            LabelServiceBundle.Margin = new Padding(6);
-            LabelServiceBundle.Anchor = AnchorStyles.Left;
+            LabelService = new Label();
+            LabelService.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            LabelService.AutoSize = true;
+            LabelService.Margin = new Padding(6);
+            LabelService.Anchor = AnchorStyles.Left;
 
 
+            LabelBalanceOutput = new Label();
+            LabelBalanceOutput.Text = "Balance:";
+            LabelBalanceOutput.Margin = new Padding(6);
+            LabelBalanceOutput.Font = new Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular | System.Drawing.FontStyle.Italic);
+            LabelBalanceOutput.AutoSize = true;
+            LabelBalanceOutput.Anchor = AnchorStyles.Left;
+
+            LabelBalance = new Label();
+            LabelBalance.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            LabelBalance.AutoSize = true;
+            LabelBalance.Margin = new Padding(0);
+            LabelBalance.Anchor = AnchorStyles.Left;
 
 
             textBoxTitle = new TextBoxWithPlaceHolder();
@@ -120,11 +136,7 @@ namespace MKproject.Schedule
             textBoxTitle.Multiline = true;
             textBoxTitle.Dock = DockStyle.Fill;
 
-            //LabelServiceBalance = new Label();
-            //LabelServiceBalance.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            //LabelServiceBalance.AutoSize = true;
-            //LabelServiceBalance.Margin = new Padding(0);
-            //LabelServiceBalance.Anchor = AnchorStyles.Left;
+
 
             LabelNoDataRecorded = new Label();
             LabelNoDataRecorded.Text = "No client chosen yet";
@@ -151,7 +163,7 @@ namespace MKproject.Schedule
         {
             if (ucSlideButtonServicerOthers.ClickedButton != ucSlideButtonServicerOthers.button1)
             {
-                SetDesignMode(false, false);
+                SetLogicAndDesignMode(false, false);
                 IsServiceOrOthersMode = true;
             }
         }
@@ -166,6 +178,7 @@ namespace MKproject.Schedule
 
 
 
+
         void SetDesignIfClientExist()
         {
             textBoxSearch.Text = DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + DesiredAppointmentUCClientApp.DesiredClient.Lname;
@@ -177,7 +190,10 @@ namespace MKproject.Schedule
             if (!TLPglobal.Controls.Contains(IconProfile))
             {
                 TLPglobal.Controls.Add(IconProfile, 0, 1);  //the scd row will be set tahet hasab el conditions    
+                TLPglobal.Controls.Add(LabelBalance, 1, 3);
+                TLPglobal.Controls.Add(LabelBalanceOutput, 0, 3);
             }
+
         }
         void SetDesignIfClientNotExist()
         {
@@ -185,6 +201,8 @@ namespace MKproject.Schedule
             if (TLPglobal.Controls.Contains(IconProfile))
             {
                 TLPglobal.Controls.Remove(IconProfile);
+                TLPglobal.Controls.Remove(LabelBalance);
+                TLPglobal.Controls.Remove(LabelBalanceOutput);
             }
 
             if (!TLPglobal.Controls.Contains(pictureBoxSearch))
@@ -194,7 +212,8 @@ namespace MKproject.Schedule
         }
 
 
-        public void SetDesignMode(bool IsNewServiceOrOneOfMultipleIsSelected, bool IsUpdateAndCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
+        public event EventHandler OnUpdatingTheChosenClientBalance;
+        public void SetLogicAndDesignMode(bool IsNewServiceOrOneOfMultipleIsSelected, bool IsUpdateAndCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
         {
             textBoxSearch.PlaceholderText = "By name or phone";
             textBoxSearch.IsRequiredModeOn = false;
@@ -215,6 +234,7 @@ namespace MKproject.Schedule
                 {
                     TLPglobal.Controls.Add(LabelNoDataRecorded, 0, 2);
                     TLPglobal.SetColumnSpan(LabelNoDataRecorded, 3);
+                    TLPglobal.SetRowSpan(LabelNoDataRecorded, 2);
                 }
 
                 textBoxSearch.Text = textBoxSearch.PlaceholderText;
@@ -236,6 +256,7 @@ namespace MKproject.Schedule
                     {
                         //Sql
                         PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+                        SetLabelbalanceDesign();
 
                         if (DesiredAppointmentUCClientApp.ChosenBundlesList == null)//in case ma kenet mnaea wala service
                         {
@@ -250,7 +271,7 @@ namespace MKproject.Schedule
                                 {
                                     SetDesignIfServiceOrPackageSelected();
                                     FillObjectOfAvailablePackage(PackageRemainingsDt.Rows[0]);
-                                    LabelServiceBundle.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceFullDetails;
+                                    LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
                                 }
                                 else //no packages or multiple packages
                                 {
@@ -267,7 +288,8 @@ namespace MKproject.Schedule
                                             {
                                                 SetDesignIfServiceOrPackageSelected();
                                                 FillObjectOfAvailablePackage(selectedRows[0]);
-                                                LabelServiceBundle.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceFullDetails;
+                                                LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                                                OnUpdatingTheChosenClientBalance?.Invoke(this, EventArgs.Empty);
                                             }
                                             else//in case ken fi selected package, w shelne men profil bas still fi kaza package
                                             {
@@ -285,7 +307,7 @@ namespace MKproject.Schedule
                         else
                         {
                             SetDesignIfServiceOrPackageSelected();
-                            LabelServiceBundle.Text = DesiredAppointmentUCClientApp.ChoseBundlesString;
+                            LabelService.Text = DesiredAppointmentUCClientApp.ChoseBundlesString;
 
                         }
                     }
@@ -298,12 +320,12 @@ namespace MKproject.Schedule
                     if (DesiredAppointmentUCClientApp.ChosenBundlesList != null)
                     {
                         SetDesignIfServiceOrPackageSelected();
-                        LabelServiceBundle.Text = DesiredAppointmentUCClientApp.ChoseBundlesString;
+                        LabelService.Text = DesiredAppointmentUCClientApp.ChoseBundlesString;
                     }
                     else if (DesiredAppointmentUCClientApp.DesiredClientBalance != null)
                     {
                         SetDesignIfServiceOrPackageSelected();
-                        LabelServiceBundle.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceFullDetails;
+                        LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
                     }
                     else
                     {
@@ -317,28 +339,31 @@ namespace MKproject.Schedule
                 {
                     PackageRemainingsDt = Management.ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
                     OldPackageRemainingsDtDesiredClient = PackageRemainingsDt;
+
+                    SetLabelbalanceDesign();
+
                     if (DesiredAppointmentUCClientApp.DesiredClientBalance != null)
                     {
                         SetDesignIfServiceOrPackageSelected();
-                        LabelServiceBundle.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceFullDetails;
+                        LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
                     }
                     else if (DesiredAppointmentUCClientApp.ChoseBundlesString != null && DesiredAppointmentUCClientApp.ChosenBundlesList != null)
                     {
                         SetDesignIfServiceOrPackageSelected();
-                        LabelServiceBundle.Text = DesiredAppointmentUCClientApp.ChoseBundlesString;
+                        LabelService.Text = DesiredAppointmentUCClientApp.ChoseBundlesString;
                     }
                 }
             }
 
+            //if (DesiredAppointmentUCClientApp.DesiredClient != null)//ejabre tahet
+            //{
+            //    OldClientId = DesiredAppointmentUCClientApp.DesiredClient.ClientId;
+            //}
+            //else
+            //{
+            //    OldClientId = -1;
+            //}
 
-            if (DesiredAppointmentUCClientApp.DesiredClient != null)
-            {
-                OldClientId = DesiredAppointmentUCClientApp.DesiredClient.ClientId;
-            }
-            else
-            {
-                OldClientId = -1;
-            }
         }
         void SetDesignIfOthersMode()
         {
@@ -348,17 +373,31 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCClientApp.DesiredClient != null)
             {
                 SetDesignIfClientExist();
+                SetLabelbalanceDesign();
             }
             else
             {
                 SetDesignIfClientNotExist();
             }
 
-            RemoveAllControlsAtRowIndex(TLPglobal, 2);
-            TLPglobal.Controls.Add(textBoxTitle, 1, 2);
 
+            if (!TLPglobal.Controls.Contains(textBoxTitle))
+            {
+                RemoveAllControlsAtRowIndex(TLPglobal, 2);
+                TLPglobal.Controls.Add(textBoxTitle, 1, 2);
+            }
+
+            //if (DesiredAppointmentUCClientApp.DesiredClient != null)//ejabre tahet
+            //{
+            //    OldClientId = DesiredAppointmentUCClientApp.DesiredClient.ClientId;
+            //}
+            //else
+            //{
+            //    OldClientId = -1;
+            //}
 
         }
+
 
 
 
@@ -370,7 +409,7 @@ namespace MKproject.Schedule
 
             TLPglobal.Controls.Add(LabelServiceOutput, 0, 2);
 
-            TLPglobal.Controls.Add(LabelServiceBundle, 1, 2);
+            TLPglobal.Controls.Add(LabelService, 1, 2);
 
             TLPglobal.Controls.Add(ButtonChangeORChooseService);
             TLPglobal.SetColumn(ButtonChangeORChooseService, 2);
@@ -401,16 +440,27 @@ namespace MKproject.Schedule
             }
 
 
-            if (OldClientId != DesiredAppointmentUCClientApp.DesiredClient.ClientId && NewClientIsAdded == false)
-            {
-                ChooseService chooseService = new ChooseService(this);
-                chooseService.ShowDialog();
-            }
+            //if (OldClientId != DesiredAppointmentUCClientApp.DesiredClient.ClientId && NewClientIsAdded == false)
+            //{
+            //    ChooseService chooseService = new ChooseService(this);
+            //    chooseService.ShowDialog();
+            //}
 
 
 
         }
-
+        void SetLabelbalanceDesign()
+        {
+            LabelBalance.Text = Program.SetBalanceFormat(DesiredAppointmentUCClientApp.DesiredClient.TotalBalance.ToString());
+            if (LabelBalance.Text.Contains('-'))
+            {
+                LabelBalance.ForeColor = Color.Red;
+            }
+            else
+            {
+                LabelBalance.ForeColor = Color.Black;
+            }
+        }
 
 
 
@@ -462,6 +512,7 @@ namespace MKproject.Schedule
 
 
 
+      
 
         private void ButtonChangeORChooseService_Click(object sender, EventArgs e)
         {
@@ -491,8 +542,14 @@ namespace MKproject.Schedule
             ResetDesiredAppointmentspecificValues();
             if (IsServiceOrOthersMode)//only eza kenna bel survice mode
             {
-                SetDesignMode(false, false);
+                SetLogicAndDesignMode(false, false);
             }
+            else
+            {
+                SetDesignIfOthersMode();
+            }
+
+
         }
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
@@ -502,7 +559,7 @@ namespace MKproject.Schedule
 
 
 
-
+        public event EventHandler OnClientProfileInfoChanging;
         private void IconProfile_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
@@ -532,13 +589,16 @@ namespace MKproject.Schedule
             Program.clientManagementProfile.Visible = false;
             Program.clientManagementProfile.FormClosing -= ClientManagementProfile_FormClosing;
 
-            //in case we have changed the name
+            //in case we have changed the name or the balance
             DesiredAppointmentUCClientApp.DesiredClient = Program.clientManagementProfile.Client;
+
             if (DesiredAppointmentUCClientApp.DesiredClient == null)//means the client was deleted
             {
                 ResetDesiredAppointmentspecificValues();
             }
-            SetDesignMode(false, false);
+            SetLogicAndDesignMode(false, false);
+
+            OnClientProfileInfoChanging?.Invoke(this, EventArgs.Empty);//ejbare tahta
         }
 
 
@@ -572,7 +632,7 @@ namespace MKproject.Schedule
             DesiredAppointmentUCClientApp.DesiredClient = newRegister.TheNewInsertedClient;
             ResetDesiredAppointmentspecificValues();
             NewClientIsAdded = true;//set
-            SetDesignMode(false, false);//fi shi depends men hal value, open choose service
+            SetLogicAndDesignMode(false, false);//fi shi depends men hal value, open choose service
             NewClientIsAdded = false;//reset
             Program.NewRegisterForm.FormClosed -= NewRegisterForm_ClientSaved;
         }

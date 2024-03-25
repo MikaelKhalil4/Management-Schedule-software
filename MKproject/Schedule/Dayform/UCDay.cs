@@ -230,7 +230,6 @@ namespace MKproject.Schedule
                     DesiredReminder.DesiredClient.ClientId = (int)dr["client_id"];
                     DesiredReminder.DesiredClient.Fname = (string)dr["name"];
                     DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
-                    DesiredReminder.DesiredClient.FullName = (string)dr["name"] + " " + (string)dr["family_name"];
                 }
                 DesiredReminder.Reminder = (string)dr["reminder"];
                 DesiredReminder.Repeat = (string)dr["repeat"];

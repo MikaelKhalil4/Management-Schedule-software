@@ -79,15 +79,14 @@
             TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
             TLPGlobal.Name = "TLPGlobal";
             TLPGlobal.RowCount = 7;
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 163F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 218F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            TLPGlobal.Size = new System.Drawing.Size(447, 482);
+            TLPGlobal.Size = new System.Drawing.Size(447, 537);
             TLPGlobal.TabIndex = 70;
             // 
             // labelEmployee
@@ -95,7 +94,7 @@
             labelEmployee.Anchor = System.Windows.Forms.AnchorStyles.Right;
             labelEmployee.AutoSize = true;
             labelEmployee.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelEmployee.Location = new System.Drawing.Point(323, 328);
+            labelEmployee.Location = new System.Drawing.Point(323, 383);
             labelEmployee.Margin = new System.Windows.Forms.Padding(6);
             labelEmployee.Name = "labelEmployee";
             labelEmployee.Size = new System.Drawing.Size(118, 20);
@@ -108,7 +107,7 @@
             label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            label2.Location = new System.Drawing.Point(6, 329);
+            label2.Location = new System.Drawing.Point(6, 384);
             label2.Margin = new System.Windows.Forms.Padding(6);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(59, 17);
@@ -124,7 +123,7 @@
             textBoxNotes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             textBoxNotes.ForeColor = System.Drawing.Color.Gray;
             textBoxNotes.IsRequiredModeOn = false;
-            textBoxNotes.Location = new System.Drawing.Point(7, 366);
+            textBoxNotes.Location = new System.Drawing.Point(7, 421);
             textBoxNotes.Margin = new System.Windows.Forms.Padding(7, 3, 6, 3);
             textBoxNotes.Multiline = true;
             textBoxNotes.Name = "textBoxNotes";
@@ -145,7 +144,7 @@
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonDelete.ForeColor = System.Drawing.Color.White;
-            buttonDelete.Location = new System.Drawing.Point(3, 444);
+            buttonDelete.Location = new System.Drawing.Point(3, 499);
             buttonDelete.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new System.Drawing.Size(95, 29);
@@ -159,7 +158,7 @@
             labelDifferenceTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
             labelDifferenceTime.BackColor = System.Drawing.Color.White;
             labelDifferenceTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            labelDifferenceTime.Location = new System.Drawing.Point(280, 277);
+            labelDifferenceTime.Location = new System.Drawing.Point(280, 332);
             labelDifferenceTime.Margin = new System.Windows.Forms.Padding(6);
             labelDifferenceTime.Name = "labelDifferenceTime";
             labelDifferenceTime.Size = new System.Drawing.Size(161, 21);
@@ -173,7 +172,7 @@
             flowLayoutPanel2.BackColor = System.Drawing.Color.White;
             flowLayoutPanel2.Controls.Add(textBoxEndTime);
             flowLayoutPanel2.Controls.Add(DownArrowEndTime);
-            flowLayoutPanel2.Location = new System.Drawing.Point(279, 227);
+            flowLayoutPanel2.Location = new System.Drawing.Point(279, 282);
             flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(6);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Size = new System.Drawing.Size(162, 21);
@@ -215,7 +214,7 @@
             flowLayoutPanel1.BackColor = System.Drawing.Color.White;
             flowLayoutPanel1.Controls.Add(textBoxStartTime);
             flowLayoutPanel1.Controls.Add(DownArrowStartTime);
-            flowLayoutPanel1.Location = new System.Drawing.Point(279, 177);
+            flowLayoutPanel1.Location = new System.Drawing.Point(279, 232);
             flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new System.Drawing.Size(162, 21);
@@ -256,7 +255,7 @@
             labelStartTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
             labelStartTime.AutoSize = true;
             labelStartTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            labelStartTime.Location = new System.Drawing.Point(6, 179);
+            labelStartTime.Location = new System.Drawing.Point(6, 234);
             labelStartTime.Margin = new System.Windows.Forms.Padding(6);
             labelStartTime.Name = "labelStartTime";
             labelStartTime.Size = new System.Drawing.Size(73, 17);
@@ -269,7 +268,7 @@
             labelEndTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
             labelEndTime.AutoSize = true;
             labelEndTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            labelEndTime.Location = new System.Drawing.Point(6, 229);
+            labelEndTime.Location = new System.Drawing.Point(6, 284);
             labelEndTime.Margin = new System.Windows.Forms.Padding(6);
             labelEndTime.Name = "labelEndTime";
             labelEndTime.Size = new System.Drawing.Size(66, 17);
@@ -284,7 +283,7 @@
             flowLayoutPanel3.Controls.Add(buttonCompleted);
             flowLayoutPanel3.Controls.Add(buttonCanceled);
             flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel3.Location = new System.Drawing.Point(139, 442);
+            flowLayoutPanel3.Location = new System.Drawing.Point(139, 497);
             flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Size = new System.Drawing.Size(308, 36);
@@ -355,7 +354,7 @@
             label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            label1.Location = new System.Drawing.Point(6, 279);
+            label1.Location = new System.Drawing.Point(6, 334);
             label1.Margin = new System.Windows.Forms.Padding(6);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(65, 17);
@@ -374,7 +373,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
-            ClientSize = new System.Drawing.Size(447, 482);
+            ClientSize = new System.Drawing.Size(447, 537);
             Controls.Add(TLPGlobal);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MaximizeBox = false;
@@ -382,6 +381,7 @@
             Name = "Appointment";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Appointment";
+            FormClosed += Appointment_FormClosed;
             TLPGlobal.ResumeLayout(false);
             TLPGlobal.PerformLayout();
             flowLayoutPanel2.ResumeLayout(false);

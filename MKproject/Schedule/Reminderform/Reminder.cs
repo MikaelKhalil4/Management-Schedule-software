@@ -49,7 +49,7 @@ namespace MKproject.Schedule
 
             //Getting the needed values
             DesiredReminder.DesiredClient = clientreminder.DesiredClient;
-            textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredClient.Lname;
+            textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredReminder.DesiredClient.Lname;
 
             GetQuoteFromDate();
 
@@ -72,7 +72,7 @@ namespace MKproject.Schedule
             Isclientreminder = isclientreminder;
 
 
-            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredClient.Lname; }
+            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredReminder.DesiredClient.Lname; }
 
             if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
             {
@@ -146,7 +146,7 @@ namespace MKproject.Schedule
             Isclientreminder = isclientreminder;
 
 
-            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredClient.Lname; }
+            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredReminder.DesiredClient.Lname; }
 
 
             if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
@@ -218,7 +218,7 @@ namespace MKproject.Schedule
                 //Bi koun akhad lDesiredCient men abel
                 DesiredReminder.Reminder = textBoxReminder.Text;
                 DesiredReminder.Repeat = repeat;
-                DesiredReminder.StartTime = ucday.DateUCDay;
+                DesiredReminder.StartTime = ucday.SelectedDate;
                 DesiredReminder.LabelQuote = labelQuote.Text;
 
                 //UPDATE
@@ -303,7 +303,7 @@ namespace MKproject.Schedule
                     }
 
                     //DESIGN IF IT'S IN ClientReminder
-                    if (Isclientreminder && DesiredClient.ClientId == clientReminder.ClientId)
+                    if (Isclientreminder && DesiredReminder.DesiredClient.ClientId == clientReminder.ClientId)
                     {
                         UCreminder ucreminder1 = new UCreminder(DesiredReminder, ucday, schedule, clientReminder);
                         clientReminder.panelreminder.Controls.Add(ucreminder1);
@@ -399,13 +399,13 @@ namespace MKproject.Schedule
         {
             //Getting the Quote
             string datestart;
-            if (ucday.DateUCDay.Date == DateTime.Today.Date)
+            if (ucday.SelectedDate.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = ucday.DateUCDay.Date.ToString("dddd d MMMM");
+                datestart = ucday.SelectedDate.Date.ToString("dddd d MMMM");
             }
 
             //no repeat

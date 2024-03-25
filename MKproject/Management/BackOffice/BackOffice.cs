@@ -514,8 +514,12 @@ namespace MKproject.Management
             UCClient.labelTitle.Select();
         }
 
-        void DeletingDatagridRows(int ArchiveId)
+
+        public static event EventHandler UndoHappened;
+        void DeletingDatagridRowsAndActiveTheEvent(int ArchiveId)
         {
+
+            UndoHappened?.Invoke(this, EventArgs.Empty);
 
             FilteredBackOfficeDt.PrimaryKey = new DataColumn[] { FilteredBackOfficeDt.Columns["archive_id"] };//kermel el refresh 
             DataRow DesiredRowF = FilteredBackOfficeDt.Rows.Find(ArchiveId);
@@ -531,6 +535,7 @@ namespace MKproject.Management
             DataRow DesiredRowO = OriginalBackOfficeDt.Rows.Find(ArchiveId);
             DesiredRowO.Delete();
             OriginalBackOfficeDt.AcceptChanges();
+
 
         }
 
@@ -591,7 +596,7 @@ namespace MKproject.Management
                                     }
 
                                     //design
-                                    DeletingDatagridRows(DesiredArchiveID);
+                                    DeletingDatagridRowsAndActiveTheEvent(DesiredArchiveID);
 
                                 }
 
@@ -623,13 +628,13 @@ namespace MKproject.Management
                                 {
 
                                     int DesiredArchiveID = Convert.ToInt16(foundOriginRows[i]["archive_id"]);
-                                    DeletingDatagridRows(DesiredArchiveID);
+                                    DeletingDatagridRowsAndActiveTheEvent(DesiredArchiveID);
                                 }
 
                             }
 
                             //design
-                            DeletingDatagridRows(ArchiveId);
+                            DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
                             dataGridViewBackOffice.ClearSelection();
 
                             if (backofficeform != null && ClientId == null)//childmode not all transaction
@@ -650,7 +655,7 @@ namespace MKproject.Management
 
                             ClassBackOffice.UndoSessionDoneActionsSQL(clientId, structId, ArchiveId, clientBalanceId, false, AppointmentId, backofficeform);
                             //design
-                            DeletingDatagridRows(ArchiveId);
+                            DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
                             dataGridViewBackOffice.ClearSelection();
                         }
 
@@ -666,7 +671,7 @@ namespace MKproject.Management
                         {
                             ClassBackOffice.UndoPaymentActionsSQL(clientId, clientBalanceId, ArchiveId, ArchiveDate, AmountPaid, backofficeform);
                             //design
-                            DeletingDatagridRows(ArchiveId);
+                            DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
                             dataGridViewBackOffice.ClearSelection();
                         }
 
@@ -688,7 +693,7 @@ namespace MKproject.Management
                             }
                             else
                             {
-                                DeletingDatagridRows(ArchiveId);
+                                DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
                             }
 
                         }

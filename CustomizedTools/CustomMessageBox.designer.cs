@@ -28,95 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomMessageBox));
-            this.labelText = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.FLPButtons = new System.Windows.Forms.FlowLayoutPanel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.SuspendLayout();
+            labelText = new System.Windows.Forms.Label();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            pictureBox = new System.Windows.Forms.PictureBox();
+            FLPButtons = new System.Windows.Forms.FlowLayoutPanel();
+            timer1 = new System.Windows.Forms.Timer(components);
+            tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
+            SuspendLayout();
             // 
             // labelText
             // 
-            this.labelText.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelText.AutoSize = true;
-            this.labelText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelText.Location = new System.Drawing.Point(71, 23);
-            this.labelText.Margin = new System.Windows.Forms.Padding(3, 15, 3, 15);
-            this.labelText.Name = "labelText";
-            this.labelText.Size = new System.Drawing.Size(179, 84);
-            this.labelText.TabIndex = 29;
-            this.labelText.Text = "label1v hello ow are you\r\nlabel1v hello ow are you\r\nlabel1v hello ow are you\r\nlab" +
-    "el1v hello ow are you\r\n";
+            labelText.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            labelText.AutoSize = true;
+            labelText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelText.Location = new System.Drawing.Point(83, 33);
+            labelText.Margin = new System.Windows.Forms.Padding(4, 17, 4, 17);
+            labelText.Name = "labelText";
+            labelText.Size = new System.Drawing.Size(179, 84);
+            labelText.TabIndex = 29;
+            labelText.Text = "label1v hello ow are you\r\nlabel1v hello ow are you\r\nlabel1v hello ow are you\r\nlabel1v hello ow are you\r\n";
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 68F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelText, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.FLPButtons, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(417, 183);
-            this.tableLayoutPanel1.TabIndex = 30;
+            tableLayoutPanel1.BackColor = System.Drawing.Color.White;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(pictureBox, 0, 0);
+            tableLayoutPanel1.Controls.Add(labelText, 1, 0);
+            tableLayoutPanel1.Controls.Add(FLPButtons, 0, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(418, 211);
+            tableLayoutPanel1.TabIndex = 30;
             // 
             // pictureBox
             // 
-            this.pictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox.BackgroundImage")));
-            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox.Location = new System.Drawing.Point(8, 40);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(51, 49);
-            this.pictureBox.TabIndex = 31;
-            this.pictureBox.TabStop = false;
+            pictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            pictureBox.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox.BackgroundImage");
+            pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBox.Location = new System.Drawing.Point(10, 46);
+            pictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new System.Drawing.Size(59, 57);
+            pictureBox.TabIndex = 31;
+            pictureBox.TabStop = false;
             // 
             // FLPButtons
             // 
-            this.FLPButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.tableLayoutPanel1.SetColumnSpan(this.FLPButtons, 2);
-            this.FLPButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FLPButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.FLPButtons.Location = new System.Drawing.Point(0, 130);
-            this.FLPButtons.Margin = new System.Windows.Forms.Padding(0);
-            this.FLPButtons.Name = "FLPButtons";
-            this.FLPButtons.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.FLPButtons.Size = new System.Drawing.Size(417, 53);
-            this.FLPButtons.TabIndex = 30;
+            FLPButtons.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            tableLayoutPanel1.SetColumnSpan(FLPButtons, 2);
+            FLPButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            FLPButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            FLPButtons.Location = new System.Drawing.Point(0, 150);
+            FLPButtons.Margin = new System.Windows.Forms.Padding(0);
+            FLPButtons.Name = "FLPButtons";
+            FLPButtons.Padding = new System.Windows.Forms.Padding(0, 12, 0, 0);
+            FLPButtons.Size = new System.Drawing.Size(418, 61);
+            FLPButtons.TabIndex = 30;
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
             // 
             // CustomMessageBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 183);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "CustomMessageBox";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(418, 211);
+            Controls.Add(tableLayoutPanel1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "CustomMessageBox";
+            ShowIcon = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
