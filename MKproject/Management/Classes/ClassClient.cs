@@ -366,7 +366,7 @@ namespace MKproject.Management
             adapter.Fill(dt);
             return dt;
         }
-        public static DataTable GetSoonBirthdaysSQL()
+        public static  DataTable GetSoonBirthdaysSQL()
         {
 
             // SQL query to select clients with birthdays within 7 days
@@ -402,7 +402,18 @@ namespace MKproject.Management
             return dt;
 
         }
-
+        public static double GetClientTotalBalance(int ClientId)
+        {
+            double TotalBalance;
+            con.Open();
+            string getLastClientIdQuery = "SELECT total_balance FROM client where client_id='"+ ClientId + "'";
+            using (SqlCommand command = new SqlCommand(getLastClientIdQuery, con))
+            {
+                TotalBalance = Convert.ToInt32(command.ExecuteScalar());
+            }
+            con.Close();
+            return TotalBalance;
+        }
 
         //UpdateAndInsert
 
@@ -418,9 +429,19 @@ namespace MKproject.Management
             con.Close();
 
         }
-        public static void UpdateClientTotalBalanceSQL(int ClientID, double TotalBalance)
+        public static void UpdateClientTotalBalanceSQL(int ClientID, double TotalBalance,bool OverRideOrAdd)
         {
-            string query = "UPDATE client SET total_balance=@total_balance where client_id=@client_id";
+            string query;
+
+            if (OverRideOrAdd)
+            {
+                query = "UPDATE client SET total_balance=@total_balance where client_id=@client_id";
+            }
+            else
+            {
+                query = "UPDATE client SET total_balance+=@total_balance where client_id=@client_id";
+            }
+
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             cmd.Parameters.AddWithValue("@total_balance", TotalBalance);
@@ -428,9 +449,19 @@ namespace MKproject.Management
             cmd.ExecuteNonQuery();
             con.Close();
         }
-        public static void UpdateClientTotalPaymentSQL(int ClientID, double TotalPayemnt)
+        public static void UpdateClientTotalPaymentSQL(int ClientID, double TotalPayemnt, bool OverRideOrAdd)
         {
-            string query = "UPDATE client SET total_payment=@total_payment where client_id=@client_id";
+            string query;
+
+            if (OverRideOrAdd)
+            {
+                query = "UPDATE client SET total_payment=@total_payment where client_id=@client_id";
+            }
+            else
+            {
+                query = "UPDATE client SET total_payment+=@total_payment where client_id=@client_id";
+            }
+
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             cmd.Parameters.AddWithValue("@total_payment", TotalPayemnt);
@@ -527,7 +558,7 @@ namespace MKproject.Management
                 AttendanceId = null;
             }
 
-
+            ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, -Bundle.Price, false);
 
             ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, LOGIN.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, Date);
             backOffice.CreateActionDetails(InsertedRow);
@@ -542,7 +573,7 @@ namespace MKproject.Management
             }
             return dtinserteditem;
         }
-        public static DataTable PurchaseAProduce(ClassProduct product, DateTime Date, ClassClient Client)
+        public static DataTable PurchaseAProduct(ClassProduct product, DateTime Date, ClassClient Client)
         {
             //SQL
             ClassClientBalance.InsertToClientBalance(Client.ClientId, product.ID, null);
@@ -550,6 +581,7 @@ namespace MKproject.Management
 
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
+            ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, -product.Price, false);
 
             ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["client_balance_id"], null, null, null, null, null, Date);
             backOffice.CreateActionDetails(InsertedRow);

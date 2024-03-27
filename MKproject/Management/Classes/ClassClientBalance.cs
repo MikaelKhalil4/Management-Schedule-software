@@ -456,9 +456,15 @@ namespace MKproject.Management
             SqlCommand cmd2 = new SqlCommand(QueryDeleteFinance, con);
             cmd2.ExecuteNonQuery();
 
+            string QueryDeleteRelatedServices = "DELETE FROM client_services_attendance WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
+            SqlCommand cmd4 = new SqlCommand(QueryDeleteRelatedServices, con);
+            cmd4.ExecuteNonQuery();
+
             string QueryDeleteAppointments = "DELETE FROM appointments WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
             SqlCommand cmd5 = new SqlCommand(QueryDeleteAppointments, con);
             cmd5.ExecuteNonQuery();
+
+           
 
             string QueryDeleteClientBalance = "DELETE FROM client_balance WHERE client_balance_id ='" + DesiredClientBalanceId + "'";
             SqlCommand cmd3 = new SqlCommand(QueryDeleteClientBalance, con);
@@ -496,15 +502,57 @@ namespace MKproject.Management
             }
             return PackageRemainings;
         }
+        public static  (double,double,double,int,int) CalculatingClientPayment(DataTable DesiredClientBalanceDT)
+        {
+            double BundlePayments = 0;
+            double ProductPayments = 0;
+            int TokenBundles = 0;
+            int TokenProducts = 0;
+            double TotalPayment;
+            foreach (DataRow row in DesiredClientBalanceDT.Rows)
+            {
+                if (row["bundle_id"] != DBNull.Value)
+                {
+                    TokenBundles++;
+                    BundlePayments += (double)row["amount_paid"];
+                }
+                else if (row["product_id"] != DBNull.Value)
+                {
+                    TokenProducts++;
+                    ProductPayments += (double)row["amount_paid"];
+                }
+            }
+            TotalPayment = ProductPayments + BundlePayments;
+            return (TotalPayment, BundlePayments, ProductPayments, TokenBundles, TokenProducts);
+        }
+
+        public static (double, double, double) CalculatingClientBalance(DataTable DesiredClientBalanceDT)
+        {
+            double bundleBalance = 0;
+            double ProductBalance = 0;
+            double TotalBalance;
+            foreach (DataRow d in DesiredClientBalanceDT.Rows)
+            {
+
+                if (d["product_id"] != DBNull.Value)
+                {
+                    ProductBalance += Convert.ToDouble(d["balance"]);
+
+                }
+                else
+                {
+                    bundleBalance += Convert.ToDouble(d["balance"]);
+                }
+            }
+            TotalBalance = bundleBalance + ProductBalance;
+            return (TotalBalance, bundleBalance, ProductBalance);
+        }
 
 
 
 
-
-
-
-        //kermel el design display tb3 clientBalance bel datatgridView
-        public static void FormatClientBalanceDt(DataTable DtClientBalanceOriginal)
+            //kermel el design display tb3 clientBalance bel datatgridView
+            public static void FormatClientBalanceDt(DataTable DtClientBalanceOriginal)
         {
 
             DtClientBalanceOriginal.Columns.Add("AutoIncrementColumn", typeof(int));

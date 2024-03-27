@@ -110,7 +110,7 @@ namespace MKproject.Management
 
 
 
-            dtClientBalanceOriginal = ClassClientBalance.GetClientBalanceSpecificOrLastInsert((int)Client.ClientId);
+            dtClientBalanceOriginal = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(Client.ClientId);
 
             DataTableToDatagridView();
             ClassClientBalance.FormatDatagridview(dataGridViewBalance, true);
@@ -164,7 +164,7 @@ namespace MKproject.Management
 
             //dataGridViewBalance.DataSource = dtClientBalanceOriginal;
 
-            CalculatingTotalBalances(false);
+            CalculatingTotalBalancesDesignAndSql(false);
         }
 
         private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -281,37 +281,18 @@ namespace MKproject.Management
 
 
 
-        public void CalculatingClientHistory(bool UpdateMode)
+
+        public void CalculatingClientHistoryDesignAndSql(bool UpdateMode)
         {
-            //logic started
-            int TokenBundles = 0;
-            double BundlePayments = 0;
-            int TokenProducts = 0;
-            double ProductPayments = 0;
-            double TotalPayment;
-
-            foreach (DataRow row in dtClientBalanceOriginal.Rows)
-            {
-                if (row["bundle_id"] != DBNull.Value)
-                {
-                    TokenBundles++;
-                    BundlePayments += (double)row["amount_paid"];
-                }
-                else if (row["product_id"] != DBNull.Value)
-                {
-                    TokenProducts++;
-                    ProductPayments += (double)row["amount_paid"];
-                }
-            }
 
 
-            TotalPayment = ProductPayments + BundlePayments;
-            //logic Ended
+            (double TotalPayment, double BundlePayments, double ProductPayments, int TokenBundles, int TokenProducts) = ClassClientBalance.CalculatingClientPayment(dtClientBalanceOriginal);
+
 
             //SQL
             if (UpdateMode)//lieanno fi matarih men kun aam naamil update la sql men gher matrah
             {
-                ClassClient.UpdateClientTotalPaymentSQL(Client.ClientId, TotalPayment);
+                ClassClient.UpdateClientTotalPaymentSQL(Client.ClientId, TotalPayment, true);
             }
 
             //design
@@ -323,29 +304,15 @@ namespace MKproject.Management
             UCTokenProducts.Detail = Convert.ToString(TokenProducts);
             UCpaymentsProducts.Detail = Program.SetCashFormat(Convert.ToString(ProductPayments));
         }//try catch
-        public void CalculatingTotalBalances(bool UpdateMode)
+        public void CalculatingTotalBalancesDesignAndSql(bool UpdateMode)
         {
-            double bundleBalance = 0;
-            double ProductBalance = 0;
-            foreach (DataRow d in dtClientBalanceOriginal.Rows)
-            {
 
-                if (d["product_id"] != DBNull.Value)
-                {
-                    ProductBalance += Convert.ToDouble(d["balance"]);
-
-                }
-                else
-                {
-                    bundleBalance += Convert.ToDouble(d["balance"]);
-                }
-            }
-            TotalBalanceAmount = bundleBalance + ProductBalance;
+            (TotalBalanceAmount, double bundleBalance, double ProductBalance) = ClassClientBalance.CalculatingClientBalance(dtClientBalanceOriginal);
 
             //SQL
             if (UpdateMode)//lieanno fi matarih men kun aam naamil update la sql men gher matrah
             {
-                ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, TotalBalanceAmount);//hayde kermel el table el client el asesie
+                ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, TotalBalanceAmount,true);//hayde kermel el table el client el asesie
 
             }
 
@@ -630,7 +597,7 @@ namespace MKproject.Management
 
             if (!IsUpdateOrCreate)
             {
-                CalculatingClientHistory(false);
+                CalculatingClientHistoryDesignAndSql(false);
                 UCTotalAttendance.Detail = Convert.ToString(Client.TotalAttendance);
             }
             CreateOrUpdateLinkChild();//in case sar chile
@@ -1252,7 +1219,7 @@ namespace MKproject.Management
 
             FormatDatagridviewDesign();
             dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
-            CalculatingTotalBalances(true);
+            CalculatingTotalBalancesDesignAndSql(true);
             //
             FromBalance = ToBalance;//in order to reset it for coming updates when we still in payment form
         }//try catch

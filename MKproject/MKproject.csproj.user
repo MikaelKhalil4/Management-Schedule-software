@@ -95,8 +95,11 @@
     <Compile Update="Schedule\Appointmentform\Appointment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Schedule\AppointmentManagement\ChooseService.cs">
+    <Compile Update="Schedule\Appointmentform\ChooseService.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Appointmentform\UCappointment.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\Availabilityform\AvailabilityLayout.cs">
       <SubType>Form</SubType>

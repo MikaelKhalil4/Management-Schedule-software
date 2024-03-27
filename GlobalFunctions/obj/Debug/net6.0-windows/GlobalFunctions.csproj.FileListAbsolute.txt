@@ -1,13 +1,3 @@
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.deps.json
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.pdb
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.GeneratedMSBuildEditorConfig.editorconfig
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.csproj.CoreCompileInputs.cache
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.sourcelink.json
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\refint\GlobalFunctions.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.pdb
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\ref\GlobalFunctions.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6 -\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.deps.json
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6 -\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6 -\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.pdb
@@ -28,3 +18,13 @@ C:\MKProject code\MKproject\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunct
 C:\MKProject code\MKproject\GlobalFunctions\obj\Debug\net6.0-windows\refint\GlobalFunctions.dll
 C:\MKProject code\MKproject\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.pdb
 C:\MKProject code\MKproject\GlobalFunctions\obj\Debug\net6.0-windows\ref\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.deps.json
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.csproj.CoreCompileInputs.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.sourcelink.json
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\refint\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\ref\GlobalFunctions.dll

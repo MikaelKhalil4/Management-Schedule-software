@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -424,7 +425,7 @@ namespace MKproject.Schedule
             return (initialbalance, PurchasedBundles);
 
         }
-        void SetAppointmentCompletedOrNot(bool IsCompleting)
+        void CompletingOrUndoingAppointment(bool IsCompleting)
         {
             if (IsCompleting)
             {
@@ -436,6 +437,10 @@ namespace MKproject.Schedule
             {
                 DesiredAppointmentAppForm.IsCompleted = false;
                 DesiredAppointmentAppForm.UndoCompletionAppointment();
+           
+                DesiredAppointmentAppForm.DesiredClient.TotalBalance = ClassClient.GetClientTotalBalance(DesiredAppointmentAppForm.DesiredClient.ClientId);//ejbare tahet UndoCompletionAppointment();
+                                                                                                                                                           //used not always, only in case ken undoing a new service cz ma32oul tetghayar
+
                 OnAppointmentUndoCompletion?.Invoke(this, EventArgs.Empty);//!!! Bas ejbare bel Undo nkun aam nemna3o yaamil update aa hayyala field(ReadOnly) aa hayalla field w ela ha yenzalo bel uCAppointment
             }
             this.Close();
@@ -468,7 +473,7 @@ namespace MKproject.Schedule
                                 ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID);
 
                                 //
-                                SetAppointmentCompletedOrNot(true);
+                                CompletingOrUndoingAppointment(true);
                             }
                             else
                             {
@@ -483,18 +488,18 @@ namespace MKproject.Schedule
                             DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
 
                             //
-                            SetAppointmentCompletedOrNot(false);
+                            CompletingOrUndoingAppointment(false);
                         }
                     }
                     else if (DesiredAppointmentAppForm.DesiredClientBalance.DueDate != null)
                     {
                         if (!DesiredAppointmentAppForm.IsCompleted)
                         {
-                            SetAppointmentCompletedOrNot(true);
+                            CompletingOrUndoingAppointment(true);
                         }
                         else
                         {
-                            SetAppointmentCompletedOrNot(false);
+                            CompletingOrUndoingAppointment(false);
                         }
                     }
                 }
@@ -511,23 +516,22 @@ namespace MKproject.Schedule
                         paymentform.ShowDialog();
 
                         //
-                        SetAppointmentCompletedOrNot(true);
+                        CompletingOrUndoingAppointment(true);
                     }
                     else
                     {
-
-                        SetAppointmentCompletedOrNot(false);
+                        CompletingOrUndoingAppointment(false);
                     }
                 }
                 else if (DesiredAppointmentAppForm.Title != null)
                 {
                     if (!DesiredAppointmentAppForm.IsCompleted)
                     {
-                        SetAppointmentCompletedOrNot(true);
+                        CompletingOrUndoingAppointment(true);
                     }
                     else
                     {
-                        SetAppointmentCompletedOrNot(false);
+                        CompletingOrUndoingAppointment(false);
                     }
                 }
 

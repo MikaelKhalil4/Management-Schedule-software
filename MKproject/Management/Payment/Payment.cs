@@ -121,7 +121,14 @@ namespace MKproject.Management
                     }
                     else
                     {
-                        OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredClientBalanceRowsdt.Rows[0]["due_date"]);//tene wahde- awwal wahde                
+                        if ((bool)DesiredClientBalanceRowsdt.Rows[0]["is_freezed"])
+                        {
+                            OldSessionOrDaysNumber = Convert.ToInt16(DesiredClientBalanceRowsdt.Rows[0]["session_left_days"]);
+                        }
+                        else
+                        {
+                            OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredClientBalanceRowsdt.Rows[0]["due_date"]);//tene wahde- awwal wahde                
+                        }
                     }
                     if (OldSessionOrDaysNumber < 0)//SINCE HAYDE EL CALUE LI BET BAYYIN BEL update bel days w we know enno minimum bet kun 0 days , even law kenit negative men hott 0 as enno no days left
                     {
@@ -411,7 +418,7 @@ namespace MKproject.Management
 
 
                     //SQL
-                    backOffice = new ClassBackOffice(DesiredClient.ClientId,ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null,null, null, null, Date);
+                    backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null, null, null, null, Date);
                     backOffice.CreateActionDetails(DesiredClientBalanceRowsdt.Rows[i]);
                     backOffice.InsertToArchiveSQL();
 
@@ -457,7 +464,7 @@ namespace MKproject.Management
                     //logic ended
 
                     //Sql
-                    backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaid, null,null, null, null, Date);
+                    backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaid, null, null, null, null, Date);
                     backOffice.CreateActionDetails(DesiredClientBalanceRowsdt.Rows[i]);
                     backOffice.InsertToArchiveSQL();
 
@@ -479,10 +486,9 @@ namespace MKproject.Management
 
 
             PaymentRefreshParentANDSql(ListFinanceUpdates, IsProduct, IsPackageOrSolo, Date);//mahalla mazbut w mah ateassir law eemil crash backoffice masalan w el disign tabaa el payment ha yotlaa ghalat i agree bas el parent form ma tkun accurate, w eza tolii ghalat bel payment men sakkir el form fina
-            if (ClientManagementProfileParentForm != null)
-            {
-                ClientManagementProfileParentForm.CalculatingClientHistory(true);
-            }
+
+
+
         }//try catch
         void PaymentRefreshParentANDSql(List<(double, int)> ListFinanceUpdates, bool IsProduct, bool? IsPackageOrSolo, DateTime Date)
         {
@@ -508,41 +514,51 @@ namespace MKproject.Management
                 {
                     ClientManagementProfileParentForm.ResortOriginalDataTableAndSetDatasource();
                 }
+
                 ClientManagementProfileParentForm.FormatDatagridviewDesign();
                 ClientManagementProfileParentForm.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
-                ClientManagementProfileParentForm.CalculatingTotalBalances(true);
+                ClientManagementProfileParentForm.CalculatingTotalBalancesDesignAndSql(true);
+                ClientManagementProfileParentForm.CalculatingClientHistoryDesignAndSql(true);
+
+            }
+            else if (ClientManagementProfileParentForm == null)
+            {
+                UpdateClientBalanceIfNotProfile(true);
             }
 
         }//try catch
-        public bool SetIsExpired(DataRow row)
+
+
+        void UpdateClientBalanceIfNotProfile(bool PayOrCancel)//since el profile eenda it s own, eza fatahna men gher matrah , ta taamil update
         {
+            DataTable dtOriginalClientBalance =ClassClientBalance.GetClientBalanceSpecificOrLastInsert(DesiredClient.ClientId);
 
-            double balance = Convert.ToDouble(row["balance"]);
-            if (row["product_id"] != DBNull.Value)//product
+            (double TotalBalanceAmount, _, _) = ClassClientBalance.CalculatingClientBalance(dtOriginalClientBalance);
+            (double TotalPayment, _, _, _, _) = ClassClientBalance.CalculatingClientPayment(dtOriginalClientBalance);
+
+            //Sql
+           if (PayOrCancel)
             {
-
-                if (balance == 0)
-                {
-                    row["is_expired"] = true;
-                    return true;
-                }
+                ClassClient.UpdateClientTotalBalanceSQL(DesiredClient.ClientId, TotalBalanceAmount,true);//hayde kermel el table el client el asesie
+                ClassClient.UpdateClientTotalPaymentSQL(DesiredClient.ClientId, TotalPayment, true);
             }
-            //ma bae menstaamela since kermel el bundles only bel remove button we disactivate it
-            //else if (row["bundle_id"] != DBNull.Value)//bundle,
-            //{
-            //    int sessionleft = Convert.ToInt16(row["session_left_days"]);
-            //    if (balance == 0 && sessionleft <= 0)
-            //    {
-            //        row["is_expired"] = true;
-            //        return true;
-            //    }
-            //}
-            return false;
+           
+            //Object
+            DesiredClient.TotalBalance = TotalBalanceAmount;//since aam nuuza bel schedule w ma men uuz el payment
+            DesiredClient.TotalPayment = TotalPayment;
         }
 
 
 
 
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            if (ClientManagementProfileParentForm == null)
+            {
+                UpdateClientBalanceIfNotProfile(false);
+            }
+            this.Close();
+        }
 
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -552,13 +568,6 @@ namespace MKproject.Management
                 timer1.Stop();
             }
             Opacity += .1;
-        }
-
-
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void Payment_FormClosing(object sender, FormClosingEventArgs e)

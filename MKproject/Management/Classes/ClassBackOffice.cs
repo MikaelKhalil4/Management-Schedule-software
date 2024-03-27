@@ -376,8 +376,8 @@ namespace MKproject.Management
                 }
 
             }
-            ClassClient.UpdateClientTotalPaymentSQL(ClientId, TotalPayment);
-            ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount);
+            ClassClient.UpdateClientTotalPaymentSQL(ClientId, TotalPayment,true);
+            ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount,true);
 
 
 
@@ -408,8 +408,8 @@ namespace MKproject.Management
                 //deleting the uc pakcgae
 
 
-                backofficeform.ParentFormClientManagem.CalculatingTotalBalances(false);
-                backofficeform.ParentFormClientManagem.CalculatingClientHistory(false);
+                backofficeform.ParentFormClientManagem.CalculatingTotalBalancesDesignAndSql(false);
+                backofficeform.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
                 backofficeform.ParentFormClientManagem.datagridviewBalanceMode();
                 //
 
@@ -503,8 +503,8 @@ namespace MKproject.Management
                 }
 
             }
-            ClassClient.UpdateClientTotalPaymentSQL(ClientId, TotalPayment);
-            ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount);
+            ClassClient.UpdateClientTotalPaymentSQL(ClientId, TotalPayment, true);
+            ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount, true);
 
 
 
@@ -532,8 +532,8 @@ namespace MKproject.Management
                     backofficeform.ParentFormClientManagem.DeleteUcPackage(DesiredClientBalanceId);
                 }
 
-                backofficeform.ParentFormClientManagem.CalculatingTotalBalances(false);
-                backofficeform.ParentFormClientManagem.CalculatingClientHistory(false);
+                backofficeform.ParentFormClientManagem.CalculatingTotalBalancesDesignAndSql(false);
+                backofficeform.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
                 backofficeform.ParentFormClientManagem.datagridviewBalanceMode();
                 //
                 if (IsBundleOrProduct)//bundle
@@ -632,8 +632,8 @@ namespace MKproject.Management
 
                 backofficeform.ParentFormClientManagem.FormatDatagridviewDesign();
                 //
-                backofficeform.ParentFormClientManagem.CalculatingTotalBalances(false);
-                backofficeform.ParentFormClientManagem.CalculatingClientHistory(false);
+                backofficeform.ParentFormClientManagem.CalculatingTotalBalancesDesignAndSql(false);
+                backofficeform.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
             }
         }
         public static void UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, int? AppointmentIdReferringToBackoffice, BackOffice backofficeform)

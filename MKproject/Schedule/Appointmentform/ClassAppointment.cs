@@ -40,6 +40,8 @@ namespace MKproject.Schedule
         //used in UCClientApp
         public ClassClient DesiredClient { get; set; }
 
+
+        //Hole el tnen Wahde mennun Null Always, kermel naarif eza package or New Solo Service
         //Service
         public ClassClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
         //others
@@ -210,11 +212,11 @@ namespace MKproject.Schedule
 
         public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
-            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, client_balance_id,title, start_time, end_time, Note,is_completed,is_canceled) 
-                                                                  VALUES (@employee_id, @client_id,@client_balance_id ,@title, @start_time, @end_time, @Note,@is_completed,@is_canceled) ";
+            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, client_balance_id,history_client_balance,title, start_time, end_time, Note,is_completed,is_canceled) 
+                                                                  VALUES (@employee_id, @client_id,@client_balance_id,@history_client_balance ,@title, @start_time, @end_time, @Note,@is_completed,@is_canceled) ";
 
             string queryUpdate = @"  Update appointments SET  
-                            employee_id=@employee_id ,client_id=@client_id , client_balance_id=@client_balance_id, title=@title, 
+                            employee_id=@employee_id ,client_id=@client_id , client_balance_id=@client_balance_id,history_client_balance=@history_client_balance, title=@title, 
                                                         start_time=@start_time, end_time=@end_time, Note=@Note ,is_completed=@is_completed,is_canceled=@is_canceled
                                                                 WHERE  appointment_id=@appointment_id ";
 
@@ -280,10 +282,24 @@ namespace MKproject.Schedule
             if (DesiredClientBalance != null)
             {
                 cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DesiredClientBalance.ClientBalanceID);
+
+
+                //History Value
+                if (StartTime.Date >= DateTime.Now.Date)//in the past ma men dee fiyun
+                {
+                    HistoryClientBalance = DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                }
+                else
+                {
+                    //by default ha nkun aam nestaamil el history li mawjude bel db without writing any code, cz already we ve retrieved it
+                }
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@history_client_balance", HistoryClientBalance);
+
             }
             else
             {
                 cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DBNull.Value);
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@history_client_balance", DBNull.Value);
             }
 
 
@@ -458,8 +474,12 @@ namespace MKproject.Schedule
 
             if (!(datarow["client_balance_id"] is DBNull))
             {
+                //this one will be used if present or future
                 DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)datarow["client_balance_id"]);
                 DesiredApp.DesiredClientBalance.SetStringDetailsIfBundle();
+             
+                //this one will be used if past
+                DesiredApp.HistoryClientBalance = datarow["history_client_balance"] is DBNull ? null : (string)datarow["history_client_balance"];
             }
 
 

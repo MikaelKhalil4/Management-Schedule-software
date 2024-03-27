@@ -103,7 +103,7 @@
     <Compile Update="Management\NewRegister\UserControls\UCDoubleCombo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\AppointmentManagement\UCClientApp.cs">
+    <Compile Update="Schedule\Appointmentform\UCClientApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\Availabilityform\UCTimeavailability.cs">
@@ -141,9 +141,6 @@
     </Compile>
     <Compile Update="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Schedule\Appointmentform\UCappointment.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\UCData\UCEmployee.cs">
       <SubType>UserControl</SubType>

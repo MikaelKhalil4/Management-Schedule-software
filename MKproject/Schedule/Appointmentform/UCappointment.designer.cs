@@ -78,12 +78,12 @@
             // labelFullName
             // 
             labelFullName.AutoSize = true;
-            labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.55F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelFullName.ForeColor = System.Drawing.Color.FromArgb(89, 102, 204);
             labelFullName.Location = new System.Drawing.Point(3, 35);
             labelFullName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             labelFullName.Name = "labelFullName";
-            labelFullName.Size = new System.Drawing.Size(73, 19);
+            labelFullName.Size = new System.Drawing.Size(79, 20);
             labelFullName.TabIndex = 15;
             labelFullName.Text = "Full Name";
             labelFullName.Click += UCappointments_Click;
@@ -95,8 +95,8 @@
             labelService.Anchor = System.Windows.Forms.AnchorStyles.Left;
             labelService.AutoSize = true;
             TLPGlobal.SetColumnSpan(labelService, 2);
-            labelService.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelService.ForeColor = System.Drawing.Color.FromArgb(74, 74, 74);
+            labelService.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelService.ForeColor = System.Drawing.Color.FromArgb(94, 94, 94);
             labelService.Location = new System.Drawing.Point(3, 6);
             labelService.Name = "labelService";
             labelService.Size = new System.Drawing.Size(51, 17);

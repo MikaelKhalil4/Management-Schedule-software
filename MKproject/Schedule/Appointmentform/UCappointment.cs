@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using static MKproject.Schedule.StaticClass;
 using MKproject.Management;
 using GlobalFunctions;
+using System.Data;
 
 namespace MKproject.Schedule
 {
@@ -70,8 +71,6 @@ namespace MKproject.Schedule
 
                 labelFullName.Text = DesiredAppointmentUCApp.DesiredClient.Fname + " " + DesiredAppointmentUCApp.DesiredClient.Lname;
 
-
-
             }
             else
             {
@@ -86,55 +85,99 @@ namespace MKproject.Schedule
                 labelTime.Margin = new Padding(0, 0, 0, 0);
             }
 
-            //Balance
-            if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0)
+            if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-Future
             {
-                if (LabelBalance == null)
+                //Balance
+                if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0)
                 {
-                    CreationOfLabelBalance();
-                    //Eza badde bayyin el balace
-                    TLPGlobal.ColumnCount += 1;
-                    TLPGlobal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10));
-                    TLPGlobal.Controls.Add(LabelBalance, 2, 0);
+                    if (LabelBalance == null)
+                    {
+                        CreationOfLabelBalance();
+                        //Eza badde bayyin el balace
+                        TLPGlobal.ColumnCount += 1;
+                        TLPGlobal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10));
+                        TLPGlobal.Controls.Add(LabelBalance, 2, 0);
 
-                    TLPGlobal.SetColumnSpan(labelTime, 2);
+                        TLPGlobal.SetColumnSpan(labelTime, 2);
 
-                }
+                    }
 
 
-                LabelBalance.Text = Program.SetBalanceFormat(DesiredAppointmentUCApp.DesiredClient.TotalBalance.ToString());
-                TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 20;
+                    LabelBalance.Text = Program.SetBalanceFormat(DesiredAppointmentUCApp.DesiredClient.TotalBalance.ToString());
+                    TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 20;
 
-                float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
-                if (RemaingBalance >= 0)
-                {
-                    TLPGlobal.ColumnStyles[1].Width = RemaingBalance + 10;
+                    float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
+                    if (RemaingBalance >= 0)
+                    {
+                        TLPGlobal.ColumnStyles[1].Width = RemaingBalance + 10;
+                    }
+                    else
+                    {
+                        TLPGlobal.ColumnStyles[1].Width = 0;
+                    }
+
                 }
                 else
                 {
-                    TLPGlobal.ColumnStyles[1].Width = 0;
+                    if (LabelBalance != null)
+                    {
+                        LabelBalance.Dispose();
+                        LabelBalance = null;
+                        TLPGlobal.ColumnCount -= 1;
+                        TLPGlobal.ColumnStyles.RemoveAt(TLPGlobal.ColumnCount - 1);
+
+                        TLPGlobal.SetColumnSpan(labelTime, 1);
+                    }
+                    TLPGlobal.ColumnStyles[1].Width = RandomFunctions.MeasureLabelText(labelTime) + 10;
                 }
-
             }
-            else
-            {
-                if (LabelBalance != null)
-                {
-                    LabelBalance.Dispose();
-                    LabelBalance = null;
-                    TLPGlobal.ColumnCount -= 1;
-                    TLPGlobal.ColumnStyles.RemoveAt(TLPGlobal.ColumnCount - 1);
-
-                    TLPGlobal.SetColumnSpan(labelTime, 1);
-                }
-                TLPGlobal.ColumnStyles[1].Width = RandomFunctions.MeasureLabelText(labelTime) + 10;
-            }
-
 
             //Service
-            if (DesiredAppointmentUCApp.DesiredClientBalance != null)
+            if (DesiredAppointmentUCApp.DesiredClientBalance != null)//we need another indication that s it is a service, since we're releasing the id when it s expired:Jobe: Khlae new column/Create It property, w stabdella bi kell el code 
             {
-                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)//Present-Future
+                {
+                    if (!(bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)//eza el package li mna2yino bel appointment kholis
+                    {
+                        labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                    }
+                    else
+                    {
+                        DataTable PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCApp.DesiredClient.ClientId);
+                        if (PackageRemainingsDt.Rows.Count == 1)
+                        {
+
+                            //sql
+                            DesiredAppointmentUCApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)(PackageRemainingsDt.Rows[0]["client_balance_id"]));
+                            DesiredAppointmentUCApp.DesiredClientBalance.SetStringDetailsIfBundle();
+                            DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);//ejbare tahet SetStringDetailsIfBundle();
+
+                            //design
+                            labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+
+                        }
+                        else if(PackageRemainingsDt.Rows.Count > 1)
+                        {
+                            DesiredAppointmentUCApp.DesiredClientBalance = null;//hek men kun aam nshil el rlt maa el expired package
+                            DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);//since sar fiya tsir null bas teb2a ela aalea bi package, lezzimm nzide column
+                            labelService.Text = "Choose one of the packages";
+                        }
+                        else
+                        {
+                            DesiredAppointmentUCApp.DesiredClientBalance = null;
+                            DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);//hek men kun aam nshil el rlt maa el expired package
+                            labelService.Text = "No Packages Available";
+                        }
+                    }
+                }
+                else//past
+                {
+                    labelService.Text = DesiredAppointmentUCApp.HistoryClientBalance;
+                }
+            }
+            else if (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance!=null)
+            {
+                labelService.Text = "Client Package Deleted";
             }
             else if (DesiredAppointmentUCApp.ChosenBundlesList != null && DesiredAppointmentUCApp.ChoseBundlesString != null)
             {
@@ -144,6 +187,7 @@ namespace MKproject.Schedule
             {
                 labelService.Text = DesiredAppointmentUCApp.Title;
             }
+            
 
             //State
             if (DesiredAppointmentUCApp.IsCompleted)
@@ -179,7 +223,7 @@ namespace MKproject.Schedule
         ///-Click
         private void UCappointments_Click(object sender, EventArgs e)
         {
-            if (TouchScroll.MoveHoldClick == false && ucday.IsHistory == false)
+            if (TouchScroll.MoveHoldClick == false)
             {
                 Appointment appointmentupdate = new Appointment(this, DesiredAppointmentUCApp, ucday);
                 appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
@@ -195,7 +239,9 @@ namespace MKproject.Schedule
 
         private void Appointmentupdate_OnAppointmentUndoCompletion(object sender, EventArgs e)
         {
+            Appointment appointmentupdate = (Appointment)sender;
             DesiredAppointmentUCApp.IsCompleted = false;
+            DesiredAppointmentUCApp.DesiredClient.TotalBalance = appointmentupdate.DesiredAppointmentAppForm.DesiredClient.TotalBalance;                                                                                                                                              
             SetUCDesign();
         }
 
