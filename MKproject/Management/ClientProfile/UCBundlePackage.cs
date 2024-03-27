@@ -710,7 +710,7 @@ namespace MKproject.Management
             ParentFormClientMan.ResortOriginalDataTableAndSetDatasource();
             ParentFormClientMan.FormatDatagridviewDesign();
             ParentFormClientMan.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
-            ParentFormClientMan.CalculatingTotalBalances(true);
+            ParentFormClientMan.CalculatingTotalBalancesDesignAndSql(true);
 
 
             //Setting the new values of teh uc for the new package
@@ -827,6 +827,7 @@ namespace MKproject.Management
             IsFreezingMode = false;
             DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             rowToEdit["is_freezed"] = IsFreezingMode;
+            rowToEdit["due_date"] = DueDate;
 
         }
         public void PayIfInDebt()
