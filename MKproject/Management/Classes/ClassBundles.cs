@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Data;
 using Azure.Core;
 using System.Globalization;
+using MKproject.Schedule;
 
 
 namespace MKproject.Management
@@ -258,6 +259,9 @@ namespace MKproject.Management
             return bundle;
         }
 
-
+        public ClassBundles Copy()//This Copy wont work fi Property eza fi  reference-type Properties (classes or list)/ eenda it s own methode, check ClassAppointment
+        {
+            return (ClassBundles)this.MemberwiseClone();
+        }
     }
 }

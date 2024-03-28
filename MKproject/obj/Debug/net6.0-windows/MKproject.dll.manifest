@@ -386,13 +386,13 @@
       <dsig:DigestValue>l8Q0l/8slBAOheR+UlZIGag2yey6yRvOrZhyUqTwnpI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MKproject.dll" size="1860608">
+  <file name="MKproject.dll" size="1861632">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Ndt1CwmC08adpVcT/YqqK/uyb+rcEENwwdkphvXywsk=</dsig:DigestValue>
+      <dsig:DigestValue>nvWGpzRT72cRQcO0YUZp07yJeyqprJpjIoXWy7s1VrY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">

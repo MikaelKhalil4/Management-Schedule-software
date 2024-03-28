@@ -460,11 +460,11 @@ namespace MKproject.Management
             SqlCommand cmd4 = new SqlCommand(QueryDeleteRelatedServices, con);
             cmd4.ExecuteNonQuery();
 
-            string QueryDeleteAppointments = "DELETE FROM appointments WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
-            SqlCommand cmd5 = new SqlCommand(QueryDeleteAppointments, con);
+            string QuerySetClientBalanceIdNull = "UPDATE appointments SET client_balance_id = NULL WHERE client_balance_id  = '" + DesiredClientBalanceId + "'";
+            SqlCommand cmd5 = new SqlCommand(QuerySetClientBalanceIdNull, con);
             cmd5.ExecuteNonQuery();
 
-           
+
 
             string QueryDeleteClientBalance = "DELETE FROM client_balance WHERE client_balance_id ='" + DesiredClientBalanceId + "'";
             SqlCommand cmd3 = new SqlCommand(QueryDeleteClientBalance, con);
@@ -790,7 +790,7 @@ namespace MKproject.Management
             }
         }
 
-        public ClassClientBalance Copy()
+        public ClassClientBalance Copy()//This Copy wont work fi Property eza fi  reference-type Properties (classes or list)/ eenda it s own methode, check ClassAppointment
         {
             return (ClassClientBalance)this.MemberwiseClone();
         }

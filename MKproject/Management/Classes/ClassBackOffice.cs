@@ -442,7 +442,7 @@ namespace MKproject.Management
                 ClassAppointment classAppointment = (new ClassAppointment());
                 classAppointment.AppointmentID = AppointmentId;
                 classAppointment.IsCompleted = false;
-                classAppointment.UndoCompletionAppointment();//in this function UndoCompletionAppointment kell shi elo aalea bel archive ma elo aaze since eemelna undo bel backoffice abel ma nfout aa hal function
+                classAppointment.UndoCompletionAppointmentSQL();//in this function UndoCompletionAppointment kell shi elo aalea bel archive juweta ma elo aaze since eemelna undo bel backoffice abel ma nfout aa hal function
             }
             else if (RelatedSoloBundles.Rows.Count > 1)
             {

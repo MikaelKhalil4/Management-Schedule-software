@@ -1171,7 +1171,10 @@ namespace MKproject.Management
             return TotalAttend;
         }
 
-
+        public ClassClient Copy()//This Copy wont work fi Property eza fi  reference-type Properties (classes or list)/ eenda it s own methode, check ClassAppointment
+        {
+            return (ClassClient)this.MemberwiseClone();
+        }
     }
 
 
