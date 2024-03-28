@@ -19,11 +19,11 @@ namespace MKproject.Schedule
         public List<int> ListUCEmployee_idOld { get; set; }//it will have value when we construct this form so we can compare it with ListUCEmployee to check if we changed the order
 
         //Variable:
-        public Schedule schedule;
+        public ScheduleForm schedule;
         public bool IsButtonAvailability = false;//Kermel watta yeftah lavailability form ma ysakir lemployee form
 
         //Initialise:
-        public Employee(Schedule form1)
+        public Employee(ScheduleForm form1)
         {
             InitializeComponent();
             schedule = form1;

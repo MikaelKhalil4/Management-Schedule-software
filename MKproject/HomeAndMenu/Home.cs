@@ -1,6 +1,7 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
 using MKproject.Management;
+using MKproject.Schedule;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -28,7 +29,6 @@ namespace MKproject
             menu = new Menu();
             menu.ParentFormHome = this;
             menu.OpenChildForm(new SearchCurrentClient(), menu.buttonSearchClient, false);
-
         }
         void LoadImages()
         {
@@ -39,7 +39,7 @@ namespace MKproject
 
         public void buttonBackHome_Click(object sender, EventArgs e)
         {
-            if (menu.SousActivatedForm is ClientManagementProfile && menu.ActivatedForm is SearchCurrentClient)
+            if (menu.SousActivatedForm is ClientManagementProfile && menu.ActivatedForm is SearchCurrentClient)//ejbare hone mahalla , lieanno eenda  kaza form aam taayit la hal function
             {
                 ClientManagementProfile clientManagementProfile = (ClientManagementProfile)menu.SousActivatedForm;
                 SearchCurrentClient searchCurrentClient= (SearchCurrentClient)menu.ActivatedForm;
@@ -54,6 +54,12 @@ namespace MKproject
                 }
                 
                 menu.OpenChildForm(searchCurrentClient, menu.buttonSearchClient, false);
+                buttonBackHome.Visible = false;
+            }
+            else if (menu.SousActivatedForm is ClientManagementProfile && menu.ActivatedForm is ScheduleForm)
+            {
+                ScheduleForm scheduleForm = (ScheduleForm)menu.ActivatedForm;
+                menu.OpenChildForm(scheduleForm, menu.buttonSchedule, false);
                 buttonBackHome.Visible = false;
             }
         }

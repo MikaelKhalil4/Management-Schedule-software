@@ -381,7 +381,10 @@
             Name = "Appointment";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Appointment";
+            Deactivate += Appointment_Deactivate;
+            FormClosing += Appointment_FormClosing;
             FormClosed += Appointment_FormClosed;
+            VisibleChanged += Appointment_VisibleChanged;
             TLPGlobal.ResumeLayout(false);
             TLPGlobal.PerformLayout();
             flowLayoutPanel2.ResumeLayout(false);

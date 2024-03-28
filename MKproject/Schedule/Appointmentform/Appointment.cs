@@ -24,7 +24,7 @@ namespace MKproject.Schedule
 
 
         //VARIABLES
-        UCDay UcDayParentForm;
+        public UCDay UcDayParentForm;
         UCTime ucTime;
 
         bool isstarttime;
@@ -42,7 +42,7 @@ namespace MKproject.Schedule
 
         int ButtonWidthInUndoState = 134;
         int ButtonWidthInNormalState = 95;
-
+        public bool DisableClosingOnDisactivating;
 
 
         //ADD
@@ -72,7 +72,7 @@ namespace MKproject.Schedule
             DesiredAppointmentAppForm.EndTime = UcDayParentForm.SelectedDate.Date + endtime;
 
             ucClientApp = new UCClientApp(DesiredAppointmentAppForm);
-
+            ucClientApp.ParentFormAppointment = this;
 
             SetDesign();
 
@@ -103,6 +103,7 @@ namespace MKproject.Schedule
 
 
             ucClientApp = new UCClientApp(DesiredAppointmentAppForm);
+            ucClientApp.ParentFormAppointment = this;
             ucClientApp.OnClientProfileInfoChanging += UcClientApp_OnClientProfileInfoChanging;
 
             BackOffice.UndoHappened += BackOffice_UndoHappened;//khotra a static event lieanno baddak tentebih tnaesa kell marra bet sakkir el  form as we did tahet bel event on closed
@@ -660,7 +661,36 @@ namespace MKproject.Schedule
             Opacity += .1;
         }
 
+        private void Appointment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Program.GreyForm != null)
+            {
+                Program.GreyForm.Close();
+                Program.GreyForm = null;
+            }
+        }
 
+        private void Appointment_Deactivate(object sender, EventArgs e)
+        {
+            if (!DisableClosingOnDisactivating)
+            {
+                this.Close();
+            }
+        }
+
+        private void Appointment_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible == false )
+            {
+                if (Program.GreyForm != null)
+                {
+                    Program.GreyForm.Close();
+                    Program.GreyForm = null;
+                }
+
+            }
+         
+        }
 
         protected override CreateParams CreateParams
         {

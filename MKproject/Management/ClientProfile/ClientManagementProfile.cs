@@ -63,7 +63,7 @@ namespace MKproject.Management
         public static Image EmptyImage;
 
 
-
+        //!!! eza fi shi matrah aam thattello fi events make sure terjaa tshilun cz this form eza cas=ches, yaane el events ha yeb2o sincce ma aam yenaamalo close
         public ClientManagementProfile(ClassClient client, bool isFromSchedule)//new register
         {
             InitializeComponent();
@@ -926,7 +926,7 @@ namespace MKproject.Management
                     EntetityAmount = EntetityAmount.Replace(Currency.Symbol, "");
 
 
-                    Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                    Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                     Program.GreyForm.Show();
                     Payment payment = new Payment(Client, Convert.ToDouble(EntetityAmount), RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
                     payment.ClientManagementProfileParentForm = this;
@@ -939,7 +939,7 @@ namespace MKproject.Management
                 {
                     if (LOGIN.Employee.CanAccessTransaction)
                     {
-                        Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                        Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                         Program.GreyForm.Show();
                         BackOffice backOffice = new BackOffice(this, ClientBalanceId, RetrievingSpecificRowsInDt(false, ClientBalanceId), null);
                         backOffice.ShowDialog();
@@ -983,7 +983,7 @@ namespace MKproject.Management
         }
         private void buttonPayTotalBalance_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
             Program.GreyForm.Show();
             Payment payment = new Payment(Client, Convert.ToDouble(TotalBalanceAmount), RetrievingSpecificRowsInDt(true, null), this, false);
             payment.ClientManagementProfileParentForm = this;
@@ -994,7 +994,7 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanAccessTransaction)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 BackOffice backOffice = new BackOffice(this, null, null, Client.ClientId);
                 backOffice.ShowDialog();
@@ -1010,7 +1010,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(false);//true becuase it s a bundle
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1022,7 +1022,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(true);//true becuase it s a product
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1035,7 +1035,7 @@ namespace MKproject.Management
         private void buttonEditClientInfo_Click(object sender, EventArgs e)
         {
 
-            Program.GreyForm = new GreyColor((Form)this.Tag, false, IsFromSchedule);//cz aam t3alie w ma tsakkir el form
+            Program.GreyForm = new GreyColor((Form)this.Tag, false, false);//cz aam t3alie w ma tsakkir el form
             Program.GreyForm.Show();
 
             if (Program.NewRegisterForm == null)
@@ -1053,16 +1053,9 @@ namespace MKproject.Management
 
             if (IsClientDeleted)
             {
-                if (!IsFromSchedule)
-                {
-                    ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
-
-                }
-                else
-                {
-                    Client = null;//ejbare cz badde estaamela bel ucClientApp
-                    this.Close();
-                }
+               
+               ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
+       
             }
         }
 
@@ -1070,7 +1063,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 Album s = new Album(null);
                 s.ClientManagementProfileForm = this;
@@ -1083,7 +1076,7 @@ namespace MKproject.Management
         {
             if (Client.ProfileImage != null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 ImageForm i = new ImageForm(Client.ProfileImage);
                 i.Show();
@@ -1447,7 +1440,7 @@ namespace MKproject.Management
             if (Client.IsParent == true)
             {
 
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, IsFromSchedule);
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                 Program.GreyForm.Show();
                 RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true, IsFromSchedule);
                 relatedChildrens.ParentFormClientMang = this;

@@ -7,6 +7,7 @@ using static MKproject.Schedule.StaticClass;
 using MKproject.Management;
 using GlobalFunctions;
 using System.Data;
+using CustomizedTools;
 
 namespace MKproject.Schedule
 {
@@ -18,7 +19,7 @@ namespace MKproject.Schedule
         public int RowPosition { get; set; }
 
         //VARIABLE
-        UCDay ucday;
+        public UCDay ParentFormucday { get; set; }
         public static int OriginalWidth = 230;
 
         //
@@ -36,7 +37,7 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
             DesiredAppointmentUCApp = desiredappointment;
-            ucday = uCDay;
+            ParentFormucday = uCDay;
             SetLogicAndUCDesign();
 
         }
@@ -253,11 +254,14 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false)
             {
-                Appointment appointmentupdate = new Appointment(this, DesiredAppointmentUCApp, ucday);
+                ScheduleForm schedule = this.ParentFormucday.ParentFormSchedule;
+                Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
+                Program.GreyForm.Show();
+                Appointment appointmentupdate = new Appointment(this, DesiredAppointmentUCApp, ParentFormucday);
                 appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
                 appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
                 appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion;
-                appointmentupdate.ShowDialog();
+                appointmentupdate.Show();
             }
             else
             {
@@ -301,8 +305,8 @@ namespace MKproject.Schedule
             //DESIGN
             TimeSpan starttimeTimeSpan = DesiredAppointmentUCApp.StartTime.TimeOfDay;
             int positionrow = starttimeTimeSpan.Hours;
-            int positioncol = ucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointmentUCApp.EmployeeId) + 1;
-            FlowLayoutPanel clickedflowLayoutPanel = ucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
+            int positioncol = ParentFormucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointmentUCApp.EmployeeId) + 1;
+            FlowLayoutPanel clickedflowLayoutPanel = ParentFormucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
             this.Dispose();
 
 
@@ -316,17 +320,17 @@ namespace MKproject.Schedule
 
 
             //Absolute
-            if (ucday.TLPAppointment.ColumnStyles[positioncol].SizeType is SizeType.Absolute)
+            if (ParentFormucday.TLPAppointment.ColumnStyles[positioncol].SizeType is SizeType.Absolute)
             {
 
                 //The FlowLayoutpanel where we dispose the ucdata does it have akbar aadad ucdata before we dispose this ucdata if yes it will affect the TBL
                 bool havethemaxucdata = true;
 
-                for (int i = 0; i < ucday.TLPAppointment.RowCount; i++)
+                for (int i = 0; i < ParentFormucday.TLPAppointment.RowCount; i++)
                 {
                     if (positionrow != i)
                     {
-                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(positioncol, i);
+                        Control cellControl = ParentFormucday.TLPAppointment.GetControlFromPosition(positioncol, i);
                         if (cellControl is FlowLayoutPanel)
                         {
                             FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;
@@ -356,24 +360,24 @@ namespace MKproject.Schedule
                 //hayde lconidtion => kel flowlayoutpanel ma aandoun wala ucappointment because eza lmax 0 yaeene kelo 0
                 if (clickedflowLayoutPanel.Controls.Count == 0 && havethemaxucdata)
                 {
-                    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
-                    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
+                    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPAppointment);
+                    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPEmployees);
                 }
 
                 //eza ken lflow layout panel li mahayna fiyo ucappointment aando akbar aada hone it may edit the size of the absolute column
                 else if (havethemaxucdata)
                 {
-                    ucday.EditColumnAbsoluteSize(positioncol, positionrow);
+                    ParentFormucday.EditColumnAbsoluteSize(positioncol, positionrow);
                 }
 
                 //se3eta bas momkin yet2asar lwidthucappointment
                 else
                 {
-                    int columnwidth = ucday.TLPAppointment.GetColumnWidths()[positioncol];
+                    int columnwidth = ParentFormucday.TLPAppointment.GetColumnWidths()[positioncol];
                     //eza ee edit width
-                    if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ucday.KeepSpace) > columnwidth)
+                    if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ParentFormucday.KeepSpace) > columnwidth)
                     {
-                        ucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
+                        ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
                     }
                 }
             }
@@ -381,11 +385,11 @@ namespace MKproject.Schedule
             //Percentage
             else
             {
-                int columnwidth = ucday.TLPAppointment.GetColumnWidths()[positioncol];
+                int columnwidth = ParentFormucday.TLPAppointment.GetColumnWidths()[positioncol];
                 //eza ee edit width
-                if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ucday.KeepSpace) > columnwidth)
+                if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ParentFormucday.KeepSpace) > columnwidth)
                 {
-                    ucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
+                    ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
                 }
             }
         }
@@ -401,7 +405,7 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false)
             {
-                if (TLPGlobal.BackColor != ucday.DisableColorTBUca)//229, 226, 244
+                if (TLPGlobal.BackColor != ParentFormucday.DisableColorTBUca)//229, 226, 244
                 {
                     TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
                 }
@@ -413,7 +417,7 @@ namespace MKproject.Schedule
         }
         private void UCappointments_MouseLeave(object sender, EventArgs e)
         {
-            if (TLPGlobal.BackColor != ucday.DisableColorTBUca)
+            if (TLPGlobal.BackColor != ParentFormucday.DisableColorTBUca)
             {
                 TLPGlobal.BackColor = Color.White;
             }

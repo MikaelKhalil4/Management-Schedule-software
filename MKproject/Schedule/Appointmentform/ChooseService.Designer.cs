@@ -42,10 +42,10 @@
             // 
             TLPglobal.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
             TLPglobal.ColumnCount = 1;
-            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 586F));
-            TLPglobal.Controls.Add(ucSlideButton, 0, 1);
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPglobal.Controls.Add(labelFullName, 0, 0);
             TLPglobal.Controls.Add(flowLayoutPanel1, 0, 3);
+            TLPglobal.Controls.Add(ucSlideButton, 0, 1);
             TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPglobal.Location = new System.Drawing.Point(0, 0);
             TLPglobal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -55,7 +55,7 @@
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            TLPglobal.Size = new System.Drawing.Size(586, 437);
+            TLPglobal.Size = new System.Drawing.Size(447, 437);
             TLPglobal.TabIndex = 1;
             // 
             // ucSlideButton
@@ -65,7 +65,7 @@
             ucSlideButton.Button1text = "Available Package";
             ucSlideButton.Button2text = "Services";
             ucSlideButton.ClickedButton = null;
-            ucSlideButton.Location = new System.Drawing.Point(136, 45);
+            ucSlideButton.Location = new System.Drawing.Point(67, 45);
             ucSlideButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             ucSlideButton.Name = "ucSlideButton";
             ucSlideButton.Size = new System.Drawing.Size(313, 45);
@@ -76,7 +76,7 @@
             labelFullName.Anchor = System.Windows.Forms.AnchorStyles.None;
             labelFullName.AutoSize = true;
             labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelFullName.Location = new System.Drawing.Point(245, 9);
+            labelFullName.Location = new System.Drawing.Point(175, 9);
             labelFullName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelFullName.Name = "labelFullName";
             labelFullName.Size = new System.Drawing.Size(96, 20);
@@ -92,7 +92,7 @@
             flowLayoutPanel1.Location = new System.Drawing.Point(4, 392);
             flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(578, 42);
+            flowLayoutPanel1.Size = new System.Drawing.Size(439, 42);
             flowLayoutPanel1.TabIndex = 12;
             // 
             // buttonChoose
@@ -105,7 +105,7 @@
             buttonChoose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonChoose.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonChoose.ForeColor = System.Drawing.Color.White;
-            buttonChoose.Location = new System.Drawing.Point(470, 4);
+            buttonChoose.Location = new System.Drawing.Point(331, 4);
             buttonChoose.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             buttonChoose.Name = "buttonChoose";
             buttonChoose.Size = new System.Drawing.Size(108, 33);
@@ -124,7 +124,7 @@
             buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCancel.ForeColor = System.Drawing.Color.White;
-            buttonCancel.Location = new System.Drawing.Point(354, 3);
+            buttonCancel.Location = new System.Drawing.Point(215, 3);
             buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 8, 3);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new System.Drawing.Size(108, 33);
@@ -137,12 +137,16 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(586, 437);
+            ClientSize = new System.Drawing.Size(447, 437);
             Controls.Add(TLPglobal);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ChooseService";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ChooseService";
+            FormClosing += ChooseService_FormClosing;
             TLPglobal.ResumeLayout(false);
             TLPglobal.PerformLayout();
             flowLayoutPanel1.ResumeLayout(false);

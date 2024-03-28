@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace MKproject.Schedule
 {
-    public partial class Schedule : Form
+    public partial class ScheduleForm : Form
     {
         //Properties:
         public TouchScroll TouchscrollPanelreminder { get; set; }
@@ -17,7 +17,7 @@ namespace MKproject.Schedule
      
 
         //INITIALISE:
-        public Schedule()
+        public ScheduleForm()
         {
             InitializeComponent();
             ucday = new UCDay(this);

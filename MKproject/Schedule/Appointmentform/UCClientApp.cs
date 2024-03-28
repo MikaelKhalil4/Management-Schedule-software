@@ -20,6 +20,8 @@ namespace MKproject.Schedule
 {
     public partial class UCClientApp : UserControl
     {
+        public Appointment ParentFormAppointment { get; set; }
+
         public TextBoxWithPlaceHolder textBoxTitle;
         Label LabelServiceOutput;
         Label LabelService;
@@ -63,7 +65,7 @@ namespace MKproject.Schedule
                 textBoxTitle.Text = DesiredAppointmentUCClientApp.Title;
             }
 
-         
+
         }
 
 
@@ -272,7 +274,7 @@ namespace MKproject.Schedule
                                 //chosing the right service
                                 if (PackageRemainingsDt.Rows.Count == 1)
                                 {
-                                  
+
                                     SetDesignIfServiceOrPackageSelected();
                                     FillObjectOfAvailablePackage(PackageRemainingsDt.Rows[0]);
                                     LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
@@ -363,7 +365,7 @@ namespace MKproject.Schedule
                         LabelService.Text = DesiredAppointmentUCClientApp.ChoseBundlesString;
                     }
 
-                    else if (DesiredAppointmentUCClientApp.IsPackageMode ==true && DesiredAppointmentUCClientApp.DesiredClientBalance == null)//AutSelectPackage
+                    else if (DesiredAppointmentUCClientApp.IsPackageMode == true && DesiredAppointmentUCClientApp.DesiredClientBalance == null)//AutSelectPackage
                     {
 
                         if (DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)//present
@@ -543,20 +545,26 @@ namespace MKproject.Schedule
 
 
 
-      
+
 
         private void ButtonChangeORChooseService_Click(object sender, EventArgs e)
         {
+            ParentFormAppointment.DisableClosingOnDisactivating = true;
+            Program.GreyFormJunior = new GreyColor(this.ParentFormAppointment, true, true);
+            Program.GreyFormJunior.Show();
             ChooseService chooseService = new ChooseService(this);
+            chooseService.FormClosed += ChooseService_FormClosed;
             chooseService.ShowDialog();
         }
 
-
-
-
+        private void ChooseService_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ParentFormAppointment.DisableClosingOnDisactivating = false;
+        }
 
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
+            ParentFormAppointment.DisableClosingOnDisactivating = true;
             Search searchname = new Search(textBoxSearch, DesiredAppointmentUCClientApp.DesiredClient);
             searchname.Deactivate += Searchname_Deactivate;
             searchname.ChosenClientChanged += Searchname_ChosenClientChanged;
@@ -585,6 +593,7 @@ namespace MKproject.Schedule
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
             label1.Select();
+            ParentFormAppointment.DisableClosingOnDisactivating = false;
         }
 
 
@@ -593,8 +602,15 @@ namespace MKproject.Schedule
         public event EventHandler OnClientProfileInfoChanging;
         private void IconProfile_Click(object sender, EventArgs e)
         {
+            ParentFormAppointment.DisableClosingOnDisactivating = true;
+            ParentFormAppointment.Visible = false;
+
             Cursor = Cursors.WaitCursor;
 
+            ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
+            Menu menu = ((Home)schedule.Tag).menu;
+            menu.GoingFromSousChildToChild += Menu_GoingFromSousChildToChild;
+            menu.GoingFromChildToChild += Menu_GoingFromChildToChild;
             if (Program.clientManagementProfile == null)
             {
                 Program.clientManagementProfile = new ClientManagementProfile(ClassClient.CreateClientObject(DesiredAppointmentUCClientApp.DesiredClient.ClientId), true);
@@ -604,23 +620,34 @@ namespace MKproject.Schedule
                 Program.clientManagementProfile.LoadData(ClassClient.CreateClientObject(DesiredAppointmentUCClientApp.DesiredClient.ClientId), true);
                 // ma aam tozbat el formatdatatgrid men wara el show dialog, bas eemlna glitch bel event visible chnaged on the form
             }
-            Program.clientManagementProfile.Size = new Size(1150, 700);
-            Program.clientManagementProfile.FormBorderStyle = FormBorderStyle.Sizable;
-            Program.clientManagementProfile.Tag = Program.clientManagementProfile;
-            Program.clientManagementProfile.FormClosing += ClientManagementProfile_FormClosing;
-            Program.clientManagementProfile.TopLevel = true;//ejbare
-            Program.clientManagementProfile.ShowDialog();
+
+            Program.clientManagementProfile.Size = schedule.Size;
+            menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
+
+            ((Home)schedule.Tag).buttonBackHome.Text = "Schedule";
+            ((Home)schedule.Tag).buttonBackHome.Visible = true;
+
+
+
             Cursor = Cursors.Default;
 
-        }
-        private void ClientManagementProfile_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = true;
-            Program.clientManagementProfile.TopLevel = false;//ejbare kermel ma tsakkir li tahta
-            Program.clientManagementProfile.Visible = false;
-            Program.clientManagementProfile.FormClosing -= ClientManagementProfile_FormClosing;
 
-            //in case we have changed the name or the balance
+        }
+        private void Menu_GoingFromChildToChild(object sender, EventArgs e)
+        {
+            Menu menu = (Menu)sender;
+            menu.GoingFromChildToChild -= Menu_GoingFromChildToChild;//ejbare since ma aam nekhlae new instance
+        }
+        private void Menu_GoingFromSousChildToChild(object sender, EventArgs e)
+        {
+            ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
+            Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
+            Program.GreyForm.Show();
+
+
+            Menu menu = (Menu)sender;
+            menu.GoingFromSousChildToChild -= Menu_GoingFromSousChildToChild;//ejbare since ma aam nekhlae new instance
+
             DesiredAppointmentUCClientApp.DesiredClient = Program.clientManagementProfile.Client;
 
             if (DesiredAppointmentUCClientApp.DesiredClient == null)//means the client was deleted
@@ -630,7 +657,12 @@ namespace MKproject.Schedule
             SetLogicAndDesignMode(false, false);
 
             OnClientProfileInfoChanging?.Invoke(this, EventArgs.Empty);//ejbare tahta
+
+            ParentFormAppointment.DisableClosingOnDisactivating = false;
+            ParentFormAppointment.Show();
         }
+
+
 
 
 
@@ -645,6 +677,11 @@ namespace MKproject.Schedule
         }
         private void TLPAddNewClient_Click(object sender, EventArgs e)
         {
+            ParentFormAppointment.DisableClosingOnDisactivating = true;
+
+
+            Program.GreyFormJunior = new GreyColor(this.ParentFormAppointment, true, true);
+            Program.GreyFormJunior.Show();
             if (Program.NewRegisterForm == null)
             {
                 Program.NewRegisterForm = new NewRegister(null, true);
@@ -655,8 +692,20 @@ namespace MKproject.Schedule
                 Program.NewRegisterForm.LoadForm(null, true);
             }
             Program.NewRegisterForm.ClientSavedEvent += NewRegisterForm_ClientSaved;
+            Program.NewRegisterForm.VisibleChanged += NewRegisterForm_VisibleChanged;
             Program.NewRegisterForm.ShowDialog();
         }
+
+        private void NewRegisterForm_VisibleChanged(object sender, EventArgs e)
+        {
+            NewRegister newRegister = (NewRegister)sender;
+            if (newRegister.Visible == false)
+            {
+                ParentFormAppointment.DisableClosingOnDisactivating = false;
+            }
+            Program.NewRegisterForm.VisibleChanged -= NewRegisterForm_VisibleChanged;
+        }
+
         private void NewRegisterForm_ClientSaved(object sender, EventArgs e)
         {
             NewRegister newRegister = (NewRegister)sender;

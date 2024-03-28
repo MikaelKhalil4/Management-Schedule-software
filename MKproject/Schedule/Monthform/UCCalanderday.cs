@@ -5,7 +5,7 @@ namespace MKproject.Schedule
 {
     public partial class UCCalanderday : UserControl
     {
-        public UCCalanderday(Schedule schedule, UCMonth ucmonths, UCDay ucday)
+        public UCCalanderday(ScheduleForm schedule, UCMonth ucmonths, UCDay ucday)
         {
             InitializeComponent();
             foreach (UCDays u in tableLayoutPanel1.Controls.OfType<UCDays>())

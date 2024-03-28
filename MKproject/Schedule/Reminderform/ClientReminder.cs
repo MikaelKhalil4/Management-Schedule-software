@@ -24,7 +24,7 @@ namespace MKproject.Schedule
         public int? ClientId { get; set; }
         public TouchScroll TouchscrollPanelclientreminder { get; set; }
 
-        Schedule schedule;
+        ScheduleForm schedule;
         UCDay ucday;
       
 
@@ -32,7 +32,7 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
         }
-        public ClientReminder(ClassClient desiredclient, Schedule form1, UCDay uc1)
+        public ClientReminder(ClassClient desiredclient, ScheduleForm form1, UCDay uc1)
         {
             InitializeComponent();
             DesiredClient = desiredclient;  

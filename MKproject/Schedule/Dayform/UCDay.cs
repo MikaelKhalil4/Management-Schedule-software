@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Data.SqlClient;
 using MKproject.Schedule.UCData;
 using MKproject.Management;
+using CustomizedTools;
 
 namespace MKproject.Schedule
 {
@@ -52,7 +53,7 @@ namespace MKproject.Schedule
 
 
         //VARIABLES:
-        public Schedule schedule;
+        public ScheduleForm ParentFormSchedule;
 
  
 
@@ -84,10 +85,10 @@ namespace MKproject.Schedule
 
 
         //INITIALISE:
-        public UCDay(Schedule form)
+        public UCDay(ScheduleForm form)
         {
             InitializeComponent();
-            schedule = form;
+            ParentFormSchedule = form;
 
             //Scroll
             TLPAppointment.AutoScroll = true;
@@ -236,18 +237,18 @@ namespace MKproject.Schedule
                 DesiredReminder.StartTime = (DateTime)dr["starttime"];
                 DesiredReminder.LabelQuote = (string)dr["labelquote"];
                 DesiredReminder.IsChecked = (bool)dr["is_checked"];
-                UCreminder ucreminder = new UCreminder(DesiredReminder, this, schedule);//li2anno manna bi client reminder
+                UCreminder ucreminder = new UCreminder(DesiredReminder, this, ParentFormSchedule);//li2anno manna bi client reminder
 
                 ListUCreminder.Add(ucreminder);
 
-                schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+                ParentFormSchedule.TouchscrollPanelreminder = new TouchScroll(ParentFormSchedule.panelreminder, ParentFormSchedule);
                 //If it's Checked, then it will not appear in schedule.panelreminder
                 if (ucreminder.DesiredReminder.IsChecked == false)
                 {
                     if (isThedayofUCreminder(ucreminder, SelectedDate))
                     {
                         ucreminder.Dock = DockStyle.Top;
-                        schedule.panelreminder.Controls.Add(ucreminder);
+                        ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
                     }
                 }
                 else
@@ -274,7 +275,7 @@ namespace MKproject.Schedule
 
                             //getting availibility for this day of every employee
                             int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                            var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
+                            var query = from row in ParentFormSchedule.ucday.DataTableEmployeeavailability.AsEnumerable()
                                         where row.Field<int>("employee_id") == ListEmployee_idChecked[i]
                                         select row.Field<string>("availability");
 
@@ -308,7 +309,7 @@ namespace MKproject.Schedule
 
                             //getting availibility for this day of every employee
                             int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                            var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
+                            var query = from row in ParentFormSchedule.ucday.DataTableEmployeeavailability.AsEnumerable()
                                         where row.Field<int>("employee_id") == ListEmployee_idChecked[i]
                                         select row.Field<string>("availability");
 
@@ -353,6 +354,10 @@ namespace MKproject.Schedule
                     UCTime uctime = (UCTime)TLPAppointment.GetControlFromPosition(0, rowIndex);//get the uctime wich he has the same row to get the time1 and display it in the combobox  of the appointment
 
                     int columnIndex = TLPAppointment.GetColumn(clickedPanel);
+
+                    ScheduleForm schedule = this.ParentFormSchedule;
+                    Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
+                    Program.GreyForm.Show();
                     Appointment appointment = new Appointment(this, uctime, ListEmployee_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
                     appointment.ShowDialog();
                 }
@@ -566,27 +571,27 @@ namespace MKproject.Schedule
             //UCmonth show
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-6, 25);
-            schedule.ucmonths.Location = locationRelativeToScreen;
-            schedule.ucmonths.Show();
+            ParentFormSchedule.ucmonths.Location = locationRelativeToScreen;
+            ParentFormSchedule.ucmonths.Show();
 
 
             //Showing the ucmonth from the calanderday in the date that we are
-            schedule.ucmonths.DateUCMonth = SelectedDate;
-            if (schedule.ucmonths.wichuccalander == 2)
+            ParentFormSchedule.ucmonths.DateUCMonth = SelectedDate;
+            if (ParentFormSchedule.ucmonths.wichuccalander == 2)
             {
-                schedule.ucmonths.wichuccalander = 1;
-                schedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(schedule.ucmonths.uccalandermonth);
-                schedule.ucmonths.tableLayoutPanelMonth.Controls.Add(schedule.ucmonths.uccalanderday);
+                ParentFormSchedule.ucmonths.wichuccalander = 1;
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalandermonth);
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
             }
-            else if (schedule.ucmonths.wichuccalander == 3)
+            else if (ParentFormSchedule.ucmonths.wichuccalander == 3)
             {
-                schedule.ucmonths.wichuccalander = 1;
-                schedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(schedule.ucmonths.uccalanderyear);
-                schedule.ucmonths.tableLayoutPanelMonth.Controls.Add(schedule.ucmonths.uccalanderday);
+                ParentFormSchedule.ucmonths.wichuccalander = 1;
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalanderyear);
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
 
             }
 
-            schedule.ucmonths.EditLabelUCdays();
+            ParentFormSchedule.ucmonths.EditLabelUCdays();
 
         }
         private void labelMember_Click(object sender, EventArgs e)
@@ -594,9 +599,9 @@ namespace MKproject.Schedule
             Cursor = Cursors.WaitCursor;
             Point locationRelativeToScreen = labelMember.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-200, 25);
-            schedule.employee = new Employee(schedule);
-            schedule.employee.Location = locationRelativeToScreen;
-            schedule.employee.Show();
+            ParentFormSchedule.employee = new Employee(ParentFormSchedule);
+            ParentFormSchedule.employee.Location = locationRelativeToScreen;
+            ParentFormSchedule.employee.Show();
             Cursor = Cursors.Default;
         }
 
@@ -1065,7 +1070,7 @@ namespace MKproject.Schedule
             for (int j = 1; j < TLPAppointment.ColumnCount; j++)//1 li2anno bala uctime BOOM
             {
                 //Getting the Hours of Availibility of this Employee Of This Day
-                var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
+                var query = from row in ParentFormSchedule.ucday.DataTableEmployeeavailability.AsEnumerable()
                             where row.Field<int>("employee_id") == ListEmployee_idChecked[j - 1]
                             select row.Field<string>("availability");
 
@@ -1126,7 +1131,7 @@ namespace MKproject.Schedule
 
             int dayOfWeekInt = ((int)SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
                                                                    //Getting the Hours of Availibility of this Employee Of This Day
-            var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
+            var query = from row in ParentFormSchedule.ucday.DataTableEmployeeavailability.AsEnumerable()
                         where row.Field<int>("employee_id") == ListEmployee_idChecked[columnindex - 1]
                         select row.Field<string>("availability");
 
@@ -1272,7 +1277,7 @@ namespace MKproject.Schedule
                 //hataynehoun monfoslin kermel lcount taba3 ListUCEmployeeChecked ma yotla3 fo2 lcount taba3 schedule.ucday.ListEmployee_id
                 for (int i = 0; i < difference; i++)
                 {
-                    schedule.ucday.AddColumnUCDay();
+                    ParentFormSchedule.ucday.AddColumnUCDay();
                 }
                 SwitchEmployeeIfDifferent(listrankemployee_id, listavailabilityrankorder);
             }
@@ -1282,7 +1287,7 @@ namespace MKproject.Schedule
             {
                 for (int i = 0; i < Math.Abs(difference); i++)
                 {
-                    schedule.ucday.RemoveColumnUCDay();
+                    ParentFormSchedule.ucday.RemoveColumnUCDay();
                 }
                 SwitchEmployeeIfDifferent(listrankemployee_id, listavailabilityrankorder);
             }
@@ -1614,7 +1619,7 @@ namespace MKproject.Schedule
 
         public void DisplayUCReminder()
         {
-            schedule.panelreminder.Controls.Clear();
+            ParentFormSchedule.panelreminder.Controls.Clear();
             foreach (UCreminder ucreminder in ListUCreminder)
             {
                 if (ucreminder.DesiredReminder.IsChecked == false)//moujarad ma ykoun checked bel ucday ma bi bayin
@@ -1622,7 +1627,7 @@ namespace MKproject.Schedule
                     if (isThedayofUCreminder(ucreminder, SelectedDate))
                     {
                         ucreminder.Dock = DockStyle.Top;
-                        schedule.panelreminder.Controls.Add(ucreminder);
+                        ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
                     }
                 }
                 else
@@ -1631,7 +1636,7 @@ namespace MKproject.Schedule
                 }
 
             }
-            schedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(schedule.panelreminder);
+            ParentFormSchedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(ParentFormSchedule.panelreminder);
         }
 
 

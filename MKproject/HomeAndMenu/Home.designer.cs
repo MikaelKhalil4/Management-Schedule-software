@@ -29,180 +29,179 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
-            this.TLPHome = new System.Windows.Forms.TableLayoutPanel();
-            this.panelTitleBar = new System.Windows.Forms.Panel();
-            this.buttonMaximize = new System.Windows.Forms.Button();
-            this.buttonMinimize = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonMenu = new System.Windows.Forms.Button();
-            this.buttonBackHome = new System.Windows.Forms.Button();
-            this.panelContainer = new System.Windows.Forms.Panel();
-            this.TLPHome.SuspendLayout();
-            this.panelTitleBar.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
+            TLPHome = new System.Windows.Forms.TableLayoutPanel();
+            panelTitleBar = new System.Windows.Forms.Panel();
+            buttonMaximize = new System.Windows.Forms.Button();
+            buttonMinimize = new System.Windows.Forms.Button();
+            buttonClose = new System.Windows.Forms.Button();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            buttonMenu = new System.Windows.Forms.Button();
+            buttonBackHome = new System.Windows.Forms.Button();
+            panelContainer = new System.Windows.Forms.Panel();
+            TLPHome.SuspendLayout();
+            panelTitleBar.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPHome
             // 
-            this.TLPHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPHome.ColumnCount = 1;
-            this.TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPHome.Controls.Add(this.panelTitleBar, 0, 0);
-            this.TLPHome.Controls.Add(this.panelContainer, 0, 1);
-            this.TLPHome.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPHome.Location = new System.Drawing.Point(0, 0);
-            this.TLPHome.Margin = new System.Windows.Forms.Padding(0);
-            this.TLPHome.Name = "TLPHome";
-            this.TLPHome.RowCount = 2;
-            this.TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPHome.Size = new System.Drawing.Size(1271, 748);
-            this.TLPHome.TabIndex = 1;
+            TLPHome.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            TLPHome.ColumnCount = 1;
+            TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPHome.Controls.Add(panelTitleBar, 0, 0);
+            TLPHome.Controls.Add(panelContainer, 0, 1);
+            TLPHome.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPHome.Location = new System.Drawing.Point(0, 0);
+            TLPHome.Margin = new System.Windows.Forms.Padding(0);
+            TLPHome.Name = "TLPHome";
+            TLPHome.RowCount = 2;
+            TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPHome.Size = new System.Drawing.Size(1271, 748);
+            TLPHome.TabIndex = 1;
             // 
             // panelTitleBar
             // 
-            this.panelTitleBar.BackColor = System.Drawing.Color.White;
-            this.panelTitleBar.Controls.Add(this.buttonMaximize);
-            this.panelTitleBar.Controls.Add(this.buttonMinimize);
-            this.panelTitleBar.Controls.Add(this.buttonClose);
-            this.panelTitleBar.Controls.Add(this.flowLayoutPanel1);
-            this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTitleBar.Location = new System.Drawing.Point(0, 0);
-            this.panelTitleBar.Margin = new System.Windows.Forms.Padding(0);
-            this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(1271, 31);
-            this.panelTitleBar.TabIndex = 1;
-            this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown);
+            panelTitleBar.BackColor = System.Drawing.Color.White;
+            panelTitleBar.Controls.Add(buttonMaximize);
+            panelTitleBar.Controls.Add(buttonMinimize);
+            panelTitleBar.Controls.Add(buttonClose);
+            panelTitleBar.Controls.Add(flowLayoutPanel1);
+            panelTitleBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelTitleBar.Location = new System.Drawing.Point(0, 0);
+            panelTitleBar.Margin = new System.Windows.Forms.Padding(0);
+            panelTitleBar.Name = "panelTitleBar";
+            panelTitleBar.Size = new System.Drawing.Size(1271, 31);
+            panelTitleBar.TabIndex = 1;
+            panelTitleBar.MouseDown += panelTitleBar_MouseDown;
             // 
             // buttonMaximize
             // 
-            this.buttonMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMaximize.BackColor = System.Drawing.Color.Transparent;
-            this.buttonMaximize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonMaximize.BackgroundImage")));
-            this.buttonMaximize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonMaximize.FlatAppearance.BorderSize = 0;
-            this.buttonMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.buttonMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.buttonMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMaximize.Location = new System.Drawing.Point(1221, 3);
-            this.buttonMaximize.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.buttonMaximize.Name = "buttonMaximize";
-            this.buttonMaximize.Size = new System.Drawing.Size(18, 18);
-            this.buttonMaximize.TabIndex = 6;
-            this.buttonMaximize.UseVisualStyleBackColor = false;
-            this.buttonMaximize.Click += new System.EventHandler(this.buttonMaximize_Click);
+            buttonMaximize.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonMaximize.BackColor = System.Drawing.Color.Transparent;
+            buttonMaximize.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonMaximize.BackgroundImage");
+            buttonMaximize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonMaximize.FlatAppearance.BorderSize = 0;
+            buttonMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            buttonMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            buttonMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonMaximize.Location = new System.Drawing.Point(1221, 3);
+            buttonMaximize.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            buttonMaximize.Name = "buttonMaximize";
+            buttonMaximize.Size = new System.Drawing.Size(18, 18);
+            buttonMaximize.TabIndex = 6;
+            buttonMaximize.UseVisualStyleBackColor = false;
+            buttonMaximize.Click += buttonMaximize_Click;
             // 
             // buttonMinimize
             // 
-            this.buttonMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMinimize.BackColor = System.Drawing.Color.Transparent;
-            this.buttonMinimize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonMinimize.BackgroundImage")));
-            this.buttonMinimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonMinimize.FlatAppearance.BorderSize = 0;
-            this.buttonMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.buttonMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMinimize.Location = new System.Drawing.Point(1194, 3);
-            this.buttonMinimize.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.buttonMinimize.Name = "buttonMinimize";
-            this.buttonMinimize.Size = new System.Drawing.Size(18, 18);
-            this.buttonMinimize.TabIndex = 5;
-            this.buttonMinimize.UseVisualStyleBackColor = false;
-            this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
+            buttonMinimize.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonMinimize.BackColor = System.Drawing.Color.Transparent;
+            buttonMinimize.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonMinimize.BackgroundImage");
+            buttonMinimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonMinimize.FlatAppearance.BorderSize = 0;
+            buttonMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            buttonMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonMinimize.Location = new System.Drawing.Point(1194, 3);
+            buttonMinimize.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            buttonMinimize.Name = "buttonMinimize";
+            buttonMinimize.Size = new System.Drawing.Size(18, 18);
+            buttonMinimize.TabIndex = 5;
+            buttonMinimize.UseVisualStyleBackColor = false;
+            buttonMinimize.Click += buttonMinimize_Click;
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.BackColor = System.Drawing.Color.Transparent;
-            this.buttonClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonClose.BackgroundImage")));
-            this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonClose.FlatAppearance.BorderSize = 0;
-            this.buttonClose.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.buttonClose.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.Location = new System.Drawing.Point(1248, 3);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(18, 18);
-            this.buttonClose.TabIndex = 0;
-            this.buttonClose.UseVisualStyleBackColor = false;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            buttonClose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonClose.BackColor = System.Drawing.Color.Transparent;
+            buttonClose.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonClose.BackgroundImage");
+            buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonClose.FlatAppearance.BorderSize = 0;
+            buttonClose.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            buttonClose.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonClose.Location = new System.Drawing.Point(1248, 3);
+            buttonClose.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            buttonClose.Name = "buttonClose";
+            buttonClose.Size = new System.Drawing.Size(18, 18);
+            buttonClose.TabIndex = 0;
+            buttonClose.UseVisualStyleBackColor = false;
+            buttonClose.Click += buttonClose_Click;
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.buttonMenu);
-            this.flowLayoutPanel1.Controls.Add(this.buttonBackHome);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 31);
-            this.flowLayoutPanel1.TabIndex = 4;
+            flowLayoutPanel1.Controls.Add(buttonMenu);
+            flowLayoutPanel1.Controls.Add(buttonBackHome);
+            flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(200, 31);
+            flowLayoutPanel1.TabIndex = 4;
             // 
             // buttonMenu
             // 
-            this.buttonMenu.BackColor = System.Drawing.Color.Transparent;
-            this.buttonMenu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonMenu.BackgroundImage")));
-            this.buttonMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonMenu.FlatAppearance.BorderSize = 0;
-            this.buttonMenu.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.buttonMenu.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.buttonMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMenu.Location = new System.Drawing.Point(0, 3);
-            this.buttonMenu.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.buttonMenu.Name = "buttonMenu";
-            this.buttonMenu.Size = new System.Drawing.Size(32, 25);
-            this.buttonMenu.TabIndex = 0;
-            this.buttonMenu.UseVisualStyleBackColor = false;
-            this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
+            buttonMenu.BackColor = System.Drawing.Color.Transparent;
+            buttonMenu.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonMenu.BackgroundImage");
+            buttonMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonMenu.FlatAppearance.BorderSize = 0;
+            buttonMenu.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            buttonMenu.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            buttonMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonMenu.Location = new System.Drawing.Point(0, 3);
+            buttonMenu.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            buttonMenu.Name = "buttonMenu";
+            buttonMenu.Size = new System.Drawing.Size(32, 25);
+            buttonMenu.TabIndex = 0;
+            buttonMenu.UseVisualStyleBackColor = false;
+            buttonMenu.Click += buttonMenu_Click;
             // 
             // buttonBackHome
             // 
-            this.buttonBackHome.BackColor = System.Drawing.Color.Transparent;
-            this.buttonBackHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonBackHome.FlatAppearance.BorderSize = 0;
-            this.buttonBackHome.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.buttonBackHome.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.buttonBackHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBackHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.buttonBackHome.ForeColor = System.Drawing.Color.Black;
-            this.buttonBackHome.Image = ((System.Drawing.Image)(resources.GetObject("buttonBackHome.Image")));
-            this.buttonBackHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonBackHome.Location = new System.Drawing.Point(32, 3);
-            this.buttonBackHome.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.buttonBackHome.Name = "buttonBackHome";
-            this.buttonBackHome.Size = new System.Drawing.Size(83, 25);
-            this.buttonBackHome.TabIndex = 3;
-            this.buttonBackHome.Text = "Home";
-            this.buttonBackHome.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonBackHome.UseVisualStyleBackColor = false;
-            this.buttonBackHome.Visible = false;
-            this.buttonBackHome.Click += new System.EventHandler(this.buttonBackHome_Click);
+            buttonBackHome.BackColor = System.Drawing.Color.Transparent;
+            buttonBackHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonBackHome.FlatAppearance.BorderSize = 0;
+            buttonBackHome.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            buttonBackHome.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            buttonBackHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonBackHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonBackHome.ForeColor = System.Drawing.Color.Black;
+            buttonBackHome.Image = (System.Drawing.Image)resources.GetObject("buttonBackHome.Image");
+            buttonBackHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            buttonBackHome.Location = new System.Drawing.Point(32, 3);
+            buttonBackHome.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            buttonBackHome.Name = "buttonBackHome";
+            buttonBackHome.Size = new System.Drawing.Size(98, 25);
+            buttonBackHome.TabIndex = 3;
+            buttonBackHome.Text = "Schedule";
+            buttonBackHome.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            buttonBackHome.UseVisualStyleBackColor = false;
+            buttonBackHome.Visible = false;
+            buttonBackHome.Click += buttonBackHome_Click;
             // 
             // panelContainer
             // 
-            this.panelContainer.BackColor = System.Drawing.Color.White;
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(0, 31);
-            this.panelContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(1271, 717);
-            this.panelContainer.TabIndex = 2;
+            panelContainer.BackColor = System.Drawing.Color.White;
+            panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelContainer.Location = new System.Drawing.Point(0, 31);
+            panelContainer.Margin = new System.Windows.Forms.Padding(0);
+            panelContainer.Name = "panelContainer";
+            panelContainer.Size = new System.Drawing.Size(1271, 717);
+            panelContainer.TabIndex = 2;
             // 
             // Home
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1271, 748);
-            this.ControlBox = false;
-            this.Controls.Add(this.TLPHome);
-            this.Name = "Home";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TLPHome.ResumeLayout(false);
-            this.panelTitleBar.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            BackColor = System.Drawing.Color.White;
+            ClientSize = new System.Drawing.Size(1271, 748);
+            ControlBox = false;
+            Controls.Add(TLPHome);
+            Name = "Home";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            TLPHome.ResumeLayout(false);
+            panelTitleBar.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

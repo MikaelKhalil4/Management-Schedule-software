@@ -13,7 +13,7 @@ namespace MKproject.Schedule
         public static string Monday = "Monday", Tuesday = "Tuesday", Wednesday = "Wednesday", Thursday = "Thursday", Friday = "Friday", Saturday = "Saturday", Sunday = "Sunday";
 
 
-        Schedule schedule;
+        ScheduleForm schedule;
         UCreminder ucreminderInClientReminder;
         public UCDay ucday;
         ClientReminder clientReminder;
@@ -36,7 +36,7 @@ namespace MKproject.Schedule
 
         ///-From ClientReminder
         ///ADD
-        public Reminder(Schedule form1, UCDay form2, ClientReminder clientreminder)
+        public Reminder(ScheduleForm form1, UCDay form2, ClientReminder clientreminder)
         {
             InitializeComponent();
             schedule = form1;
@@ -55,7 +55,7 @@ namespace MKproject.Schedule
 
         }
         ///UPDATE
-        public Reminder(UCreminder UCreminderfromClientReminder, UCDay form2, Schedule form3, bool isclientreminder, ClientReminder clientreminder)
+        public Reminder(UCreminder UCreminderfromClientReminder, UCDay form2, ScheduleForm form3, bool isclientreminder, ClientReminder clientreminder)
         {
             InitializeComponent();
 
@@ -119,7 +119,7 @@ namespace MKproject.Schedule
 
         ///-From Schedule
         ///ADD
-        public Reminder(Schedule form1, UCDay form2)
+        public Reminder(ScheduleForm form1, UCDay form2)
         {
             InitializeComponent();
             schedule = form1;
@@ -133,7 +133,7 @@ namespace MKproject.Schedule
 
         }
         ///UPDATE
-        public Reminder(ClassReminder desiredreminder, UCDay form2, Schedule form3, bool isclientreminder)
+        public Reminder(ClassReminder desiredreminder, UCDay form2, ScheduleForm form3, bool isclientreminder)
         {
             InitializeComponent();
 

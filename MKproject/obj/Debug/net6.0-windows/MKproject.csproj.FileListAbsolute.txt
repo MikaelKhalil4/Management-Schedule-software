@@ -118,7 +118,7 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.CBrepeat.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCDay.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCTime.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.Schedule.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.ScheduleForm.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCCalanderday.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCCalandermonth.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCCalanderyear.resources

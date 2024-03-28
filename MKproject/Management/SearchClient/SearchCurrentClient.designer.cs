@@ -31,372 +31,372 @@ namespace MKproject.Management
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchCurrentClient));
-            this.TLPGlobalJunior = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridViewClients = new CustomizedTools.CustomDataGridView();
-            this.FLPFiltersSlideSDhow = new System.Windows.Forms.FlowLayoutPanel();
-            this.TLPSearchAndFilter = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxSearch = new CustomizedTools.TextBoxWithPlaceHolder();
-            this.pictureBoxSearch = new System.Windows.Forms.PictureBox();
-            this.FLPFilter = new System.Windows.Forms.FlowLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonResetOrder = new System.Windows.Forms.Button();
-            this.iconButtonAddClient = new CustomizedTools.IconButton();
-            this.iconButtonViewBirthdays = new CustomizedTools.IconButton();
-            this.panelResults = new System.Windows.Forms.Panel();
-            this.labelResults = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.timerFilterOn = new System.Windows.Forms.Timer(this.components);
-            this.timerFilterOff = new System.Windows.Forms.Timer(this.components);
-            this.TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
-            this.timerUnselectComboBox = new System.Windows.Forms.Timer(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.TLPGlobalJunior.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).BeginInit();
-            this.TLPSearchAndFilter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).BeginInit();
-            this.FLPFilter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panelResults.SuspendLayout();
-            this.TLPGlobal.SuspendLayout();
-            this.SuspendLayout();
+            TLPGlobalJunior = new TableLayoutPanel();
+            panel1 = new Panel();
+            dataGridViewClients = new CustomDataGridView();
+            FLPFiltersSlideSDhow = new FlowLayoutPanel();
+            TLPSearchAndFilter = new TableLayoutPanel();
+            textBoxSearch = new TextBoxWithPlaceHolder();
+            pictureBoxSearch = new PictureBox();
+            FLPFilter = new FlowLayoutPanel();
+            pictureBox1 = new PictureBox();
+            label1 = new Label();
+            buttonResetOrder = new Button();
+            iconButtonAddClient = new IconButton();
+            iconButtonViewBirthdays = new IconButton();
+            panelResults = new Panel();
+            labelResults = new Label();
+            label13 = new Label();
+            timerFilterOn = new Timer(components);
+            timerFilterOff = new Timer(components);
+            TLPGlobal = new TableLayoutPanel();
+            timerUnselectComboBox = new Timer(components);
+            toolTip1 = new ToolTip(components);
+            TLPGlobalJunior.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewClients).BeginInit();
+            TLPSearchAndFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearch).BeginInit();
+            FLPFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panelResults.SuspendLayout();
+            TLPGlobal.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPGlobalJunior
             // 
-            this.TLPGlobalJunior.ColumnCount = 1;
-            this.TLPGlobalJunior.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPGlobalJunior.Controls.Add(this.panel1, 0, 1);
-            this.TLPGlobalJunior.Controls.Add(this.TLPSearchAndFilter, 0, 0);
-            this.TLPGlobalJunior.Controls.Add(this.panelResults, 0, 2);
-            this.TLPGlobalJunior.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPGlobalJunior.Location = new System.Drawing.Point(9, 15);
-            this.TLPGlobalJunior.Margin = new System.Windows.Forms.Padding(9, 15, 9, 0);
-            this.TLPGlobalJunior.Name = "TLPGlobalJunior";
-            this.TLPGlobalJunior.RowCount = 3;
-            this.TLPGlobalJunior.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.TLPGlobalJunior.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPGlobalJunior.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.TLPGlobalJunior.Size = new System.Drawing.Size(1293, 713);
-            this.TLPGlobalJunior.TabIndex = 21;
+            TLPGlobalJunior.ColumnCount = 1;
+            TLPGlobalJunior.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TLPGlobalJunior.Controls.Add(panel1, 0, 1);
+            TLPGlobalJunior.Controls.Add(TLPSearchAndFilter, 0, 0);
+            TLPGlobalJunior.Controls.Add(panelResults, 0, 2);
+            TLPGlobalJunior.Dock = DockStyle.Fill;
+            TLPGlobalJunior.Location = new System.Drawing.Point(9, 15);
+            TLPGlobalJunior.Margin = new Padding(9, 15, 9, 0);
+            TLPGlobalJunior.Name = "TLPGlobalJunior";
+            TLPGlobalJunior.RowCount = 3;
+            TLPGlobalJunior.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            TLPGlobalJunior.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TLPGlobalJunior.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            TLPGlobalJunior.Size = new System.Drawing.Size(1293, 713);
+            TLPGlobalJunior.TabIndex = 21;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.dataGridViewClients);
-            this.panel1.Controls.Add(this.FLPFiltersSlideSDhow);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 53);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1287, 615);
-            this.panel1.TabIndex = 22;
+            panel1.Controls.Add(dataGridViewClients);
+            panel1.Controls.Add(FLPFiltersSlideSDhow);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(3, 53);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(1287, 615);
+            panel1.TabIndex = 22;
             // 
             // dataGridViewClients
             // 
-            this.dataGridViewClients.AllowUserToAddRows = false;
-            this.dataGridViewClients.AllowUserToDeleteRows = false;
-            this.dataGridViewClients.AllowUserToResizeColumns = false;
-            this.dataGridViewClients.AllowUserToResizeRows = false;
-            this.dataGridViewClients.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewClients.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridViewClients.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridViewClients.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewClients.AllowUserToAddRows = false;
+            dataGridViewClients.AllowUserToDeleteRows = false;
+            dataGridViewClients.AllowUserToResizeColumns = false;
+            dataGridViewClients.AllowUserToResizeRows = false;
+            dataGridViewClients.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewClients.BorderStyle = BorderStyle.Fixed3D;
+            dataGridViewClients.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataGridViewClients.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewClients.ColumnHeadersHeight = 50;
-            this.dataGridViewClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridViewClients.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewClients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewClients.ColumnHeadersHeight = 50;
+            dataGridViewClients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewClients.Cursor = Cursors.Hand;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(226)))), ((int)(((byte)(244)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewClients.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewClients.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewClients.EnableHeadersVisualStyles = false;
-            this.dataGridViewClients.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.dataGridViewClients.GridColor = System.Drawing.Color.White;
-            this.dataGridViewClients.IsCustomScroll = true;
-            this.dataGridViewClients.IsRowColorChangeonMouseMove = true;
-            this.dataGridViewClients.IsSelectRow = true;
-            this.dataGridViewClients.Location = new System.Drawing.Point(0, 140);
-            this.dataGridViewClients.MultiSelect = false;
-            this.dataGridViewClients.Name = "dataGridViewClients";
-            this.dataGridViewClients.ReadOnly = true;
-            this.dataGridViewClients.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridViewClients.RowHeadersVisible = false;
-            this.dataGridViewClients.RowHeadersWidth = 60;
-            this.dataGridViewClients.RowTemplate.DividerHeight = 1;
-            this.dataGridViewClients.RowTemplate.Height = 60;
-            this.dataGridViewClients.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewClients.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClients.Size = new System.Drawing.Size(1287, 475);
-            this.dataGridViewClients.TabIndex = 30;
-            this.dataGridViewClients.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewClients_CellFormatting);
-            this.dataGridViewClients.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewClients_CellMouseDoubleClick);
-            this.dataGridViewClients.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewClients_CellMouseMove);
-            this.dataGridViewClients.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridViewClients_CellPainting);
-            this.dataGridViewClients.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewClients_ColumnHeaderMouseClick);
-            this.dataGridViewClients.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewClients_RowsRemoved);
-            this.dataGridViewClients.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dataGridViewClients_Scroll);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewClients.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewClients.Dock = DockStyle.Fill;
+            dataGridViewClients.EnableHeadersVisualStyles = false;
+            dataGridViewClients.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewClients.GridColor = System.Drawing.Color.White;
+            dataGridViewClients.IsCustomScroll = true;
+            dataGridViewClients.IsRowColorChangeonMouseMove = true;
+            dataGridViewClients.IsSelectRow = true;
+            dataGridViewClients.Location = new System.Drawing.Point(0, 140);
+            dataGridViewClients.MultiSelect = false;
+            dataGridViewClients.Name = "dataGridViewClients";
+            dataGridViewClients.ReadOnly = true;
+            dataGridViewClients.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewClients.RowHeadersVisible = false;
+            dataGridViewClients.RowHeadersWidth = 60;
+            dataGridViewClients.RowTemplate.DividerHeight = 1;
+            dataGridViewClients.RowTemplate.Height = 60;
+            dataGridViewClients.RowTemplate.Resizable = DataGridViewTriState.False;
+            dataGridViewClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewClients.Size = new System.Drawing.Size(1287, 475);
+            dataGridViewClients.TabIndex = 30;
+            dataGridViewClients.CellFormatting += dataGridViewClients_CellFormatting;
+            dataGridViewClients.CellMouseDoubleClick += dataGridViewClients_CellMouseDoubleClick;
+            dataGridViewClients.CellMouseMove += dataGridViewClients_CellMouseMove;
+            dataGridViewClients.CellPainting += dataGridViewClients_CellPainting;
+            dataGridViewClients.ColumnHeaderMouseClick += dataGridViewClients_ColumnHeaderMouseClick;
+            dataGridViewClients.RowsRemoved += dataGridViewClients_RowsRemoved;
+            dataGridViewClients.Scroll += dataGridViewClients_Scroll;
             // 
             // FLPFiltersSlideSDhow
             // 
-            this.FLPFiltersSlideSDhow.Dock = System.Windows.Forms.DockStyle.Top;
-            this.FLPFiltersSlideSDhow.Location = new System.Drawing.Point(0, 0);
-            this.FLPFiltersSlideSDhow.Name = "FLPFiltersSlideSDhow";
-            this.FLPFiltersSlideSDhow.Size = new System.Drawing.Size(1287, 140);
-            this.FLPFiltersSlideSDhow.TabIndex = 29;
+            FLPFiltersSlideSDhow.Dock = DockStyle.Top;
+            FLPFiltersSlideSDhow.Location = new System.Drawing.Point(0, 0);
+            FLPFiltersSlideSDhow.Name = "FLPFiltersSlideSDhow";
+            FLPFiltersSlideSDhow.Size = new System.Drawing.Size(1287, 140);
+            FLPFiltersSlideSDhow.TabIndex = 29;
             // 
             // TLPSearchAndFilter
             // 
-            this.TLPSearchAndFilter.ColumnCount = 6;
-            this.TLPSearchAndFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.TLPSearchAndFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
-            this.TLPSearchAndFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
-            this.TLPSearchAndFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPSearchAndFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.TLPSearchAndFilter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.TLPSearchAndFilter.Controls.Add(this.textBoxSearch, 1, 0);
-            this.TLPSearchAndFilter.Controls.Add(this.pictureBoxSearch, 0, 0);
-            this.TLPSearchAndFilter.Controls.Add(this.FLPFilter, 2, 0);
-            this.TLPSearchAndFilter.Controls.Add(this.buttonResetOrder, 3, 0);
-            this.TLPSearchAndFilter.Controls.Add(this.iconButtonAddClient, 5, 0);
-            this.TLPSearchAndFilter.Controls.Add(this.iconButtonViewBirthdays, 4, 0);
-            this.TLPSearchAndFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPSearchAndFilter.Location = new System.Drawing.Point(3, 3);
-            this.TLPSearchAndFilter.Name = "TLPSearchAndFilter";
-            this.TLPSearchAndFilter.RowCount = 1;
-            this.TLPSearchAndFilter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPSearchAndFilter.Size = new System.Drawing.Size(1287, 44);
-            this.TLPSearchAndFilter.TabIndex = 29;
+            TLPSearchAndFilter.ColumnCount = 6;
+            TLPSearchAndFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 33F));
+            TLPSearchAndFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 286F));
+            TLPSearchAndFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 98F));
+            TLPSearchAndFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TLPSearchAndFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 43F));
+            TLPSearchAndFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 45F));
+            TLPSearchAndFilter.Controls.Add(textBoxSearch, 1, 0);
+            TLPSearchAndFilter.Controls.Add(pictureBoxSearch, 0, 0);
+            TLPSearchAndFilter.Controls.Add(FLPFilter, 2, 0);
+            TLPSearchAndFilter.Controls.Add(buttonResetOrder, 3, 0);
+            TLPSearchAndFilter.Controls.Add(iconButtonAddClient, 5, 0);
+            TLPSearchAndFilter.Controls.Add(iconButtonViewBirthdays, 4, 0);
+            TLPSearchAndFilter.Dock = DockStyle.Fill;
+            TLPSearchAndFilter.Location = new System.Drawing.Point(3, 3);
+            TLPSearchAndFilter.Name = "TLPSearchAndFilter";
+            TLPSearchAndFilter.RowCount = 1;
+            TLPSearchAndFilter.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TLPSearchAndFilter.Size = new System.Drawing.Size(1287, 44);
+            TLPSearchAndFilter.TabIndex = 29;
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.textBoxSearch.ForeColor = System.Drawing.Color.Gray;
-            this.textBoxSearch.Location = new System.Drawing.Point(36, 9);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.PlaceholderText = "Search by name or phone number...";
-            this.textBoxSearch.Size = new System.Drawing.Size(277, 29);
-            this.textBoxSearch.TabIndex = 30;
-            this.textBoxSearch.Text = "Search by name or phone number...";
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            textBoxSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            textBoxSearch.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            textBoxSearch.ForeColor = System.Drawing.Color.Gray;
+            textBoxSearch.IsRequiredModeOn = false;
+            textBoxSearch.Location = new System.Drawing.Point(36, 9);
+            textBoxSearch.Margin = new Padding(3, 3, 3, 6);
+            textBoxSearch.Name = "textBoxSearch";
+            textBoxSearch.PlaceholderText = "Search by name or phone number...";
+            textBoxSearch.Size = new System.Drawing.Size(277, 29);
+            textBoxSearch.TabIndex = 30;
+            textBoxSearch.Text = "Search by name or phone number...";
+            textBoxSearch.TextChanged += textBoxSearch_TextChanged;
             // 
             // pictureBoxSearch
             // 
-            this.pictureBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxSearch.BackgroundImage")));
-            this.pictureBoxSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxSearch.Location = new System.Drawing.Point(7, 14);
-            this.pictureBoxSearch.Margin = new System.Windows.Forms.Padding(7, 7, 0, 10);
-            this.pictureBoxSearch.Name = "pictureBoxSearch";
-            this.pictureBoxSearch.Size = new System.Drawing.Size(26, 20);
-            this.pictureBoxSearch.TabIndex = 29;
-            this.pictureBoxSearch.TabStop = false;
+            pictureBoxSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            pictureBoxSearch.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBoxSearch.BackgroundImage");
+            pictureBoxSearch.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxSearch.Location = new System.Drawing.Point(7, 14);
+            pictureBoxSearch.Margin = new Padding(7, 7, 0, 10);
+            pictureBoxSearch.Name = "pictureBoxSearch";
+            pictureBoxSearch.Size = new System.Drawing.Size(26, 20);
+            pictureBoxSearch.TabIndex = 29;
+            pictureBoxSearch.TabStop = false;
             // 
             // FLPFilter
             // 
-            this.FLPFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.FLPFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.FLPFilter.Controls.Add(this.pictureBox1);
-            this.FLPFilter.Controls.Add(this.label1);
-            this.FLPFilter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FLPFilter.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.FLPFilter.Location = new System.Drawing.Point(322, 10);
-            this.FLPFilter.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.FLPFilter.Name = "FLPFilter";
-            this.FLPFilter.Size = new System.Drawing.Size(88, 28);
-            this.FLPFilter.TabIndex = 31;
-            this.FLPFilter.Click += new System.EventHandler(this.FLPFilter_Click);
-            this.FLPFilter.MouseLeave += new System.EventHandler(this.label1_MouseLeave);
-            this.FLPFilter.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FLPFilter_MouseMove);
+            FLPFilter.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            FLPFilter.BorderStyle = BorderStyle.FixedSingle;
+            FLPFilter.Controls.Add(pictureBox1);
+            FLPFilter.Controls.Add(label1);
+            FLPFilter.Cursor = Cursors.Hand;
+            FLPFilter.FlowDirection = FlowDirection.RightToLeft;
+            FLPFilter.Location = new System.Drawing.Point(322, 10);
+            FLPFilter.Margin = new Padding(3, 3, 3, 6);
+            FLPFilter.Name = "FLPFilter";
+            FLPFilter.Size = new System.Drawing.Size(88, 28);
+            FLPFilter.TabIndex = 31;
+            FLPFilter.Click += FLPFilter_Click;
+            FLPFilter.MouseLeave += label1_MouseLeave;
+            FLPFilter.MouseMove += FLPFilter_MouseMove;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(58, 1);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(28, 24);
-            this.pictureBox1.TabIndex = 29;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.FLPFilter_Click);
-            this.pictureBox1.MouseLeave += new System.EventHandler(this.label1_MouseLeave);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FLPFilter_MouseMove);
+            pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.Location = new System.Drawing.Point(58, 1);
+            pictureBox1.Margin = new Padding(0, 1, 0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(28, 24);
+            pictureBox1.TabIndex = 29;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += FLPFilter_Click;
+            pictureBox1.MouseLeave += label1_MouseLeave;
+            pictureBox1.MouseMove += FLPFilter_MouseMove;
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(2, 2);
-            this.label1.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 24);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Filters";
-            this.label1.Click += new System.EventHandler(this.FLPFilter_Click);
-            this.label1.MouseLeave += new System.EventHandler(this.label1_MouseLeave);
-            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FLPFilter_MouseMove);
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.Location = new System.Drawing.Point(2, 2);
+            label1.Margin = new Padding(0, 2, 0, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(56, 24);
+            label1.TabIndex = 22;
+            label1.Text = "Filters";
+            label1.Click += FLPFilter_Click;
+            label1.MouseLeave += label1_MouseLeave;
+            label1.MouseMove += FLPFilter_MouseMove;
             // 
             // buttonResetOrder
             // 
-            this.buttonResetOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonResetOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonResetOrder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonResetOrder.FlatAppearance.BorderSize = 0;
-            this.buttonResetOrder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(142)))), ((int)(((byte)(244)))));
-            this.buttonResetOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonResetOrder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonResetOrder.ForeColor = System.Drawing.Color.White;
-            this.buttonResetOrder.Location = new System.Drawing.Point(421, 11);
-            this.buttonResetOrder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 7);
-            this.buttonResetOrder.Name = "buttonResetOrder";
-            this.buttonResetOrder.Size = new System.Drawing.Size(97, 26);
-            this.buttonResetOrder.TabIndex = 4;
-            this.buttonResetOrder.Text = "Reset Order";
-            this.buttonResetOrder.UseVisualStyleBackColor = false;
-            this.buttonResetOrder.Click += new System.EventHandler(this.buttonResetOrder_Click);
+            buttonResetOrder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonResetOrder.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonResetOrder.Cursor = Cursors.Hand;
+            buttonResetOrder.FlatAppearance.BorderSize = 0;
+            buttonResetOrder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
+            buttonResetOrder.FlatStyle = FlatStyle.Flat;
+            buttonResetOrder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonResetOrder.ForeColor = System.Drawing.Color.White;
+            buttonResetOrder.Location = new System.Drawing.Point(421, 11);
+            buttonResetOrder.Margin = new Padding(4, 4, 4, 7);
+            buttonResetOrder.Name = "buttonResetOrder";
+            buttonResetOrder.Size = new System.Drawing.Size(97, 26);
+            buttonResetOrder.TabIndex = 4;
+            buttonResetOrder.Text = "Reset Order";
+            buttonResetOrder.UseVisualStyleBackColor = false;
+            buttonResetOrder.Click += buttonResetOrder_Click;
             // 
             // iconButtonAddClient
             // 
-            this.iconButtonAddClient.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.iconButtonAddClient.BackColor = System.Drawing.Color.Transparent;
-            this.iconButtonAddClient.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iconButtonAddClient.BackgroundImage")));
-            this.iconButtonAddClient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.iconButtonAddClient.FlatAppearance.BorderSize = 0;
-            this.iconButtonAddClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonAddClient.Location = new System.Drawing.Point(1247, 8);
-            this.iconButtonAddClient.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
-            this.iconButtonAddClient.MotionHeight = true;
-            this.iconButtonAddClient.MotionWidth = true;
-            this.iconButtonAddClient.Name = "iconButtonAddClient";
-            this.iconButtonAddClient.Size = new System.Drawing.Size(35, 32);
-            this.iconButtonAddClient.TabIndex = 32;
-            this.toolTip1.SetToolTip(this.iconButtonAddClient, "Add new client");
-            this.iconButtonAddClient.UseVisualStyleBackColor = false;
-            this.iconButtonAddClient.Click += new System.EventHandler(this.iconButtonAddClient_Click);
+            iconButtonAddClient.Anchor = AnchorStyles.None;
+            iconButtonAddClient.BackColor = System.Drawing.Color.Transparent;
+            iconButtonAddClient.BackgroundImage = (System.Drawing.Image)resources.GetObject("iconButtonAddClient.BackgroundImage");
+            iconButtonAddClient.BackgroundImageLayout = ImageLayout.Zoom;
+            iconButtonAddClient.FlatAppearance.BorderSize = 0;
+            iconButtonAddClient.FlatStyle = FlatStyle.Flat;
+            iconButtonAddClient.Location = new System.Drawing.Point(1247, 8);
+            iconButtonAddClient.Margin = new Padding(3, 7, 3, 3);
+            iconButtonAddClient.MotionHeight = true;
+            iconButtonAddClient.MotionWidth = true;
+            iconButtonAddClient.Name = "iconButtonAddClient";
+            iconButtonAddClient.Size = new System.Drawing.Size(35, 32);
+            iconButtonAddClient.TabIndex = 32;
+            toolTip1.SetToolTip(iconButtonAddClient, "Add new client");
+            iconButtonAddClient.UseVisualStyleBackColor = false;
+            iconButtonAddClient.Click += iconButtonAddClient_Click;
             // 
             // iconButtonViewBirthdays
             // 
-            this.iconButtonViewBirthdays.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.iconButtonViewBirthdays.BackColor = System.Drawing.Color.Transparent;
-            this.iconButtonViewBirthdays.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iconButtonViewBirthdays.BackgroundImage")));
-            this.iconButtonViewBirthdays.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.iconButtonViewBirthdays.FlatAppearance.BorderSize = 0;
-            this.iconButtonViewBirthdays.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonViewBirthdays.Location = new System.Drawing.Point(1203, 6);
-            this.iconButtonViewBirthdays.MotionHeight = true;
-            this.iconButtonViewBirthdays.MotionWidth = true;
-            this.iconButtonViewBirthdays.Name = "iconButtonViewBirthdays";
-            this.iconButtonViewBirthdays.Size = new System.Drawing.Size(35, 32);
-            this.iconButtonViewBirthdays.TabIndex = 32;
-            this.toolTip1.SetToolTip(this.iconButtonViewBirthdays, "See coming birthdays");
-            this.iconButtonViewBirthdays.UseVisualStyleBackColor = false;
-            this.iconButtonViewBirthdays.Click += new System.EventHandler(this.iconButtonViewBirthdays_Click);
+            iconButtonViewBirthdays.Anchor = AnchorStyles.None;
+            iconButtonViewBirthdays.BackColor = System.Drawing.Color.Transparent;
+            iconButtonViewBirthdays.BackgroundImage = (System.Drawing.Image)resources.GetObject("iconButtonViewBirthdays.BackgroundImage");
+            iconButtonViewBirthdays.BackgroundImageLayout = ImageLayout.Zoom;
+            iconButtonViewBirthdays.FlatAppearance.BorderSize = 0;
+            iconButtonViewBirthdays.FlatStyle = FlatStyle.Flat;
+            iconButtonViewBirthdays.Location = new System.Drawing.Point(1203, 6);
+            iconButtonViewBirthdays.MotionHeight = true;
+            iconButtonViewBirthdays.MotionWidth = true;
+            iconButtonViewBirthdays.Name = "iconButtonViewBirthdays";
+            iconButtonViewBirthdays.Size = new System.Drawing.Size(35, 32);
+            iconButtonViewBirthdays.TabIndex = 32;
+            toolTip1.SetToolTip(iconButtonViewBirthdays, "See coming birthdays");
+            iconButtonViewBirthdays.UseVisualStyleBackColor = false;
+            iconButtonViewBirthdays.Click += iconButtonViewBirthdays_Click;
             // 
             // panelResults
             // 
-            this.panelResults.Controls.Add(this.labelResults);
-            this.panelResults.Controls.Add(this.label13);
-            this.panelResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelResults.Location = new System.Drawing.Point(3, 674);
-            this.panelResults.Name = "panelResults";
-            this.panelResults.Size = new System.Drawing.Size(1287, 36);
-            this.panelResults.TabIndex = 30;
+            panelResults.Controls.Add(labelResults);
+            panelResults.Controls.Add(label13);
+            panelResults.Dock = DockStyle.Fill;
+            panelResults.Location = new System.Drawing.Point(3, 674);
+            panelResults.Name = "panelResults";
+            panelResults.Size = new System.Drawing.Size(1287, 36);
+            panelResults.TabIndex = 30;
             // 
             // labelResults
             // 
-            this.labelResults.AutoSize = true;
-            this.labelResults.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelResults.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelResults.Location = new System.Drawing.Point(179, 0);
-            this.labelResults.Name = "labelResults";
-            this.labelResults.Size = new System.Drawing.Size(31, 25);
-            this.labelResults.TabIndex = 1;
-            this.labelResults.Text = "10";
+            labelResults.AutoSize = true;
+            labelResults.Dock = DockStyle.Left;
+            labelResults.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelResults.Location = new System.Drawing.Point(179, 0);
+            labelResults.Name = "labelResults";
+            labelResults.Size = new System.Drawing.Size(31, 25);
+            labelResults.TabIndex = 1;
+            labelResults.Text = "10";
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(0, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(179, 25);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Number Of Results:";
+            label13.AutoSize = true;
+            label13.Dock = DockStyle.Left;
+            label13.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label13.Location = new System.Drawing.Point(0, 0);
+            label13.Name = "label13";
+            label13.Size = new System.Drawing.Size(179, 25);
+            label13.TabIndex = 0;
+            label13.Text = "Number Of Results:";
             // 
             // timerFilterOn
             // 
-            this.timerFilterOn.Interval = 1;
-            this.timerFilterOn.Tick += new System.EventHandler(this.timerFilterOn_Tick);
+            timerFilterOn.Interval = 1;
+            timerFilterOn.Tick += timerFilterOn_Tick;
             // 
             // timerFilterOff
             // 
-            this.timerFilterOff.Interval = 1;
-            this.timerFilterOff.Tick += new System.EventHandler(this.timerFilterOff_Tick);
+            timerFilterOff.Interval = 1;
+            timerFilterOff.Tick += timerFilterOff_Tick;
             // 
             // TLPGlobal
             // 
-            this.TLPGlobal.ColumnCount = 1;
-            this.TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPGlobal.Controls.Add(this.TLPGlobalJunior, 0, 0);
-            this.TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPGlobal.Location = new System.Drawing.Point(0, 0);
-            this.TLPGlobal.Name = "TLPGlobal";
-            this.TLPGlobal.RowCount = 1;
-            this.TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPGlobal.Size = new System.Drawing.Size(1311, 728);
-            this.TLPGlobal.TabIndex = 22;
+            TLPGlobal.ColumnCount = 1;
+            TLPGlobal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TLPGlobal.Controls.Add(TLPGlobalJunior, 0, 0);
+            TLPGlobal.Dock = DockStyle.Fill;
+            TLPGlobal.Location = new System.Drawing.Point(0, 0);
+            TLPGlobal.Name = "TLPGlobal";
+            TLPGlobal.RowCount = 1;
+            TLPGlobal.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TLPGlobal.Size = new System.Drawing.Size(1311, 728);
+            TLPGlobal.TabIndex = 22;
             // 
             // timerUnselectComboBox
             // 
-            this.timerUnselectComboBox.Interval = 800;
+            timerUnselectComboBox.Interval = 800;
             // 
             // SearchCurrentClient
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1311, 728);
-            this.Controls.Add(this.TLPGlobal);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "SearchCurrentClient";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SearchCurrentClient";
-            this.Deactivate += new System.EventHandler(this.SearchCurrentClient_Deactivate);
-            this.Load += new System.EventHandler(this.SearchCurrentClient_Load);
-            this.Resize += new System.EventHandler(this.SearchCurrentClient_Resize);
-            this.TLPGlobalJunior.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).EndInit();
-            this.TLPSearchAndFilter.ResumeLayout(false);
-            this.TLPSearchAndFilter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSearch)).EndInit();
-            this.FLPFilter.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panelResults.ResumeLayout(false);
-            this.panelResults.PerformLayout();
-            this.TLPGlobal.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new System.Drawing.Size(1311, 728);
+            Controls.Add(TLPGlobal);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Name = "SearchCurrentClient";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "SearchCurrentClient";
+            Deactivate += SearchCurrentClient_Deactivate;
+            Load += SearchCurrentClient_Load;
+            Resize += SearchCurrentClient_Resize;
+            TLPGlobalJunior.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewClients).EndInit();
+            TLPSearchAndFilter.ResumeLayout(false);
+            TLPSearchAndFilter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearch).EndInit();
+            FLPFilter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelResults.ResumeLayout(false);
+            panelResults.PerformLayout();
+            TLPGlobal.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

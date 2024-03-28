@@ -104,7 +104,7 @@ namespace MKproject.Schedule
 
             UCBundlePackage bundlePackage = new UCBundlePackage(true, DesiredRow);
             bundlePackage.UCMouseClick += BundlePackage_UCMouseClick; ;
-            bundlePackage.Margin = new Padding(162, 0, 0, 10);
+            bundlePackage.Margin = new Padding(ucSlideButton.Location.X +25 , 0, 0, 10);
             FLPAvailablePackages.Controls.Add(bundlePackage);
 
         }
@@ -118,7 +118,7 @@ namespace MKproject.Schedule
             this.Close();
         }
 
-      
+
 
         private void UcSlideButton_Button2Clicked(object sender, EventArgs e)
         {
@@ -136,9 +136,9 @@ namespace MKproject.Schedule
                 if (uCBundlesOutput == null)
                 {
 
-                    uCBundlesOutput = new UCBundlesOutput(this);        
+                    uCBundlesOutput = new UCBundlesOutput(this);
                     uCBundlesOutput.Dock = DockStyle.Fill;
-                    uCBundlesOutput.Margin = new Padding(15, 5, 15, 0);                 
+                    uCBundlesOutput.Margin = new Padding(15, 5, 15, 0);
                 }
                 TLPglobal.Controls.Add(uCBundlesOutput, 0, 2);
             }
@@ -158,7 +158,7 @@ namespace MKproject.Schedule
 
                 CustomMessageBox.Show("Please choose a service", CustomMessageBox.Type.Ok);
             }
-           
+
         }
 
 
@@ -180,6 +180,13 @@ namespace MKproject.Schedule
             this.Close();
         }
 
-      
+        private void ChooseService_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Program.GreyFormJunior != null)
+            {
+                Program.GreyFormJunior.Close();
+                Program.GreyFormJunior = null;
+            }
+        }
     }
 }
