@@ -428,16 +428,15 @@ namespace MKproject.Management
 
         }
 
-        public static void ReduceSessionFromPackageOfSessions(int ClientId, int DesiredClientBalanceId, int UpdatedSessionLeft, int? AppointmentId)
+        public static void ReduceSessionFromPackageOfSessions(int ClientId, int DesiredClientBalanceId, int UpdatedSessionLeft, int? AppointmentId, DateTime Date)
         {
             //Sql update
-            DateTime Date = DateTime.Now;
-            ClassClientBalance.UpdateClientBalanceOnEditingSessions(DesiredClientBalanceId, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
+            UpdateClientBalanceOnEditingSessions(DesiredClientBalanceId, UpdatedSessionLeft, null, null, false);//lieanno this function onlykermel el package sessiosns                   
             ClassClient.UpdateClientCheckInSQL(ClientId, Date);
             ProjectToSQL.InsertToClientAttendance(ClientId, DesiredClientBalanceId, AppointmentId);
 
             ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, Date);
-            DataTable dt = ClassClientBalance.GetClientBalanceAllInfoSql(DesiredClientBalanceId);//ma ela aaze bas mafina baleha, kermel CreateActionDetails, el clean code
+            DataTable dt = GetClientBalanceAllInfoSql(DesiredClientBalanceId);//ma ela aaze bas mafina baleha, kermel CreateActionDetails, el clean code
             backOffice.CreateActionDetails(dt.Rows[0]);
             backOffice.InsertToArchiveSQL();
         }
@@ -525,7 +524,6 @@ namespace MKproject.Management
             TotalPayment = ProductPayments + BundlePayments;
             return (TotalPayment, BundlePayments, ProductPayments, TokenBundles, TokenProducts);
         }
-
         public static (double, double, double) CalculatingClientBalance(DataTable DesiredClientBalanceDT)
         {
             double bundleBalance = 0;
@@ -765,8 +763,7 @@ namespace MKproject.Management
             //Number Of Sessions or days
             if (BundleId != null)
             {
-                string ServiceName;
-                ServiceName = ClassBundles.FindBundleName((int)BundleId);
+                string ServiceName = ClassBundles.FindBundleName((int)BundleId);
 
                 string Details = "";
                 //sessionleft

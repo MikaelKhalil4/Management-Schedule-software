@@ -787,7 +787,7 @@ namespace MKproject.Management
         {
             //Sql update
 
-            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null);
+            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null, DateTime.Now);
 
             //design
             SessionDaysLeft--;

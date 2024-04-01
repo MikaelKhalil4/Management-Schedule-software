@@ -92,7 +92,7 @@ namespace MKproject.Schedule
             sda.Fill(dt);
             return dt;
         }
-        public static DataTable GetAllNewChosenBundles(int appointmentId)
+        public static DataTable GetAllChosenSoloBundles(int appointmentId)
         {
             SqlCommand cmd = new SqlCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id ORDER BY app_bundle_id ASC", con);
             cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
@@ -407,7 +407,7 @@ namespace MKproject.Schedule
             SetOrResetIsCompleted();
 
         }
-        public void UpdateHistory()
+        public void UpdateHistoryClientBalance()
         {
             SqlCommand cmdUpdateCompletion = new SqlCommand(@" Update appointments SET  history_client_balance=@history_client_balance  WHERE  appointment_id=@appointment_id ", con); ;
             cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
@@ -495,7 +495,7 @@ namespace MKproject.Schedule
             DesiredApp.HistoryClientBalance = datarow["history_client_balance"] is DBNull ? null : (string)datarow["history_client_balance"];
 
 
-            DataTable ChosenBundles = GetAllNewChosenBundles((int)DesiredApp.AppointmentID);
+            DataTable ChosenBundles = GetAllChosenSoloBundles((int)DesiredApp.AppointmentID);
             if (ChosenBundles.Rows.Count > 0)
             {
                 List<ClassBundles> bundles = new List<ClassBundles>();

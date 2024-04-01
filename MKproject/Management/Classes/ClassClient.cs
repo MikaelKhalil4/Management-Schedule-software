@@ -17,7 +17,6 @@ namespace MKproject.Management
         //? bas btonhatt lal int w double ta neoul enno hole can be null, or string image, datetime by default fiyun yehkhdo nullvalues
         //personal
         public int ClientId { get; set; }
-        public string FullName { get; set; }//mesh mawjude bel db, bas btenaaz bi osas bel schdule
 
         private string fname;
         public string Fname

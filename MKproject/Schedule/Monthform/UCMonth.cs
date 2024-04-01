@@ -144,9 +144,7 @@ namespace MKproject.Schedule
             //Just to setUp the ucmonth again when I deactivate it and we will to set it on UCCalanderday
             this.Hide();
 
-
             DateUCMonth = ucday.SelectedDate;
-
 
         }
 

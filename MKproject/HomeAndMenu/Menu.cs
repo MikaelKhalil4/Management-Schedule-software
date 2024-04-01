@@ -74,7 +74,7 @@ namespace MKproject
                 currentButton = desiredbtn;
             }
         }
-        public void OpenChildForm(Form DesiredFormToOpen, Button desiredbtn, bool IsOpeningASousChild)
+        public  void OpenChildForm(Form DesiredFormToOpen, Button desiredbtn, bool IsOpeningASousChild)
         {
             if (ParentFormHome.panelContainer.Controls.Count > 0)//specially made kermel el back ma nekhsar el data bel form li fetna menna
             {

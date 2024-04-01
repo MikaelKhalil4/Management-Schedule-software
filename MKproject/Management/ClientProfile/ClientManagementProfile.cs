@@ -74,6 +74,9 @@ namespace MKproject.Management
             dataGridViewBalance.ApplyStyle1();
         }
 
+
+
+
         void LoadImages()
         {
 
@@ -84,8 +87,6 @@ namespace MKproject.Management
             EmptyImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "EmptyIcon.png");
 
         }
-
-
         public void LoadData(ClassClient client, bool isFromSchedule)
         {
             if (isFromSchedule)
@@ -123,7 +124,6 @@ namespace MKproject.Management
             FormatDatagridviewDesign();
 
         }//try catch
-
         private void ClientManagementProfile_Load(object sender, EventArgs e)
         {
             AutosizeUCLabel();
@@ -166,7 +166,6 @@ namespace MKproject.Management
 
             CalculatingTotalBalancesDesignAndSql(false);
         }
-
         private void dataGridViewBalance_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewBalance.Rows.Count && e.ColumnIndex < dataGridViewBalance.Columns.Count)
@@ -177,7 +176,6 @@ namespace MKproject.Management
                 }
             }
         }
-
         //it wont work bel cell formating , lieanno on mousehover aam tetezii
         public void FormatDatagridviewDesign()
         {
@@ -355,6 +353,9 @@ namespace MKproject.Management
             }
 
         }//try catch
+
+
+
 
 
         bool CreateDesiredUCLabelDetails(ref UCLabelAndDetail DesiredUC, string type, string detail, bool isVisible, int DesignIndex)//the details will be send formated
@@ -672,48 +673,6 @@ namespace MKproject.Management
 
 
 
-        public void UpdateIsInDebteToUCBundle(int BundelID, bool isindebt)
-        {
-            foreach (UCBundlePackage uc in panelBundles.Controls)
-            {
-                if (uc.DesiredClientBalanceId == BundelID)
-                {
-                    uc.IsInDebt = isindebt;
-                }
-            }
-        }
-        public void ResetUCMode(int BundelID, int SessionNumber, DateTime? NewDueDate)
-        {
-            foreach (UCBundlePackage uc in panelBundles.Controls)
-            {
-                if (uc.DesiredClientBalanceId == BundelID)
-                {
-                    uc.SessionDaysLeft = SessionNumber;
-                    if (NewDueDate != null)//days mode
-                    {
-                        uc.DueDate = NewDueDate;
-                    }
-                }
-            }
-        }
-        public void DeleteUcPackage(int BundelID)
-        {
-
-            foreach (UCBundlePackage uc in panelBundles.Controls)
-            {
-                if (uc.DesiredClientBalanceId == BundelID)
-                {
-                    uc.Dispose();
-                }
-            }
-
-
-            CheckAndSetNoBundleLabel();
-
-        }
-
-
-
 
         //this section is for the design handling tabaa el bundles
         //aam nshuf eza eena at least one bundle ta naarif shu naamil bel design
@@ -729,23 +688,7 @@ namespace MKproject.Management
                 }
             }
             return false;
-        }
-        //kermel estaamle bel new register, eza el cujstomer is saved or saved and pay session
-        public void ClearAndInsertPanel()
-        {
-            int rowIndex = 1; // Replace with the desired row index
-            int colIndex = 0; // Replace with the desired column index
-
-            Control controlToRemove = TLPdatagrid.GetControlFromPosition(colIndex, rowIndex);
-            if (controlToRemove != null)
-            {
-                TLPdatagrid.Controls.Remove(controlToRemove);
-                controlToRemove.Dispose(); // Optional, if you want to dispose of the removed control
-            }
-
-            CreatePanelUCBundle();
-
-        }
+        }   
         //used only awwal ma nekhlae el form
         public void InitialSetBundleMode()
         {
@@ -830,7 +773,6 @@ namespace MKproject.Management
             bundlePackage.UCMouseClick += BundlePackage_UCMouseClick;
 
         }
-
         private void BundlePackage_UCMouseClick(object sender, EventArgs e)
         {
             UCBundlePackage desiredUC = (UCBundlePackage)sender;
@@ -857,7 +799,6 @@ namespace MKproject.Management
                 }
             }
         }
-
         public Label GetNoBundleLable(string Text)//in case we had no bundles
         {
             Label labelNoBundles = new Label();
@@ -870,46 +811,51 @@ namespace MKproject.Management
             labelNoBundles.Text = Text;
             return labelNoBundles;
         }
-
-        //Design Handling,used in the datagridview location
-
-
-
-
-
-
-        //desired row is in case of editing one row
-        public DataTable RetrievingSpecificRowsInDt(bool IsTotalBalance, int? ClientBalanceId)
+        public void UpdateIsInDebteToUCBundle(int BundelID, bool isindebt)
         {
-            if (IsTotalBalance && ClientBalanceId == null)
+            foreach (UCBundlePackage uc in panelBundles.Controls)
             {
-                DataTable dtClientBalanceCopy = dtClientBalanceOriginal.Copy();//copry stucture +data
-
-                for (int i = dtClientBalanceCopy.Rows.Count - 1; i >= 0; i--)
+                if (uc.DesiredClientBalanceId == BundelID)
                 {
-                    DataRow d = dtClientBalanceCopy.Rows[i];
-                    if (Convert.ToDouble(d["balance"].ToString()) == 0)
+                    uc.IsInDebt = isindebt;
+                }
+            }
+        }
+        public void ResetUCMode(int BundelID, int SessionNumber, DateTime? NewDueDate)
+        {
+            foreach (UCBundlePackage uc in panelBundles.Controls)
+            {
+                if (uc.DesiredClientBalanceId == BundelID)
+                {
+                    uc.SessionDaysLeft = SessionNumber;
+                    if (NewDueDate != null)//days mode
                     {
-                        d.Delete();
+                        uc.DueDate = NewDueDate;
                     }
                 }
-                dtClientBalanceCopy.AcceptChanges();
-                return dtClientBalanceCopy;
             }
-            else
+        }
+        public void DeleteUcPackage(int BundelID)
+        {
+
+            foreach (UCBundlePackage uc in panelBundles.Controls)
             {
-                DataRow[] rows = dtClientBalanceOriginal.Select("client_balance_id =" + ClientBalanceId);
-                DataRow desiredRow = null;
-                if (rows.Length > 0)
+                if (uc.DesiredClientBalanceId == BundelID)
                 {
-                    desiredRow = rows[0];
+                    uc.Dispose();
                 }
-                DataTable dtClientBalanceOneRow = dtClientBalanceOriginal.Clone();//copry stucture
-                dtClientBalanceOneRow.ImportRow(desiredRow);
-                return dtClientBalanceOneRow;
             }
 
+
+            CheckAndSetNoBundleLabel();
+
         }
+
+
+
+      
+
+
 
 
         //mawjude matrahen hone w bel payment
@@ -1031,6 +977,106 @@ namespace MKproject.Management
 
         }
 
+        void CreateOrUpdateLinkChild()
+        {
+
+            if (Client.IsParent == true || Client.IsChild == true)
+            {
+
+
+                if (TLPLinked == null && ucLabelAndDetailLinked == null && iconViewOrProfile == null)
+                {
+
+                    ucLabelAndDetailLinked = new UCLabelAndDetail();
+                    ucLabelAndDetailLinked.Dock = DockStyle.Fill;
+
+                    iconViewOrProfile = new IconButton();
+                    iconViewOrProfile.Anchor = AnchorStyles.None;
+                    iconViewOrProfile.Size = new Size(34, 26);
+                    iconViewOrProfile.Click += IconViewOrProfile_Click;
+                    iconViewOrProfile.Text = "";
+
+
+                    TLPLinked = new TableLayoutPanel();
+                    TLPLinked.Size = new Size(296, 42);
+                    TLPLinked.Margin = new Padding(0);
+                    TLPLinked.Name = "TLPLinked";
+                    TLPLinked.Dock = DockStyle.Top;
+                    panelPrimaryInfo.Controls.Add(TLPLinked);
+                    TLPLinked.BringToFront();
+
+                    // Set column percentages
+                    TLPLinked.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80));
+                    TLPLinked.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20));
+                    TLPLinked.Controls.Add(ucLabelAndDetailLinked, 0, 0);
+                    TLPLinked.Controls.Add(iconViewOrProfile, 1, 0);
+                    //
+
+                }
+                if (Client.IsParent == true)
+                {
+
+
+                    iconViewOrProfile.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "view.png");
+                    ucLabelAndDetailLinked.Type = "Linked Childrens";
+                    ucLabelAndDetailLinked.Detail = Convert.ToString(ClassClient.CalculateNumberOfChildrenSQL(Client.PhoneNumber));
+
+                }
+                else if (Client.IsChild == true)
+                {
+                    DataTable dt = ClassClient.GetLinkedPArentsSQL(Client.PhoneNumber);
+                    ParentIdInProfile = (int)dt.Rows[0]["client_id"];
+                    iconViewOrProfile.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "userNude.png");
+                    ucLabelAndDetailLinked.Type = "Linked Parent";
+                    ucLabelAndDetailLinked.Detail = dt.Rows[0]["Full Name"].ToString();
+
+                }
+            }
+            else
+            {
+                RemoveLinkedChildOrParent();
+            }
+        }
+        void RemoveLinkedChildOrParent()
+        {
+            if (TLPLinked != null && ucLabelAndDetailLinked != null && iconViewOrProfile != null)
+            {
+                TLPLinked.Dispose();
+                TLPLinked = null;
+                ucLabelAndDetailLinked.Dispose();
+                ucLabelAndDetailLinked = null;
+                iconViewOrProfile.Dispose();
+                iconViewOrProfile = null;
+
+                panelSecondaryInfo.Controls.Remove(TLPLinked);
+            }
+        }
+     
+        private void IconViewOrProfile_Click(object sender, EventArgs e)
+        {
+            if (Client.IsParent == true)
+            {
+
+                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm.Show();
+                RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true, IsFromSchedule);
+                relatedChildrens.ParentFormClientMang = this;
+                relatedChildrens.Show();
+            }
+            else if (Client.IsChild == true)
+            {
+                if (!IsFromSchedule)
+                {
+                    SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(this.Tag)).menu.ActivatedForm));
+                    ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
+                    searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
+                }
+                else
+                {
+                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.Ok);
+                }
+            }
+        }
 
         private void buttonEditClientInfo_Click(object sender, EventArgs e)
         {
@@ -1053,9 +1099,9 @@ namespace MKproject.Management
 
             if (IsClientDeleted)
             {
-               
-               ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
-       
+
+                ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
+
             }
         }
 
@@ -1083,6 +1129,10 @@ namespace MKproject.Management
             }
 
         }
+
+
+
+
 
 
 
@@ -1361,105 +1411,39 @@ namespace MKproject.Management
 
 
 
-        void CreateOrUpdateLinkChild()
+        //desired row is in case of editing one row
+        public DataTable RetrievingSpecificRowsInDt(bool IsTotalBalance, int? ClientBalanceId)
         {
-
-            if (Client.IsParent == true || Client.IsChild == true)
+            if (IsTotalBalance && ClientBalanceId == null)
             {
+                DataTable dtClientBalanceCopy = dtClientBalanceOriginal.Copy();//copry stucture +data
 
-
-                if (TLPLinked == null && ucLabelAndDetailLinked == null && iconViewOrProfile == null)
+                for (int i = dtClientBalanceCopy.Rows.Count - 1; i >= 0; i--)
                 {
-
-                    ucLabelAndDetailLinked = new UCLabelAndDetail();
-                    ucLabelAndDetailLinked.Dock = DockStyle.Fill;
-
-                    iconViewOrProfile = new IconButton();
-                    iconViewOrProfile.Anchor = AnchorStyles.None;
-                    iconViewOrProfile.Size = new Size(34, 26);
-                    iconViewOrProfile.Click += IconViewOrProfile_Click;
-                    iconViewOrProfile.Text = "";
-
-
-                    TLPLinked = new TableLayoutPanel();
-                    TLPLinked.Size = new Size(296, 42);
-                    TLPLinked.Margin = new Padding(0);
-                    TLPLinked.Name = "TLPLinked";
-                    TLPLinked.Dock = DockStyle.Top;
-                    panelPrimaryInfo.Controls.Add(TLPLinked);
-                    TLPLinked.BringToFront();
-
-                    // Set column percentages
-                    TLPLinked.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80));
-                    TLPLinked.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20));
-                    TLPLinked.Controls.Add(ucLabelAndDetailLinked, 0, 0);
-                    TLPLinked.Controls.Add(iconViewOrProfile, 1, 0);
-                    //
-
+                    DataRow d = dtClientBalanceCopy.Rows[i];
+                    if (Convert.ToDouble(d["balance"].ToString()) == 0)
+                    {
+                        d.Delete();
+                    }
                 }
-                if (Client.IsParent == true)
-                {
-
-
-                    iconViewOrProfile.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "view.png");
-                    ucLabelAndDetailLinked.Type = "Linked Childrens";
-                    ucLabelAndDetailLinked.Detail = Convert.ToString(ClassClient.CalculateNumberOfChildrenSQL(Client.PhoneNumber));
-
-                }
-                else if (Client.IsChild == true)
-                {
-                    DataTable dt = ClassClient.GetLinkedPArentsSQL(Client.PhoneNumber);
-                    ParentIdInProfile = (int)dt.Rows[0]["client_id"];
-                    iconViewOrProfile.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "userNude.png");
-                    ucLabelAndDetailLinked.Type = "Linked Parent";
-                    ucLabelAndDetailLinked.Detail = dt.Rows[0]["Full Name"].ToString();
-
-                }
+                dtClientBalanceCopy.AcceptChanges();
+                return dtClientBalanceCopy;
             }
             else
             {
-                RemoveLinkedChildOrParent();
-            }
-        }
-        void RemoveLinkedChildOrParent()
-        {
-            if (TLPLinked != null && ucLabelAndDetailLinked != null && iconViewOrProfile != null)
-            {
-                TLPLinked.Dispose();
-                TLPLinked = null;
-                ucLabelAndDetailLinked.Dispose();
-                ucLabelAndDetailLinked = null;
-                iconViewOrProfile.Dispose();
-                iconViewOrProfile = null;
-
-                panelSecondaryInfo.Controls.Remove(TLPLinked);
-            }
-        }
-        private void IconViewOrProfile_Click(object sender, EventArgs e)
-        {
-            if (Client.IsParent == true)
-            {
-
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
-                Program.GreyForm.Show();
-                RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true, IsFromSchedule);
-                relatedChildrens.ParentFormClientMang = this;
-                relatedChildrens.Show();
-            }
-            else if (Client.IsChild == true)
-            {
-                if (!IsFromSchedule)
+                DataRow[] rows = dtClientBalanceOriginal.Select("client_balance_id =" + ClientBalanceId);
+                DataRow desiredRow = null;
+                if (rows.Length > 0)
                 {
-                    SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(this.Tag)).menu.ActivatedForm));
-                    ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
-                    searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
+                    desiredRow = rows[0];
                 }
-                else
-                {
-                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.Ok);
-                }
+                DataTable dtClientBalanceOneRow = dtClientBalanceOriginal.Clone();//copry stucture
+                dtClientBalanceOneRow.ImportRow(desiredRow);
+                return dtClientBalanceOneRow;
             }
+
         }
+
 
         public void TransferInformationToSearch()
         {
@@ -1706,20 +1690,22 @@ namespace MKproject.Management
         }
 
 
+
+
+     
+
+
+
         private void ClientManagementProfile_Resize(object sender, EventArgs e)
         {
             AutosizeUCLabel();
         }
-
 
         private void ClientManagementProfile_FormClosed(object sender, FormClosedEventArgs e)
         {
             //TransferInformationToSearch();
 
         }
-
-
-
         private void ClientManagementProfile_VisibleChanged(object sender, EventArgs e)
         {
             //if (IsFromSchedule)//since aam nodtarr naamela show dialog, w lamma tkun cached w showdialo ma aam bi bayno bel usaully method el icons, so this glitsh worked
@@ -1732,7 +1718,6 @@ namespace MKproject.Management
             }
         }
 
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Opacity == 1)
@@ -1741,7 +1726,6 @@ namespace MKproject.Management
             }
             Opacity += .1;
         }
-
         protected override CreateParams CreateParams
         {
             get

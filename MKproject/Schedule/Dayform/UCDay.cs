@@ -359,7 +359,7 @@ namespace MKproject.Schedule
                     Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
                     Program.GreyForm.Show();
                     Appointment appointment = new Appointment(this, uctime, ListEmployee_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
-                    appointment.ShowDialog();
+                    appointment.Show();
                 }
             }
             else

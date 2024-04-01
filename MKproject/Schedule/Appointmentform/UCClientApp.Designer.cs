@@ -30,14 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCClientApp));
             TLPglobal = new System.Windows.Forms.TableLayoutPanel();
-            TLPAddNewClient = new System.Windows.Forms.TableLayoutPanel();
-            label1 = new System.Windows.Forms.Label();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
             textBoxSearch = new CustomizedTools.TextBoxWithPlaceHolder();
-            ucSlideButtonServicerOthers = new CustomizedTools.UCSlideButton();
+            ButtonNewClient = new CustomizedTools.CustomButton();
             TLPglobal.SuspendLayout();
-            TLPAddNewClient.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // TLPglobal
@@ -47,9 +42,8 @@
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
-            TLPglobal.Controls.Add(TLPAddNewClient, 2, 1);
             TLPglobal.Controls.Add(textBoxSearch, 1, 1);
-            TLPglobal.Controls.Add(ucSlideButtonServicerOthers, 0, 0);
+            TLPglobal.Controls.Add(ButtonNewClient, 2, 1);
             TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPglobal.Location = new System.Drawing.Point(0, 0);
             TLPglobal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -61,61 +55,6 @@
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             TLPglobal.Size = new System.Drawing.Size(452, 221);
             TLPglobal.TabIndex = 0;
-            // 
-            // TLPAddNewClient
-            // 
-            TLPAddNewClient.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            TLPAddNewClient.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            TLPAddNewClient.ColumnCount = 2;
-            TLPAddNewClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPAddNewClient.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
-            TLPAddNewClient.Controls.Add(label1, 1, 0);
-            TLPAddNewClient.Controls.Add(pictureBox1, 0, 0);
-            TLPAddNewClient.Cursor = System.Windows.Forms.Cursors.Hand;
-            TLPAddNewClient.Location = new System.Drawing.Point(355, 72);
-            TLPAddNewClient.Margin = new System.Windows.Forms.Padding(0, 10, 6, 4);
-            TLPAddNewClient.Name = "TLPAddNewClient";
-            TLPAddNewClient.RowCount = 1;
-            TLPAddNewClient.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPAddNewClient.Size = new System.Drawing.Size(91, 29);
-            TLPAddNewClient.TabIndex = 68;
-            TLPAddNewClient.Click += TLPAddNewClient_Click;
-            TLPAddNewClient.MouseLeave += TLPAddNewClient_MouseLeave;
-            TLPAddNewClient.MouseMove += TLPAddNewClient_MouseMove;
-            // 
-            // label1
-            // 
-            label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            label1.BackColor = System.Drawing.Color.Transparent;
-            label1.Cursor = System.Windows.Forms.Cursors.Hand;
-            label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            label1.ForeColor = System.Drawing.Color.White;
-            label1.Location = new System.Drawing.Point(27, 3);
-            label1.Margin = new System.Windows.Forms.Padding(0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(64, 23);
-            label1.TabIndex = 65;
-            label1.Text = "New Client";
-            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            label1.Click += TLPAddNewClient_Click;
-            label1.MouseLeave += TLPAddNewClient_MouseLeave;
-            label1.MouseMove += TLPAddNewClient_MouseMove;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
-            pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            pictureBox1.Location = new System.Drawing.Point(0, 3);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(27, 23);
-            pictureBox1.TabIndex = 66;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += TLPAddNewClient_Click;
-            pictureBox1.MouseLeave += TLPAddNewClient_MouseLeave;
-            pictureBox1.MouseMove += TLPAddNewClient_MouseMove;
             // 
             // textBoxSearch
             // 
@@ -133,19 +72,27 @@
             textBoxSearch.Text = "By name or phone ";
             textBoxSearch.Click += textBoxSearch_Click;
             // 
-            // ucSlideButtonServicerOthers
+            // ButtonNewClient
             // 
-            ucSlideButtonServicerOthers.Anchor = System.Windows.Forms.AnchorStyles.None;
-            ucSlideButtonServicerOthers.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
-            ucSlideButtonServicerOthers.Button1text = "Service";
-            ucSlideButtonServicerOthers.Button2text = "Others";
-            ucSlideButtonServicerOthers.ClickedButton = null;
-            TLPglobal.SetColumnSpan(ucSlideButtonServicerOthers, 3);
-            ucSlideButtonServicerOthers.Location = new System.Drawing.Point(108, 13);
-            ucSlideButtonServicerOthers.Margin = new System.Windows.Forms.Padding(5);
-            ucSlideButtonServicerOthers.Name = "ucSlideButtonServicerOthers";
-            ucSlideButtonServicerOthers.Size = new System.Drawing.Size(236, 36);
-            ucSlideButtonServicerOthers.TabIndex = 76;
+            ButtonNewClient.Anchor = System.Windows.Forms.AnchorStyles.None;
+            ButtonNewClient.BackAndMouseHoverColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            ButtonNewClient.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            ButtonNewClient.FlatAppearance.BorderSize = 0;
+            ButtonNewClient.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
+            ButtonNewClient.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(89, 102, 204);
+            ButtonNewClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ButtonNewClient.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ButtonNewClient.ForeColor = System.Drawing.Color.White;
+            ButtonNewClient.Image = (System.Drawing.Image)resources.GetObject("ButtonNewClient.Image");
+            ButtonNewClient.Location = new System.Drawing.Point(353, 72);
+            ButtonNewClient.Name = "ButtonNewClient";
+            ButtonNewClient.Size = new System.Drawing.Size(92, 29);
+            ButtonNewClient.TabIndex = 70;
+            ButtonNewClient.Text = "New Client";
+            ButtonNewClient.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            ButtonNewClient.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            ButtonNewClient.UseVisualStyleBackColor = false;
+            ButtonNewClient.Click += ButtonNewClient_Click;
             // 
             // UCClientApp
             // 
@@ -158,18 +105,13 @@
             Size = new System.Drawing.Size(452, 221);
             TLPglobal.ResumeLayout(false);
             TLPglobal.PerformLayout();
-            TLPAddNewClient.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel TLPglobal;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TableLayoutPanel TLPAddNewClient;
-        private System.Windows.Forms.PictureBox pictureBox1;
         public CustomizedTools.TextBoxWithPlaceHolder textBoxSearch;
-        private CustomizedTools.UCSlideButton ucSlideButtonServicerOthers;
+        private CustomizedTools.CustomButton ButtonNewClient;
     }
 }

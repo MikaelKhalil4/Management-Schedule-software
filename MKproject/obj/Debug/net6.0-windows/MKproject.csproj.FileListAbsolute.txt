@@ -1,3 +1,4 @@
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\nlog.config
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.exe
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\images\BackOfficeBig.png
@@ -30,8 +31,6 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.application
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.deps.json
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.runtimeconfig.json
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\Azure.Core.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\Azure.Identity.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\System.Windows.Forms.DataVisualization.dll
@@ -141,4 +140,5 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\refint\MKproject.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\MKproject.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll

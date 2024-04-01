@@ -104,7 +104,7 @@ namespace MKproject.Schedule
 
             UCBundlePackage bundlePackage = new UCBundlePackage(true, DesiredRow);
             bundlePackage.UCMouseClick += BundlePackage_UCMouseClick; ;
-            bundlePackage.Margin = new Padding(ucSlideButton.Location.X +25 , 0, 0, 10);
+            bundlePackage.Margin = new Padding(ucSlideButton.Location.X + 25, 0, 0, 10);
             FLPAvailablePackages.Controls.Add(bundlePackage);
 
         }
@@ -113,8 +113,8 @@ namespace MKproject.Schedule
         {
             UCBundlePackage DesiredBundPackage = (UCBundlePackage)sender;
             ParentFormucClientApp.FillObjectOfNewChosenBundles(null);
-            ParentFormucClientApp.FillObjectOfAvailablePackage(DesiredBundPackage.DesiredRow);
-            ParentFormucClientApp.SetLogicAndDesignMode(true, false);
+            ParentFormucClientApp.FillObjectOfAvailablePackageifPresent(DesiredBundPackage.DesiredRow);
+            ParentFormucClientApp.SetLogicAndDesignPresentFutureAndServiceMode(true, false);
             this.Close();
         }
 
@@ -146,11 +146,11 @@ namespace MKproject.Schedule
         private void buttonChoose_Click(object sender, EventArgs e)
         {
 
-            ParentFormucClientApp.FillObjectOfAvailablePackage(null);
+            ParentFormucClientApp.FillObjectOfAvailablePackageifPresent(null);
             if (BundleList.Count > 0)
             {
                 ParentFormucClientApp.FillObjectOfNewChosenBundles(new List<ClassBundles>(BundleList));
-                ParentFormucClientApp.SetLogicAndDesignMode(true, false);
+                ParentFormucClientApp.SetLogicAndDesignPresentFutureAndServiceMode(true, false);
                 this.Close();
             }
             else
