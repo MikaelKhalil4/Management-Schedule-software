@@ -128,7 +128,7 @@ namespace MKproject.Schedule
 
 
 
-        
+
 
         void SetDesign()
         {
@@ -136,7 +136,7 @@ namespace MKproject.Schedule
             TLPGlobal.SetColumnSpan(ucClientApp, 2);
             ucClientApp.Anchor = AnchorStyles.None;
             //
-           
+
 
             //
             //should be considered once hattayta combobox
@@ -234,7 +234,7 @@ namespace MKproject.Schedule
                 buttonCompleted.Visible = false;
             }
 
-         
+
 
 
 
@@ -373,7 +373,7 @@ namespace MKproject.Schedule
         //these 3 event change the desin of the UCappointment, eloun aalea eza baamil complete aw cancel a undo bel appointment form
         public event EventHandler OnAppointmentUpdate;
         public event EventHandler OnAppointmentUndoCompletion;
-        public event EventHandler OnAppointmentUndoCancelation;    
+        public event EventHandler OnAppointmentUndoCancelation;
         //used present-future
         bool ISRequiredFieldsExists()
         {
@@ -633,18 +633,29 @@ namespace MKproject.Schedule
 
                             FillDesiredClientObject();//specially hone lezim ykun  foe  CompletingOrUndoingAppointment(true); kermel el history yekheda mazbuta abel ma tetghayar tahet
 
-                            if (DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays > 0)
+                            if (!(bool)DesiredAppointmentAppForm.DesiredClientBalance.IsExpired)//bel present deyman men fout bel if since ha tkun always IsExpired=false, bas ha eemelneha lal past 
                             {
-                                DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays--;
-                                DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
-                                ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID,DesiredAppointmentAppForm.StartTime);
+                                if (DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays > 0)
+                                {
+                                    DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays--;
+                                    DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
+                                    ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID, DesiredAppointmentAppForm.StartTime);
 
-                                //
-                                CompletingOrUndoingCompletionAppointment(true);
+                                    //
+                                    CompletingOrUndoingCompletionAppointment(true);
+                                }
+                                else
+                                {
+                                    DisableClosingOnDisactivating = true;
+                                    CustomMessageBox.Show("Can't complete this appointment because there are no sessions left.\nPlease renew the package or choose another service.", CustomMessageBox.Type.Ok);
+                                    DisableClosingOnDisactivating = false;
+                                }
                             }
-                            else
+                            else//only in the past ha nfout fiya 
                             {
-                                CustomMessageBox.Show("Can't complete this appointment because there are no sessions left.\nPlease renew the package or choose another service.", CustomMessageBox.Type.Ok);
+                                DisableClosingOnDisactivating = true;
+                                CustomMessageBox.Show("Can't complete this appointment because the chosen package is expired", CustomMessageBox.Type.Ok);
+                                DisableClosingOnDisactivating = false;
                             }
 
 
@@ -762,7 +773,7 @@ namespace MKproject.Schedule
         private void UcClientApp_OnUpdatingTheChosenClientBalance(object sender, EventArgs e)
         {
             //the logic here maktub bel documentation
-            if (ucappointment.DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
+            if (ucappointment.DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//present-future
             {
                 if (ucappointment.DesiredAppointmentUCApp.DesiredClientBalance == null || (ucClientApp.DesiredAppointmentUCClientApp.DesiredClientBalance != null && ucappointment.DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceID == ucClientApp.DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceID))//eza fetna aal profile w ghayarna  sessions let s say tb3 same client_balance, sql bet kun naamalit bas aalayna nghayyir el design
                 {
@@ -774,11 +785,13 @@ namespace MKproject.Schedule
                                                                                       //In Parralele el design tb3 el AppointmentForm, ha yeshteghil in a synchronous way
                 }
             }
-            else
+            else if (ucappointment.DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//past
             {
-                ucappointment.DesiredAppointmentUCApp.DesiredClientBalance = null;
+                ucappointment.DesiredAppointmentUCApp = ClassAppointment.CreateObjectClassAppointment(ucappointment.DesiredAppointmentUCApp.AppointmentID);//refreshing the info
             }
-            ucappointment.SetServiceLogicAndDesign();
+        
+            ucappointment.SetServiceLogicAndDesign();//to change the design bel present, bel past ma bi hemna nghayyir el design, bas bi hemna nkun aam naammil update lal object
+
         }
         private void BackOffice_UndoHappened(object sender, EventArgs e)//this is only design wise cz kell shi backend happened aal undo action
         {

@@ -42,6 +42,7 @@ namespace MKproject.Schedule
             SetServiceLogicAndDesign();
         }
 
+
         void CreationOfLabelBalance()
         {
             LabelBalance = new Label();
@@ -53,7 +54,7 @@ namespace MKproject.Schedule
         }
 
 
-       
+
 
         public void SetUCDesign()
         {
@@ -136,7 +137,7 @@ namespace MKproject.Schedule
                 }
             }
 
-          
+
             //State
             if (DesiredAppointmentUCApp.IsCompleted)
             {
@@ -169,21 +170,35 @@ namespace MKproject.Schedule
             //Service
             if (DesiredAppointmentUCApp.IsPackageMode)
             {
-                if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)//Present
+                if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present
                 {
 
                     if (DesiredAppointmentUCApp.DesiredClientBalance != null && !(bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)
                     {
-                        labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
-                      
-                        if (DesiredAppointmentUCApp.HistoryClientBalance == null)//since eza kenna el future we dont save el history, once sorna bel present we need to save it
+                        if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
                         {
-                            DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
-                            DesiredAppointmentUCApp.UpdateHistoryClientBalance();
+                            //SQl
+                            if (DesiredAppointmentUCApp.HistoryClientBalance == null)//since eza kenna el future we dont save el history, once sorna bel present we need to save it
+                            {
+                                DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                                DesiredAppointmentUCApp.UpdateHistoryClientBalance();
+                            }
+
+                            //Design
+                            labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+
                         }
+                        else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
+                        {
+                            //Design
+                            string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCApp.DesiredClientBalance.BundleId);
+                            labelService.Text = ServiceName + " package autoselects at present";
+                        }
+
                     }
                     else
                     {
+
                         DataTable PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCApp.DesiredClient.ClientId);
                         if (PackageRemainingsDt.Rows.Count == 1)//deleted aw expired, in both , eza fi one w IsPackageMode=true , we will auto select the package
                         {
@@ -191,15 +206,30 @@ namespace MKproject.Schedule
                             //sql
                             DesiredAppointmentUCApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)(PackageRemainingsDt.Rows[0]["client_balance_id"]));
                             DesiredAppointmentUCApp.DesiredClientBalance.SetStringDetailsIfBundle();
-                            DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+
+                            if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)//present
+                            {
+                                DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                            }
                             DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);//ejbare tahet SetStringDetailsIfBundle();
 
+
                             //design
-                            labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                            if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
+                            {
+                                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                            }
+                            else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
+                            {
+                                string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCApp.DesiredClientBalance.BundleId);
+                                labelService.Text = ServiceName + " package autoselects at present";
+                            }
+
 
                         }
                         else if (PackageRemainingsDt.Rows.Count > 1)
                         {
+                            //Sql
                             if (DesiredAppointmentUCApp.DesiredClientBalance != null)//in case the package still exists but expired , bet fout fiya to release the DesiredClientBalance, eza ken deleted ma bet fout fiya
                             {
                                 DesiredAppointmentUCApp.DesiredClientBalance = null;
@@ -207,34 +237,45 @@ namespace MKproject.Schedule
                                 DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);
                             }
 
-                            labelService.Text = "Choose a package";
+                            //Design
+                            if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
+                            {
+                                labelService.Text = "Choose a package";
+                            }
+                            else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
+                            {
+                                labelService.Text = "Package autoselects at present";
+                            }
                         }
                         else
                         {
+                            //Sql
                             if (DesiredAppointmentUCApp.DesiredClientBalance != null)//in case the package still exists but expired , bet fout fiya to release the DesiredClientBalance, eza ken deleted ma bet fout fiya
                             {
                                 DesiredAppointmentUCApp.DesiredClientBalance = null;
                                 DesiredAppointmentUCApp.HistoryClientBalance = null;
                                 DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);
                             }
-                            labelService.Text = "No Available Packages ";
+
+                            //Design
+                            if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
+                            {
+                                labelService.Text = "No Available Packages ";
+                            }
+                            else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
+                            {
+                                labelService.Text = "Package autoselects at present";
+                            }
                         }
+
+
                     }
 
-
-                }
-                else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)//future
-                {
-                    //sql
-                    DataTable PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCApp.DesiredClient.ClientId);
-                    DesiredAppointmentUCApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)(PackageRemainingsDt.Rows[0]["client_balance_id"]));
-
-                    string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCApp.DesiredClientBalance.BundleId);
-                    labelService.Text = ServiceName+" package autoselects at present";
                 }
                 else if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//Past
                 {
 
+                    //Design
                     if (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null)//Usually deyman both diff then null together , unless package was deleted w kenna bel past , 
                     {
                         labelService.Text = "Client Package Deleted";
@@ -254,10 +295,12 @@ namespace MKproject.Schedule
 
             else if (DesiredAppointmentUCApp.ChosenBundlesList != null && DesiredAppointmentUCApp.ChoseBundlesString != null)
             {
+                //Design
                 labelService.Text = DesiredAppointmentUCApp.ChoseBundlesString;
             }
             else if (DesiredAppointmentUCApp.Title != null)
             {
+                //Design
                 labelService.Text = DesiredAppointmentUCApp.Title;
             }
 
@@ -273,14 +316,25 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false)
             {
-                ScheduleForm schedule = this.ParentFormucday.ParentFormSchedule;
-                Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
-                Program.GreyForm.Show();
-                Appointment appointmentupdate = new Appointment(this,ParentFormucday);
-                appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
-                appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
-                appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion;
-                appointmentupdate.Show();
+                if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//past
+                {
+                    //package deleted or package not selected
+                    if ((DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null) || (DesiredAppointmentUCApp.DesiredClientBalance != null && DesiredAppointmentUCApp.HistoryClientBalance == null || DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance == null))
+                    {
+                        CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.Ok);
+                    }
+                }
+                else//present future
+                {
+                    ScheduleForm schedule = this.ParentFormucday.ParentFormSchedule;
+                    Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
+                    Program.GreyForm.Show();
+                    Appointment appointmentupdate = new Appointment(this, ParentFormucday);
+                    appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
+                    appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
+                    appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion;
+                    appointmentupdate.Show();
+                }
             }
             else
             {
@@ -293,7 +347,7 @@ namespace MKproject.Schedule
             Appointment appointmentupdate = (Appointment)sender;
             DesiredAppointmentUCApp.IsCompleted = false;
             DesiredAppointmentUCApp.DesiredClient.TotalBalance = appointmentupdate.DesiredAppointmentAppForm.DesiredClient.TotalBalance;
-         
+
             if (DesiredAppointmentUCApp.DesiredClientBalance != null && DesiredAppointmentUCApp.DesiredClientBalance.DueDate == null && DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays != null)//package of sessions
             {
                 DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays = appointmentupdate.DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays;

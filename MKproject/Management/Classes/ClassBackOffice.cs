@@ -153,7 +153,7 @@ namespace MKproject.Management
             {
                 query += " And ar.client_id=@client_id ";
             }
-            query += " ORDER by archive_id DESC ";
+            query += " ORDER by ar.date DESC ";
 
             cmd = new SqlCommand(query, con);
 

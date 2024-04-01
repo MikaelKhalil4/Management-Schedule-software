@@ -213,7 +213,7 @@ namespace MKproject.Schedule
 
 
 
-
+       
         public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
             string queryInsert = @"INSERT INTO appointments (employee_id, client_id,is_package_mode ,client_balance_id,history_client_balance,title, start_time, end_time, Note,is_completed,is_canceled) 
