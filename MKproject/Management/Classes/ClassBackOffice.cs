@@ -129,6 +129,7 @@ namespace MKproject.Management
             cmd.ExecuteNonQuery();
             con.Close();
         }
+     
         public static DataTable GetBackOffice(bool IsOneYearORAll, int? ClientBalanceId, int? ClientID)
         {
             SqlCommand cmd;
@@ -322,7 +323,10 @@ namespace MKproject.Management
 
         }
 
-        public static void UndoSoloPurchaseActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int DesiredClientBalanceId, int? AppointmentIdReferringToBackoffice, int? BundleIdReferringToBackOffice, BackOffice backofficeform)
+      
+        
+     
+        public static (int,DateTime?,DateTime?) UndoSoloPurchaseActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int DesiredClientBalanceId, int? AppointmentIdReferringToBackoffice, int? BundleIdReferringToBackOffice)
         {
 
 
@@ -333,9 +337,8 @@ namespace MKproject.Management
 
 
             //Delete archive and update lastvisitsql
-            DataTable dt1;
-            DateTime? NewLastVistDate;
-            (NewLastVistDate, dt1) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
+
+            (DateTime?  NewLastVistDate, int MAxArchiveIdForLastSessionDone) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
 
 
             //ejbare tkun tahet delete el archive kermel el fk 
@@ -383,57 +386,16 @@ namespace MKproject.Management
 
             ClassClientBalance.DeleteClientBalance(DesiredClientBalanceId);
 
+           
 
             if (AppointmentIdReferringToBackoffice != null && BundleIdReferringToBackOffice!=null)
             {
                 UndoSoloPurchaseActionsSQLScheduleRelated((int)AppointmentIdReferringToBackoffice,(int)BundleIdReferringToBackOffice);
             }
 
-
-            //Design wise
-            if (backofficeform != null)
-            {
-                //Datagridview 
-
-
-                //datagridbalance bel profile 
-
-                DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
-                rowToEdit.Delete();
-                backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.AcceptChanges();
-                backofficeform.ParentFormClientManagem.FormatDatagridviewDesign();
-                //datagridbalance bel backoffice el tahteniye
-                backofficeform.DesiredBalanceRowsdt.Rows[0].Delete();
-                backofficeform.DesiredBalanceRowsdt.AcceptChanges();
-                //deleting the uc pakcgae
-
-
-                backofficeform.ParentFormClientManagem.CalculatingTotalBalancesDesignAndSql(false);
-                backofficeform.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
-                backofficeform.ParentFormClientManagem.datagridviewBalanceMode();
-                //
-
-                backofficeform.ParentFormClientManagem.Client.RegistrationDate = MembershipDate;
-                if (MembershipDate != null)
-                {
-                    backofficeform.ParentFormClientManagem.UCMemberSince.Detail = RandomFunctions.SetDateFormat(((DateTime)MembershipDate).ToString());
-                }
-                else
-                {
-                    backofficeform.ParentFormClientManagem.UCMemberSince.Detail = "N/A";
-                }
-
-
-                if ((int)dt1.Rows[0]["archive_id"] == ArchiveId)//this block of design is only lamma nghayyir el last visit
-                {
-                    UpdateLastVisitDesign(NewLastVistDate, backofficeform);
-                }
-
-                backofficeform.ParentFormClientManagem.Client.TotalAttendance--;
-                backofficeform.ParentFormClientManagem.UCTotalAttendance.Detail = Convert.ToString(backofficeform.ParentFormClientManagem.Client.TotalAttendance);
-
-            }
+            return (MAxArchiveIdForLastSessionDone, NewLastVistDate, MembershipDate);
         }
+      
         public static void UndoSoloPurchaseActionsSQLScheduleRelated(int AppointmentId, int BundleId)
         {
             DataTable RelatedSoloBundles = ClassAppointment.GetRelatedSoloBundles(AppointmentId);
@@ -450,8 +412,8 @@ namespace MKproject.Management
             }
             //it can be 0 eza ken package mesh Solo Service 
         }
-
-        public static void UndoPurchaseActionsSQL(int ClientId, int DesiredClientBalanceId, BackOffice backofficeform)
+      
+        public static ( bool, DateTime? ) UndoPurchaseActionsSQL(int ClientId, int DesiredClientBalanceId)
         {
 
             string querySelect1 = "Select client_balance_id,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
@@ -465,16 +427,13 @@ namespace MKproject.Management
             dtClientBalanceOriginal.PrimaryKey = new DataColumn[] { dtClientBalanceOriginal.Columns["client_balance_id"] };
             DataRow DesiredRow = dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             bool IsBundleOrProduct;
-            int? BundleIDDesiredRow;
             if (DesiredRow["bundle_id"] != DBNull.Value)
             {
                 IsBundleOrProduct = true;
-                BundleIDDesiredRow = (int)DesiredRow["bundle_id"];
             }
             else
             {
                 IsBundleOrProduct = false;
-                BundleIDDesiredRow = null;
             }
 
 
@@ -511,46 +470,11 @@ namespace MKproject.Management
             ClassClientBalance.DeleteClientBalance(DesiredClientBalanceId);
 
 
-
-
-            //Design wise 
-            if (backofficeform != null)
-            {
-
-
-                //datagridBalance bel profile 
-                DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
-                rowToEdit.Delete();
-                backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.AcceptChanges();
-                backofficeform.ParentFormClientManagem.FormatDatagridviewDesign();
-                //datagridBalancebel backoffice el tahteniye
-                backofficeform.DesiredBalanceRowsdt.Rows[0].Delete();//bel all transaction ma ha ysir shi lieannoo the desiredrow manno binded aa datagrid (which doesnt exists)
-                backofficeform.DesiredBalanceRowsdt.AcceptChanges();
-                //deleting the uc pakcgae
-                if (IsBundleOrProduct)
-                {
-                    backofficeform.ParentFormClientManagem.DeleteUcPackage(DesiredClientBalanceId);
-                }
-
-                backofficeform.ParentFormClientManagem.CalculatingTotalBalancesDesignAndSql(false);
-                backofficeform.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
-                backofficeform.ParentFormClientManagem.datagridviewBalanceMode();
-                //
-                if (IsBundleOrProduct)//bundle
-                {
-                    backofficeform.ParentFormClientManagem.Client.RegistrationDate = MembershipDate;
-                    if (MembershipDate != null)
-                    {
-                        backofficeform.ParentFormClientManagem.UCMemberSince.Detail = RandomFunctions.SetDateFormat(((DateTime)MembershipDate).ToString());
-                    }
-                    else
-                    {
-                        backofficeform.ParentFormClientManagem.UCMemberSince.Detail = "N/A";
-                    }
-                }
-            }
-        }
-        public static void UndoPaymentActionsSQL(int ClientID, int ClientBalanceId, int ArchiveId, DateTime ArchiveDate, double AmountPaid, BackOffice backofficeform)
+     
+            return (IsBundleOrProduct, MembershipDate);
+        }     
+     
+        public static void UndoPaymentActionsSQL(int ClientID, int ClientBalanceId, int ArchiveId, DateTime ArchiveDate, double AmountPaid)
         {
 
             double NewAmountPaid, NewBalance;
@@ -588,88 +512,32 @@ namespace MKproject.Management
 
             con.Close();
 
-
-            if (backofficeform != null)
-            {
-                //design
-                double OldBalance = (double)backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"];
-                string balance = Convert.ToString(OldBalance - AmountPaid);//eza kenit balance=-50 w paid 50 bet sir balance -100
-
-                //updating backoffice datatgridbalancce
-                backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"] = balance;
-                backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"] = (double)backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"] - AmountPaid;
-                bool IsExpired = (bool)backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];
-                if (IsExpired == true)
-                {
-                    backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"] = false;
-                }
-                //updating original datatbalance
-                DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(backofficeform.DesiredBalanceRowsdt.Rows[0]["client_balance_id"]);
-                rowToEdit["balance"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["balance"];
-                rowToEdit["amount_paid"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["amount_paid"];
-                if (IsExpired)
-                {
-                    rowToEdit["is_expired"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];
-                    backofficeform.ParentFormClientManagem.ResortOriginalDataTableAndSetDatasource();
-
-                    if (rowToEdit["bundle_id"] != DBNull.Value && rowToEdit["session_left_days"] != DBNull.Value)//package
-                    {
-                        //creating back the uc
-                        //Add UCbundle
-                        backofficeform.ParentFormClientManagem.CheckAndSetNoBundleLabel();
-                        backofficeform.ParentFormClientManagem.CreateUCPackage(rowToEdit);
-                    }
-                }
-
-                if (rowToEdit["bundle_id"] != DBNull.Value && rowToEdit["session_left_days"] != DBNull.Value)//package
-                {
-                    if (OldBalance == 0)// since eza kenit 0 w eemelna undo la payment yaane for sur ha tzid negativily wich means ha yetghayar el state
-                    {
-                        backofficeform.ParentFormClientManagem.UpdateIsInDebteToUCBundle(ClientBalanceId, true);
-                    }
-                }
-
-
-                backofficeform.ParentFormClientManagem.FormatDatagridviewDesign();
-                //
-                backofficeform.ParentFormClientManagem.CalculatingTotalBalancesDesignAndSql(false);
-                backofficeform.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
-            }
-        }
-        public static void UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, int? AppointmentIdReferringToBackoffice, BackOffice backofficeform)
+       
+        }        
+      
+        public static (DateTime?,int) UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, int? AppointmentIdReferringToBackoffice)
         {
-            //SQL
-            con.Open();
-            SqlCommand cmdUpdateSession = null;
+         
+            con.Open();          
+            //update lastvisit      
+            (DateTime ? NewLastVistDate,int MAxArchiveIdForLastSessionDone) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
+
+
             if (!IsDeletingTheBundle)//cz ha aam naayetla marten yaa nehna w aam nmahe bundle ya aade, so to optimise
             {
                 string queryUpdateSession = "UPDATE client_balance SET session_left_days+=@session_left_days,is_expired='false' WHERE  client_balance_id=@client_balance_id";
-                cmdUpdateSession = new SqlCommand(queryUpdateSession, con);
+                SqlCommand cmdUpdateSession = new SqlCommand(queryUpdateSession, con);
                 cmdUpdateSession.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
                 cmdUpdateSession.Parameters.AddWithValue("session_left_days", 1);
-
-
+                cmdUpdateSession.ExecuteNonQuery();//ejbare hone, cz badna el expiry date abel ma tenaamalla update
             }
-
 
 
             string queryDeleteStruct = "DELETE client_services_attendance WHERE attendance_id=@attendance_id";
             SqlCommand cmdDeleteStruct = new SqlCommand(queryDeleteStruct, con);
             cmdDeleteStruct.Parameters.AddWithValue("@attendance_id", AttendanceID);
-
-
-            //update lastvisit
-            DataTable dt1;
-            DateTime? NewLastVistDate;
-            (NewLastVistDate, dt1) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
-
-
-
-            if (cmdUpdateSession != null)//ma32oul tkun null eza kenna aam naamil delete a bundle 
-            {
-                cmdUpdateSession.ExecuteNonQuery();//ejbare hone, cz badna el expiry date abel ma tenaamalla update
-            }
-            cmdDeleteStruct.ExecuteNonQuery(); //ejbare tkun tahet delete el archive kermel el fk       
+            cmdDeleteStruct.ExecuteNonQuery(); //ejbare tkun tahet delete el archive kermel el fk
+                                               
             con.Close();
 
             if (AppointmentIdReferringToBackoffice != null)
@@ -680,69 +548,15 @@ namespace MKproject.Management
                 classAppointment.SetOrResetIsCompleted();
             }
 
-
-            //Design wise
-            if (backofficeform != null)
-            {
-
-
-                if (!IsDeletingTheBundle)//lieannoo eza aam mahe bundle metel ma huwwe el uc bundle w el rows ha yenmeho kellun already
-                {
-                    //Datagridview 
-                    int ClientBalanceID = Convert.ToInt16(backofficeform.DesiredBalanceRowsdt.Rows[0]["client_balance_id"]);
-                    int NoOfSessions = Convert.ToInt16(backofficeform.DesiredBalanceRowsdt.Rows[0]["session_left_days"]) + 1;
-                    bool IsExpired = (bool)backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];
-
-                    backofficeform.DesiredBalanceRowsdt.Rows[0]["session_left_days"] = NoOfSessions;
-
-                    if (IsExpired == true)
-                    {
-                        backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"] = false;
-                    }
-
-                    //Updating the original datarow
-                    DataRow rowToEdit = backofficeform.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
-                    rowToEdit["session_left_days"] = NoOfSessions;
-
-                    //Update related UC in client profile    
-                    if (IsExpired)
-                    {
-                        rowToEdit["is_expired"] = backofficeform.DesiredBalanceRowsdt.Rows[0]["is_expired"];
-                        if (rowToEdit["bundle_id"] != DBNull.Value && rowToEdit["session_left_days"] != DBNull.Value)//packages
-                        {
-                            //creating back the uc
-                            //Add UCbundle
-                            backofficeform.ParentFormClientManagem.CheckAndSetNoBundleLabel();
-                            backofficeform.ParentFormClientManagem.CreateUCPackage(rowToEdit);
-
-                        }
-                        //bas hone staamelneha,cz bas in this case ha nkun aam nghayyir bel datagridview
-                        backofficeform.ParentFormClientManagem.ResortOriginalDataTableAndSetDatasource();
-                        backofficeform.ParentFormClientManagem.FormatDatagridviewDesign();
-
-                    }
-                    else
-                    {
-                        backofficeform.ParentFormClientManagem.ResetUCMode(ClientBalanceID, NoOfSessions, null);
-                    }
-                }
-
-                if ((int)dt1.Rows[0]["archive_id"] == ArchiveId)//this block of design is only lamma nghayyir el last visit
-                {
-                    UpdateLastVisitDesign(NewLastVistDate, backofficeform);
-                }
-
-                backofficeform.ParentFormClientManagem.Client.TotalAttendance--;
-                backofficeform.ParentFormClientManagem.UCTotalAttendance.Detail = Convert.ToString(backofficeform.ParentFormClientManagem.Client.TotalAttendance);
-
-            }
-
+            return (NewLastVistDate, MAxArchiveIdForLastSessionDone);
+           
 
         }
-        public static bool UndoOffresSQL(int ClientID, int ArchiveId, int ClientBalanceId, bool IsMoneyOrsession, string BalanceOrSession_Offre, BackOffice backofficeform)
+      
+        public static bool UndoOffresSQL(int ClientID, int ArchiveId, int ClientBalanceId)
         {
 
-            string QuerySelect = "Select  MAX(archive_id) from archive Where client_id=@client_id and client_balance_id=@client_balance_id";
+            string QuerySelect = "Select archive_id from archive Where client_id=@client_id and client_balance_id=@client_balance_id and date = (Select Max(date) from archive where client_balance_id=@client_balance_id)";
             SqlCommand cmdSelect = new SqlCommand(QuerySelect, con);
             cmdSelect.Parameters.AddWithValue("@client_id", ClientID);
             cmdSelect.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
@@ -750,8 +564,19 @@ namespace MKproject.Management
             DataTable dt1 = new DataTable();
             sda1.Fill(dt1);
 
-            //design
-            if ((int)dt1.Rows[0][0] == ArchiveId)//yaane it s the last Action made bi this client list,w tdarayna naamil this restriction , lieanno some ways could lead us to positive balances!
+            bool IsTheLastAction = false;
+            foreach (DataRow dr in dt1.Rows)//since ma3wol ykun eena two rows at the same time , eza eemele edit lal balance w session at the same time byenzalo bzeit el waet
+            {
+                if ((int)dr["archive_id"]== ArchiveId)
+                {
+                    IsTheLastAction = true;
+                    break;
+                }
+                IsTheLastAction = false;
+            }
+
+          
+            if (IsTheLastAction)//yaane it s the last Action made bi this client list,w tdarayna naamil this restriction , lieanno some ways could lead us to positive balances!
             {
 
                 string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
@@ -760,23 +585,8 @@ namespace MKproject.Management
                 con.Open();
                 cmdDeleteArchive.ExecuteNonQuery();
                 con.Close();
+             
 
-                if (backofficeform != null)
-                {
-                    //Design
-                    if (IsMoneyOrsession == true)//undo money update
-                    {
-                        double ToBalance = Convert.ToDouble(BalanceOrSession_Offre.Split('/')[1]);//ma ela aaze el refe hone, bas lieanno bi payment eezneha , medtarrin nhatta hone, bas ma ha teaddim w teakkhir                 
-                        double FromBalance = Convert.ToDouble(BalanceOrSession_Offre.Split('/')[0]);
-                        backofficeform.ParentFormClientManagem.UpdateBalance(backofficeform.DesiredBalanceRowsdt, FromBalance, ref ToBalance, null);
-                    }
-                    else//undoing session or dates 
-                    {
-                        int ToSessionOrDays = Convert.ToInt16(BalanceOrSession_Offre.Split('/')[1]);//ma ela aaze el refe hone, bas lieanno bi payment eezneha , medtarrin nhatta hone, bas ma ha teaddim w teakkhir
-                        int FromSessionOrDays = Convert.ToInt16(BalanceOrSession_Offre.Split('/')[0]);
-                        backofficeform.ParentFormClientManagem.UpdateSessionNumber(backofficeform.DesiredBalanceRowsdt, FromSessionOrDays, ref ToSessionOrDays, null);//from bel awwal , lieanno hal value li badna nerjaa aalaya
-                    }
-                }
                 return true;
             }
 
@@ -790,22 +600,8 @@ namespace MKproject.Management
 
         }
 
-        static void UpdateLastVisitDesign(DateTime? NewLastVistDate, BackOffice backofficeform)
-        {
-            //Client Prodile 
-            string StringNewLastVisitDate;
-            if (NewLastVistDate != null)
-            {
-                StringNewLastVisitDate = RandomFunctions.SetDateFormat(Convert.ToString(NewLastVistDate));
-            }
-            else
-            {
-                StringNewLastVisitDate = "N/A";
-            }
-            backofficeform.ParentFormClientManagem.UCLastVisit.Detail = StringNewLastVisitDate;
-            backofficeform.ParentFormClientManagem.Client.LastVisit = NewLastVistDate;
-        }
-        static (DateTime?, DataTable) DeleteTheArchiveAndUpdateLastVisitSql(int ClientId, int ArchiveId)
+     
+        static (DateTime?, int) DeleteTheArchiveAndUpdateLastVisitSql(int ClientId, int ArchiveId)
         {
             string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
             SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
@@ -818,8 +614,11 @@ namespace MKproject.Management
             SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect);
             DataTable dt1 = new DataTable();
             sda1.Fill(dt1);
+            int MAxArchiveIdForLastSessionDone;
+            MAxArchiveIdForLastSessionDone = (int)dt1.Rows[0]["archive_id"];
             DateTime? NewLastVistDate = null;
-            if ((int)dt1.Rows[0]["archive_id"] == ArchiveId)//in order to check eza ha el last session 
+
+            if (MAxArchiveIdForLastSessionDone  == ArchiveId)//in order to check eza ha el last session 
             {
 
                 cmdDeleteArchive.ExecuteNonQuery();//ejbare hone mahalla
@@ -857,9 +656,8 @@ namespace MKproject.Management
                 cmdDeleteArchive.ExecuteNonQuery();//ejbare hone mahalla
             }
 
-            return (NewLastVistDate, dt1);
+            return (NewLastVistDate, MAxArchiveIdForLastSessionDone);
         }
-
         static DateTime? UpdateRegistrationDateSQl(int ClientId, int DesiredClientBalanceId, DataTable dtClientBalanceOriginal, DataRow DesiredRow)
         {
             DateTime? MembershipDate = null;

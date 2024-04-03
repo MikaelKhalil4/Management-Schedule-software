@@ -21,6 +21,8 @@ namespace MKproject.Schedule
         //VARIABLE
         public UCDay ParentFormucday { get; set; }
         public static int OriginalWidth = 230;
+        private Point initialMouseDownPoint;
+        private bool isDragging = false;
 
         //
         Label LabelBalance;
@@ -40,21 +42,18 @@ namespace MKproject.Schedule
             ParentFormucday = uCDay;
             SetUCDesign();
             SetServiceLogicAndDesign();
+
+            TLPGlobal.MouseDown += Control_MouseDown;
+            TLPGlobal.MouseClick += Control_MouseClick; 
+            foreach (Control control in TLPGlobal.Controls)
+            {
+                control.MouseDown += Control_MouseDown;
+                control.MouseClick += Control_MouseClick; 
+
+            }
         }
 
-
-        void CreationOfLabelBalance()
-        {
-            LabelBalance = new Label();
-            LabelBalance.Font = new Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
-            LabelBalance.AutoSize = true;
-            LabelBalance.Margin = new Padding(0, 5, 0, 0);
-            LabelBalance.ForeColor = Color.Red;
-            LabelBalance.Anchor = AnchorStyles.Top;
-        }
-
-
-
+     
 
         public void SetUCDesign()
         {
@@ -165,6 +164,15 @@ namespace MKproject.Schedule
 
 
         }
+        void CreationOfLabelBalance()
+        {
+            LabelBalance = new Label();
+            LabelBalance.Font = new Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            LabelBalance.AutoSize = true;
+            LabelBalance.Margin = new Padding(0, 5, 0, 0);
+            LabelBalance.ForeColor = Color.Red;
+            LabelBalance.Anchor = AnchorStyles.Top;
+        }
         public void SetServiceLogicAndDesign()
         {
             //Service
@@ -194,21 +202,19 @@ namespace MKproject.Schedule
                             else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
                             {
                                 //Design
-                                string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCApp.DesiredClientBalance.BundleId);
-                                labelService.Text = ServiceName + " Package";
+                                labelService.Text  = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package";
                             }
                         }
                         else if ((bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)//Package exist and  expired
                         {
                             //Design
-                            string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCApp.DesiredClientBalance.BundleId);
-                            labelService.Text = ServiceName + " Package Expired";
+                            labelService.Text  = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package Expired";
                         }
 
                     }
                     else if (DesiredAppointmentUCApp.DesiredClientBalance == null)// Package is deleted
                     {
-                        labelService.Text = "";              
+                        labelService.Text = "";
                     }
                 }
                 else if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//Past
@@ -250,11 +256,18 @@ namespace MKproject.Schedule
 
         //EVENTS:
         ///-Click
-        private void UCappointments_Click(object sender, EventArgs e)
+      
+        private void Control_MouseClick(object sender, MouseEventArgs e)
         {
+            if (isDragging)
+            {
+                // Ignore clicks that are part of a drag operation
+                isDragging = false; // Reset the dragging flag
+                return;
+            }
             if (TouchScroll.MoveHoldClick == false)
             {
-                if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date && ((DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null) || (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance == null)))//past
+                if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date && DesiredAppointmentUCApp.IsPackageMode && ((DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null) || (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance == null)))//past
                 {
                     //package deleted or package not selected In The Past
 
@@ -278,7 +291,6 @@ namespace MKproject.Schedule
 
             }
         }
-
         private void Appointmentupdate_OnAppointmentUndoCompletion(object sender, EventArgs e)
         {
             Appointment appointmentupdate = (Appointment)sender;
@@ -294,14 +306,12 @@ namespace MKproject.Schedule
             SetUCDesign();
             SetServiceLogicAndDesign();
         }
-
         private void Appointmentupdate_OnAppointmentUndoCancelation(object sender, EventArgs e)
         {
             DesiredAppointmentUCApp.IsCanceled = false;
             SetUCDesign();
             SetServiceLogicAndDesign();
         }
-
         private void Appointmentupdate_OnAppUpdate(object sender, EventArgs e)
         {
             Appointment appointmentupdate = (Appointment)sender;
@@ -309,7 +319,6 @@ namespace MKproject.Schedule
             SetUCDesign();
             SetServiceLogicAndDesign();
         }
-
         public void RemoveAppointment()
         {
             //SQL
@@ -409,13 +418,24 @@ namespace MKproject.Schedule
 
 
 
-
+        
 
 
 
         //DESIGN
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
+            // Check if the mouse has moved enough to be considered a drag.
+            if (!isDragging && e.Button == MouseButtons.Left)
+            {
+                if (Math.Abs(e.X - initialMouseDownPoint.X) > SystemInformation.DoubleClickSize.Width ||
+                    Math.Abs(e.Y - initialMouseDownPoint.Y) > SystemInformation.DoubleClickSize.Height)
+                {
+                    isDragging = true; // The control is being dragged.
+                    DoDragDrop(this, DragDropEffects.Move);
+                }
+            }
+
             if (TouchScroll.MoveHoldClick == false)
             {
                 if (TLPGlobal.BackColor != ParentFormucday.DisableColorTBUca)//229, 226, 244
@@ -435,7 +455,11 @@ namespace MKproject.Schedule
                 TLPGlobal.BackColor = Color.White;
             }
         }
-
-
+        private void Control_MouseDown(object sender, MouseEventArgs e)
+        {
+            initialMouseDownPoint = e.Location;
+            isDragging = false; // Reset dragging flag
+        }
+        
     }
 }

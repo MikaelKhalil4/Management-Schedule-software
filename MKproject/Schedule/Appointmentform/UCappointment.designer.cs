@@ -54,7 +54,6 @@
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             TLPGlobal.Size = new System.Drawing.Size(268, 76);
             TLPGlobal.TabIndex = 0;
-            TLPGlobal.Click += UCappointments_Click;
             TLPGlobal.MouseLeave += UCappointments_MouseLeave;
             TLPGlobal.MouseMove += UCappointments_MouseMove;
             // 
@@ -71,7 +70,6 @@
             labelTime.TabIndex = 2;
             labelTime.Text = "10:00 - 11:00";
             labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            labelTime.Click += UCappointments_Click;
             labelTime.MouseLeave += UCappointments_MouseLeave;
             labelTime.MouseMove += UCappointments_MouseMove;
             // 
@@ -86,7 +84,6 @@
             labelFullName.Size = new System.Drawing.Size(79, 20);
             labelFullName.TabIndex = 15;
             labelFullName.Text = "Full Name";
-            labelFullName.Click += UCappointments_Click;
             labelFullName.MouseLeave += UCappointments_MouseLeave;
             labelFullName.MouseMove += UCappointments_MouseMove;
             // 
@@ -102,7 +99,6 @@
             labelService.Size = new System.Drawing.Size(51, 17);
             labelService.TabIndex = 16;
             labelService.Text = "Service";
-            labelService.Click += UCappointments_Click;
             labelService.MouseLeave += UCappointments_MouseLeave;
             labelService.MouseMove += UCappointments_MouseMove;
             // 
@@ -116,7 +112,6 @@
             Name = "UCappointment";
             Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             Size = new System.Drawing.Size(268, 81);
-            Click += UCappointments_Click;
             MouseLeave += UCappointments_MouseLeave;
             MouseMove += UCappointments_MouseMove;
             TLPGlobal.ResumeLayout(false);

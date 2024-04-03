@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using GlobalFunctions;
 using CustomizedTools;
+using Microsoft.VisualBasic;
 
 namespace MKproject.Management
 {
@@ -330,17 +331,21 @@ namespace MKproject.Management
 
                 if (Convert.ToDouble(UCBalance.Sign + UCBalance.Amount) != initialbalance)//products and solo
                 {
-                    ClientManagementProfileParentForm.UpdateBalance(DesiredClientBalanceRowsdt, Convert.ToDouble(UCBalance.Sign + UCBalance.Amount), ref initialbalance, Date);
+                    //SqlUpdate        
+                    double ToBalance = Convert.ToDouble(UCBalance.Sign + UCBalance.Amount);
+                    (double UpdatedBalance, string UpdatedOffre, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingOffre(ClientManagementProfileParentForm.Client.ClientId, DesiredClientBalanceRowsdt, ToBalance, initialbalance, Date,true);
+                    ClientManagementProfileParentForm.UpdateBalance(DesiredClientBalanceRowsdt, initialbalance,  UpdatedBalance,  UpdatedOffre, NewIsExpired);
+                    initialbalance = ToBalance;
+
                 }
                 if (DesiredClientBalanceRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredClientBalanceRowsdt.Rows[0]["session_left_days"] != DBNull.Value && OldSessionOrDaysNumber != UCNOSession.Number)//packages /ucnosession ma32oul tkun null bas ma mnusalla men wara awwal condition
                 {
-                    ClientManagementProfileParentForm.UpdateSessionNumber(DesiredClientBalanceRowsdt, UCNOSession.Number, ref OldSessionOrDaysNumber, Date);
+                    (int UpdatedSessionLeftORNoDays, string newoffre, DateTime? NewDueDate, bool NewIsExpired ) = ClassClientBalance.UpdateClientBalanceOnEditingSession(ClientManagementProfileParentForm.Client.ClientId, DesiredClientBalanceRowsdt, UCNOSession.Number,  OldSessionOrDaysNumber, Date, true);
+                    ClientManagementProfileParentForm.UpdateSessionNumber(DesiredClientBalanceRowsdt, UpdatedSessionLeftORNoDays,  newoffre,  NewDueDate,  NewIsExpired);
+                    OldSessionOrDaysNumber = UCNOSession.Number;//reset lal OldSessionNumber             
+
                 }
-
-
-                IsPayementMode = true; //in order bas nekbus  marra wahde
-
-                buttonUpdateOrPay.Text = "Pay";
+                ucSlideButtonPayOrEdit.button1_Click(null, EventArgs.Empty);           
 
             }
             else//we re paying

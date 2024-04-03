@@ -114,7 +114,7 @@ namespace MKproject.Schedule
             UCBundlePackage DesiredBundPackage = (UCBundlePackage)sender;
             ParentFormucClientApp.FillObjectOfNewChosenBundles(null);
             ParentFormucClientApp.FillObjectOfAvailablePackageifPresent(DesiredBundPackage.DesiredRow);
-            ParentFormucClientApp.SetLogicAndDesignPresentFutureAndServiceMode(true, false);
+            ParentFormucClientApp.SetLogicAndDesignEditAndServiceMode(true, false);
             this.Close();
         }
 
@@ -150,7 +150,7 @@ namespace MKproject.Schedule
             if (BundleList.Count > 0)
             {
                 ParentFormucClientApp.FillObjectOfNewChosenBundles(new List<ClassBundles>(BundleList));
-                ParentFormucClientApp.SetLogicAndDesignPresentFutureAndServiceMode(true, false);
+                ParentFormucClientApp.SetLogicAndDesignEditAndServiceMode(true, false);
                 this.Close();
             }
             else

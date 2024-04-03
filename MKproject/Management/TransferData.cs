@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using GlobalFunctions;
+using MKproject.Schedule;
 
 namespace MKproject.Management
 {
@@ -99,7 +100,7 @@ namespace MKproject.Management
                         UpdateClientTotalPayemntsSQL(ClientId, AmountPaid);
                     }
 
-                   
+
                 }
             }
 
@@ -241,7 +242,7 @@ namespace MKproject.Management
                     {
                         ClassClient.UpdateClientCheckInSQL(ClientId, (DateTime)dr["brochure_date"]);
                     }
-                   UpdateClientSaveDateSQL(ClientId, Date);
+                    UpdateClientSaveDateSQL(ClientId, Date);
 
                 }
             }
@@ -283,9 +284,9 @@ namespace MKproject.Management
 
 
                 //capital at the start and after each / + remove the last /        
-                NewClient.BodyShapeTarget = CapitalizeSegmentsAndRemoveLastSlash((string)dr["body_shape_target"],false);
-                NewClient.MuscleFocusOn = CapitalizeSegmentsAndRemoveLastSlash((string)dr["muscles_focus_on"],false);
-                NewClient.Injuries = CapitalizeSegmentsAndRemoveLastSlash((string)dr["injuries"],true);
+                NewClient.BodyShapeTarget = CapitalizeSegmentsAndRemoveLastSlash((string)dr["body_shape_target"], false);
+                NewClient.MuscleFocusOn = CapitalizeSegmentsAndRemoveLastSlash((string)dr["muscles_focus_on"], false);
+                NewClient.Injuries = CapitalizeSegmentsAndRemoveLastSlash((string)dr["injuries"], true);
 
 
 
@@ -408,7 +409,7 @@ namespace MKproject.Management
             }
         }
 
-        private string CapitalizeSegmentsAndRemoveLastSlash(string input,bool IsInjuries)
+        private string CapitalizeSegmentsAndRemoveLastSlash(string input, bool IsInjuries)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -420,7 +421,7 @@ namespace MKproject.Management
 
             for (int i = 0; i < segments.Length; i++)
             {
-               
+
 
                 if (segments[i].Length > 0)
                 {
@@ -559,7 +560,7 @@ namespace MKproject.Management
         //new
         void UpdateTotalPayment()
         {
-           
+
 
             string query1 = @"Select client_id,SUM(amount_paid) as total
                             from client_balance as c
@@ -662,7 +663,7 @@ namespace MKproject.Management
             // Return the results as a tuple
             return ((double)dt.Rows[0]["product_price"]);
         }
-        public  void UpdateClientRegistrationDateSQL(int ClientID, DateTime Date)
+        public void UpdateClientRegistrationDateSQL(int ClientID, DateTime Date)
         {
             string query = "UPDATE client SET Registration_Date=@Registration_Date WHERE client_id=@client_id ";
             SqlCommand cmdUpdate = new SqlCommand(query, conNew);
@@ -672,7 +673,7 @@ namespace MKproject.Management
             cmdUpdate.ExecuteNonQuery();
             conNew.Close();
         }
-        public  void UpdateClientSaveDateSQL(int ClientID, DateTime Date)
+        public void UpdateClientSaveDateSQL(int ClientID, DateTime Date)
         {
             string query = "UPDATE client SET save_date=@save_date WHERE client_id=@client_id ";
             SqlCommand cmdUpdate = new SqlCommand(query, conNew);
@@ -822,7 +823,7 @@ namespace MKproject.Management
                                                               VALUES 
                   (@client_id,@bundle_id,@amount_paid,@Currency_Name,@is_expired,@session_left_days,@isbundle_membership,@balance)";
 
-          
+
             SqlCommand cmd = new SqlCommand(query, conNew);
             cmd.Parameters.AddWithValue("@client_id", clientid);
             cmd.Parameters.AddWithValue("@bundle_id", BundleId);
@@ -917,6 +918,33 @@ namespace MKproject.Management
             conNew.Close();
         }
 
+        private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(UCappointment)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+        }
 
+        private void flowLayoutPanel1_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
+        {
+            FlowLayoutPanel panel = sender as FlowLayoutPanel;
+            UCappointment uc = e.Data.GetData(typeof(UCappointment)) as UCappointment;
+            if (panel != null && uc != null)
+            {
+                FlowLayoutPanel oldParent = uc.Parent as FlowLayoutPanel;
+                if (oldParent != null)
+                {
+                    oldParent.Controls.Remove(uc);
+                }
+                panel.Controls.Add(uc);
+                panel.Invalidate();
+            }
+        }
     }
 }

@@ -210,7 +210,14 @@ namespace MKproject.Schedule
             cmdDeleteOldBundlesToApp.ExecuteNonQuery();
             con.Close();
         }
-
+        public static void SwapClientBalanceIdOnRenewPackage(int ExistingClientBalanceId,int NewClientBalanceId)
+        {
+            string query = "Update appointments Set client_balance_id='" + NewClientBalanceId + "' Where start_time >= '"+DateTime.Now.Date+"' And appointment_id in (Select appointment_id from appointments where client_balance_id='" + ExistingClientBalanceId + "')";
+            SqlCommand cmd = new SqlCommand(query, con);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
 
 
        
@@ -395,11 +402,11 @@ namespace MKproject.Schedule
                 int ClientBalanceId = (int)dr["client_balance_id"];
                 if (dr["action_type"].ToString() == ActionsEnum.SoloPurchases.ToString())//Solo service
                 {
-                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, null, null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
+                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
                 }
                 else if (dr["action_type"].ToString() == ActionsEnum.SessionDone.ToString())// package 
                 {
-                    ClassBackOffice.UndoSessionDoneActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, false, null, null);
+                    ClassBackOffice.UndoSessionDoneActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, false, null);
 
                 }
             }
@@ -457,6 +464,7 @@ namespace MKproject.Schedule
 
             DesiredApp.AppointmentID = (int)datarow["appointment_id"];//noway ykun bel db fi client ma endo clientid
 
+
             if (!(datarow["client_id"] is DBNull))
             {
                 //DesiredApp.DesiredClient = ClassClient.CreateClientObject((int)datarow["client_id"]);
@@ -470,6 +478,7 @@ namespace MKproject.Schedule
                 DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ? null : (DateTime)dtClient.Rows[0]["Registration_Date"];//kermel eza shataryna package with Membership
                 DesiredApp.DesiredClient.TotalBalance = (double)dtClient.Rows[0]["total_balance"];//noway ykun bel db fi client ma endo totalBalance;
             }
+
 
             DesiredApp.EmployeeId = (int)datarow["employee_id"];
             DesiredApp.Title = datarow["title"] is DBNull ? null : (string)datarow["title"];

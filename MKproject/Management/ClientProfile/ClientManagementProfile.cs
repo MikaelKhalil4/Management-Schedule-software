@@ -148,6 +148,8 @@ namespace MKproject.Management
                 Label Nodata = GetNoBundleLable("No Data have been assigned");
                 TLPBalance.Controls.Add(Nodata, colIndex, rowIndex);
                 TLPBalance.SetColumnSpan(Nodata, 5);
+
+                buttonBackOffice.Enabled = false;
             }
             else if ((controlToRemove is Label) && dtClientBalanceOriginal.Rows.Count != 0)
             {
@@ -1132,93 +1134,18 @@ namespace MKproject.Management
 
 
 
-
+        
 
 
 
         //kermel el payment w el backoffice forms
         //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel payment
-        public void UpdateBalance(DataTable DesiredRowsdt, double ToBalance, ref double FromBalance, DateTime? Date)//date is not null coming from backoofice
+        public void UpdateBalance(DataTable DesiredRowsdt,double FromBalance,double UpdatedBalance, string UpdatedOffre, bool NewIsExpired)//date is not null coming from backofice
         {
 
             //can implement try catch
             int ClientBalanceID = (int)DesiredRowsdt.Rows[0]["client_balance_id"];
-            double BalanceAmount = (double)DesiredRowsdt.Rows[0]["balance"];
-
-
-            //////Calculations started
-            Double DifferenceBetweenToFrom;
-            DifferenceBetweenToFrom = (ToBalance - FromBalance);//since ToBalance is my target, so if frombalance=-100 & tobalance=-50, diff=+50, which means zedtello 50 aal balance,yaane eetito masare
-
-
-            string UpdatedBalance = Convert.ToString(BalanceAmount + DifferenceBetweenToFrom);
-
-
-
-            //updating theoffre in the datatgridview's PAyment Form
-            string UpdatedOffre = DesiredRowsdt.Rows[0]["offre"].ToString();
-            double offrePrice;
-            string OffreScdPart = null;
-            if (UpdatedOffre.Contains('/'))//bundles and sessions
-            {
-                offrePrice = Convert.ToDouble(DesiredRowsdt.Rows[0]["offre"].ToString().Split('/')[0]);
-                OffreScdPart = DesiredRowsdt.Rows[0]["offre"].ToString().Split('/')[1];
-            }
-            else//products
-            {
-                offrePrice = Convert.ToDouble(DesiredRowsdt.Rows[0]["offre"]);
-            }
-
-            offrePrice -= DifferenceBetweenToFrom;//eza ken el offre offre 300 w el diff hiyye +50, yaane ana eemltello 50 discount,offre=250
-
-
-            if (OffreScdPart != null)
-            {
-                UpdatedOffre = offrePrice + "/" + OffreScdPart;
-            }
-            else
-            {
-                UpdatedOffre = offrePrice.ToString();
-            }
-
             bool OldIsExpired = (bool)DesiredRowsdt.Rows[0]["is_expired"];
-            bool NewIsExpired = OldIsExpired;//default value it s going to be used just in case eit was a bundle w feytin men el paymen aam naamil update, ma men ghayyir el expire tabaao , cz we click remove la nghayra haydik
-            if (DesiredRowsdt.Rows[0]["product_id"] != DBNull.Value || (DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredRowsdt.Rows[0]["session_left_days"] == DBNull.Value))//product or solo
-            {
-                if (Convert.ToDouble(UpdatedBalance) == 0)
-                {
-                    NewIsExpired = true;// cz only el product could be expired by changing its balance
-                }
-                else
-                {
-                    NewIsExpired = false;
-                }
-            }
-            else//package
-            {
-                if (Date == null)//it means coming from backoffice ,ma mnelaab bel expiry eza ken aam naadil men el payment lieanno el bundle ha ykun already mawjud, we only change the expire by clicking remove
-                {
-                    if (OldIsExpired == true && (Convert.ToDouble(UpdatedBalance) != 0 || (int)DesiredRowsdt.Rows[0]["session_left_days"] > 0))//only in this case men ghayyir el expiry date tabaa el bundle , eza aam naamil undo la shi w huwwe already ken expired
-                    {
-                        NewIsExpired = false;
-                    }
-
-                }
-            }
-            //Calculations ended
-
-            //SqlUpdate        
-            ClassClientBalance.UpdateClientBalanceOnEditingOffre(ClientBalanceID, UpdatedOffre, Convert.ToDouble(UpdatedBalance), NewIsExpired);
-            //back office, ejbare  abel ma nghayyir el initialbalance
-            if (Date != null)//yaane payment form
-            {
-
-                ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, null, true, FromBalance + "/" + ToBalance, (DateTime)Date);
-                backOffice.CreateActionDetails(DesiredRowsdt.Rows[0]);
-                backOffice.InsertToArchiveSQL();
-
-            }
-
 
             //Design
             //datagrid payment form
@@ -1236,7 +1163,7 @@ namespace MKproject.Management
 
             if (DesiredRowsdt.Rows[0]["product_id"] != DBNull.Value || (DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredRowsdt.Rows[0]["session_left_days"] == DBNull.Value))//produt or solo
             {
-                if ((FromBalance != 0 && UpdatedBalance == "0") || (FromBalance == 0 && UpdatedBalance != "0"))//cz only in these 2 case the expiry date is changed
+                if ((FromBalance != 0 && UpdatedBalance == 0) || (FromBalance == 0 && UpdatedBalance != 0))//cz only in these 2 case the expiry date is changed
                 {
                     ResortOriginalDataTableAndSetDatasource();
                 }
@@ -1250,11 +1177,11 @@ namespace MKproject.Management
                     CheckAndSetNoBundleLabel();
                     CreateUCPackage(rowToEdit);
                 }
-                else if (FromBalance != 0 && UpdatedBalance == "0")
+                else if (FromBalance != 0 && UpdatedBalance == 0)
                 {
                     UpdateIsInDebteToUCBundle(Convert.ToInt16(ClientBalanceID), false);
                 }
-                else if (FromBalance == 0 && UpdatedBalance != "0")
+                else if (FromBalance == 0 && UpdatedBalance != 0)
                 {
                     UpdateIsInDebteToUCBundle(Convert.ToInt16(ClientBalanceID), true);
                 }
@@ -1263,108 +1190,24 @@ namespace MKproject.Management
             FormatDatagridviewDesign();
             dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
             CalculatingTotalBalancesDesignAndSql(true);
-            //
-            FromBalance = ToBalance;//in order to reset it for coming updates when we still in payment form
-        }//try catch
-         //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel payment
-        public void UpdateSessionNumber(DataTable DesiredRowsdt, int ToSessionOrDays, ref int FromSessionOrDays, DateTime? Date)
-        {
+          
 
+        }//try catch
+         //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel backoffice
+        public void UpdateSessionNumber(DataTable DesiredRowsdt,int UpdatedSessionLeftORNoDays,string newoffre,DateTime? NewDueDate ,bool NewIsExpired)
+        {
+            
             //ready for try catch
             //datatable update
             int ClientBalanceID = Convert.ToInt16(DesiredRowsdt.Rows[0]["client_balance_id"]);
-
-
-            //calculation has started
-            DateTime? DueDate = DesiredRowsdt.Rows[0]["due_date"] is DBNull ? (DateTime?)null : (DateTime)DesiredRowsdt.Rows[0]["due_date"];//null eza sessions not days
-            DateTime? NewDueDate = null;
-            int DifferenceInSessionOrDaysNumber;
-            int UpdatedOffreScdPart = 0;//yaane session and days
-
-
-            Match match1 = Regex.Match(DesiredRowsdt.Rows[0]["offre"].ToString(), @"(\d+)\s*" + ClassBundles.Session);
-            Match match2 = Regex.Match(DesiredRowsdt.Rows[0]["offre"].ToString(), @"(\d+)\s*" + ClassBundles.Days);
-            if (match1.Success)
-            {
-                UpdatedOffreScdPart = int.Parse(match1.Groups[1].Value);
-            }
-            else if (match2.Success)
-            {
-                UpdatedOffreScdPart = int.Parse(match2.Groups[1].Value);
-            }
-            else
-            {
-                CustomMessageBox.Show("Crash!!", CustomMessageBox.Type.Ok);
-
-            }
-
-            DifferenceInSessionOrDaysNumber = (ToSessionOrDays - FromSessionOrDays);
-            UpdatedOffreScdPart += DifferenceInSessionOrDaysNumber;
-
-
-            string type;
-            if (DueDate == null)
-            {
-                type = ClassBundles.Session;
-            }
-            else
-            {
-                type = ClassBundles.Days;
-            }
-            string offre = DesiredRowsdt.Rows[0]["offre"].ToString().Split('/')[0] + "/" + UpdatedOffreScdPart + " " + type;//category name should take the name of the bundle
-            int UpdatedSessionLeftORNoDays;
-            if (DueDate == null)//updating session left
-            {
-                UpdatedSessionLeftORNoDays = (int)DesiredRowsdt.Rows[0]["session_left_days"] + DifferenceInSessionOrDaysNumber;
-            }
-            else//update days left
-            {
-                UpdatedSessionLeftORNoDays = UpdatedOffreScdPart;//lieanno nehna bi hemna bel days mesh el days left as el total days li mawjud bi tene part men el offre
-                NewDueDate = ((DateTime)DueDate).AddDays(DifferenceInSessionOrDaysNumber);
-            }
-
-
             bool OldIsExpired = (bool)DesiredRowsdt.Rows[0]["is_expired"];
-            bool NewIsExpired = OldIsExpired;//default value it s going to be used just in case eit was a bundle w feytin men el paymen aam naamil update, ma men ghayyir el expire tabaao , cz we click remove la nghayra haydik
-
-            if (DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredRowsdt.Rows[0]["session_left_days"] != DBNull.Value)//package
-            {
-                if (Date == null)// it means coming from backoffice,ma mnelaab bel expiry eza ken aam naadil men el paymen lieanno el bundle ha ykun already mawjud, we only change the expire by clicking remove
-                {
-                    if (OldIsExpired == true && (Convert.ToDouble(DesiredRowsdt.Rows[0]["balance"]) != 0 || UpdatedSessionLeftORNoDays > 0))//only in this case men ghayyir el expiry date tabaa el bundle , eza aam naamil undo la shi w huwwe already ken expired
-                    {
-
-                        NewIsExpired = false;
-                    }
-
-                }
-            }
-
-            //Calculation Finished
-
-            //SQL                     
-            if (DueDate == null)
-            {
-                ClassClientBalance.UpdateClientBalanceOnEditingSessions(ClientBalanceID, UpdatedSessionLeftORNoDays, offre, null, NewIsExpired);
-            }
-            else
-            {
-                ClassClientBalance.UpdateClientBalanceOnEditingSessions(ClientBalanceID, UpdatedSessionLeftORNoDays, offre, (DateTime)NewDueDate, NewIsExpired);//
-            }
-            if (Date != null)//yaane payment form
-            {
-                //Backoffice
-                ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, null, false, FromSessionOrDays + "/" + ToSessionOrDays, (DateTime)Date);
-                backOffice.CreateActionDetails(DesiredRowsdt.Rows[0]);
-                backOffice.InsertToArchiveSQL();
-            }
 
 
             //design
             //datatgrid Payment form
-            DesiredRowsdt.Rows[0]["offre"] = offre;
+            DesiredRowsdt.Rows[0]["offre"] = newoffre;
             DesiredRowsdt.Rows[0]["is_expired"] = NewIsExpired;
-            if (DueDate == null)//session bundle
+            if (NewDueDate == null)//session bundle
             {
                 DesiredRowsdt.Rows[0]["session_left_days"] = UpdatedSessionLeftORNoDays;
             }
@@ -1391,7 +1234,7 @@ namespace MKproject.Management
                     CreateUCPackage(rowToEdit);
                 }
 
-                if (DueDate == null)// package of session
+                if (NewDueDate == null)// package of session
                 {
                     ResetUCMode(ClientBalanceID, UpdatedSessionLeftORNoDays, null);
                 }
@@ -1405,7 +1248,6 @@ namespace MKproject.Management
 
             //lezim nzide adde session left and days left
             //
-            FromSessionOrDays = ToSessionOrDays;//reset lal OldSessionNumber             
 
         }//try catch
 

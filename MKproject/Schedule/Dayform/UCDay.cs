@@ -106,27 +106,62 @@ namespace MKproject.Schedule
                 TLPAppointment.Controls.Add(uctime, 0, i);
             }
             for (int i = 0; i < 24; i++)
-            {
-                FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
-                //Properties
-                flowLayoutPanel.Dock = DockStyle.Fill;
-                flowLayoutPanel.BackColor = Color.White;
-                flowLayoutPanel.Cursor = Cursors.Hand;
-                flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
-
-                //Events
-                flowLayoutPanel.Click += flowLayoutPanel1_Click;
-                flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
-                flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
-
-
-                TLPAppointment.Controls.Add(flowLayoutPanel, 1, i);
+            {          
+                TLPAppointment.Controls.Add(CreateFLP(), 1, i);
             }
 
             //ColumnStyle
             TLPAppointment.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 125);
             TLPEmployees.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 125);
         }
+        public FlowLayoutPanel CreateFLP()
+        {
+            FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+            //Properties
+            flowLayoutPanel.AllowDrop = true;
+            flowLayoutPanel.Dock = DockStyle.Fill;
+            flowLayoutPanel.BackColor = Color.White;
+            flowLayoutPanel.Cursor = Cursors.Hand;
+            flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
+
+            //Events
+            flowLayoutPanel.Click += flowLayoutPanel1_Click;
+            flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
+            flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
+
+            flowLayoutPanel.DragEnter += FlowLayoutPanel_DragEnter;
+            flowLayoutPanel.DragOver += FlowLayoutPanel_DragOver;
+            flowLayoutPanel.DragDrop += FlowLayoutPanel_DragDrop;
+            return flowLayoutPanel;
+        }
+        private void FlowLayoutPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            FlowLayoutPanel panel = sender as FlowLayoutPanel;
+            UCappointment uc = e.Data.GetData(typeof(UCappointment)) as UCappointment;
+            if (panel != null && uc != null)
+            {
+                FlowLayoutPanel oldParent = uc.Parent as FlowLayoutPanel;
+                if (oldParent != null)
+                {
+                    oldParent.Controls.Remove(uc);
+                }
+                panel.Controls.Add(uc);
+                panel.Invalidate();
+            }
+        }
+        private void FlowLayoutPanel_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+        private void FlowLayoutPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(UCappointment)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+        }
+
+
         private void UCDay_Load(object sender, EventArgs e)
         {
             //Initialise List
@@ -1417,20 +1452,7 @@ namespace MKproject.Schedule
         {
             for (int j = 0; j < 24; j++)
             {
-                FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
-                //Properties
-                flowLayoutPanel.Dock = DockStyle.Fill;
-                flowLayoutPanel.BackColor = Color.White;
-                flowLayoutPanel.Cursor = Cursors.Hand;
-                flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
-
-                //Events
-                flowLayoutPanel.Click += flowLayoutPanel1_Click;
-                flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
-                flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
-
-
-                TLPAppointment.Controls.Add(flowLayoutPanel, TLPAppointment.ColumnCount - 1, j);
+                TLPAppointment.Controls.Add(CreateFLP(), TLPAppointment.ColumnCount - 1, j);
             }
         }
         public void FillLastColumnPanelEmployeesWithLabels()

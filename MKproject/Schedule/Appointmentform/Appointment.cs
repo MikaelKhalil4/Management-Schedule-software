@@ -23,7 +23,7 @@ namespace MKproject.Schedule
         //Property
         TimeSpan DifferenceTime { get; set; }
 
-
+        public bool IsReadOrEdit { get; set; }
 
         //VARIABLES
         public UCDay UcDayParentForm;
@@ -63,6 +63,7 @@ namespace MKproject.Schedule
             InitializeComponent();
             Opacity = 0;
 
+            IsReadOrEdit = false;//adding Mode
             IsAddOrUpdate = true;
             ucTime = UCtime;
             UcDayParentForm = UCday;
@@ -83,8 +84,7 @@ namespace MKproject.Schedule
             DesiredAppointmentAppForm.StartTime = UcDayParentForm.SelectedDate.Date + ucTime.Time;
             DesiredAppointmentAppForm.EndTime = UcDayParentForm.SelectedDate.Date + endtime;
 
-            ucClientApp = new UCClientApp(DesiredAppointmentAppForm);
-            ucClientApp.ParentFormAppointment = this;
+            ucClientApp = new UCClientApp(this);
 
             SetDesign();
 
@@ -96,13 +96,18 @@ namespace MKproject.Schedule
             InitializeComponent();
             Opacity = 0;
 
+            DesiredAppointmentAppForm = UCappointment.DesiredAppointmentUCApp.Copy();//as we see hone eena copy aan el ucappointmnet, bas ucClientApp refers to the same DesiredAppointmentAppForm metel el appointment form
+
+
+            if (DesiredAppointmentAppForm.StartTime.Date < DateTime.Now.Date || DesiredAppointmentAppForm.IsCompleted || DesiredAppointmentAppForm.IsCanceled)
+            {
+                IsReadOrEdit = true;
+            }
             IsAddOrUpdate = false;
             UcDayParentForm = UCday;
 
             ucappointment = UCappointment;
 
-
-            DesiredAppointmentAppForm = UCappointment.DesiredAppointmentUCApp.Copy();//as we see hone eena copy aan el ucappointmnet, bas ucClientApp refers to the same DesiredAppointmentAppForm metel el appointment form
 
             //Aam nekhoud Col and Row pos taba3 lucappointment
             TimeSpan starttimeTimeSpan = DesiredAppointmentAppForm.StartTime.TimeOfDay;//bas kermel le2e uctime
@@ -114,8 +119,7 @@ namespace MKproject.Schedule
 
 
 
-            ucClientApp = new UCClientApp(DesiredAppointmentAppForm);
-            ucClientApp.ParentFormAppointment = this;
+            ucClientApp = new UCClientApp(this);
 
             ucClientApp.OnClientProfileInfoChanging += UcClientApp_OnClientProfileInfoChanging;
             ucClientApp.OnUpdatingTheChosenClientBalance += UcClientApp_OnUpdatingTheChosenClientBalance;
@@ -136,9 +140,6 @@ namespace MKproject.Schedule
             TLPGlobal.SetColumnSpan(ucClientApp, 2);
             ucClientApp.Anchor = AnchorStyles.None;
             //
-
-
-            //
             //should be considered once hattayta combobox
             labelEmployee.Text = DesiredAppointmentAppForm.EmployeeFullName;
 
@@ -146,7 +147,7 @@ namespace MKproject.Schedule
             DifferenceTime = DesiredAppointmentAppForm.EndTime.TimeOfDay - DesiredAppointmentAppForm.StartTime.TimeOfDay;
             LabelDuration.Text = DifferenceTime.ToString(@"hh\:mm\:ss");
 
-            if (DesiredAppointmentAppForm.StartTime.Date >= DateTime.Now.Date)//present-future
+            if (!IsReadOrEdit)
             {
                 this.Width = 463;
                 CreatingPresentTools();
@@ -185,7 +186,7 @@ namespace MKproject.Schedule
 
 
             }
-            else//Past
+            else
             {
                 this.Width = 360;
 
@@ -209,6 +210,7 @@ namespace MKproject.Schedule
                 LabelEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
                 TLPGlobal.Controls.Add(LabelEndTime, 1, 2);
             }
+
 
             if (DesiredAppointmentAppForm.StartTime.Date <= DateTime.Now.Date)//present-past
             {
@@ -236,14 +238,11 @@ namespace MKproject.Schedule
                     buttonCompleted.Visible = false;
                 }
             }
-            else
+            else//future
             {
                 buttonCanceled.Visible = false;
                 buttonCompleted.Visible = false;
             }
-
-
-
 
             TLPGlobal.RowStyles[0].Height = ucClientApp.Height;
             FunctionsForWinformsTool.AdjustTableLayoutPanelHeight(TLPGlobal);
@@ -251,6 +250,8 @@ namespace MKproject.Schedule
             this.Height = TLPGlobal.Height + 50;
             TLPGlobal.Dock = DockStyle.Fill;
         }
+
+
         void SetCompletionModeDesign()
         {
             if (DesiredAppointmentAppForm.IsCompleted)
@@ -387,7 +388,7 @@ namespace MKproject.Schedule
 
             bool IsPanelAvailable = CheckIfTimeAvailableAndSetAppointmentPosition();//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
 
-            if (DesiredAppointmentAppForm.StartTime.Date >= DateTime.Now.Date)//Present-future
+            if (!IsReadOrEdit)
             {
                 if (IsPanelAvailable)
                 {
@@ -398,14 +399,7 @@ namespace MKproject.Schedule
                         {
                             ucClientApp.textBoxSearch.IsRequiredModeOn = true;
                             return true;
-                        }
-                        else if (DesiredAppointmentAppForm.DesiredClientBalance == null && (DesiredAppointmentAppForm.ChoseBundlesString == null && DesiredAppointmentAppForm.ChosenBundlesList == null))
-                        {
-                            DisableClosingOnDisactivating = true;
-                            CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
-                            DisableClosingOnDisactivating = false;
-                            return true;
-                        }
+                        }                      
                     }
                     else if (DesiredAppointmentAppForm.Title == null)
                     {
@@ -423,7 +417,7 @@ namespace MKproject.Schedule
 
                 return false;
             }
-            else//past
+            else
             {
                 return false;
             }
@@ -432,7 +426,7 @@ namespace MKproject.Schedule
         void FillDesiredClientObject()//only used eza aam naamil changes aal appointment w aam nsayevun: Complete/Cancel/Update Or kell shi Undo NoSense, lieanno ha ykuno read only
         {
 
-            if (DesiredAppointmentAppForm.StartTime.Date >= DateTime.Now.Date)//present-future lieanno bel pas mamnuu nkun aam nghayyr shi w asln el design tghayar so ha taamil mashekil
+            if (!IsReadOrEdit)// lieanno  mamnuu nkun aam nghayyr  shi eza ken not read only w asln el design tghayar so ha taamil mashekil
             {
                 //usually kell el valye elumn aalea bel chosen client aw balance, ha ykun aam yetaabo bel ucclient app
                 if (ucClientApp.IsServiceOrOthersMode)//service
@@ -448,8 +442,8 @@ namespace MKproject.Schedule
                         }
                         else if (DesiredAppointmentAppForm.StartTime.Date > DateTime.Now.Date)//future
                         {
-                            string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentAppForm.DesiredClientBalance.BundleId);
-                            DesiredAppointmentAppForm.HistoryClientBalance = ServiceName + " Package";
+                       
+                            DesiredAppointmentAppForm.HistoryClientBalance = DesiredAppointmentAppForm.DesiredClientBalance.BundleName + " Package";
 
                         }
                     }
@@ -648,7 +642,7 @@ namespace MKproject.Schedule
                                 {
                                     DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays--;
                                     DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
-                                    ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID, DesiredAppointmentAppForm.StartTime);
+                                    ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID, DateTime.Now);
 
                                     //
                                     CompletingOrUndoingCompletionAppointment(true);

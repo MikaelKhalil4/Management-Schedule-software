@@ -1,5 +1,6 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
+using MKproject.Schedule;
 using System;
 using System.Data;
 using System.Drawing;
@@ -686,8 +687,11 @@ namespace MKproject.Management
 
 
             ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(DesiredClientBalanceId, true);//true because the bundle has expired
-                                                                        //backoffice
-          
+                                                                                                  //backoffice
+
+            ClassAppointment.SwapClientBalanceIdOnRenewPackage(DesiredClientBalanceId, (int)InsertedRow["client_balance_id"]);
+
+
             ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["client_balance_id"], null, null,null, null, null, DateTime.Now);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
@@ -787,7 +791,7 @@ namespace MKproject.Management
         {
             //Sql update
 
-            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null, DateTime.Now);
+            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null,DateTime.Now);
 
             //design
             SessionDaysLeft--;

@@ -60,7 +60,7 @@
             // TLPGlobal
             // 
             TLPGlobal.ColumnCount = 2;
-            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 132F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.000008F));
             TLPGlobal.Controls.Add(labelEmployee, 1, 4);
             TLPGlobal.Controls.Add(label2, 0, 4);
@@ -85,7 +85,7 @@
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            TLPGlobal.Size = new System.Drawing.Size(447, 536);
+            TLPGlobal.Size = new System.Drawing.Size(415, 583);
             TLPGlobal.TabIndex = 70;
             // 
             // labelEmployee
@@ -93,7 +93,7 @@
             labelEmployee.Anchor = System.Windows.Forms.AnchorStyles.Right;
             labelEmployee.AutoSize = true;
             labelEmployee.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelEmployee.Location = new System.Drawing.Point(323, 385);
+            labelEmployee.Location = new System.Drawing.Point(291, 385);
             labelEmployee.Margin = new System.Windows.Forms.Padding(6);
             labelEmployee.Name = "labelEmployee";
             labelEmployee.Size = new System.Drawing.Size(118, 20);
@@ -120,7 +120,7 @@
             FLPEndTime.BackColor = System.Drawing.Color.White;
             FLPEndTime.Controls.Add(textBoxEndTime);
             FLPEndTime.Controls.Add(DownArrowEndTime);
-            FLPEndTime.Location = new System.Drawing.Point(279, 282);
+            FLPEndTime.Location = new System.Drawing.Point(247, 282);
             FLPEndTime.Margin = new System.Windows.Forms.Padding(6);
             FLPEndTime.Name = "FLPEndTime";
             FLPEndTime.Size = new System.Drawing.Size(162, 21);
@@ -163,7 +163,7 @@
             FLPStartTime.BackColor = System.Drawing.Color.White;
             FLPStartTime.Controls.Add(textBoxStartTime);
             FLPStartTime.Controls.Add(DownArrowStartTime);
-            FLPStartTime.Location = new System.Drawing.Point(279, 232);
+            FLPStartTime.Location = new System.Drawing.Point(247, 232);
             FLPStartTime.Margin = new System.Windows.Forms.Padding(6);
             FLPStartTime.Name = "FLPStartTime";
             FLPStartTime.Size = new System.Drawing.Size(162, 21);
@@ -240,12 +240,12 @@
             // 
             // flowLayoutPanel3
             // 
-            flowLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            flowLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             flowLayoutPanel3.Controls.Add(ButtonAddOrUpdate);
             flowLayoutPanel3.Controls.Add(buttonCompleted);
             flowLayoutPanel3.Controls.Add(buttonCanceled);
             flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel3.Location = new System.Drawing.Point(136, 495);
+            flowLayoutPanel3.Location = new System.Drawing.Point(106, 519);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Size = new System.Drawing.Size(306, 34);
             flowLayoutPanel3.TabIndex = 747;
@@ -315,7 +315,7 @@
             LabelDuration.Anchor = System.Windows.Forms.AnchorStyles.Right;
             LabelDuration.AutoSize = true;
             LabelDuration.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            LabelDuration.Location = new System.Drawing.Point(386, 333);
+            LabelDuration.Location = new System.Drawing.Point(354, 333);
             LabelDuration.Margin = new System.Windows.Forms.Padding(6);
             LabelDuration.Name = "LabelDuration";
             LabelDuration.Size = new System.Drawing.Size(55, 20);
@@ -335,7 +335,7 @@
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonDelete.ForeColor = System.Drawing.Color.White;
-            buttonDelete.Location = new System.Drawing.Point(3, 498);
+            buttonDelete.Location = new System.Drawing.Point(3, 522);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new System.Drawing.Size(95, 28);
             buttonDelete.TabIndex = 743;
@@ -354,7 +354,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
-            ClientSize = new System.Drawing.Size(447, 536);
+            ClientSize = new System.Drawing.Size(415, 536);
             Controls.Add(TLPGlobal);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MaximizeBox = false;
