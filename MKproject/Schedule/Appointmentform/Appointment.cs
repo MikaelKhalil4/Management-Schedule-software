@@ -210,30 +210,37 @@ namespace MKproject.Schedule
                 TLPGlobal.Controls.Add(LabelEndTime, 1, 2);
             }
 
-            //Always
-            if (!IsAddOrUpdate)
+            if (DesiredAppointmentAppForm.StartTime.Date <= DateTime.Now.Date)//present-past
             {
-                if (DesiredAppointmentAppForm.IsCanceled)
+                //Always
+                if (!IsAddOrUpdate)
                 {
-                    buttonCompleted.Visible = false;
-                    buttonCanceled.Width = ButtonWidthInUndoState;
-                    buttonCanceled.Text = "Undo Cancelation";
-                }
-                else
-                {
-                    buttonCompleted.Visible = true;
-                    buttonCanceled.Width = ButtonWidthInNormalState;
-                    buttonCanceled.Text = "Canceled";
-                }
+                    if (DesiredAppointmentAppForm.IsCanceled)
+                    {
+                        buttonCompleted.Visible = false;
+                        buttonCanceled.Width = ButtonWidthInUndoState;
+                        buttonCanceled.Text = "Undo Cancelation";
+                    }
+                    else
+                    {
+                        buttonCompleted.Visible = true;
+                        buttonCanceled.Width = ButtonWidthInNormalState;
+                        buttonCanceled.Text = "Canceled";
+                    }
 
-                SetCompletionModeDesign();
+                    SetCompletionModeDesign();
+                }
+                else//Add
+                {
+                    buttonCanceled.Visible = false;
+                    buttonCompleted.Visible = false;
+                }
             }
-            else//Add
+            else
             {
                 buttonCanceled.Visible = false;
                 buttonCompleted.Visible = false;
             }
-
 
 
 
@@ -441,7 +448,9 @@ namespace MKproject.Schedule
                         }
                         else if (DesiredAppointmentAppForm.StartTime.Date > DateTime.Now.Date)//future
                         {
-                            DesiredAppointmentAppForm.HistoryClientBalance = null;
+                            string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentAppForm.DesiredClientBalance.BundleId);
+                            DesiredAppointmentAppForm.HistoryClientBalance = ServiceName + " Package";
+
                         }
                     }
                     else
@@ -633,7 +642,7 @@ namespace MKproject.Schedule
 
                             FillDesiredClientObject();//specially hone lezim ykun  foe  CompletingOrUndoingAppointment(true); kermel el history yekheda mazbuta abel ma tetghayar tahet
 
-                            if (!(bool)DesiredAppointmentAppForm.DesiredClientBalance.IsExpired)//bel present deyman men fout bel if since ha tkun always IsExpired=false, bas ha eemelneha lal past 
+                            if (!(bool)DesiredAppointmentAppForm.DesiredClientBalance.IsExpired)
                             {
                                 if (DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays > 0)
                                 {
@@ -651,7 +660,7 @@ namespace MKproject.Schedule
                                     DisableClosingOnDisactivating = false;
                                 }
                             }
-                            else//only in the past ha nfout fiya 
+                            else
                             {
                                 DisableClosingOnDisactivating = true;
                                 CustomMessageBox.Show("Can't complete this appointment because the chosen package is expired", CustomMessageBox.Type.Ok);
@@ -771,27 +780,9 @@ namespace MKproject.Schedule
             ucappointment.SetUCDesign();
         }
         private void UcClientApp_OnUpdatingTheChosenClientBalance(object sender, EventArgs e)
-        {
-            //the logic here maktub bel documentation
-            if (ucappointment.DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//present-future
-            {
-                if (ucappointment.DesiredAppointmentUCApp.DesiredClientBalance == null || (ucClientApp.DesiredAppointmentUCClientApp.DesiredClientBalance != null && ucappointment.DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceID == ucClientApp.DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceID))//eza fetna aal profile w ghayarna  sessions let s say tb3 same client_balance, sql bet kun naamalit bas aalayna nghayyir el design
-                {
-                    ucappointment.DesiredAppointmentUCApp.DesiredClientBalance = ucClientApp.DesiredAppointmentUCClientApp.DesiredClientBalance;
-                }
-                else
-                {
-                    ucappointment.DesiredAppointmentUCApp.DesiredClientBalance = null;//lamma naamil hek nerjaa naayit SetLogicAndUCDesign(), ha yerjaa yna2e huwwe the right package w yaame update aa sql w and show the right design yaaane kaeano fetih el form men jdid
-                                                                                      //In Parralele el design tb3 el AppointmentForm, ha yeshteghil in a synchronous way
-                }
-            }
-            else if (ucappointment.DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//past
-            {
-                ucappointment.DesiredAppointmentUCApp = ClassAppointment.CreateObjectClassAppointment(ucappointment.DesiredAppointmentUCApp.AppointmentID);//refreshing the info
-            }
-        
-            ucappointment.SetServiceLogicAndDesign();//to change the design bel present, bel past ma bi hemna nghayyir el design, bas bi hemna nkun aam naammil update lal object
-
+        {         
+            ucappointment.DesiredAppointmentUCApp = ClassAppointment.CreateObjectClassAppointment(ucappointment.DesiredAppointmentUCApp.AppointmentID);//refreshing the info
+            ucappointment.SetServiceLogicAndDesign();
         }
         private void BackOffice_UndoHappened(object sender, EventArgs e)//this is only design wise cz kell shi backend happened aal undo action
         {

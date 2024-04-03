@@ -68,6 +68,7 @@ namespace MKproject.Schedule
                     ucSlideButtonServicerOthers.button2_Click(null, EventArgs.Empty);// SetDesignIfOthersMode(); will be called
                     textBoxTitle.Text = DesiredAppointmentUCClientApp.Title;
                 }
+            
 
             }
 
@@ -334,7 +335,7 @@ namespace MKproject.Schedule
                 TLPglobal.SetRow(ButtonChangeORChooseService, 2);
 
 
-                if (PackageRemainingsDt.Rows.Count > 1)
+                if (PackageRemainingsDt.Rows.Count >= 1)
                 {
                     ButtonChangeORChooseService.Text = "Choose an available package";
                 }
@@ -366,7 +367,6 @@ namespace MKproject.Schedule
         //present-future
         public event EventHandler OnUpdatingTheChosenClientBalance;//hayde ha ykun fiya event only to excute only eza update mode not add mode
         public void SetLogicAndDesignPresentFutureAndServiceMode(bool IsNewServiceOrOneOfMultipleIsSelected, bool IsCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
-
         {
             textBoxSearch.PlaceholderText = "By name or phone";
             textBoxSearch.IsRequiredModeOn = false;
@@ -409,6 +409,7 @@ namespace MKproject.Schedule
 
                         if (DesiredAppointmentUCClientApp.ChosenBundlesList == null)//in case ma kenet mnaea wala service
                         {
+
                             //Menfout eza kenna aam nruh men other la service bel slide buttons (First Or),eza kenna bel serviceMode, men fout eza (scd OR) true) 
                             if (!IsServiceOrOthersMode || (OldPackageRemainingsDtDesiredClient == null || !AreTablesTheSame(OldPackageRemainingsDtDesiredClient, PackageRemainingsDt)))//after choosing a client, old=null ha nfout/ w eza ghayarna shi bel packages tb3 profile ha nfout
                             {
@@ -433,7 +434,6 @@ namespace MKproject.Schedule
                                             DataRow[] selectedRows = PackageRemainingsDt.Select("client_balance_id =" + DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceID);
                                             if (selectedRows.Length == 1)
                                             {
-
                                                 FillObjectOfAvailablePackageifPresent(selectedRows[0]);
                                                 FillLabelServiceFields();
                                             }
@@ -511,21 +511,30 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCClientApp.DesiredClientBalance != null)
             {
                 SetDesignIfServiceOrPackageSelected();
-
-                if (DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)//present
+                if (DesiredAppointmentUCClientApp.StartTime.Date >= DateTime.Now.Date)//present
                 {
-                    LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                    if (!(bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired)//Package exist and not expired
+                    {
+                        if (DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)//present
+                        {
+                            LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                        }
+                        else if (DesiredAppointmentUCClientApp.StartTime.Date > DateTime.Now.Date)//future 
+                        {
+                            string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCClientApp.DesiredClientBalance.BundleId);
+                            LabelService.Text = ServiceName + " Package";
+                        }
+                    }
+                    else//Package exist and expired
+                    {
+                        string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCClientApp.DesiredClientBalance.BundleId);
+                        LabelService.Text = ServiceName + " Package Expired";
+                    }
                 }
                 else if (DesiredAppointmentUCClientApp.StartTime.Date < DateTime.Now.Date)// past
                 {
                     LabelService.Text = DesiredAppointmentUCClientApp.HistoryClientBalance;
                 }
-                else if (DesiredAppointmentUCClientApp.StartTime.Date > DateTime.Now.Date)//future 
-                {
-                    string ServiceName = ClassBundles.FindBundleName((int)DesiredAppointmentUCClientApp.DesiredClientBalance.BundleId);
-                    LabelService.Text = ServiceName + " package autoselects at present";
-                }
-
             }
             else if (DesiredAppointmentUCClientApp.ChosenBundlesList != null)
             {
@@ -746,12 +755,19 @@ namespace MKproject.Schedule
         }
         private void Menu_GoingFromSousChildToChild(object sender, EventArgs e)
         {
+            //Ejbare bel awwal barke sar error during the code
+            //ejbare To remove Both always ,since ma aam nekhlae new instance w ha ydallun maal2in fiya lal menu eza ma shelnehun w taamele mashekil
+            Menu menu = (Menu)sender;
+            menu.GoingFromSousChildToChild -= Menu_GoingFromSousChildToChild;
+            menu.GoingFromChildToChild -= Menu_GoingFromChildToChild;
+
+
             ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
             Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
             Program.GreyForm.Show();
 
 
-            Menu menu = (Menu)sender;
+         
 
 
             DesiredAppointmentUCClientApp.DesiredClient = Program.clientManagementProfile.Client;
@@ -759,16 +775,38 @@ namespace MKproject.Schedule
 
             if (DesiredAppointmentUCClientApp.StartTime.Date >= DateTime.Now.Date)//present-future
             {
-                SetLogicAndDesignPresentFutureAndServiceMode(false, false);//only bel present baamil update lal ucclientapp, past eendo static design           
+
+                if (DesiredAppointmentUCClientApp.IsPackageMode && DesiredAppointmentUCClientApp.DesiredClientBalance != null && (bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired) //Expired Package 
+                {
+                    //refresh lalmaaloumet bas men ghayyir shi
+                    PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+                    SetLabelbalanceDesign();
+                }
+                else
+                {
+                    //men ghayir, automation is working
+                    SetLogicAndDesignPresentFutureAndServiceMode(false, false);//only bel present baamil update lal ucclientapp, past eendo static design
+                }
+
+                //always mnaamil refresh lal ucappointment
+                if (ParentFormAppointment.ucappointment != null && ParentFormAppointment.ucappointment.DesiredAppointmentUCApp.IsPackageMode)//update mmode
+                {
+                    OnUpdatingTheChosenClientBalance?.Invoke(this, EventArgs.Empty);
+                                                                                    
+                }
+             
             }
-
-            //ejbare tahet ta ken naamal set lal SetLogicAndDesignPresentFutureAndServiceMode,lieanno we re filling the object DesiredAppointment juwweta, since aam nestaamlo bel event tahet 
-            //or bel nesbe lal past , byenaamal juwwet el event shi lal past, check it
-
-            if (ParentFormAppointment.ucappointment != null && ParentFormAppointment.ucappointment.DesiredAppointmentUCApp.IsPackageMode)//update mmode
+            else//past
             {
-                OnUpdatingTheChosenClientBalance?.Invoke(this, EventArgs.Empty);//deyman eza eena package wahad , we should force el update bel ucapp w bel ucClientApp                                                                                           //hayde ha ykun fiya event only to excute ONLY eza update mode not ADD mode
+                //nesbe lal past , byenaamal juwwet el event shi lal past, check it
+                if (ParentFormAppointment.ucappointment != null && ParentFormAppointment.ucappointment.DesiredAppointmentUCApp.IsPackageMode)//update mmode
+                {
+                    OnUpdatingTheChosenClientBalance?.Invoke(this, EventArgs.Empty);//deyman eza eena package wahad , we should force el update bel ucapp w bel ucClientApp  
+                                                                                    //hayde ha ykun fiya event only to excute ONLY eza update mode not ADD mode
+                                                                                    // w bel mafina deyman update mode, mafina add
+                }
             }
+
 
 
             OnClientProfileInfoChanging?.Invoke(this, EventArgs.Empty);//ejbare tahta
@@ -793,9 +831,7 @@ namespace MKproject.Schedule
                 }
             }
 
-            //ejbare To remove Both always ,since ma aam nekhlae new instance w ha ydallun maal2in fiya lal menu eza ma shelnehun w taamele mashekil
-            menu.GoingFromSousChildToChild -= Menu_GoingFromSousChildToChild;//ejbare since ma aam nekhlae new instance
-            menu.GoingFromChildToChild -= Menu_GoingFromChildToChild;
+
 
         }
 

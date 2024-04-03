@@ -459,9 +459,21 @@ namespace MKproject.Management
             SqlCommand cmd4 = new SqlCommand(QueryDeleteRelatedServices, con);
             cmd4.ExecuteNonQuery();
 
-            string QuerySetClientBalanceIdNull = "UPDATE appointments SET client_balance_id = NULL WHERE client_balance_id  = '" + DesiredClientBalanceId + "'";
-            SqlCommand cmd5 = new SqlCommand(QuerySetClientBalanceIdNull, con);
+            
+            
+            string QuerySetUpdatePastAppointment = @" UPDATE appointments 
+                                            SET client_balance_id = NULL 
+                                             WHERE client_balance_id = '" + DesiredClientBalanceId + "' And start_time < '" + DateTime.Now.Date + "'";
+
+            SqlCommand cmd5 = new SqlCommand(QuerySetUpdatePastAppointment, con);
             cmd5.ExecuteNonQuery();
+        
+            string QuerySetUpdatePresentFutureAppointment = @" UPDATE appointments 
+                                                    SET client_balance_id = NULL ,history_client_balance = NULL 
+                                                    WHERE client_balance_id = '" + DesiredClientBalanceId + "' AND start_time >= '"+DateTime.Now.Date+"'";
+
+            SqlCommand cmd6 = new SqlCommand(QuerySetUpdatePresentFutureAppointment, con);
+            cmd6.ExecuteNonQuery();
 
 
 
@@ -550,7 +562,7 @@ namespace MKproject.Management
 
 
             //kermel el design display tb3 clientBalance bel datatgridView
-            public static void FormatClientBalanceDt(DataTable DtClientBalanceOriginal)
+        public static void FormatClientBalanceDt(DataTable DtClientBalanceOriginal)
         {
 
             DtClientBalanceOriginal.Columns.Add("AutoIncrementColumn", typeof(int));
