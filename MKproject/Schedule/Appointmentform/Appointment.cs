@@ -383,7 +383,7 @@ namespace MKproject.Schedule
         public event EventHandler OnAppointmentUndoCompletion;
         public event EventHandler OnAppointmentUndoCancelation;
         //used present-future
-        bool ISRequiredFieldsExists()
+        bool ISRequiredFieldsExists(bool IsCallingFromComplete)
         {
 
             bool IsPanelAvailable = CheckIfTimeAvailableAndSetAppointmentPosition();//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
@@ -399,7 +399,14 @@ namespace MKproject.Schedule
                         {
                             ucClientApp.textBoxSearch.IsRequiredModeOn = true;
                             return true;
-                        }                      
+                        }
+                        else if (IsCallingFromComplete && DesiredAppointmentAppForm.DesiredClientBalance == null && (DesiredAppointmentAppForm.ChoseBundlesString == null && DesiredAppointmentAppForm.ChosenBundlesList == null))
+                        {
+                            DisableClosingOnDisactivating = true;
+                            CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
+                            DisableClosingOnDisactivating = false;
+                            return true;
+                        }
                     }
                     else if (DesiredAppointmentAppForm.Title == null)
                     {
@@ -492,7 +499,7 @@ namespace MKproject.Schedule
         }
         void AddOrUpdateSQL()
         {
-            if (!ISRequiredFieldsExists())
+            if (!ISRequiredFieldsExists(false))
             {
                 if (IsAddOrUpdate)
                 {
@@ -623,8 +630,9 @@ namespace MKproject.Schedule
         }
         private void buttonCompleted_Click(object sender, EventArgs e)
         {
-            if (!ISRequiredFieldsExists())
+            if (!ISRequiredFieldsExists(true))
             {
+               
                 //Package of sessions
                 if (DesiredAppointmentAppForm.DesiredClient != null && DesiredAppointmentAppForm.DesiredClientBalance != null)//Package Of Sessions
                 {
@@ -702,7 +710,7 @@ namespace MKproject.Schedule
                         (double initialbalance, DataTable PurchasedBundles) = PurchaseNewSoloServices();
 
                         DisableClosingOnDisactivating = true;
-                        Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, initialbalance, PurchasedBundles, null, true);
+                        Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient,PurchasedBundles, null, true);
                         paymentform.ShowDialog();
                         DisableClosingOnDisactivating = false;
                         //
@@ -735,7 +743,7 @@ namespace MKproject.Schedule
         private void buttonCanceled_Click(object sender, EventArgs e)
         {
             FillDesiredClientObject();
-            if (!ISRequiredFieldsExists())
+            if (!ISRequiredFieldsExists(false))
             {
 
                 if (!DesiredAppointmentAppForm.IsCanceled)

@@ -33,7 +33,6 @@ namespace MKproject.Schedule
         PictureBox pictureBoxSearch;
         CustomButton ButtonChangeORChooseService;
         IconButton IconDeleteService;
-        CustomButton ButtonAutoSelect;
         UCSlideButton ucSlideButtonServicerOthers;
         Label labelFullName;
         Label LabelTitle;
@@ -103,10 +102,11 @@ namespace MKproject.Schedule
                     labelFullName.Margin = new Padding(6);
                     labelFullName.Anchor = AnchorStyles.Left;
                     TLPglobal.Controls.Add(labelFullName, 1, 1);
+                    TLPglobal.SetColumnSpan(labelFullName, 3);
                 }
                 labelFullName.Text = DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + DesiredAppointmentUCClientApp.DesiredClient.Lname;
                 //
-                TLPglobal.SetColumnSpan(LabelService, 2);
+                TLPglobal.SetColumnSpan(LabelService, 3);
                 LabelService.Anchor = AnchorStyles.Right;
             }
             else
@@ -405,7 +405,7 @@ namespace MKproject.Schedule
                 if (!TLPglobal.Controls.Contains(LabelNoDataRecorded))
                 {
                     TLPglobal.Controls.Add(LabelNoDataRecorded, 0, 2);
-                    TLPglobal.SetColumnSpan(LabelNoDataRecorded, 3);
+                    TLPglobal.SetColumnSpan(LabelNoDataRecorded, 4);
                     TLPglobal.SetRowSpan(LabelNoDataRecorded, 2);
                 }
 
@@ -543,6 +543,14 @@ namespace MKproject.Schedule
                         if (DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)//present
                         {
                             LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                            if (DesiredAppointmentUCClientApp.DesiredClientBalance.SessionLeftDays == 0)
+                            {
+                                LabelService.ForeColor = Color.Red;
+                            }                          
+                            else
+                            {
+                                LabelService.ForeColor = Color.Black;
+                            }
                         }
                         else if (DesiredAppointmentUCClientApp.StartTime.Date > DateTime.Now.Date)//future 
                         {
@@ -810,12 +818,12 @@ namespace MKproject.Schedule
 
 
 
-            if (!IsReadOrEdit)
+            if (!IsReadOrEdit )
             {
-
+                
                 if (DesiredAppointmentUCClientApp.IsPackageMode && DesiredAppointmentUCClientApp.DesiredClientBalance != null && (bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired) //Expired Package 
                 {
-                    //refresh lalmaaloumet  bas ma men ghayyir shi
+                    //refresh lal maaloumet el cached  bas ma men ghayyir shi bel design
                     PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
                     SetLabelbalanceDesign();
                 }
@@ -824,6 +832,7 @@ namespace MKproject.Schedule
                     //men ghayir, automation is working
                     SetLogicAndDesignEditAndServiceMode(false, false);//only bel present baamil update lal ucclientapp, past eendo static design
                 }
+               
             }
             else
             {
@@ -841,12 +850,18 @@ namespace MKproject.Schedule
 
             OnClientProfileInfoChanging?.Invoke(this, EventArgs.Empty);//ejbare tahta
 
-
-            ParentFormAppointment.DisableClosingOnDisactivating = false;
-            ParentFormAppointment.Show();
-
-
-
+            if (IsReadOrEdit && !DesiredAppointmentUCClientApp.IsCompleted && DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)
+            {// lamma nkun bel present , juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               
+                
+                ParentFormAppointment.Close();
+                ParentFormAppointment.ucappointment.Control_MouseClick(null, null);
+          
+            }
+            else
+            {
+                ParentFormAppointment.DisableClosingOnDisactivating = false;
+                ParentFormAppointment.Show();
+            }   
         }
 
 

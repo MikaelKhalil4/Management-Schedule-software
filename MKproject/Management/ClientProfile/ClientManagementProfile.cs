@@ -870,13 +870,10 @@ namespace MKproject.Management
                 if (dataGridViewBalance.Columns[e.ColumnIndex].Name == "PayOrEdit" && dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == PayOrEditImagePopUp)
                 {
 
-                    string EntetityAmount = dataGridViewBalance.Rows[e.RowIndex].Cells["Balance"].Value.ToString();
-                    EntetityAmount = EntetityAmount.Replace(Currency.Symbol, "");
-
-
+                 
                     Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                     Program.GreyForm.Show();
-                    Payment payment = new Payment(Client, Convert.ToDouble(EntetityAmount), RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
+                    Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
                     payment.ClientManagementProfileParentForm = this;
                     payment.ShowDialog();
 
@@ -933,7 +930,7 @@ namespace MKproject.Management
         {
             Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
             Program.GreyForm.Show();
-            Payment payment = new Payment(Client, Convert.ToDouble(TotalBalanceAmount), RetrievingSpecificRowsInDt(true, null), this, false);
+            Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(true, null), this, false);
             payment.ClientManagementProfileParentForm = this;
             payment.ShowDialog();
 
@@ -1140,30 +1137,26 @@ namespace MKproject.Management
 
         //kermel el payment w el backoffice forms
         //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel payment
-        public void UpdateBalance(DataTable DesiredRowsdt,double FromBalance,double UpdatedBalance, string UpdatedOffre, bool NewIsExpired)//date is not null coming from backofice
+        public void UpdateBalance(DataRow DesiredClientBlanaceRow, double FromBalance)//date is not null coming from backofice
         {
 
             //can implement try catch
-            int ClientBalanceID = (int)DesiredRowsdt.Rows[0]["client_balance_id"];
-            bool OldIsExpired = (bool)DesiredRowsdt.Rows[0]["is_expired"];
+            int ClientBalanceID = (int)DesiredClientBlanaceRow["client_balance_id"];
+            bool OldIsExpired = (bool)DesiredClientBlanaceRow["is_expired"];
 
-            //Design
-            //datagrid payment form
-            DesiredRowsdt.Rows[0]["balance"] = UpdatedBalance;
-            DesiredRowsdt.Rows[0]["offre"] = UpdatedOffre;
-            DesiredRowsdt.Rows[0]["is_expired"] = NewIsExpired;
+          
 
             ///datagridgrid profile form
             DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
-            rowToEdit["offre"] = DesiredRowsdt.Rows[0]["offre"];
-            rowToEdit["balance"] = DesiredRowsdt.Rows[0]["balance"];
-            rowToEdit["is_expired"] = DesiredRowsdt.Rows[0]["is_expired"];
+            rowToEdit["offre"] = DesiredClientBlanaceRow["offre"];
+            rowToEdit["balance"] = DesiredClientBlanaceRow["balance"];
+            rowToEdit["is_expired"] = DesiredClientBlanaceRow["is_expired"];
 
             //IsExpired State
 
-            if (DesiredRowsdt.Rows[0]["product_id"] != DBNull.Value || (DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredRowsdt.Rows[0]["session_left_days"] == DBNull.Value))//produt or solo
+            if (DesiredClientBlanaceRow["product_id"] != DBNull.Value || (DesiredClientBlanaceRow["bundle_id"] != DBNull.Value && DesiredClientBlanaceRow["session_left_days"] == DBNull.Value))//produt or solo
             {
-                if ((FromBalance != 0 && UpdatedBalance == 0) || (FromBalance == 0 && UpdatedBalance != 0))//cz only in these 2 case the expiry date is changed
+                if ((FromBalance != 0 && (double)rowToEdit["balance"] == 0) || (FromBalance == 0 && (double)rowToEdit["balance"] != 0))//cz only in these 2 case the expiry date is changed
                 {
                     ResortOriginalDataTableAndSetDatasource();
                 }
@@ -1171,17 +1164,17 @@ namespace MKproject.Management
 
             else//if it is  pakcage, bghayyir el state tabaa el bundle w bsir edir aamello Isexpired=false by clicking remove 
             {
-                if (OldIsExpired == true && NewIsExpired == false)
+                if (OldIsExpired == true && (bool)rowToEdit["is_expired"] == false)
                 {
                     //Add UCbundle
                     CheckAndSetNoBundleLabel();
                     CreateUCPackage(rowToEdit);
                 }
-                else if (FromBalance != 0 && UpdatedBalance == 0)
+                else if (FromBalance != 0 && (double)rowToEdit["balance"] == 0)
                 {
                     UpdateIsInDebteToUCBundle(Convert.ToInt16(ClientBalanceID), false);
                 }
-                else if (FromBalance == 0 && UpdatedBalance != 0)
+                else if (FromBalance == 0 && (double)rowToEdit["balance"] != 0)
                 {
                     UpdateIsInDebteToUCBundle(Convert.ToInt16(ClientBalanceID), true);
                 }
@@ -1194,53 +1187,42 @@ namespace MKproject.Management
 
         }//try catch
          //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel backoffice
-        public void UpdateSessionNumber(DataTable DesiredRowsdt,int UpdatedSessionLeftORNoDays,string newoffre,DateTime? NewDueDate ,bool NewIsExpired)
+        public void UpdateSessionNumber(DataRow DesiredClientBlanaceRow )
         {
             
             //ready for try catch
             //datatable update
-            int ClientBalanceID = Convert.ToInt16(DesiredRowsdt.Rows[0]["client_balance_id"]);
-            bool OldIsExpired = (bool)DesiredRowsdt.Rows[0]["is_expired"];
+            int ClientBalanceID = Convert.ToInt16(DesiredClientBlanaceRow["client_balance_id"]);
+            bool OldIsExpired = (bool)DesiredClientBlanaceRow["is_expired"];
 
 
-            //design
-            //datatgrid Payment form
-            DesiredRowsdt.Rows[0]["offre"] = newoffre;
-            DesiredRowsdt.Rows[0]["is_expired"] = NewIsExpired;
-            if (NewDueDate == null)//session bundle
-            {
-                DesiredRowsdt.Rows[0]["session_left_days"] = UpdatedSessionLeftORNoDays;
-            }
-            else//days bundle
-            {
-                DesiredRowsdt.Rows[0]["session_left_days"] = UpdatedSessionLeftORNoDays;
-                DesiredRowsdt.Rows[0]["due_date"] = NewDueDate;
-            }
+           
             //datagrid profile form
             DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
-            rowToEdit["offre"] = DesiredRowsdt.Rows[0]["offre"];
-            rowToEdit["session_left_days"] = DesiredRowsdt.Rows[0]["session_left_days"];
-            rowToEdit["due_date"] = DesiredRowsdt.Rows[0]["due_date"];
-            rowToEdit["is_expired"] = DesiredRowsdt.Rows[0]["is_expired"];
+            rowToEdit["offre"] = DesiredClientBlanaceRow["offre"];
+            rowToEdit["session_left_days"] = DesiredClientBlanaceRow["session_left_days"];
+            rowToEdit["due_date"] = DesiredClientBlanaceRow["due_date"];
+            rowToEdit["is_expired"] = DesiredClientBlanaceRow["is_expired"];
             FormatDatagridviewDesign();
 
+
             //Update related UC in parent form
-            if (DesiredRowsdt.Rows[0]["bundle_id"] != DBNull.Value && DesiredRowsdt.Rows[0]["session_left_days"] != DBNull.Value)//bundle
+            if (DesiredClientBlanaceRow["bundle_id"] != DBNull.Value && DesiredClientBlanaceRow["session_left_days"] != DBNull.Value)//bundle
             {
-                if (OldIsExpired == true && NewIsExpired == false)
+                if (OldIsExpired == true && (bool)rowToEdit["is_expired"] == false)
                 {
                     //Add UCpackage
                     CheckAndSetNoBundleLabel();
                     CreateUCPackage(rowToEdit);
                 }
 
-                if (NewDueDate == null)// package of session
+                if (rowToEdit["due_date"] == DBNull.Value)// package of session
                 {
-                    ResetUCMode(ClientBalanceID, UpdatedSessionLeftORNoDays, null);
+                    ResetUCMode(ClientBalanceID, (int)rowToEdit["session_left_days"], null);
                 }
                 else// package of days
                 {
-                    ResetUCMode(ClientBalanceID, UpdatedSessionLeftORNoDays, (DateTime)NewDueDate);
+                    ResetUCMode(ClientBalanceID, (int)rowToEdit["session_left_days"], (DateTime)rowToEdit["due_date"]);
                 }
             }
 

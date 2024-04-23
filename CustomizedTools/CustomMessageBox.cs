@@ -20,7 +20,7 @@ namespace CustomizedTools
             Error,
 
         }
-        public CustomMessageBox(string Text, Type type)
+        private CustomMessageBox(string Text, Type type)
         {
             InitializeComponent();
             this.Opacity = 0;

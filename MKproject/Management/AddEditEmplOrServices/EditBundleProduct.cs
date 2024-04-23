@@ -335,10 +335,12 @@ namespace MKproject.Management
             UCBundleName = new UCTextbox1();
             FLPTop.Controls.Add(UCBundleName);
             FLPTop.Controls.SetChildIndex(UCBundleName, 0);
-            UCBundleName.Size = new Size(420, 72);
+ 
             // Check if the "Required" value is true or false
             UCBundleName.IsRequired = true;
             UCBundleName.StringType = "Product Name";
+
+            UCBundleName.Width = TLPBundle.Width;
             UCBundleName.Margin = new Padding(3, 10, 3, 10); // (left, top, right, bottom)
 
             groupBoxNumberOfSessions.Visible = false;

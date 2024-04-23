@@ -182,27 +182,24 @@ namespace MKproject.Management
             employee.Status = (Boolean)datarow["status"];
             employee.Cash = (double)datarow["cash"];
 
-            if (Features.Management)
-            {
-                if (employee.Access != null)
-                {
-                    if (employee.Access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
-                        employee.CanEditOffre = true;
-                    if (employee.Access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
-                        employee.CanAccessTransaction = true;
-                    if (employee.Access.ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
-                        employee.CanAccessSevicesProductsEmployees = true;
-                    if (employee.Access.ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
-                        employee.CanAccessStatistics = true;
-                    if (employee.Access.ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
-                        employee.CanEditRegistrationFields = true;
-                    if (employee.Access.ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
-                        employee.CanDeleteClient = true;
-                    if (employee.Access.ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
-                        employee.CanInsertOrEditClients = true;
-                }
-            }
 
+            if (employee.Access != null)
+            {
+                if (employee.Access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
+                    employee.CanEditOffre = true;
+                if (employee.Access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
+                    employee.CanAccessTransaction = true;
+                if (employee.Access.ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
+                    employee.CanAccessSevicesProductsEmployees = true;
+                if (employee.Access.ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
+                    employee.CanAccessStatistics = true;
+                if (employee.Access.ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
+                    employee.CanEditRegistrationFields = true;
+                if (employee.Access.ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
+                    employee.CanDeleteClient = true;
+                if (employee.Access.ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
+                    employee.CanInsertOrEditClients = true;
+            }
 
             return employee;
         }

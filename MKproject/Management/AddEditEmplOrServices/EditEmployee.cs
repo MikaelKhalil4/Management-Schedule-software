@@ -84,7 +84,7 @@ namespace MKproject.Management
                 buttonDelete.Visible = false;
             }
 
-            if ((!Features.Management && !Features.Schedule) || (EmployeeId != null))
+            if (EmployeeId != null)
             {
                 this.Controls.Remove(groupBoxFeatures);
                 groupBoxFeatures.Dispose();
@@ -100,79 +100,75 @@ namespace MKproject.Management
 
                 IsFeatures = true;
 
-                if (Features.Schedule)
-                {
-                    CheckBoxSchedule = new CheckBox();
-                    CheckBoxSchedule.Text = enumFeatures.Schedule.GetStringValue();
-                    CheckBoxSchedule.Font = seguiFont;
-                    CheckBoxSchedule.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxSchedule);
-                    toolTip1.SetToolTip(CheckBoxSchedule, "This feature allows employees to access the schedule");
-                }
-                if (Features.Management)
-                {
-                    CheckBoxEditOffres = new CheckBox();
-                    CheckBoxEditOffres.Text = enumFeatures.EditOffres.GetStringValue();
-                    CheckBoxEditOffres.Font = seguiFont;
-                    CheckBoxEditOffres.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxEditOffres);
-                    toolTip1.SetToolTip(CheckBoxEditOffres, "This feature allows employees to edit the offers of the client while purchasing a service or product");
+                CheckBoxSchedule = new CheckBox();
+                CheckBoxSchedule.Text = enumFeatures.Schedule.GetStringValue();
+                CheckBoxSchedule.Font = seguiFont;
+                CheckBoxSchedule.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxSchedule);
+                toolTip1.SetToolTip(CheckBoxSchedule, "This feature allows employees to access the schedule");
 
-                    CheckBoxRegistrationFields = new CheckBox();
-                    CheckBoxRegistrationFields.Text = enumFeatures.RegistrationFields.GetStringValue() ;
-                    CheckBoxRegistrationFields.Font = seguiFont;
-                    CheckBoxRegistrationFields.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxRegistrationFields);
-                    toolTip1.SetToolTip(CheckBoxRegistrationFields, "This feature allows employees to show or hide fields or set them as required for the client's information");
+                CheckBoxEditOffres = new CheckBox();
+                CheckBoxEditOffres.Text = enumFeatures.EditOffres.GetStringValue();
+                CheckBoxEditOffres.Font = seguiFont;
+                CheckBoxEditOffres.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxEditOffres);
+                toolTip1.SetToolTip(CheckBoxEditOffres, "This feature allows employees to edit the offers of the client while purchasing a service or product");
 
-                    CheckBoxEditClients = new CheckBox();
-                    CheckBoxEditClients.Text = enumFeatures.EditClients.GetStringValue();
-                    CheckBoxEditClients.Font = seguiFont;
-                    CheckBoxEditClients.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxEditClients);
-                    toolTip1.SetToolTip(CheckBoxEditClients, "This feature allows employees to insert or edit clients' information");
+                CheckBoxRegistrationFields = new CheckBox();
+                CheckBoxRegistrationFields.Text = enumFeatures.RegistrationFields.GetStringValue();
+                CheckBoxRegistrationFields.Font = seguiFont;
+                CheckBoxRegistrationFields.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxRegistrationFields);
+                toolTip1.SetToolTip(CheckBoxRegistrationFields, "This feature allows employees to show or hide fields or set them as required for the client's information");
 
-                    CheckBoxDeleteClient = new CheckBox();
-                    CheckBoxDeleteClient.Text = enumFeatures.DeleteClients.GetStringValue();
-                    CheckBoxDeleteClient.Font = seguiFont;
-                    CheckBoxDeleteClient.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxDeleteClient);
-                    toolTip1.SetToolTip(CheckBoxDeleteClient, "This feature allows employees to delete clients");
-                   
-                    CheckBoxTransactions = new CheckBox();
-                    CheckBoxTransactions.Text = enumFeatures.Transactions.GetStringValue();
-                    CheckBoxTransactions.Font = seguiFont;
-                    CheckBoxTransactions.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxTransactions);
-                    toolTip1.SetToolTip(CheckBoxTransactions, "This feature enables employees to access all interactions made on the system. At the client level, they can access all interactions made by this client and can undo actions");
+                CheckBoxEditClients = new CheckBox();
+                CheckBoxEditClients.Text = enumFeatures.EditClients.GetStringValue();
+                CheckBoxEditClients.Font = seguiFont;
+                CheckBoxEditClients.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxEditClients);
+                toolTip1.SetToolTip(CheckBoxEditClients, "This feature allows employees to insert or edit clients' information");
 
-                    CheckBoxStatistics = new CheckBox();
-                    CheckBoxStatistics.Text = enumFeatures.Statistics.GetStringValue() ;
-                    CheckBoxStatistics.Font = seguiFont;
-                    CheckBoxStatistics.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxStatistics);
-                    toolTip1.SetToolTip(CheckBoxStatistics, "This feature allows employees to view all statistics, from income to client attendance, in real time or for any selected date");
+                CheckBoxDeleteClient = new CheckBox();
+                CheckBoxDeleteClient.Text = enumFeatures.DeleteClients.GetStringValue();
+                CheckBoxDeleteClient.Font = seguiFont;
+                CheckBoxDeleteClient.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxDeleteClient);
+                toolTip1.SetToolTip(CheckBoxDeleteClient, "This feature allows employees to delete clients");
 
-                    CheckBoxEditEmployeesServicesProducts = new CheckBox();
-                    CheckBoxEditEmployeesServicesProducts.Text = enumFeatures.ServicesProductsEmployees.GetStringValue();
-                    CheckBoxEditEmployeesServicesProducts.Font = seguiFont;
-                    CheckBoxEditEmployeesServicesProducts.AutoSize = true;
-                    FLPFeatures.Controls.Add(CheckBoxEditEmployeesServicesProducts);
-                    toolTip1.SetToolTip(CheckBoxEditEmployeesServicesProducts, "This feature enables employees, to add/Edit/Delete services, products or employee");
+                CheckBoxTransactions = new CheckBox();
+                CheckBoxTransactions.Text = enumFeatures.Transactions.GetStringValue();
+                CheckBoxTransactions.Font = seguiFont;
+                CheckBoxTransactions.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxTransactions);
+                toolTip1.SetToolTip(CheckBoxTransactions, "This feature enables employees to access all interactions made on the system. At the client level, they can access all interactions made by this client and can undo actions");
+
+                CheckBoxStatistics = new CheckBox();
+                CheckBoxStatistics.Text = enumFeatures.Statistics.GetStringValue();
+                CheckBoxStatistics.Font = seguiFont;
+                CheckBoxStatistics.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxStatistics);
+                toolTip1.SetToolTip(CheckBoxStatistics, "This feature allows employees to view all statistics, from income to client attendance, in real time or for any selected date");
+
+                CheckBoxEditEmployeesServicesProducts = new CheckBox();
+                CheckBoxEditEmployeesServicesProducts.Text = enumFeatures.ServicesProductsEmployees.GetStringValue();
+                CheckBoxEditEmployeesServicesProducts.Font = seguiFont;
+                CheckBoxEditEmployeesServicesProducts.AutoSize = true;
+                FLPFeatures.Controls.Add(CheckBoxEditEmployeesServicesProducts);
+                toolTip1.SetToolTip(CheckBoxEditEmployeesServicesProducts, "This feature enables employees, to add/Edit/Delete services, products or employee");
 
 
 
-                }
+
                 AdjustFeaturesSize();
                 ChangeFormSize(true);
-            
-            
-            
+
+
+
             }
         }
 
 
-     
+
 
         private void AdjustFeaturesSize()
         {
@@ -264,8 +260,8 @@ namespace MKproject.Management
 
                 foreach (string word in accessWords)
                 {
-                  //schedule
-                     if (word == enumFeatures.Schedule.GetStringValue())
+                    //schedule
+                    if (word == enumFeatures.Schedule.GetStringValue())
                     {
                         if (CheckBoxSchedule != null)
                         {
@@ -274,9 +270,9 @@ namespace MKproject.Management
                     }
 
                     //management
-                    else if (word==enumFeatures.Transactions.GetStringValue())
+                    else if (word == enumFeatures.Transactions.GetStringValue())
                     {
-                        
+
                         if (CheckBoxTransactions != null)
                         {
                             CheckBoxTransactions.Checked = true;
@@ -299,7 +295,7 @@ namespace MKproject.Management
                         }
                     }
                     else if (word == enumFeatures.EditOffres.GetStringValue())
-                    {               
+                    {
                         if (CheckBoxEditOffres != null)
                         {
                             CheckBoxEditOffres.Checked = true;
@@ -402,7 +398,7 @@ namespace MKproject.Management
                         {
                             if (checkbox.Checked)
                             {
-                                Access += checkbox.Text;                          
+                                Access += checkbox.Text;
                                 Access += "/";
                             }
                         }
@@ -530,7 +526,7 @@ namespace MKproject.Management
                 {
                     AddEmployee();
                 }
-              
+
             }
         }
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -554,7 +550,7 @@ namespace MKproject.Management
             if (Opacity == 1)
             {
                 timer1.Stop();
-              
+
             }
             Opacity += .1;
         }

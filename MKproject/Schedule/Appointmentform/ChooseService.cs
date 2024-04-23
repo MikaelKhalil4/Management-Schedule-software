@@ -30,7 +30,7 @@ namespace MKproject.Schedule
 
             labelFullName.Text = ParentFormucClientApp.DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + ParentFormucClientApp.DesiredAppointmentUCClientApp.DesiredClient.Lname;
             SetUCSlidebutton();
-            if (ParentFormucClientApp.PackageRemainingsDt.Rows.Count == 0)
+            if (ParentFormucClientApp.PackageRemainingsDt.Rows.Count == 0 || ParentFormucClientApp.DesiredAppointmentUCClientApp.ChosenBundlesList!=null)
             {
                 ucSlideButton.button2_Click(this, new EventArgs());
             }

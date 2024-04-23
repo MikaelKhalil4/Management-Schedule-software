@@ -15,7 +15,7 @@ namespace MKproject.Management
         public ClientManagementProfile ParentFormClientManagem { get; set; }
         bool IsChildMode;
         int? ClientId;//kermel eza feyit men profile check all transaction of a client
-        public DataTable DesiredBalanceRowsdtBinded;// in case of all transaction el desired row ha yetghayar kell ma nekbus aa undo, amma bel specific balance ha ydall huwwe zeito
+        public DataRow DesiredBalanceRowBinded;// in case of all transaction el desired row ha yetghayar kell ma nekbus aa undo, amma bel specific balance ha ydall huwwe zeito
                                                     //that s why in all transaction case mnaamello initialisation kell ma nekbus aa undo, amma specific balance  , mnaamela only bel constructor lieanno ha tdalla maana kell w
 
         public DataTable OriginalBackOfficeDt;
@@ -42,13 +42,20 @@ namespace MKproject.Management
             if ((ParentFormClientManagem != null && ClientBalanceId != null && desiredBalanceRowsdt != null) || ClientId != null)//child mode
             {
                 IsChildMode = true;
-                DesiredBalanceRowsdtBinded = desiredBalanceRowsdt;//it will be null if AllTransactionofSpecificClient = true, lieanno tahet lamma naamil undo aam nerjaa nmaliya hasab kell client_balance_id
-                SetLogicMode(ClientBalanceId);
+                if (desiredBalanceRowsdt != null)
+                {
+                    DesiredBalanceRowBinded = desiredBalanceRowsdt.Rows[0];//it will be null if AllTransactionofSpecificClient = true, lieanno tahet lamma naamil undo aam nerjaa nmaliya hasab kell client_balance_id,(more explination foe bel declaration)
+                    SetLogicMode(ClientBalanceId, desiredBalanceRowsdt);
+                }
+                else
+                {
+                    SetLogicMode(ClientBalanceId, null);
+                }
             }
             else
             {
                 IsChildMode = false;
-                SetLogicMode(null);
+                SetLogicMode(null,null);
             }
 
 
@@ -222,7 +229,7 @@ namespace MKproject.Management
 
 
 
-        void SetLogicMode(int? ClientBalanceId)
+        void SetLogicMode(int? ClientBalanceId,DataTable desiredBalanceRowsdt)
         {
             if (!IsChildMode)
             {
@@ -256,12 +263,12 @@ namespace MKproject.Management
                     OriginalBackOfficeDt = ClassBackOffice.GetBackOffice(false, ClientBalanceId, null);//all transac of this Speicific ClientBalance
                     IsAllIsRetrieved = true;
                     //scd datagridview 
-                    dataGridViewBalance.DataSource = DesiredBalanceRowsdtBinded;//badak that mahalla datatble aw mb#rf shu
+                    dataGridViewBalance.DataSource = desiredBalanceRowsdt;
                     ClassClientBalance.FormatDatagridview(dataGridViewBalance, false);
                     dataGridViewBalance.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                     dataGridViewBalance.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel taamil stretch aa kell surface  horizontally
                     dataGridViewBalance.RowTemplate.MinimumHeight = 40; // Set minimum row height
-                    if (DesiredBalanceRowsdtBinded.Rows[0]["due_date"] != DBNull.Value)
+                    if (DesiredBalanceRowBinded["due_date"] != DBNull.Value)
                     {
                         dataGridViewBalance.Columns["due_date"].Visible = true;
                     }
@@ -532,9 +539,16 @@ namespace MKproject.Management
                     var cellValue = dataGridViewBackOffice.Rows[e.RowIndex].Cells["appointment_id"].Value;
                     int? AppointmentId = cellValue is DBNull ? (int?)null : Convert.ToInt32(cellValue);
 
-                    DataTable DesiredBalanceRowsDT = ClassClientBalance.GetClientBalanceAllInfoSql(clientBalanceId);//not Binded bas men eeuza , since eeyzin some Values
+                    DataRow DesiredClientBlanaceRow = ClassClientBalance.GetClientBalanceAllInfoSql(clientBalanceId);//not Binded bas men eeuza , since eeyzin some Values
 
-
+                    if (IsChildMode)
+                    {                     
+                        if (ClientId != null)//meas fetna men AllTransactionTabaaaSpecific clients, So kell wahde mnekbesa we need to bind it maa el parent form, to reflect updates
+                        {
+                            DataTable dt = ParentFormClientManagem.RetrievingSpecificRowsInDt(false, clientBalanceId);
+                            this.DesiredBalanceRowBinded = dt.Rows[0];
+                        }
+                    }
 
 
 
@@ -601,8 +615,7 @@ namespace MKproject.Management
                                 int? BundleId = null;
                                 if (AppointmentId != null)
                                 {
-
-                                    BundleId = Convert.ToInt16(DesiredBalanceRowsDT.Rows[0]["bundle_id"]);
+                                    BundleId = Convert.ToInt16(DesiredClientBlanaceRow["bundle_id"]);
                                 }
 
                                 (int MAxArchiveIdForLastSessionDone, DateTime? NewLastVistDate, DateTime? MembershipDate) = ClassBackOffice.UndoSoloPurchaseActionsSQL(clientId, structId, ArchiveId, clientBalanceId, AppointmentId, BundleId);
@@ -684,7 +697,7 @@ namespace MKproject.Management
 
 
                     }
-                    else if (ActionType == ActionsEnum.Offers.ToString())
+                    else if (ActionType == ActionsEnum.Offers.ToString())//only this exception updating el design mawjude hone fiya, since already eenda it s own algo
                     {
                         DialogResult dialogResult = CustomMessageBox.Show("Are you sure you want to proceed?", CustomMessageBox.Type.YesNo);
                         if (dialogResult == DialogResult.Yes)
@@ -706,11 +719,17 @@ namespace MKproject.Management
                                 {
                                     double ToBalance = Convert.ToDouble(PreviousOffre.Split('/')[1]);
                                     double FromBalance = Convert.ToDouble(PreviousOffre.Split('/')[0]);
-                                    (double UpdatedBalance, string UpdatedOffre, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingOffre(clientId, DesiredBalanceRowsDT, FromBalance, ToBalance, null, false);
-                                    if (IsChildMode && this.ParentFormClientManagem != null)
-                                    {
-                                        this.ParentFormClientManagem.UpdateBalance(this.DesiredBalanceRowsdtBinded, ToBalance, UpdatedBalance, UpdatedOffre, NewIsExpired);//ased aam nebaat To mahal from , lieanno undo
+                                    (double UpdatedBalance, string UpdatedOffre, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingBalanceOffre(clientId, DesiredClientBlanaceRow, FromBalance, ToBalance, null, false);
+                                 
 
+                                    //Design
+                                    if (IsChildMode && this.ParentFormClientManagem != null)//we know if ChildMode, ha tkun only one row,
+                                    {
+                                        this.DesiredBalanceRowBinded["balance"] = UpdatedBalance;
+                                        this.DesiredBalanceRowBinded["offre"] = UpdatedOffre;
+                                        this.DesiredBalanceRowBinded["is_expired"] = NewIsExpired;
+                                       
+                                        this.ParentFormClientManagem.UpdateBalance(this.DesiredBalanceRowBinded, ToBalance);//ased aam nebaat To mahal from , lieanno undo
                                     }
                                 }
                                 else
@@ -718,10 +737,28 @@ namespace MKproject.Management
                                     int ToSessionOrDays = Convert.ToInt16(PreviousOffre.Split('/')[1]);//ma ela aaze el refe hone, bas lieanno bi payment eezneha , medtarrin nhatta hone, bas ma ha teaddim w teakkhir
                                     int FromSessionOrDays = Convert.ToInt16(PreviousOffre.Split('/')[0]);
 
-                                    (int UpdatedSessionLeftORNoDays, string newoffre, DateTime? NewDueDate, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingSession(clientId, DesiredBalanceRowsDT, FromSessionOrDays, ToSessionOrDays, null, false);
+                                    (int UpdatedSessionLeftORNoDays, string newoffre, DateTime? NewDueDate, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingSessionOffre(clientId, DesiredClientBlanaceRow, FromSessionOrDays, ToSessionOrDays, null, false);
+
+                                  
+
+                                    //Design 
                                     if (IsChildMode && this.ParentFormClientManagem != null)
                                     {
-                                        this.ParentFormClientManagem.UpdateSessionNumber(this.DesiredBalanceRowsdtBinded,  UpdatedSessionLeftORNoDays,  newoffre,  NewDueDate, NewIsExpired);//from bel awwal ,lieanno hal value li badna nerjaa aalaya
+                                        //design                                      
+                                        this.DesiredBalanceRowBinded["offre"] = newoffre;
+                                        this.DesiredBalanceRowBinded["is_expired"] = NewIsExpired;
+                                        if (NewDueDate == null)//session bundle
+                                        {
+                                            this.DesiredBalanceRowBinded["session_left_days"] = UpdatedSessionLeftORNoDays;
+                                        }
+                                        else//days bundle
+                                        {
+                                            this.DesiredBalanceRowBinded["session_left_days"] = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)NewDueDate);//tene wahde - awwal wahde
+                                            this.DesiredBalanceRowBinded["session_left_days"] = NewDueDate;
+                                        }
+
+
+                                        this.ParentFormClientManagem.UpdateSessionNumber(this.DesiredBalanceRowBinded);//from bel awwal ,lieanno hal value li badna nerjaa aalaya
                                     }
                                 }
                                 //Design in Profile if Exists
@@ -750,8 +787,7 @@ namespace MKproject.Management
             this.ParentFormClientManagem.dtClientBalanceOriginal.AcceptChanges();
             this.ParentFormClientManagem.FormatDatagridviewDesign();
             //datagridbalance bel backoffice el tahteniye
-            this.DesiredBalanceRowsdtBinded.Rows[0].Delete();
-            this.DesiredBalanceRowsdtBinded.AcceptChanges();
+            this.DesiredBalanceRowBinded.Delete();
             //deleting the uc pakcgae
 
 
@@ -789,8 +825,7 @@ namespace MKproject.Management
             this.ParentFormClientManagem.dtClientBalanceOriginal.AcceptChanges();
             this.ParentFormClientManagem.FormatDatagridviewDesign();
             //datagridBalancebel backoffice el tahteniye
-            this.DesiredBalanceRowsdtBinded.Rows[0].Delete();//bel all transaction ma ha ysir shi lieannoo the desiredrow manno binded aa datagrid (which doesnt exists)
-            this.DesiredBalanceRowsdtBinded.AcceptChanges();
+            this.DesiredBalanceRowBinded.Delete();//bel all transaction ma ha ysir shi lieannoo the desiredrow manno binded aa datagrid (which doesnt exists)
             //deleting the uc pakcgae
             if (IsBundleOrProduct)
             {
@@ -818,24 +853,24 @@ namespace MKproject.Management
         {
 
             //design
-            double OldBalance = (double)this.DesiredBalanceRowsdtBinded.Rows[0]["balance"];
+            double OldBalance = (double)this.DesiredBalanceRowBinded["balance"];
             string balance = Convert.ToString(OldBalance - AmountPaid);//eza kenit balance=-50 w paid 50 bet sir balance -100
 
             //updating backoffice datatgridbalancce
-            this.DesiredBalanceRowsdtBinded.Rows[0]["balance"] = balance;
-            this.DesiredBalanceRowsdtBinded.Rows[0]["amount_paid"] = (double)this.DesiredBalanceRowsdtBinded.Rows[0]["amount_paid"] - AmountPaid;
-            bool IsExpired = (bool)this.DesiredBalanceRowsdtBinded.Rows[0]["is_expired"];
+            this.DesiredBalanceRowBinded["balance"] = balance;
+            this.DesiredBalanceRowBinded["amount_paid"] = (double)this.DesiredBalanceRowBinded["amount_paid"] - AmountPaid;
+            bool IsExpired = (bool)this.DesiredBalanceRowBinded["is_expired"];
             if (IsExpired == true)
             {
-                this.DesiredBalanceRowsdtBinded.Rows[0]["is_expired"] = false;
+                this.DesiredBalanceRowBinded["is_expired"] = false;
             }
             //updating original datatbalance
-            DataRow rowToEdit = this.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(this.DesiredBalanceRowsdtBinded.Rows[0]["client_balance_id"]);
-            rowToEdit["balance"] = this.DesiredBalanceRowsdtBinded.Rows[0]["balance"];
-            rowToEdit["amount_paid"] = this.DesiredBalanceRowsdtBinded.Rows[0]["amount_paid"];
+            DataRow rowToEdit = this.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(this.DesiredBalanceRowBinded["client_balance_id"]);
+            rowToEdit["balance"] = this.DesiredBalanceRowBinded["balance"];
+            rowToEdit["amount_paid"] = this.DesiredBalanceRowBinded["amount_paid"];
             if (IsExpired)
             {
-                rowToEdit["is_expired"] = this.DesiredBalanceRowsdtBinded.Rows[0]["is_expired"];
+                rowToEdit["is_expired"] = this.DesiredBalanceRowBinded["is_expired"];
                 this.ParentFormClientManagem.ResortOriginalDataTableAndSetDatasource();
 
                 if (rowToEdit["bundle_id"] != DBNull.Value && rowToEdit["session_left_days"] != DBNull.Value)//package
@@ -867,15 +902,15 @@ namespace MKproject.Management
         {
 
             //Datagridview 
-            int ClientBalanceID = Convert.ToInt16(this.DesiredBalanceRowsdtBinded.Rows[0]["client_balance_id"]);
-            int NoOfSessions = Convert.ToInt16(this.DesiredBalanceRowsdtBinded.Rows[0]["session_left_days"]) + 1;
-            bool IsExpired = (bool)this.DesiredBalanceRowsdtBinded.Rows[0]["is_expired"];
+            int ClientBalanceID = Convert.ToInt16(this.DesiredBalanceRowBinded["client_balance_id"]);
+            int NoOfSessions = Convert.ToInt16(this.DesiredBalanceRowBinded["session_left_days"]) + 1;
+            bool IsExpired = (bool)this.DesiredBalanceRowBinded["is_expired"];
 
-            this.DesiredBalanceRowsdtBinded.Rows[0]["session_left_days"] = NoOfSessions;
+            this.DesiredBalanceRowBinded["session_left_days"] = NoOfSessions;
 
             if (IsExpired == true)
             {
-                this.DesiredBalanceRowsdtBinded.Rows[0]["is_expired"] = false;
+                this.DesiredBalanceRowBinded["is_expired"] = false;
             }
 
             //Updating the original datarow
@@ -885,7 +920,7 @@ namespace MKproject.Management
             //Update related UC in client profile    
             if (IsExpired)
             {
-                rowToEdit["is_expired"] = this.DesiredBalanceRowsdtBinded.Rows[0]["is_expired"];
+                rowToEdit["is_expired"] = this.DesiredBalanceRowBinded["is_expired"];
                 if (rowToEdit["bundle_id"] != DBNull.Value && rowToEdit["session_left_days"] != DBNull.Value)//packages
                 {
                     //creating back the uc

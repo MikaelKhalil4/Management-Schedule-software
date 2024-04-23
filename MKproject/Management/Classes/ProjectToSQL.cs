@@ -10,7 +10,7 @@ namespace MKproject.Management
     internal class ProjectToSQL
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
-        static Currency currency = new Currency();
+
 
 
 

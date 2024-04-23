@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using GlobalFunctions;
 
 namespace CustomizedTools
 {
@@ -20,7 +21,6 @@ namespace CustomizedTools
             {
 
                 isEmail = value;
-                CreatEmailFormat();
             }
         }
 
@@ -136,6 +136,8 @@ namespace CustomizedTools
             if (!IsRequired)
             {
                 myTextBox1.PlaceholderText = StringType + " (optional)";
+                myTextBox1.IsRequiredModeOn = false;
+
             }
         }
         public bool ActiveRequiredMode()
@@ -180,19 +182,18 @@ namespace CustomizedTools
 
         public void CreatEmailFormat()
         {
-            if (IsEmail)
+            if (labelEmail==null)
             {
                 labelEmail = new Label();
                 labelEmail.Visible = false;
+                labelEmail.Text = "Fix Email Formatting";
                 groupBox1.Controls.Add(labelEmail);
-                labelEmail.Location = new Point(478, 0);
                 labelEmail.Font = new Font("Segoe UI", 9.75f, FontStyle.Regular);
                 labelEmail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                labelEmail.Text = "Fix Email Formatting";
                 labelEmail.ForeColor = Color.Red;
                 labelEmail.AutoSize = true;
             }
-
+            labelEmail.Location = new Point(this.Width - Convert.ToInt16(RandomFunctions.MeasureLabelText(labelEmail)), 0);
         }
 
 
@@ -246,10 +247,13 @@ namespace CustomizedTools
 
             if (IsEmail)
             {
+                CreatEmailFormat();
+                SetValue();//ased hattayneha hone, mesh bel leave metel ghayra, for a reason,when phone number on textchange found a duplicate in sql, baddo yaatina message
+
                 Regex mRegxExpression;
                 if (value != null)
                 {
-                    mRegxExpression = new Regex(@"^([a-zA-Z0-9_\-])([a-zA-Z0-9_\-\.]*)@(\[((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}|((([a-zA-Z0-9\-]+)\.)+))([a-zA-Z]{2,}|(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\])$");
+                    mRegxExpression = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
                     if (mRegxExpression.IsMatch(myTextBox1.Text.Trim()))
                     {
                         // Valid email format
@@ -271,7 +275,6 @@ namespace CustomizedTools
                 }
 
             }
-            SetValue();//ased hattayneha hone, mesh bel leave metel ghayra, for a reason,when phone number on textchange found a duplicate in sql, baddo yaatina message
             textboxtextchange?.Invoke(this, e);
         }
 

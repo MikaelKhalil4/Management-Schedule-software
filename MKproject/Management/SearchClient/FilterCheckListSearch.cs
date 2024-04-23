@@ -49,7 +49,6 @@ namespace MKproject.Management
                     string selectedString = UCGender.comboBoxDetail.SelectedItem.ToString();
                     if (selectedString != UCComboBoxFilterSearch.All)
                     {
-
                         Filtereddt = FiltersDataTable.FilterDatatableIFStringEquality("Gender", selectedString, Filtereddt);
                     }
                 }

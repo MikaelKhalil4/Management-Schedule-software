@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using static MKproject.Schedule.StaticClass;
 using MKproject.Management;
 using GlobalFunctions;
 using System.Data;
@@ -197,7 +196,14 @@ namespace MKproject.Schedule
 
                                 //Design
                                 labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
-
+                                if (DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays == 0)
+                                {
+                                    labelService.ForeColor = Color.Red;
+                                }                             
+                                else
+                                {
+                                    labelService.ForeColor = Color.Black;
+                                }
                             }
                             else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
                             {
@@ -257,7 +263,7 @@ namespace MKproject.Schedule
         //EVENTS:
         ///-Click
       
-        private void Control_MouseClick(object sender, MouseEventArgs e)
+        public void Control_MouseClick(object sender, MouseEventArgs e)
         {
             if (isDragging)
             {

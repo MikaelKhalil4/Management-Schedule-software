@@ -41,16 +41,16 @@ namespace MKproject.Management
             TLPBalance = new System.Windows.Forms.TableLayoutPanel();
             UCBalance = new UCPayments();
             labelBalance = new System.Windows.Forms.Label();
-            ucSlideButtonPayOrEdit = new UCSlideButton();
-            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            panel1 = new System.Windows.Forms.Panel();
             buttonUpdateOrPay = new System.Windows.Forms.Button();
             buttonCancel = new System.Windows.Forms.Button();
+            buttonClearSelection = new System.Windows.Forms.Button();
             timer1 = new System.Windows.Forms.Timer(components);
             TLPForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBalance).BeginInit();
             TLPEditInfo.SuspendLayout();
             TLPBalance.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // TLPForm
@@ -62,8 +62,7 @@ namespace MKproject.Management
             TLPForm.Controls.Add(dataGridViewBalance, 0, 2);
             TLPForm.Controls.Add(TLPEditInfo, 1, 1);
             TLPForm.Controls.Add(TLPBalance, 0, 1);
-            TLPForm.Controls.Add(ucSlideButtonPayOrEdit, 0, 0);
-            TLPForm.Controls.Add(flowLayoutPanel1, 0, 3);
+            TLPForm.Controls.Add(panel1, 0, 3);
             TLPForm.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPForm.Location = new System.Drawing.Point(0, 0);
             TLPForm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -105,7 +104,7 @@ namespace MKproject.Management
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             dataGridViewBalance.DefaultCellStyle = dataGridViewCellStyle3;
@@ -113,7 +112,7 @@ namespace MKproject.Management
             dataGridViewBalance.EnableHeadersVisualStyles = false;
             dataGridViewBalance.IsCustomScroll = true;
             dataGridViewBalance.IsRowColorChangeonMouseMove = true;
-            dataGridViewBalance.IsSelectRow = false;
+            dataGridViewBalance.IsSelectRow = true;
             dataGridViewBalance.Location = new System.Drawing.Point(12, 213);
             dataGridViewBalance.Margin = new System.Windows.Forms.Padding(12, 0, 12, 3);
             dataGridViewBalance.Name = "dataGridViewBalance";
@@ -200,32 +199,17 @@ namespace MKproject.Management
             labelBalance.Text = "Balance";
             labelBalance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ucSlideButtonPayOrEdit
+            // panel1
             // 
-            ucSlideButtonPayOrEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            ucSlideButtonPayOrEdit.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
-            ucSlideButtonPayOrEdit.Button1text = null;
-            ucSlideButtonPayOrEdit.Button2text = null;
-            ucSlideButtonPayOrEdit.ClickedButton = null;
-            TLPForm.SetColumnSpan(ucSlideButtonPayOrEdit, 2);
-            ucSlideButtonPayOrEdit.Location = new System.Drawing.Point(239, 3);
-            ucSlideButtonPayOrEdit.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            ucSlideButtonPayOrEdit.Name = "ucSlideButtonPayOrEdit";
-            ucSlideButtonPayOrEdit.Size = new System.Drawing.Size(268, 37);
-            ucSlideButtonPayOrEdit.TabIndex = 25;
-            // 
-            // flowLayoutPanel1
-            // 
-            TLPForm.SetColumnSpan(flowLayoutPanel1, 2);
-            flowLayoutPanel1.Controls.Add(buttonUpdateOrPay);
-            flowLayoutPanel1.Controls.Add(buttonCancel);
-            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new System.Drawing.Point(4, 390);
-            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(739, 42);
-            flowLayoutPanel1.TabIndex = 26;
+            TLPForm.SetColumnSpan(panel1, 2);
+            panel1.Controls.Add(buttonUpdateOrPay);
+            panel1.Controls.Add(buttonCancel);
+            panel1.Controls.Add(buttonClearSelection);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(3, 390);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(741, 42);
+            panel1.TabIndex = 739;
             // 
             // buttonUpdateOrPay
             // 
@@ -237,7 +221,7 @@ namespace MKproject.Management
             buttonUpdateOrPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonUpdateOrPay.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonUpdateOrPay.ForeColor = System.Drawing.Color.White;
-            buttonUpdateOrPay.Location = new System.Drawing.Point(631, 4);
+            buttonUpdateOrPay.Location = new System.Drawing.Point(627, 3);
             buttonUpdateOrPay.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             buttonUpdateOrPay.Name = "buttonUpdateOrPay";
             buttonUpdateOrPay.Size = new System.Drawing.Size(108, 33);
@@ -256,7 +240,7 @@ namespace MKproject.Management
             buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCancel.ForeColor = System.Drawing.Color.White;
-            buttonCancel.Location = new System.Drawing.Point(515, 3);
+            buttonCancel.Location = new System.Drawing.Point(511, 3);
             buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 8, 3);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new System.Drawing.Size(108, 33);
@@ -264,6 +248,25 @@ namespace MKproject.Management
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = false;
             buttonCancel.Click += buttonCancel_Click;
+            // 
+            // buttonClearSelection
+            // 
+            buttonClearSelection.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonClearSelection.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonClearSelection.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonClearSelection.FlatAppearance.BorderSize = 0;
+            buttonClearSelection.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
+            buttonClearSelection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonClearSelection.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonClearSelection.ForeColor = System.Drawing.Color.White;
+            buttonClearSelection.Location = new System.Drawing.Point(6, 3);
+            buttonClearSelection.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            buttonClearSelection.Name = "buttonClearSelection";
+            buttonClearSelection.Size = new System.Drawing.Size(123, 33);
+            buttonClearSelection.TabIndex = 738;
+            buttonClearSelection.Text = "Clear Selection";
+            buttonClearSelection.UseVisualStyleBackColor = false;
+            buttonClearSelection.Click += buttonClearSelection_Click;
             // 
             // timer1
             // 
@@ -292,7 +295,7 @@ namespace MKproject.Management
             TLPEditInfo.PerformLayout();
             TLPBalance.ResumeLayout(false);
             TLPBalance.PerformLayout();
-            flowLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -306,9 +309,9 @@ namespace MKproject.Management
         private System.Windows.Forms.Label labelBalance;
         private UCPayments UCBalance;
         private System.Windows.Forms.Timer timer1;
-        private UCSlideButton ucSlideButtonPayOrEdit;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonUpdateOrPay;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonClearSelection;
     }
 }
