@@ -112,7 +112,6 @@
             Name = "UCappointment";
             Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             Size = new System.Drawing.Size(268, 81);
-            Click += UCappointments_Click;
             MouseLeave += UCappointments_MouseLeave;
             MouseMove += UCappointments_MouseMove;
             TLPGlobal.ResumeLayout(false);

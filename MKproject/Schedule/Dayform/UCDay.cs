@@ -276,7 +276,7 @@ namespace MKproject.Schedule
 
                 ListUCreminder.Add(ucreminder);
 
-                schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+                ParentFormSchedule.TouchscrollPanelreminder = new TouchScroll(ParentFormSchedule.panelreminder, ParentFormSchedule);
                 //If it's Checked, then it will not appear in schedule.panelreminder
                 if (ucreminder.DesiredReminder.IsChecked == false)
                 {
@@ -287,7 +287,7 @@ namespace MKproject.Schedule
                     }
                 }
             }
-            schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+            ParentFormSchedule.TouchscrollPanelreminder = new TouchScroll(ParentFormSchedule.panelreminder, ParentFormSchedule);
 
 
 
@@ -1078,9 +1078,7 @@ namespace MKproject.Schedule
             for (int j = 1; j < TLPAppointment.ColumnCount; j++)//1 li2anno bala uctime BOOM
             {
                 //Getting the Hours of Availibility of this Employee Of This Day
-                var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
-                            where row.Field<int>("employee_id") == ListEmployee_idChecked[j - 1]
-                            select row.Field<string>("availability");
+                ClassEmployee EmployeeSelected = ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == ListEmployee_idChecked[j - 1]);
 
                 string[] HoursOfThedays = EmployeeSelected.Availability.Split('/');// "/" it's the split between days
                 string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');// "-" it's the split between hours
@@ -1137,13 +1135,10 @@ namespace MKproject.Schedule
         {
 
             int dayOfWeekInt = ((int)SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
-                                                                   //Getting the Hours of Availibility of this Employee Of This Day
-            var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
-                        where row.Field<int>("employee_id") == ListEmployee_idChecked[columnindex - 1]
-                        select row.Field<string>("availability");
+                                                                      //Getting the Hours of Availibility of this Employee Of This Day
+            ClassEmployee EmployeeSelected = ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == ListEmployee_idChecked[columnindex - 1]);
 
-            string availibility = query.First();
-            string[] HoursOfThedays = availibility.Split('/');// "/" it's the split between days
+            string[] HoursOfThedays = EmployeeSelected.Availability.Split('/');// "/" it's the split between days
             string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');// "-" it's the split between hours
 
             //Editing TBP

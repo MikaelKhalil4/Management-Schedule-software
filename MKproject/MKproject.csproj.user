@@ -113,6 +113,9 @@
     <Compile Update="Schedule\CustomisedComboBox\CBrepeat.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Schedule\Dayform\UCDay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Schedule\Mainform\ScheduleForm.cs">
       <SubType>Form</SubType>
     </Compile>

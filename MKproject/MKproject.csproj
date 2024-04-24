@@ -112,9 +112,6 @@
     <Compile Update="Schedule\CustomisedComboBox\LabelTime.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Schedule\Dayform\UCDay.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Schedule\Dayform\UCTime.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -188,6 +188,7 @@ namespace MKproject.Management
         {
             ClassEmployee employee = new ClassEmployee();
 
+
             employee.EmployeeId = (int)datarow["employee_id"];
             employee.Fname = datarow["first_name"] is DBNull ? null : (string)datarow["first_name"];
             employee.Lname = datarow["last_name"] is DBNull ? null : (string)datarow["last_name"];
@@ -198,6 +199,9 @@ namespace MKproject.Management
             employee.Status = (Boolean)datarow["status"];
             employee.Cash = (double)datarow["cash"];
 
+            employee.Availability = datarow["availability"] is DBNull ? null : (string)datarow["availability"];
+            employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
+            employee.IsChecked = datarow["is_checked"] is DBNull ? null : (bool)datarow["is_checked"];
 
             if (employee.Access != null)
             {
