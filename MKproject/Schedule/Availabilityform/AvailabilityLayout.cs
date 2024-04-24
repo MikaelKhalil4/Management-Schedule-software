@@ -203,6 +203,7 @@ namespace MKproject.Schedule
                 {
 
                 }
+
                 UCemployee.DesiredEmployee.Availability += "/";
             }
 

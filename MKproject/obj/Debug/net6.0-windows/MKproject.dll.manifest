@@ -77,7 +77,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>aweohliBiyv75NgqH021PW8rCgQtscG0KWHHpoE1Iws=</dsig:DigestValue>
+      <dsig:DigestValue>2p5el77oMusv2VsytlxUv6KVkiNflF305Fw2NFub4yk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="GlobalFunctions.dll" size="16384">
@@ -86,7 +86,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>3cJVPnyyhgWNj/CtzoT62OY5+X1d1YZgQkUGEDXuL2U=</dsig:DigestValue>
+      <dsig:DigestValue>X29EoHhg1Ytu+EKyoEP9cjYS7QwGkzS+ZdWXykuXz3U=</dsig:DigestValue>
     </hash>
   </file>
   <file name="images\BackOfficeBig.png" size="7411">
@@ -386,13 +386,13 @@
       <dsig:DigestValue>l8Q0l/8slBAOheR+UlZIGag2yey6yRvOrZhyUqTwnpI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MKproject.dll" size="1863168">
+  <file name="MKproject.dll" size="1866752">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>JrBAoODoOnqnKRPWW/d8HQZBhQD7d+qT6Q2BUr7JXp0=</dsig:DigestValue>
+      <dsig:DigestValue>/9IaozQrCEk0nL1CXDdcBLNQL9VX0SOraI3Gf0sOfvM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">
@@ -410,16 +410,16 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>PK02fUuHq8mQhvSyUHFc7ZmXad4WwewWmvg47C6XRPA=</dsig:DigestValue>
+      <dsig:DigestValue>GEjf3EyiEirOFFbTpPdulNegQWFsWEjxPAdB3gj0rRw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="nlog.config" size="470">
+  <file name="nlog.config" size="456">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RKlX7xghEKWJ5+rOJJO6o2qiYUyzbY0hedzgZnXUaro=</dsig:DigestValue>
+      <dsig:DigestValue>e+l7JIeJ6clq+oXOio6GTpja8ObNgaTWwA6X+xfvfzc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll" size="957472">

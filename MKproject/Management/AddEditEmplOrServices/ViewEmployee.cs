@@ -42,6 +42,7 @@ namespace MKproject.Management
         public void FormatOriginaldt(DataTable Desireddt)
         {
             Desireddt.Columns.Add("FakeStatus", typeof(string));
+            Desireddt.Columns.Add("FakeIsScheduleMember", typeof(string));
             foreach (DataRow row in Desireddt.Rows)
             {
 
@@ -52,6 +53,15 @@ namespace MKproject.Management
                 else
                 {
                     row["FakeStatus"] = "False";
+                }
+
+                if ((bool)row["is_schedule_member"] == true)
+                {
+                    row["FakeIsScheduleMember"] = "True";
+                }
+                else
+                {
+                    row["FakeIsScheduleMember"] = "False";
                 }
             }
 
@@ -85,10 +95,12 @@ namespace MKproject.Management
             newIndex = 4; // The new desired index
             Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-
+            columnIndexToMove = Desireddt.Columns.IndexOf("FakeIsScheduleMember"); // Replace with the actual column name
+            newIndex = 5; // The new desired index
+            Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
             columnIndexToMove = Desireddt.Columns.IndexOf("FakeStatus"); // Replace with the actual column name
-            newIndex = 5; // The new desired index
+            newIndex = 6; // The new desired index
             Desireddt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
@@ -107,22 +119,25 @@ namespace MKproject.Management
 
             dataGridViewEdit.Columns["employee_id"].Visible = false;
             dataGridViewEdit.Columns["status"].Visible = false;
+            dataGridViewEdit.Columns["is_schedule_member"].Visible = false;
 
             dataGridViewEdit.Columns["first_name"].HeaderCell.Value = "First Name";
             dataGridViewEdit.Columns["last_name"].HeaderCell.Value = "Last Name";
             dataGridViewEdit.Columns["phone_number"].HeaderCell.Value = "Phone Number";
             dataGridViewEdit.Columns["password"].HeaderCell.Value = "Password";
             dataGridViewEdit.Columns["FakeStatus"].HeaderCell.Value = "Status";
+            dataGridViewEdit.Columns["FakeIsScheduleMember"].HeaderCell.Value = "Schedule Member";
             dataGridViewEdit.Columns["access"].HeaderCell.Value = "Access";
 
 
-            dataGridViewEdit.Columns["first_name"].FillWeight = 12;
-            dataGridViewEdit.Columns["last_name"].FillWeight = 12;
-            dataGridViewEdit.Columns["phone_number"].FillWeight = 12;
-            dataGridViewEdit.Columns["password"].FillWeight = 12;
-            dataGridViewEdit.Columns["access"].FillWeight = 30;
-            dataGridViewEdit.Columns["Edit"].FillWeight = 15;
+            dataGridViewEdit.Columns["first_name"].FillWeight = 11;
+            dataGridViewEdit.Columns["last_name"].FillWeight = 11;
+            dataGridViewEdit.Columns["phone_number"].FillWeight = 11;
+            dataGridViewEdit.Columns["password"].FillWeight = 11;
+            dataGridViewEdit.Columns["access"].FillWeight = 25;
+            dataGridViewEdit.Columns["Edit"].FillWeight = 14;
             dataGridViewEdit.Columns["FakeStatus"].FillWeight = 7;
+            dataGridViewEdit.Columns["FakeIsScheduleMember"].FillWeight = 10;
             //
             dataGridViewEdit.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewEdit.Columns["Edit"].DisplayIndex = dtEmployee.Columns.Count;
@@ -152,6 +167,20 @@ namespace MKproject.Management
                 }
                 //Design Display
                 if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "FakeStatus")
+                {
+                    DataGridViewCell cell = dataGridViewEdit.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    if (Convert.ToString(cell.Value) == "False")
+                    {
+                        cell.Style.ForeColor = Color.Red;
+                        cell.Style.SelectionForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        cell.Style.ForeColor = Color.Green;
+                        cell.Style.SelectionForeColor = Color.Green;
+                    }
+                }
+                if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "FakeIsScheduleMember")
                 {
                     DataGridViewCell cell = dataGridViewEdit.Rows[e.RowIndex].Cells[e.ColumnIndex];
                     if (Convert.ToString(cell.Value) == "False")

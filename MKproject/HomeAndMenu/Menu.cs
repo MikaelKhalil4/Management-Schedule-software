@@ -48,6 +48,12 @@ namespace MKproject
                 buttonStatistics.Visible = true;
             else buttonStatistics.Visible = false;
 
+
+            if (LOGIN.Employee.CanAccesSchedule)
+                buttonSchedule.Visible = true;
+            else buttonSchedule.Visible = false;
+
+
             if (LOGIN.Employee.CanAccessSevicesProductsEmployees)
             {
                 buttonEmployee.Visible = true;

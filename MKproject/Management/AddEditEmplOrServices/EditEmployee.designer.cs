@@ -45,6 +45,7 @@ namespace MKproject.Management
             FLPFeatures = new System.Windows.Forms.FlowLayoutPanel();
             checkBoxStatus = new System.Windows.Forms.CheckBox();
             timer1 = new System.Windows.Forms.Timer(components);
+            checkBoxScheduleMember = new System.Windows.Forms.CheckBox();
             TLPMain.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             FLPTop.SuspendLayout();
@@ -65,7 +66,7 @@ namespace MKproject.Management
             TLPMain.RowCount = 2;
             TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 99.99999F));
             TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            TLPMain.Size = new System.Drawing.Size(507, 578);
+            TLPMain.Size = new System.Drawing.Size(507, 616);
             TLPMain.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -78,7 +79,7 @@ namespace MKproject.Management
             tableLayoutPanel1.Controls.Add(buttonDelete, 0, 0);
             tableLayoutPanel1.Controls.Add(buttonSave, 2, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 538);
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 576);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
@@ -156,13 +157,14 @@ namespace MKproject.Management
             FLPTop.Controls.Add(ucTextboxPhoneNumber);
             FLPTop.Controls.Add(ucTextboxPassword);
             FLPTop.Controls.Add(groupBoxFeatures);
+            FLPTop.Controls.Add(checkBoxScheduleMember);
             FLPTop.Controls.Add(checkBoxStatus);
             FLPTop.Dock = System.Windows.Forms.DockStyle.Fill;
             FLPTop.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             FLPTop.Location = new System.Drawing.Point(0, 0);
             FLPTop.Margin = new System.Windows.Forms.Padding(0);
             FLPTop.Name = "FLPTop";
-            FLPTop.Size = new System.Drawing.Size(507, 538);
+            FLPTop.Size = new System.Drawing.Size(507, 576);
             FLPTop.TabIndex = 5;
             // 
             // ucTextboxFirstName
@@ -269,7 +271,7 @@ namespace MKproject.Management
             checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             checkBoxStatus.AutoSize = true;
             checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            checkBoxStatus.Location = new System.Drawing.Point(212, 494);
+            checkBoxStatus.Location = new System.Drawing.Point(212, 531);
             checkBoxStatus.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             checkBoxStatus.Name = "checkBoxStatus";
             checkBoxStatus.Size = new System.Drawing.Size(74, 25);
@@ -283,12 +285,25 @@ namespace MKproject.Management
             timer1.Interval = 1;
             timer1.Tick += timer1_Tick;
             // 
+            // checkBoxScheduleMember
+            // 
+            checkBoxScheduleMember.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxScheduleMember.AutoSize = true;
+            checkBoxScheduleMember.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxScheduleMember.Location = new System.Drawing.Point(167, 494);
+            checkBoxScheduleMember.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            checkBoxScheduleMember.Name = "checkBoxScheduleMember";
+            checkBoxScheduleMember.Size = new System.Drawing.Size(163, 25);
+            checkBoxScheduleMember.TabIndex = 9;
+            checkBoxScheduleMember.Text = "Schedule Member";
+            checkBoxScheduleMember.UseVisualStyleBackColor = true;
+            // 
             // EditEmployee
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(507, 578);
+            ClientSize = new System.Drawing.Size(507, 616);
             Controls.Add(TLPMain);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -323,5 +338,6 @@ namespace MKproject.Management
         private CustomButton buttonCancel;
         private CustomButton buttonDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.CheckBox checkBoxScheduleMember;
     }
 }

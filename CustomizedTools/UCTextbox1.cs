@@ -248,7 +248,6 @@ namespace CustomizedTools
             if (IsEmail)
             {
                 CreatEmailFormat();
-                SetValue();//ased hattayneha hone, mesh bel leave metel ghayra, for a reason,when phone number on textchange found a duplicate in sql, baddo yaatina message
 
                 Regex mRegxExpression;
                 if (value != null)
@@ -275,6 +274,7 @@ namespace CustomizedTools
                 }
 
             }
+            SetValue();
             textboxtextchange?.Invoke(this, e);
         }
 

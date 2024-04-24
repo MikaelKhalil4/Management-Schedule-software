@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Transactions;
 using System.Windows.Documents;
 using GlobalFunctions;
 using MKproject.Schedule;
@@ -118,7 +119,7 @@ namespace MKproject.Management
         }
         public static DataTable GetAllEmployees()
         {
-            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status from employee ORDER by status DESC,employee_id DESC";
+            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member from employee ORDER by status DESC,employee_id DESC";
             SqlCommand cmd = new SqlCommand(query, con);
             con.Open();
             cmd.ExecuteNonQuery();
@@ -170,6 +171,61 @@ namespace MKproject.Management
 
 
         }
+        public static int GetLastRank(int empId)
+        {
+            SqlCommand cmd = new SqlCommand("select MAX(rank) from employee Where employee_id!=@employee_id", con);
+            cmd.Parameters.AddWithValue("@employee_id", empId);
+            con.Open();
+            int MAxRank = Convert.ToInt32(cmd.ExecuteScalar());
+            con.Close();
+            return MAxRank;
+        }
+
+        public List<(int, int)> GetRanks(int empId)
+        {
+
+            List<(int,int)> ranks = new List<(int, int)> ();
+            SqlCommand command = new SqlCommand("SELECT employee_id,rank FROM employee where rank is not null and employee_id!=@employee_id ORDER BY rank ASC", con);
+            command.Parameters.AddWithValue("@employee_id", empId);
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            con.Open();
+            command.ExecuteNonQuery();
+            con.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                ranks.Add(((int)dr["employee_id"], (int)dr["rank"]));
+            }
+            return ranks;
+        }
+        public List<(int, int)> NormalizeRanks(List<(int, int)> originalRanks)
+        {
+            List<(int, int)> normalizedRanks = new List<(int, int)>(originalRanks);
+
+            for(int i = 0; i < originalRanks.Count; i++)
+            {
+                normalizedRanks[i]=(normalizedRanks[i].Item1, i+1);
+            }
+
+            return normalizedRanks;
+        }
+
+        public void UpdateRanks(List<(int, int)> normalizedRanks)
+        {
+            for (int i = 0; i < normalizedRanks.Count; i++)
+            {
+                SqlCommand command = new SqlCommand("UPDATE employee SET rank = @rank WHERE employee_id = @employee_id", con);
+                command.Parameters.AddWithValue("@employee_id", normalizedRanks[i].Item1);
+                command.Parameters.AddWithValue("@rank", normalizedRanks[i].Item2);
+                con.Open();
+                command.ExecuteNonQuery();
+                con.Close();
+
+            }
+        }
 
 
 
@@ -199,12 +255,15 @@ namespace MKproject.Management
             employee.Status = (Boolean)datarow["status"];
             employee.Cash = (double)datarow["cash"];
 
+            employee.IsScheduleMember = (bool)datarow["is_schedule_member"];
             employee.Availability = datarow["availability"] is DBNull ? null : (string)datarow["availability"];
             employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
             employee.IsChecked = datarow["is_checked"] is DBNull ? null : (bool)datarow["is_checked"];
 
             if (employee.Access != null)
             {
+                if (employee.Access.ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
+                    employee.CanAccesSchedule = true;
                 if (employee.Access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
                     employee.CanEditOffre = true;
                 if (employee.Access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
@@ -249,8 +308,8 @@ namespace MKproject.Management
         public void InsertEmployee()
         {
 
-            string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status) " +
-                         "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status)";
+            string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank,is_checked) " +
+                         "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank,@is_checked)";
 
             SqlCommand command = new SqlCommand(query, con);
             command.Parameters.AddWithValue("@first_name", Fname);
@@ -266,8 +325,22 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@access", Access);
             }
 
-            command.Parameters.AddWithValue("@Status", 1);
+            command.Parameters.AddWithValue("@Status", Status);
             command.Parameters.AddWithValue("@clearcash_date", DBNull.Value);
+            command.Parameters.AddWithValue("@is_schedule_member", IsScheduleMember);
+
+            if (IsScheduleMember)
+            {
+                command.Parameters.AddWithValue("@availability", GetFullAvailabilty());
+                command.Parameters.AddWithValue("@rank", GetLastRank(EmployeeId) + 1);
+                command.Parameters.AddWithValue("@is_checked", true);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@availability", DBNull.Value);
+                command.Parameters.AddWithValue("@rank", DBNull.Value);
+                command.Parameters.AddWithValue("@is_checked", DBNull.Value);
+            }
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
@@ -281,7 +354,8 @@ namespace MKproject.Management
                            "phone_number = @phone_number, " +
                            "password = @password, " +
                            "access = @access, " +
-                           "status = @Status " +
+                           "status = @Status, " +
+                           "is_schedule_member=@is_schedule_member ,availability=@availability  ,rank=@rank , is_checked=@is_checked " +
                            "WHERE employee_id = @employee_id";
 
             // Create a SQL command with parameters
@@ -301,12 +375,56 @@ namespace MKproject.Management
             }
             command.Parameters.AddWithValue("@Status", Status);
             command.Parameters.AddWithValue("@employee_id", EmployeeId);
+            command.Parameters.AddWithValue("@is_schedule_member", IsScheduleMember);
+
+
+
+            if (IsScheduleMember)//ma32oul tkun true, w yerjaa true again, so ma men ghayir el old results
+            {
+
+                if (Availability == null)
+                {
+                    command.Parameters.AddWithValue("@availability", GetFullAvailabilty());
+                }
+                else
+                {
+                    //ma btaamil shi lieanno already bi kun eendo
+                }
+                if (Rank == null)
+                {
+                    command.Parameters.AddWithValue("@rank", GetLastRank(EmployeeId) + 1);
+
+                }
+                else
+                {
+                    //ma btaamil shi lieanno already bi kun eendo
+                }
+                if (IsChecked == null)
+                {
+                    command.Parameters.AddWithValue("@is_checked", true);
+                }
+                else
+                {
+                    //ma btaamil shi lieanno already bi kun eendo
+                }
+            }
+            else//
+            {
+                command.Parameters.AddWithValue("@availability", DBNull.Value);
+
+                command.Parameters.AddWithValue("@rank", DBNull.Value);//i need to reOrder the others rank , ta yozbato
+             
+                UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));
+
+                command.Parameters.AddWithValue("@is_checked", DBNull.Value);
+            }
 
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
 
         }
+
         public void DeleteEmployee()
         {
 
@@ -341,6 +459,28 @@ namespace MKproject.Management
             }
         }
 
+        string GetFullAvailabilty()
+        {
+            string Availabilty = "";
+            for (int i = 0; i < 7; i++)
+            {
+                //j is a reference for the hours of the day
+                for (int j = 0; j < 24; j++)
+                {
+                    Availabilty += j.ToString() + "-";
+                }
+                Availabilty += "/";
+
+            }
+
+            return Availabilty;
+        }
+
+
+
+
+
+
 
         //Schedule
 
@@ -368,7 +508,6 @@ namespace MKproject.Management
             List<ClassEmployee> ListEmployeeSchedule = DataTableToList(dt);
             return ListEmployeeSchedule;
         }
-
         public static List<ClassEmployee> DataTableToList(DataTable dt)
         {
             List<ClassEmployee> list = new List<ClassEmployee>();

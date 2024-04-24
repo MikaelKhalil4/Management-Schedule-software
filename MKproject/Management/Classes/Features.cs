@@ -24,11 +24,11 @@ namespace MKproject.Management
             EditOffres,
             [StringValue("Transactions")]//yaane el backoffice
             Transactions,
-            [StringValue("Edit Services and Products and Employees")]
+            [StringValue("Edit Services,Products and Employees")]
             ServicesProductsEmployees,
             [StringValue("Statistics")]
             Statistics,
-            [StringValue("Schedule")]
+            [StringValue("Access Schedule")]
             Schedule,
           
 

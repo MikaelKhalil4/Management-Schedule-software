@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using GlobalFunctions;
 using CustomizedTools;
 using static MKproject.Management.Features;
+using MKproject.Schedule;
 
 namespace MKproject.Management
 {
@@ -26,7 +27,7 @@ namespace MKproject.Management
         private CheckBox CheckBoxSchedule;
 
 
-        private bool IsFeatures;//he la nchouf eza fi features aw keloun turned off
+
         public int? EmployeeId;
         DataRow DesiredRow;
         public ViewEmployee ParentFormViewEmpl;
@@ -76,19 +77,22 @@ namespace MKproject.Management
             ucTextboxPhoneNumber.NextControl = ucTextboxPassword;
             ucTextboxPassword.IsRequired = true;
 
+            if (DesiredRow == null && EmployeeId == null) //Add Employee men el editemployeeForm 
+            {
+               checkBoxStatus.Checked=true;
+            }
 
-            if ((DesiredRow == null && EmployeeId == null) || (EmployeeId != null))//Add Employee men el editemployeeForm Or edit men el homepageForm 
+            if ((EmployeeId != null))//edit men el homepageForm 
             {
                 checkBoxStatus.Visible = false;
                 this.Size = new Size(this.Width, this.Height - checkBoxStatus.Size.Height - checkBoxStatus.Margin.Top - checkBoxStatus.Margin.Bottom);
                 buttonDelete.Visible = false;
             }
 
-            if (EmployeeId != null)
+            if (EmployeeId != null)//update men el honme , which isnt available mean whi;e
             {
                 this.Controls.Remove(groupBoxFeatures);
                 groupBoxFeatures.Dispose();
-                IsFeatures = false;
                 ChangeFormSize(false);
             }
             else
@@ -98,7 +102,6 @@ namespace MKproject.Management
                 toolTip1.AutoPopDelay = 30000;
                 toolTip1.ShowAlways = true;
 
-                IsFeatures = true;
 
                 CheckBoxSchedule = new CheckBox();
                 CheckBoxSchedule.Text = enumFeatures.Schedule.GetStringValue();
@@ -212,6 +215,7 @@ namespace MKproject.Management
             string Password;
             string Access;
             bool status;
+            bool isScheduleMember;
 
             if (EmployeeId != null)
             {
@@ -223,8 +227,10 @@ namespace MKproject.Management
                 Password = row["password"].ToString();
                 Access = row["access"].ToString();
                 status = Convert.ToBoolean(row["status"]);
+                isScheduleMember = Convert.ToBoolean(row["is_schedule_member"]);
+
             }
-            else//hone diered ro ha tkun !=null
+            else//hone disered ro ha tkun !=null
             {
                 FN = DesiredRow["first_name"].ToString();
                 LN = DesiredRow["last_name"].ToString();
@@ -232,6 +238,7 @@ namespace MKproject.Management
                 Password = DesiredRow["password"].ToString();
                 Access = DesiredRow["access"].ToString();
                 status = Convert.ToBoolean(DesiredRow["status"]);
+                isScheduleMember = Convert.ToBoolean(DesiredRow["is_schedule_member"]);
             }
 
             if (FN != null && FN != "")
@@ -253,7 +260,7 @@ namespace MKproject.Management
             }
 
             checkBoxStatus.Checked = status;
-
+            checkBoxScheduleMember.Checked = isScheduleMember;
             if (Access != null && Access != "")
             {
                 string[] accessWords = Access.Split('/');
@@ -382,31 +389,36 @@ namespace MKproject.Management
         string GetAccess()
         {
 
-            if (EmployeeId != null)//update men el homr
+            if (EmployeeId != null)//update men el home
             {
                 return LOGIN.Employee.Access;
             }
-            else//add pr update
+            else//add or update
             {
-                if (IsFeatures)
-                {
-                    string Access = "";
 
-                    foreach (Control control in FLPFeatures.Controls)
+                string Access = "";
+
+                foreach (Control control in FLPFeatures.Controls)
+                {
+                    if (control is CheckBox checkbox)
                     {
-                        if (control is CheckBox checkbox)
+                        if (checkbox.Checked)
                         {
-                            if (checkbox.Checked)
-                            {
-                                Access += checkbox.Text;
-                                Access += "/";
-                            }
+                            Access += checkbox.Text;
+                            Access += "/";
                         }
                     }
-                    return Access;
+                }
+
+                if (String.IsNullOrEmpty(Access))
+                {
+                    return null;
                 }
                 else
-                    return null;
+                {
+                    return Access;
+                }
+
             }
         }
 
@@ -420,14 +432,11 @@ namespace MKproject.Management
             employee.Lname = ucTextboxLastName.Value;
             employee.PhoneNumber = ucTextboxPhoneNumber.Value;
             employee.Password = ucTextboxPassword.Value;
-            if (GetAccess() != null)
-            {
-                employee.Access = GetAccess();
-            }
-            else
-            {
-                employee.Access = null;
-            }
+            employee.Status = checkBoxStatus.Checked;
+            employee.IsScheduleMember=checkBoxScheduleMember.Checked;
+            employee.Access = GetAccess();
+
+            
 
             if (employee.CheckIfPAsswordExist(null))
             {
@@ -475,16 +484,12 @@ namespace MKproject.Management
 
             if (DesiredRow != null)
             {
-                if (GetAccess() != null)
-                {
-                    employee.Access = GetAccess();
-                }
-                else
-                {
-                    employee.Access = null;
-                }
-                employee.Status = (checkBoxStatus.Checked ? true : false);
                 employee.EmployeeId = (int)DesiredRow["employee_id"];
+                employee.Access = GetAccess();
+
+                employee.Status =checkBoxStatus.Checked ;
+                employee.IsScheduleMember =checkBoxScheduleMember.Checked;
+
 
             }
 
@@ -507,6 +512,8 @@ namespace MKproject.Management
                     DesiredRow["access"] = employee.Access;
                     DesiredRow["FakeStatus"] = employee.Status;
                     DesiredRow["status"] = employee.Status;
+                    DesiredRow["FakeIsScheduleMember"] = employee.IsScheduleMember;
+                    DesiredRow["is_schedule_member"] = employee.IsScheduleMember;
                 }
                 this.Close();
 
