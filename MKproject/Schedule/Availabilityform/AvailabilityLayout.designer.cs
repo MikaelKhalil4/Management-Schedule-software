@@ -57,6 +57,7 @@
             ButtonCancel.BackColor = System.Drawing.Color.FromArgb(95, 97, 99);
             ButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             ButtonCancel.FlatAppearance.BorderSize = 0;
+            ButtonCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
             ButtonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(20, 20, 20);
             ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -81,7 +82,7 @@
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(145, 39);
             label4.TabIndex = 4;
-            label4.Text = "Thursday";
+            label4.Text = "Thuesday";
             label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -271,7 +272,7 @@
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(148, 39);
             label9.TabIndex = 4;
-            label9.Text = "Thueday";
+            label9.Text = "Thursday";
             label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
@@ -307,6 +308,7 @@
             ButtonDone.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             ButtonDone.Cursor = System.Windows.Forms.Cursors.Hand;
             ButtonDone.FlatAppearance.BorderSize = 0;
+            ButtonDone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
             ButtonDone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
             ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);

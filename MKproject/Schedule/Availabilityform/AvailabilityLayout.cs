@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MKproject.Schedule
         //VARIABLES:
         int PreviousValue;
         int FutureValue;
-        public Color ActiveColor = Color.FromArgb(196, 210, 245), DisactiveColor = Color.White;
+        public Color ActiveColor = Color.White, DisactiveColor = Color.FromArgb(196, 210, 245);
 
         UCEmployee UCemployee;
 
@@ -61,7 +62,7 @@ namespace MKproject.Schedule
         {
             //SCROLL:
             tableLayoutPanelAvailability.rowHeight = tableLayoutPanelAvailability.GetRowHeights()[0];
-            tableLayoutPanelAvailability.AutoScrollPosition = new Point(0, (tableLayoutPanelAvailability.rowHeight * 6)-2);
+            tableLayoutPanelAvailability.AutoScrollPosition = new Point(0, (tableLayoutPanelAvailability.rowHeight * 6) - 2);
             tableLayoutPanelAvailability.currentRow = 6;//for weel and touch scroll reason
 
 
@@ -93,10 +94,10 @@ namespace MKproject.Schedule
             tableLayoutPanelAvailability.VerticalScroll.Value = tableLayoutPanelAvailability.rowHeight * 6;
 
             //Getting The name:
-            labelfullname.Text = UCemployee.Fullname;
+            labelfullname.Text = UCemployee.DesiredEmployee.Fname + " " + UCemployee.DesiredEmployee.Lname;
 
 
-            string[] HoursOfTheday = UCemployee.Availability.Split('/');//each cell has the hours of the day for exemple day Monday cell[0] Sunday cell[6]...
+            string[] HoursOfTheday = UCemployee.DesiredEmployee.Availability.Split('/');//each cell has the hours of the day for exemple day Monday cell[0] Sunday cell[6]...
             for (int i = 1; i < 8; i++)
             {
                 string HoursOfThisday = HoursOfTheday[i - 1];//First Monday as 0
@@ -167,10 +168,10 @@ namespace MKproject.Schedule
         private void buttonD_Click(object sender, EventArgs e)
         {
             //getting the old availability
-            string oldavailability = UCemployee.Availability;
+            string oldavailability = UCemployee.DesiredEmployee.Availability;
 
             //it's a reset
-            UCemployee.Availability = "";
+            UCemployee.DesiredEmployee.Availability = "";
 
             //i is a reference for the days: Monday...
             for (int i = 1; i < 8; i++)
@@ -182,7 +183,7 @@ namespace MKproject.Schedule
                     var control = tableLayoutPanelAvailability.GetControlFromPosition(i, j); // Replace YourUserControl with the actual UserControl type
                     if (control.BackColor == ActiveColor)
                     {
-                        UCemployee.Availability += j.ToString() + "-";
+                        UCemployee.DesiredEmployee.Availability += j.ToString() + "-";
                     }
                     else
                     {
@@ -190,61 +191,66 @@ namespace MKproject.Schedule
                     }
 
                 }
-                if (UCemployee.Availability == "")//none hours
+                if (UCemployee.DesiredEmployee.Availability == "")//none hours
                 {
 
                 }
-                else if (UCemployee.Availability[UCemployee.Availability.Length - 1] == '-')//Exemple: 1-2-4-6- so we will have to substract (-)
+                else if (UCemployee.DesiredEmployee.Availability[UCemployee.DesiredEmployee.Availability.Length - 1] == '-')//Exemple: 1-2-4-6- so we will have to substract (-)
                 {
-                    UCemployee.Availability = UCemployee.Availability.Substring(0, UCemployee.Availability.Length - 1);
+                    UCemployee.DesiredEmployee.Availability = UCemployee.DesiredEmployee.Availability.Substring(0, UCemployee.DesiredEmployee.Availability.Length - 1);
                 }
                 else//se3eta ma bi shil / fabyotla3 Monday//Thuesday
                 {
 
                 }
-                UCemployee.Availability += "/";
+                UCemployee.DesiredEmployee.Availability += "/";
             }
 
             //result:7-8/8//8-9/9-10/8-9-10-11/   (from 0 to 6 like from Monday to Sunday)
-            UCemployee.Availability = UCemployee.Availability.Substring(0, UCemployee.Availability.Length - 1);
+            UCemployee.DesiredEmployee.Availability = UCemployee.DesiredEmployee.Availability.Substring(0, UCemployee.DesiredEmployee.Availability.Length - 1);
 
             //Checking if the availibibility has changed if yes then we have to update SQL and the 2 datatables: the originale and the copy
-            if (oldavailability != UCemployee.Availability)
+            if (oldavailability != UCemployee.DesiredEmployee.Availability)
             {
+                int Employee_id = UCemployee.DesiredEmployee.EmployeeId;
+                string NewAvailability = UCemployee.DesiredEmployee.Availability;
+
                 //SQL:
-                ProjectToSql.UpdateEmployeeAvailabilitySQL(UCemployee.Availability_id, UCemployee.Availability);
+                //Update the EmployeeAvailability
+                ClassEmployee.UpdateEmployeeScheduleMemberSQL(UCemployee.DesiredEmployee.EmployeeId, UCemployee.DesiredEmployee.Availability);
 
-                //UPDATE DataTableEmployeeavailability
-                foreach (DataRow row in UCemployee.employees.schedule.ucday.DataTableEmployeeavailability.Rows)
-                {
-                    if ((int)row["availability_id"] == UCemployee.Availability_id)
-                    {
-                        row["availability"] = UCemployee.Availability;
-                    }
-                }
 
-                //UPDATE DataTableEmployeeavailabilityCopy
-                foreach (DataRow row in UCemployee.employees.DataTableEmployeeavailabilityCopy.Rows)
-                {
-                    if ((int)row["availability_id"] == UCemployee.Availability_id)
-                    {
-                        row["availability"] = UCemployee.Availability;
-                    }
-                }
+                //Update the historyemployeeavailability
+                //getting availibility for this day of this employee
+                string NewAvailabilityOfToday = "";
+                int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
+                string[] HoursOfThedays = NewAvailability.Split('/');
+
+                NewAvailabilityOfToday += HoursOfThedays[dayOfWeekInt];
+
+                ProjectToSql.UpdateAvailability_HistoryEmployeeavailibity(DateTime.Now, Employee_id, NewAvailabilityOfToday);
+
+
+                //BackEnd
+                //UPDATE ListEmployeeSchedule
+                ClassEmployee EmployeeSelected = UCemployee.employees.schedule.ucday.ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
+                EmployeeSelected.Availability = NewAvailability;
+
+
+
+                //UPDATE ListEmployeeScheduleCopy
+                ClassEmployee EmployeeSelectedCopy = UCemployee.employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
+                EmployeeSelectedCopy.Availability = NewAvailability;
+               
 
                 //Then We have to change the design of TLP because the employee is in the TLP
-                if (UCemployee.IsChecked == true)
+                if (UCemployee.DesiredEmployee.IsChecked == true)
                 {
                     //Design So we have to just cahnge the availibility of the column
-                    int dayOfWeekInt = ((int)UCemployee.employees.schedule.ucday.SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
-                    var query = from row in UCemployee.employees.schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
-                                where row.Field<int>("employee_id") == UCemployee.Employee_id
-                                select row.Field<string>("availability");
-
-                    string availibility = query.First();
-                    string[] HoursOfThedays = availibility.Split('/');
+                    dayOfWeekInt = ((int)UCemployee.employees.schedule.ucday.SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+                    HoursOfThedays = NewAvailability.Split('/');
                     string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');
-                    UCemployee.employees.schedule.ucday.AvailibilityColumnChanged(UCemployee.Rank, HoursOfTheday);//The Rank have the same number of with column the employee is in
+                    UCemployee.employees.schedule.ucday.AvailibilityColumnChanged(UCemployee.DesiredEmployee.Rank, HoursOfTheday);//The Rank have the same number of with column the employee is in
                 }
             }
             this.Close();
@@ -286,26 +292,26 @@ namespace MKproject.Schedule
         //DESIGN:
         public void panel1_MouseLeave(object sender, EventArgs e)
         {
-            Panel panel = sender as Panel;
-            if (panel.BackColor != ActiveColor)
-            {
-                panel.BackColor = DisactiveColor;
-            }
+            //Panel panel = sender as Panel;
+            //if (panel.BackColor != ActiveColor)
+            //{
+            //    panel.BackColor = DisactiveColor;
+            //}
         }
         public void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (TouchScroll.MoveHoldClick == false)
-            {
-                Panel panel = sender as Panel;
-                if (panel.BackColor != ActiveColor)
-                {
-                    panel.BackColor = Color.FromArgb(229, 226, 244);
-                }
-            }
-            else
-            {
+            //if (TouchScroll.MoveHoldClick == false)
+            //{
+            //    Panel panel = sender as Panel;
+            //    if (panel.BackColor != ActiveColor)
+            //    {
+            //        panel.BackColor = Color.FromArgb(229, 226, 244);
+            //    }
+            //}
+            //else
+            //{
 
-            }
+            //}
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)

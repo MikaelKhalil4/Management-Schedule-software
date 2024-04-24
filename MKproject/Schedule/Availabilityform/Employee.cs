@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -10,7 +11,7 @@ namespace MKproject.Schedule
     public partial class Employee : Form
     {
         //Property:
-        public DataTable DataTableEmployeeavailabilityCopy { get; set; }//it's a copy of DataTableEmployeeavailability so we can edit the copy and when we click done we edit the originale and SQL
+        public List<ClassEmployee> ListEmployeeScheduleCopy { get; set; }//it's a copy of ListEmployeeSchedule so we can edit the copy and when we click done we edit the originale and SQL
         public AvailabilityLayout availabilityLayout { get; set; }
 
         //The 3 of them are ordered by rank
@@ -31,38 +32,21 @@ namespace MKproject.Schedule
             ListUCEmployee = new List<UCEmployee>();
             ListUCEmployee_idOld = new List<int>();
 
-            //Getting A copy of DataTableEmployeeavailability
-            DataTableEmployeeavailabilityCopy = schedule.ucday.DataTableEmployeeavailability.Copy();
+            //Getting A copy of ListEmployeeSchedule
+            ListEmployeeScheduleCopy = new List<ClassEmployee>(schedule.ucday.ListEmployeeSchedule);
 
-            //Getting reversedDataTable in a reversed order of DataTableEmployeeavailability because when we display them in the panel their user control will be reversed
-            DataTable reversedDataTable = schedule.ucday.DataTableEmployeeavailability.Clone();
-            var reversedRows = schedule.ucday.DataTableEmployeeavailability.AsEnumerable().Reverse();
-            foreach (DataRow dr in reversedRows)
-            {
-                reversedDataTable.ImportRow(dr);
-            }
+            //Getting reversedListemployee in a reversed order of ListEmployeeSchedule because when we display them in the panel their user control will be reversed
+            List<ClassEmployee> reversedListemployee = schedule.ucday.ListEmployeeSchedule.OrderByDescending(emp => emp.Rank).ToList();
+
+
 
             int Heightform = 0;//for the design of the form Employee
-            foreach (DataRow dr in reversedDataTable.Rows)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
+            for (int i=0; i< reversedListemployee.Count;i++)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
             {
-                //Getting The Data
-                int availability_id = (int)dr[0];
-                int employee_id = (int)dr[1];
-                string fullname = (string)dr[2] + " " + (string)dr[3];
-                string availibility;
-                if (dr[4] == DBNull.Value)
-                {
-                    availibility = "//////";//hayda signe bye3ne not available all the time
-                }
-                else
-                {
-                    availibility = (string)dr[4];
-                }
-                int rank = (int)dr[5];
-                bool ischecked = (bool)dr[6];
 
                 //Add UCEmployee
-                UCEmployee ucemployee = new UCEmployee(availability_id, employee_id, fullname, availibility, rank, ischecked, this);
+                UCEmployee ucemployee = new UCEmployee(reversedListemployee[i], this);
+                
                 ListUCEmployee.Add(ucemployee);
                 panelContainsEmployees.Controls.Add(ucemployee);
                 ucemployee.Dock = DockStyle.Top;
@@ -78,12 +62,12 @@ namespace MKproject.Schedule
             }
 
             //Getting ListUCEmployee
-            ListUCEmployee = ListUCEmployee.OrderBy(employee => employee.Rank).ToList();
+            ListUCEmployee = ListUCEmployee.OrderBy(employee => employee.DesiredEmployee.Rank).ToList();
 
             //Getting ListUCEmployee_idOld
             foreach (UCEmployee ucemployee in ListUCEmployee)
             {
-                ListUCEmployee_idOld.Add(ucemployee.Employee_id);
+                ListUCEmployee_idOld.Add(ucemployee.DesiredEmployee.EmployeeId);
             }
 
 
@@ -97,7 +81,7 @@ namespace MKproject.Schedule
             bool NoEmployeeIsChecked = true;
             foreach (UCEmployee ucemployee in ListUCEmployee)
             {
-                if (ucemployee.IsChecked == true)
+                if (ucemployee.DesiredEmployee.IsChecked == true)
                 {
                     NoEmployeeIsChecked = false;
                 }
@@ -106,35 +90,44 @@ namespace MKproject.Schedule
             {
                 Cursor = Cursors.WaitCursor;
                 //SQL
-                ProjectToSql.UpdateRankNIsCheckedEmployeeAvailabilitySQL(DataTableEmployeeavailabilityCopy);
+                //Getting the EmployeeAvailability
+                ClassEmployee.UpdateRankNIsCheckedEmployeeScheduleMemberSQL(ListEmployeeScheduleCopy);
+
+                //Getting the historyemployeeavailability
+                //and we can add acondition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
+                for (int i = 0; i < ListUCEmployee.Count; i++)//both of the string are in the order of the rank
+                {
+                    int rank = i + 1;
+                    ProjectToSql.UpdateRank_HistoryEmployeeavailibility(DateTime.Now, ListUCEmployee[i].DesiredEmployee.EmployeeId, rank);
+                }
 
                 //Design 
                 RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(schedule.ucday.TLPEmployees);
                 RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(schedule.ucday.TLPAppointment);
 
-                //Updating DataTableEmployeeavailability
-                schedule.ucday.DataTableEmployeeavailability = DataTableEmployeeavailabilityCopy.Copy();
+                //Updating ListEmployeeSchedule
+                schedule.ucday.ListEmployeeSchedule = ListEmployeeScheduleCopy;
 
 
                 //Getting The Checked Employeees
                 ListUCEmployeeChecked = new List<UCEmployee>();
                 foreach (UCEmployee ucemployee in ListUCEmployee)
                 {
-                    if (ucemployee.IsChecked == true)
+                    if (ucemployee.DesiredEmployee.IsChecked == true)
                     {
                         ListUCEmployeeChecked.Add(ucemployee);//men hatine men rank 1 lal ekhir bi taratoubiye
                     }
                 }
 
 
-                //if it's history, only DataTableEmployeeavailability,ListEmployee_idChecked will change
+                //if it's history, only ListEmployeeSchedule,ListEmployee_idChecked will change
                 if (schedule.ucday.IsHistory)
                 {
                     //Getting the new ListEmployee_idChecked
                     schedule.ucday.ListEmployee_idChecked.Clear();
                     for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
                     {
-                        schedule.ucday.ListEmployee_idChecked.Add(ListUCEmployeeChecked[i].Employee_id);
+                        schedule.ucday.ListEmployee_idChecked.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
                     }
                 }
 
@@ -177,7 +170,7 @@ namespace MKproject.Schedule
                     {
                         //getting availibility for this day of every employeechecked
                         int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                        string availibility = ListUCEmployeeChecked[i].Availability;
+                        string availibility = ListUCEmployeeChecked[i].DesiredEmployee.Availability;
                         string[] HoursOfThedays = availibility.Split('/');
                         schedule.ucday.EmployeeAvailabilityByOrder.Add(HoursOfThedays[dayOfWeekInt]);
                     }
@@ -211,40 +204,6 @@ namespace MKproject.Schedule
                     }
                 }
 
-
-               
-
-
-
-
-                //Getting the historyemployeeavailability
-
-                //and we can add acondition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
-                string rank_employees = "";
-                string availibility_employees = "";
-                for (int i = 0; i < ListUCEmployee.Count; i++)//both of the string are in the order of the rank
-                {
-                    //getting rank_employees
-                    rank_employees += ListUCEmployee[i].Employee_id.ToString();
-
-
-                    //getting availibility for this day of every employee
-                    int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                    string availibility = ListUCEmployee[i].Availability;
-                    string[] HoursOfThedays = availibility.Split('/');
-                    availibility_employees += HoursOfThedays[dayOfWeekInt];
-
-                    if (i != ListUCEmployee.Count - 1)
-                    {
-                        rank_employees += "/";
-                        availibility_employees += "/";
-                    }
-                    else
-                    {
-
-                    }
-                }
-                ProjectToSql.UpdateHistoryEmployeeavailibility(DateTime.Now, rank_employees, availibility_employees);
                 this.Close();
                 Cursor = Cursors.Default;
             }
@@ -265,21 +224,22 @@ namespace MKproject.Schedule
             for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
             {
                 //Comparing if the first employee is still the same, the second...
-                if (ListUCEmployeeChecked[i].Employee_id == schedule.ucday.ListEmployee_idChecked[i])
+                if (ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId == schedule.ucday.ListEmployee_idChecked[i])
                 {
                     //we already changed the availability when we clicked the button of AvailabilityLayout
                 }
                 else//ha yetghayar
                 {
                     //Not the same employee so Updating ListEmployee_idChecked
-                    schedule.ucday.ListEmployee_idChecked[i] = ListUCEmployeeChecked[i].Employee_id;
+                    schedule.ucday.ListEmployee_idChecked[i] = ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId;
 
+                    string EmployeeFullName = ListUCEmployeeChecked[i].DesiredEmployee.Fname + " " + ListUCEmployeeChecked[i].DesiredEmployee.Fname;
                     //If it's a different employee e will have to fill a new column with new appointments and availibity
-                    schedule.ucday.UCappointmentsfillColumn(i + 1, ListUCEmployeeChecked[i].Employee_id, ListUCEmployeeChecked[i].Fullname);//BOOM COLUMNINDEX = i+1, LI2ANNO FI UCTime zyede w ha yon3ata employee_id taba3 ucemployee li maee rang 1
+                    schedule.ucday.UCappointmentsfillColumn(i + 1, ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId, EmployeeFullName);//BOOM COLUMNINDEX = i+1, LI2ANNO FI UCTime zyede w ha yon3ata employee_id taba3 ucemployee li maee rang 1
                 }
 
                 //Getting the new ListEmployee_idAllTime, it will be the same of ListEmployee_idChecked
-                schedule.ucday.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].Employee_id);
+                schedule.ucday.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
             }
         }
 

@@ -11,7 +11,7 @@ namespace MKproject.Schedule
     public partial class UCappointment : UserControl
     {
         //PROPERTY:
-        private ClassAppointment DesiredAppointmentUCApp { get; set; }
+        public ClassAppointment DesiredAppointmentUCApp { get; set; }
         public int ColumnPosition { get; set; }
         public int RowPosition { get; set; }
 

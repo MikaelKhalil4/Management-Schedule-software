@@ -13,8 +13,8 @@ namespace MKproject.Schedule
         public UCMonth ucmonths;
         public UCDay ucday;
         public Employee employee;
-        
-     
+
+
 
         //INITIALISE:
         public Schedule()
@@ -39,7 +39,7 @@ namespace MKproject.Schedule
         ///-CLICK
         private void buttonAllReminder_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -48,191 +48,146 @@ namespace MKproject.Schedule
         }
 
         ///-CHECK BOX
-        private void checkBoxMember_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxCancel_CheckedChanged(object sender, EventArgs e)
         {
-            //if (checkBoxMember.Checked)
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+            if (checkBoxCancel.Checked)
+            {
+                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                {
+                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    {
+                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
 
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCappointments ucappointment &&
-            //                        ucappointment.ClientType == StaticClass.AppointmentType.Member.ToString())
-            //                    {
-            //                        ucappointment.Show();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        if (cellControl is FlowLayoutPanel flowLayoutPanel)
+                        {
+                            foreach (Control innerControl in flowLayoutPanel.Controls)
+                            {
+                                if (innerControl is UCappointment ucappointment &&
+                                    ucappointment.DesiredAppointmentUCApp.IsCanceled == true)
+                                {
+                                    ucappointment.Show();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                {
+                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    {
+                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
 
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCappointments ucappointment &&
-            //                        ucappointment.ClientType == StaticClass.AppointmentType.Member.ToString())
-            //                    {
-            //                        ucappointment.Hide();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                        if (cellControl is FlowLayoutPanel flowLayoutPanel)
+                        {
+                            foreach (Control innerControl in flowLayoutPanel.Controls)
+                            {
+                                if (innerControl is UCappointment ucappointment &&
+                                    ucappointment.DesiredAppointmentUCApp.IsCanceled == true)
+                                {
+                                    ucappointment.Hide();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        private void checkBoxTrial_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxComplete_CheckedChanged(object sender, EventArgs e)
         {
-            //if (checkBoxTrial.Checked)
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+            if (checkBoxComplete.Checked)
+            {
+                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                {
+                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    {
+                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
 
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCappointments ucappointment &&
-            //                        ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
-            //                    {
-            //                        ucappointment.Show();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        if (cellControl is FlowLayoutPanel flowLayoutPanel)
+                        {
+                            foreach (Control innerControl in flowLayoutPanel.Controls)
+                            {
+                                if (innerControl is UCappointment ucappointment &&
+                                    ucappointment.DesiredAppointmentUCApp.IsCompleted == true)
+                                {
+                                    ucappointment.Show();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                {
+                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    {
+                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
 
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCappointments ucappointment &&
-            //                        ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
-            //                    {
-            //                        ucappointment.Hide();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                        if (cellControl is FlowLayoutPanel flowLayoutPanel)
+                        {
+                            foreach (Control innerControl in flowLayoutPanel.Controls)
+                            {
+                                if (innerControl is UCappointment ucappointment &&
+                                    ucappointment.DesiredAppointmentUCApp.IsCompleted == true)
+                                {
+                                    ucappointment.Hide();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        private void checkBoxInvitation_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxOnPending_CheckedChanged(object sender, EventArgs e)
         {
-            //if (checkBoxInvitation.Checked)
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+            if (checkBoxOnPending.Checked)
+            {
+                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                {
+                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    {
+                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
 
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCappointments ucappointment &&
-            //                        ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
-            //                    {
-            //                        ucappointment.Show();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        if (cellControl is FlowLayoutPanel flowLayoutPanel)
+                        {
+                            foreach (Control innerControl in flowLayoutPanel.Controls)
+                            {
+                                if (innerControl is UCappointment ucappointment &&
+                                     ucappointment.DesiredAppointmentUCApp.IsCompleted == false && ucappointment.DesiredAppointmentUCApp.IsCanceled == false)
+                                {
+                                    ucappointment.Show();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                {
+                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    {
+                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
 
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCappointments ucappointment &&
-            //                        ucappointment.ClientType == StaticClass.AppointmentType.Solo.ToString())
-            //                    {
-            //                        ucappointment.Hide();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-        }
-        private void checkBoxMeeting_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (checkBoxMeeting.Checked)
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
-
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCmeeting ucmeeting)
-            //                    {
-            //                        ucmeeting.Show();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
-            //    {
-            //        for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
-            //        {
-            //            Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
-
-            //            if (cellControl is FlowLayoutPanel flowLayoutPanel)
-            //            {
-            //                foreach (Control innerControl in flowLayoutPanel.Controls)
-            //                {
-            //                    if (innerControl is UCmeeting ucmeeting)
-            //                    {
-            //                        ucmeeting.Hide();
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                        if (cellControl is FlowLayoutPanel flowLayoutPanel)
+                        {
+                            foreach (Control innerControl in flowLayoutPanel.Controls)
+                            {
+                                if (innerControl is UCappointment ucappointment &&
+                                    ucappointment.DesiredAppointmentUCApp.IsCompleted == false && ucappointment.DesiredAppointmentUCApp.IsCanceled == false)
+                                {
+                                    ucappointment.Hide();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -267,9 +222,9 @@ namespace MKproject.Schedule
 
 
         //DESIGN:
-       
 
-       
+
+
     }
 }
 

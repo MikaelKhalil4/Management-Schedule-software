@@ -35,41 +35,10 @@ namespace MKproject.Schedule
 
         }
 
-        //EmployeeAvailability
-        public static DataTable DisplayEmployeeAvailabilityASC()
-        {
-            string query = "SELECT a.availability_id, a.employee_id, e.first_name, e.last_name, a.availability, a.rank, a.is_checked " +
-                           "FROM employee_availability a " +
-                           "JOIN employee e ON a.employee_id = e.employee_id " +
-                           "WHERE a.is_active = @is_active " +
-                           "ORDER BY a.rank ASC";
-
-            // Create and configure the SqlCommand
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@is_active", true);
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-
-                // Fill the DataTable with the results of the query
-                adapter.Fill(dt);
-
-                // If you want to execute the query without returning the DataTable, you can use cmd.ExecuteNonQuery()
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-
-                return dt;
-            }
-        }
-
         //HistoryEmployeeavailibility
-        public static DataTable DisplayRankEmployeesNAvailability(DateTime history_date)
+        public static DataTable DisplayRankEmployeesNAvailabilityASC(DateTime history_date)
         {
-            SqlCommand command = new SqlCommand("SELECT  rank_employees, availability_employees FROM history_employee_availability WHERE CAST(history_date AS DATE) = @history_date", con);
+            SqlCommand command = new SqlCommand("SELECT  employee_id, rank, availability FROM history_employee_availability WHERE CAST(history_date AS DATE) = @history_date ORDER BY rank ASC", con);
             command.Parameters.AddWithValue("@history_date", history_date.Date);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();

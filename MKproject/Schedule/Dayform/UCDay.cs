@@ -28,7 +28,7 @@ namespace MKproject.Schedule
 
         ///-Employees Listed From Day Now to Infinity 
         public List<int> ListEmployee_idChecked { get; set; }
-        public DataTable DataTableEmployeeavailability { get; set; }// it has the availibility of all the 7 days of each employee checked and unchecked , Don't forget he has to be always asc by rank, so if you modify his rank make him again asc you can see UCemployee
+        public List<ClassEmployee> ListEmployeeSchedule { get; set; }// it has the availibility of all the 7 days of each employee checked and unchecked , Don't forget he has to be always asc by rank, so if you modify his rank make him again asc you can see UCemployee
 
         ///-Employees Listed All Time
         public List<int> ListEmployee_idAllTime { get; set; }
@@ -54,7 +54,7 @@ namespace MKproject.Schedule
         //VARIABLES:
         public Schedule schedule;
 
- 
+
 
 
 
@@ -74,7 +74,7 @@ namespace MKproject.Schedule
         public int OneUCARowPosition, OneUCAColumnPosition;//hiye ousoulan lal flowlayoutpanel jouweta UCA
 
         ///-Color
-        public Color StaticColorFLP = Color.White, DisableColorFLP = Color.FromArgb(238, 241, 254) , StaticColorTBUca = Color.White, DisableColorTBUca = Color.FromArgb(250, 246, 254)
+        public Color StaticColorFLP = Color.White, DisableColorFLP = Color.FromArgb(238, 241, 254), StaticColorTBUca = Color.White, DisableColorTBUca = Color.FromArgb(250, 246, 254)
                   , MoveColor = Color.FromArgb(249, 246, 254)/*table taba3 lucap wel FLP*/
                   , ErrorColor = Color.FromArgb(252, 0, 5), MemberColor = Color.FromArgb(109, 122, 224)/*ucappointment*/;
 
@@ -134,10 +134,10 @@ namespace MKproject.Schedule
             ListEmployee_idChecked = new List<int>();
 
             //Getting Employees & Their Availability
-            DataTableEmployeeavailability = SQLToProject.DisplayEmployeeAvailabilityASC();//they are in the order of a rank
+            ListEmployeeSchedule = ClassEmployee.GetEmployeeScheduleMemberASC();//they are in the order of a rank
 
             //To get the TBL structure with ListEmployee_idChecked structure
-            if (DataTableEmployeeavailability.Rows.Count != 0)
+            if (ListEmployeeSchedule.Count != 0)
             {
                 if (TLPEmployees.Controls.Count == 0)
                 {
@@ -154,22 +154,22 @@ namespace MKproject.Schedule
                     label.Click += TLPEmployees_Click;
 
                     //Getting the name and the family of the first employee who is checked but not adding it to the list because we want to add the first employee and the other employees at the same time
-                    for (int i = 0; i < DataTableEmployeeavailability.Rows.Count; i++)
+                    for (int i = 0; i < ListEmployeeSchedule.Count; i++)
                     {
-                        if ((bool)DataTableEmployeeavailability.Rows[i][6] == true)
+                        if (ListEmployeeSchedule[i].IsChecked == true)
                         {
-                            label.Text = (string)DataTableEmployeeavailability.Rows[i][2] + " " + (string)DataTableEmployeeavailability.Rows[i][3];
+                            label.Text = ListEmployeeSchedule[i].Fname  + " " + ListEmployeeSchedule[i].Lname;
                             break;//he will get the first one and then get out
                         }
                     }
                 }
 
                 //Getting ListEmployee_idChecked
-                for (int i = 0; i < DataTableEmployeeavailability.Rows.Count; i++)
+                for (int i = 0; i < ListEmployeeSchedule.Count; i++)
                 {
-                    if ((bool)DataTableEmployeeavailability.Rows[i][6] == true)
+                    if (ListEmployeeSchedule[i].IsChecked == true)
                     {
-                        ListEmployee_idChecked.Add((int)DataTableEmployeeavailability.Rows[i][1]);
+                        ListEmployee_idChecked.Add(ListEmployeeSchedule[i].EmployeeId);
                     }
                 }
 
@@ -241,7 +241,6 @@ namespace MKproject.Schedule
 
                 ListUCreminder.Add(ucreminder);
 
-                schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
                 //If it's Checked, then it will not appear in schedule.panelreminder
                 if (ucreminder.DesiredReminder.IsChecked == false)
                 {
@@ -251,89 +250,68 @@ namespace MKproject.Schedule
                         schedule.panelreminder.Controls.Add(ucreminder);
                     }
                 }
-                else
+            }
+            schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+
+
+
+            //HistoryEmployeeAvailability
+            //Putting the  Availability And The ID of the Employees   who are in the ListEmployee_idChecked of today in the historyemployeeavailability
+            if (SQLToProject.DataExistsForToday(DateTime.Now))//eza exists update 
+            {
+                //    //Code For SQL 
+                //    //and we can add a condition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
+                //    string rank_employees = "";
+                //    string availibility_employees = "";
+                //    for (int i = 0; i < ListEmployee_idChecked.Count; i++)//both of the string are in the order of the rank
+                //    {
+                //        //getting rank_employees
+                //        rank_employees += ListEmployee_idChecked[i].ToString();
+
+
+                //        //getting availibility for this day of every employee
+                //        int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
+                //        var query = from row in schedule.ucday.ListEmployeeSchedule.AsEnumerable()
+                //                    where row.Field<int>("employee_id") == ListEmployee_idChecked[i]
+                //                    select row.Field<string>("availability");
+
+                //        string availibility = query.First();
+                //        string[] HoursOfThedays = availibility.Split('/');
+                //        availibility_employees += HoursOfThedays[dayOfWeekInt];
+
+                //        if (i != ListEmployee_idChecked.Count - 1)
+                //        {
+                //            rank_employees += "/";
+                //        }
+                //        else
+                //        {
+
+                //        }
+                //    }
+
+                //    //Update SQL
+                //    ProjectToSql.UpdateRankHistoryEmployeeavailibility(DateTime.Now, rank_employees, availibility_employees);
+            }
+
+            else//if it doesn't exist insert
+            {
+                //Code For SQL 
+                for (int i = 0; i < ListEmployeeSchedule.Count; i++)//both of the string are in the order of the rank
                 {
+                    //getting availibility for this day of every employee
+                    int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
 
-                    ////    }
-                    ////}
-                    //schedule.TouchscrollPanelreminder = new TouchScroll(schedule.panelreminder, schedule);
+                    string availability = "";
+                    string[] HoursOfThedays = ListEmployeeSchedule[i].Availability.Split('/');
+                    availability += HoursOfThedays[dayOfWeekInt];
 
-
-                    //HistoryEmployeeAvailability
-                    //Putting the  Availability And The ID of the Employees   who are in the ListEmployee_idChecked of today in the historyemployeeavailability
-                    if (SQLToProject.DataExistsForToday(DateTime.Now))//eza exists update 
-                    {
-                        //Code For SQL 
-                        //and we can add a condition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
-                        string rank_employees = "";
-                        string availibility_employees = "";
-                        for (int i = 0; i < ListEmployee_idChecked.Count; i++)//both of the string are in the order of the rank
-                        {
-                            //getting rank_employees
-                            rank_employees += ListEmployee_idChecked[i].ToString();
-
-
-                            //getting availibility for this day of every employee
-                            int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                            var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
-                                        where row.Field<int>("employee_id") == ListEmployee_idChecked[i]
-                                        select row.Field<string>("availability");
-
-                            string availibility = query.First();
-                            string[] HoursOfThedays = availibility.Split('/');
-                            availibility_employees += HoursOfThedays[dayOfWeekInt];
-
-                            if (i != ListEmployee_idChecked.Count - 1)
-                            {
-                                rank_employees += "/";
-                            }
-                            else
-                            {
-
-                            }
-                        }
-
-                        //Update SQL
-                        ProjectToSql.UpdateHistoryEmployeeavailibility(DateTime.Now, rank_employees, availibility_employees);
-                    }
-                    else//if it doesn't exist insert
-                    {
-                        //Code For SQL 
-                        string rank_employees = "";
-                        string availibility_employees = "";
-                        for (int i = 0; i < ListEmployee_idChecked.Count; i++)//both of the string are in the order of the rank
-                        {
-                            //getting rank_employees
-                            rank_employees += ListEmployee_idChecked[i].ToString();
-
-
-                            //getting availibility for this day of every employee
-                            int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                            var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
-                                        where row.Field<int>("employee_id") == ListEmployee_idChecked[i]
-                                        select row.Field<string>("availability");
-
-                            string availibility = query.First();
-                            string[] HoursOfThedays = availibility.Split('/');
-                            availibility_employees += HoursOfThedays[dayOfWeekInt];
-
-                            if (i != ListEmployee_idChecked.Count - 1)
-                            {
-                                rank_employees += "/";
-                                availibility_employees += "/";
-                            }
-                            else
-                            {
-
-                            }
-                        }
-
-                        //Update SQL
-                        ProjectToSql.InsertHistoryEmployeeavailibility(DateTime.Now, rank_employees, availibility_employees);
-                    }
+                    ProjectToSql.InsertHistoryEmployeeavailibility(DateTime.Now, ListEmployeeSchedule[i].EmployeeId, (int)ListEmployeeSchedule[i].Rank , availability);
                 }
             }
         }
+
+
+
 
 
         //EVENT:
@@ -693,11 +671,9 @@ namespace MKproject.Schedule
                 for (int i = 0; i < ListEmployee_idChecked.Count(); i++)
                 {
                     int dayOfWeekInt = ((int)SelectedDate.DayOfWeek + 6) % 7;
-                    var query = from row in DataTableEmployeeavailability.AsEnumerable()
-                                where row.Field<int>("employee_id") == ListEmployee_idChecked[i]
-                                select row.Field<string>("availability");
-                    string availibility = query.First();//availibility for all the days
-                    string[] HoursOfThedays = availibility.Split('/');//availibility for the day of DateUCDay EXEMPEL: it could be Monday
+                    ClassEmployee EmployeeSelected = ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == ListEmployee_idChecked[i]);
+
+                    string[] HoursOfThedays = EmployeeSelected.Availability.Split('/');//availibility for the day of DateUCDay EXEMPEL: it could be Monday
                     availabilityrankorder.Add(HoursOfThedays[dayOfWeekInt]);
                 }
 
@@ -728,37 +704,33 @@ namespace MKproject.Schedule
                 IsHistory = true;
 
                 //Getting the Rank and Availability of the employees who were checked and trained in this day
-                DataTable RankNAvailabilityEmployees = SQLToProject.DisplayRankEmployeesNAvailability(SelectedDate);
+
+                //3mela Debug
+                DataTable RankNAvailabilityEmployeesASC = SQLToProject.DisplayRankEmployeesNAvailabilityASC(SelectedDate);
 
                 //Variables
-                string[] rankEmployees;
-                string[] availabilityEmployees;
-
+            
                 List<int> rankemployees_id = new List<int>();
                 List<string> availabilityrankorder = new List<string>();
 
-
+                
                 List<int> rankemployees_idwhotrainedAp = new List<int>();
                 List<int> rankemployees_idwhotrainedMeet = new List<int>();
 
                 List<int> rankemployees_idwhotrained = new List<int>();
                 List<string> availabilityrankorderwhotrained = new List<string>();
 
-                //there's Checked Employees In this Day
-                if (RankNAvailabilityEmployees.Rows.Count > 0)
+                //there's Active Employees In this Day
+                if (RankNAvailabilityEmployeesASC.Rows.Count > 0)
                 {
-
-                    //The Rank and Availability of the employees who were checked in this day
-                    DataRow row = RankNAvailabilityEmployees.Rows[0];
-
-                    rankEmployees = row["rank_employees"].ToString().Split('/');
-                    availabilityEmployees = row["availability_employees"].ToString().Split('/');
-                    for (int i = 0; i < rankEmployees.Length; i++)
+                    //The Employeeid are set in the row by rank order ascendant from 1 to n
+                    foreach(DataRow datarow in  RankNAvailabilityEmployeesASC.Rows)
                     {
-                        rankemployees_id.Add(int.Parse(rankEmployees[i]));
-                        availabilityrankorder.Add(availabilityEmployees[i]);
+                        //The Rank and Availability of the employees who were active in this day
+                        rankemployees_id.Add(int.Parse(datarow["employee_id"].ToString()));
+                        availabilityrankorder.Add((string)datarow["availability"]);
                     }
-
+                   
                     //Getting From SQL Employees who trained and haved Meeting
                     List<int> employees_idwhotrained = ClassAppointment.DisplayEmployeesIdWhoTrained(this, rankemployees_id);
 
@@ -1066,12 +1038,9 @@ namespace MKproject.Schedule
             for (int j = 1; j < TLPAppointment.ColumnCount; j++)//1 li2anno bala uctime BOOM
             {
                 //Getting the Hours of Availibility of this Employee Of This Day
-                var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
-                            where row.Field<int>("employee_id") == ListEmployee_idChecked[j - 1]
-                            select row.Field<string>("availability");
+                ClassEmployee EmployeeSelected = ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == ListEmployee_idChecked[j - 1]);
 
-                string availibility = query.First();
-                string[] HoursOfThedays = availibility.Split('/');// "/" it's the split between days
+                string[] HoursOfThedays = EmployeeSelected.Availability.Split('/');// "/" it's the split between days
                 string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');// "-" it's the split between hours
 
                 //Editing TBP
@@ -1126,26 +1095,23 @@ namespace MKproject.Schedule
         {
 
             int dayOfWeekInt = ((int)SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
-                                                                   //Getting the Hours of Availibility of this Employee Of This Day
-            var query = from row in schedule.ucday.DataTableEmployeeavailability.AsEnumerable()
-                        where row.Field<int>("employee_id") == ListEmployee_idChecked[columnindex - 1]
-                        select row.Field<string>("availability");
-
-            string availibility = query.First();
-            string[] HoursOfThedays = availibility.Split('/');// "/" it's the split between days
+                                                                      //Getting the Hours of Availibility of this Employee Of This Day
+            ClassEmployee EmployeeSelected = ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == ListEmployee_idChecked[columnindex - 1]);
+           
+            string[] HoursOfThedays = EmployeeSelected.Availability.Split('/');// "/" it's the split between days
             string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');// "-" it's the split between hours
 
             //Editing TBP
             AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);
 
-           DataTable  AppointmentsOfOneEmployeeDt = ClassAppointment.DisplayAppointmentsOneEmployee(this, employee_id);
+            DataTable AppointmentsOfOneEmployeeDt = ClassAppointment.DisplayAppointmentsOneEmployee(this, employee_id);
 
-          
+
 
             foreach (DataRow dr in AppointmentsOfOneEmployeeDt.Rows)
             {
                 ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);
-         
+
                 UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
 
 
@@ -1201,7 +1167,7 @@ namespace MKproject.Schedule
         {
 
             //now we have to display the appointemnts
-            UCappointmentsFill(ClassAppointment.DisplayAppointmentsWhereEmployees(this, rankemployees_id),rankemployees_id);
+            UCappointmentsFill(ClassAppointment.DisplayAppointmentsWhereEmployees(this, rankemployees_id), rankemployees_id);
 
 
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
@@ -1239,7 +1205,7 @@ namespace MKproject.Schedule
             foreach (DataRow dr in thisdaydatatableAppointments.Rows)
             {
 
-                ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);             
+                ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);
                 UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
 
 
@@ -1329,7 +1295,7 @@ namespace MKproject.Schedule
                     //The Column Does Not Have The Same Employee
                     else
                     {
-
+                        //hone mafik tehkheda list li2anno momkin ykoun men employee disactive
                         string employeename = SQLToProject.DisplayEmployeeName(rankemployees_id[i]);
                         Label label = (Label)TLPEmployees.GetControlFromPosition(columnindex, 0);
                         label.Text = employeename;
@@ -1388,7 +1354,7 @@ namespace MKproject.Schedule
             //hone awal display bi koun mafiyo list manna nfawetlo list aa kel add column
             if (Isloaducday)
             {
-                //ListEmployee_idChecked.Add((int)DataTableEmployeeavailability.Rows[tableLayoutPanelEmployees.ColumnCount - 2][1]);//BOOM
+                //ListEmployee_idChecked.Add((int)ListEmployeeSchedule.Rows[tableLayoutPanelEmployees.ColumnCount - 2][1]);//BOOM
                 Isloaducday = false;
             }
 
@@ -1443,7 +1409,7 @@ namespace MKproject.Schedule
             //eza bet lahiz awal sater count-2 li2annoo lal DataTable w mafiya uctime w tene sater lal table -1 fiya uctime
             if (Isloaducday)
             {
-                label.Text = (string)DataTableEmployeeavailability.Rows[TLPEmployees.ColumnCount - 2][2] + " " + (string)DataTableEmployeeavailability.Rows[TLPEmployees.ColumnCount - 2][3];//BOOM aam yenzwd column laken lcount lahalo aam bi zid, -2 li2anno wehde lal uctime w wehde lal count
+                label.Text = (string)ListEmployeeSchedule[TLPEmployees.ColumnCount - 2].Fname + " " + (string)ListEmployeeSchedule[TLPEmployees.ColumnCount - 2].Lname;//BOOM aam yenzwd column laken lcount lahalo aam bi zid, -2 li2anno wehde lal uctime w wehde lal count
             }
             else//fi hal kenit mnel employeeswitch mahada hammo li2anno text ha terjaee tekhed men fillappointmentcolumn
             {
@@ -1498,7 +1464,7 @@ namespace MKproject.Schedule
                 }
             }
         }
-        public void AvailibilityColumnChanged(int columnindex, string[] HoursOfTheday)
+        public void AvailibilityColumnChanged(int? columnindex, string[] HoursOfTheday)
         {
             int k = 0;//number of flow layout panel with staticcolor
             for (int i = 0; i < TLPAppointment.RowCount; i++)
@@ -1508,7 +1474,7 @@ namespace MKproject.Schedule
                 {
                     if (i.ToString() == HoursOfTheday[k])
                     {
-                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition((int)columnindex, i) as FlowLayoutPanel;
                         flowLayoutPanel.BackColor = StaticColorFLP;
                         if (flowLayoutPanel.Controls.Count > 0)
                         {
@@ -1528,7 +1494,7 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition((int)columnindex, i) as FlowLayoutPanel;
                         flowLayoutPanel.BackColor = DisableColorFLP;
                         if (flowLayoutPanel.Controls.Count > 0)
                         {
@@ -1547,7 +1513,7 @@ namespace MKproject.Schedule
                 }
                 else
                 {
-                    FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
+                    FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition((int)columnindex, i) as FlowLayoutPanel;
                     flowLayoutPanel.BackColor = DisableColorFLP;
                     if (flowLayoutPanel.Controls.Count > 0)
                     {

@@ -3,6 +3,8 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using MKproject.Management;
+using System.Linq;
 
 namespace MKproject.Schedule
 {
@@ -27,40 +29,23 @@ namespace MKproject.Schedule
         public int Employee_id { get; set; }
         public string Availability { get; set; }
 
+
+
+
         //GET SET:
-        private string fullname;
-        public string Fullname
+        private ClassEmployee desiredemployee;
+        public ClassEmployee DesiredEmployee
         {
-            get { return fullname; }
+            get { return desiredemployee; }
             set
             {
-                fullname = value;
-                LabelNameemployee.Text = fullname;
+                desiredemployee = value;
+                LabelNameemployee.Text = desiredemployee.Fname + " " + desiredemployee.Lname;
+                labelRank.Text = desiredemployee.Rank.ToString();
+                CheckBoxAppearance.Checked = (bool)desiredemployee.IsChecked;
             }
         }
 
-        private int rank ;
-        public int Rank
-        {
-            get { return rank; }
-            set
-            {
-                rank = value;
-                labelRank.Text = rank.ToString();
-            }
-        }
-
-        private bool ischecked;
-        public bool IsChecked
-
-        {
-            get { return ischecked; }
-            set
-            {
-                ischecked = value;
-                CheckBoxAppearance.Checked = ischecked;
-            }
-        }
 
         //VARIABLE:
         public Employee employees;
@@ -68,112 +53,78 @@ namespace MKproject.Schedule
 
 
         //INITIALISE:
-        public UCEmployee(Employee employee)
+        public UCEmployee()
         {
             InitializeComponent();
-            employees = employee;   
         }
-        public UCEmployee(int availability_id, int employee_id, string fullname, string availability, int rank,bool ischecked, Employee form1)
+        public UCEmployee(ClassEmployee desiredemployee, Employee employee)
         {
             InitializeComponent();
 
             //Get Data
-            Availability_id = availability_id;
-            Employee_id = employee_id;
-            Fullname = fullname;
-            Availability = availability;
-            employees = form1;
-            Rank = rank;
-            IsChecked = ischecked;
-
+            DesiredEmployee = desiredemployee;
+            employees = employee;
             //Property
             Cursor = Cursors.Hand;
         }
-       
+
 
 
         //EVENT:
         ///-CLICK
         private void buttonDown_Click(object sender, EventArgs e)
         {
-            UCEmployee TempUCEmployee = new UCEmployee(employees);
+            UCEmployee TempUCEmployee = new UCEmployee();
 
             foreach (UCEmployee ucemployee in employees.ListUCEmployee)//hone kamen bi zet lwa2et aam nghayir ListUCEmployee
             {
                 //Getting The ucemployee that's after him to do the swap
-                if (ucemployee.Rank == this.Rank + 1)
+                if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank + 1)
                 {
+                    //UPDATE ListEmployeeScheduleCopy
 
-                    //UPDATE DataTableEmployeeavailabilityCopy
-                    foreach (DataRow row in employees.DataTableEmployeeavailabilityCopy.Rows)
-                    {
-                        //Updating rank for the employee that we clicked on
-                        if ((int)row["availability_id"] == this.Availability_id)
-                        {
-                            row["rank"] = (this.rank + 1);
-                        }
+                    ClassEmployee EmployeeSelectedOfTheOtherUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
 
-                        //Updating rank for the other employee
-                        else if((int)row["availability_id"] == ucemployee.Availability_id)
-                        {
-                            row["rank"] = this.rank;
-                        }
-                    }
+                    ClassEmployee EmployeeSelectedOfThisUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank + 1;
+
 
                     //Design doing the swap of the 2 ucemployee
                     Swapucemployee(ucemployee, TempUCEmployee);
                     break;
                 }
             }
-
-
-            //keeping the DataTableEmployeeavailabilityCopy ASC
-            employees.DataTableEmployeeavailabilityCopy.DefaultView.Sort = "Rank ASC";//the null values will be last
-            DataTable sortedTable = employees.DataTableEmployeeavailabilityCopy.DefaultView.ToTable();
-            employees.DataTableEmployeeavailabilityCopy = sortedTable;
-
-
         }
         private void buttonUp_Click(object sender, EventArgs e)
         {
-            UCEmployee TempUCEmployee = new UCEmployee(employees);
+            UCEmployee TempUCEmployee = new UCEmployee();
             foreach (UCEmployee ucemployee in employees.ListUCEmployee)
             {
                 //Getting The ucemployee that's before him to do the swap
-                if (ucemployee.Rank == this.Rank - 1)//yaeene tahto
+                if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank - 1)//yaeene faw2o
                 {
+                    //UPDATE ListEmployeeScheduleCopy
 
-                    //UPDATE DataTableEmployeeavailabilityCopy
-                    foreach (DataRow row in employees.DataTableEmployeeavailabilityCopy.Rows)
-                    {
-                        //Updating rank for the employee that we clicked on
-                        if ((int)row["availability_id"] == this.Availability_id)
-                        {
-                            row["rank"] = (this.rank - 1);
-                        }
+                    ClassEmployee EmployeeSelectedOfTheOtherUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
 
-                        //Updating rank for the other employee
-                        else if ((int)row["availability_id"] == ucemployee.Availability_id)
-                        {
-                            row["rank"] = this.rank;
-                        }
-                    }
+                    ClassEmployee EmployeeSelectedOfThisUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank - 1;
+
+
 
                     //Design doing the swap of the 2 ucemployee 
-                    Swapucemployee(ucemployee,TempUCEmployee);
+                    Swapucemployee(ucemployee, TempUCEmployee);
                     break;
                 }
             }
 
-            //keeping the DataTableEmployeeavailabilityCopy ASC
-            employees.DataTableEmployeeavailabilityCopy.DefaultView.Sort = "Rank ASC";//the null values will be last
-            DataTable sortedTable = employees.DataTableEmployeeavailabilityCopy.DefaultView.ToTable();
-            employees.DataTableEmployeeavailabilityCopy = sortedTable;
         }
         private void buttonAvailability_Click(object sender, EventArgs e)
         {
             //Kermel yaeemil la marra wehde load w baeeden laa
-            if(employees.availabilityLayout == null)
+            if (employees.availabilityLayout == null)
             {
                 Cursor = Cursors.WaitCursor;
                 employees.availabilityLayout = new AvailabilityLayout();
@@ -190,46 +141,26 @@ namespace MKproject.Schedule
         ///-CHECKBOX
         private void CheckBoxAppearance_CheckStateChanged(object sender, EventArgs e)
         {
-            IsChecked = CheckBoxAppearance.Checked;
+            DesiredEmployee.IsChecked = CheckBoxAppearance.Checked;
 
-            //UPDATE DataTableEmployeeavailabilityCopy
-            foreach (DataRow row in employees.DataTableEmployeeavailabilityCopy.Rows)
-            {
-                //Updating rank for the employee that we clicked on
-                if ((int)row["availability_id"] == this.Availability_id)
-                {
-                    row["is_checked"] = this.IsChecked;
-                }
-            }
+            //UPDATE ListEmployeeScheduleCopy
+            ClassEmployee EmployeeSelectedOfThisUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+            EmployeeSelectedOfThisUC.IsChecked = this.DesiredEmployee.IsChecked;
         }
 
 
 
         //FUNCTION:
-        private void Swapucemployee(UCEmployee ucemployee,UCEmployee TempUCEmployee)//ntebih hone byekhdo kel shi ella rank
+        private void Swapucemployee(UCEmployee ucemployee, UCEmployee TempUCEmployee)//ntebih hone byekhdo kel shi ella rank
         {
             //temp=a
-            TempUCEmployee.Availability_id = this.Availability_id;
-            TempUCEmployee.Employee_id = this.Employee_id;
-            TempUCEmployee.Availability = this.Availability;
-            TempUCEmployee.Fullname = this.Fullname;
-            TempUCEmployee.IsChecked = this.IsChecked;
+            TempUCEmployee.DesiredEmployee = this.DesiredEmployee;
 
             //a=b
-            this.Availability_id = ucemployee.Availability_id;
-            this.Employee_id = ucemployee.Employee_id;
-            this.Availability = ucemployee.Availability;
-            this.Fullname = ucemployee.Fullname;
-            this.IsChecked = ucemployee.IsChecked;
+            this.DesiredEmployee = ucemployee.DesiredEmployee;
 
             //b=temp
-            ucemployee.Availability_id = TempUCEmployee.Availability_id;
-            ucemployee.Employee_id = TempUCEmployee.Employee_id;
-            ucemployee.Availability = TempUCEmployee.Availability;
-            ucemployee.Fullname = TempUCEmployee.Fullname;
-            ucemployee.IsChecked = TempUCEmployee.IsChecked;
-
-
+            ucemployee.DesiredEmployee = TempUCEmployee.DesiredEmployee;
             TempUCEmployee.Dispose();
         }
 
@@ -245,6 +176,6 @@ namespace MKproject.Schedule
             this.BackColor = Color.FromArgb(229, 226, 244);
         }
 
-       
+
     }
 }

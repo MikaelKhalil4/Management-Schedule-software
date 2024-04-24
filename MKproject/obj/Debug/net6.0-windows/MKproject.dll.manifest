@@ -71,13 +71,13 @@
       <dsig:DigestValue>u8t0uXK42NG68q5TRWi/JMABMD7fStgLwEpoU4yiBjA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CustomizedTools.dll" size="67072">
+  <file name="CustomizedTools.dll" size="68096">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>PsRY2mb97urNP1neY2mayaBLAlKLvAzjSY+4f4hZb8I=</dsig:DigestValue>
+      <dsig:DigestValue>IfandTC/915C/11y4XEwYR19UNrbwtrVkbvsPM+AQLg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="GlobalFunctions.dll" size="15360">
@@ -86,7 +86,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>F/kd6u3j5Z8yv8I42T+/PDBII6DVY4dSwYRuznYwUzo=</dsig:DigestValue>
+      <dsig:DigestValue>tV9rlw52kwSqPFeKbyW+CG6Nps6C/W7XZixzkZ5/oKY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="images\BackOfficeBig.png" size="7411">
@@ -386,13 +386,13 @@
       <dsig:DigestValue>l8Q0l/8slBAOheR+UlZIGag2yey6yRvOrZhyUqTwnpI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MKproject.dll" size="1836544">
+  <file name="MKproject.dll" size="1851904">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>vs2tPkJKS3c4wy6Qm7lqQ6Ya0FCb6DvVbmyBzu+IP88=</dsig:DigestValue>
+      <dsig:DigestValue>CSn8DwuPIGUhI0U9K8g7TkwYYveLAaBYIZTquPd5AVs=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">

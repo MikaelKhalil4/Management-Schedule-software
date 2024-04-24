@@ -71,3 +71,4 @@ C:\MKProject code\MKproject\CustomizedTools\obj\Debug\net6.0-windows\refint\Cust
 C:\MKProject code\MKproject\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.pdb
 C:\MKProject code\MKproject\CustomizedTools\obj\Debug\net6.0-windows\ref\CustomizedTools.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.CustomButton.resources
+C:\MKProject code\MKproject\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.CustomButton.resources

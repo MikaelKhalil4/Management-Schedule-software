@@ -51,7 +51,7 @@
             TLPGlobal.RowCount = 2;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            TLPGlobal.Size = new System.Drawing.Size(268, 76);
+            TLPGlobal.Size = new System.Drawing.Size(230, 76);
             TLPGlobal.TabIndex = 0;
             TLPGlobal.Click += UCappointments_Click;
             TLPGlobal.MouseLeave += UCappointments_MouseLeave;
@@ -63,7 +63,7 @@
             labelTime.AutoSize = true;
             labelTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelTime.ForeColor = System.Drawing.Color.DarkGray;
-            labelTime.Location = new System.Drawing.Point(181, 35);
+            labelTime.Location = new System.Drawing.Point(143, 35);
             labelTime.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             labelTime.Name = "labelTime";
             labelTime.Size = new System.Drawing.Size(87, 19);
@@ -114,7 +114,7 @@
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "UCappointment";
             Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            Size = new System.Drawing.Size(268, 81);
+            Size = new System.Drawing.Size(230, 81);
             Click += UCappointments_Click;
             MouseLeave += UCappointments_MouseLeave;
             MouseMove += UCappointments_MouseMove;

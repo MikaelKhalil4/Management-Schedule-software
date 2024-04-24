@@ -218,7 +218,7 @@ namespace MKproject.Schedule
                 //Bi koun akhad lDesiredCient men abel
                 DesiredReminder.Reminder = textBoxReminder.Text;
                 DesiredReminder.Repeat = repeat;
-                DesiredReminder.StartTime = ucday.DateUCDay;
+                DesiredReminder.StartTime = ucday.SelectedDate;
                 DesiredReminder.LabelQuote = labelQuote.Text;
 
                 //UPDATE
@@ -399,13 +399,13 @@ namespace MKproject.Schedule
         {
             //Getting the Quote
             string datestart;
-            if (ucday.DateUCDay.Date == DateTime.Today.Date)
+            if (ucday.SelectedDate.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = ucday.DateUCDay.Date.ToString("dddd d MMMM");
+                datestart = ucday.SelectedDate.Date.ToString("dddd d MMMM");
             }
 
             //no repeat

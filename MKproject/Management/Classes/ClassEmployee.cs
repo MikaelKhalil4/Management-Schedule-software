@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Windows.Documents;
 using GlobalFunctions;
+using MKproject.Schedule;
+using static MKproject.Management.ClassOptionsInsideFields;
 
 namespace MKproject.Management
 {
@@ -35,8 +39,14 @@ namespace MKproject.Management
         public string Access { get; set; }
         public bool Status { get; set; }
 
+        //Related table employee_availability
+        public string Availability { get; set; }
+        public int? Rank { get; set; }
+        public bool? IsChecked { get; set; }
+        public bool IsScheduleMember { get; set; }
 
-        public bool IsAScheduleMember { get; set; }
+
+        //additional
         public bool CanAccesSchedule { get; set; }
         public bool CanEditOffre { get; set; }
         public bool CanAccessStatistics { get; set; }
@@ -45,6 +55,8 @@ namespace MKproject.Management
         public bool CanInsertOrEditClients { get; set; }
         public bool CanDeleteClient { get; set; }
         public bool CanEditRegistrationFields { get; set; }
+
+
 
         public ClassEmployee()
         {
@@ -93,7 +105,6 @@ namespace MKproject.Management
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
-
         }
         public static string GetEmployeeFullName(int EmployeeID)
         {
@@ -169,7 +180,12 @@ namespace MKproject.Management
             dt = ClassEmployee.GetAllEmployeesInfo(employeeID);
 
             DataRow datarow = dt.Rows[0];//since we re expecting one row of return
+            ClassEmployee employee = DataTableRowToObject(datarow);
 
+            return employee;
+        }
+        public static ClassEmployee DataTableRowToObject(DataRow datarow)
+        {
             ClassEmployee employee = new ClassEmployee();
 
             employee.EmployeeId = (int)datarow["employee_id"];
@@ -181,6 +197,12 @@ namespace MKproject.Management
             employee.ClearCashDate = datarow["clearcash_date"] is DBNull ? (DateTime?)null : (DateTime)datarow["clearcash_date"];
             employee.Status = (Boolean)datarow["status"];
             employee.Cash = (double)datarow["cash"];
+
+            employee.Availability = datarow["availability"] is DBNull ? null : (string)datarow["availability"];
+            employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
+            employee.IsChecked = datarow["is_checked"] is DBNull ? null : (bool)datarow["is_checked"];
+
+
 
             if (Features.Management)
             {
@@ -202,7 +224,6 @@ namespace MKproject.Management
                         employee.CanInsertOrEditClients = true;
                 }
             }
-
 
             return employee;
         }
@@ -297,8 +318,6 @@ namespace MKproject.Management
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
-
-
         }
         public bool CheckIfEmployeeHasReferences()
         {
@@ -326,5 +345,79 @@ namespace MKproject.Management
             }
         }
 
+
+        //Schedule
+
+        //Display
+        public static List<ClassEmployee> GetEmployeeScheduleMemberASC()
+        {
+            //Select employee id where status = schedule bhatoun bi datatable breja3 ba3mil for loop baeetiya la kel list
+            SqlCommand command = new SqlCommand("SELECT *" +
+                           "FROM employee " +
+                           "WHERE is_schedule_member = 1" +//1 means true
+                           "ORDER BY rank ASC", con);
+
+
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            // Fill the DataTable with the results of the query
+            adapter.Fill(dt);
+
+            // If you want to execute the query without returning the DataTable, you can use cmd.ExecuteNonQuery()
+            con.Open();
+            command.ExecuteNonQuery();
+            con.Close();
+
+            List<ClassEmployee> ListEmployeeSchedule = DataTableToList(dt);
+            return ListEmployeeSchedule;
+        }
+
+        public static List<ClassEmployee> DataTableToList(DataTable dt)
+        {
+            List<ClassEmployee> list = new List<ClassEmployee>();
+
+            foreach (DataRow datarow in dt.Rows)
+            {
+                ClassEmployee employee = DataTableRowToObject(datarow);
+                list.Add(employee);
+            };
+            return list;
+        }
+
+
+
+        //Update
+        public static void UpdateEmployeeScheduleMemberSQL(int Employee_id, string Availability)
+        {
+            //Where employee_id w b3adil aal availability
+            SqlCommand command = new SqlCommand("UPDATE employee SET availability=@availability  WHERE employee_id = @employee_id", con);
+
+            command.Parameters.AddWithValue("@availability", Availability);
+            command.Parameters.AddWithValue("@employee_id", Employee_id);
+
+
+            con.Open();
+            command.ExecuteNonQuery();
+            con.Close();
+        }
+        public static void UpdateRankNIsCheckedEmployeeScheduleMemberSQL(List<ClassEmployee> ListEmployeeSchedule)
+        {
+            //Hone lezim ysir yaeetine list w baeemil for loop where employee_id w aa 2asesa baeemil update rank and is checked
+            for (int i = 0; i < ListEmployeeSchedule.Count; i++)
+            {
+                SqlCommand command = new SqlCommand("UPDATE employee SET rank = @rank, is_checked = @is_checked WHERE employee_id = @employee_id", con);
+
+                // Add parameters to prevent SQL injection
+                command.Parameters.AddWithValue("@employee_id", ListEmployeeSchedule[i].EmployeeId);
+                command.Parameters.AddWithValue("@rank", ListEmployeeSchedule[i].Rank);
+                command.Parameters.AddWithValue("@is_checked", ListEmployeeSchedule[i].IsChecked);
+
+                // Open the connection and execute the command
+                con.Open();
+                command.ExecuteNonQuery();
+                con.Close();
+            }
+        }
     }
 }

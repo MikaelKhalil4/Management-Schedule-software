@@ -31,15 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Schedule));
             tableLayoutPanelForm = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanelSide = new System.Windows.Forms.TableLayoutPanel();
+            checkBoxCancel = new System.Windows.Forms.CheckBox();
             pictureBox2 = new System.Windows.Forms.PictureBox();
-            checkBoxMember = new System.Windows.Forms.CheckBox();
+            checkBoxComplete = new System.Windows.Forms.CheckBox();
             label1 = new System.Windows.Forms.Label();
             panelreminder = new System.Windows.Forms.Panel();
-            checkBoxInvitation = new System.Windows.Forms.CheckBox();
-            checkBoxTrial = new System.Windows.Forms.CheckBox();
-            checkBoxMeeting = new System.Windows.Forms.CheckBox();
             AddButton = new System.Windows.Forms.PictureBox();
             buttonAllReminder = new System.Windows.Forms.Button();
+            checkBoxOnPending = new System.Windows.Forms.CheckBox();
             tableLayoutPanelForm.SuspendLayout();
             tableLayoutPanelSide.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -59,7 +58,7 @@
             tableLayoutPanelForm.Name = "tableLayoutPanelForm";
             tableLayoutPanelForm.RowCount = 1;
             tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanelForm.Size = new System.Drawing.Size(1575, 841);
+            tableLayoutPanelForm.Size = new System.Drawing.Size(1485, 841);
             tableLayoutPanelForm.TabIndex = 0;
             // 
             // tableLayoutPanelSide
@@ -67,29 +66,49 @@
             tableLayoutPanelSide.Anchor = System.Windows.Forms.AnchorStyles.Top;
             tableLayoutPanelSide.BackColor = System.Drawing.Color.White;
             tableLayoutPanelSide.ColumnCount = 4;
-            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.7887325F));
-            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.21127F));
+            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.7887306F));
+            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.2112732F));
             tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.4507027F));
             tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.5492954F));
+            tableLayoutPanelSide.Controls.Add(checkBoxCancel, 0, 1);
             tableLayoutPanelSide.Controls.Add(pictureBox2, 0, 2);
-            tableLayoutPanelSide.Controls.Add(checkBoxMember, 0, 1);
+            tableLayoutPanelSide.Controls.Add(checkBoxComplete, 2, 0);
             tableLayoutPanelSide.Controls.Add(label1, 1, 2);
             tableLayoutPanelSide.Controls.Add(panelreminder, 0, 3);
-            tableLayoutPanelSide.Controls.Add(checkBoxInvitation, 0, 0);
-            tableLayoutPanelSide.Controls.Add(checkBoxTrial, 1, 0);
-            tableLayoutPanelSide.Controls.Add(checkBoxMeeting, 1, 1);
             tableLayoutPanelSide.Controls.Add(AddButton, 3, 2);
             tableLayoutPanelSide.Controls.Add(buttonAllReminder, 2, 2);
+            tableLayoutPanelSide.Controls.Add(checkBoxOnPending, 0, 0);
             tableLayoutPanelSide.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanelSide.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanelSide.Name = "tableLayoutPanelSide";
             tableLayoutPanelSide.RowCount = 4;
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.65890741F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.85133553F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.63235F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.8574F));
-            tableLayoutPanelSide.Size = new System.Drawing.Size(284, 841);
+            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.972375F));
+            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95.027626F));
+            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanelSide.Size = new System.Drawing.Size(268, 841);
             tableLayoutPanelSide.TabIndex = 0;
+            // 
+            // checkBoxCancel
+            // 
+            checkBoxCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxCancel.AutoSize = true;
+            checkBoxCancel.BackColor = System.Drawing.Color.White;
+            checkBoxCancel.Checked = true;
+            checkBoxCancel.CheckState = System.Windows.Forms.CheckState.Checked;
+            tableLayoutPanelSide.SetColumnSpan(checkBoxCancel, 4);
+            checkBoxCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxCancel.ForeColor = System.Drawing.Color.FromArgb(244, 86, 7);
+            checkBoxCancel.Location = new System.Drawing.Point(97, 47);
+            checkBoxCancel.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            checkBoxCancel.Name = "checkBoxCancel";
+            checkBoxCancel.Size = new System.Drawing.Size(81, 21);
+            checkBoxCancel.TabIndex = 0;
+            checkBoxCancel.Text = "Canceled";
+            checkBoxCancel.UseVisualStyleBackColor = false;
+            checkBoxCancel.CheckedChanged += checkBoxCancel_CheckedChanged;
             // 
             // pictureBox2
             // 
@@ -97,32 +116,33 @@
             pictureBox2.BackColor = System.Drawing.Color.Transparent;
             pictureBox2.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pictureBox2.Location = new System.Drawing.Point(10, 105);
+            pictureBox2.Location = new System.Drawing.Point(8, 85);
             pictureBox2.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new System.Drawing.Size(22, 25);
             pictureBox2.TabIndex = 64;
             pictureBox2.TabStop = false;
             // 
-            // checkBoxMember
+            // checkBoxComplete
             // 
-            checkBoxMember.Anchor = System.Windows.Forms.AnchorStyles.None;
-            checkBoxMember.AutoSize = true;
-            checkBoxMember.BackColor = System.Drawing.Color.White;
-            checkBoxMember.Checked = true;
-            checkBoxMember.CheckState = System.Windows.Forms.CheckState.Checked;
-            tableLayoutPanelSide.SetColumnSpan(checkBoxMember, 2);
-            checkBoxMember.Cursor = System.Windows.Forms.Cursors.Hand;
-            checkBoxMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            checkBoxMember.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxMember.Location = new System.Drawing.Point(37, 58);
-            checkBoxMember.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBoxMember.Name = "checkBoxMember";
-            checkBoxMember.Size = new System.Drawing.Size(68, 19);
-            checkBoxMember.TabIndex = 0;
-            checkBoxMember.Text = "Member";
-            checkBoxMember.UseVisualStyleBackColor = false;
-            checkBoxMember.CheckedChanged += checkBoxMember_CheckedChanged;
+            checkBoxComplete.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxComplete.AutoSize = true;
+            checkBoxComplete.BackColor = System.Drawing.Color.White;
+            checkBoxComplete.Checked = true;
+            checkBoxComplete.CheckState = System.Windows.Forms.CheckState.Checked;
+            tableLayoutPanelSide.SetColumnSpan(checkBoxComplete, 2);
+            checkBoxComplete.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxComplete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(128, 255, 128);
+            checkBoxComplete.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxComplete.ForeColor = System.Drawing.Color.FromArgb(124, 218, 124);
+            checkBoxComplete.Location = new System.Drawing.Point(157, 9);
+            checkBoxComplete.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            checkBoxComplete.Name = "checkBoxComplete";
+            checkBoxComplete.Size = new System.Drawing.Size(93, 21);
+            checkBoxComplete.TabIndex = 0;
+            checkBoxComplete.Text = "Completed";
+            checkBoxComplete.UseVisualStyleBackColor = false;
+            checkBoxComplete.CheckedChanged += checkBoxComplete_CheckedChanged;
             // 
             // label1
             // 
@@ -131,7 +151,7 @@
             label1.BackColor = System.Drawing.Color.Transparent;
             label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            label1.Location = new System.Drawing.Point(57, 106);
+            label1.Location = new System.Drawing.Point(51, 86);
             label1.Margin = new System.Windows.Forms.Padding(0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(70, 17);
@@ -145,73 +165,12 @@
             panelreminder.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
             tableLayoutPanelSide.SetColumnSpan(panelreminder, 4);
             panelreminder.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelreminder.Location = new System.Drawing.Point(4, 137);
+            panelreminder.Location = new System.Drawing.Point(4, 117);
             panelreminder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelreminder.Name = "panelreminder";
             panelreminder.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            panelreminder.Size = new System.Drawing.Size(276, 701);
+            panelreminder.Size = new System.Drawing.Size(260, 721);
             panelreminder.TabIndex = 0;
-            // 
-            // checkBoxInvitation
-            // 
-            checkBoxInvitation.Anchor = System.Windows.Forms.AnchorStyles.None;
-            checkBoxInvitation.AutoSize = true;
-            checkBoxInvitation.BackColor = System.Drawing.Color.White;
-            checkBoxInvitation.Checked = true;
-            checkBoxInvitation.CheckState = System.Windows.Forms.CheckState.Checked;
-            tableLayoutPanelSide.SetColumnSpan(checkBoxInvitation, 2);
-            checkBoxInvitation.Cursor = System.Windows.Forms.Cursors.Hand;
-            checkBoxInvitation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            checkBoxInvitation.ForeColor = System.Drawing.Color.FromArgb(74, 220, 168);
-            checkBoxInvitation.Location = new System.Drawing.Point(34, 10);
-            checkBoxInvitation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBoxInvitation.Name = "checkBoxInvitation";
-            checkBoxInvitation.Size = new System.Drawing.Size(73, 19);
-            checkBoxInvitation.TabIndex = 0;
-            checkBoxInvitation.Text = "Invitation";
-            checkBoxInvitation.UseVisualStyleBackColor = false;
-            checkBoxInvitation.CheckedChanged += checkBoxInvitation_CheckedChanged;
-            // 
-            // checkBoxTrial
-            // 
-            checkBoxTrial.Anchor = System.Windows.Forms.AnchorStyles.None;
-            checkBoxTrial.AutoSize = true;
-            checkBoxTrial.BackColor = System.Drawing.Color.White;
-            checkBoxTrial.Checked = true;
-            checkBoxTrial.CheckState = System.Windows.Forms.CheckState.Checked;
-            tableLayoutPanelSide.SetColumnSpan(checkBoxTrial, 2);
-            checkBoxTrial.Cursor = System.Windows.Forms.Cursors.Hand;
-            checkBoxTrial.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(128, 255, 128);
-            checkBoxTrial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            checkBoxTrial.ForeColor = System.Drawing.Color.FromArgb(202, 88, 229);
-            checkBoxTrial.Location = new System.Drawing.Point(191, 10);
-            checkBoxTrial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBoxTrial.Name = "checkBoxTrial";
-            checkBoxTrial.Size = new System.Drawing.Size(44, 19);
-            checkBoxTrial.TabIndex = 0;
-            checkBoxTrial.Text = "Trial";
-            checkBoxTrial.UseVisualStyleBackColor = false;
-            checkBoxTrial.CheckedChanged += checkBoxTrial_CheckedChanged;
-            // 
-            // checkBoxMeeting
-            // 
-            checkBoxMeeting.Anchor = System.Windows.Forms.AnchorStyles.None;
-            checkBoxMeeting.AutoSize = true;
-            checkBoxMeeting.BackColor = System.Drawing.Color.White;
-            checkBoxMeeting.Checked = true;
-            checkBoxMeeting.CheckState = System.Windows.Forms.CheckState.Checked;
-            tableLayoutPanelSide.SetColumnSpan(checkBoxMeeting, 2);
-            checkBoxMeeting.Cursor = System.Windows.Forms.Cursors.Hand;
-            checkBoxMeeting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            checkBoxMeeting.ForeColor = System.Drawing.Color.FromArgb(255, 102, 147);
-            checkBoxMeeting.Location = new System.Drawing.Point(179, 58);
-            checkBoxMeeting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBoxMeeting.Name = "checkBoxMeeting";
-            checkBoxMeeting.Size = new System.Drawing.Size(67, 19);
-            checkBoxMeeting.TabIndex = 0;
-            checkBoxMeeting.Text = "Meeting";
-            checkBoxMeeting.UseVisualStyleBackColor = false;
-            checkBoxMeeting.CheckedChanged += checkBoxMeeting_CheckedChanged;
             // 
             // AddButton
             // 
@@ -219,7 +178,7 @@
             AddButton.BackgroundImage = (System.Drawing.Image)resources.GetObject("AddButton.BackgroundImage");
             AddButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             AddButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            AddButton.Location = new System.Drawing.Point(246, 102);
+            AddButton.Location = new System.Drawing.Point(230, 82);
             AddButton.Margin = new System.Windows.Forms.Padding(0);
             AddButton.Name = "AddButton";
             AddButton.Size = new System.Drawing.Size(29, 25);
@@ -236,7 +195,7 @@
             buttonAllReminder.FlatAppearance.BorderSize = 0;
             buttonAllReminder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAllReminder.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            buttonAllReminder.Location = new System.Drawing.Point(166, 102);
+            buttonAllReminder.Location = new System.Drawing.Point(154, 82);
             buttonAllReminder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonAllReminder.Name = "buttonAllReminder";
             buttonAllReminder.Size = new System.Drawing.Size(46, 25);
@@ -245,12 +204,32 @@
             buttonAllReminder.UseVisualStyleBackColor = false;
             buttonAllReminder.Click += buttonAllReminder_Click;
             // 
+            // checkBoxOnPending
+            // 
+            checkBoxOnPending.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxOnPending.AutoSize = true;
+            checkBoxOnPending.BackColor = System.Drawing.Color.White;
+            checkBoxOnPending.Checked = true;
+            checkBoxOnPending.CheckState = System.Windows.Forms.CheckState.Checked;
+            tableLayoutPanelSide.SetColumnSpan(checkBoxOnPending, 2);
+            checkBoxOnPending.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxOnPending.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxOnPending.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxOnPending.Location = new System.Drawing.Point(20, 9);
+            checkBoxOnPending.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            checkBoxOnPending.Name = "checkBoxOnPending";
+            checkBoxOnPending.Size = new System.Drawing.Size(99, 21);
+            checkBoxOnPending.TabIndex = 0;
+            checkBoxOnPending.Text = "On Pending";
+            checkBoxOnPending.UseVisualStyleBackColor = false;
+            checkBoxOnPending.CheckedChanged += checkBoxOnPending_CheckedChanged;
+            // 
             // Schedule
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(1575, 841);
+            ClientSize = new System.Drawing.Size(1485, 841);
             Controls.Add(tableLayoutPanelForm);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Schedule";
@@ -266,10 +245,9 @@
 
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSide;
-        private System.Windows.Forms.CheckBox checkBoxMeeting;
-        private System.Windows.Forms.CheckBox checkBoxInvitation;
-        private System.Windows.Forms.CheckBox checkBoxTrial;
-        private System.Windows.Forms.CheckBox checkBoxMember;
+        private System.Windows.Forms.CheckBox checkBoxOnPending;
+        private System.Windows.Forms.CheckBox checkBoxComplete;
+        private System.Windows.Forms.CheckBox checkBoxCancel;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TableLayoutPanel tableLayoutPanelForm;
