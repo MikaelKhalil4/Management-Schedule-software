@@ -9,8 +9,6 @@ namespace MKproject.Management
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 
-        public static bool Management { get; set; }
-        public static bool Schedule { get; set; }
         public static bool IsOnline { get; set; }
 
         public enum enumFeatures
@@ -30,7 +28,6 @@ namespace MKproject.Management
             ServicesProductsEmployees,
             [StringValue("Statistics")]
             Statistics,
-
             [StringValue("Schedule")]
             Schedule,
           
@@ -41,15 +38,13 @@ namespace MKproject.Management
         public static void GetFeatures()
         {
            
-                DataTable dt = new DataTable();
+             DataTable dt = new DataTable();
             string query = "SELECT TOP 1 * FROM Features";
 
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
-            sda.Fill(dt);
-            Management = Convert.ToBoolean(dt.Rows[0]["management"]);
-            Schedule = Convert.ToBoolean(dt.Rows[0]["schedule"]);
+            sda.Fill(dt);         
             IsOnline= Convert.ToBoolean(dt.Rows[0]["online"]);
           
         }

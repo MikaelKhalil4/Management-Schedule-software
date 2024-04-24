@@ -38,7 +38,7 @@ namespace MKproject.Schedule
 
         //Variables:
         UCDay ucday;
-        Schedule schedule;
+        ScheduleForm schedule;
         ClientReminder clientReminder;
         bool Isclientreminder;
 
@@ -51,7 +51,7 @@ namespace MKproject.Schedule
 
         //In Schedule
         //we want to add a ucreminder or we want to display from SQL
-        public UCreminder(ClassReminder desiredReminder, UCDay form1, Schedule form2)
+        public UCreminder(ClassReminder desiredReminder, UCDay form1, ScheduleForm form2)
         {
             InitializeComponent();
             Isclientreminder = false;
@@ -62,7 +62,7 @@ namespace MKproject.Schedule
         }
 
         //In ClientReminder(from select SQL once we open ClientReminder or when we ADD in ClientReminder)
-        public UCreminder(ClassReminder desiredReminder , UCDay form1, Schedule form2 , ClientReminder clientreminder)
+        public UCreminder(ClassReminder desiredReminder , UCDay form1, ScheduleForm form2 , ClientReminder clientreminder)
         {
             InitializeComponent();
             Isclientreminder = true;

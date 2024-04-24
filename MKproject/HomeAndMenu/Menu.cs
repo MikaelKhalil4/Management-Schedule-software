@@ -60,7 +60,8 @@ namespace MKproject
             }
         }
 
- 
+        public event EventHandler GoingFromSousChildToChild;
+        public event EventHandler GoingFromChildToChild;
         private void ActivateButton(Button desiredbtn)
         {
             if (desiredbtn != currentButton)
@@ -73,7 +74,7 @@ namespace MKproject
                 currentButton = desiredbtn;
             }
         }
-        public void OpenChildForm(Form DesiredFormToOpen, Button desiredbtn, bool IsToProfile)
+        public  void OpenChildForm(Form DesiredFormToOpen, Button desiredbtn, bool IsOpeningASousChild)
         {
             if (ParentFormHome.panelContainer.Controls.Count > 0)//specially made kermel el back ma nekhsar el data bel form li fetna menna
             {
@@ -85,32 +86,44 @@ namespace MKproject
             ParentFormHome.buttonBackHome.Visible = false;//ejbare, in case tloona men el form, men el menu, mesh men el backhome btn
 
 
-
-            if (!IsToProfile)//so we can return to it on back click
+            bool IsFromSousChildToChild = false ;
+            if (!IsOpeningASousChild)//so we can return to it on back click
             {
-                if (ActivatedForm != DesiredFormToOpen)//kermel eza aam naamil back ma ysir fi error bel show tahet,w ha bet fout fiya lamma ma nkun rejiin men el back home,lieanno el activated form ha tkun hiyye li el search li banda yeha w ma badna nsakkera 
+                if (ActivatedForm != DesiredFormToOpen)//kermel eza aam naamil back,ma men fout bel condition kermel ma ysir fi error bel show tahet, bcz: DesiredFormToOpen and ActivatedForm will refer to the same form
                 {
                     if (ActivatedForm != null)
                         ActivatedForm.Close();
 
                     ActivatedForm = DesiredFormToOpen;
                     ActivateButton(desiredbtn);
-
+                }
+                else
+                {
+                    IsFromSousChildToChild = true;
                 }
             }
             else//in case we re going lal client profile, el Activated Form bte2a el search w el sous activated hiyye el profile ha tkun
             {
                 SousActivatedForm = DesiredFormToOpen;
             }
+
             DesiredFormToOpen.Size = ParentFormHome.panelContainer.Size;
             DesiredFormToOpen.TopLevel = false;
             DesiredFormToOpen.FormBorderStyle = FormBorderStyle.None;
             DesiredFormToOpen.Dock = DockStyle.Fill;
-            DesiredFormToOpen.Tag = ParentFormHome;
+            DesiredFormToOpen.Tag = ParentFormHome;//ejabre tag lal home , cz el gray form is based aalaya
             ParentFormHome.panelContainer.Controls.Add(DesiredFormToOpen);
             DesiredFormToOpen.Show();
             DesiredFormToOpen.Focus();//ejbariye kermel el datatgridview el toooltip teb2a meshye
-
+            if (IsFromSousChildToChild)
+            {
+                GoingFromSousChildToChild?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                GoingFromChildToChild?.Invoke(this, EventArgs.Empty);
+            }
+           
         }
 
 
@@ -126,7 +139,7 @@ namespace MKproject
         {
             Cursor= Cursors.WaitCursor;
             SousActivatedForm = null;
-            OpenChildForm(new MKproject.Schedule.Schedule(), buttonSchedule, false);
+            OpenChildForm(new ScheduleForm(), buttonSchedule, false);
             HideMenu();
             Cursor = Cursors.Default;
         }

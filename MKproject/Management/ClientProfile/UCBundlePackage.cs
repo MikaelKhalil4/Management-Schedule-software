@@ -1,5 +1,6 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
+using MKproject.Schedule;
 using System;
 using System.Data;
 using System.Drawing;
@@ -262,18 +263,21 @@ namespace MKproject.Management
                 CreateBalanceLabels();
                 this.Padding = new Padding(0);
                 TLPglobal.ColumnCount -= 1;
-                TLPglobal.RowCount += 1;
-                TLPglobal.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
+              
 
                 TLPglobal.RowStyles[1].Height = 0;//ID ma badna yeha
                 TLPglobal.RowStyles[2].Height = 30;
                 TLPglobal.RowStyles[3].Height = 30;
                 TLPglobal.RowStyles[4].Height = 20;
 
-                TLPglobal.Controls.Add(labelBalance, 0, 5);
-                TLPglobal.Controls.Add(labelBalanceDetails, 1, 5);
+                //Eza badde bayyin el balace
+                //TLPglobal.RowCount += 1;
+                //TLPglobal.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
+                //TLPglobal.Controls.Add(labelBalance, 0, 5);
+                //TLPglobal.Controls.Add(labelBalanceDetails, 1, 5);
 
-                this.Width = Convert.ToInt16(TLPglobal.ColumnStyles[1].Width + TLPglobal.ColumnStyles[1].Width);
+                this.Width = Convert.ToInt16(TLPglobal.ColumnStyles[0].Width + TLPglobal.ColumnStyles[1].Width);
+                this.Height = this.Height - 20;
             }
 
             CreateUCPackage(DesiredRow);
@@ -683,8 +687,11 @@ namespace MKproject.Management
 
 
             ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(DesiredClientBalanceId, true);//true because the bundle has expired
-                                                                        //backoffice
-          
+                                                                                                  //backoffice
+
+            ClassAppointment.SwapClientBalanceIdOnRenewPackage(DesiredClientBalanceId, (int)InsertedRow["client_balance_id"]);
+
+
             ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["client_balance_id"], null, null,null, null, null, DateTime.Now);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
@@ -707,7 +714,7 @@ namespace MKproject.Management
             ParentFormClientMan.ResortOriginalDataTableAndSetDatasource();
             ParentFormClientMan.FormatDatagridviewDesign();
             ParentFormClientMan.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
-            ParentFormClientMan.CalculatingTotalBalances(true);
+            ParentFormClientMan.CalculatingTotalBalancesDesignAndSql(true);
 
 
             //Setting the new values of teh uc for the new package
@@ -784,7 +791,7 @@ namespace MKproject.Management
         {
             //Sql update
 
-            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null);
+            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null,DateTime.Now);
 
             //design
             SessionDaysLeft--;
@@ -824,6 +831,7 @@ namespace MKproject.Management
             IsFreezingMode = false;
             DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             rowToEdit["is_freezed"] = IsFreezingMode;
+            rowToEdit["due_date"] = DueDate;
 
         }
         public void PayIfInDebt()
@@ -832,7 +840,7 @@ namespace MKproject.Management
             double EntetityAmount = (double)foundRow["balance"];
 
 
-            Payment payment = new Payment(ParentFormClientMan.Client, EntetityAmount, ParentFormClientMan.RetrievingSpecificRowsInDt(false, DesiredClientBalanceId), ParentFormClientMan,false);
+            Payment payment = new Payment(ParentFormClientMan.Client, ParentFormClientMan.RetrievingSpecificRowsInDt(false, DesiredClientBalanceId), ParentFormClientMan,false);
             payment.ClientManagementProfileParentForm = this.ParentFormClientMan;
             payment.Show();
         }

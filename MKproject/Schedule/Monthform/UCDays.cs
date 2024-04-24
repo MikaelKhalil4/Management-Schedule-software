@@ -11,7 +11,7 @@ namespace MKproject.Schedule
         public DateTime DateUCdays { get; set; } //date of each case in UCMONTH
 
         //VARIABLES:
-        public Schedule schedule;
+        public ScheduleForm schedule;
         public UCMonth ucmonths;
         public UCDay ucday;
 

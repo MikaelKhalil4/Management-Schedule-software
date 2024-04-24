@@ -7,7 +7,7 @@ namespace CustomizedTools
     public partial class GreyColor : Form
     {
         private bool closed = true;//kermel l infinite loop 3l closing taba3 l form
-        bool CloseSmoothly;
+         bool CloseSmoothly;
 
 
         public GreyColor(Form parentForm, bool closeSmoothly, bool isJunior)//close smmoothly used only for el new register while delteing a client, el timer tabaa  el gray form aam bi assir enno ma needir nsakkir el management form

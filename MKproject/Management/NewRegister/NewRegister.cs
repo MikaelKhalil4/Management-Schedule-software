@@ -2306,8 +2306,6 @@ namespace MKproject.Management
         public void OpenClientManagementForm(ClassClient DesiredCLient)
         {
 
-
-
             //form creation
             Menu menu = ((Home)SearchCurrentClientForm.Tag).menu;
             if (Program.clientManagementProfile == null)
@@ -2321,8 +2319,8 @@ namespace MKproject.Management
             Program.clientManagementProfile.Size = SearchCurrentClientForm.Size;
             Program.clientManagementProfile.SearchCurrentClientform = SearchCurrentClientForm;
             menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
+            ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Text = "Clients";
             ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Visible = true;
-
 
         }
 
@@ -2413,7 +2411,7 @@ namespace MKproject.Management
             {
                 CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
             }
-            else if (ClientManagementProfileForm.IsFromSchedule || IsFromSchedule)
+            else if (ClientManagementProfileForm.IsFromSchedule || IsFromSchedule)//to be deleted one the restriction is put on the delete
             {
                 CustomMessageBox.Show("You can't delete a client while you re in the Schedule, Please delete it from the Management", CustomMessageBox.Type.Ok);
             }
@@ -2467,7 +2465,12 @@ namespace MKproject.Management
 
         private void NewRegister_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Program.GreyForm != null)
+            if (Program.GreyFormJunior != null)
+            {
+                Program.GreyFormJunior.Close();
+                Program.GreyFormJunior = null;
+            }
+            else if (Program.GreyForm != null)
             {
                 Program.GreyForm.Close();
                 Program.GreyForm = null;

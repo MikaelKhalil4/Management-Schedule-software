@@ -95,8 +95,11 @@
     <Compile Update="Schedule\Appointmentform\Appointment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Schedule\AppointmentManagement\ChooseService.cs">
+    <Compile Update="Schedule\Appointmentform\ChooseService.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Appointmentform\UCappointment.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\Availabilityform\AvailabilityLayout.cs">
       <SubType>Form</SubType>
@@ -110,7 +113,7 @@
     <Compile Update="Schedule\CustomisedComboBox\CBrepeat.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Schedule\Mainform\Schedule.cs">
+    <Compile Update="Schedule\Mainform\ScheduleForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Schedule\Monthform\UCMonth.cs">

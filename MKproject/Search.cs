@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using GlobalFunctions;
 using CustomizedTools;
 using MKproject.Management;
+using System.Threading.Tasks;
 
 namespace MKproject
 {
@@ -85,7 +86,7 @@ namespace MKproject
                 {
                     e.Value = "N/A";
                 }
-             
+
             }
         }
 
@@ -96,6 +97,7 @@ namespace MKproject
 
             dataGridViewMembers.Columns["client_id"].Visible = false;
             dataGridViewMembers.Columns["Registration_Date"].Visible = false;
+            dataGridViewMembers.Columns["total_balance"].Visible = false;
             dataGridViewMembers.Columns["name"].Visible = false;
             dataGridViewMembers.Columns["family_name"].Visible = false;
 
@@ -172,12 +174,13 @@ namespace MKproject
                 string FName = row.Cells["name"].Value.ToString();
                 string LName = row.Cells["family_name"].Value.ToString();
                 int Id = Convert.ToInt16(row.Cells["client_id"].Value);
+                double totaBalance = Convert.ToDouble(row.Cells["total_balance"].Value);
 
                 NewDesiredClient = new ClassClient();
                 NewDesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
                 NewDesiredClient.Fname = FName;
                 NewDesiredClient.Lname = LName;
-
+                NewDesiredClient.TotalBalance = totaBalance;
 
                 textBoxSearch.Text = FName + " " + LName;
                 DesiredTextbox.Text = textBoxSearch.Text;//ejbare hone kermel el packoffice
@@ -186,23 +189,28 @@ namespace MKproject
                 ChosenClientChanged?.Invoke(this, EventArgs.Empty);
 
 
-                this.Close();
             }
 
         }
-        private void Search_Deactivate(object sender, EventArgs e)
+        private async void Search_Deactivate(object sender, EventArgs e)
         {
+
             if (ComingDesiredClient != null && string.IsNullOrEmpty(textBoxSearch.Text))//which mean ghayarne
             {
                 NewDesiredClient = null;
 
                 DesiredTextbox.Text = DesiredTextbox.PlaceholderText;
 
-                this.Close();//ejbare foe el event,glitch: kermel teftah el choose el service, since, bel event aam neftaha
+               
                 ChosenClientChanged?.Invoke(this, EventArgs.Empty);
             }
-            this.Close();
+
+            await Task.Delay(1); //kermel to activate li tahta
+            this.Close(); // First, hide the form.
+       
         }
+
+     
 
         protected override CreateParams CreateParams
         {

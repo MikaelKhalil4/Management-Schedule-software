@@ -51,9 +51,9 @@
             TLPGlobal.RowCount = 2;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            TLPGlobal.Size = new System.Drawing.Size(230, 76);
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            TLPGlobal.Size = new System.Drawing.Size(268, 76);
             TLPGlobal.TabIndex = 0;
-            TLPGlobal.Click += UCappointments_Click;
             TLPGlobal.MouseLeave += UCappointments_MouseLeave;
             TLPGlobal.MouseMove += UCappointments_MouseMove;
             // 
@@ -70,22 +70,20 @@
             labelTime.TabIndex = 2;
             labelTime.Text = "10:00 - 11:00";
             labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            labelTime.Click += UCappointments_Click;
             labelTime.MouseLeave += UCappointments_MouseLeave;
             labelTime.MouseMove += UCappointments_MouseMove;
             // 
             // labelFullName
             // 
             labelFullName.AutoSize = true;
-            labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.55F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelFullName.ForeColor = System.Drawing.Color.FromArgb(89, 102, 204);
             labelFullName.Location = new System.Drawing.Point(3, 35);
             labelFullName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             labelFullName.Name = "labelFullName";
-            labelFullName.Size = new System.Drawing.Size(73, 19);
+            labelFullName.Size = new System.Drawing.Size(79, 20);
             labelFullName.TabIndex = 15;
             labelFullName.Text = "Full Name";
-            labelFullName.Click += UCappointments_Click;
             labelFullName.MouseLeave += UCappointments_MouseLeave;
             labelFullName.MouseMove += UCappointments_MouseMove;
             // 
@@ -94,14 +92,13 @@
             labelService.Anchor = System.Windows.Forms.AnchorStyles.Left;
             labelService.AutoSize = true;
             TLPGlobal.SetColumnSpan(labelService, 2);
-            labelService.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelService.ForeColor = System.Drawing.Color.FromArgb(74, 74, 74);
+            labelService.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelService.ForeColor = System.Drawing.Color.FromArgb(94, 94, 94);
             labelService.Location = new System.Drawing.Point(3, 6);
             labelService.Name = "labelService";
             labelService.Size = new System.Drawing.Size(51, 17);
             labelService.TabIndex = 16;
             labelService.Text = "Service";
-            labelService.Click += UCappointments_Click;
             labelService.MouseLeave += UCappointments_MouseLeave;
             labelService.MouseMove += UCappointments_MouseMove;
             // 
@@ -114,7 +111,7 @@
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "UCappointment";
             Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            Size = new System.Drawing.Size(230, 81);
+            Size = new System.Drawing.Size(268, 81);
             Click += UCappointments_Click;
             MouseLeave += UCappointments_MouseLeave;
             MouseMove += UCappointments_MouseMove;

@@ -235,7 +235,7 @@ namespace MKproject.Management
                         for (int i = 0; i < product.Qty; i++)
                         {
                             //SQL
-                            DataTable dtinserteditem = ClassClient.PurchaseAProduce(product, Date,ParentFormClientMang.Client);
+                            DataTable dtinserteditem = ClassClient.PurchaseAProduct(product, Date,ParentFormClientMang.Client);
 
                             //Design
                             //updating originaldatable
@@ -265,7 +265,8 @@ namespace MKproject.Management
             ParentFormClientMang.ResortOriginalDataTableAndSetDatasource();
             ParentFormClientMang.datagridviewBalanceMode();
             ParentFormClientMang.FormatDatagridviewDesign();//ejbbare ha tkun tahet datagridviewBalanceMode
-            ParentFormClientMang.CalculatingTotalBalances(true);//ejbare tahet FormatDatagridviewDesign, cz aam bi bayno el x icon bel dattagrid eza kenit abla
+            ParentFormClientMang.CalculatingTotalBalancesDesignAndSql(false);//hattayneha false, cz foe bel purchase functon aam naamil already update lal total balance
+                                                                             //ejbare tahet FormatDatagridviewDesign, cz aam bi bayno el x icon bel dattagrid eza kenit abla
             ParentFormClientMang.dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
         }//try catch
 

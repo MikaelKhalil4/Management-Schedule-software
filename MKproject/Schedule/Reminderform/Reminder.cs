@@ -13,7 +13,7 @@ namespace MKproject.Schedule
         public static string Monday = "Monday", Tuesday = "Tuesday", Wednesday = "Wednesday", Thursday = "Thursday", Friday = "Friday", Saturday = "Saturday", Sunday = "Sunday";
 
 
-        Schedule schedule;
+        ScheduleForm schedule;
         UCreminder ucreminderInClientReminder;
         public UCDay ucday;
         ClientReminder clientReminder;
@@ -36,7 +36,7 @@ namespace MKproject.Schedule
 
         ///-From ClientReminder
         ///ADD
-        public Reminder(Schedule form1, UCDay form2, ClientReminder clientreminder)
+        public Reminder(ScheduleForm form1, UCDay form2, ClientReminder clientreminder)
         {
             InitializeComponent();
             schedule = form1;
@@ -49,13 +49,13 @@ namespace MKproject.Schedule
 
             //Getting the needed values
             DesiredReminder.DesiredClient = clientreminder.DesiredClient;
-            textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredClient.Lname;
+            textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredReminder.DesiredClient.Lname;
 
             GetQuoteFromDate();
 
         }
         ///UPDATE
-        public Reminder(UCreminder UCreminderfromClientReminder, UCDay form2, Schedule form3, bool isclientreminder, ClientReminder clientreminder)
+        public Reminder(UCreminder UCreminderfromClientReminder, UCDay form2, ScheduleForm form3, bool isclientreminder, ClientReminder clientreminder)
         {
             InitializeComponent();
 
@@ -72,7 +72,7 @@ namespace MKproject.Schedule
             Isclientreminder = isclientreminder;
 
 
-            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredClient.Lname; }
+            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredReminder.DesiredClient.Lname; }
 
             if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
             {
@@ -119,7 +119,7 @@ namespace MKproject.Schedule
 
         ///-From Schedule
         ///ADD
-        public Reminder(Schedule form1, UCDay form2)
+        public Reminder(ScheduleForm form1, UCDay form2)
         {
             InitializeComponent();
             schedule = form1;
@@ -133,7 +133,7 @@ namespace MKproject.Schedule
 
         }
         ///UPDATE
-        public Reminder(ClassReminder desiredreminder, UCDay form2, Schedule form3, bool isclientreminder)
+        public Reminder(ClassReminder desiredreminder, UCDay form2, ScheduleForm form3, bool isclientreminder)
         {
             InitializeComponent();
 
@@ -146,7 +146,7 @@ namespace MKproject.Schedule
             Isclientreminder = isclientreminder;
 
 
-            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredClient.Lname; }
+            if (DesiredReminder.DesiredClient != null) { textBoxSearch.Text = DesiredReminder.DesiredClient.Fname + " " + DesiredReminder.DesiredClient.Lname; }
 
 
             if (labelrepeat.Text == Reminder.NoRepeat)//Checking the random state we didn't yet get it
@@ -303,7 +303,7 @@ namespace MKproject.Schedule
                     }
 
                     //DESIGN IF IT'S IN ClientReminder
-                    if (Isclientreminder && DesiredClient.ClientId == clientReminder.ClientId)
+                    if (Isclientreminder && DesiredReminder.DesiredClient.ClientId == clientReminder.ClientId)
                     {
                         UCreminder ucreminder1 = new UCreminder(DesiredReminder, ucday, schedule, clientReminder);
                         clientReminder.panelreminder.Controls.Add(ucreminder1);

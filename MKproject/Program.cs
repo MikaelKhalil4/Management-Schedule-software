@@ -21,7 +21,7 @@ namespace MKproject
         public static Color BoldColor = Color.FromArgb(109, 122, 224);//used for buttons/datagrid headers
 
         public static Color CancleButton = Color.FromArgb(95, 97, 99);//used for buttons/datagrid headers
-        //Cashed Forms
+        //Cashed Forms, Dont Forget if you have attached events to them, to release them, Also Menu And Home
         public static ClientManagementProfile clientManagementProfile;      
         public static NewRegister NewRegisterForm;
         public static LOGIN LoginForm;  

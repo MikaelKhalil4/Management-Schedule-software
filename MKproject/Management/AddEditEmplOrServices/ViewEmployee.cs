@@ -44,7 +44,6 @@ namespace MKproject.Management
             Desireddt.Columns.Add("FakeStatus", typeof(string));
             foreach (DataRow row in Desireddt.Rows)
             {
-                FixColumnFakeAccess((string)row["access"]);
 
                 if ((bool)row["status"] == true)
                 {
@@ -96,44 +95,7 @@ namespace MKproject.Management
 
         }
 
-        public string FixColumnFakeAccess(string access)
-        {
-
-            if (!Features.Schedule && access.ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
-            {
-                access = access.ToString().Replace(Features.enumFeatures.Schedule.GetStringValue() + "/", "");
-            }
-            if (!Features.Management)
-            {
-                if (access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
-                    access = access.ToString().Replace(Features.enumFeatures.EditOffres.GetStringValue() + "/", "");
-
-                if (access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
-                    access = access.ToString().Replace(Features.enumFeatures.Transactions.GetStringValue() + "/", "");
-
-                if (access.ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
-                    access = access.ToString().Replace(Features.enumFeatures.ServicesProductsEmployees.GetStringValue() + "/", "");
-
-                if (access.ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
-                    access = access.ToString().Replace(Features.enumFeatures.Statistics.GetStringValue() + "/", "");
-
-                if (access.ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
-                    access = access.ToString().Replace(Features.enumFeatures.RegistrationFields.GetStringValue() + "/", "");
-
-                if (access.ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
-                    access = access.ToString().Replace(Features.enumFeatures.DeleteClients.GetStringValue() + "/", "");
-
-                if (access.ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
-                    access = access.ToString().Replace(Features.enumFeatures.EditClients.GetStringValue() + "/", "");
-            }
-
-            access = ReplaceLastCharacterWithDot(access.ToString(), '/');
-            access = ((string)access).Replace("/", ", ");
-
-            return access;
-
-
-        }
+   
 
         void FormatDatagridView()
         {
@@ -169,7 +131,7 @@ namespace MKproject.Management
 
             dataGridViewEdit.ApplyStyle1();
         }
-      
+
 
         private void dataGridViewEdit_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -184,7 +146,8 @@ namespace MKproject.Management
                     //text display
                     if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "access")
                     {
-                        e.Value = FixColumnFakeAccess(e.Value.ToString());
+                        e.Value = ReplaceLastCharacterWithDot(e.Value.ToString(), '/');
+                        e.Value = ((string)e.Value).Replace("/", ", ");
                     }
                 }
                 //Design Display

@@ -15,13 +15,14 @@ namespace MKproject.Schedule
         static SqlConnection con = new SqlConnection(Program.DataLocation);
         //Property
         public int AppointmentID { get; set; }
-      
+
         private int employeeId;
         public int EmployeeId
         {
             get { return employeeId; }
-            set {
-                
+            set
+            {
+
                 employeeId = value;
                 EmployeeFullName = ClassEmployee.GetEmployeeFullName(value);
             }
@@ -32,15 +33,20 @@ namespace MKproject.Schedule
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Notes { get; set; }
-        public string HistoryClientBalance { get; set; }
         public bool IsCompleted { get; set; }//default false, which we want
         public bool IsCanceled { get; set; }//default false, which we want
 
         //used in UCClientApp
         public ClassClient DesiredClient { get; set; }
 
-        //Service
-        public ClassClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package      
+
+        //Hole el tnen Wahde mennun Null Always, kermel naarif eza package or New Solo Service
+        //Service:
+        public bool IsPackageMode { get; set; }//Default Value False
+                                               //if false,DesiredClientBalance will be null, if IsPackageMode true ,DesiredClientBalance can be null or not null
+        public ClassClientBalance DesiredClientBalance { get; set; }//used when we re selecting an available package
+        public string HistoryClientBalance { get; set; }
+        //
         //others
         private List<ClassBundles> chosenBundlesList;//used when selecting new services
         public List<ClassBundles> ChosenBundlesList
@@ -68,7 +74,8 @@ namespace MKproject.Schedule
                 }
             }
         }
-        public string ChoseBundlesString;//e.g: hair/Beard
+        public string ChoseBundlesString { get; set; }//e.g: hair/Beard
+
 
         public ClassAppointment()
         {
@@ -85,7 +92,7 @@ namespace MKproject.Schedule
             sda.Fill(dt);
             return dt;
         }
-        public static DataTable GetAllNewChosenBundles(int appointmentId)
+        public static DataTable GetAllChosenSoloBundles(int appointmentId)
         {
             SqlCommand cmd = new SqlCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id ORDER BY app_bundle_id ASC", con);
             cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
@@ -194,7 +201,7 @@ namespace MKproject.Schedule
             sda.Fill(dt);
             return dt;
         }
-        public static void DeleteRelatedSoloBundle(int appointmentId,int bundleId)
+        public static void DeleteRelatedSoloBundle(int appointmentId, int bundleId)
         {
             SqlCommand cmdDeleteOldBundlesToApp = new SqlCommand(@"Delete from appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
             cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", appointmentId);
@@ -203,17 +210,24 @@ namespace MKproject.Schedule
             cmdDeleteOldBundlesToApp.ExecuteNonQuery();
             con.Close();
         }
+        public static void SwapClientBalanceIdOnRenewPackage(int ExistingClientBalanceId,int NewClientBalanceId)
+        {
+            string query = "Update appointments Set client_balance_id='" + NewClientBalanceId + "' Where start_time >= '"+DateTime.Now.Date+"' And appointment_id in (Select appointment_id from appointments where client_balance_id='" + ExistingClientBalanceId + "')";
+            SqlCommand cmd = new SqlCommand(query, con);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
 
 
-
-
+       
         public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
-            string queryInsert = @"INSERT INTO appointments (employee_id, client_id, client_balance_id,title, start_time, end_time, Note,is_completed,is_canceled) 
-                                                                  VALUES (@employee_id, @client_id,@client_balance_id ,@title, @start_time, @end_time, @Note,@is_completed,@is_canceled) ";
+            string queryInsert = @"INSERT INTO appointments (employee_id, client_id,is_package_mode ,client_balance_id,history_client_balance,title, start_time, end_time, Note,is_completed,is_canceled) 
+                                                                  VALUES (@employee_id, @client_id,@is_package_mode,@client_balance_id,@history_client_balance ,@title, @start_time, @end_time, @Note,@is_completed,@is_canceled) ";
 
             string queryUpdate = @"  Update appointments SET  
-                            employee_id=@employee_id ,client_id=@client_id , client_balance_id=@client_balance_id, title=@title, 
+                            employee_id=@employee_id ,client_id=@client_id ,is_package_mode=@is_package_mode ,client_balance_id=@client_balance_id,history_client_balance=@history_client_balance, title=@title, 
                                                         start_time=@start_time, end_time=@end_time, Note=@Note ,is_completed=@is_completed,is_canceled=@is_canceled
                                                                 WHERE  appointment_id=@appointment_id ";
 
@@ -275,7 +289,10 @@ namespace MKproject.Schedule
             {
                 cmdInsertOrUpdateApp.Parameters.AddWithValue("@title", DBNull.Value);
             }
-            //wahad mennun only ha ykun mawjud, ya el bundles ya chosen balance
+
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@is_package_mode", IsPackageMode);
+
+
             if (DesiredClientBalance != null)
             {
                 cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DesiredClientBalance.ClientBalanceID);
@@ -283,6 +300,15 @@ namespace MKproject.Schedule
             else
             {
                 cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DBNull.Value);
+            }
+
+            if (HistoryClientBalance != null)
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@history_client_balance", HistoryClientBalance);
+            }
+            else
+            {
+                cmdInsertOrUpdateApp.Parameters.AddWithValue("@history_client_balance", DBNull.Value);
             }
 
 
@@ -331,11 +357,11 @@ namespace MKproject.Schedule
             }
 
 
-        } 
+        }
         public void DeleteAppointment()
         {
             //ejbare bhal order men wara el rlt
-            UndoCompletionAppointment();
+            UndoCompletionAppointmentSQL();
 
             con.Open();
 
@@ -360,7 +386,7 @@ namespace MKproject.Schedule
 
             con.Close();
         }
-        public void UndoCompletionAppointment()
+        public void UndoCompletionAppointmentSQL()
         {
 
             //kermel naamil Undo lal Purchases 
@@ -370,22 +396,32 @@ namespace MKproject.Schedule
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-           
+
             foreach (DataRow dr in dt.Rows)
-            {               
+            {
                 int ClientBalanceId = (int)dr["client_balance_id"];
-                if (dr["action_type"].ToString() == ActionsEnum.SoloPurchases.ToString())
+                if (dr["action_type"].ToString() == ActionsEnum.SoloPurchases.ToString())//Solo service
                 {
-                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"],(int)dr["archive_id"], ClientBalanceId,null,null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
+                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
                 }
-                else if (dr["action_type"].ToString() == ActionsEnum.SessionDone.ToString())
+                else if (dr["action_type"].ToString() == ActionsEnum.SessionDone.ToString())// package 
                 {
-                    ClassBackOffice.UndoSessionDoneActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, false, null, null);
+                    ClassBackOffice.UndoSessionDoneActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, false, null);
+
                 }
             }
 
-            SetOrResetIsCompleted();       
+            SetOrResetIsCompleted();
 
+        }
+        public void UpdateHistoryClientBalance()
+        {
+            SqlCommand cmdUpdateCompletion = new SqlCommand(@" Update appointments SET  history_client_balance=@history_client_balance  WHERE  appointment_id=@appointment_id ", con); ;
+            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+            cmdUpdateCompletion.Parameters.AddWithValue("@history_client_balance", HistoryClientBalance);
+            con.Open();
+            cmdUpdateCompletion.ExecuteNonQuery();
+            con.Close();
         }
         public void SetOrResetIsCompleted()
         {
@@ -405,6 +441,17 @@ namespace MKproject.Schedule
             cmdUpdateCompletion.ExecuteNonQuery();
             con.Close();
         }
+        public DataTable AllRelatedRowsInArchiveTable()
+        {
+            SqlCommand cmd = new SqlCommand("Select * from archive WHERE  appointment_id = @appointment_id", con);
+            cmd.Parameters.AddWithValue("@appointment_id", AppointmentID);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            return dt;
+        }
+
+
         public static ClassAppointment CreateObjectClassAppointment(int appointmentId)
         {
             DataTable dt;
@@ -417,6 +464,7 @@ namespace MKproject.Schedule
 
             DesiredApp.AppointmentID = (int)datarow["appointment_id"];//noway ykun bel db fi client ma endo clientid
 
+
             if (!(datarow["client_id"] is DBNull))
             {
                 //DesiredApp.DesiredClient = ClassClient.CreateClientObject((int)datarow["client_id"]);
@@ -427,8 +475,10 @@ namespace MKproject.Schedule
                 DesiredApp.DesiredClient.ClientId = (int)dtClient.Rows[0]["client_id"];//noway ykun bel db fi client ma endo clientid
                 DesiredApp.DesiredClient.Fname = dtClient.Rows[0]["name"] is DBNull ? null : (string)dtClient.Rows[0]["name"];
                 DesiredApp.DesiredClient.Lname = dtClient.Rows[0]["family_name"] is DBNull ? null : (string)dtClient.Rows[0]["family_name"];
-                DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ?  null : (DateTime)dtClient.Rows[0]["Registration_Date"];//kermel eza shataryna package with Membership
+                DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ? null : (DateTime)dtClient.Rows[0]["Registration_Date"];//kermel eza shataryna package with Membership
+                DesiredApp.DesiredClient.TotalBalance = (double)dtClient.Rows[0]["total_balance"];//noway ykun bel db fi client ma endo totalBalance;
             }
+
 
             DesiredApp.EmployeeId = (int)datarow["employee_id"];
             DesiredApp.Title = datarow["title"] is DBNull ? null : (string)datarow["title"];
@@ -439,18 +489,22 @@ namespace MKproject.Schedule
             DesiredApp.EndTime = (DateTime)datarow["end_time"];
 
 
-            DesiredApp.IsCompleted= (bool)datarow["is_completed"];
+            DesiredApp.IsCompleted = (bool)datarow["is_completed"];
             DesiredApp.IsCanceled = (bool)datarow["is_canceled"];
 
+            DesiredApp.IsPackageMode = (bool)datarow["is_package_mode"];
 
             if (!(datarow["client_balance_id"] is DBNull))
             {
+                //this one will be used if present or future
                 DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)datarow["client_balance_id"]);
                 DesiredApp.DesiredClientBalance.SetStringDetailsIfBundle();
             }
 
+            DesiredApp.HistoryClientBalance = datarow["history_client_balance"] is DBNull ? null : (string)datarow["history_client_balance"];
 
-            DataTable ChosenBundles = GetAllNewChosenBundles((int)DesiredApp.AppointmentID);
+
+            DataTable ChosenBundles = GetAllChosenSoloBundles((int)DesiredApp.AppointmentID);
             if (ChosenBundles.Rows.Count > 0)
             {
                 List<ClassBundles> bundles = new List<ClassBundles>();
@@ -467,9 +521,34 @@ namespace MKproject.Schedule
         }
 
         // Method to clone the object
+
         public ClassAppointment Copy()
         {
-            return (ClassAppointment)this.MemberwiseClone();
+            var copy = (ClassAppointment)this.MemberwiseClone();
+
+            // Perform deep copy on reference-type properties
+            if (this.DesiredClient != null)
+            {
+                copy.DesiredClient = this.DesiredClient.Copy(); // Assuming ClassClient has a Copy method
+            }
+            if (this.DesiredClientBalance != null)
+            {
+                copy.DesiredClientBalance = this.DesiredClientBalance.Copy(); // Assuming ClassClientBalance has a Copy method
+            }
+            if (this.ChosenBundlesList != null)
+            {
+               List<ClassBundles> BundleList = new List<ClassBundles>(this.ChosenBundlesList.Count); 
+                foreach (var bundle in this.ChosenBundlesList)
+                {
+                    BundleList.Add(bundle.Copy()); // Assuming ClassBundles has a Copy method
+                }
+                copy.ChosenBundlesList = BundleList;//kermel el string yenaamalo set deghre
+            }
+
+            // Continue with other reference types as necessary
+
+            return copy;
+
         }
     }
 }

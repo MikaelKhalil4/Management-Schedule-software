@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 
@@ -52,7 +53,7 @@ namespace MKproject.Schedule
                 }
 
                 //Kermel a3mil scroll into a label eza ma 2ederna na3mil scroll aal li baeedo bi 30 min
-                List<LabelTime> ListLabelTime = new List<LabelTime>(); 
+                List<LabelTime> ListLabelTime = new List<LabelTime>();
 
 
                 TimeSpan TimeStart = new TimeSpan(0, 0, 0);//12:00 AM
@@ -256,7 +257,7 @@ namespace MKproject.Schedule
         /// <summary>
         /// kello aam nhawlo aal textboxtime hatta men ha tabaee kabsit label ,houwe eza 3ando lformat w sakkar textbox li bel appointment byekhdo eza la2 ma byekhdo
         /// </summary>
-        private void DisplayTime_Deactivate(object sender, EventArgs e)
+        private async void DisplayTime_Deactivate(object sender, EventArgs e)
         {
             //StartTime
             if (Isstarttime)
@@ -310,7 +311,7 @@ namespace MKproject.Schedule
 
             }
 
-
+            await Task.Delay(1); //kermel to activation lal form li tahta
             this.Close();
         }
 
@@ -323,6 +324,11 @@ namespace MKproject.Schedule
             {
                 flowLayoutPanelContainerTime.ScrollControlIntoView(targetlabeltime);
             }
+        }
+
+        private async void CBdisplayTime_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await Task.Delay(1000);
         }
     }
 }

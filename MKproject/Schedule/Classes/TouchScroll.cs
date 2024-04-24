@@ -19,7 +19,7 @@ namespace MKproject.Schedule
         Panel Panelreminder;
         Panel Panelclientreminder;
 
-        Schedule schedule;
+        ScheduleForm schedule;
         UCDay ucday;
         CBdisplayTime cbdisplaytime;
         AvailabilityLayout availabilityLayout;
@@ -226,7 +226,7 @@ namespace MKproject.Schedule
         }
 
 
-        public TouchScroll(Panel panelreminder, Schedule form)
+        public TouchScroll(Panel panelreminder, ScheduleForm form)
         {
             Panelreminder = panelreminder;
             schedule = form;

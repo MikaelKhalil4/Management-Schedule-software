@@ -367,6 +367,7 @@ namespace MKproject.Management
 
                 Program.clientManagementProfile.SearchCurrentClientform = this;
                 menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
+                ((Home)this.Tag).buttonBackHome.Text = "Clients";
                 ((Home)this.Tag).buttonBackHome.Visible = true;
 
             }
