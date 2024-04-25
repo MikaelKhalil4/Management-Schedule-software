@@ -10,8 +10,6 @@ namespace MKproject.Schedule
 {
     public partial class UCEmployee : UserControl
     {
-        //SQL:
-        SqlConnection con = new SqlConnection(Program.DataLocation);
 
         //PERFORMANCE:
         protected override CreateParams CreateParams
@@ -48,22 +46,18 @@ namespace MKproject.Schedule
 
 
         //VARIABLE:
-        public Employee employees;
+        public Employee ParentFormEmployee;
 
 
 
-        //INITIALISE:
-        public UCEmployee()
-        {
-            InitializeComponent();
-        }
+        //INITIALISE:       
         public UCEmployee(ClassEmployee desiredemployee, Employee employee)
         {
             InitializeComponent();
 
             //Get Data
+            ParentFormEmployee = employee;
             DesiredEmployee = desiredemployee;
-            employees = employee;
             //Property
             Cursor = Cursors.Hand;
         }
@@ -74,48 +68,45 @@ namespace MKproject.Schedule
         ///-CLICK
         private void buttonDown_Click(object sender, EventArgs e)
         {
-            UCEmployee TempUCEmployee = new UCEmployee();
-
-            foreach (UCEmployee ucemployee in employees.ListUCEmployee)//hone kamen bi zet lwa2et aam nghayir ListUCEmployee
+            foreach (UCEmployee ucemployee in ParentFormEmployee.ListUCEmployee)//hone kamen bi zet lwa2et aam nghayir ListUCEmployee
             {
                 //Getting The ucemployee that's after him to do the swap
                 if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank + 1)
                 {
                     //UPDATE ListEmployeeScheduleCopy
 
-                    ClassEmployee EmployeeSelectedOfTheOtherUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
+                    ClassEmployee EmployeeSelectedOfTheOtherUC = ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
                     EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
 
-                    ClassEmployee EmployeeSelectedOfThisUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+                    ClassEmployee EmployeeSelectedOfThisUC = ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
                     EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank + 1;
 
 
                     //Design doing the swap of the 2 ucemployee
-                    Swapucemployee(ucemployee, TempUCEmployee);
+                    Swapucemployee(ucemployee);
                     break;
                 }
             }
         }
         private void buttonUp_Click(object sender, EventArgs e)
         {
-            UCEmployee TempUCEmployee = new UCEmployee();
-            foreach (UCEmployee ucemployee in employees.ListUCEmployee)
+            foreach (UCEmployee ucemployee in ParentFormEmployee.ListUCEmployee)
             {
                 //Getting The ucemployee that's before him to do the swap
                 if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank - 1)//yaeene faw2o
                 {
                     //UPDATE ListEmployeeScheduleCopy
 
-                    ClassEmployee EmployeeSelectedOfTheOtherUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
+                    ClassEmployee EmployeeSelectedOfTheOtherUC = ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
                     EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
 
-                    ClassEmployee EmployeeSelectedOfThisUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+                    ClassEmployee EmployeeSelectedOfThisUC = ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
                     EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank - 1;
 
 
 
                     //Design doing the swap of the 2 ucemployee 
-                    Swapucemployee(ucemployee, TempUCEmployee);
+                    Swapucemployee(ucemployee);
                     break;
                 }
             }
@@ -124,18 +115,18 @@ namespace MKproject.Schedule
         private void buttonAvailability_Click(object sender, EventArgs e)
         {
             //Kermel yaeemil la marra wehde load w baeeden laa
-            if (employees.availabilityLayout == null)
+            if (ParentFormEmployee.availabilityLayout == null)
             {
                 Cursor = Cursors.WaitCursor;
-                employees.availabilityLayout = new AvailabilityLayout();
+                ParentFormEmployee.availabilityLayout = new AvailabilityLayout();
                 Cursor = Cursors.Default;
             }
 
-            employees.IsButtonAvailability = true;
+            ParentFormEmployee.IsButtonAvailability = true;
 
             //Doing the design of availabilityLayout 
-            employees.availabilityLayout.AvailibilitySpecificEmployee(this);
-            employees.availabilityLayout.ShowDialog();
+            ParentFormEmployee.availabilityLayout.AvailibilitySpecificEmployee(this);
+            ParentFormEmployee.availabilityLayout.ShowDialog();
         }
 
         ///-CHECKBOX
@@ -144,17 +135,17 @@ namespace MKproject.Schedule
             DesiredEmployee.IsChecked = CheckBoxAppearance.Checked;
 
             //UPDATE ListEmployeeScheduleCopy
-            ClassEmployee EmployeeSelectedOfThisUC = employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+            ClassEmployee EmployeeSelectedOfThisUC = ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
             EmployeeSelectedOfThisUC.IsChecked = this.DesiredEmployee.IsChecked;
         }
 
 
 
         //FUNCTION:
-        private void Swapucemployee(UCEmployee ucemployee, UCEmployee TempUCEmployee)//ntebih hone byekhdo kel shi ella rank
+        private void Swapucemployee(UCEmployee ucemployee)//ntebih hone byekhdo kel shi ella rank
         {
             //temp=a
-            TempUCEmployee.DesiredEmployee = this.DesiredEmployee;
+            UCEmployee TempUCEmployee = new UCEmployee(this.DesiredEmployee,this.ParentFormEmployee);
 
             //a=b
             this.DesiredEmployee = ucemployee.DesiredEmployee;

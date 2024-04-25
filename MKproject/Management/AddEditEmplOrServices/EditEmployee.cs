@@ -28,22 +28,22 @@ namespace MKproject.Management
 
 
 
-        public int? EmployeeId;
+
         DataRow DesiredRow;
         public ViewEmployee ParentFormViewEmpl;
 
 
-        // id is not null lammal employee 3m ya3mil edit la halo , meanwhile this feature will not be used, bas ha nkhalliya cz elc code maamoul
-        public EditEmployee(int? id, DataRow desiredRow)
+
+        public EditEmployee(DataRow desiredRow)
         {
             InitializeComponent();
             DesiredRow = desiredRow;
-            EmployeeId = id;
+
 
             GroupBoxOldHeight = groupBoxFeatures.Size.Height;
             LoadForm();
 
-            if (DesiredRow != null || EmployeeId != null)//edit mode not add
+            if (DesiredRow != null)//edit mode not add
             {
                 LoadInfo();
             }
@@ -77,97 +77,83 @@ namespace MKproject.Management
             ucTextboxPhoneNumber.NextControl = ucTextboxPassword;
             ucTextboxPassword.IsRequired = true;
 
-            if (DesiredRow == null && EmployeeId == null) //Add Employee men el editemployeeForm 
+            if (DesiredRow == null) //Add Employee men el editemployeeForm 
             {
-               checkBoxStatus.Checked=true;
+                checkBoxStatus.Checked = true;
             }
 
-            if ((EmployeeId != null))//edit men el homepageForm 
-            {
-                checkBoxStatus.Visible = false;
-                this.Size = new Size(this.Width, this.Height - checkBoxStatus.Size.Height - checkBoxStatus.Margin.Top - checkBoxStatus.Margin.Bottom);
-                buttonDelete.Visible = false;
-            }
 
-            if (EmployeeId != null)//update men el honme , which isnt available mean whi;e
-            {
-                this.Controls.Remove(groupBoxFeatures);
-                groupBoxFeatures.Dispose();
-                ChangeFormSize(false);
-            }
-            else
-            {
-                ToolTip toolTip1 = new ToolTip();
-                toolTip1.InitialDelay = 800;
-                toolTip1.AutoPopDelay = 30000;
-                toolTip1.ShowAlways = true;
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.InitialDelay = 800;
+            toolTip1.AutoPopDelay = 30000;
+            toolTip1.ShowAlways = true;
 
 
-                CheckBoxSchedule = new CheckBox();
-                CheckBoxSchedule.Text = enumFeatures.Schedule.GetStringValue();
-                CheckBoxSchedule.Font = seguiFont;
-                CheckBoxSchedule.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxSchedule);
-                toolTip1.SetToolTip(CheckBoxSchedule, "This feature allows employees to access the schedule");
+            CheckBoxSchedule = new CheckBox();
+            CheckBoxSchedule.Text = enumFeatures.Schedule.GetStringValue();
+            CheckBoxSchedule.Font = seguiFont;
+            CheckBoxSchedule.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxSchedule);
+            toolTip1.SetToolTip(CheckBoxSchedule, "This feature allows employees to access the schedule");
 
-                CheckBoxEditOffres = new CheckBox();
-                CheckBoxEditOffres.Text = enumFeatures.EditOffres.GetStringValue();
-                CheckBoxEditOffres.Font = seguiFont;
-                CheckBoxEditOffres.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxEditOffres);
-                toolTip1.SetToolTip(CheckBoxEditOffres, "This feature allows employees to edit the offers of the client while purchasing a service or product");
+            CheckBoxEditOffres = new CheckBox();
+            CheckBoxEditOffres.Text = enumFeatures.EditOffres.GetStringValue();
+            CheckBoxEditOffres.Font = seguiFont;
+            CheckBoxEditOffres.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxEditOffres);
+            toolTip1.SetToolTip(CheckBoxEditOffres, "This feature allows employees to edit the offers of the client while purchasing a service or product");
 
-                CheckBoxRegistrationFields = new CheckBox();
-                CheckBoxRegistrationFields.Text = enumFeatures.RegistrationFields.GetStringValue();
-                CheckBoxRegistrationFields.Font = seguiFont;
-                CheckBoxRegistrationFields.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxRegistrationFields);
-                toolTip1.SetToolTip(CheckBoxRegistrationFields, "This feature allows employees to show or hide fields or set them as required for the client's information");
+            CheckBoxRegistrationFields = new CheckBox();
+            CheckBoxRegistrationFields.Text = enumFeatures.RegistrationFields.GetStringValue();
+            CheckBoxRegistrationFields.Font = seguiFont;
+            CheckBoxRegistrationFields.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxRegistrationFields);
+            toolTip1.SetToolTip(CheckBoxRegistrationFields, "This feature allows employees to show or hide fields or set them as required for the client's information");
 
-                CheckBoxEditClients = new CheckBox();
-                CheckBoxEditClients.Text = enumFeatures.EditClients.GetStringValue();
-                CheckBoxEditClients.Font = seguiFont;
-                CheckBoxEditClients.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxEditClients);
-                toolTip1.SetToolTip(CheckBoxEditClients, "This feature allows employees to insert or edit clients' information");
+            CheckBoxEditClients = new CheckBox();
+            CheckBoxEditClients.Text = enumFeatures.EditClients.GetStringValue();
+            CheckBoxEditClients.Font = seguiFont;
+            CheckBoxEditClients.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxEditClients);
+            toolTip1.SetToolTip(CheckBoxEditClients, "This feature allows employees to insert or edit clients' information");
 
-                CheckBoxDeleteClient = new CheckBox();
-                CheckBoxDeleteClient.Text = enumFeatures.DeleteClients.GetStringValue();
-                CheckBoxDeleteClient.Font = seguiFont;
-                CheckBoxDeleteClient.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxDeleteClient);
-                toolTip1.SetToolTip(CheckBoxDeleteClient, "This feature allows employees to delete clients");
+            CheckBoxDeleteClient = new CheckBox();
+            CheckBoxDeleteClient.Text = enumFeatures.DeleteClients.GetStringValue();
+            CheckBoxDeleteClient.Font = seguiFont;
+            CheckBoxDeleteClient.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxDeleteClient);
+            toolTip1.SetToolTip(CheckBoxDeleteClient, "This feature allows employees to delete clients");
 
-                CheckBoxTransactions = new CheckBox();
-                CheckBoxTransactions.Text = enumFeatures.Transactions.GetStringValue();
-                CheckBoxTransactions.Font = seguiFont;
-                CheckBoxTransactions.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxTransactions);
-                toolTip1.SetToolTip(CheckBoxTransactions, "This feature enables employees to access all interactions made on the system. At the client level, they can access all interactions made by this client and can undo actions");
+            CheckBoxTransactions = new CheckBox();
+            CheckBoxTransactions.Text = enumFeatures.Transactions.GetStringValue();
+            CheckBoxTransactions.Font = seguiFont;
+            CheckBoxTransactions.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxTransactions);
+            toolTip1.SetToolTip(CheckBoxTransactions, "This feature enables employees to access all interactions made on the system. At the client level, they can access all interactions made by this client and can undo actions");
 
-                CheckBoxStatistics = new CheckBox();
-                CheckBoxStatistics.Text = enumFeatures.Statistics.GetStringValue();
-                CheckBoxStatistics.Font = seguiFont;
-                CheckBoxStatistics.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxStatistics);
-                toolTip1.SetToolTip(CheckBoxStatistics, "This feature allows employees to view all statistics, from income to client attendance, in real time or for any selected date");
+            CheckBoxStatistics = new CheckBox();
+            CheckBoxStatistics.Text = enumFeatures.Statistics.GetStringValue();
+            CheckBoxStatistics.Font = seguiFont;
+            CheckBoxStatistics.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxStatistics);
+            toolTip1.SetToolTip(CheckBoxStatistics, "This feature allows employees to view all statistics, from income to client attendance, in real time or for any selected date");
 
-                CheckBoxEditEmployeesServicesProducts = new CheckBox();
-                CheckBoxEditEmployeesServicesProducts.Text = enumFeatures.ServicesProductsEmployees.GetStringValue();
-                CheckBoxEditEmployeesServicesProducts.Font = seguiFont;
-                CheckBoxEditEmployeesServicesProducts.AutoSize = true;
-                FLPFeatures.Controls.Add(CheckBoxEditEmployeesServicesProducts);
-                toolTip1.SetToolTip(CheckBoxEditEmployeesServicesProducts, "This feature enables employees, to add/Edit/Delete services, products or employee");
+            CheckBoxEditEmployeesServicesProducts = new CheckBox();
+            CheckBoxEditEmployeesServicesProducts.Text = enumFeatures.ServicesProductsEmployees.GetStringValue();
+            CheckBoxEditEmployeesServicesProducts.Font = seguiFont;
+            CheckBoxEditEmployeesServicesProducts.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxEditEmployeesServicesProducts);
+            toolTip1.SetToolTip(CheckBoxEditEmployeesServicesProducts, "This feature enables employees, to add/Edit/Delete services, products or employee");
 
 
 
 
-                AdjustFeaturesSize();
-                ChangeFormSize(true);
+            AdjustFeaturesSize();
+            ChangeFormSize(true);
 
 
 
-            }
+
         }
 
 
@@ -217,29 +203,15 @@ namespace MKproject.Management
             bool status;
             bool isScheduleMember;
 
-            if (EmployeeId != null)
-            {
-                DataTable dt = ClassEmployee.GetAllEmployeesInfo((int)EmployeeId);
-                DataRow row = dt.Rows[0];
-                FN = row["first_name"].ToString();
-                LN = row["last_name"].ToString();
-                PhoneNumber = row["phone_number"].ToString();
-                Password = row["password"].ToString();
-                Access = row["access"].ToString();
-                status = Convert.ToBoolean(row["status"]);
-                isScheduleMember = Convert.ToBoolean(row["is_schedule_member"]);
 
-            }
-            else//hone disered ro ha tkun !=null
-            {
-                FN = DesiredRow["first_name"].ToString();
-                LN = DesiredRow["last_name"].ToString();
-                PhoneNumber = DesiredRow["phone_number"].ToString();
-                Password = DesiredRow["password"].ToString();
-                Access = DesiredRow["access"].ToString();
-                status = Convert.ToBoolean(DesiredRow["status"]);
-                isScheduleMember = Convert.ToBoolean(DesiredRow["is_schedule_member"]);
-            }
+            FN = DesiredRow["first_name"].ToString();
+            LN = DesiredRow["last_name"].ToString();
+            PhoneNumber = DesiredRow["phone_number"].ToString();
+            Password = DesiredRow["password"].ToString();
+            Access = DesiredRow["access"].ToString();
+            status = Convert.ToBoolean(DesiredRow["status"]);
+            isScheduleMember = Convert.ToBoolean(DesiredRow["is_schedule_member"]);
+
 
             if (FN != null && FN != "")
             {
@@ -365,21 +337,9 @@ namespace MKproject.Management
         bool CheckPhoneNumber()
         {
             string PhoneNumber = ucTextboxPhoneNumber.myTextBox1.Text;
-            if (DesiredRow != null || EmployeeId != null)//edit mode not add
+            if (DesiredRow != null)//edit mode not add
             {
-                int employeeid;
-
-                if (EmployeeId != null)
-                {
-                    employeeid = (int)EmployeeId;
-                }
-                else
-                {
-                    employeeid = (int)DesiredRow["employee_id"];
-                }
-
-
-                return ClassEmployee.SearchEmployeePhoneNumber(employeeid, PhoneNumber);
+                return ClassEmployee.SearchEmployeePhoneNumber((int)DesiredRow["employee_id"], PhoneNumber);
             }
             else
             {
@@ -389,38 +349,31 @@ namespace MKproject.Management
         string GetAccess()
         {
 
-            if (EmployeeId != null)//update men el home
-            {
-                return LOGIN.Employee.Access;
-            }
-            else//add or update
-            {
+            string Access = "";
 
-                string Access = "";
-
-                foreach (Control control in FLPFeatures.Controls)
+            foreach (Control control in FLPFeatures.Controls)
+            {
+                if (control is CheckBox checkbox)
                 {
-                    if (control is CheckBox checkbox)
+                    if (checkbox.Checked)
                     {
-                        if (checkbox.Checked)
-                        {
-                            Access += checkbox.Text;
-                            Access += "/";
-                        }
+                        Access += checkbox.Text;
+                        Access += "/";
                     }
                 }
-
-                if (String.IsNullOrEmpty(Access))
-                {
-                    return null;
-                }
-                else
-                {
-                    return Access;
-                }
-
             }
+
+            if (String.IsNullOrEmpty(Access))
+            {
+                return null;
+            }
+            else
+            {
+                return Access;
+            }
+
         }
+
 
 
 
@@ -433,10 +386,10 @@ namespace MKproject.Management
             employee.PhoneNumber = ucTextboxPhoneNumber.Value;
             employee.Password = ucTextboxPassword.Value;
             employee.Status = checkBoxStatus.Checked;
-            employee.IsScheduleMember=checkBoxScheduleMember.Checked;
+            employee.IsScheduleMember = checkBoxScheduleMember.Checked;
             employee.Access = GetAccess();
 
-            
+
 
             if (employee.CheckIfPAsswordExist(null))
             {
@@ -465,46 +418,45 @@ namespace MKproject.Management
         }
         public void UpdateEmployee()
         {
+            ClassEmployee employee = new ClassEmployee();
 
-            ClassEmployee employee;
-            if (EmployeeId != null)
-            {
-                employee = LOGIN.Employee;
 
-            }
-            else
-            {
-                employee = new ClassEmployee();
-            }
 
             employee.Fname = ucTextboxFirstName.Value;
             employee.Lname = ucTextboxLastName.Value;
             employee.PhoneNumber = ucTextboxPhoneNumber.Value;
             employee.Password = ucTextboxPassword.Value;
+            employee.Access = GetAccess();
+            employee.Status = checkBoxStatus.Checked;
+            employee.IsScheduleMember = checkBoxScheduleMember.Checked;
+            //
+            employee.EmployeeId = (int)DesiredRow["employee_id"];
+         
+            employee.IsChecked= DesiredRow["is_checked"] is DBNull ? null: (bool)DesiredRow["is_checked"];
+            employee.Rank = DesiredRow["rank"] is DBNull ? null : (int)DesiredRow["rank"];
+            employee.Availability= DesiredRow["availability"] is DBNull? null : (string)DesiredRow["availability"];
 
-            if (DesiredRow != null)
-            {
-                employee.EmployeeId = (int)DesiredRow["employee_id"];
-                employee.Access = GetAccess();
-
-                employee.Status =checkBoxStatus.Checked ;
-                employee.IsScheduleMember =checkBoxScheduleMember.Checked;
+            bool OldIsScheduleMember = (bool)DesiredRow["is_schedule_member"];
+            bool NewIsScheduleMember = checkBoxScheduleMember.Checked;
 
 
-            }
 
             if (employee.CheckIfPAsswordExist(DesiredRow["password"].ToString()))
             {
-                CustomMessageBox.Show("Password already exists , choose another one", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("Password already exists , choose another one.", CustomMessageBox.Type.Ok);
+            }
+            else if (OldIsScheduleMember == true && NewIsScheduleMember == false && employee.CheckIfEmployeeHasAppointments())//in case aam notfe el employee as schedule member
+            {
+                CustomMessageBox.Show("To deactivate the employee's schedule, cancel all their existing appointments.", CustomMessageBox.Type.Ok);
             }
             else
             {
                 employee.UpdateEmployee();
 
-
                 //design in datatgrid
-                if (DesiredRow != null)
+                if (DesiredRow != null)//we re updating only the fields that could change
                 {
+                    //hole byetghayro by desing
                     DesiredRow["first_name"] = employee.Fname;
                     DesiredRow["last_name"] = employee.Lname;
                     DesiredRow["phone_number"] = employee.PhoneNumber;
@@ -514,6 +466,11 @@ namespace MKproject.Management
                     DesiredRow["status"] = employee.Status;
                     DesiredRow["FakeIsScheduleMember"] = employee.IsScheduleMember;
                     DesiredRow["is_schedule_member"] = employee.IsScheduleMember;
+
+                    //hle ma32oul yetghdayaro by   employee.UpdateEmployee();
+                    DesiredRow["availability"] = employee.Availability is null? DBNull.Value : employee.Availability;
+                    DesiredRow["rank"] = employee.Rank is  null ? DBNull.Value : employee.Rank; ;
+                    DesiredRow["is_checked"] = employee.IsChecked is null ? DBNull.Value : employee.IsChecked; ;
                 }
                 this.Close();
 
@@ -521,11 +478,12 @@ namespace MKproject.Management
         }
 
 
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (CheckRequired())
             {
-                if (DesiredRow != null || EmployeeId != null)
+                if (DesiredRow != null)
                 {
                     UpdateEmployee();
                 }

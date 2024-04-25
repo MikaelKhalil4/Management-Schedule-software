@@ -234,13 +234,13 @@ namespace MKproject.Schedule
 
                 //BackEnd
                 //UPDATE ListEmployeeSchedule
-                ClassEmployee EmployeeSelected = UCemployee.employees.schedule.ucday.ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
+                ClassEmployee EmployeeSelected = UCemployee.ParentFormEmployee.schedule.ucday.ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
                 EmployeeSelected.Availability = NewAvailability;
 
 
 
                 //UPDATE ListEmployeeScheduleCopy
-                ClassEmployee EmployeeSelectedCopy = UCemployee.employees.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
+                ClassEmployee EmployeeSelectedCopy = UCemployee.ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
                 EmployeeSelectedCopy.Availability = NewAvailability;
                
 
@@ -248,10 +248,10 @@ namespace MKproject.Schedule
                 if (UCemployee.DesiredEmployee.IsChecked == true)
                 {
                     //Design So we have to just cahnge the availibility of the column
-                    dayOfWeekInt = ((int)UCemployee.employees.schedule.ucday.SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+                    dayOfWeekInt = ((int)UCemployee.ParentFormEmployee.schedule.ucday.SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
                     HoursOfThedays = NewAvailability.Split('/');
                     string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');
-                    UCemployee.employees.schedule.ucday.AvailibilityColumnChanged(UCemployee.DesiredEmployee.Rank, HoursOfTheday);//The Rank have the same number of with column the employee is in
+                    UCemployee.ParentFormEmployee.schedule.ucday.AvailibilityColumnChanged(UCemployee.DesiredEmployee.Rank, HoursOfTheday);//The Rank have the same number of with column the employee is in
                 }
             }
             this.Close();

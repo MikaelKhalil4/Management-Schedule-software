@@ -120,6 +120,11 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["employee_id"].Visible = false;
             dataGridViewEdit.Columns["status"].Visible = false;
             dataGridViewEdit.Columns["is_schedule_member"].Visible = false;
+            dataGridViewEdit.Columns["rank"].Visible = false;
+            dataGridViewEdit.Columns["availability"].Visible = false;
+            dataGridViewEdit.Columns["is_checked"].Visible = false;
+            dataGridViewEdit.Columns["cash"].Visible = false;
+            dataGridViewEdit.Columns["clearcash_date"].Visible = false;
 
             dataGridViewEdit.Columns["first_name"].HeaderCell.Value = "First Name";
             dataGridViewEdit.Columns["last_name"].HeaderCell.Value = "Last Name";
@@ -234,7 +239,7 @@ namespace MKproject.Management
 
                     Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
                     Program.GreyForm.Show();
-                    EditEmployee p = new EditEmployee(null, desiredRow);
+                    EditEmployee p = new EditEmployee(desiredRow);
                     p.ParentFormViewEmpl = this;
                     p.ShowDialog();
                 }
@@ -247,7 +252,7 @@ namespace MKproject.Management
         {
             Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
             Program.GreyForm.Show();
-            EditEmployee p = new EditEmployee(null, null);
+            EditEmployee p = new EditEmployee(null);
             p.ParentFormViewEmpl = this;
             p.ShowDialog();
 

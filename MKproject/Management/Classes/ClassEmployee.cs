@@ -119,7 +119,7 @@ namespace MKproject.Management
         }
         public static DataTable GetAllEmployees()
         {
-            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member from employee ORDER by status DESC,employee_id DESC";
+            string query = "select * from employee ORDER by status DESC,employee_id DESC";
             SqlCommand cmd = new SqlCommand(query, con);
             con.Open();
             cmd.ExecuteNonQuery();
@@ -131,7 +131,7 @@ namespace MKproject.Management
         }
         public static DataTable GetLastInsertEmployee()
         {
-            string Query = "Select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status from employee where  employee_id=(Select MAX(employee_id) from employee)";
+            string Query = "Select * from employee where  employee_id=(Select MAX(employee_id) from employee)";
             SqlCommand cmd = new SqlCommand(Query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -184,7 +184,7 @@ namespace MKproject.Management
         public List<(int, int)> GetRanks(int empId)
         {
 
-            List<(int,int)> ranks = new List<(int, int)> ();
+            List<(int, int)> ranks = new List<(int, int)>();
             SqlCommand command = new SqlCommand("SELECT employee_id,rank FROM employee where rank is not null and employee_id!=@employee_id ORDER BY rank ASC", con);
             command.Parameters.AddWithValue("@employee_id", empId);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -205,9 +205,9 @@ namespace MKproject.Management
         {
             List<(int, int)> normalizedRanks = new List<(int, int)>(originalRanks);
 
-            for(int i = 0; i < originalRanks.Count; i++)
+            for (int i = 0; i < originalRanks.Count; i++)
             {
-                normalizedRanks[i]=(normalizedRanks[i].Item1, i+1);
+                normalizedRanks[i] = (normalizedRanks[i].Item1, i + 1);
             }
 
             return normalizedRanks;
@@ -384,39 +384,42 @@ namespace MKproject.Management
 
                 if (Availability == null)
                 {
-                    command.Parameters.AddWithValue("@availability", GetFullAvailabilty());
+                    Availability = GetFullAvailabilty();
                 }
-                else
-                {
-                    //ma btaamil shi lieanno already bi kun eendo
-                }
+                command.Parameters.AddWithValue("@availability", Availability);
+
+
                 if (Rank == null)
                 {
-                    command.Parameters.AddWithValue("@rank", GetLastRank(EmployeeId) + 1);
+                    Rank = GetLastRank(EmployeeId) + 1;
 
                 }
-                else
-                {
-                    //ma btaamil shi lieanno already bi kun eendo
-                }
+                command.Parameters.AddWithValue("@rank", Rank);
+
+
                 if (IsChecked == null)
                 {
-                    command.Parameters.AddWithValue("@is_checked", true);
+                    IsChecked = true;
                 }
-                else
-                {
-                    //ma btaamil shi lieanno already bi kun eendo
-                }
+                command.Parameters.AddWithValue("@is_checked", IsChecked);
+
             }
             else//
             {
+                if (Rank != null)//means ken eendo rank,
+                {
+                    UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));//hone ma aam naamil reset lal datagrid tb3 el employees , cz ma bi hemna, bas bi hemna eza eendo rank aw ma eendo 
+                }
+
+                Availability = null;
+                Rank = null;//ejbare tahet el condition foe
+                IsChecked = null;
+
                 command.Parameters.AddWithValue("@availability", DBNull.Value);
-
                 command.Parameters.AddWithValue("@rank", DBNull.Value);//i need to reOrder the others rank , ta yozbato
-             
-                UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));
-
                 command.Parameters.AddWithValue("@is_checked", DBNull.Value);
+
+                
             }
 
             con.Open();
@@ -427,11 +430,35 @@ namespace MKproject.Management
 
         public void DeleteEmployee()
         {
-
+            if (IsScheduleMember)//ma32oul tkun true, w yerjaa true again, so ma men ghayir el old results
+            {
+                UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));
+            }
             SqlCommand cmd = new SqlCommand("Delete employee where employee_id='" + EmployeeId + "'", con);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
+        }
+        public bool CheckIfEmployeeHasAppointments()
+        {
+            string query = @"
+            Select Count(*) from employee as b
+            where employee_id='" + EmployeeId + "' And Exists(Select* from appointments as a where a.employee_id = b.employee_id AND CAST(a.start_time AS DATE) >= CAST(GETDATE() AS DATE) ) ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            con.Open();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            con.Close();
+            if (count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         public bool CheckIfEmployeeHasReferences()
         {
