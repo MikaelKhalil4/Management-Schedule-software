@@ -117,9 +117,18 @@ namespace MKproject.Management
             return ((string)dt.Rows[0]["first_name"] + " " + (string)dt.Rows[0]["last_name"]);
 
         }
-        public static DataTable GetAllEmployees()
+        public static DataTable GetAllEmployeesOrLAstInseted(bool AllOrLastInsered)
         {
-            string query = "select * from employee ORDER by status DESC,employee_id DESC";
+            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member,availability,rank,is_checked from employee ";
+           
+            if (AllOrLastInsered)
+            {
+                query += " ORDER by status DESC,employee_id DESC";
+            }
+            else
+            {
+                query += " where  employee_id=(Select MAX(employee_id) from employee)";
+            }
             SqlCommand cmd = new SqlCommand(query, con);
             con.Open();
             cmd.ExecuteNonQuery();
@@ -129,15 +138,7 @@ namespace MKproject.Management
             con.Close();
             return dt;
         }
-        public static DataTable GetLastInsertEmployee()
-        {
-            string Query = "Select * from employee where  employee_id=(Select MAX(employee_id) from employee)";
-            SqlCommand cmd = new SqlCommand(Query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            return dt;
-        }
+       
         public static bool SearchEmployeePhoneNumber(int? employeeid, string PhoneNumber)
         {
             string query;

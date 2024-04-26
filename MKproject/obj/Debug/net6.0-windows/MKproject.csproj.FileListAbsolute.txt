@@ -290,3 +290,20 @@ C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.applica
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.csproj.CopyComplete
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\OpenTK.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\OpenTK.GLControl.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\OxyPlot.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\OxyPlot.WindowsForms.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\ScottPlot.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\ScottPlot.WinForms.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\SkiaSharp.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\SkiaSharp.Views.Desktop.Common.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\SkiaSharp.Views.WindowsForms.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libSkiaSharp.so
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libSkiaSharp.so
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\linux-musl-x64\native\libSkiaSharp.so
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libSkiaSharp.so
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\osx\native\libSkiaSharp.dylib
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\win-arm64\native\libSkiaSharp.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\win-x64\native\libSkiaSharp.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\runtimes\win-x86\native\libSkiaSharp.dll

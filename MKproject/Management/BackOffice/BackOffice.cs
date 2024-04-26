@@ -754,7 +754,7 @@ namespace MKproject.Management
                                         else//days bundle
                                         {
                                             this.DesiredBalanceRowBinded["session_left_days"] = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)NewDueDate);//tene wahde - awwal wahde
-                                            this.DesiredBalanceRowBinded["session_left_days"] = NewDueDate;
+                                            this.DesiredBalanceRowBinded["due_date"] = NewDueDate;
                                         }
 
 

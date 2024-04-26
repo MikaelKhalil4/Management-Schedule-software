@@ -223,6 +223,14 @@
               "target": "Package",
               "version": "[4.7.0, )"
             },
+            "OxyPlot.WindowsForms": {
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
+            "ScottPlot.WinForms": {
+              "target": "Package",
+              "version": "[5.0.28, )"
+            },
             "System.ComponentModel.Composition": {
               "target": "Package",
               "version": "[8.0.0, )"

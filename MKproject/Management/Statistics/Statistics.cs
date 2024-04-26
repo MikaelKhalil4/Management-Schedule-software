@@ -50,6 +50,8 @@ namespace MKproject.Management
 
         void LoadForm()
         {
+            labelSession.Text = "Total Services ";
+
             CreatingTheNoDateLabel(ref LabelNoDataYetIncome);
             CreatingTheNoDateLabel(ref LabelNoDataYetSessions);
 
