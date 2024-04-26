@@ -77,7 +77,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>2p5el77oMusv2VsytlxUv6KVkiNflF305Fw2NFub4yk=</dsig:DigestValue>
+      <dsig:DigestValue>u2rBaeNqsdkhaSgUz/bcRZL1CarFJCs+vgcIB4nB3Dc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="GlobalFunctions.dll" size="16384">
@@ -86,7 +86,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>X29EoHhg1Ytu+EKyoEP9cjYS7QwGkzS+ZdWXykuXz3U=</dsig:DigestValue>
+      <dsig:DigestValue>16bnojrBJn49KMfwk62WDqf1f/iS6uwCMSu2MRyglFI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="images\BackOfficeBig.png" size="7411">
@@ -392,7 +392,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>GCYAm+hPpHBkzRi1vuYXxipJS32k6GzFLydR8+/bebA=</dsig:DigestValue>
+      <dsig:DigestValue>fq2mvNuz+mOODP8SGc2juJyHdwag3FEhHJ3ZjlbqkVk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">
@@ -422,87 +422,6 @@
       <dsig:DigestValue>e+l7JIeJ6clq+oXOio6GTpja8ObNgaTWwA6X+xfvfzc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OpenTK.dll" size="5745152">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>zAKIQ+G62owe8yHZGSTsKYmcU16TzlOMjhxUjoVuJKQ=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="OpenTK.GLControl.dll" size="45056">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>E3Y2BWVNxQuDhE3LI8RTDPjR9EOk2t46vEhcHMmpMxg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="OxyPlot.dll" size="679424">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Ok+3ZwFiQU1BntpPJBqPX6WEFgWUQsl6pUkcjfaPBmE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="OxyPlot.WindowsForms.dll" size="37888">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>eVjKvDSsUwcuVq0K799K2uprAAARrZhe8EClCkrTJKo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\linux-arm\native\libSkiaSharp.so" size="5434148">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>fRIAY0FiYglU/qNz4ZS7TQMrSd5C7fIMAdvYwVHZNFQ=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\linux-arm64\native\libSkiaSharp.so" size="7904824">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>x5rjk5aMXzx5cfZWjRDrx/Nkwy/bi4MJrWCJl2BZvY0=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\linux-musl-x64\native\libSkiaSharp.so" size="11248224">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>QrBCRujwivY1mpkoIVtW245sK/4BGzANqEUXXJiJjsg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\linux-x64\native\libSkiaSharp.so" size="9068512">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>6Yf9szBAHJ5E5ioqMACrtQlIG/28I4XQRm3uzZC+HsY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\osx\native\libSkiaSharp.dylib" size="15084640">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>oOVwfu+/I9lhksgUgTQbstHaNvod6TZN+WRYalMSaVA=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll" size="957472">
     <hash>
       <dsig:Transforms>
@@ -519,15 +438,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>xGdK+kwwAwFyOPd9nM3lZz9JKlFsQfAfI5d4GODJsVI=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll" size="373112">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>unyEjTm+T0xwnZF5X+F3/HWS4NeG2aF5wU1H1HYlLQk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll" size="1486304">
@@ -593,24 +503,6 @@
       <dsig:DigestValue>md8OAXhY3mN3yGjLZhsSXbDpJOKWJv5lkWcZMBJiSFI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll" size="50248">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>HVu/sifyDoZs8l9kmgWbYcPzUzb2nr0ZuO3ntuFKdBQ=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll" size="414072">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>PyAigmmZRc9KjEk6lXUuTCW6RwKxchOma2zsYWSoO6g=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll" size="1566688">
     <hash>
       <dsig:Transforms>
@@ -647,15 +539,6 @@
       <dsig:DigestValue>DVunJ/mwijy79B44/Ljhg1J4v1cy4c4nmZGcUQKbsVY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="runtimes\win-arm64\native\libSkiaSharp.dll" size="7948320">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>2Opf+NBLx5CaiqOPfNKJYsamA25mg9ADK3r5mbYmDxg=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll" size="594320">
     <hash>
       <dsig:Transforms>
@@ -672,15 +555,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>7xhFjE3Lk/a06sB+FYnPNFC/h48t1iP1009qDxsW5Xo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\win-x64\native\libSkiaSharp.dll" size="9414184">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>LKlAt8RiHs0n0vB8X0b6+gN19JNpLNTm4eZsB/vIEJo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" size="498576">
@@ -701,15 +575,6 @@
       <dsig:DigestValue>aHBcTvmrgY8pVqeOBfP+/OUBoUSHk7BztGEQvrSbR9Y=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="runtimes\win-x86\native\libSkiaSharp.dll" size="7980592">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>70CKbWkazKRCiSbFgzPr4qc1izH8He1VEkq82Wn6uSU=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll" size="432528">
     <hash>
       <dsig:Transforms>
@@ -726,51 +591,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>FEbWsm2kmlqfNmly+J9OI2+RaVXzHdw467liF8HKzpw=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ScottPlot.dll" size="786432">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ZVuAdZsu2XftArfRyDzBAAUlspcw3hu7w2ZkO5e4iLw=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="ScottPlot.WinForms.dll" size="17408">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>sP1Q9NTAVmdYkvxP76rRT+VeCerivKSAggjj5R3hKZc=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="SkiaSharp.dll" size="437288">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>/VjVf/SuIhs4VEm5C9WCuc5H5WcnzwJLzuU2YMW/vm4=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="SkiaSharp.Views.Desktop.Common.dll" size="26144">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ofFsn3eoXinJsDixMBhLOOfKen/N7l9nP5fc0H28N3o=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="SkiaSharp.Views.WindowsForms.dll" size="21536">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>JVsptzxmBFZ3FXu4YiIo7x1YMNyELPpYjjrBKex9pkY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="System.ComponentModel.Composition.dll" size="295696">
