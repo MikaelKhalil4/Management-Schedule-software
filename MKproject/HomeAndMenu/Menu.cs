@@ -117,7 +117,6 @@ namespace MKproject
             DesiredFormToOpen.TopLevel = false;
             DesiredFormToOpen.FormBorderStyle = FormBorderStyle.None;
             DesiredFormToOpen.Dock = DockStyle.Fill;
-            DesiredFormToOpen.Tag = ParentFormHome;//ejabre tag lal home , cz el gray form is based aalaya
             ParentFormHome.panelContainer.Controls.Add(DesiredFormToOpen);
             DesiredFormToOpen.Show();
             DesiredFormToOpen.Focus();//ejbariye kermel el datatgridview el toooltip teb2a meshye

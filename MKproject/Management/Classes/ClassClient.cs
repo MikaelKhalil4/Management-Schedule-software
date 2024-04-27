@@ -211,18 +211,16 @@ namespace MKproject.Management
 
 
         //select
+       
         public static int GetLastClientIDSQL()
         {
-
-            int lastClientId;
-            con.Open();
             string getLastClientIdQuery = "SELECT Max(client_id) FROM client";
-            using (SqlCommand command = new SqlCommand(getLastClientIdQuery, con))
-            {
-                lastClientId = Convert.ToInt32(command.ExecuteScalar());
-            }
+            SqlCommand command = new SqlCommand(getLastClientIdQuery, con);
+            con.Open();
+            int lastClientId = Convert.ToInt32(command.ExecuteScalar());
             con.Close();
             return lastClientId;
+
         }
         public static DataTable GetAllClientsSQL()
         {
@@ -365,7 +363,7 @@ namespace MKproject.Management
             adapter.Fill(dt);
             return dt;
         }
-        public static  DataTable GetSoonBirthdaysSQL()
+        public static DataTable GetSoonBirthdaysSQL()
         {
 
             // SQL query to select clients with birthdays within 7 days
@@ -405,7 +403,7 @@ namespace MKproject.Management
         {
             double TotalBalance;
             con.Open();
-            string getLastClientIdQuery = "SELECT total_balance FROM client where client_id='"+ ClientId + "'";
+            string getLastClientIdQuery = "SELECT total_balance FROM client where client_id='" + ClientId + "'";
             using (SqlCommand command = new SqlCommand(getLastClientIdQuery, con))
             {
                 TotalBalance = Convert.ToInt32(command.ExecuteScalar());
@@ -416,19 +414,33 @@ namespace MKproject.Management
 
         //UpdateAndInsert
 
-        public static void UpdateClientCheckInSQL(int ClientID, DateTime Date)
+        public static bool UpdateClientCheckInSQLIfShould(int ClientID, DateTime Date)
         {
-            string query = "UPDATE client SET check_in=@check_in WHERE client_id=@client_id ";
-
-            SqlCommand cmdUpdate = new SqlCommand(query, con);
-            cmdUpdate.Parameters.AddWithValue("@client_id", ClientID);
-            cmdUpdate.Parameters.AddWithValue("@check_in", Date);
+            string querySelect = @"SELECT MAX(execute_date) FROM client_services_attendance WHERE client_id = @client_id";
+            SqlCommand cmdSelect = new SqlCommand(querySelect, con);
+            cmdSelect.Parameters.AddWithValue("@client_id", ClientID);
             con.Open();
-            cmdUpdate.ExecuteNonQuery();
+            DateTime? MaxCheckInDate = cmdSelect.ExecuteScalar() as DateTime?;
             con.Close();
 
+            if (MaxCheckInDate == null || MaxCheckInDate < Date)
+            {
+                string query = "UPDATE client SET check_in=@check_in WHERE client_id=@client_id ";
+                SqlCommand cmdUpdate = new SqlCommand(query, con);
+                cmdUpdate.Parameters.AddWithValue("@client_id", ClientID);
+                cmdUpdate.Parameters.AddWithValue("@check_in", Date);
+                con.Open();
+                cmdUpdate.ExecuteNonQuery();
+                con.Close();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
-        public static void UpdateClientTotalBalanceSQL(int ClientID, double TotalBalance,bool OverRideOrAdd)
+        public static void UpdateClientTotalBalanceSQL(int ClientID, double TotalBalance, bool OverRideOrAdd)
         {
             string query;
 
@@ -532,10 +544,9 @@ namespace MKproject.Management
         }
 
         //when a client purchase eenda connection maa many forms, that swhy
-        public static DataTable PurchaseAService(ClassBundles Bundle, DateTime Date, ClassClient Client, int? appointmentId)
+        public static DataTable PurchaseAService(ClassBundles Bundle, DateTime BackOfficeDate, DateTime AttendanceDate, ClassClient Client, int? appointmentId)
         {
             //SQLAndLogic                        
-            string action;
             ActionsEnum actiontype;
             int? AttendanceId;
 
@@ -547,8 +558,8 @@ namespace MKproject.Management
             if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
             {
                 actiontype = ActionsEnum.SoloPurchases;
-                UpdateClientCheckInSQL(Client.ClientId, Date);
-                ProjectToSQL.InsertToClientAttendance(Client.ClientId, ClientBalanceId, appointmentId);
+                UpdateClientCheckInSQLIfShould(Client.ClientId, AttendanceDate);
+                ProjectToSQL.InsertToClientAttendance(Client.ClientId, ClientBalanceId, appointmentId, AttendanceDate);
                 AttendanceId = SQLToProject.GetLAstInsertedAttendance();//ejbare tahet InsertToClientAttendance
             }
             else
@@ -559,12 +570,12 @@ namespace MKproject.Management
 
             ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, -Bundle.Price, false);
 
-            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, LOGIN.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, LOGIN.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, BackOfficeDate);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
-            ProjectToSQL.InsertToFinance((int)InsertedRow["client_balance_id"], 0, Date, Client.AlbumType);//kermel el count
-         
+            ProjectToSQL.InsertToFinance((int)InsertedRow["client_balance_id"], 0, BackOfficeDate, Client.AlbumType);//kermel el count
+
             if (Client.RegistrationDate == null && Bundle.IsMemberShip == true)
             {
                 MakeClientMemberSQL(Client.ClientId);
@@ -1064,9 +1075,29 @@ namespace MKproject.Management
 
         }
 
+        public bool CheckIfCLientHasClientBalanceRefrences()
+        {
+            string query = @"Select Count(*)
+                            FROM client as cl
+                            where client_id=@client_id
+                            And
+                            EXISTS (SELECT * FROM client_balance as cb where cl.client_id=cb.client_id)";
 
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@client_id", ClientId);
+            con.Open();
+            int nb = Convert.ToInt32(cmd.ExecuteScalar());
+            con.Close();
+            if (nb > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
-
+        }
 
 
 

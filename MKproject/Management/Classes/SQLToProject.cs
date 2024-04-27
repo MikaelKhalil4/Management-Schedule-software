@@ -8,17 +8,38 @@ namespace MKproject.Management
     {
         static SqlConnection con = new SqlConnection(Program.DataLocation);
 
-      
-
-        //client_balance
-
 
 
         //client_struct
-        public static DataTable GetAttendance()
+
+        public static DateTime GetAttendanceDateOfSpecificAttendace(int AttendanceId)
+        {
+            string query = "SELECT execute_date from client_services_attendance WHERE  attendance_id='" + AttendanceId + "' ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            con.Open();
+            DateTime ExecutedDate=(DateTime)cmd.ExecuteScalar();
+            con.Close();
+            return ExecutedDate;
+        }
+        public static DateTime GetMaxAttendanceDateOfClient(int ClientId)
+        {
+
+            string query = "SELECT MAX(execute_date) from client_services_attendance where client_id='" + ClientId + "'";
+
+
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            con.Open();
+            DateTime ExecutedDate = (DateTime)cmd.ExecuteScalar();
+            con.Close();
+            return ExecutedDate;
+        }
+        public static DataTable GetAttendanceDate()
         {
 
             string query = "SELECT execute_date from client_services_attendance  ";
+       
+
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

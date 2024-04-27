@@ -355,7 +355,7 @@ namespace MKproject.Management
 
                 ClassClient DesiredCLient = ClassClient.CreateClientObject(ClientID);
                 //form creation
-                Menu menu = ((Home)this.Tag).menu;
+                Menu menu = Program.HomeForm.menu;
                 if (Program.clientManagementProfile == null)
                 {
                     Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient, false);
@@ -367,8 +367,8 @@ namespace MKproject.Management
 
                 Program.clientManagementProfile.SearchCurrentClientform = this;
                 menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
-                ((Home)this.Tag).buttonBackHome.Text = "Clients";
-                ((Home)this.Tag).buttonBackHome.Visible = true;
+                Program.HomeForm.buttonBackHome.Text = "Clients";
+                Program.HomeForm.buttonBackHome.Visible = true;
 
             }
             Cursor.Current = Cursors.Hand;
@@ -700,7 +700,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)//lieanno lamma nekbus too many clicks aam bi sir fi ghalat
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
                 CustomerService cu = new CustomerService();
                 cu.ParentFormSearch = this;
@@ -711,7 +711,7 @@ namespace MKproject.Management
 
         private void iconButtonAddClient_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
             Program.GreyForm.Show();
             if (Program.NewRegisterForm == null)
             {

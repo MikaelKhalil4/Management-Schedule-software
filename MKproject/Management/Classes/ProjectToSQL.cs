@@ -51,7 +51,7 @@ namespace MKproject.Management
 
 
         //client_struct table
-        public static void InsertToClientAttendance(int ClientID, int clientBalanceId, int? AppointmentID)
+        public static void InsertToClientAttendance(int ClientID, int clientBalanceId, int? AppointmentID,DateTime AttendanceDate)
         {
 
             string QueryInsert = "insert into client_services_attendance (client_id,client_balance_id,appointment_id,execute_date) values (@client_id,@client_balance_id,@appointment_id,@execute_date)";
@@ -67,7 +67,7 @@ namespace MKproject.Management
             {
                 cmdInsert.Parameters.AddWithValue("@appointment_id", AppointmentID);
             }
-            cmdInsert.Parameters.AddWithValue("@execute_date", DateTime.Today);
+            cmdInsert.Parameters.AddWithValue("@execute_date", AttendanceDate);
             con.Open();
             cmdInsert.ExecuteNonQuery();
             con.Close();

@@ -221,12 +221,14 @@ namespace MKproject.Schedule
                     {
                         buttonCompleted.Visible = false;
                         buttonCanceled.Width = ButtonWidthInUndoState;
+                        buttonCanceled.BackAndMouseHoverColor = Program.BoldColor;
                         buttonCanceled.Text = "Undo Cancelation";
                     }
                     else
                     {
                         buttonCompleted.Visible = true;
                         buttonCanceled.Width = ButtonWidthInNormalState;
+                        buttonCanceled.BackAndMouseHoverColor = Color.Red;
                         buttonCanceled.Text = "Canceled";
                     }
 
@@ -388,7 +390,7 @@ namespace MKproject.Schedule
 
             bool IsPanelAvailable = CheckIfTimeAvailableAndSetAppointmentPosition();//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
 
-            if (!IsReadOrEdit)
+            if (!IsReadOrEdit)//Edit Mode
             {
                 if (IsPanelAvailable)
                 {
@@ -449,7 +451,7 @@ namespace MKproject.Schedule
                         }
                         else if (DesiredAppointmentAppForm.StartTime.Date > DateTime.Now.Date)//future
                         {
-                       
+
                             DesiredAppointmentAppForm.HistoryClientBalance = DesiredAppointmentAppForm.DesiredClientBalance.BundleName + " Package";
 
                         }
@@ -462,11 +464,7 @@ namespace MKproject.Schedule
                 }
                 else//others
                 {
-                    string title = ucClientApp.textBoxTitle.Text;
-                    if (!String.IsNullOrEmpty(title) && title != ucClientApp.textBoxTitle.PlaceholderText)
-                    {
-                        ucClientApp.FillObjectIfTitle(title);
-                    }
+                    ucClientApp.FillObjectIfTitle(ucClientApp.textBoxTitle.Text);
                     DesiredAppointmentAppForm.ChosenBundlesList = null;
                     DesiredAppointmentAppForm.DesiredClientBalance = null;
                     DesiredAppointmentAppForm.IsPackageMode = false;
@@ -566,18 +564,19 @@ namespace MKproject.Schedule
         }
         (double, DataTable) PurchaseNewSoloServices()
         {
-            DateTime Date = DateTime.Now;
+            DateTime BackOfficeDate = DateTime.Now;
+            DateTime AttendanceDate = DesiredAppointmentAppForm.StartTime;
             DataTable PurchasedBundles = null;
 
             foreach (ClassBundles Bundle in DesiredAppointmentAppForm.ChosenBundlesList)
             {
                 if (PurchasedBundles == null)//kermel yaamil clone w yekhud el shakel
                 {
-                    PurchasedBundles = ClassClient.PurchaseAService(Bundle, Date, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
+                    PurchasedBundles = ClassClient.PurchaseAService(Bundle, BackOfficeDate, AttendanceDate, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
                 }
                 else
                 {
-                    DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
+                    DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, BackOfficeDate, AttendanceDate, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
 
                     DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one       
                     DataRow NewRow = PurchasedBundles.NewRow();
@@ -627,12 +626,25 @@ namespace MKproject.Schedule
         {
             FillDesiredClientObject();
             AddOrUpdateSQL();
+            if (IsAddOrUpdate)
+            {
+                NotificationBanner.Show("New Appointment Added", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
+            }
+            else
+            {
+                NotificationBanner.Show("Appointment Updated", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
+            }
         }
         private void buttonCompleted_Click(object sender, EventArgs e)
         {
+            if (!DesiredAppointmentAppForm.IsCompleted)
+            {
+                FillDesiredClientObject();
+
+            }
             if (!ISRequiredFieldsExists(true))
             {
-               
+
                 //Package of sessions
                 if (DesiredAppointmentAppForm.DesiredClient != null && DesiredAppointmentAppForm.DesiredClientBalance != null)//Package Of Sessions
                 {
@@ -640,9 +652,7 @@ namespace MKproject.Schedule
                     {
                         if (!DesiredAppointmentAppForm.IsCompleted)
                         {
-
-
-                            FillDesiredClientObject();//specially hone lezim ykun  foe  CompletingOrUndoingAppointment(true); kermel el history yekheda mazbuta abel ma tetghayar tahet
+                            //  FillDesiredClientObject(); specially  lezim ykun  foe  CompletingOrUndoingAppointment(true); kermel el history yekheda mazbuta abel ma tetghayar tahet
 
                             if (!(bool)DesiredAppointmentAppForm.DesiredClientBalance.IsExpired)
                             {
@@ -650,10 +660,11 @@ namespace MKproject.Schedule
                                 {
                                     DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays--;
                                     DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
-                                    ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID, DateTime.Now);
+                                    ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID, DateTime.Now, DesiredAppointmentAppForm.StartTime);
 
                                     //
                                     CompletingOrUndoingCompletionAppointment(true);
+                                    NotificationBanner.Show("Appointment Completed, Session Reduced", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
                                 }
                                 else
                                 {
@@ -678,7 +689,7 @@ namespace MKproject.Schedule
                             DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();
                             //SQl
                             CompletingOrUndoingCompletionAppointment(false);
-
+                            NotificationBanner.Show("Appointment completion undo succeeded", NotificationBanner.Type.UndoMode, Program.HomeForm);
                             if (DesiredAppointmentAppForm.StartTime.Date == DateTime.Now.Date)
                             {
                                 DesiredAppointmentAppForm.HistoryClientBalance = DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceSessionLeftDetails;
@@ -691,12 +702,13 @@ namespace MKproject.Schedule
                     {
                         if (!DesiredAppointmentAppForm.IsCompleted)
                         {
-                            FillDesiredClientObject();
                             CompletingOrUndoingCompletionAppointment(true);
+                            NotificationBanner.Show("Appointment Completed", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
                         }
                         else
                         {
                             CompletingOrUndoingCompletionAppointment(false);
+                            NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.Type.UndoMode, Program.HomeForm);
                         }
                     }
                 }
@@ -710,16 +722,19 @@ namespace MKproject.Schedule
                         (double initialbalance, DataTable PurchasedBundles) = PurchaseNewSoloServices();
 
                         DisableClosingOnDisactivating = true;
-                        Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient,PurchasedBundles, null, true);
+                        Program.GreyFormJunior = new GreyColor(this,false,true);
+                        Program.GreyFormJunior.Show();
+                        Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, PurchasedBundles, null, true);
                         paymentform.ShowDialog();
                         DisableClosingOnDisactivating = false;
                         //
-                        FillDesiredClientObject();
                         CompletingOrUndoingCompletionAppointment(true);
+                        NotificationBanner.Show("Appointment Completed, Services Purchased", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
                     }
                     else
                     {
                         CompletingOrUndoingCompletionAppointment(false);
+                        NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.Type.UndoMode, Program.HomeForm);
                     }
                 }
                 else if (DesiredAppointmentAppForm.Title != null)
@@ -727,12 +742,13 @@ namespace MKproject.Schedule
 
                     if (!DesiredAppointmentAppForm.IsCompleted)
                     {
-                        FillDesiredClientObject();
                         CompletingOrUndoingCompletionAppointment(true);
+                        NotificationBanner.Show("Appointment Completed", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
                     }
                     else
                     {
                         CompletingOrUndoingCompletionAppointment(false);
+                        NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.Type.UndoMode, Program.HomeForm);
                     }
                 }
 
@@ -742,7 +758,12 @@ namespace MKproject.Schedule
         }
         private void buttonCanceled_Click(object sender, EventArgs e)
         {
-            FillDesiredClientObject();
+
+            if (!DesiredAppointmentAppForm.IsCanceled)
+            {
+                FillDesiredClientObject();
+            }
+
             if (!ISRequiredFieldsExists(false))
             {
 
@@ -751,12 +772,14 @@ namespace MKproject.Schedule
 
                     DesiredAppointmentAppForm.IsCanceled = true;
                     AddOrUpdateSQL(); //ejabre tahtha
+                    NotificationBanner.Show("Appointment Canceled", NotificationBanner.Type.CanceledMode, Program.HomeForm);
                     OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
                 }
                 else//in this case bi kun kell shi read only, that why ma mnaamil update la kell el info
                 {
                     DesiredAppointmentAppForm.IsCanceled = false;//lezim nemnaa yghayir hayalla shi foe, read only kello
                     DesiredAppointmentAppForm.SetOrResetIsCanceled();
+                    NotificationBanner.Show("Appointment Cancelation Undo Succeeded", NotificationBanner.Type.UndoMode, Program.HomeForm);
                     OnAppointmentUndoCancelation?.Invoke(this, EventArgs.Empty);
                 }
 
@@ -767,6 +790,7 @@ namespace MKproject.Schedule
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             ucappointment.RemoveAppointment();
+            NotificationBanner.Show("Appointment Deleted", NotificationBanner.Type.DeletedMode, Program.HomeForm);
             this.Close();
         }
 
@@ -782,7 +806,7 @@ namespace MKproject.Schedule
             ucappointment.SetUCDesign();
         }
         private void UcClientApp_OnUpdatingTheChosenClientBalance(object sender, EventArgs e)
-        {         
+        {
             ucappointment.DesiredAppointmentUCApp = ClassAppointment.CreateObjectClassAppointment(ucappointment.DesiredAppointmentUCApp.AppointmentID);//refreshing the info
             ucappointment.SetServiceLogicAndDesign();
         }

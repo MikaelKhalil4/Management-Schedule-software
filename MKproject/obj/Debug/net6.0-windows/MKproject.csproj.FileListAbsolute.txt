@@ -290,3 +290,5 @@ C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.applica
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.csproj.CopyComplete
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\images\checkCircle.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\images\xCircle.png

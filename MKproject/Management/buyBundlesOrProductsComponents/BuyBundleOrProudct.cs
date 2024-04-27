@@ -158,12 +158,13 @@ namespace MKproject.Management
                         for (int i = 0; i < Bundle.Qty; i++)
                         {
                            //Sql And Logic
-                            DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, ParentFormClientMang.Client,null);//hattayneha global lieanno ha nestaamela men kaza mahal
+                            DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, Date, ParentFormClientMang.Client,null);//hattayneha global lieanno ha nestaamela men kaza mahal
+                            DateTime NewCheckInDate = SQLToProject.GetMaxAttendanceDateOfClient(ParentFormClientMang.Client.ClientId);//ma stamlna DateTime.Now, lieanno ma32oul ma tetghayar, eza fi date akbar menna
 
 
-                            //Design
-                            //updating originaldatable
-                            DataRow InsertedRow = dtinserteditem.Rows[0];
+                        //Design
+                        //updating originaldatable
+                        DataRow InsertedRow = dtinserteditem.Rows[0];
 
                             DataRow NewRow = ParentFormClientMang.dtClientBalanceOriginal.NewRow();
                             NewRow.ItemArray = InsertedRow.ItemArray; // Copy the data from InsertedRow to NewRow
@@ -190,8 +191,8 @@ namespace MKproject.Management
 
                             if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
                             {
-                                ParentFormClientMang.UCLastVisit.Detail = RandomFunctions.SetDateFormat(Date.ToString());
-                                ParentFormClientMang.Client.LastVisit = Date;
+                                ParentFormClientMang.UCLastVisit.Detail = RandomFunctions.SetDateFormat(NewCheckInDate.ToString());
+                                ParentFormClientMang.Client.LastVisit = NewCheckInDate;
 
                                 ParentFormClientMang.Client.TotalAttendance++;
                                 ParentFormClientMang.UCTotalAttendance.Detail = Convert.ToString(ParentFormClientMang.Client.TotalAttendance);

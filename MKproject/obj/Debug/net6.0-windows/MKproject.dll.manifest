@@ -71,13 +71,13 @@
       <dsig:DigestValue>u8t0uXK42NG68q5TRWi/JMABMD7fStgLwEpoU4yiBjA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CustomizedTools.dll" size="68096">
+  <file name="CustomizedTools.dll" size="87040">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>u2rBaeNqsdkhaSgUz/bcRZL1CarFJCs+vgcIB4nB3Dc=</dsig:DigestValue>
+      <dsig:DigestValue>bELFPmYh2jHC5Q3tsERC5tATFsWfxCjtQ8i+AGc9X1Y=</dsig:DigestValue>
     </hash>
   </file>
   <file name="GlobalFunctions.dll" size="16384">
@@ -386,13 +386,13 @@
       <dsig:DigestValue>l8Q0l/8slBAOheR+UlZIGag2yey6yRvOrZhyUqTwnpI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MKproject.dll" size="1867264">
+  <file name="MKproject.dll" size="1851904">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>fq2mvNuz+mOODP8SGc2juJyHdwag3FEhHJ3ZjlbqkVk=</dsig:DigestValue>
+      <dsig:DigestValue>8MMAEyTWnhj1S1dEG8ndw/24mp4y7CAEO7gx90CdnwA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">

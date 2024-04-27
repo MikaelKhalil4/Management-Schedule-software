@@ -25,6 +25,7 @@ namespace MKproject
         public static ClientManagementProfile clientManagementProfile;      
         public static NewRegister NewRegisterForm;
         public static LOGIN LoginForm;  
+        public static Home HomeForm;
         //
 
 

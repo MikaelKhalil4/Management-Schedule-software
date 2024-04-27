@@ -61,7 +61,7 @@ namespace MKproject.Management
 
             Formatcharts();
 
-            OriginalSessionsDt = SQLToProject.GetAttendance();
+            OriginalSessionsDt = SQLToProject.GetAttendanceDate();
             OriginalIncomeDt = SQLToProject.GetIncome();
 
             SplitServices(OriginalIncomeDt);
@@ -1337,7 +1337,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
 
                 Calander calander = new Calander(UCCustomDate, DateType);
@@ -1349,7 +1349,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
 
                 Calanderyear calander = new Calanderyear(UCCustomDate, DateType);

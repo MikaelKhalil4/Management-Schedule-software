@@ -790,17 +790,20 @@ namespace MKproject.Management
         public void ReduceSession()
         {
             //Sql update
-
-            ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null,DateTime.Now);
+            DateTime date = DateTime.Now;
+            bool IfLastVisitDateChanged= ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null, date, date);
 
             //design
             SessionDaysLeft--;
             DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             rowToEdit["session_left_days"] = sessionOrDaysLeft;
           
-            ParentFormClientMan.UCLastVisit.Detail = RandomFunctions.SetDateFormat(DateTime.Now.ToString());
+            if (IfLastVisitDateChanged)
+            {
+                ParentFormClientMan.UCLastVisit.Detail = RandomFunctions.SetDateFormat(date.ToString());
+                ParentFormClientMan.Client.LastVisit = date;
+            }
             ParentFormClientMan.Client.TotalAttendance++;
-            ParentFormClientMan.Client.LastVisit = DateTime.Now;
             ParentFormClientMan.UCTotalAttendance.Detail = Convert.ToString(ParentFormClientMan.Client.TotalAttendance);
         }//try catch
 

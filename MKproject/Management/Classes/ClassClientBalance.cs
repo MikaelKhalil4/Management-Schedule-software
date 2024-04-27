@@ -596,17 +596,19 @@ namespace MKproject.Management
 
         }
 
-        public static void ReduceSessionFromPackageOfSessions(int ClientId, int DesiredClientBalanceId, int UpdatedSessionLeft, int? AppointmentId, DateTime Date)
+        public static bool ReduceSessionFromPackageOfSessions(int ClientId, int DesiredClientBalanceId, int UpdatedSessionLeft, int? AppointmentId, DateTime BackOfficeDate,DateTime AttendanceDate)
         {
             //Sql update
             UpdateNOSessions(DesiredClientBalanceId, UpdatedSessionLeft);//lieanno this function onlykermel el package sessiosns                   
-            ClassClient.UpdateClientCheckInSQL(ClientId, Date);
-            ProjectToSQL.InsertToClientAttendance(ClientId, DesiredClientBalanceId, AppointmentId);
+            bool IfLastVisitDateChanged=ClassClient.UpdateClientCheckInSQLIfShould(ClientId, AttendanceDate);
+            ProjectToSQL.InsertToClientAttendance(ClientId, DesiredClientBalanceId, AppointmentId, AttendanceDate);
 
-            ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, BackOfficeDate);
             DataRow DesiredClientBlanaceRow = GetClientBalanceAllInfoSql(DesiredClientBalanceId);//ma ela aaze bas mafina baleha, kermel CreateActionDetails, el clean code
             backOffice.CreateActionDetails(DesiredClientBlanaceRow);
             backOffice.InsertToArchiveSQL();
+
+            return IfLastVisitDateChanged;
         }
         public static void UpdateNOSessions(int DesiredClientBalanceId, int UpdatedSessionLeft)
         {

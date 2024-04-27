@@ -16,7 +16,7 @@ namespace MKproject.Management
         bool IsChildMode;
         int? ClientId;//kermel eza feyit men profile check all transaction of a client
         public DataRow DesiredBalanceRowBinded;// in case of all transaction el desired row ha yetghayar kell ma nekbus aa undo, amma bel specific balance ha ydall huwwe zeito
-                                                    //that s why in all transaction case mnaamello initialisation kell ma nekbus aa undo, amma specific balance  , mnaamela only bel constructor lieanno ha tdalla maana kell w
+                                               //that s why in all transaction case mnaamello initialisation kell ma nekbus aa undo, amma specific balance  , mnaamela only bel constructor lieanno ha tdalla maana kell w
 
         public DataTable OriginalBackOfficeDt;
         public DataTable FilteredBackOfficeDt;
@@ -55,7 +55,7 @@ namespace MKproject.Management
             else
             {
                 IsChildMode = false;
-                SetLogicMode(null,null);
+                SetLogicMode(null, null);
             }
 
 
@@ -229,7 +229,7 @@ namespace MKproject.Management
 
 
 
-        void SetLogicMode(int? ClientBalanceId,DataTable desiredBalanceRowsdt)
+        void SetLogicMode(int? ClientBalanceId, DataTable desiredBalanceRowsdt)
         {
             if (!IsChildMode)
             {
@@ -445,15 +445,15 @@ namespace MKproject.Management
             newIndex = 1; // The new desired index
             OriginalBackOfficeDt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = OriginalBackOfficeDt.Columns.IndexOf("date");
+
+
+            columnIndexToMove = OriginalBackOfficeDt.Columns.IndexOf("Employees");
             newIndex = 2; // The new desired index
             OriginalBackOfficeDt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = OriginalBackOfficeDt.Columns.IndexOf("Employees");
+            columnIndexToMove = OriginalBackOfficeDt.Columns.IndexOf("date");
             newIndex = 3; // The new desired index
             OriginalBackOfficeDt.Columns[columnIndexToMove].SetOrdinal(newIndex);
-
-
 
         }
         public void FillBackOfficeDataGridView(DataTable DesiredDataTable)//it could original or filters
@@ -507,6 +507,8 @@ namespace MKproject.Management
             dataGridViewBackOffice.Columns["Employees"].FillWeight = 10;
             dataGridViewBackOffice.Columns["Action"].FillWeight = 10;
 
+            dataGridViewBackOffice.Columns["date"].HeaderText = "Date";
+
         }
 
 
@@ -542,7 +544,7 @@ namespace MKproject.Management
                     DataRow DesiredClientBlanaceRow = ClassClientBalance.GetClientBalanceAllInfoSql(clientBalanceId);//not Binded bas men eeuza , since eeyzin some Values
 
                     if (IsChildMode)
-                    {                     
+                    {
                         if (ClientId != null)//meas fetna men AllTransactionTabaaaSpecific clients, So kell wahde mnekbesa we need to bind it maa el parent form, to reflect updates
                         {
                             DataTable dt = ParentFormClientManagem.RetrievingSpecificRowsInDt(false, clientBalanceId);
@@ -554,100 +556,106 @@ namespace MKproject.Management
 
 
 
-                    string MessageSow = "";
+                    string MessageShow = "To undo this action, you must first undo all related actions associated with this data.";
                     if (ActionType == ActionsEnum.Purchases.ToString() || ActionType == ActionsEnum.SoloPurchases.ToString())
                     {
-
-                        MessageSow = "Undoing this action could result in the deletion of all associated data related to this action.";
-                        DialogResult dialogResult = CustomMessageBox.Show(MessageSow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
-
-                        if (dialogResult == DialogResult.Yes)
+                        if (ClassBackOffice.CheckIfDesiredArchiveHasRefrencesInTableArchive(clientBalanceId, ArchiveId))
                         {
+                            CustomMessageBox.Show(MessageShow, CustomMessageBox.Type.Error);
+                        }
+                        else
+                        {
+                            MessageShow = "Undoing this action could result in the deletion of all associated data related to this action.";
+                            DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
 
-
-                            if (ActionType == ActionsEnum.Purchases.ToString())
+                            if (dialogResult == DialogResult.Yes)
                             {
 
-                                DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
-                                for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
+
+                                if (ActionType == ActionsEnum.Purchases.ToString())
                                 {
 
-                                    int DesiredArchiveID = Convert.ToInt16(foundOriginRows[i]["archive_id"]);
-
-                                    if (foundOriginRows[i]["attendance_id"] != DBNull.Value)//only for packages, not for products,nor solo
+                                    DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
+                                    for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
                                     {
-                                        int DesiredStructId = Convert.ToInt16(foundOriginRows[i]["attendance_id"]);
-                                        int? AppointmentIdForSessionsDone = foundOriginRows[i]["appointment_id"] is DBNull ? null : (int)foundOriginRows[i]["appointment_id"];
 
+                                        int DesiredArchiveID = Convert.ToInt16(foundOriginRows[i]["archive_id"]);
 
-                                        (DateTime? NewLastVistDate, int MAxArchiveIdForLastSessionDone) = ClassBackOffice.UndoSessionDoneActionsSQL(clientId, DesiredStructId, DesiredArchiveID, clientBalanceId, true, AppointmentIdForSessionsDone);//oly hayde lieanno eenda gher ab3ad(last visit) , or hawdik by cascade on delete bi tiro
-
-
-                                        //Design in Profile if Exists
-                                        if (IsChildMode && this.ParentFormClientManagem != null)
+                                        if (foundOriginRows[i]["attendance_id"] != DBNull.Value)//only for packages, not for products,nor solo
                                         {
-                                            UpdateProfileDesingOnUndoSession(DesiredArchiveID, MAxArchiveIdForLastSessionDone, NewLastVistDate);
+                                            int DesiredStructId = Convert.ToInt16(foundOriginRows[i]["attendance_id"]);
+                                            int? AppointmentIdForSessionsDone = foundOriginRows[i]["appointment_id"] is DBNull ? null : (int)foundOriginRows[i]["appointment_id"];
+
+
+                                            DateTime? NewLastVistDate = ClassBackOffice.UndoSessionDoneActionsSQL(clientId, DesiredStructId, DesiredArchiveID, clientBalanceId, true, AppointmentIdForSessionsDone);//oly hayde lieanno eenda gher ab3ad(last visit) , or hawdik by cascade on delete bi tiro
+
+
+                                            //Design in Profile if Exists
+                                            if (IsChildMode && this.ParentFormClientManagem != null)
+                                            {
+                                                UpdateProfileDesingOnUndoSession(NewLastVistDate);
+                                            }
+
                                         }
 
+                                        // //design in Backoffice form
+                                        DeletingDatagridRowsAndActiveTheEvent(DesiredArchiveID);
                                     }
 
-                                    // //design in Backoffice form
-                                    DeletingDatagridRowsAndActiveTheEvent(DesiredArchiveID);
+
+                                    (bool IsBundleOrProduct, DateTime? MembershipDate, bool IsMembershipDateChanged) = ClassBackOffice.UndoPurchaseActionsSQL(clientId, clientBalanceId);
+
+                                    //Design in Profile if Exists
+                                    if (IsChildMode && this.ParentFormClientManagem != null)
+                                    {
+                                        UpdateProfileDesingOnUndoPurchase(clientBalanceId, IsBundleOrProduct, MembershipDate, IsMembershipDateChanged);
+                                    }
+
                                 }
-
-
-                                (bool IsBundleOrProduct, DateTime? MembershipDate) = ClassBackOffice.UndoPurchaseActionsSQL(clientId, clientBalanceId);
-
-                                //Design in Profile if Exists
-                                if (IsChildMode && this.ParentFormClientManagem != null)
+                                else if (ActionType == ActionsEnum.SoloPurchases.ToString())
                                 {
-                                    UpdateProfileDesingOnUndoPurchase(clientBalanceId, IsBundleOrProduct, MembershipDate);
+
+
+                                    int structId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
+
+
+                                    int? BundleId = null;
+                                    if (AppointmentId != null)
+                                    {
+                                        BundleId = Convert.ToInt16(DesiredClientBlanaceRow["bundle_id"]);
+                                    }
+
+                                    (DateTime? NewLastVistDate, DateTime? MembershipDate, bool IsMembershipDateChanged) = ClassBackOffice.UndoSoloPurchaseActionsSQL(clientId, structId, ArchiveId, clientBalanceId, AppointmentId, BundleId);
+
+
+                                    //Design in Profile if Exists
+                                    if (IsChildMode && this.ParentFormClientManagem != null)
+                                    {
+                                        UpdateProfileDesingOnUndoSoloPurchase(clientBalanceId, NewLastVistDate, MembershipDate, IsMembershipDateChanged);
+                                    }
+
+                                    //design in Backoffice form
+                                    DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
+                                    for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
+                                    {
+                                        int DesiredArchiveID = Convert.ToInt16(foundOriginRows[i]["archive_id"]);
+                                        DeletingDatagridRowsAndActiveTheEvent(DesiredArchiveID);
+                                    }
+
                                 }
 
-                            }
-                            else if (ActionType == ActionsEnum.SoloPurchases.ToString())
-                            {
 
-
-                                int structId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
-
-
-                                int? BundleId = null;
-                                if (AppointmentId != null)
-                                {
-                                    BundleId = Convert.ToInt16(DesiredClientBlanaceRow["bundle_id"]);
-                                }
-
-                                (int MAxArchiveIdForLastSessionDone, DateTime? NewLastVistDate, DateTime? MembershipDate) = ClassBackOffice.UndoSoloPurchaseActionsSQL(clientId, structId, ArchiveId, clientBalanceId, AppointmentId, BundleId);
-
-
-                                //Design in Profile if Exists
-                                if (IsChildMode && this.ParentFormClientManagem != null)
-                                {
-                                    UpdateProfileDesingOnUndoSoloPurchase(clientBalanceId, ArchiveId, MAxArchiveIdForLastSessionDone, NewLastVistDate, MembershipDate);
-                                }
 
                                 //design in Backoffice form
-                                DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
-                                for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
+                                DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
+                                dataGridViewBackOffice.ClearSelection();
+
+                                if (IsChildMode && ClientId == null)//childmode not all transaction
                                 {
-                                    int DesiredArchiveID = Convert.ToInt16(foundOriginRows[i]["archive_id"]);
-                                    DeletingDatagridRowsAndActiveTheEvent(DesiredArchiveID);
+                                    this.timer2.Start();//closeing 
                                 }
 
                             }
-
-
-
-                            //design in Backoffice form
-                            DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
-                            dataGridViewBackOffice.ClearSelection();
-
-                            if (IsChildMode && ClientId == null)//childmode not all transaction
-                            {
-                                this.timer2.Start();//closeing 
-                            }
-
                         }
 
                     }
@@ -655,16 +663,16 @@ namespace MKproject.Management
                     {
                         int structId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
 
-                        DialogResult dialogResult = CustomMessageBox.Show("Are you sure you want to proceed?", CustomMessageBox.Type.YesNo);
+                        DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
                         if (dialogResult == DialogResult.Yes)
                         {
 
-                            (DateTime? NewLastVistDate, int MAxArchiveIdForLastSessionDone) = ClassBackOffice.UndoSessionDoneActionsSQL(clientId, structId, ArchiveId, clientBalanceId, false, AppointmentId);
+                            DateTime? NewLastVistDate = ClassBackOffice.UndoSessionDoneActionsSQL(clientId, structId, ArchiveId, clientBalanceId, false, AppointmentId);
 
                             //Design in Profile if Exists
                             if (IsChildMode && this.ParentFormClientManagem != null)
                             {
-                                UpdateProfileDesingOnUndoSession(ArchiveId, MAxArchiveIdForLastSessionDone, NewLastVistDate);
+                                UpdateProfileDesingOnUndoSession(NewLastVistDate);
                             }
 
                             //design in BackOfficeForm
@@ -679,7 +687,7 @@ namespace MKproject.Management
                         double AmountPaid = Convert.ToDouble(dataGridViewBackOffice.Rows[e.RowIndex].Cells["amount_paid"].Value);
                         DateTime ArchiveDate = Convert.ToDateTime(dataGridViewBackOffice.Rows[e.RowIndex].Cells["date"].Value);
 
-                        DialogResult dialogResult = CustomMessageBox.Show("Are you sure you want to proceed?", CustomMessageBox.Type.YesNo);
+                        DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
                         if (dialogResult == DialogResult.Yes)
                         {
                             ClassBackOffice.UndoPaymentActionsSQL(clientId, clientBalanceId, ArchiveId, ArchiveDate, AmountPaid);
@@ -699,7 +707,7 @@ namespace MKproject.Management
                     }
                     else if (ActionType == ActionsEnum.Offers.ToString())//only this exception updating el design mawjude hone fiya, since already eenda it s own algo
                     {
-                        DialogResult dialogResult = CustomMessageBox.Show("Are you sure you want to proceed?", CustomMessageBox.Type.YesNo);
+                        DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
                         if (dialogResult == DialogResult.Yes)
                         {
                             bool IsMoneyOrSession = Convert.ToBoolean(dataGridViewBackOffice.Rows[e.RowIndex].Cells["is_moneyOrsession_offre"].Value);
@@ -708,8 +716,8 @@ namespace MKproject.Management
 
                             if (!ISUndo)
                             {
-                                MessageSow = "This action cannot be undone to avoid conflicts with other offers unlesss it was the last action made.";
-                                DialogResult dialogResult1 = CustomMessageBox.Show(MessageSow + "\nOther Wise you can Edit it from the client Profile directly.", CustomMessageBox.Type.Ok);
+                                MessageShow = "This action cannot be undone to avoid conflicts with other offers unlesss it was the last action made.";
+                                DialogResult dialogResult1 = CustomMessageBox.Show(MessageShow + "\nOther Wise you can Edit it from the client Profile directly.", CustomMessageBox.Type.Ok);
                             }
                             else
                             {
@@ -720,7 +728,7 @@ namespace MKproject.Management
                                     double ToBalance = Convert.ToDouble(PreviousOffre.Split('/')[1]);
                                     double FromBalance = Convert.ToDouble(PreviousOffre.Split('/')[0]);
                                     (double UpdatedBalance, string UpdatedOffre, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingBalanceOffre(clientId, DesiredClientBlanaceRow, FromBalance, ToBalance, null, false);
-                                 
+
 
                                     //Design
                                     if (IsChildMode && this.ParentFormClientManagem != null)//we know if ChildMode, ha tkun only one row,
@@ -728,7 +736,7 @@ namespace MKproject.Management
                                         this.DesiredBalanceRowBinded["balance"] = UpdatedBalance;
                                         this.DesiredBalanceRowBinded["offre"] = UpdatedOffre;
                                         this.DesiredBalanceRowBinded["is_expired"] = NewIsExpired;
-                                       
+
                                         this.ParentFormClientManagem.UpdateBalance(this.DesiredBalanceRowBinded, ToBalance);//ased aam nebaat To mahal from , lieanno undo
                                     }
                                 }
@@ -739,7 +747,7 @@ namespace MKproject.Management
 
                                     (int UpdatedSessionLeftORNoDays, string newoffre, DateTime? NewDueDate, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingSessionOffre(clientId, DesiredClientBlanaceRow, FromSessionOrDays, ToSessionOrDays, null, false);
 
-                                  
+
 
                                     //Design 
                                     if (IsChildMode && this.ParentFormClientManagem != null)
@@ -777,7 +785,7 @@ namespace MKproject.Management
         }
 
 
-        void UpdateProfileDesingOnUndoSoloPurchase(int DesiredClientBalanceId, int ArchiveId, int MAxArchiveIdForLastSessionDone, DateTime? NewLastVistDate, DateTime? MembershipDate)
+        void UpdateProfileDesingOnUndoSoloPurchase(int DesiredClientBalanceId, DateTime? NewLastVistDate, DateTime? MembershipDate, bool IsMembershipDateChanged)
         {
 
             //datagridbalance bel profile 
@@ -795,29 +803,29 @@ namespace MKproject.Management
             this.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
             this.ParentFormClientManagem.datagridviewBalanceMode();
             //
-
-            this.ParentFormClientManagem.Client.RegistrationDate = MembershipDate;
-            if (MembershipDate != null)
+            if (IsMembershipDateChanged)
             {
-                this.ParentFormClientManagem.UCMemberSince.Detail = RandomFunctions.SetDateFormat(((DateTime)MembershipDate).ToString());
-            }
-            else
-            {
-                this.ParentFormClientManagem.UCMemberSince.Detail = "N/A";
+                this.ParentFormClientManagem.Client.RegistrationDate = MembershipDate;
+                if (MembershipDate != null)
+                {
+                    this.ParentFormClientManagem.UCMemberSince.Detail = RandomFunctions.SetDateFormat(((DateTime)MembershipDate).ToString());
+                }
+                else
+                {
+                    this.ParentFormClientManagem.UCMemberSince.Detail = "N/A";
+                }
+
             }
 
+            UpdateLastVisitDesign(NewLastVistDate, this);
 
-            if (MAxArchiveIdForLastSessionDone == ArchiveId)//this block of design is only lamma nghayyir el last visit
-            {
-                UpdateLastVisitDesign(NewLastVistDate, this);
-            }
 
             this.ParentFormClientManagem.Client.TotalAttendance--;
             this.ParentFormClientManagem.UCTotalAttendance.Detail = Convert.ToString(this.ParentFormClientManagem.Client.TotalAttendance);
 
 
         }
-        void UpdateProfileDesingOnUndoPurchase(int DesiredClientBalanceId, bool IsBundleOrProduct, DateTime? MembershipDate)
+        void UpdateProfileDesingOnUndoPurchase(int DesiredClientBalanceId, bool IsBundleOrProduct, DateTime? MembershipDate, bool IsMembershipDateChanged)
         {
             //datagridBalance bel profile 
             DataRow rowToEdit = this.ParentFormClientManagem.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
@@ -836,7 +844,7 @@ namespace MKproject.Management
             this.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
             this.ParentFormClientManagem.datagridviewBalanceMode();
             //
-            if (IsBundleOrProduct)//bundle
+            if (IsBundleOrProduct && IsMembershipDateChanged)//bundle
             {
                 this.ParentFormClientManagem.Client.RegistrationDate = MembershipDate;
                 if (MembershipDate != null)
@@ -896,9 +904,9 @@ namespace MKproject.Management
             this.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
 
         }
-       
 
-        void UpdateProfileDesingOnUndoSession(int ArchiveId, int MAxArchiveIdForLastSessionDone, DateTime? NewLastVistDate)
+
+        void UpdateProfileDesingOnUndoSession(DateTime? NewLastVistDate)
         {
 
             //Datagridview 
@@ -940,10 +948,9 @@ namespace MKproject.Management
             }
 
 
-            if (MAxArchiveIdForLastSessionDone == ArchiveId)//this block of design is only lamma nghayyir el last visit
-            {
-                UpdateLastVisitDesign(NewLastVistDate, this);
-            }
+
+            UpdateLastVisitDesign(NewLastVistDate, this);
+
 
             this.ParentFormClientManagem.Client.TotalAttendance--;
             this.ParentFormClientManagem.UCTotalAttendance.Detail = Convert.ToString(this.ParentFormClientManagem.Client.TotalAttendance);

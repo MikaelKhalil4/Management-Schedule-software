@@ -85,7 +85,7 @@
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            TLPGlobal.Size = new System.Drawing.Size(415, 583);
+            TLPGlobal.Size = new System.Drawing.Size(415, 536);
             TLPGlobal.TabIndex = 70;
             // 
             // labelEmployee
@@ -245,7 +245,7 @@
             flowLayoutPanel3.Controls.Add(buttonCompleted);
             flowLayoutPanel3.Controls.Add(buttonCanceled);
             flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel3.Location = new System.Drawing.Point(106, 519);
+            flowLayoutPanel3.Location = new System.Drawing.Point(106, 495);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Size = new System.Drawing.Size(306, 34);
             flowLayoutPanel3.TabIndex = 747;
@@ -278,7 +278,7 @@
             buttonCompleted.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonCompleted.FlatAppearance.BorderSize = 0;
             buttonCompleted.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
-            buttonCompleted.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
+            buttonCompleted.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(89, 102, 204);
             buttonCompleted.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCompleted.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCompleted.ForeColor = System.Drawing.Color.White;
@@ -298,7 +298,7 @@
             buttonCanceled.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonCanceled.FlatAppearance.BorderSize = 0;
             buttonCanceled.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(215, 0, 0);
-            buttonCanceled.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 20, 20);
+            buttonCanceled.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(235, 0, 0);
             buttonCanceled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCanceled.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCanceled.ForeColor = System.Drawing.Color.White;
@@ -335,7 +335,7 @@
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonDelete.ForeColor = System.Drawing.Color.White;
-            buttonDelete.Location = new System.Drawing.Point(3, 522);
+            buttonDelete.Location = new System.Drawing.Point(3, 498);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new System.Drawing.Size(95, 28);
             buttonDelete.TabIndex = 743;

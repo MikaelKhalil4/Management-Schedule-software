@@ -236,7 +236,7 @@ namespace MKproject.Management
                         desiredRow = rows[0];
                     }
 
-                    Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                     Program.GreyForm.Show();
                     EditEmployee p = new EditEmployee(desiredRow);
                     p.ParentFormViewEmpl = this;
@@ -249,7 +249,7 @@ namespace MKproject.Management
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
             Program.GreyForm.Show();
             EditEmployee p = new EditEmployee(null);
             p.ParentFormViewEmpl = this;
