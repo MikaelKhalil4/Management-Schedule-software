@@ -290,3 +290,4 @@ C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.applica
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.csproj.CopyComplete
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
+C:\MKProject code\MKproject\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.LabelTime.resources

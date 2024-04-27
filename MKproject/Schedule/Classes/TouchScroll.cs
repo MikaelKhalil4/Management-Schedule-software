@@ -208,7 +208,11 @@ namespace MKproject.Schedule
             Control control = sender as Control;
             if (control is LabelTime)
             {
-                control.BackColor = Color.White;
+                LabelTime labeltime = (LabelTime)control;
+                if(cbdisplaytime.targetlabeltimeHighlight.Time != labeltime.Time)
+                {
+                    control.BackColor = Color.White;
+                }
             }
 
         }

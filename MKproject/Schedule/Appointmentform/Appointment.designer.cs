@@ -29,16 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Appointment));
             TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             labelEmployee = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
-            FLPEndTime = new System.Windows.Forms.FlowLayoutPanel();
-            textBoxEndTime = new System.Windows.Forms.TextBox();
-            DownArrowEndTime = new System.Windows.Forms.PictureBox();
-            FLPStartTime = new System.Windows.Forms.FlowLayoutPanel();
-            textBoxStartTime = new System.Windows.Forms.TextBox();
-            DownArrowStartTime = new System.Windows.Forms.PictureBox();
             labelStartTimeOutput = new System.Windows.Forms.Label();
             labelEndTimeOutput = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -48,12 +41,10 @@
             buttonCanceled = new CustomizedTools.CustomButton();
             LabelDuration = new System.Windows.Forms.Label();
             buttonDelete = new CustomizedTools.CustomButton();
+            textBoxStartTime = new System.Windows.Forms.TextBox();
+            textBoxEndTime = new System.Windows.Forms.TextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             TLPGlobal.SuspendLayout();
-            FLPEndTime.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DownArrowEndTime).BeginInit();
-            FLPStartTime.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DownArrowStartTime).BeginInit();
             flowLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,14 +55,14 @@
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.000008F));
             TLPGlobal.Controls.Add(labelEmployee, 1, 4);
             TLPGlobal.Controls.Add(label2, 0, 4);
-            TLPGlobal.Controls.Add(FLPEndTime, 1, 2);
-            TLPGlobal.Controls.Add(FLPStartTime, 1, 1);
             TLPGlobal.Controls.Add(labelStartTimeOutput, 0, 1);
             TLPGlobal.Controls.Add(labelEndTimeOutput, 0, 2);
             TLPGlobal.Controls.Add(label1, 0, 3);
             TLPGlobal.Controls.Add(flowLayoutPanel3, 1, 6);
             TLPGlobal.Controls.Add(LabelDuration, 1, 3);
             TLPGlobal.Controls.Add(buttonDelete, 0, 6);
+            TLPGlobal.Controls.Add(textBoxStartTime, 1, 1);
+            TLPGlobal.Controls.Add(textBoxEndTime, 1, 2);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
             TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
@@ -85,7 +76,7 @@
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            TLPGlobal.Size = new System.Drawing.Size(415, 583);
+            TLPGlobal.Size = new System.Drawing.Size(415, 536);
             TLPGlobal.TabIndex = 70;
             // 
             // labelEmployee
@@ -113,91 +104,6 @@
             label2.TabIndex = 744;
             label2.Text = "Member:";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // FLPEndTime
-            // 
-            FLPEndTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            FLPEndTime.BackColor = System.Drawing.Color.White;
-            FLPEndTime.Controls.Add(textBoxEndTime);
-            FLPEndTime.Controls.Add(DownArrowEndTime);
-            FLPEndTime.Location = new System.Drawing.Point(247, 282);
-            FLPEndTime.Margin = new System.Windows.Forms.Padding(6);
-            FLPEndTime.Name = "FLPEndTime";
-            FLPEndTime.Size = new System.Drawing.Size(162, 21);
-            FLPEndTime.TabIndex = 12;
-            FLPEndTime.Click += textBoxEndTime_Click;
-            // 
-            // textBoxEndTime
-            // 
-            textBoxEndTime.BackColor = System.Drawing.Color.White;
-            textBoxEndTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            textBoxEndTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            textBoxEndTime.Location = new System.Drawing.Point(2, 2);
-            textBoxEndTime.Margin = new System.Windows.Forms.Padding(2);
-            textBoxEndTime.Name = "textBoxEndTime";
-            textBoxEndTime.Size = new System.Drawing.Size(130, 18);
-            textBoxEndTime.TabIndex = 10;
-            textBoxEndTime.Text = "`";
-            textBoxEndTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            textBoxEndTime.Click += textBoxEndTime_Click;
-            textBoxEndTime.TextChanged += textBoxEndTime_TextChanged;
-            // 
-            // DownArrowEndTime
-            // 
-            DownArrowEndTime.BackColor = System.Drawing.Color.White;
-            DownArrowEndTime.BackgroundImage = (System.Drawing.Image)resources.GetObject("DownArrowEndTime.BackgroundImage");
-            DownArrowEndTime.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            DownArrowEndTime.Cursor = System.Windows.Forms.Cursors.Hand;
-            DownArrowEndTime.Image = (System.Drawing.Image)resources.GetObject("DownArrowEndTime.Image");
-            DownArrowEndTime.Location = new System.Drawing.Point(134, 0);
-            DownArrowEndTime.Margin = new System.Windows.Forms.Padding(0);
-            DownArrowEndTime.Name = "DownArrowEndTime";
-            DownArrowEndTime.Size = new System.Drawing.Size(27, 23);
-            DownArrowEndTime.TabIndex = 62;
-            DownArrowEndTime.TabStop = false;
-            DownArrowEndTime.Click += textBoxEndTime_Click;
-            // 
-            // FLPStartTime
-            // 
-            FLPStartTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            FLPStartTime.BackColor = System.Drawing.Color.White;
-            FLPStartTime.Controls.Add(textBoxStartTime);
-            FLPStartTime.Controls.Add(DownArrowStartTime);
-            FLPStartTime.Location = new System.Drawing.Point(247, 232);
-            FLPStartTime.Margin = new System.Windows.Forms.Padding(6);
-            FLPStartTime.Name = "FLPStartTime";
-            FLPStartTime.Size = new System.Drawing.Size(162, 21);
-            FLPStartTime.TabIndex = 11;
-            FLPStartTime.Click += textBoxStartTime_Click;
-            // 
-            // textBoxStartTime
-            // 
-            textBoxStartTime.BackColor = System.Drawing.Color.White;
-            textBoxStartTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            textBoxStartTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            textBoxStartTime.Location = new System.Drawing.Point(2, 2);
-            textBoxStartTime.Margin = new System.Windows.Forms.Padding(2);
-            textBoxStartTime.Name = "textBoxStartTime";
-            textBoxStartTime.Size = new System.Drawing.Size(130, 18);
-            textBoxStartTime.TabIndex = 10;
-            textBoxStartTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            textBoxStartTime.Click += textBoxStartTime_Click;
-            textBoxStartTime.TextChanged += textBoxStartTime_TextChanged;
-            // 
-            // DownArrowStartTime
-            // 
-            DownArrowStartTime.BackColor = System.Drawing.Color.White;
-            DownArrowStartTime.BackgroundImage = (System.Drawing.Image)resources.GetObject("DownArrowStartTime.BackgroundImage");
-            DownArrowStartTime.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            DownArrowStartTime.Cursor = System.Windows.Forms.Cursors.Hand;
-            DownArrowStartTime.Image = (System.Drawing.Image)resources.GetObject("DownArrowStartTime.Image");
-            DownArrowStartTime.Location = new System.Drawing.Point(134, 0);
-            DownArrowStartTime.Margin = new System.Windows.Forms.Padding(0);
-            DownArrowStartTime.Name = "DownArrowStartTime";
-            DownArrowStartTime.Size = new System.Drawing.Size(27, 24);
-            DownArrowStartTime.TabIndex = 62;
-            DownArrowStartTime.TabStop = false;
-            DownArrowStartTime.Click += textBoxStartTime_Click;
             // 
             // labelStartTimeOutput
             // 
@@ -245,7 +151,7 @@
             flowLayoutPanel3.Controls.Add(buttonCompleted);
             flowLayoutPanel3.Controls.Add(buttonCanceled);
             flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flowLayoutPanel3.Location = new System.Drawing.Point(106, 519);
+            flowLayoutPanel3.Location = new System.Drawing.Point(106, 495);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Size = new System.Drawing.Size(306, 34);
             flowLayoutPanel3.TabIndex = 747;
@@ -335,13 +241,42 @@
             buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonDelete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonDelete.ForeColor = System.Drawing.Color.White;
-            buttonDelete.Location = new System.Drawing.Point(3, 522);
+            buttonDelete.Location = new System.Drawing.Point(3, 498);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new System.Drawing.Size(95, 28);
             buttonDelete.TabIndex = 743;
             buttonDelete.Text = "Delete";
             buttonDelete.UseVisualStyleBackColor = false;
             buttonDelete.Click += buttonDelete_Click;
+            // 
+            // textBoxStartTime
+            // 
+            textBoxStartTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            textBoxStartTime.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            textBoxStartTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            textBoxStartTime.Location = new System.Drawing.Point(291, 230);
+            textBoxStartTime.Margin = new System.Windows.Forms.Padding(6);
+            textBoxStartTime.Name = "textBoxStartTime";
+            textBoxStartTime.Size = new System.Drawing.Size(118, 25);
+            textBoxStartTime.TabIndex = 10;
+            textBoxStartTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            textBoxStartTime.Click += textBoxStartTime_Click;
+            textBoxStartTime.TextChanged += textBoxStartTime_TextChanged;
+            // 
+            // textBoxEndTime
+            // 
+            textBoxEndTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            textBoxEndTime.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            textBoxEndTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            textBoxEndTime.Location = new System.Drawing.Point(291, 280);
+            textBoxEndTime.Margin = new System.Windows.Forms.Padding(6);
+            textBoxEndTime.Name = "textBoxEndTime";
+            textBoxEndTime.Size = new System.Drawing.Size(118, 25);
+            textBoxEndTime.TabIndex = 10;
+            textBoxEndTime.Text = "`";
+            textBoxEndTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            textBoxEndTime.Click += textBoxEndTime_Click;
+            textBoxEndTime.TextChanged += textBoxEndTime_TextChanged;
             // 
             // timer1
             // 
@@ -368,12 +303,6 @@
             VisibleChanged += Appointment_VisibleChanged;
             TLPGlobal.ResumeLayout(false);
             TLPGlobal.PerformLayout();
-            FLPEndTime.ResumeLayout(false);
-            FLPEndTime.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DownArrowEndTime).EndInit();
-            FLPStartTime.ResumeLayout(false);
-            FLPStartTime.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DownArrowStartTime).EndInit();
             flowLayoutPanel3.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -382,11 +311,7 @@
         private System.Windows.Forms.TableLayoutPanel TLPGlobal;
         private System.Windows.Forms.Label labelEndTimeOutput;
         public System.Windows.Forms.TextBox textBoxStartTime;
-        private System.Windows.Forms.FlowLayoutPanel FLPStartTime;
-        private System.Windows.Forms.PictureBox DownArrowStartTime;
-        private System.Windows.Forms.FlowLayoutPanel FLPEndTime;
         public System.Windows.Forms.TextBox textBoxEndTime;
-        private System.Windows.Forms.PictureBox DownArrowEndTime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelStartTimeOutput;
         public CustomizedTools.CustomButton ButtonAddOrUpdate;

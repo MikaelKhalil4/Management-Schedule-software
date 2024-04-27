@@ -21,7 +21,7 @@ namespace MKproject.Schedule
     {
         //testing the pu
         //Property
-        TimeSpan DifferenceTime { get; set; }
+        public TimeSpan DifferenceTime { get; set; }
 
         public bool IsReadOrEdit { get; set; }
 
@@ -201,8 +201,7 @@ namespace MKproject.Schedule
                 TLPGlobal.Controls.Add(LabelNote, 1, 5);
                 //
                 //MainMenuStrip lezim ykun mawjudin men e asel, lezim gab yaamellun global tools
-                FLPStartTime.Dispose();
-                FLPEndTime.Dispose();
+               
 
                 LabelStartTime.Text = DesiredAppointmentAppForm.StartTime.ToString("h:mm tt");
                 TLPGlobal.Controls.Add(LabelStartTime, 1, 1);
@@ -334,13 +333,15 @@ namespace MKproject.Schedule
 
             //Constructor
             DisableClosingOnDisactivating = true;
-            CBdisplayTime displaytime = new CBdisplayTime(textBoxStartTime.Text, isstarttime, DesiredAppointmentAppForm, textBoxStartTime);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
-            displaytime.Deactivate += Displaytime_Deactivate; ;
+            CBdisplayTime displaystarttime = new CBdisplayTime(isstarttime, this);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
+            displaystarttime.Deactivate += Displaytime_Deactivate; 
             //Design
             Point locationRelativeToScreen = textBoxStartTime.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-2, -2);
-            displaytime.Location = locationRelativeToScreen;
-            displaytime.Show();
+            displaystarttime.Location = locationRelativeToScreen;
+            displaystarttime.Show();
+            displaystarttime.Size = new Size(118, 162);
+            label1.Select();
         }
         private void textBoxEndTime_Click(object sender, EventArgs e)
         {
@@ -348,26 +349,28 @@ namespace MKproject.Schedule
 
             //Constructor
             DisableClosingOnDisactivating = true;
-            CBdisplayTime displayendtime = new CBdisplayTime(textBoxEndTime.Text, isstarttime, DesiredAppointmentAppForm, textBoxEndTime);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
-            displayendtime.Deactivate += Displaytime_Deactivate; ;
+            CBdisplayTime displayendtime = new CBdisplayTime( isstarttime,this);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
+            displayendtime.Deactivate += Displaytime_Deactivate; 
             //Design
             Point locationRelativeToScreen = textBoxEndTime.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-2, -2);
             displayendtime.Location = locationRelativeToScreen;
             displayendtime.Show();
+            displayendtime.Width = 118;
+            label1.Select();
         }
         private void Displaytime_Deactivate(object sender, EventArgs e)
         {
             DisableClosingOnDisactivating = false;
             this.Focus();
         }
-        private void textBoxStartTime_TextChanged(object sender, EventArgs e)
+        public void textBoxStartTime_TextChanged(object sender, EventArgs e)
         {
             DifferenceTime = DesiredAppointmentAppForm.EndTime.TimeOfDay - DesiredAppointmentAppForm.StartTime.TimeOfDay;
             LabelDuration.Text = DifferenceTime.ToString(@"hh\:mm\:ss");
             LabelDuration.Select();
         }
-        private void textBoxEndTime_TextChanged(object sender, EventArgs e)
+        public void textBoxEndTime_TextChanged(object sender, EventArgs e)
         {
             DifferenceTime = DesiredAppointmentAppForm.EndTime.TimeOfDay - DesiredAppointmentAppForm.StartTime.TimeOfDay;
             LabelDuration.Text = DifferenceTime.ToString(@"hh\:mm\:ss");

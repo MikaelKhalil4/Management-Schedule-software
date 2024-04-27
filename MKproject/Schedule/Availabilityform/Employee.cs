@@ -233,7 +233,7 @@ namespace MKproject.Schedule
                     //Not the same employee so Updating ListEmployee_idChecked
                     schedule.ucday.ListEmployee_idChecked[i] = ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId;
 
-                    string EmployeeFullName = ListUCEmployeeChecked[i].DesiredEmployee.Fname + " " + ListUCEmployeeChecked[i].DesiredEmployee.Fname;
+                    string EmployeeFullName = ListUCEmployeeChecked[i].DesiredEmployee.Fname + " " + ListUCEmployeeChecked[i].DesiredEmployee.Lname;
                     //If it's a different employee e will have to fill a new column with new appointments and availibity
                     schedule.ucday.UCappointmentsfillColumn(i + 1, ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId, EmployeeFullName);//BOOM COLUMNINDEX = i+1, LI2ANNO FI UCTime zyede w ha yon3ata employee_id taba3 ucemployee li maee rang 1
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
+using System.ComponentModel.Design;
 
 
 namespace MKproject.Schedule
@@ -33,8 +34,8 @@ namespace MKproject.Schedule
             Time = time;
             displaytime = form1;
 
-            this.Size = new Size(94, 24);
-            this.Font = new Font("Segoe UI", 8.75f);
+            this.Size = new Size(101, 30);
+            this.Font = new Font("Segoe UI", 9.75f);
             this.BackColor = Color.White;
             this.Margin = new Padding(0);
             this.TextAlign = ContentAlignment.MiddleCenter;
@@ -44,8 +45,6 @@ namespace MKproject.Schedule
             this.MouseClick += labeltime_MouseClick;
 
             this.MouseEnter += displaytime.flowLayoutPanelContainerTime_MouseEnter;
-
-
         }
 
 
@@ -54,23 +53,15 @@ namespace MKproject.Schedule
         private void labeltime_MouseClick(object sender, MouseEventArgs e)
         {
 
-            //if (Isstarttime)
-            //{
-            //    displaytime.textBoxTime.Text = this.Text;
-            //    displaytime.Close();
-            //}
-            //else
-            //{
-                if (TouchScroll.MoveHoldClick == false)
-                {
-                    displaytime.textBoxTime.Text = this.Text;
-                    displaytime.Close();
-                }
-                else
-                {
+            if (TouchScroll.MoveHoldClick == false)
+            {
+                displaytime.textBoxTime.Text = this.Text;
+                displaytime.Close();
+            }
+            else
+            {
 
-                }
-            //}
+            }
         }
 
 
@@ -92,9 +83,16 @@ namespace MKproject.Schedule
 
         private void labeltime_MouseLeave(object sender, EventArgs e)
         {
-            // MouseLeave event handler
-            Label label = (Label)sender;
-            label.BackColor = Color.White;
+            if (displaytime.targetlabeltimeHighlight.Time == this.Time)
+            {
+
+            }
+            else
+            {
+                // MouseLeave event handler
+                Label label = (Label)sender;
+                label.BackColor = Color.White;
+            }
         }
 
     }

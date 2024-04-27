@@ -12,10 +12,10 @@ namespace MKproject.Schedule
         //HIGHLIGHT:
         public static void HighlightUserControl(Label targetlabel)
         {
-            if (selectedlabeltime != null)//hone bye3ne enno eemelna highlight abel ma nfout aal flow layout panel w selectedlabeltime w targetlabeltime saro henne zetoun bas hone targetlabel sar null w select label akhado
-            {
-                selectedlabeltime.BackColor = Color.White;
-            }
+            //if (selectedlabeltime != null)//hone bye3ne enno eemelna highlight abel ma nfout aal flow layout panel w selectedlabeltime w targetlabeltime saro henne zetoun bas hone targetlabel sar null w select label akhado
+            //{
+            //    selectedlabeltime.BackColor = Color.White;
+            //}
             if (targetlabel != null)//hone baeed ma fetna aal flowlayout panel bas deghre eemelna highlight moujarad ma bayan lflow layout panel
             {
                 targetlabel.BackColor = Color.FromArgb(229, 226, 244);
