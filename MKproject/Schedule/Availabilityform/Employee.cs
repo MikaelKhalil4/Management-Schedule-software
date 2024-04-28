@@ -187,16 +187,24 @@ namespace MKproject.Schedule
                         if (cellControl is FlowLayoutPanel)
                         {
                             FlowLayoutPanel flowLayoutPanel = (FlowLayoutPanel)cellControl;
+                            int NumberOfVisibleControls = 0;
+                            foreach (Control ctrl in flowLayoutPanel.Controls)
+                            {
+                                if (ctrl.Visible)
+                                {
+                                    NumberOfVisibleControls++;
+                                }
+                            }
 
                             //Getting them to originale width
                             foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
                             {
-                                ucappointment.Width = UCappointment.OriginalWidth; ;
+                                ucappointment.Width = UCappointment.OriginalWidth; 
                             }
 
 
                             //eza ee edit width
-                            if (((UCappointment.OriginalWidth * flowLayoutPanel.Controls.Count) + schedule.ucday.KeepSpace) > columnwidth)
+                            if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + schedule.ucday.KeepSpace) > columnwidth)
                             {
                                 schedule.ucday.EditWidthAppointment(flowLayoutPanel, columnwidth);
                             }

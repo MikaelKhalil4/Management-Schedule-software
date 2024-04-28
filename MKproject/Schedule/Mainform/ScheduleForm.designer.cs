@@ -224,7 +224,7 @@
             checkBoxOnPending.UseVisualStyleBackColor = false;
             checkBoxOnPending.CheckedChanged += checkBoxOnPending_CheckedChanged;
             // 
-            // Schedule
+            // ScheduleForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -232,7 +232,7 @@
             ClientSize = new System.Drawing.Size(1485, 841);
             Controls.Add(tableLayoutPanelForm);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "Schedule";
+            Name = "ScheduleForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Form1";
             tableLayoutPanelForm.ResumeLayout(false);
@@ -245,15 +245,15 @@
 
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSide;
-        private System.Windows.Forms.CheckBox checkBoxOnPending;
-        private System.Windows.Forms.CheckBox checkBoxComplete;
-        private System.Windows.Forms.CheckBox checkBoxCancel;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TableLayoutPanel tableLayoutPanelForm;
         private System.Windows.Forms.PictureBox AddButton;
         private System.Windows.Forms.Button buttonAllReminder;
         public System.Windows.Forms.Panel panelreminder;
+        public System.Windows.Forms.CheckBox checkBoxOnPending;
+        public System.Windows.Forms.CheckBox checkBoxComplete;
+        public System.Windows.Forms.CheckBox checkBoxCancel;
     }
 }
 

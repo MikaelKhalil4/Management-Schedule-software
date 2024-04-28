@@ -50,6 +50,7 @@ namespace MKproject.Schedule
         ///-CHECK BOX
         private void checkBoxCancel_CheckedChanged(object sender, EventArgs e)
         {
+            bool IsUCAppCanceldExist = false;
             if (checkBoxCancel.Checked)
             {
                 for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
@@ -66,6 +67,7 @@ namespace MKproject.Schedule
                                     ucappointment.DesiredAppointmentUCApp.IsCanceled == true)
                                 {
                                     ucappointment.Show();
+                                    IsUCAppCanceldExist = true;
                                 }
                             }
                         }
@@ -88,15 +90,27 @@ namespace MKproject.Schedule
                                     ucappointment.DesiredAppointmentUCApp.IsCanceled == true)
                                 {
                                     ucappointment.Hide();
+                                    IsUCAppCanceldExist = true;
                                 }
                             }
                         }
                     }
                 }
             }
+            if (IsUCAppCanceldExist)
+            {
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
+
+                for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
+                {
+                    ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
+                }
+            }
         }
         private void checkBoxComplete_CheckedChanged(object sender, EventArgs e)
         {
+            bool ISUCAppCompleteExist = false;
             if (checkBoxComplete.Checked)
             {
                 for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
@@ -113,6 +127,7 @@ namespace MKproject.Schedule
                                     ucappointment.DesiredAppointmentUCApp.IsCompleted == true)
                                 {
                                     ucappointment.Show();
+                                    ISUCAppCompleteExist = true;
                                 }
                             }
                         }
@@ -135,15 +150,27 @@ namespace MKproject.Schedule
                                     ucappointment.DesiredAppointmentUCApp.IsCompleted == true)
                                 {
                                     ucappointment.Hide();
+                                    ISUCAppCompleteExist = true;
                                 }
                             }
                         }
                     }
                 }
             }
+            if (ISUCAppCompleteExist)
+            {
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
+
+                for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
+                {
+                    ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
+                }
+            }
         }
         private void checkBoxOnPending_CheckedChanged(object sender, EventArgs e)
         {
+            bool IsUCAppOnPendingExist = false;
             if (checkBoxOnPending.Checked)
             {
                 for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
@@ -160,6 +187,7 @@ namespace MKproject.Schedule
                                      ucappointment.DesiredAppointmentUCApp.IsCompleted == false && ucappointment.DesiredAppointmentUCApp.IsCanceled == false)
                                 {
                                     ucappointment.Show();
+                                    IsUCAppOnPendingExist = true;
                                 }
                             }
                         }
@@ -182,10 +210,22 @@ namespace MKproject.Schedule
                                     ucappointment.DesiredAppointmentUCApp.IsCompleted == false && ucappointment.DesiredAppointmentUCApp.IsCanceled == false)
                                 {
                                     ucappointment.Hide();
+                                    IsUCAppOnPendingExist = true;
                                 }
                             }
                         }
                     }
+                }
+            }
+
+            if (IsUCAppOnPendingExist)
+            {
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
+                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
+
+                for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
+                {
+                    ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
                 }
             }
         }

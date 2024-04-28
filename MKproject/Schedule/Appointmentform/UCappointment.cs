@@ -335,6 +335,15 @@ namespace MKproject.Schedule
             int positionrow = starttimeTimeSpan.Hours;
             int positioncol = ParentFormucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointmentUCApp.EmployeeId) + 1;
             FlowLayoutPanel clickedflowLayoutPanel = ParentFormucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
+
+            int NumberOfVisibleControlsOfClickedFLP = 0;
+            foreach (Control ctrl in clickedflowLayoutPanel.Controls)
+            {
+                if (ctrl.Visible)
+                {
+                    NumberOfVisibleControlsOfClickedFLP++;
+                }
+            }
             this.Dispose();
 
 
@@ -362,7 +371,15 @@ namespace MKproject.Schedule
                         if (cellControl is FlowLayoutPanel)
                         {
                             FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                            if ((clickedflowLayoutPanel.Controls.Count + 1)/*+1 li2anno manna na3rif abel ma yaeemil dispose*/ > innerFlowLayoutPanel.Controls.Count)
+                            int NumberOfVisibleControls = 0;
+                            foreach (Control ctrl in innerFlowLayoutPanel.Controls)
+                            {
+                                if (ctrl.Visible)
+                                {
+                                    NumberOfVisibleControls++;
+                                }
+                            }
+                            if ((NumberOfVisibleControlsOfClickedFLP + 1)/*+1 li2anno manna na3rif abel ma yaeemil dispose*/ > NumberOfVisibleControls)
                             {
 
                             }
@@ -386,7 +403,7 @@ namespace MKproject.Schedule
                 }
 
                 //hayde lconidtion => kel flowlayoutpanel ma aandoun wala ucappointment because eza lmax 0 yaeene kelo 0
-                if (clickedflowLayoutPanel.Controls.Count == 0 && havethemaxucdata)
+                if (NumberOfVisibleControlsOfClickedFLP == 0 && havethemaxucdata)
                 {
                     RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPAppointment);
                     RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPEmployees);
@@ -403,7 +420,7 @@ namespace MKproject.Schedule
                 {
                     int columnwidth = ParentFormucday.TLPAppointment.GetColumnWidths()[positioncol];
                     //eza ee edit width
-                    if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ParentFormucday.KeepSpace) > columnwidth)
+                    if (((UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP) + ParentFormucday.KeepSpace) > columnwidth)
                     {
                         ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
                     }
@@ -415,7 +432,7 @@ namespace MKproject.Schedule
             {
                 int columnwidth = ParentFormucday.TLPAppointment.GetColumnWidths()[positioncol];
                 //eza ee edit width
-                if (((UCappointment.OriginalWidth * clickedflowLayoutPanel.Controls.Count) + ParentFormucday.KeepSpace) > columnwidth)
+                if (((UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP) + ParentFormucday.KeepSpace) > columnwidth)
                 {
                     ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
                 }

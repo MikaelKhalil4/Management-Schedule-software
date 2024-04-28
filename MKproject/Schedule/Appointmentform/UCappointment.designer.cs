@@ -52,7 +52,7 @@
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            TLPGlobal.Size = new System.Drawing.Size(268, 76);
+            TLPGlobal.Size = new System.Drawing.Size(230, 76);
             TLPGlobal.TabIndex = 0;
             TLPGlobal.MouseLeave += UCappointments_MouseLeave;
             TLPGlobal.MouseMove += UCappointments_MouseMove;
@@ -111,7 +111,7 @@
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "UCappointment";
             Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            Size = new System.Drawing.Size(268, 81);
+            Size = new System.Drawing.Size(230, 81);
             MouseLeave += UCappointments_MouseLeave;
             MouseMove += UCappointments_MouseMove;
             TLPGlobal.ResumeLayout(false);
