@@ -77,7 +77,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ydqwZSc4/gqcVPummMfp1MTh8IXSg6/6UYtNw2N4Lts=</dsig:DigestValue>
+      <dsig:DigestValue>ksIr4sf2UFAHIJuG7SLM09U8BHXdK/CDFiv9A+MSfeM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="GlobalFunctions.dll" size="16384">
@@ -392,7 +392,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Ynwhp71ZgeXEmuxHppU93E39GsdLqxWgBsQpm55dI1k=</dsig:DigestValue>
+      <dsig:DigestValue>8atSp+xFtDRSkBUAcQGfwk++xYq8B9ZT8TFgoeibNSM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">
