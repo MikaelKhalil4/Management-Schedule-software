@@ -120,7 +120,7 @@ namespace MKproject.Management
         public static DataTable GetAllEmployeesOrLAstInseted(bool AllOrLastInsered)
         {
             string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member,availability,rank,is_checked from employee ";
-           
+
             if (AllOrLastInsered)
             {
                 query += " ORDER by status DESC,employee_id DESC";
@@ -138,7 +138,7 @@ namespace MKproject.Management
             con.Close();
             return dt;
         }
-       
+
         public static bool SearchEmployeePhoneNumber(int? employeeid, string PhoneNumber)
         {
             string query;
@@ -306,8 +306,10 @@ namespace MKproject.Management
                 return true;
             }
         }
+ 
         public void InsertEmployee()
         {
+           
 
             string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank,is_checked) " +
                          "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank,@is_checked)";
@@ -332,12 +334,22 @@ namespace MKproject.Management
 
             if (IsScheduleMember)
             {
-                command.Parameters.AddWithValue("@availability", GetFullAvailabilty());
-                command.Parameters.AddWithValue("@rank", GetLastRank(EmployeeId) + 1);
-                command.Parameters.AddWithValue("@is_checked", true);
+                Availability = GetFullAvailabilty();
+                Rank = GetLastRank(EmployeeId) + 1;
+                IsChecked = true;
+
+                command.Parameters.AddWithValue("@availability", Availability);
+                command.Parameters.AddWithValue("@rank", Rank);
+                command.Parameters.AddWithValue("@is_checked", IsChecked);
+
+            
             }
             else
             {
+                Availability = null;
+                Rank = null;
+                IsChecked = null;
+
                 command.Parameters.AddWithValue("@availability", DBNull.Value);
                 command.Parameters.AddWithValue("@rank", DBNull.Value);
                 command.Parameters.AddWithValue("@is_checked", DBNull.Value);
@@ -345,6 +357,17 @@ namespace MKproject.Management
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
+
+            if (IsScheduleMember)
+            {
+                
+                DateTime Today = DateTime.Now.Date;
+                if (Schedule.SQLToProject.CheckIfHistoryExistsToday(Today))
+                {
+                    int LastInsertedId = (int)((DataTable)GetAllEmployeesOrLAstInseted(false)).Rows[0]["employee_id"];
+                    Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, LastInsertedId, (int)Rank, Availability);
+                }
+            }
         }
         public void UpdateEmployee()
         {
@@ -382,34 +405,40 @@ namespace MKproject.Management
 
             if (IsScheduleMember)//ma32oul tkun true, w yerjaa true again, so ma men ghayir el old results
             {
+                bool IsBecomingAScheduleMember = false; 
 
-                if (Availability == null)
+
+                if (Availability == null && Rank == null && IsChecked == null)
                 {
+                    IsBecomingAScheduleMember = true;
+
                     Availability = GetFullAvailabilty();
-                }
-                command.Parameters.AddWithValue("@availability", Availability);
-
-
-                if (Rank == null)
-                {
                     Rank = GetLastRank(EmployeeId) + 1;
-
-                }
-                command.Parameters.AddWithValue("@rank", Rank);
-
-
-                if (IsChecked == null)
-                {
                     IsChecked = true;
+
                 }
+                //eza ma feto foe bel condtion , btenzal their old value
+                command.Parameters.AddWithValue("@availability", Availability);
+                command.Parameters.AddWithValue("@rank", Rank);        
                 command.Parameters.AddWithValue("@is_checked", IsChecked);
 
+
+
+                if (IsBecomingAScheduleMember)
+                {
+                    DateTime Today = DateTime.Now.Date;
+                    if (Schedule.SQLToProject.CheckIfHistoryExistsToday(Today))
+                    {
+                        Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, EmployeeId, (int)Rank, Availability);
+                    }
+                }
             }
             else//
             {
-                if (Rank != null)//means ken eendo rank,
+                if (Rank != null)//means ken eendo rank,ken schedule member
                 {
-                    UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));//hone ma aam naamil reset lal datagrid tb3 el employees , cz ma bi hemna, bas bi hemna eza eendo rank aw ma eendo 
+                    UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));//hone ma aam naamil reset lal datagrid tb3 el employees , cz ma bi hemna, bas bi hemna eza eendoun the right rank aw ma eendun, bas bi hemna eza NUll or no 
+                    Schedule.ProjectToSql.DeleteHistoryEmployee(DateTime.Now.Date, EmployeeId);
                 }
 
                 Availability = null;
@@ -420,7 +449,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@rank", DBNull.Value);//i need to reOrder the others rank , ta yozbato
                 command.Parameters.AddWithValue("@is_checked", DBNull.Value);
 
-                
+
             }
 
             con.Open();
@@ -428,18 +457,19 @@ namespace MKproject.Management
             con.Close();
 
         }
-
         public void DeleteEmployee()
         {
             if (IsScheduleMember)//ma32oul tkun true, w yerjaa true again, so ma men ghayir el old results
             {
                 UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));
+                Schedule.ProjectToSql.DeleteHistoryEmployee(DateTime.Now.Date, EmployeeId);
             }
             SqlCommand cmd = new SqlCommand("Delete employee where employee_id='" + EmployeeId + "'", con);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
         }
+  
         public bool CheckIfEmployeeHasAppointments()
         {
             string query = @"
@@ -469,6 +499,7 @@ namespace MKproject.Management
             " Exists(Select* from archive as a where a.employee_id = b.employee_id) " +
             "Or" +
             " Exists(Select* from appointments as a where a.employee_id = b.employee_id) )";
+         
 
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);

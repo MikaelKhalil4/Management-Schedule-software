@@ -38,7 +38,7 @@ namespace MKproject.Schedule
         //HistoryEmployeeavailibility
         public static DataTable DisplayRankEmployeesNAvailabilityASC(DateTime history_date)
         {
-            SqlCommand command = new SqlCommand("SELECT  employee_id, rank, availability FROM history_employee_availability WHERE CAST(history_date AS DATE) = @history_date ORDER BY rank ASC", con);
+            SqlCommand command = new SqlCommand("SELECT  employee_id, rank, availability FROM history_employee_availability WHERE history_date = @history_date ORDER BY rank ASC", con);
             command.Parameters.AddWithValue("@history_date", history_date.Date);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
@@ -48,10 +48,10 @@ namespace MKproject.Schedule
             con.Close();
             return dt;
         }
-        public static bool DataExistsForToday(DateTime dateToCheck)
+        public static bool CheckIfHistoryExistsToday(DateTime dateToCheck)
         {
             int count;
-            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM history_employee_availability WHERE CAST(history_date AS DATE) = @history_date", con);
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM history_employee_availability WHERE history_date = @history_date", con);
             cmd.Parameters.AddWithValue("@history_date", dateToCheck.Date);
             con.Open();
             object result = cmd.ExecuteScalar();//return the first cell

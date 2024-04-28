@@ -52,6 +52,7 @@ namespace MKproject.Schedule
         Label LabelNoteOutput;
         Label LabelStartTime;
         Label LabelEndTime;
+        Label labelEmployee;
         //Present Tools
         TextBoxWithPlaceHolder textBoxNotes;
 
@@ -141,7 +142,6 @@ namespace MKproject.Schedule
             ucClientApp.Anchor = AnchorStyles.None;
             //
             //should be considered once hattayta combobox
-            labelEmployee.Text = DesiredAppointmentAppForm.EmployeeFullName;
 
             //Duration
             DifferenceTime = DesiredAppointmentAppForm.EndTime.TimeOfDay - DesiredAppointmentAppForm.StartTime.TimeOfDay;
@@ -152,9 +152,29 @@ namespace MKproject.Schedule
                 this.Width = 463;
                 CreatingPresentTools();
                 //
-
+                textBoxEndTime.Visible = true;
+                textBoxStartTime.Visible = true;
                 textBoxStartTime.Text = DesiredAppointmentAppForm.StartTime.ToString("h:mm tt");
                 textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
+
+                //
+                foreach (ClassEmployee emp in UcDayParentForm.ListEmployeeSchedule)
+                {
+                    if ((bool)emp.IsChecked)
+                    {
+                        var item = new
+                        {
+                            Text = $"{emp.Fname} {emp.Lname}",
+                            Value = emp.EmployeeId
+                        };
+
+                        //comboBoxEmployee.Items.Add(item);
+                        //comboBoxEmployee.DisplayMember = "Text";
+                        //comboBoxEmployee.ValueMember = "Value";
+                    }
+                    //comboBoxEmployee.SelectedIndex = 0;//filter is done in here
+                    //comboBoxEmployee.Width = FunctionsForWinformsTool.ReturnComboBoxWidth(comboBoxEmployee)+17;
+                }
 
 
                 //
@@ -192,7 +212,9 @@ namespace MKproject.Schedule
 
                 ButtonAddOrUpdate.Visible = false;
                 buttonDelete.Visible = false;
-
+                textBoxEndTime.Visible = false;
+                textBoxStartTime.Visible = false;
+                comboBoxEmployee.Visible = false;
                 //
                 TLPGlobal.RowStyles[5].Height = TLPGlobal.RowStyles[4].Height;// making the height of the note add li fawea
 
@@ -201,13 +223,17 @@ namespace MKproject.Schedule
                 TLPGlobal.Controls.Add(LabelNote, 1, 5);
                 //
                 //MainMenuStrip lezim ykun mawjudin men e asel, lezim gab yaamellun global tools
-               
+
 
                 LabelStartTime.Text = DesiredAppointmentAppForm.StartTime.ToString("h:mm tt");
                 TLPGlobal.Controls.Add(LabelStartTime, 1, 1);
 
                 LabelEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
                 TLPGlobal.Controls.Add(LabelEndTime, 1, 2);
+
+                labelEmployee.Text = DesiredAppointmentAppForm.EmployeeFullName;
+                TLPGlobal.Controls.Add(labelEmployee, 1, 4);
+
             }
 
 
@@ -269,7 +295,7 @@ namespace MKproject.Schedule
             }
         }
 
-        void CreatingPresentTools()
+        void CreatingPresentTools()//the other mawjuding by design
         {
             textBoxNotes = new TextBoxWithPlaceHolder();
             textBoxNotes.PlaceholderText = "Notes";
@@ -320,8 +346,13 @@ namespace MKproject.Schedule
             LabelEndTime.AutoSize = true;
             LabelEndTime.Margin = new Padding(6);
             LabelEndTime.Anchor = AnchorStyles.Right;
-            LabelEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt"); ;
+            LabelEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
 
+            labelEmployee = new Label();
+            labelEmployee.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            labelEmployee.AutoSize = true;
+            labelEmployee.Margin = new Padding(6);
+            labelEmployee.Anchor = AnchorStyles.Right;
 
         }
 
@@ -336,7 +367,7 @@ namespace MKproject.Schedule
             //Constructor
             DisableClosingOnDisactivating = true;
             CBdisplayTime displaystarttime = new CBdisplayTime(isstarttime, this);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
-            displaystarttime.Deactivate += Displaytime_Deactivate; 
+            displaystarttime.Deactivate += Displaytime_Deactivate;
             //Design
             Point locationRelativeToScreen = textBoxStartTime.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-2, -2);
@@ -351,8 +382,8 @@ namespace MKproject.Schedule
 
             //Constructor
             DisableClosingOnDisactivating = true;
-            CBdisplayTime displayendtime = new CBdisplayTime( isstarttime,this);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
-            displayendtime.Deactivate += Displaytime_Deactivate; 
+            CBdisplayTime displayendtime = new CBdisplayTime(isstarttime, this);//MEN SE3A 12:00 AM (00:00:00) lal 11:30 PM
+            displayendtime.Deactivate += Displaytime_Deactivate;
             //Design
             Point locationRelativeToScreen = textBoxEndTime.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-2, -2);
@@ -725,7 +756,7 @@ namespace MKproject.Schedule
                         (double initialbalance, DataTable PurchasedBundles) = PurchaseNewSoloServices();
 
                         DisableClosingOnDisactivating = true;
-                        Program.GreyFormJunior = new GreyColor(this,false,true);
+                        Program.GreyFormJunior = new GreyColor(this, false, true);
                         Program.GreyFormJunior.Show();
                         Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, PurchasedBundles, null, true);
                         paymentform.ShowDialog();
@@ -904,7 +935,10 @@ namespace MKproject.Schedule
 
         }
 
-
+        private void comboBoxEmployee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            labelEmployeeOutput.Select();
+        }
 
         protected override CreateParams CreateParams
         {

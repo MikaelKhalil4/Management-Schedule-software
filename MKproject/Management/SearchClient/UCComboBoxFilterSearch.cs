@@ -190,7 +190,7 @@ namespace MKproject.Management
             }
 
             comboBoxDetail.SelectedIndex = 0;//filter is done in here
-            SetComboBoxWidth(this, comboBoxDetail, labelTitle);
+            SetUCComboBoxWidth(this, comboBoxDetail, labelTitle);
 
         }//try catch
 

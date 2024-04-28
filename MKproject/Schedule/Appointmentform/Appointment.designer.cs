@@ -30,8 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
-            labelEmployee = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
+            labelEmployeeOutput = new System.Windows.Forms.Label();
             labelStartTimeOutput = new System.Windows.Forms.Label();
             labelEndTimeOutput = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -43,6 +42,7 @@
             buttonDelete = new CustomizedTools.CustomButton();
             textBoxStartTime = new System.Windows.Forms.TextBox();
             textBoxEndTime = new System.Windows.Forms.TextBox();
+            comboBoxEmployee = new System.Windows.Forms.ComboBox();
             timer1 = new System.Windows.Forms.Timer(components);
             TLPGlobal.SuspendLayout();
             flowLayoutPanel3.SuspendLayout();
@@ -53,8 +53,7 @@
             TLPGlobal.ColumnCount = 2;
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.000008F));
-            TLPGlobal.Controls.Add(labelEmployee, 1, 4);
-            TLPGlobal.Controls.Add(label2, 0, 4);
+            TLPGlobal.Controls.Add(labelEmployeeOutput, 0, 4);
             TLPGlobal.Controls.Add(labelStartTimeOutput, 0, 1);
             TLPGlobal.Controls.Add(labelEndTimeOutput, 0, 2);
             TLPGlobal.Controls.Add(label1, 0, 3);
@@ -63,6 +62,7 @@
             TLPGlobal.Controls.Add(buttonDelete, 0, 6);
             TLPGlobal.Controls.Add(textBoxStartTime, 1, 1);
             TLPGlobal.Controls.Add(textBoxEndTime, 1, 2);
+            TLPGlobal.Controls.Add(comboBoxEmployee, 1, 4);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
             TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
@@ -79,31 +79,18 @@
             TLPGlobal.Size = new System.Drawing.Size(415, 536);
             TLPGlobal.TabIndex = 70;
             // 
-            // labelEmployee
+            // labelEmployeeOutput
             // 
-            labelEmployee.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            labelEmployee.AutoSize = true;
-            labelEmployee.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelEmployee.Location = new System.Drawing.Point(291, 385);
-            labelEmployee.Margin = new System.Windows.Forms.Padding(6);
-            labelEmployee.Name = "labelEmployee";
-            labelEmployee.Size = new System.Drawing.Size(118, 20);
-            labelEmployee.TabIndex = 745;
-            labelEmployee.Text = "Andrea Mayada";
-            labelEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            label2.Location = new System.Drawing.Point(6, 386);
-            label2.Margin = new System.Windows.Forms.Padding(6);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(59, 17);
-            label2.TabIndex = 744;
-            label2.Text = "Member:";
-            label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelEmployeeOutput.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            labelEmployeeOutput.AutoSize = true;
+            labelEmployeeOutput.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            labelEmployeeOutput.Location = new System.Drawing.Point(6, 386);
+            labelEmployeeOutput.Margin = new System.Windows.Forms.Padding(6);
+            labelEmployeeOutput.Name = "labelEmployeeOutput";
+            labelEmployeeOutput.Size = new System.Drawing.Size(59, 17);
+            labelEmployeeOutput.TabIndex = 744;
+            labelEmployeeOutput.Text = "Member:";
+            labelEmployeeOutput.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelStartTimeOutput
             // 
@@ -253,11 +240,11 @@
             // 
             textBoxStartTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
             textBoxStartTime.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
-            textBoxStartTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            textBoxStartTime.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             textBoxStartTime.Location = new System.Drawing.Point(291, 230);
             textBoxStartTime.Margin = new System.Windows.Forms.Padding(6);
             textBoxStartTime.Name = "textBoxStartTime";
-            textBoxStartTime.Size = new System.Drawing.Size(118, 25);
+            textBoxStartTime.Size = new System.Drawing.Size(118, 26);
             textBoxStartTime.TabIndex = 10;
             textBoxStartTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             textBoxStartTime.Click += textBoxStartTime_Click;
@@ -267,16 +254,32 @@
             // 
             textBoxEndTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
             textBoxEndTime.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
-            textBoxEndTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            textBoxEndTime.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             textBoxEndTime.Location = new System.Drawing.Point(291, 280);
             textBoxEndTime.Margin = new System.Windows.Forms.Padding(6);
             textBoxEndTime.Name = "textBoxEndTime";
-            textBoxEndTime.Size = new System.Drawing.Size(118, 25);
+            textBoxEndTime.Size = new System.Drawing.Size(118, 26);
             textBoxEndTime.TabIndex = 10;
             textBoxEndTime.Text = "`";
             textBoxEndTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             textBoxEndTime.Click += textBoxEndTime_Click;
             textBoxEndTime.TextChanged += textBoxEndTime_TextChanged;
+            // 
+            // comboBoxEmployee
+            // 
+            comboBoxEmployee.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            comboBoxEmployee.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            comboBoxEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxEmployee.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            comboBoxEmployee.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            comboBoxEmployee.FormattingEnabled = true;
+            comboBoxEmployee.Location = new System.Drawing.Point(288, 381);
+            comboBoxEmployee.Margin = new System.Windows.Forms.Padding(6);
+            comboBoxEmployee.Name = "comboBoxEmployee";
+            comboBoxEmployee.Size = new System.Drawing.Size(121, 28);
+            comboBoxEmployee.TabIndex = 749;
+            comboBoxEmployee.SelectedIndexChanged += comboBoxEmployee_SelectedIndexChanged;
+            comboBoxEmployee.DropDownClosed += comboBoxEmployee_SelectedIndexChanged;
             // 
             // timer1
             // 
@@ -319,9 +322,9 @@
         public CustomizedTools.CustomButton buttonCompleted;
         public CustomizedTools.CustomButton buttonCanceled;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labelEmployee;
+        private System.Windows.Forms.Label labelEmployeeOutput;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Label LabelDuration;
+        private System.Windows.Forms.ComboBox comboBoxEmployee;
     }
 }

@@ -28,5 +28,21 @@ namespace GlobalFunctions
 
             tlp.Height = (int)Math.Ceiling(totalHeight);
         }
+        public static int ReturnComboBoxWidth( ComboBox comboBoxDetail)
+        {
+            int maxWidth = 0;
+
+            // Iterate through items to find the maximum item width
+            foreach (var item in comboBoxDetail.Items)
+            {
+                string displayedText = comboBoxDetail.GetItemText(item);
+                int itemWidth = TextRenderer.MeasureText(displayedText, comboBoxDetail.Font).Width;
+                maxWidth = Math.Max(maxWidth, itemWidth);
+            }
+
+            return maxWidth;
+
+
+        }
     }
 }
