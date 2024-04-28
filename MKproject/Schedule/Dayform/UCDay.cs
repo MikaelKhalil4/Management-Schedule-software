@@ -14,8 +14,7 @@ namespace MKproject.Schedule
 {
     public partial class UCDay : UserControl
     {
-        //SQL:
-        SqlConnection con = new SqlConnection(Program.DataLocation);
+     
 
 
 
@@ -297,7 +296,7 @@ namespace MKproject.Schedule
 
             //HistoryEmployeeAvailability
             //Putting the  Availability And The ID of the Employees   who are in the ListEmployee_idChecked of today in the historyemployeeavailability
-            if (SQLToProject.DataExistsForToday(DateTime.Now))//eza exists update 
+            if (SQLToProject.CheckIfHistoryExistsToday(DateTime.Now))//eza exists update 
             {
                 ////Code For SQL 
                 ////and we can add a condition to prevent the update  by knowing if someone has changed something in the manager program active or disactive

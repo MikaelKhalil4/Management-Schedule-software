@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GlobalFunctions;
+using System;
 using System.Windows.Forms;
 
 namespace CustomizedTools
@@ -38,20 +39,14 @@ namespace CustomizedTools
       
 
  
-        public void SetComboBoxWidth(UserControl MainUserControl, ComboBox comboBoxDetail, Label labelTitle)
+        public void SetUCComboBoxWidth(UserControl MainUserControl, ComboBox comboBoxDetail, Label labelTitle)
         {
-            int maxWidth = 0;
-
-            // Iterate through items to find the maximum item width
-            foreach (string item in comboBoxDetail.Items)
-            {
-                int itemWidth = TextRenderer.MeasureText(item, comboBoxDetail.Font).Width;
-                maxWidth = Math.Max(maxWidth, itemWidth);
-            }
+            int maxComboBoxWidth =FunctionsForWinformsTool.ReturnComboBoxWidth(comboBoxDetail);
+        
             int labelwidth = TextRenderer.MeasureText(labelTitle.Text, labelTitle.Font).Width;
 
-            if (labelwidth < maxWidth)
-                MainUserControl.Width = maxWidth + SystemInformation.VerticalScrollBarWidth + 5;
+            if (labelwidth < maxComboBoxWidth)
+                MainUserControl.Width = maxComboBoxWidth + SystemInformation.VerticalScrollBarWidth + 5;
             else
                 MainUserControl.Width = labelwidth + SystemInformation.VerticalScrollBarWidth + 5;
         }

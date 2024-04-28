@@ -496,8 +496,8 @@ namespace MKproject.Management
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            ClassEmployee employee = new ClassEmployee();
-            employee.EmployeeId = (int)DesiredRow["employee_id"];
+            ClassEmployee employee = ClassEmployee.CreateEmployeeObject((int)DesiredRow["employee_id"]);
+          
             if (employee.CheckIfEmployeeHasReferences())
             {
                 CustomMessageBox.Show("Cannot delete this employee as there is some data attached to them.", CustomMessageBox.Type.Ok);

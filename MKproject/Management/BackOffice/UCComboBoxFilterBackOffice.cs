@@ -81,7 +81,7 @@ namespace MKproject.Management
                     comboBoxDetail.Items.Add(Employee["first_name"] + " " + Employee["last_name"]);
                 }
             }
-            SetComboBoxWidth(this, comboBoxDetail, labelTitle);
+            SetUCComboBoxWidth(this, comboBoxDetail, labelTitle);
         }//try catch
     }
 }

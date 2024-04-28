@@ -140,14 +140,29 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCApp.IsCompleted)
             {
                 this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
+             
+                if (!ParentFormucday.ParentFormSchedule.checkBoxComplete.Checked)
+                {
+                    this.Visible = false;
+                }
             }
             else if (DesiredAppointmentUCApp.IsCanceled)
             {
                 this.BackColor = Color.FromArgb(244, 86, 7);//orange
+              
+                if (!ParentFormucday.ParentFormSchedule.checkBoxCancel.Checked)
+                {
+                    this.Visible = false;
+                }
             }
             else
             {
                 this.BackColor = Program.BoldColor;
+               
+                if (!ParentFormucday.ParentFormSchedule.checkBoxOnPending.Checked)
+                {
+                    this.Visible = false;
+                }
             }
 
 
