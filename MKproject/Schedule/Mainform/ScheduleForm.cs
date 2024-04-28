@@ -99,13 +99,7 @@ namespace MKproject.Schedule
             }
             if (IsUCAppCanceldExist)
             {
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
-
-                for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
-                {
-                    ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
-                }
+                EditTLPWithUCAppWidth();
             }
         }
         private void checkBoxComplete_CheckedChanged(object sender, EventArgs e)
@@ -159,13 +153,7 @@ namespace MKproject.Schedule
             }
             if (ISUCAppCompleteExist)
             {
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
-
-                for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
-                {
-                    ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
-                }
+                EditTLPWithUCAppWidth();
             }
         }
         private void checkBoxOnPending_CheckedChanged(object sender, EventArgs e)
@@ -220,6 +208,33 @@ namespace MKproject.Schedule
 
             if (IsUCAppOnPendingExist)
             {
+
+                EditTLPWithUCAppWidth();
+            }
+        }
+
+
+
+        //FUNCTIONS:
+        private void EditTLPWithUCAppWidth()
+        {
+            bool IsAbsoluteCondition = false;
+            int ColumnAbsolute = -1;
+            for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
+            {
+                if (ucday.TLPAppointment.ColumnStyles[j].SizeType is SizeType.Absolute)
+                {
+                    IsAbsoluteCondition = true;
+                    ColumnAbsolute = j;
+                }
+            }
+
+            if (IsAbsoluteCondition)
+            {
+                ucday.EditTLPWithTheColumnAbsolute(ColumnAbsolute);
+            }
+            else
+            {
                 RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
                 RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
 
@@ -230,9 +245,6 @@ namespace MKproject.Schedule
             }
         }
 
-
-
-        //FUNCTIONS:
         public void UCDaysClick()
         {
             EditUCDay();

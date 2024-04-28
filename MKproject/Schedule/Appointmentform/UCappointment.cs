@@ -335,17 +335,17 @@ namespace MKproject.Schedule
             int positionrow = starttimeTimeSpan.Hours;
             int positioncol = ParentFormucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointmentUCApp.EmployeeId) + 1;
             FlowLayoutPanel clickedflowLayoutPanel = ParentFormucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
+            this.Dispose();
 
             int NumberOfVisibleControlsOfClickedFLP = 0;
             foreach (Control ctrl in clickedflowLayoutPanel.Controls)
             {
+                ctrl.Width = UCappointment.OriginalWidth;
                 if (ctrl.Visible)
                 {
                     NumberOfVisibleControlsOfClickedFLP++;
                 }
             }
-            this.Dispose();
-
 
             //Fi hal ucdata ma ken eendoun originale lwidth lezim nredoun la na3if eza byo2ta3 limit
             foreach (UCappointment ucappointment in clickedflowLayoutPanel.Controls.OfType<UCappointment>())

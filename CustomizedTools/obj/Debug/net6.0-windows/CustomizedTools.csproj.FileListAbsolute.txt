@@ -74,3 +74,5 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\Custo
 C:\MKProject code\MKproject\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.CustomButton.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.NotificationBanner.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.Properties.Resources.resources
+C:\MKProject code\MKproject\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.NotificationBanner.resources
+C:\MKProject code\MKproject\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.Properties.Resources.resources

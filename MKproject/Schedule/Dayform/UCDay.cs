@@ -426,37 +426,6 @@ namespace MKproject.Schedule
                         //Percentage -> Absolute
                         else
                         {
-                            //badna nrajiee ucappointment lal originale size li2anno sar column absolute size
-                            GettingWidthAppointmentToOriginal(ClickedCol);
-
-
-                            //FLP That has the biggest number of ucdata
-                            int MaxNumberOfUcData = 0;
-                            int rowOfThemaxflowLayPan = 0;
-                            for (int i = 0; i < TLPAppointment.RowCount; i++)
-                            {
-                                Control cellControl = TLPAppointment.GetControlFromPosition(ClickedCol, i);
-                                if (cellControl is FlowLayoutPanel)
-                                {
-                                    FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                                    int NumberOfVisibleControls = 0;
-                                    foreach (Control ctrl in MaxFlowLayoutPanel.Controls)
-                                    {
-                                        if (ctrl.Visible)
-                                        {
-                                            NumberOfVisibleControls++;
-                                        }
-                                    }
-
-                                    if (MaxNumberOfUcData < NumberOfVisibleControls)
-                                    {
-                                        MaxNumberOfUcData = NumberOfVisibleControls;
-                                        rowOfThemaxflowLayPan = i;
-                                    }
-                                }
-                            }
-
-
                             //eza toli3 fi column absolute gher li eemelnela  click laken mana nredo percentage
                             if (CheckOtherColumnsStylesType(TLPAppointment, ClickedCol))
                             {
@@ -464,30 +433,7 @@ namespace MKproject.Schedule
                                 RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
                             }
 
-
-                            // If the summation of the controls width inside the flowlayoutpanel(that has the biggest number) is approximately same as the column width then it's better to keep it in percentage
-                            if (MaxNumberOfUcData == 0 || ((UCappointment.OriginalWidth * MaxNumberOfUcData) + KeepSpace) < clickedLabel.Width)//approximately because without using the margins to compare
-                            {
-
-                            }
-                            //If not then we will Edit The Clicked Column making him to absolute
-                            else
-                            {
-                                EditColumnAbsoluteSize(ClickedCol, rowOfThemaxflowLayPan);
-                            }
-
-
-
-                            //kermel kel ucappointment ybaynoma bel column
-                            for (int j = 1; j < TLPAppointment.ColumnCount; j++)
-                            {
-                                //Ma lezim yemrou2 bel absolute column
-                                if (j != ClickedCol)
-                                {
-                                    //Lezim y3adil lwidth taba3 be2e lappointments li bi columns percentage
-                                    ResizeWidthAppointmentInTheColumnPecentage(j);
-                                }
-                            }
+                            EditTLPWithTheColumnAbsolute(ClickedCol);
                         }
 
                     }
@@ -1116,7 +1062,7 @@ namespace MKproject.Schedule
             //kermel kel ucappointment ybaynoma bel column
             for (int j = 0; j < TLPAppointment.ColumnCount; j++)
             {
-               ResizeWidthAppointmentInTheColumnPecentage(j);
+                ResizeWidthAppointmentInTheColumnPecentage(j);
             }
 
         }//hone lal load,next,previous w eza jina mnel month
@@ -1238,7 +1184,7 @@ namespace MKproject.Schedule
                 {
                     ucappointments.Hide();
                 }
-                if(ParentFormSchedule.checkBoxCancel.Checked == false && DesiredAppointment.IsCanceled)
+                if (ParentFormSchedule.checkBoxCancel.Checked == false && DesiredAppointment.IsCanceled)
                 {
                     ucappointments.Hide();
                 }
@@ -1737,6 +1683,7 @@ namespace MKproject.Schedule
                     int NumberOfVisibleControls = 0;
                     foreach (Control ctrl in innerFlowLayoutPanel1.Controls)
                     {
+                        ctrl.Width = UCappointment.OriginalWidth;
                         if (ctrl.Visible)
                         {
                             NumberOfVisibleControls++;
@@ -1753,7 +1700,67 @@ namespace MKproject.Schedule
                 }
             }
         }
+        public void EditTLPWithTheColumnAbsolute(int AbsoluteColumn)
+        {
+            //badna nrajiee ucappointment lal originale size li2anno sar column absolute size
+            GettingWidthAppointmentToOriginal(AbsoluteColumn);
 
+
+            //FLP That has the biggest number of ucdata
+            int MaxNumberOfUcData = 0;
+            int rowOfThemaxflowLayPan = 0;
+            for (int i = 0; i < TLPAppointment.RowCount; i++)
+            {
+                Control cellControl = TLPAppointment.GetControlFromPosition(AbsoluteColumn, i);
+                if (cellControl is FlowLayoutPanel)
+                {
+                    FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
+                    int NumberOfVisibleControls = 0;
+                    foreach (Control ctrl in MaxFlowLayoutPanel.Controls)
+                    {
+                        if (ctrl.Visible)
+                        {
+                            NumberOfVisibleControls++;
+                        }
+                    }
+
+                    if (MaxNumberOfUcData < NumberOfVisibleControls)
+                    {
+                        MaxNumberOfUcData = NumberOfVisibleControls;
+                        rowOfThemaxflowLayPan = i;
+                    }
+                }
+            }
+
+
+            int columnwidth = TLPAppointment.GetColumnWidths()[AbsoluteColumn];
+
+            // If the summation of the controls width inside the flowlayoutpanel(that has the biggest number) is approximately same as the column width then it's better to keep it in percentage
+            if (MaxNumberOfUcData == 0 || ((UCappointment.OriginalWidth * MaxNumberOfUcData) + KeepSpace) < columnwidth)//approximately because without using the margins to compare
+            {
+
+            }
+            //If not then we will Edit The Clicked Column making him to absolute
+            else
+            {
+                EditColumnAbsoluteSize(AbsoluteColumn, rowOfThemaxflowLayPan);
+            }
+
+
+
+            //kermel kel ucappointment ybaynoma bel column
+            for (int j = 1; j < TLPAppointment.ColumnCount; j++)
+            {
+                //Ma lezim yemrou2 bel absolute column
+                if (j != AbsoluteColumn)
+                {
+                    //Lezim y3adil lwidth taba3 be2e lappointments li bi columns percentage
+                    ResizeWidthAppointmentInTheColumnPecentage(j);
+                }
+            }
+
+
+        }
 
 
         public void GettingWidthAppointmentToOriginal(int column)
@@ -1803,6 +1810,7 @@ namespace MKproject.Schedule
             }
             return 0;//that means there's no column that's absolute
         }
+
 
 
 
