@@ -72,9 +72,9 @@ namespace MKproject.Management
                     if (idValue != DBNull.Value)
                     {
                         int id = Convert.ToInt32(idValue);
-                        SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(ParentFormClientMang.Tag)).menu.ActivatedForm));
+                        SearchCurrentClient searchform = (SearchCurrentClient)Program.HomeForm.menu.ActivatedForm;
 
-                        ((Home)ParentFormClientMang.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
+                        Program.HomeForm.buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
 
                         searchform.FocusOnADesiredRow(id);
                         this.Close();

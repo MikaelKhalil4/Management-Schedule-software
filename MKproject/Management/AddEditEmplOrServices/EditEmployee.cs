@@ -401,7 +401,7 @@ namespace MKproject.Management
                 employee.InsertEmployee();
 
 
-                DataTable dtinserteditem = ClassEmployee.GetLastInsertEmployee();
+                DataTable dtinserteditem = ClassEmployee.GetAllEmployeesOrLAstInseted(false);
                 ParentFormViewEmpl.FormatOriginaldt(dtinserteditem);
                 DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one 
 

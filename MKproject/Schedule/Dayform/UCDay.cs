@@ -374,7 +374,7 @@ namespace MKproject.Schedule
                     int columnIndex = TLPAppointment.GetColumn(clickedPanel);
 
                     ScheduleForm schedule = this.ParentFormSchedule;
-                    Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                     Program.GreyForm.Show();
                     Appointment appointment = new Appointment(this, uctime, ListEmployee_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
                     appointment.Show();

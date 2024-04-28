@@ -2307,7 +2307,7 @@ namespace MKproject.Management
         {
 
             //form creation
-            Menu menu = ((Home)SearchCurrentClientForm.Tag).menu;
+            Menu menu = Program.HomeForm.menu;
             if (Program.clientManagementProfile == null)
             {
                 Program.clientManagementProfile = new ClientManagementProfile(DesiredCLient, false);
@@ -2319,8 +2319,8 @@ namespace MKproject.Management
             Program.clientManagementProfile.Size = SearchCurrentClientForm.Size;
             Program.clientManagementProfile.SearchCurrentClientform = SearchCurrentClientForm;
             menu.OpenChildForm(Program.clientManagementProfile, menu.buttonSearchClient, true);
-            ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Text = "Clients";
-            ((Home)SearchCurrentClientForm.Tag).buttonBackHome.Visible = true;
+            Program.HomeForm.buttonBackHome.Text = "Clients";
+            Program.HomeForm.buttonBackHome.Visible = true;
 
         }
 
@@ -2421,24 +2421,32 @@ namespace MKproject.Management
                 if (Client.IsParent == false)
                 {
                     // Show a message box with "Yes" and "No" buttons
-                    DialogResult result = CustomMessageBox.Show("Are you sure you want to delete this client profile?\nYou will loose all his informations", CustomMessageBox.Type.YesNoWarning);
 
-                    // Check the user's choice
-                    if (result == DialogResult.Yes)
+                    if (Client.CheckIfCLientHasClientBalanceRefrences())
                     {
+                        CustomMessageBox.Show("You must remove all transactions for this client before you can delete their profile.", CustomMessageBox.Type.Error);
+                    }
+                    else
+                    {
+                        DialogResult result = CustomMessageBox.Show("Are you sure you want to delete this client profile?\nYou will loose all his informations", CustomMessageBox.Type.YesNoWarning);
 
-
-                        if (ClientManagementProfileForm != null)
+                        // Check the user's choice
+                        if (result == DialogResult.Yes)
                         {
-                            ClientManagementProfileForm.IsClientDeleted = true;
-                        }
-                        if (Client.IsChild)
-                        {
-                            RemoveParentIfMust(Client.PhoneNumber, true);//eza aam nshil a child eendo parent
-                        }
 
-                        Client.DeleteClientToSQL();//ejbare tahet el RemoveParentIfMust
-                        this.Close();
+
+                            if (ClientManagementProfileForm != null)
+                            {
+                                ClientManagementProfileForm.IsClientDeleted = true;
+                            }
+                            if (Client.IsChild)
+                            {
+                                RemoveParentIfMust(Client.PhoneNumber, true);//eza aam nshil a child eendo parent
+                            }
+
+                            Client.DeleteClientToSQL();//ejbare tahet el RemoveParentIfMust
+                            this.Close();
+                        }
                     }
                 }
                 else

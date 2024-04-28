@@ -122,7 +122,7 @@ namespace CustomizedTools
         {
             if (!string.IsNullOrEmpty(myTextBox1.Text) && myTextBox1.Text != myTextBox1.PlaceholderText)
             {
-                Value = myTextBox1.Text;
+                Value = myTextBox1.Text.Trim();
             }
             else
             {
@@ -248,6 +248,7 @@ namespace CustomizedTools
             if (IsEmail)
             {
                 CreatEmailFormat();
+                SetValue();
 
                 Regex mRegxExpression;
                 if (value != null)
@@ -274,7 +275,10 @@ namespace CustomizedTools
                 }
 
             }
-            SetValue();
+            else
+            {
+                SetValue();
+            }
             textboxtextchange?.Invoke(this, e);
         }
 

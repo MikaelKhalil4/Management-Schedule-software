@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Media.Converters;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -35,8 +36,7 @@ namespace MKproject.Schedule
         IconButton IconDeleteService;
         UCSlideButton ucSlideButtonServicerOthers;
         Label labelFullName;
-        Label LabelTitle;
-        Label LabeltitleOutput;
+       
         ToolTip toolTip1;
 
         public ClassAppointment DesiredAppointmentUCClientApp;
@@ -114,39 +114,22 @@ namespace MKproject.Schedule
                 TLPglobal.RowStyles[1].Height = 0;//ClientName
             }
 
+
             if (DesiredAppointmentUCClientApp.Title != null)
             {
-                if (LabelTitle == null)
-                {
-                    LabelTitle = new Label();
-                    LabelTitle.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-                    LabelTitle.AutoSize = true;
-                    LabelTitle.Margin = new Padding(6);
-                    LabelTitle.Anchor = AnchorStyles.Right;
-                    TLPglobal.Controls.Add(LabelTitle, 1, 2);
-                    TLPglobal.SetColumnSpan(LabelTitle, 3);
-                }
+              
                 if (!string.IsNullOrEmpty(DesiredAppointmentUCClientApp.Title))
                 {
-                    LabelTitle.Text = DesiredAppointmentUCClientApp.Title;
+                    LabelService.Text = DesiredAppointmentUCClientApp.Title;
 
                 }
                 else
                 {
-                    LabelTitle.Text = "N/A";
+                    LabelService.Text = "N/A";
                 }
 
-                //
-                if (LabeltitleOutput == null)
-                {
-                    LabeltitleOutput = new Label();
-                    LabeltitleOutput.Text = "Title:";
-                    LabeltitleOutput.Margin = new Padding(6);
-                    LabeltitleOutput.Font = new Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular | System.Drawing.FontStyle.Italic);
-                    LabeltitleOutput.AutoSize = true;
-                    LabeltitleOutput.Anchor = AnchorStyles.Left;
-                    TLPglobal.Controls.Add(LabeltitleOutput, 0, 2);
-                }
+                LabelServiceOutput.Text= "Title:";
+               
             }
             FunctionsForWinformsTool.AdjustTableLayoutPanelHeight(TLPglobal);
 
@@ -600,9 +583,16 @@ namespace MKproject.Schedule
 
 
         //used for Edit Mode
-        public void FillObjectIfTitle(string Title)
+        public void FillObjectIfTitle(string title)
         {
-            DesiredAppointmentUCClientApp.Title = Title;
+            if (!String.IsNullOrEmpty(title) && title != textBoxTitle.PlaceholderText)
+            {
+                DesiredAppointmentUCClientApp.Title = title;
+            }
+            else
+            {
+                DesiredAppointmentUCClientApp.Title = null;
+            }
         }
         public void FillObjectOfNewChosenBundles(List<ClassBundles> BundleList)
         {
@@ -765,7 +755,7 @@ namespace MKproject.Schedule
             Cursor = Cursors.WaitCursor;
 
             ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
-            Home home = (Home)schedule.Tag;
+            Home home = Program.HomeForm;
 
 
             if (Program.clientManagementProfile == null)
@@ -809,7 +799,7 @@ namespace MKproject.Schedule
 
 
             ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
-            Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
             Program.GreyForm.Show();
 
 

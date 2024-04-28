@@ -871,7 +871,7 @@ namespace MKproject.Management
                 {
 
                  
-                    Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                     Program.GreyForm.Show();
                     Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
                     payment.ClientManagementProfileParentForm = this;
@@ -884,7 +884,7 @@ namespace MKproject.Management
                 {
                     if (LOGIN.Employee.CanAccessTransaction)
                     {
-                        Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                         Program.GreyForm.Show();
                         BackOffice backOffice = new BackOffice(this, ClientBalanceId, RetrievingSpecificRowsInDt(false, ClientBalanceId), null);
                         backOffice.ShowDialog();
@@ -928,7 +928,7 @@ namespace MKproject.Management
         }
         private void buttonPayTotalBalance_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
             Program.GreyForm.Show();
             Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(true, null), this, false);
             payment.ClientManagementProfileParentForm = this;
@@ -939,7 +939,7 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanAccessTransaction)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
                 BackOffice backOffice = new BackOffice(this, null, null, Client.ClientId);
                 backOffice.ShowDialog();
@@ -955,7 +955,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(false);//true becuase it s a bundle
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -967,7 +967,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(true);//true becuase it s a product
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1056,7 +1056,7 @@ namespace MKproject.Management
             if (Client.IsParent == true)
             {
 
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
                 RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true, IsFromSchedule);
                 relatedChildrens.ParentFormClientMang = this;
@@ -1066,8 +1066,8 @@ namespace MKproject.Management
             {
                 if (!IsFromSchedule)
                 {
-                    SearchCurrentClient searchform = ((SearchCurrentClient)(((Home)(this.Tag)).menu.ActivatedForm));
-                    ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
+                    SearchCurrentClient searchform =(SearchCurrentClient)Program.HomeForm.menu.ActivatedForm;
+                    Program.HomeForm.buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
                     searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
                 }
                 else
@@ -1080,7 +1080,7 @@ namespace MKproject.Management
         private void buttonEditClientInfo_Click(object sender, EventArgs e)
         {
 
-            Program.GreyForm = new GreyColor((Form)this.Tag, false, false);//cz aam t3alie w ma tsakkir el form
+            Program.GreyForm = new GreyColor(Program.HomeForm, false, false);//cz aam t3alie w ma tsakkir el form
             Program.GreyForm.Show();
 
             if (Program.NewRegisterForm == null)
@@ -1099,7 +1099,7 @@ namespace MKproject.Management
             if (IsClientDeleted)
             {
 
-                ((Home)this.Tag).buttonBackHome_Click(null, EventArgs.Empty);
+                Program.HomeForm.buttonBackHome_Click(null, EventArgs.Empty);
 
             }
         }
@@ -1108,7 +1108,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
                 Album s = new Album(null);
                 s.ClientManagementProfileForm = this;
@@ -1121,7 +1121,7 @@ namespace MKproject.Management
         {
             if (Client.ProfileImage != null)
             {
-                Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                 Program.GreyForm.Show();
                 ImageForm i = new ImageForm(Client.ProfileImage);
                 i.Show();

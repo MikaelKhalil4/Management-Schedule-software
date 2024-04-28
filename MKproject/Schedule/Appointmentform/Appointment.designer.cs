@@ -184,7 +184,7 @@
             buttonCompleted.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonCompleted.FlatAppearance.BorderSize = 0;
             buttonCompleted.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
-            buttonCompleted.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
+            buttonCompleted.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(89, 102, 204);
             buttonCompleted.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCompleted.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCompleted.ForeColor = System.Drawing.Color.White;
@@ -204,7 +204,7 @@
             buttonCanceled.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonCanceled.FlatAppearance.BorderSize = 0;
             buttonCanceled.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(215, 0, 0);
-            buttonCanceled.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 20, 20);
+            buttonCanceled.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(235, 0, 0);
             buttonCanceled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCanceled.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonCanceled.ForeColor = System.Drawing.Color.White;

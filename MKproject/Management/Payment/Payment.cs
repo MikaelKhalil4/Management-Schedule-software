@@ -612,7 +612,12 @@ namespace MKproject.Management
         }
         private void Payment_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Program.GreyForm != null)
+            if (Program.GreyFormJunior != null)
+            {
+                Program.GreyFormJunior.Close();
+                Program.GreyFormJunior = null;
+            }
+            else if (Program.GreyForm != null)
             {
                 Program.GreyForm.Close();
                 Program.GreyForm = null;

@@ -5,6 +5,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Windows.Markup;
 using static MKproject.Management.ClassBundles;
 
 
@@ -176,12 +177,29 @@ namespace MKproject.Management
             sda.Fill(dt);
             return dt;
         }
+       
+        public static bool CheckIfDesiredArchiveHasRefrencesInTableArchive(int ClientBalanceId,int archiveID)
+        {
+            string query = "Select Count(*) from archive where client_balance_id=@client_balance_id and archive_id!=@archive_id ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
+            cmd.Parameters.AddWithValue("@archive_id", archiveID);
+            con.Open();
+            int nb = (int)cmd.ExecuteScalar();
+            con.Close();
+            if (nb > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
 
-
-
-        public static (int, DateTime?, DateTime?) UndoSoloPurchaseActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int DesiredClientBalanceId, int? AppointmentIdReferringToBackoffice, int? BundleIdReferringToBackOffice)
+        public static (DateTime?, DateTime?,bool) UndoSoloPurchaseActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int DesiredClientBalanceId, int? AppointmentIdReferringToBackoffice, int? BundleIdReferringToBackOffice)
         {
 
 
@@ -193,7 +211,7 @@ namespace MKproject.Management
 
             //Delete archive and update lastvisitsql
 
-            (DateTime? NewLastVistDate, int MAxArchiveIdForLastSessionDone) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
+            DateTime? NewLastVistDate= DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
 
 
             //ejbare tkun tahet delete el archive kermel el fk 
@@ -219,7 +237,8 @@ namespace MKproject.Management
             DataRow DesiredRow = dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
 
             DateTime? MembershipDate;
-            MembershipDate = UpdateRegistrationDateSQl(ClientId, DesiredClientBalanceId, dtClientBalanceOriginal, DesiredRow);
+            bool IsMembershipDateChanged;
+            (MembershipDate,IsMembershipDateChanged) = UpdateRegistrationDateSQl(ClientId, DesiredClientBalanceId, dtClientBalanceOriginal, DesiredRow);
 
 
             //we re reseting balance, amountpaid, w session left tabaa el client
@@ -248,7 +267,7 @@ namespace MKproject.Management
                 UndoSoloPurchaseActionsSQLScheduleRelated((int)AppointmentIdReferringToBackoffice, (int)BundleIdReferringToBackOffice);
             }
 
-            return (MAxArchiveIdForLastSessionDone, NewLastVistDate, MembershipDate);
+            return (NewLastVistDate, MembershipDate, IsMembershipDateChanged);
         }
 
         public static void UndoSoloPurchaseActionsSQLScheduleRelated(int AppointmentId, int BundleId)
@@ -268,7 +287,7 @@ namespace MKproject.Management
             //it can be 0 eza ken package mesh Solo Service 
         }
 
-        public static (bool, DateTime?) UndoPurchaseActionsSQL(int ClientId, int DesiredClientBalanceId)
+        public static (bool, DateTime?,bool) UndoPurchaseActionsSQL(int ClientId, int DesiredClientBalanceId)
         {
 
             string querySelect1 = "Select client_balance_id,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
@@ -294,9 +313,10 @@ namespace MKproject.Management
 
             //update Registrationdate
             DateTime? MembershipDate = null;
+            bool IsMembershipDateChanged=false;
             if (IsBundleOrProduct)//bundle
             {
-                MembershipDate = UpdateRegistrationDateSQl(ClientId, DesiredClientBalanceId, dtClientBalanceOriginal, DesiredRow);
+                (MembershipDate, IsMembershipDateChanged)= UpdateRegistrationDateSQl(ClientId, DesiredClientBalanceId, dtClientBalanceOriginal, DesiredRow);
             }
 
             //we re reseting balance, amountpaid, w session left tabaa el client
@@ -326,7 +346,7 @@ namespace MKproject.Management
 
 
 
-            return (IsBundleOrProduct, MembershipDate);
+            return (IsBundleOrProduct, MembershipDate,IsMembershipDateChanged);
         }
 
         public static void UndoPaymentActionsSQL(int ClientID, int ClientBalanceId, int ArchiveId, DateTime ArchiveDate, double AmountPaid)
@@ -370,12 +390,12 @@ namespace MKproject.Management
 
         }
 
-        public static (DateTime?, int) UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, int? AppointmentIdReferringToBackoffice)
+        public static DateTime? UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, int? AppointmentIdReferringToBackoffice)
         {
 
             con.Open();
             //update lastvisit      
-            (DateTime? NewLastVistDate, int MAxArchiveIdForLastSessionDone) = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
+            DateTime? NewLastVistDate = DeleteTheArchiveAndUpdateLastVisitSql(ClientId, ArchiveId);
 
 
             if (!IsDeletingTheBundle)//cz ha aam naayetla marten yaa nehna w aam nmahe bundle ya aade, so to optimise
@@ -403,7 +423,7 @@ namespace MKproject.Management
                 classAppointment.SetOrResetIsCompleted();
             }
 
-            return (NewLastVistDate, MAxArchiveIdForLastSessionDone);
+            return (NewLastVistDate);
 
 
         }
@@ -456,70 +476,60 @@ namespace MKproject.Management
         }
 
 
-        static (DateTime?, int) DeleteTheArchiveAndUpdateLastVisitSql(int ClientId, int ArchiveId)
+        static DateTime? DeleteTheArchiveAndUpdateLastVisitSql(int ClientId, int ArchiveId)
         {
-            string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
-            SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
-            cmdDeleteArchive.Parameters.AddWithValue("@archive_id", ArchiveId);
+            
+            string querySelect = @"
+                             SELECT MAX(c.execute_date) 
+                             FROM archive AS a
+                             JOIN client_services_attendance AS c ON a.attendance_id = c.attendance_id
+                             WHERE a.client_id = @client_id AND a.archive_id != @archive_id";
 
-            //update lastvisit
-            string querySelect = "SELECT date,archive_id FROM archive WHERE archive_id = (SELECT MAX(archive_id) FROM archive WHERE client_id = @client_id AND  attendance_id IS NOT NULL)";//baddak teteakad eno type tabaa session w fi menna
+
             SqlCommand cmdSelect = new SqlCommand(querySelect, con);
             cmdSelect.Parameters.AddWithValue("@client_id", ClientId);
-            SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect);
-            DataTable dt1 = new DataTable();
-            sda1.Fill(dt1);
-            int MAxArchiveIdForLastSessionDone;
-            MAxArchiveIdForLastSessionDone = (int)dt1.Rows[0]["archive_id"];
-            DateTime? NewLastVistDate = null;
+            cmdSelect.Parameters.AddWithValue("@archive_id", ArchiveId);
+            SqlDataAdapter sda2 = new SqlDataAdapter(cmdSelect);
+            DataTable dt2 = new DataTable();
+            sda2.Fill(dt2);
+     
+            
 
-            if (MAxArchiveIdForLastSessionDone == ArchiveId)//in order to check eza ha el last session 
+            DateTime? NewLastVistDate=cmdSelect.ExecuteScalar() as DateTime?; 
+          
+
+            string queryUpdateClient = "UPDATE client SET check_in=@check_in WHERE client_id=@client_id";
+            SqlCommand cmdUpdateClient = new SqlCommand(queryUpdateClient, con);
+            cmdUpdateClient.Parameters.AddWithValue("@client_id", ClientId);
+            if (NewLastVistDate != null)
             {
-
-                cmdDeleteArchive.ExecuteNonQuery();//ejbare hone mahalla
-
-                //after deleting the archive, i m fetching abel ekhir whade, kermel ekhud menna el date
-                SqlDataAdapter sda2 = new SqlDataAdapter(cmdSelect);
-                DataTable dt2 = new DataTable();
-                sda2.Fill(dt2);
-                if (dt2.Rows.Count > 0)
-                {
-                    NewLastVistDate = (DateTime)dt2.Rows[0]["date"];
-                }
-                else
-                {
-                    NewLastVistDate = null;
-                }
-
-                string queryUpdateClient = "UPDATE client SET check_in=@check_in WHERE client_id=@client_id";
-                SqlCommand cmdUpdateClient = new SqlCommand(queryUpdateClient, con);
-                cmdUpdateClient.Parameters.AddWithValue("@client_id", ClientId);
-                if (NewLastVistDate != null)
-                {
-                    cmdUpdateClient.Parameters.AddWithValue("@check_in", NewLastVistDate);
-                }
-                else
-                {
-                    cmdUpdateClient.Parameters.AddWithValue("@check_in", DBNull.Value);
-                }
-
-                cmdUpdateClient.ExecuteNonQuery();
-
+                cmdUpdateClient.Parameters.AddWithValue("@check_in", NewLastVistDate);
             }
             else
             {
-                cmdDeleteArchive.ExecuteNonQuery();//ejbare hone mahalla
+                cmdUpdateClient.Parameters.AddWithValue("@check_in", DBNull.Value);
             }
 
-            return (NewLastVistDate, MAxArchiveIdForLastSessionDone);
+            cmdUpdateClient.ExecuteNonQuery();
+
+
+            //ejabre hone, cz foe aam nestamail hayda el archive id
+            string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
+            SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
+            cmdDeleteArchive.Parameters.AddWithValue("@archive_id", ArchiveId);
+            cmdDeleteArchive.ExecuteNonQuery();
+           
+            
+            return NewLastVistDate;
         }
-        static DateTime? UpdateRegistrationDateSQl(int ClientId, int DesiredClientBalanceId, DataTable dtClientBalanceOriginal, DataRow DesiredRow)
+        static (DateTime?,bool) UpdateRegistrationDateSQl(int ClientId, int DesiredClientBalanceId, DataTable dtClientBalanceOriginal, DataRow DesiredRow)
         {
-            DateTime? MembershipDate = null;
+            bool IsMembershipDateChanged=false;
+            DateTime? MembershipDate=null;
             //updating client Membership
             if ((bool)DesiredRow["isbundle_membership"] == true)//lieanno eza ma kenit member ship, membershipdate makhasso fiya men el ases
             {
-
+                IsMembershipDateChanged = true;
 
                 DataRow[] filteredRows = dtClientBalanceOriginal.Select("client_id = " + ClientId + " AND bundle_id IS NOT NULL AND client_balance_id <>" + DesiredClientBalanceId + "");
                 if (filteredRows.Length > 0)
@@ -545,22 +555,22 @@ namespace MKproject.Management
                 }
 
                 string queryUpdate = "UPDATE client SET Registration_Date=@Registration_Date WHERE client_id=@client_id";
-                SqlCommand cmdInsert = new SqlCommand(queryUpdate, con);
-                cmdInsert.Parameters.AddWithValue("@client_id", ClientId);
+                SqlCommand cmdUpdate = new SqlCommand(queryUpdate, con);
+                cmdUpdate.Parameters.AddWithValue("@client_id", ClientId);
                 if (MembershipDate != null)
                 {
-                    cmdInsert.Parameters.AddWithValue("@Registration_Date", MembershipDate);
+                    cmdUpdate.Parameters.AddWithValue("@Registration_Date", MembershipDate);
                 }
                 else
                 {
-                    cmdInsert.Parameters.AddWithValue("@Registration_Date", DBNull.Value);
+                    cmdUpdate.Parameters.AddWithValue("@Registration_Date", DBNull.Value);
                 }
                 con.Open();
-                cmdInsert.ExecuteNonQuery();
+                cmdUpdate.ExecuteNonQuery();
                 con.Close();
 
             }
-            return MembershipDate;
+            return (MembershipDate,IsMembershipDateChanged);
         }
 
 
@@ -623,8 +633,6 @@ namespace MKproject.Management
                 }
                 else if (ActionType == ActionsEnum.SoloPurchases)//only Bundles
                 {
-
-
                     ActionDetails = "Purchased and Completed " + BundleName + BackOfficeCatType;
 
 
@@ -632,8 +640,7 @@ namespace MKproject.Management
                 else if (ActionType == ActionsEnum.SessionDone)
                 {
 
-
-                    ActionDetails = "Completed a session";
+                    ActionDetails = "Completed a " + BundleName + " session";
 
 
                 }
@@ -689,8 +696,10 @@ namespace MKproject.Management
                 }
 
 
-                if (ActionType != ActionsEnum.Payments && ActionType != ActionsEnum.Offers && productId == null)//only services, w it should be ya purchase ya sessionDone
+                if (ActionType == ActionsEnum.SessionDone || ActionType == ActionsEnum.SoloPurchases)
                 {
+                    DateTime ExecutedDate = SQLToProject.GetAttendanceDateOfSpecificAttendace((int)AttendanceId);
+
                     if (AppointmentId != null)
                     {
                         ActionDetails += " From the schedule.";
@@ -699,6 +708,7 @@ namespace MKproject.Management
                     {
                         ActionDetails += " Manually.";
                     }
+                    ActionDetails += "\n" + ExecutedDate.ToString("dddd, MMMM dd yyyy 'at' h:mm tt") + ".";
                 }
                 else
                 {

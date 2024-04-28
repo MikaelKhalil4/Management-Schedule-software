@@ -8,5 +8,8 @@
     <Compile Update="GreyColor.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="NotificationBanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

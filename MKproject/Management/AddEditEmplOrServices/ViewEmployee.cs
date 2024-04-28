@@ -28,7 +28,7 @@ namespace MKproject.Management
         public void LoadInfo()
         {
 
-            dtEmployee = ClassEmployee.GetAllEmployees();
+            dtEmployee = ClassEmployee.GetAllEmployeesOrLAstInseted(true);
 
             FormatOriginaldt(dtEmployee);
 
@@ -123,8 +123,7 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["rank"].Visible = false;
             dataGridViewEdit.Columns["availability"].Visible = false;
             dataGridViewEdit.Columns["is_checked"].Visible = false;
-            dataGridViewEdit.Columns["cash"].Visible = false;
-            dataGridViewEdit.Columns["clearcash_date"].Visible = false;
+
 
             dataGridViewEdit.Columns["first_name"].HeaderCell.Value = "First Name";
             dataGridViewEdit.Columns["last_name"].HeaderCell.Value = "Last Name";
@@ -237,7 +236,7 @@ namespace MKproject.Management
                         desiredRow = rows[0];
                     }
 
-                    Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                     Program.GreyForm.Show();
                     EditEmployee p = new EditEmployee(desiredRow);
                     p.ParentFormViewEmpl = this;
@@ -250,7 +249,7 @@ namespace MKproject.Management
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor((Form)this.Tag, true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
             Program.GreyForm.Show();
             EditEmployee p = new EditEmployee(null);
             p.ParentFormViewEmpl = this;

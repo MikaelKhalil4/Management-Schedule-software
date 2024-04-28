@@ -139,11 +139,11 @@ namespace MKproject.Schedule
             //State
             if (DesiredAppointmentUCApp.IsCompleted)
             {
-                this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);
+                this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
             }
             else if (DesiredAppointmentUCApp.IsCanceled)
             {
-                this.BackColor = Color.FromArgb(244, 86, 7);
+                this.BackColor = Color.FromArgb(244, 86, 7);//orange
             }
             else
             {
@@ -283,7 +283,7 @@ namespace MKproject.Schedule
                 else//present future
                 {
                     ScheduleForm schedule = this.ParentFormucday.ParentFormSchedule;
-                    Program.GreyForm = new GreyColor(((Home)schedule.Tag), true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
                     Program.GreyForm.Show();
                     Appointment appointmentupdate = new Appointment(this, ParentFormucday);
                     appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;

@@ -42,8 +42,8 @@ namespace MKproject.Management
                 Employee = new ClassEmployee();
                 Employee = ClassEmployee.CreateEmployeeObject(EmpId);
                 this.Hide();
-                Home home = new Home();        
-                home.Show();
+                Program.HomeForm = new Home();
+                Program.HomeForm.Show();
             }
             else
             {

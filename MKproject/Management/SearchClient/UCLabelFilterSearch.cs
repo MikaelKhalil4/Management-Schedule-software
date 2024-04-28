@@ -79,7 +79,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor((Form)(FilterCheckListSearchForm.ParentFormSearch.Tag), true, false);        
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);        
                 Program.GreyForm.Show();
                 FilterCustomDate filterDate = new FilterCustomDate(this);
                 filterDate.Show();
