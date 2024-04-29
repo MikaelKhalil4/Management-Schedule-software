@@ -228,6 +228,8 @@ namespace MKproject.Schedule
                     ColumnAbsolute = j;
                 }
             }
+            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
+            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
 
             if (IsAbsoluteCondition)
             {
@@ -235,16 +237,13 @@ namespace MKproject.Schedule
             }
             else
             {
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
-
+               
                 for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
                 {
                     ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
                 }
             }
         }
-
         public void UCDaysClick()
         {
             EditUCDay();
@@ -270,12 +269,6 @@ namespace MKproject.Schedule
             ucday.DisplayUCReminder();
 
         }// changing DateUCDAY
-
-
-
-        //DESIGN:
-
-
 
     }
 }

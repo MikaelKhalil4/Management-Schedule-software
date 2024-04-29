@@ -43,16 +43,16 @@ namespace MKproject.Schedule
             SetServiceLogicAndDesign();
 
             TLPGlobal.MouseDown += Control_MouseDown;
-            TLPGlobal.MouseClick += Control_MouseClick; 
+            TLPGlobal.MouseClick += Control_MouseClick;
             foreach (Control control in TLPGlobal.Controls)
             {
                 control.MouseDown += Control_MouseDown;
-                control.MouseClick += Control_MouseClick; 
+                control.MouseClick += Control_MouseClick;
 
             }
         }
 
-     
+
 
         public void SetUCDesign()
         {
@@ -140,28 +140,31 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCApp.IsCompleted)
             {
                 this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
-             
+
                 if (!ParentFormucday.ParentFormSchedule.checkBoxComplete.Checked)
                 {
                     this.Visible = false;
+                    RemoveAppointmentFromTLP();
                 }
             }
             else if (DesiredAppointmentUCApp.IsCanceled)
             {
                 this.BackColor = Color.FromArgb(244, 86, 7);//orange
-              
+
                 if (!ParentFormucday.ParentFormSchedule.checkBoxCancel.Checked)
                 {
                     this.Visible = false;
+                    RemoveAppointmentFromTLP();
                 }
             }
             else
             {
                 this.BackColor = Program.BoldColor;
-               
+
                 if (!ParentFormucday.ParentFormSchedule.checkBoxOnPending.Checked)
                 {
                     this.Visible = false;
+                    RemoveAppointmentFromTLP();
                 }
             }
 
@@ -214,7 +217,7 @@ namespace MKproject.Schedule
                                 if (DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays == 0)
                                 {
                                     labelService.ForeColor = Color.Red;
-                                }                             
+                                }
                                 else
                                 {
                                     labelService.ForeColor = Color.Black;
@@ -223,13 +226,13 @@ namespace MKproject.Schedule
                             else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
                             {
                                 //Design
-                                labelService.Text  = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package";
+                                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package";
                             }
                         }
                         else if ((bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)//Package exist and  expired
                         {
                             //Design
-                            labelService.Text  = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package Expired";
+                            labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package Expired";
                         }
 
                     }
@@ -277,7 +280,6 @@ namespace MKproject.Schedule
 
         //EVENTS:
         ///-Click
-      
         public void Control_MouseClick(object sender, MouseEventArgs e)
         {
             if (isDragging)
@@ -340,17 +342,14 @@ namespace MKproject.Schedule
             SetUCDesign();
             SetServiceLogicAndDesign();
         }
-        public void RemoveAppointment()
+        public void RemoveAppointmentFromTLP()
         {
-            //SQL
-            DesiredAppointmentUCApp.DeleteAppointment();//ejbare hone mahalla mesh bel appointment form
-
             //DESIGN
             TimeSpan starttimeTimeSpan = DesiredAppointmentUCApp.StartTime.TimeOfDay;
             int positionrow = starttimeTimeSpan.Hours;
             int positioncol = ParentFormucday.ListEmployee_idChecked.IndexOf((int)DesiredAppointmentUCApp.EmployeeId) + 1;
             FlowLayoutPanel clickedflowLayoutPanel = ParentFormucday.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
-            this.Dispose();
+
 
             int NumberOfVisibleControlsOfClickedFLP = 0;
             foreach (Control ctrl in clickedflowLayoutPanel.Controls)
@@ -417,11 +416,24 @@ namespace MKproject.Schedule
 
                 }
 
-                //hayde lconidtion => kel flowlayoutpanel ma aandoun wala ucappointment because eza lmax 0 yaeene kelo 0
-                if (NumberOfVisibleControlsOfClickedFLP == 0 && havethemaxucdata)
+
+                //hayde lconidtion => moujarad ma ysir lwidth taba3 kel lcontrols azghar men lpercentage width TLP
+                int[] columnWidths = ParentFormucday.TLPAppointment.GetColumnWidths();
+                
+                int ColumnPercentageWidth =  (ParentFormucday.TLPAppointment.Width - columnWidths[0]) / (ParentFormucday.TLPAppointment.ColumnCount - 1);
+                int AppointemntsTotalWidth = UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP;
+
+                if (AppointemntsTotalWidth < ColumnPercentageWidth && havethemaxucdata)
                 {
                     RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPAppointment);
                     RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPEmployees);
+
+                    int columnwidth = ParentFormucday.TLPAppointment.GetColumnWidths()[positioncol];
+                    //eza ee edit width
+                    if (((UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP) + ParentFormucday.KeepSpace) > columnwidth)
+                    {
+                        ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
+                    }
                 }
 
                 //eza ken lflow layout panel li mahayna fiyo ucappointment aando akbar aada hone it may edit the size of the absolute column
@@ -456,7 +468,7 @@ namespace MKproject.Schedule
 
 
 
-        
+
 
 
 
@@ -498,6 +510,6 @@ namespace MKproject.Schedule
             initialMouseDownPoint = e.Location;
             isDragging = false; // Reset dragging flag
         }
-        
+
     }
 }

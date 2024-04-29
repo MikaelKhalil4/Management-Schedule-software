@@ -35,7 +35,7 @@ namespace MKproject.Schedule
             displaytime = form1;
 
             this.Size = new Size(101, 30);
-            this.Font = new Font("Segoe UI", 9.75f);
+            this.Font = new Font("Segoe UI", 10.25f);
             this.BackColor = Color.White;
             this.Margin = new Padding(0);
             this.TextAlign = ContentAlignment.MiddleCenter;

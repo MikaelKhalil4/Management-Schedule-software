@@ -168,12 +168,12 @@ namespace MKproject.Schedule
                             Value = emp.EmployeeId
                         };
 
-                        //comboBoxEmployee.Items.Add(item);
-                        //comboBoxEmployee.DisplayMember = "Text";
-                        //comboBoxEmployee.ValueMember = "Value";
+                        comboBoxEmployee.Items.Add(item);
+                        comboBoxEmployee.DisplayMember = "Text";
+                        comboBoxEmployee.ValueMember = "Value";
                     }
-                    //comboBoxEmployee.SelectedIndex = 0;//filter is done in here
-                    //comboBoxEmployee.Width = FunctionsForWinformsTool.ReturnComboBoxWidth(comboBoxEmployee)+17;
+                    comboBoxEmployee.SelectedIndex = 0;//filter is done in here
+                    comboBoxEmployee.Width = FunctionsForWinformsTool.ReturnComboBoxWidth(comboBoxEmployee) + 17;
                 }
 
 
@@ -823,7 +823,12 @@ namespace MKproject.Schedule
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            ucappointment.RemoveAppointment();
+            //SQL
+            ucappointment.DesiredAppointmentUCApp.DeleteAppointment();//ejbare hone mahalla mesh bel appointment form
+
+            ucappointment.Dispose();
+            ucappointment.RemoveAppointmentFromTLP();
+
             NotificationBanner.Show("Appointment Deleted", NotificationBanner.Type.DeletedMode, Program.HomeForm);
             this.Close();
         }

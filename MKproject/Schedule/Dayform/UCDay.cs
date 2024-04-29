@@ -1665,10 +1665,14 @@ namespace MKproject.Schedule
                     NumberOfVisibleControls++;
                 }
             }
-            foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
+            if (NumberOfVisibleControls != 0)
             {
-                ucappointment.Width = (columnwidth - KeepSpace - (NumberOfVisibleControls * ucappointment.Margin.Horizontal)) / (NumberOfVisibleControls);//UCAddClick.Width it's static width that I declared it
+                foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
+                {
+                    ucappointment.Width = (columnwidth - KeepSpace - (NumberOfVisibleControls * ucappointment.Margin.Horizontal)) / (NumberOfVisibleControls);//UCAddClick.Width it's static width that I declared it
+                }
             }
+
         }//When the count of the ucappointments in the FLP is Above 3 
         public void ResizeWidthAppointmentInTheColumnPecentage(int j)
         {
