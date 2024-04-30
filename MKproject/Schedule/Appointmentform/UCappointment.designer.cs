@@ -40,7 +40,7 @@
             TLPGlobal.BackColor = System.Drawing.Color.White;
             TLPGlobal.ColumnCount = 2;
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             TLPGlobal.Controls.Add(labelTime, 1, 1);
             TLPGlobal.Controls.Add(labelFullName, 0, 1);
             TLPGlobal.Controls.Add(labelService, 0, 0);
@@ -51,7 +51,6 @@
             TLPGlobal.RowCount = 2;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             TLPGlobal.Size = new System.Drawing.Size(230, 76);
             TLPGlobal.TabIndex = 0;
             TLPGlobal.MouseLeave += UCappointments_MouseLeave;
@@ -63,7 +62,7 @@
             labelTime.AutoSize = true;
             labelTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelTime.ForeColor = System.Drawing.Color.DarkGray;
-            labelTime.Location = new System.Drawing.Point(143, 35);
+            labelTime.Location = new System.Drawing.Point(139, 35);
             labelTime.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             labelTime.Name = "labelTime";
             labelTime.Size = new System.Drawing.Size(87, 19);
@@ -75,15 +74,16 @@
             // 
             // labelFullName
             // 
-            labelFullName.AutoSize = true;
+            labelFullName.BackColor = System.Drawing.Color.Transparent;
+            labelFullName.Dock = System.Windows.Forms.DockStyle.Fill;
             labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.55F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelFullName.ForeColor = System.Drawing.Color.FromArgb(89, 102, 204);
-            labelFullName.Location = new System.Drawing.Point(3, 35);
-            labelFullName.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            labelFullName.Location = new System.Drawing.Point(1, 31);
+            labelFullName.Margin = new System.Windows.Forms.Padding(1);
             labelFullName.Name = "labelFullName";
-            labelFullName.Size = new System.Drawing.Size(79, 20);
+            labelFullName.Size = new System.Drawing.Size(133, 44);
             labelFullName.TabIndex = 15;
-            labelFullName.Text = "Full Name";
+            labelFullName.Text = "Full Name\r\nf\r\n";
             labelFullName.MouseLeave += UCappointments_MouseLeave;
             labelFullName.MouseMove += UCappointments_MouseMove;
             // 
@@ -114,6 +114,7 @@
             Size = new System.Drawing.Size(230, 81);
             MouseLeave += UCappointments_MouseLeave;
             MouseMove += UCappointments_MouseMove;
+            Resize += UCappointment_Resize;
             TLPGlobal.ResumeLayout(false);
             TLPGlobal.PerformLayout();
             ResumeLayout(false);

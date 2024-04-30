@@ -8,6 +8,7 @@ using GlobalFunctions;
 using System.Data;
 using CustomizedTools;
 
+
 namespace MKproject.Schedule
 {
     public partial class UCappointment : UserControl
@@ -105,19 +106,8 @@ namespace MKproject.Schedule
 
                     }
 
-
                     LabelBalance.Text = Program.SetBalanceFormat(DesiredAppointmentUCApp.DesiredClient.TotalBalance.ToString());
-                    TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 20;
 
-                    float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
-                    if (RemaingBalance >= 0)
-                    {
-                        TLPGlobal.ColumnStyles[1].Width = RemaingBalance + 10;
-                    }
-                    else
-                    {
-                        TLPGlobal.ColumnStyles[1].Width = 0;
-                    }
 
                 }
                 else
@@ -131,8 +121,10 @@ namespace MKproject.Schedule
 
                         TLPGlobal.SetColumnSpan(labelTime, 1);
                     }
-                    TLPGlobal.ColumnStyles[1].Width = RandomFunctions.MeasureLabelText(labelTime) + 10;
                 }
+
+                FixUCDesign();
+
             }
 
 
@@ -181,6 +173,87 @@ namespace MKproject.Schedule
 
 
         }
+        void FixUCDesign()
+        {
+            //initial Design
+            TLPGlobal.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, 100f);
+
+            if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0)
+            {
+                TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 20;
+
+                float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
+                if (RemaingBalance >= 0)
+                {
+                    TLPGlobal.ColumnStyles[1].Width = RemaingBalance + 10;
+                }
+                else
+                {
+                    TLPGlobal.ColumnStyles[1].Width = 0;
+                }
+            }
+            else
+            {
+                TLPGlobal.ColumnStyles[1].Width = RandomFunctions.MeasureLabelText(labelTime) + 10;
+            }
+
+
+            //in the first aam nhot el full name pecentage w hawdie abs, in case el percentage ma kaffa aam nfout bel absolut thing
+            //Secondary design , in case the first didn't fit properly
+            int CellWidth = TLPGlobal.GetColumnWidths()[0];
+            int cellHeight = TLPGlobal.GetRowHeights()[1];
+
+            int DesiredHeightFortheLabel = RandomFunctions.CalculateDesiredHeight(labelFullName, labelFullName.Width - 8);
+
+
+            if (DesiredHeightFortheLabel > cellHeight || CellWidth <= 0)//in case el label ma kenit sey3a
+            {
+                int MinimumNameWidth = RandomFunctions.CalculateDesiredWidth(labelFullName, labelFullName.Height);
+                //Size MinimumNameSize = labelFullName.GetPreferredSize(new Size(0, labelFullName.Height));
+                //int MinimumNameWidth = MinimumNameSize.Width;
+                if (MinimumNameWidth < TLPGlobal.Width)
+                {
+                    TLPGlobal.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, MinimumNameWidth);
+
+
+                    int x;
+                    if (TLPGlobal.ColumnCount == 3)
+                    {
+                        x = TLPGlobal.Width - (TLPGlobal.GetColumnWidths()[0] + TLPGlobal.GetColumnWidths()[2]);
+                    }
+                    else
+                    {
+                        x = TLPGlobal.Width - TLPGlobal.GetColumnWidths()[0];
+                    }
+
+
+                    if (x >= 0)
+                    {
+                        TLPGlobal.ColumnStyles[1].Width = x;
+                    }
+                    else
+                    {
+                        TLPGlobal.ColumnStyles[1].Width = 0;
+
+                        if (TLPGlobal.ColumnCount == 3)
+                        {
+                            TLPGlobal.ColumnStyles[2].Width -= x;
+                        }
+                    }
+
+
+                }
+                else
+                {
+                    TLPGlobal.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, TLPGlobal.Width);
+                }
+
+            }
+
+
+
+        }
+
         void CreationOfLabelBalance()
         {
             LabelBalance = new Label();
@@ -419,8 +492,8 @@ namespace MKproject.Schedule
 
                 //hayde lconidtion => moujarad ma ysir lwidth taba3 kel lcontrols azghar men lpercentage width TLP
                 int[] columnWidths = ParentFormucday.TLPAppointment.GetColumnWidths();
-                
-                int ColumnPercentageWidth =  (ParentFormucday.TLPAppointment.Width - columnWidths[0]) / (ParentFormucday.TLPAppointment.ColumnCount - 1);
+
+                int ColumnPercentageWidth = (ParentFormucday.TLPAppointment.Width - columnWidths[0]) / (ParentFormucday.TLPAppointment.ColumnCount - 1);
                 int AppointemntsTotalWidth = UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP;
 
                 if (AppointemntsTotalWidth < ColumnPercentageWidth && havethemaxucdata)
@@ -511,5 +584,9 @@ namespace MKproject.Schedule
             isDragging = false; // Reset dragging flag
         }
 
+        private void UCappointment_Resize(object sender, EventArgs e)
+        {
+            FixUCDesign();
+        }
     }
 }
