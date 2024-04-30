@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -76,9 +77,16 @@ namespace CustomizedTools
 
         }
 
+        static NotificationBanner cmb;
         public static void Show(string message, Type type, Form parentFormHome)
         {
-            NotificationBanner cmb = new NotificationBanner(message, type, parentFormHome);
+            if (cmb != null)
+            {
+                cmb.Close();
+                cmb.Dispose();
+                cmb = null;      
+            }
+            cmb = new NotificationBanner(message, type, parentFormHome);
             cmb.Show();
 
         }
@@ -103,6 +111,7 @@ namespace CustomizedTools
                 timer2.Stop();
                 this.Close();
                 this.Dispose();
+                cmb = null;
             }
             FirstCyclePassed = true;
         }

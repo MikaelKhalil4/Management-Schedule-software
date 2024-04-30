@@ -172,10 +172,9 @@ namespace MKproject.Schedule
                         comboBoxEmployee.DisplayMember = "Text";
                         comboBoxEmployee.ValueMember = "Value";
                     }
-                    comboBoxEmployee.SelectedIndex = 0;//filter is done in here
                     comboBoxEmployee.Width = FunctionsForWinformsTool.ReturnComboBoxWidth(comboBoxEmployee) + 17;
                 }
-
+                comboBoxEmployee.SelectedIndex = comboBoxEmployee.FindString(DesiredAppointmentAppForm.EmployeeFullName);
 
                 //
 
@@ -527,9 +526,13 @@ namespace MKproject.Schedule
                 {
                     DesiredAppointmentAppForm.Notes = null;
                 }
+
+                //Employee
+                dynamic selectedItem = comboBoxEmployee.SelectedItem;
+                DesiredAppointmentAppForm.EmployeeId = Convert.ToInt16(selectedItem.Value);
             }
         }
-        void AddOrUpdateSQL()
+        bool AddOrUpdateSQL()
         {
             if (!ISRequiredFieldsExists(false))
             {
@@ -552,7 +555,13 @@ namespace MKproject.Schedule
                     OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
                 }
                 this.Close();
+                return true;//which means naamalit , meshe el hal
             }
+            else
+            {
+                return false;
+            }
+
         }
         bool CheckIfTimeAvailableAndSetAppointmentPosition()
         {
@@ -659,15 +668,19 @@ namespace MKproject.Schedule
         private void ButtonAddOrUpdate_Click(object sender, EventArgs e)
         {
             FillDesiredClientObject();
-            AddOrUpdateSQL();
-            if (IsAddOrUpdate)
+            bool IsActionDone = AddOrUpdateSQL();
+            if (IsActionDone)
             {
-                NotificationBanner.Show("New Appointment Added", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
+                if (IsAddOrUpdate)
+                {
+                    NotificationBanner.Show("New Appointment Added", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
+                }
+                else
+                {
+                    NotificationBanner.Show("Appointment Updated", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
+                }
             }
-            else
-            {
-                NotificationBanner.Show("Appointment Updated", NotificationBanner.Type.ConfirmationMode, Program.HomeForm);
-            }
+
         }
         private void buttonCompleted_Click(object sender, EventArgs e)
         {

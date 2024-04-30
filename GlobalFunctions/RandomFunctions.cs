@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace GlobalFunctions
@@ -13,7 +14,7 @@ namespace GlobalFunctions
     public class RandomFunctions
     {
 
-      
+
 
 
         public static string ExtractDigits(string input)
@@ -154,7 +155,7 @@ namespace GlobalFunctions
             return Lastvisit;
 
         }
-       
+
         public static int GetDaysDifference(DateTime startDate, DateTime endDate)
         {
             DateTime startDateOnly = startDate.Date;
@@ -193,11 +194,61 @@ namespace GlobalFunctions
             int desiredHeight;
             using (Graphics g = DesiredControl.CreateGraphics())
             {
-                SizeF textSize = g.MeasureString(DesiredControl.Text, DesiredControl.Font, ControlWidth - 4);//-12 kermel el spaces aa shmel w el yamin
+                ControlWidth -= 4;
+                SizeF textSize = g.MeasureString(DesiredControl.Text, DesiredControl.Font, ControlWidth<=0 ? 1 : ControlWidth);//-12 kermel el spaces aa shmel w el yamin
                 desiredHeight = (int)Math.Ceiling(textSize.Height) + DesiredControl.Padding.Top + DesiredControl.Padding.Bottom;
             }
             return desiredHeight;
         }
+        public static int CalculateDesiredWidth(Control desiredControl, int controlHeight)
+        {
+            using (Graphics g = desiredControl.CreateGraphics())
+            {
+                string[] words = desiredControl.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                int longestWordWidth = 0;
+                foreach (var word in words)
+                {
+                    int wordWidth = (int)g.MeasureString(word, desiredControl.Font).Width;
+                    if (wordWidth > longestWordWidth)
+                    {
+                        longestWordWidth = wordWidth; // Find the longest word
+                    }
+                }
+
+                // Encourage wrapping by starting with a width just enough for the longest word
+                int minWidth = longestWordWidth + 10; // Adding a small buffer
+                int maxWidth = (int)g.MeasureString(desiredControl.Text, desiredControl.Font).Width; // Max width to fit all text in one line
+                int bestFitWidth = maxWidth;
+
+                while (minWidth <= maxWidth)
+                {
+                    int testWidth = (minWidth + maxWidth) / 2;
+                    Size proposedSize = new Size(testWidth, int.MaxValue);
+                    Size textSize = TextRenderer.MeasureText(g, desiredControl.Text, desiredControl.Font, proposedSize, TextFormatFlags.WordBreak);
+
+                    int linesNeeded = textSize.Height / (TextRenderer.MeasureText(g, "Wg", desiredControl.Font, proposedSize, TextFormatFlags.SingleLine).Height);
+
+                    if (linesNeeded == 2 && textSize.Height <= controlHeight)
+                    {
+                        bestFitWidth = testWidth; // This width fits the text within exactly two lines
+                        maxWidth = testWidth - 1; // Adjust to find the narrowest width that fits this criteria
+                    }
+                    else if (linesNeeded > 2 || textSize.Height > controlHeight)
+                    {
+                        minWidth = testWidth + 1; // Increase width to reduce the number of lines
+                    }
+                    else
+                    {
+                        maxWidth = testWidth - 1; // Decrease width to promote wrapping
+                    }
+                }
+
+                return bestFitWidth+3;
+            }
+        }
+
+
+
         public static void FixedFont(Control DesiredControl, FontStyle? fontStyle)//this function is made to the text fit a fix width label by changing it s font
         {
             int Constant = 2;
