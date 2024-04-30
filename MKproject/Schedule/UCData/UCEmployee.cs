@@ -38,7 +38,7 @@ namespace MKproject.Schedule
             set
             {
                 desiredemployee = value;
-                LabelNameemployee.Text = desiredemployee.Fname + " " + desiredemployee.Lname;
+                CheckBoxAppearance.Text = desiredemployee.Fname + " " + desiredemployee.Lname;
                 labelRank.Text = desiredemployee.Rank.ToString();
                 CheckBoxAppearance.Checked = (bool)desiredemployee.IsChecked;
             }

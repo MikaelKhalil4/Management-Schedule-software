@@ -703,8 +703,7 @@ namespace MKproject.Schedule
                 List<int> rankemployees_id = new List<int>();
                 List<string> availabilityrankorder = new List<string>();
 
-                List<int> rankemployees_idwhotrained = new List<int>();
-                List<string> availabilityrankorderwhotrained = new List<string>();
+                
 
                 //there's Active Employees In this Day
                 if (RankNAvailabilityEmployeesASC.Rows.Count > 0)
@@ -717,57 +716,23 @@ namespace MKproject.Schedule
                         availabilityrankorder.Add((string)datarow["availability"]);
                     }
 
-                    //Getting From SQL Employees who trained and haved Meeting
-                    List<int> employees_idwhotrained = ClassAppointment.DisplayEmployeesIdWhoTrained(this, rankemployees_id);
+                    EditTBPbyChangingDates(rankemployees_id, availabilityrankorder);
 
-
-                    //Getting the finale List Of the Rank and Availability of the employees who were checked and trained in this day
-                    for (int i = 0; i < rankemployees_id.Count; i++)
-                    {
-                        bool IsEmployeeTrain = false;
-                        for (int j = 0; j < employees_idwhotrained.Count; j++)
-                        {
-                            if (rankemployees_id[i] == employees_idwhotrained[j])
-                            {
-                                rankemployees_idwhotrained.Add(rankemployees_id[i]);
-                                IsEmployeeTrain = true;
-                            }
-
-                        }
-                        if (IsEmployeeTrain == true)//eza maken lemployee mawjoid bi hal day taba3 lhistory laken mana nshilo men lavailibility
-                        {
-                            availabilityrankorderwhotrained.Add(availabilityrankorder[i]);
-                        }
-                    }
-
-                    //There's Employees who trained in this day
-                    if (rankemployees_idwhotrained.Count > 0)
-                    {
-                        EditTBPbyChangingDates(rankemployees_idwhotrained, availabilityrankorderwhotrained);
-                    }
-                    //There's no one who trained in this day
-                    else
-                    {
-                        rankemployees_idwhotrained.Clear();
-                        availabilityrankorderwhotrained.Clear();
-                        rankemployees_idwhotrained.Add(0);
-                        availabilityrankorderwhotrained.Add("");
-                        EditTBPbyChangingDates(rankemployees_idwhotrained, availabilityrankorderwhotrained);
-                    }
+                   
                 }
 
                 //there's No Checked Employees In this Day
                 else
                 {
-                    rankemployees_idwhotrained.Add(0);
-                    availabilityrankorderwhotrained.Add("");
-                    EditTBPbyChangingDates(rankemployees_idwhotrained, availabilityrankorderwhotrained);
+                    rankemployees_id.Add(0);
+                    availabilityrankorder.Add("");
+                    EditTBPbyChangingDates(rankemployees_id, availabilityrankorder);
                 }
 
 
                 //Updating The New List
-                ListEmployee_idAllTime = rankemployees_idwhotrained;
-                EmployeeAvailabilityByOrder = availabilityrankorderwhotrained;
+                ListEmployee_idAllTime = rankemployees_id;
+                EmployeeAvailabilityByOrder = availabilityrankorder;
             }
 
             //Changing Date

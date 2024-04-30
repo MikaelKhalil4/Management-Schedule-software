@@ -350,14 +350,7 @@ namespace MKproject.Schedule
                 //Checking the type of the text
                 if (isMatch && starttime <= new TimeSpan(23, 45, 0))
                 {
-                    //Checking the condition between starttime and endtime
-                    if (starttime <= EndTime)
-                    {
-                        DesiredAppointmentAppForm.StartTime = DesiredAppointmentAppForm.StartTime.Date + starttime;
-                        AppointmentForm.textBoxStartTime.Text = DesiredAppointmentAppForm.StartTime.ToString("h:mm tt");
-                    }
-                    else
-                    {
+                   
                         TimeSpan endTime = starttime + AppointmentForm.DifferenceTime;
                         if (endTime > new TimeSpan(23, 45, 0))
                         {
@@ -374,7 +367,6 @@ namespace MKproject.Schedule
                         AppointmentForm.textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
 
                         AppointmentForm.textBoxStartTime.TextChanged += AppointmentForm.textBoxStartTime_TextChanged;
-                    }
                 }
             }
 
