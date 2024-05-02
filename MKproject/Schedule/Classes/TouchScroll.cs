@@ -9,7 +9,7 @@ namespace MKproject.Schedule
     public class TouchScroll
     {
         public static bool MoveHoldClick = false;
-        private Point mouseDownPoint;
+        public Point mouseDownPoint;
 
         VScrollBar vScrollBar { get; set; }
 
@@ -74,7 +74,7 @@ namespace MKproject.Schedule
         /// <summary>
         /// hek kermel lcontrol li fiyo event yenshel w yerjaee yenhot lal kel
         /// </summary>
-        private void AssignEventPanelUCDay(Control control)
+        public void AssignEventPanelUCDay(Control control)
         {
             control.MouseDown += MouseDownPanelUCDay;
             control.MouseMove += MouseMovePanelUCDay;
@@ -84,16 +84,19 @@ namespace MKproject.Schedule
                 AssignEventPanelUCDay(child);
             }
         }
-        public void ReAssignEventPanelUCDay(Control control)
+        public void RemoveEventPanelUCDay(Control control)
         {
             control.MouseDown -= MouseDownPanelUCDay;
             control.MouseMove -= MouseMovePanelUCDay;
             control.MouseUp -= MouseUpPanelUCDay;
-
             foreach (Control child in control.Controls)
             {
-                ReAssignEventPanelUCDay(child);
+                RemoveEventPanelUCDay(child);
             }
+        }
+        public void ReAssignEventPanelUCDay(Control control)
+        {
+            RemoveEventPanelUCDay(control);
             AssignEventPanelUCDay(control);
         }
         public void MouseMovePanelUCDay(object sender, MouseEventArgs e)
@@ -414,11 +417,6 @@ namespace MKproject.Schedule
         {
             MoveHoldClick = false;
         }
-
-
-
-
-
 
     }
 }

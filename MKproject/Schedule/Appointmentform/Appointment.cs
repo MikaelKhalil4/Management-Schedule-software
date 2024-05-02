@@ -119,7 +119,6 @@ namespace MKproject.Schedule
             ucappointment.RowPosition = HourOfTheAppointment;
 
 
-
             ucClientApp = new UCClientApp(this);
 
             ucClientApp.OnClientProfileInfoChanging += UcClientApp_OnClientProfileInfoChanging;
@@ -568,16 +567,17 @@ namespace MKproject.Schedule
             //
             TimeSpan starttimeTimeSpan = DesiredAppointmentAppForm.StartTime.TimeOfDay;//bas kermel le2e uctime
             int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
-            int employeePosition = UcDayParentForm.ListEmployee_idAllTime.IndexOf((int)DesiredAppointmentAppForm.EmployeeId);
+            string positionrowstring = HourOfTheAppointment.ToString();
+
 
             //ListEmployee_idAllTime and EmployeeAvailabilityByOrder both are ranked by order => both same index
-            bool IsPanelAvailable = false;
+            int employeePosition = UcDayParentForm.ListEmployee_idAllTime.IndexOf((int)DesiredAppointmentAppForm.EmployeeId);
             string HoursAvailability = UcDayParentForm.EmployeeAvailabilityByOrder[employeePosition];
             string[] TheHoursAvailability = HoursAvailability.Split('-');
+
+            bool IsPanelAvailable = false;
             for (int i = 0; i < TheHoursAvailability.Count(); i++)
             {
-                string positionrowstring = HourOfTheAppointment.ToString();
-
                 if (TheHoursAvailability[i] == positionrowstring)
                 {
                     IsPanelAvailable = true;
@@ -603,7 +603,7 @@ namespace MKproject.Schedule
             {
                 IsUCAppPosChanged = true;
             }
-            UcDayParentForm.ChangePositionUCappointments(ucappointment, DesiredAppointmentAppForm, PositionCol, PositionRow, IsUCAppPosChanged);
+            UcDayParentForm.ChangePositionUCappointments(ucappointment, PositionCol, PositionRow, IsUCAppPosChanged);
         }
         (double, DataTable) PurchaseNewSoloServices()
         {
@@ -936,6 +936,10 @@ namespace MKproject.Schedule
             if (!DisableClosingOnDisactivating)
             {
                 this.Close();
+            }
+            if(IsAddOrUpdate == false)//update
+            {
+                UcDayParentForm.TouchscrollPanelUCDay.AssignEventPanelUCDay(UcDayParentForm.TLPAppointment);
             }
         }
 

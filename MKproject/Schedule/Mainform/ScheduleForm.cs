@@ -233,7 +233,9 @@ namespace MKproject.Schedule
 
             if (IsAbsoluteCondition)
             {
+                ucday.IsClickEmployeNameToExpandColumn = true;
                 ucday.EditTLPWithTheColumnAbsolute(ColumnAbsolute);
+                ucday.IsClickEmployeNameToExpandColumn = false;
             }
             else
             {

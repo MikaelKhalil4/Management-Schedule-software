@@ -41,12 +41,12 @@ namespace MKproject.Schedule
 
 
             int Heightform = 0;//for the design of the form Employee
-            for (int i=0; i< reversedListemployee.Count;i++)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
+            for (int i = 0; i < reversedListemployee.Count; i++)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
             {
 
                 //Add UCEmployee
                 UCEmployee ucemployee = new UCEmployee(reversedListemployee[i], this);
-                
+
                 ListUCEmployee.Add(ucemployee);
                 panelContainsEmployees.Controls.Add(ucemployee);
                 ucemployee.Dock = DockStyle.Top;
@@ -196,17 +196,21 @@ namespace MKproject.Schedule
                                 }
                             }
 
-                            //Getting them to originale width
-                            foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
-                            {
-                                ucappointment.Width = UCappointment.OriginalWidth; 
-                            }
+
 
 
                             //eza ee edit width
                             if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + schedule.ucday.KeepSpace) > columnwidth)
                             {
-                                schedule.ucday.EditWidthAppointment(flowLayoutPanel, columnwidth);
+                                schedule.ucday.EditWidthAppointment(flowLayoutPanel, columnwidth, NumberOfVisibleControls);
+                            }
+                            else
+                            {
+                                //Getting them to originale width
+                                foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
+                                {
+                                    ucappointment.Width = UCappointment.OriginalWidth;
+                                }
                             }
                         }
                     }
