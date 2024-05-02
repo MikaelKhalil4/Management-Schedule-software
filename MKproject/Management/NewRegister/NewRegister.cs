@@ -2156,7 +2156,7 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanEditRegistrationFields)
             {
-                Program.GreyFormJunior = new GreyColor(this, true, true);
+                Program.GreyFormJunior = new GreyColor(this, true, true,null);
                 Program.GreyFormJunior.Show();
                 RegistrationFields r = new RegistrationFields(this);
                 r.ShowDialog();
@@ -2246,7 +2246,7 @@ namespace MKproject.Management
             {
                 if (!CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
                 {
-                    Program.GreyFormJunior = new GreyColor(this, true, true);
+                    Program.GreyFormJunior = new GreyColor(this, true, true, null);
                     Program.GreyFormJunior.Show();
                     Album album = new Album(this);
                     album.ShowDialog();
@@ -2334,7 +2334,7 @@ namespace MKproject.Management
 
                 if (!ISCallingFromTheConstructor)///eza aam aayetla awwal ma teftah el form , kermel ma tfout fiya
                 {
-                    Program.GreyFormJunior = new GreyColor(this, true, true);
+                    Program.GreyFormJunior = new GreyColor(this, true, true, null);
                     Program.GreyFormJunior.Show();
                     ChildParent c = new ChildParent(this);
                     c.ShowDialog();

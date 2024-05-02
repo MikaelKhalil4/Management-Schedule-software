@@ -336,7 +336,7 @@ namespace MKproject.Management
                             desiredRow = rows[0];
                         }
 
-                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false,null);
                         Program.GreyForm.Show();
                         EditBundleProduct editform = new EditBundleProduct(true, true, desiredRow);
                         editform.ParentFormViewBundle = this;
@@ -354,7 +354,7 @@ namespace MKproject.Management
                         }
 
 
-                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false,null);
                         Program.GreyForm.Show();
                         EditBundleProduct p = new EditBundleProduct(true, false, desiredRow);
                         p.ParentFormViewBundle = this;
@@ -373,7 +373,7 @@ namespace MKproject.Management
 
             if (ButtonBundleClicked)
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 EditBundleProduct p = new EditBundleProduct(false, true, null);
                 p.ParentFormViewBundle = this;
@@ -381,7 +381,7 @@ namespace MKproject.Management
             }
             else
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false,null);
                 Program.GreyForm.Show();
                 EditBundleProduct p = new EditBundleProduct(false, false, null);
                 p.ParentFormViewBundle = this;

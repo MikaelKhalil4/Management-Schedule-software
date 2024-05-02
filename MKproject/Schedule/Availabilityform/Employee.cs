@@ -27,6 +27,8 @@ namespace MKproject.Schedule
         public Employee(ScheduleForm form1)
         {
             InitializeComponent();
+            this.Opacity =0;
+
             schedule = form1;
             ListUCEmployeeChecked = new List<UCEmployee>();
             ListUCEmployee = new List<UCEmployee>();
@@ -41,12 +43,12 @@ namespace MKproject.Schedule
 
 
             int Heightform = 0;//for the design of the form Employee
-            for (int i=0; i< reversedListemployee.Count;i++)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
+            for (int i = 0; i < reversedListemployee.Count; i++)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
             {
 
                 //Add UCEmployee
                 UCEmployee ucemployee = new UCEmployee(reversedListemployee[i], this);
-                
+
                 ListUCEmployee.Add(ucemployee);
                 panelContainsEmployees.Controls.Add(ucemployee);
                 ucemployee.Dock = DockStyle.Top;
@@ -199,7 +201,7 @@ namespace MKproject.Schedule
                             //Getting them to originale width
                             foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
                             {
-                                ucappointment.Width = UCappointment.OriginalWidth; 
+                                ucappointment.Width = UCappointment.OriginalWidth;
                             }
 
 
@@ -253,6 +255,11 @@ namespace MKproject.Schedule
 
         private void Employee_Deactivate(object sender, EventArgs e)
         {
+            if (Program.GreyForm != null)
+            {
+                Program.GreyForm.Close();
+                Program.GreyForm = null;
+            }
             //Kermel watta yeftah lavailability form ma ysakir lemployee form
             if (IsButtonAvailability == false)
             {
@@ -262,6 +269,15 @@ namespace MKproject.Schedule
             {
                 IsButtonAvailability = false;//eza ken true byerjaee bi sir false
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Opacity == 1)
+            {
+                timer1.Stop();
+            }
+            Opacity += .1;
         }
     }
 

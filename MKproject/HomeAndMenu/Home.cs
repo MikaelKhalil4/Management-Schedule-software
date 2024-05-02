@@ -105,7 +105,7 @@ namespace MKproject
         private void buttonMenu_Click(object sender, EventArgs e)
         {
 
-            Program.GreyForm = new GreyColor(this, true, false);
+            Program.GreyForm = new GreyColor(this, true, false,null);
             Program.GreyForm.Show();
             menu.Visible = true;
             Point locationRelativeToScreen = TLPHome.PointToScreen(Point.Empty);

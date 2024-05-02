@@ -373,7 +373,7 @@ namespace MKproject.Schedule
                     int columnIndex = TLPAppointment.GetColumn(clickedPanel);
 
                     ScheduleForm schedule = this.ParentFormSchedule;
-                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
                     Appointment appointment = new Appointment(this, uctime, ListEmployee_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
                     appointment.Show();
@@ -532,6 +532,8 @@ namespace MKproject.Schedule
         }
         private void labelDate_Click(object sender, EventArgs e)
         {
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false,Color.Transparent);
+            Program.GreyForm.Show();
             //UCmonth show
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-6, 25);
@@ -560,13 +562,13 @@ namespace MKproject.Schedule
         }
         private void labelMember_Click(object sender, EventArgs e)
         {
-            Cursor = Cursors.WaitCursor;
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, Color.Transparent);
+            Program.GreyForm.Show();
             Point locationRelativeToScreen = labelMember.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-200, 25);
             ParentFormSchedule.employee = new Employee(ParentFormSchedule);
             ParentFormSchedule.employee.Location = locationRelativeToScreen;
             ParentFormSchedule.employee.Show();
-            Cursor = Cursors.Default;
         }
 
 
@@ -744,7 +746,7 @@ namespace MKproject.Schedule
         }//Display the title and the ucappointments
 
         ///-Add
-        public void AddUCappointments(ClassAppointment DesiredAppointment, int positioncol, int positionrow)
+        public UCappointment AddUCappointments(ClassAppointment DesiredAppointment, int positioncol, int positionrow)
         {
             //Design
 
@@ -826,6 +828,8 @@ namespace MKproject.Schedule
             }
 
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+
+            return ucappointments;
         }
         public void ChangePositionUCappointments(UCappointment ucappointmentclicked, ClassAppointment DesiredAppointment, int newpositioncol, int newpositionrow, bool IsUCAppPosChanged)
         {

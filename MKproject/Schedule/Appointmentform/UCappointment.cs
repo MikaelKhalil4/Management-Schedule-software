@@ -27,19 +27,15 @@ namespace MKproject.Schedule
         //
         Label LabelBalance;
 
-        //INITIALISE
-        public UCappointment()
-        {
-            InitializeComponent();
-        }
-
-
+    
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
         public UCappointment(ClassAppointment desiredappointment, UCDay uCDay)
         {
             InitializeComponent();
             DesiredAppointmentUCApp = desiredappointment;
             ParentFormucday = uCDay;
+
+
             SetUCDesign();
             SetServiceLogicAndDesign();
 
@@ -105,10 +101,7 @@ namespace MKproject.Schedule
                         TLPGlobal.SetColumnSpan(labelTime, 2);
 
                     }
-
                     LabelBalance.Text = Program.SetBalanceFormat(DesiredAppointmentUCApp.DesiredClient.TotalBalance.ToString());
-
-
                 }
                 else
                 {
@@ -123,7 +116,7 @@ namespace MKproject.Schedule
                     }
                 }
 
-                FixUCDesign();
+                //FixUCDesign();
 
             }
 
@@ -178,7 +171,7 @@ namespace MKproject.Schedule
             //initial Design
             TLPGlobal.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, 100f);
 
-            if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0)
+            if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0 && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-Future           
             {
                 TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 20;
 
@@ -293,7 +286,7 @@ namespace MKproject.Schedule
                                 }
                                 else
                                 {
-                                    labelService.ForeColor = Color.Black;
+                                    labelService.ForeColor = Color.FromArgb(94, 94, 94);
                                 }
                             }
                             else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
@@ -373,7 +366,7 @@ namespace MKproject.Schedule
                 else//present future
                 {
                     ScheduleForm schedule = this.ParentFormucday.ParentFormSchedule;
-                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
                     Appointment appointmentupdate = new Appointment(this, ParentFormucday);
                     appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
@@ -400,12 +393,14 @@ namespace MKproject.Schedule
             }
 
             SetUCDesign();
+            FixUCDesign();
             SetServiceLogicAndDesign();
         }
         private void Appointmentupdate_OnAppointmentUndoCancelation(object sender, EventArgs e)
         {
             DesiredAppointmentUCApp.IsCanceled = false;
             SetUCDesign();
+            FixUCDesign();
             SetServiceLogicAndDesign();
         }
         private void Appointmentupdate_OnAppUpdate(object sender, EventArgs e)
@@ -413,6 +408,7 @@ namespace MKproject.Schedule
             Appointment appointmentupdate = (Appointment)sender;
             DesiredAppointmentUCApp = appointmentupdate.DesiredAppointmentAppForm.Copy();
             SetUCDesign();
+            FixUCDesign();
             SetServiceLogicAndDesign();
         }
         public void RemoveAppointmentFromTLP()
@@ -584,9 +580,10 @@ namespace MKproject.Schedule
             isDragging = false; // Reset dragging flag
         }
 
+        
         private void UCappointment_Resize(object sender, EventArgs e)
         {
-            FixUCDesign();
+            FixUCDesign();//ejbare kermel tfout fiya aal add appointment w tkun badda tekhud original size, tkun bel designer different then the original width.
         }
     }
 }

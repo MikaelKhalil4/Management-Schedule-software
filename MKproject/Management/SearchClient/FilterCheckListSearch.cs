@@ -219,7 +219,7 @@ namespace MKproject.Management
             if (Program.GreyForm == null)
             {
                 UCCustomDate = ucCustomDate;
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 FilterCustomDate filterDate = new FilterCustomDate(UCCustomDate);
                 filterDate.FormClosed += FilterDate_FormClosed;

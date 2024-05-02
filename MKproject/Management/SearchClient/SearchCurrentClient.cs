@@ -700,7 +700,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)//lieanno lamma nekbus too many clicks aam bi sir fi ghalat
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 CustomerService cu = new CustomerService();
                 cu.ParentFormSearch = this;
@@ -711,7 +711,7 @@ namespace MKproject.Management
 
         private void iconButtonAddClient_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
             if (Program.NewRegisterForm == null)
             {

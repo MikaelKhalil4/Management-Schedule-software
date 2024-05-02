@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCMonth));
             buttonPrevious = new System.Windows.Forms.Button();
             labelTitleDay = new System.Windows.Forms.Label();
             buttonNext = new System.Windows.Forms.Button();
             tableLayoutPanelMonth = new System.Windows.Forms.TableLayoutPanel();
+            timer1 = new System.Windows.Forms.Timer(components);
             tableLayoutPanelMonth.SuspendLayout();
             SuspendLayout();
             // 
@@ -113,6 +115,11 @@
             tableLayoutPanelMonth.Size = new System.Drawing.Size(349, 291);
             tableLayoutPanelMonth.TabIndex = 0;
             // 
+            // timer1
+            // 
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
+            // 
             // UCMonth
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -127,6 +134,7 @@
             Name = "UCMonth";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Deactivate += UCMonth_Deactivate;
+            VisibleChanged += UCMonth_VisibleChanged;
             tableLayoutPanelMonth.ResumeLayout(false);
             tableLayoutPanelMonth.PerformLayout();
             ResumeLayout(false);
@@ -138,5 +146,6 @@
         public System.Windows.Forms.Label labelTitleDay;
         private System.Windows.Forms.Button buttonNext;
         public System.Windows.Forms.TableLayoutPanel tableLayoutPanelMonth;
+        private System.Windows.Forms.Timer timer1;
     }
 }
