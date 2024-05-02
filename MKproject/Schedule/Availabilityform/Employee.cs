@@ -201,7 +201,7 @@ namespace MKproject.Schedule
                             //Getting them to originale width
                             foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
                             {
-                                ucappointment.Width = UCappointment.OriginalWidth;
+                                ucappointment.Width = UCappointment.OriginalWidth; 
                             }
 
 

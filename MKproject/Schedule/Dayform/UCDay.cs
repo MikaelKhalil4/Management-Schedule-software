@@ -14,7 +14,7 @@ namespace MKproject.Schedule
 {
     public partial class UCDay : UserControl
     {
-     
+
 
 
 
@@ -47,7 +47,7 @@ namespace MKproject.Schedule
         }
 
         ///-Touch
-        private TouchScroll TouchscrollPanelUCDay { get; set; }
+        public TouchScroll TouchscrollPanelUCDay { get; set; }
 
 
 
@@ -68,7 +68,7 @@ namespace MKproject.Schedule
         bool Isloaducday = false;
         bool IsHistoryToAfterToday = false;
         bool IsFirstTimeTouchAssigned = true;
-        bool IsClick;//eza kabasna aa hada men lemployeeiye la yekbar colummn
+        public bool IsClickEmployeNameToExpandColumn;//eza kabasna aa hada men lemployeeiye la yekbar colummn
 
         ///-Position
         public int OneUCARowPosition, OneUCAColumnPosition;//hiye ousoulan lal flowlayoutpanel jouweta UCA
@@ -135,18 +135,81 @@ namespace MKproject.Schedule
         }
         private void FlowLayoutPanel_DragDrop(object sender, DragEventArgs e)
         {
-            FlowLayoutPanel panel = sender as FlowLayoutPanel;
-            UCappointment uc = e.Data.GetData(typeof(UCappointment)) as UCappointment;
-            if (panel != null && uc != null)
+            FlowLayoutPanel AddflowLayoutPanel = sender as FlowLayoutPanel;
+            UCappointment UCApointmentDraged = e.Data.GetData(typeof(UCappointment)) as UCappointment;
+            if (AddflowLayoutPanel != null && UCApointmentDraged != null)
             {
-                FlowLayoutPanel oldParent = uc.Parent as FlowLayoutPanel;
-                if (oldParent != null)
+                FlowLayoutPanel RemoveflowLayoutPanel = UCApointmentDraged.Parent as FlowLayoutPanel;
+                if (RemoveflowLayoutPanel != null)
                 {
-                    oldParent.Controls.Remove(uc);
+                    RemoveflowLayoutPanel.Controls.Remove(UCApointmentDraged);
                 }
-                panel.Controls.Add(uc);
-                panel.Invalidate();
+                AddflowLayoutPanel.Controls.Add(UCApointmentDraged);
+                AddflowLayoutPanel.Invalidate();
+
+                int AddPositionrow = TLPAppointment.GetRow(AddflowLayoutPanel);
+                int AddPositioncol = TLPAppointment.GetColumn(AddflowLayoutPanel);
+
+                int RemovePositionrow = TLPAppointment.GetRow(RemoveflowLayoutPanel);
+                int RemovePositioncol = TLPAppointment.GetColumn(RemoveflowLayoutPanel) ;
+          
+
+                int NumberOfVisibleControlsRemoveFLP = 0;
+                foreach (Control ctrl in RemoveflowLayoutPanel.Controls)
+                {
+                    if (ctrl.Visible)
+                    {
+                        NumberOfVisibleControlsRemoveFLP++;
+                    }
+                }
+                int NumberOfVisibleControlsAddFLP = 0;
+                foreach (Control ctrl in AddflowLayoutPanel.Controls)
+                {
+                    if (ctrl.Visible)
+                    {
+                        NumberOfVisibleControlsAddFLP++;
+                    }
+                }
+
+                ResizeINAddingUCAppInFLP(AddflowLayoutPanel, UCApointmentDraged, NumberOfVisibleControlsAddFLP, AddPositionrow, AddPositioncol);
+                UCApointmentDraged.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, RemovePositioncol, RemovePositionrow);
+
+
+                UCApointmentDraged.RowPosition = AddPositionrow;
+                UCApointmentDraged.ColumnPosition = AddPositioncol;
+
+
+
+                //StartTime
+                TimeSpan OldStartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay;
+                TimeSpan NewStartTime = new TimeSpan(AddPositionrow, OldStartTime.Minutes, 0);
+                UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
+
+                string timestring = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.ToString("h:mm tt");
+                string[] partstime = timestring.Split(' ');
+                UCApointmentDraged.labelTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
+
+                //EndTime
+                int DifferenceHours = NewStartTime.Hours - OldStartTime.Hours;//Ma sta3malna loriginale starttime li2anno bi koun sar new
+                int NewHour = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Hours + DifferenceHours;//Hasab kam hour bi adim aw bi rajiee lstarttime zet shi lal endtime
+
+
+                TimeSpan NewEndTime = new TimeSpan(NewHour, UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Minutes, 0);
+                UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
+
+
+                timestring = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.ToString("h:mm tt");
+                partstime = timestring.Split(' ');
+                UCApointmentDraged.labelTime.Text += " - " + partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
+
+                //Employee
+                UCApointmentDraged.DesiredAppointmentUCApp.EmployeeId = ListEmployee_idChecked[AddPositioncol-1];
+
+                //SQL
+                UCApointmentDraged.DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);
             }
+
+            TouchscrollPanelUCDay.AssignEventPanelUCDay(TLPAppointment);
         }
         private void FlowLayoutPanel_DragOver(object sender, DragEventArgs e)
         {
@@ -377,6 +440,8 @@ namespace MKproject.Schedule
                     Program.GreyForm.Show();
                     Appointment appointment = new Appointment(this, uctime, ListEmployee_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
                     appointment.Show();
+                    //TouchscrollPanelUCDay.RemoveEventPanelUCDay(TLPAppointment);
+                    TouchscrollPanelUCDay.mouseDownPoint = Cursor.Position;
                 }
             }
             else
@@ -386,7 +451,7 @@ namespace MKproject.Schedule
         }//inside TableLayoutPanel Of UcDay
         private void TLPEmployees_Click(object sender, EventArgs e)
         {
-            IsClick = true;
+            IsClickEmployeNameToExpandColumn = true;
             //It's when the table has one columnemployee of course this column will be always in percentage
             if (TLPAppointment.ColumnCount == 2)
             {
@@ -447,7 +512,7 @@ namespace MKproject.Schedule
                 }
             }
 
-            IsClick = false;
+            IsClickEmployeNameToExpandColumn = false;
 
         }//changing size column of the Table Layout Panel
         private void buttonToday_Click(object sender, EventArgs e)
@@ -600,25 +665,32 @@ namespace MKproject.Schedule
                     {
                         FlowLayoutPanel flowLayoutPanel = (FlowLayoutPanel)cellControl;
 
-
-
-                        //eza lwidth aam ykbar laken maybe it will surpass the limit eza aam yezghar akid laa faeza aam yozghar ma daroure taeemil originale size
-                        if (this.Size.Width > ucdayoldwidth)
+                        int NumberOfVisibleControls = 0;
+                        foreach (Control ctrl in flowLayoutPanel.Controls)
                         {
-                            //Getting them to their true width to know if they ll surpass the limit
-                            foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
+                            if (ctrl.Visible)
                             {
-                                ucappointment.Width = UCappointment.OriginalWidth;
+                                NumberOfVisibleControls++;
                             }
-
                         }
 
 
-
                         //Getting to know if we have to EditWidthAppointment
-                        if (((UCappointment.OriginalWidth * flowLayoutPanel.Controls.Count) + KeepSpace) > columnwidth)
+                        if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + KeepSpace) > columnwidth)
                         {
-                            EditWidthAppointment(flowLayoutPanel, columnwidth);
+                            EditWidthAppointment(flowLayoutPanel, columnwidth, NumberOfVisibleControls);
+                        }
+                        else
+                        {
+                            //eza lwidth aam ykbar laken maybe it will surpass the limit eza aam yezghar akid laa faeza aam yozghar ma daroure taeemil originale size
+                            if (this.Size.Width > ucdayoldwidth)
+                            {
+                                //Getting them to their true width to know if they ll surpass the limit
+                                foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
+                                {
+                                    ucappointment.Width = UCappointment.OriginalWidth;
+                                }
+                            }
                         }
                     }
                 }
@@ -705,7 +777,7 @@ namespace MKproject.Schedule
                 List<int> rankemployees_id = new List<int>();
                 List<string> availabilityrankorder = new List<string>();
 
-                
+
 
                 //there's Active Employees In this Day
                 if (RankNAvailabilityEmployeesASC.Rows.Count > 0)
@@ -720,7 +792,7 @@ namespace MKproject.Schedule
 
                     EditTBPbyChangingDates(rankemployees_id, availabilityrankorder);
 
-                   
+
                 }
 
                 //there's No Checked Employees In this Day
@@ -749,11 +821,9 @@ namespace MKproject.Schedule
         public UCappointment AddUCappointments(ClassAppointment DesiredAppointment, int positioncol, int positionrow)
         {
             //Design
-
             FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;
-            UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
-            ucappointments.Width = UCappointment.OriginalWidth;
-            AddflowLayoutPanel.Controls.Add(ucappointments);//hone lezim hatta hasab lstarttime tabaee desired appointment
+            UCappointment AddUCAppointment = new UCappointment(DesiredAppointment, this);
+            AddflowLayoutPanel.Controls.Add(AddUCAppointment);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
             int NumberOfVisibleControlsOfAddFLP = 0;
             foreach (Control ctrl in AddflowLayoutPanel.Controls)
@@ -764,36 +834,18 @@ namespace MKproject.Schedule
                 }
             }
 
+            ResizeINAddingUCAppInFLP(AddflowLayoutPanel, AddUCAppointment, NumberOfVisibleControlsOfAddFLP, positionrow, positioncol);
 
+            TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+        }
+
+        public void ResizeINAddingUCAppInFLP(FlowLayoutPanel AddflowLayoutPanel, UCappointment AddUCAppointment, int NumberOfVisibleControlsOfAddFLP, int positionrow, int positioncol)
+        {
             //Absolute
             if (TLPAppointment.ColumnStyles[positioncol].SizeType is SizeType.Absolute)
             {
 
-                //FLP That has the biggest number of ucdata
-                int MaxNumberOfUcData = 0;
-                int rowOfThemaxflowLayPan = 0;
-                for (int i = 0; i < TLPAppointment.RowCount; i++)
-                {
-                    Control cellControl = TLPAppointment.GetControlFromPosition(positioncol, i);
-                    if (cellControl is FlowLayoutPanel)
-                    {
-                        FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                        int NumberOfVisibleControls = 0;
-                        foreach (Control ctrl in MaxFlowLayoutPanel.Controls)
-                        {
-                            if (ctrl.Visible)
-                            {
-                                NumberOfVisibleControls++;
-                            }
-                        }
-
-                        if (MaxNumberOfUcData < NumberOfVisibleControls)
-                        {
-                            MaxNumberOfUcData = NumberOfVisibleControls;
-                            rowOfThemaxflowLayPan = i;
-                        }
-                    }
-                }
+                (int rowOfThemaxflowLayPan, int MaxNumberOfUcData) = FindingTheRowOfMaxFlowLayoutPanel(positioncol);
 
                 //If Clicked FLP is MaxFlowLayoutPanel then it may affect the column absolute size
                 if (rowOfThemaxflowLayPan == positionrow)
@@ -809,7 +861,12 @@ namespace MKproject.Schedule
                     //eza ee edit width
                     if ((UCappointment.OriginalWidth * NumberOfVisibleControlsOfAddFLP) + KeepSpace > columnwidth)
                     {
-                        EditWidthAppointment(AddflowLayoutPanel, columnwidth);
+                        EditWidthAppointment(AddflowLayoutPanel, columnwidth, NumberOfVisibleControlsOfAddFLP);
+                    }
+                    else
+                    {
+                        //lba2we aal akid aandoun originale size
+                        AddUCAppointment.Width = UCappointment.OriginalWidth;
                     }
                 }
             }
@@ -823,15 +880,45 @@ namespace MKproject.Schedule
                 //eza ee edit width
                 if ((UCappointment.OriginalWidth * NumberOfVisibleControlsOfAddFLP) + KeepSpace > columnwidth)//bala ucaddclick
                 {
-                    EditWidthAppointment(AddflowLayoutPanel, columnwidth);
+                    EditWidthAppointment(AddflowLayoutPanel, columnwidth, NumberOfVisibleControlsOfAddFLP);
+                }
+                else
+                {
+                    //lba2we aal akid aandoun originale size
+                    AddUCAppointment.Width = UCappointment.OriginalWidth;
                 }
             }
-
-            TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
-
-            return ucappointments;
         }
-        public void ChangePositionUCappointments(UCappointment ucappointmentclicked, ClassAppointment DesiredAppointment, int newpositioncol, int newpositionrow, bool IsUCAppPosChanged)
+        (int, int) FindingTheRowOfMaxFlowLayoutPanel(int positioncol)
+        {
+            //FLP That has the biggest number of ucdata
+            int MaxNumberOfUcData = 0;
+            int rowOfThemaxflowLayPan = 0;
+            for (int i = 0; i < TLPAppointment.RowCount; i++)
+            {
+                Control cellControl = TLPAppointment.GetControlFromPosition(positioncol, i);
+                if (cellControl is FlowLayoutPanel)
+                {
+                    FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
+                    int NumberOfVisibleControls = 0;
+                    foreach (Control ctrl in MaxFlowLayoutPanel.Controls)
+                    {
+                        if (ctrl.Visible)
+                        {
+                            NumberOfVisibleControls++;
+                        }
+                    }
+
+                    if (MaxNumberOfUcData < NumberOfVisibleControls)
+                    {
+                        MaxNumberOfUcData = NumberOfVisibleControls;
+                        rowOfThemaxflowLayPan = i;
+                    }
+                }
+            }
+            return (rowOfThemaxflowLayPan, MaxNumberOfUcData);
+        }
+        public void ChangePositionUCappointments(UCappointment ucappointmentclicked, int AddPositioncol, int AddPositionrow, bool IsUCAppPosChanged)
         {
             if (IsUCAppPosChanged == false)
             {
@@ -839,151 +926,44 @@ namespace MKproject.Schedule
             }
             else
             {
-                //SetTheUCappointment
-                ucappointmentclicked.Width = UCappointment.OriginalWidth;
+                int RemovePositioncol = ucappointmentclicked.ColumnPosition;
+                int RemovePositionrow = ucappointmentclicked.RowPosition;
+
 
                 //Changing the palce of the ucappointmentclicked
                 //Remove
                 FlowLayoutPanel RemoveflowLayoutPanel = TLPAppointment.GetControlFromPosition(ucappointmentclicked.ColumnPosition, ucappointmentclicked.RowPosition) as FlowLayoutPanel;
                 RemoveflowLayoutPanel.Controls.Remove(ucappointmentclicked);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
+                int NumberOfVisibleControlsRemoveFLP = 0;
+                foreach (Control ctrl in RemoveflowLayoutPanel.Controls)
+                {
+                    if (ctrl.Visible)
+                    {
+                        NumberOfVisibleControlsRemoveFLP++;
+                    }
+                }
+
                 //Add
-                FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(newpositioncol, newpositionrow) as FlowLayoutPanel;
+                FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(AddPositioncol, AddPositionrow) as FlowLayoutPanel;
                 AddflowLayoutPanel.Controls.Add(ucappointmentclicked);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
-
-                //FOR ADD
-
-                //Absolute
-                if (TLPAppointment.ColumnStyles[newpositioncol].SizeType is SizeType.Absolute)
+                int NumberOfVisibleControlsAddFLP = 0;
+                foreach (Control ctrl in AddflowLayoutPanel.Controls)
                 {
-                    //FOR THE ADD
-                    //FLP That has the biggest number of ucdata
-                    int MaxNumberOfUcData = 0;
-                    int rowOfThemaxflowLayPan = 0;
-                    for (int i = 0; i < TLPAppointment.RowCount; i++)
+                    if (ctrl.Visible)
                     {
-                        Control cellControl = TLPAppointment.GetControlFromPosition(newpositioncol, i);
-                        if (cellControl is FlowLayoutPanel)
-                        {
-                            FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                            if (MaxNumberOfUcData < MaxFlowLayoutPanel.Controls.Count)
-                            {
-                                MaxNumberOfUcData = MaxFlowLayoutPanel.Controls.Count;
-                                rowOfThemaxflowLayPan = i;
-                            }
-                        }
-                    }
-
-                    //If Clicked FLP is MaxFlowLayoutPanel then it may affect the column absolute size
-                    if (rowOfThemaxflowLayPan == newpositionrow)
-                    {
-                        EditColumnAbsoluteSize(newpositioncol, newpositionrow);
-                    }
-
-                    //se3eta bas momkin yet2asar lwidthucappointment
-                    else
-                    {
-                        int columnwidth = TLPAppointment.GetColumnWidths()[newpositioncol];
-
-                        //eza ee edit width
-                        if (((UCappointment.OriginalWidth * AddflowLayoutPanel.Controls.Count) + KeepSpace) > columnwidth)
-                        {
-                            EditWidthAppointment(AddflowLayoutPanel, columnwidth);
-                        }
-                    }
-
-
-
-                    //FOR THE REMOVE
-
-                    //The FlowLayoutpanel where we dispose the ucdata does it have akbar aadad ucdata before we dispose this ucdata if yes it will affect the TBL
-                    bool havethemaxucdata = true;
-
-                    for (int i = 0; i < TLPAppointment.RowCount; i++)
-                    {
-                        if (ucappointmentclicked.RowPosition != i)
-                        {
-                            Control cellControl = TLPAppointment.GetControlFromPosition(ucappointmentclicked.ColumnPosition, i);
-                            if (cellControl is FlowLayoutPanel)
-                            {
-                                FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                                if ((RemoveflowLayoutPanel.Controls.Count + 1)/*+1 li2anno manna na3rif abel ma yaeemil dispose*/ > innerFlowLayoutPanel.Controls.Count)
-                                {
-
-                                }
-
-                                //eza hata = la hada bet batil zabta
-                                else
-                                {
-                                    //if it's equal or false then the supposition is false so we have to break
-                                    havethemaxucdata = false;
-                                    break;
-                                }
-                            }
-                        }
-
-                        //Eza ata3 bi halo akid ma y2arin halo
-                        else
-                        {
-
-                        }
-
-                    }
-
-                    //hayde lconidtion => kel flowlayoutpanel ma aandoun wala ucappointment because eza lmax 0 yaeene kelo 0
-                    if (RemoveflowLayoutPanel.Controls.Count == 0 && havethemaxucdata)
-                    {
-                        RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
-                        RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPEmployees);
-                    }
-
-                    //eza ken lflow layout panel li mahayna fiyo ucappointment aando akbar aada hone it may edit the size of the absolute column
-                    else if (havethemaxucdata)
-                    {
-                        EditColumnAbsoluteSize(ucappointmentclicked.ColumnPosition, ucappointmentclicked.RowPosition);
-                    }
-
-                    //se3eta bas momkin yet2asar lwidthucappointment
-                    else
-                    {
-                        int columnwidth = TLPAppointment.GetColumnWidths()[ucappointmentclicked.ColumnPosition];
-                        //eza ee edit width
-                        if (((UCappointment.OriginalWidth * RemoveflowLayoutPanel.Controls.Count) + KeepSpace) > columnwidth)
-                        {
-                            EditWidthAppointment(RemoveflowLayoutPanel, columnwidth);
-                        }
+                        NumberOfVisibleControlsAddFLP++;
                     }
                 }
 
-
-                //Percentage
-                else
-                {
-                    for (int i = 0; i < TLPAppointment.RowCount; i++)
-                    {
-
-                        Control cellControl1 = TLPAppointment.GetControlFromPosition(newpositioncol, i);
-
-                        if (cellControl1 is FlowLayoutPanel)
-                        {
-                            FlowLayoutPanel innerFlowLayoutPanel1 = (FlowLayoutPanel)cellControl1;
+                ResizeINAddingUCAppInFLP(AddflowLayoutPanel, ucappointmentclicked, NumberOfVisibleControlsAddFLP, AddPositionrow, AddPositioncol);
+                ucappointmentclicked.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, RemovePositioncol, RemovePositionrow);
 
 
-                            int columnwidth = TLPAppointment.GetColumnWidths()[newpositioncol];
 
-                            //eza ee edit width
-                            if (((UCappointment.OriginalWidth * AddflowLayoutPanel.Controls.Count) + KeepSpace) > columnwidth)//bala ucaddclick
-                            {
-                                EditWidthAppointment(AddflowLayoutPanel, columnwidth);
-                            }
-                        }
-                    }
-                }
-
-
-                ucappointmentclicked.RowPosition = newpositionrow;
-                ucappointmentclicked.ColumnPosition = newpositioncol;
+                ucappointmentclicked.RowPosition = AddPositionrow;
+                ucappointmentclicked.ColumnPosition = AddPositioncol;
                 TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
             }
         }
@@ -1542,16 +1522,17 @@ namespace MKproject.Schedule
             {
                 FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
 
+                int NumberOfVisibleControlsOfMaxFLP = 0;
                 // Getting the  summation of the controls width inside the flowlayoutpanel(that has the biggest number) with margin and padding
                 foreach (Control control in MaxFlowLayoutPanel.Controls)
                 {
                     if (control.Visible)
                     {
-                        expectedwidth += control.Width + MaxFlowLayoutPanel.Margin.Horizontal;
+                        NumberOfVisibleControlsOfMaxFLP++;
                     }
                 }
 
-                expectedwidth = expectedwidth + MaxFlowLayoutPanel.Padding.Horizontal + KeepSpace;
+                expectedwidth = ((UCappointment.OriginalWidth + MaxFlowLayoutPanel.Margin.Horizontal) * NumberOfVisibleControlsOfMaxFLP) + MaxFlowLayoutPanel.Padding.Horizontal + KeepSpace;
 
 
 
@@ -1564,7 +1545,7 @@ namespace MKproject.Schedule
 
 
                     //If yes: Manna nemrou2 bi kel FLP jouwet lclicked column
-                    if (IsClick)
+                    if (IsClickEmployeNameToExpandColumn)
                     {
                         //Getting every row of the column  that we clicked on
                         for (int i = 0; i < TLPAppointment.RowCount; i++)
@@ -1587,8 +1568,16 @@ namespace MKproject.Schedule
                                 if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + KeepSpace) > maxwidth)//(innerFlowLayoutPanel1.Controls.Count-1)without the adducclick
                                 {
                                     //if yes then edit the width of their ucappointment
-                                    EditWidthAppointment(innerFlowLayoutPanel1, maxwidth);
+                                    EditWidthAppointment(innerFlowLayoutPanel1, maxwidth, NumberOfVisibleControls);
                                 }
+                                else
+                                {
+                                    foreach (UCappointment ucappointment in innerFlowLayoutPanel1.Controls.OfType<UCappointment>())
+                                    {
+                                        ucappointment.Width = UCappointment.OriginalWidth;
+                                    }
+                                }
+
                             }
 
                         }
@@ -1598,7 +1587,7 @@ namespace MKproject.Schedule
                     else
                     {
                         //hone ma men hot the condition of MaxNumberUCAppointment li2anno hayda houwe MaxFLP li 2atta3 hayde lcondition  (expectedwidth > maxwidth) fa akid ha tsir EditWidthAppointment
-                        EditWidthAppointment(MaxFlowLayoutPanel, maxwidth);
+                        EditWidthAppointment(MaxFlowLayoutPanel, maxwidth, NumberOfVisibleControlsOfMaxFLP);
                     }
 
                 }
@@ -1610,6 +1599,18 @@ namespace MKproject.Schedule
                     //Column TLP Expand 
                     RandomFunctionSchedule.ExpandTableLayoutPanelColumn(TLPAppointment, column, expectedwidth);
                     RandomFunctionSchedule.ExpandTableLayoutPanelColumn(TLPEmployees, column, expectedwidth);
+                    if (IsClickEmployeNameToExpandColumn)
+                    {
+                        GettingWidthAppointmentToOriginal(column);
+                    }
+                    else
+                    {
+                        foreach (UCappointment ucappointment in MaxFlowLayoutPanel.Controls.OfType<UCappointment>())
+                        {
+                            ucappointment.Width = UCappointment.OriginalWidth;
+                        }
+                    }
+
 
                     //kermel kel ucappointment ybaynoma bel column
                     for (int j = 1; j < TLPAppointment.ColumnCount; j++)
@@ -1624,16 +1625,8 @@ namespace MKproject.Schedule
                 }
             }
         }//so we need wich column that we will edit and the row where it contains the biggest number of ucdata
-        public void EditWidthAppointment(FlowLayoutPanel flowLayoutPanel, int columnwidth)
+        public void EditWidthAppointment(FlowLayoutPanel flowLayoutPanel, int columnwidth, int NumberOfVisibleControls)
         {
-            int NumberOfVisibleControls = 0;
-            foreach (Control ctrl in flowLayoutPanel.Controls)
-            {
-                if (ctrl.Visible)
-                {
-                    NumberOfVisibleControls++;
-                }
-            }
             if (NumberOfVisibleControls != 0)
             {
                 foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
@@ -1643,6 +1636,7 @@ namespace MKproject.Schedule
             }
 
         }//When the count of the ucappointments in the FLP is Above 3 
+
         public void ResizeWidthAppointmentInTheColumnPecentage(int j)
         {
             for (int i = 0; i < TLPAppointment.RowCount; i++)
@@ -1655,7 +1649,6 @@ namespace MKproject.Schedule
                     int NumberOfVisibleControls = 0;
                     foreach (Control ctrl in innerFlowLayoutPanel1.Controls)
                     {
-                        ctrl.Width = UCappointment.OriginalWidth;
                         if (ctrl.Visible)
                         {
                             NumberOfVisibleControls++;
@@ -1667,42 +1660,25 @@ namespace MKproject.Schedule
                     //So watta yzawim: eza bi shi flowlayoutpanel , lmax width tabaee lappointment maee kel aadadoun ma byetkhata column width fa ma byaeemlo streched(lie2anno eza eemil streched byetkhata lwidth tabeeoulo)
                     if ((UCappointment.OriginalWidth * NumberOfVisibleControls) + KeepSpace > columnwidth)
                     {
-                        EditWidthAppointment(innerFlowLayoutPanel1, columnwidth);
+                        EditWidthAppointment(innerFlowLayoutPanel1, columnwidth, NumberOfVisibleControls);
+                    }
+                    else
+                    {
+                        foreach (UCappointment ucappointment in innerFlowLayoutPanel1.Controls.OfType<UCappointment>())
+                        {
+                            ucappointment.Width = UCappointment.OriginalWidth;
+                        }
                     }
                 }
             }
         }
         public void EditTLPWithTheColumnAbsolute(int AbsoluteColumn)
         {
-            //badna nrajiee ucappointment lal originale size li2anno sar column absolute size
-            GettingWidthAppointmentToOriginal(AbsoluteColumn);
+
 
 
             //FLP That has the biggest number of ucdata
-            int MaxNumberOfUcData = 0;
-            int rowOfThemaxflowLayPan = 0;
-            for (int i = 0; i < TLPAppointment.RowCount; i++)
-            {
-                Control cellControl = TLPAppointment.GetControlFromPosition(AbsoluteColumn, i);
-                if (cellControl is FlowLayoutPanel)
-                {
-                    FlowLayoutPanel MaxFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                    int NumberOfVisibleControls = 0;
-                    foreach (Control ctrl in MaxFlowLayoutPanel.Controls)
-                    {
-                        if (ctrl.Visible)
-                        {
-                            NumberOfVisibleControls++;
-                        }
-                    }
-
-                    if (MaxNumberOfUcData < NumberOfVisibleControls)
-                    {
-                        MaxNumberOfUcData = NumberOfVisibleControls;
-                        rowOfThemaxflowLayPan = i;
-                    }
-                }
-            }
+            (int rowOfThemaxflowLayPan, int MaxNumberOfUcData) = FindingTheRowOfMaxFlowLayoutPanel(AbsoluteColumn);
 
 
             int columnwidth = TLPAppointment.GetColumnWidths()[AbsoluteColumn];
@@ -1710,27 +1686,23 @@ namespace MKproject.Schedule
             // If the summation of the controls width inside the flowlayoutpanel(that has the biggest number) is approximately same as the column width then it's better to keep it in percentage
             if (MaxNumberOfUcData == 0 || ((UCappointment.OriginalWidth * MaxNumberOfUcData) + KeepSpace) < columnwidth)//approximately because without using the margins to compare
             {
-
+                //It will Stay Percentage
             }
             //If not then we will Edit The Clicked Column making him to absolute
             else
             {
                 EditColumnAbsoluteSize(AbsoluteColumn, rowOfThemaxflowLayPan);
-            }
-
-
-
-            //kermel kel ucappointment ybaynoma bel column
-            for (int j = 1; j < TLPAppointment.ColumnCount; j++)
-            {
-                //Ma lezim yemrou2 bel absolute column
-                if (j != AbsoluteColumn)
+                //kermel kel ucappointment ybaynoma bel column
+                for (int j = 1; j < TLPAppointment.ColumnCount; j++)
                 {
-                    //Lezim y3adil lwidth taba3 be2e lappointments li bi columns percentage
-                    ResizeWidthAppointmentInTheColumnPecentage(j);
+                    //Ma lezim yemrou2 bel absolute column
+                    if (j != AbsoluteColumn)
+                    {
+                        //Lezim y3adil lwidth taba3 be2e lappointments li bi columns percentage
+                        ResizeWidthAppointmentInTheColumnPecentage(j);
+                    }
                 }
             }
-
 
         }
 

@@ -24,6 +24,7 @@ namespace MKproject.Schedule
         private Point initialMouseDownPoint;
         private bool isDragging = false;
 
+
         //
         Label LabelBalance;
 
@@ -38,6 +39,9 @@ namespace MKproject.Schedule
 
             SetUCDesign();
             SetServiceLogicAndDesign();
+
+            this.MouseDown += Control_MouseDown;
+            this.MouseClick += Control_MouseClick;
 
             TLPGlobal.MouseDown += Control_MouseDown;
             TLPGlobal.MouseClick += Control_MouseClick;
@@ -411,6 +415,8 @@ namespace MKproject.Schedule
             FixUCDesign();
             SetServiceLogicAndDesign();
         }
+
+
         public void RemoveAppointmentFromTLP()
         {
             //DESIGN
@@ -423,68 +429,20 @@ namespace MKproject.Schedule
             int NumberOfVisibleControlsOfClickedFLP = 0;
             foreach (Control ctrl in clickedflowLayoutPanel.Controls)
             {
-                ctrl.Width = UCappointment.OriginalWidth;
                 if (ctrl.Visible)
                 {
                     NumberOfVisibleControlsOfClickedFLP++;
                 }
             }
 
-            //Fi hal ucdata ma ken eendoun originale lwidth lezim nredoun la na3if eza byo2ta3 limit
-            foreach (UCappointment ucappointment in clickedflowLayoutPanel.Controls.OfType<UCappointment>())
-            {
-                ucappointment.Width = UCappointment.OriginalWidth;//UCAddClick.Width it's static width that I declared it
-            }
-
-
-
-
+            ResizeINRemovingUCAppInFLP(clickedflowLayoutPanel, NumberOfVisibleControlsOfClickedFLP, positioncol, positionrow);
+        }
+        public void ResizeINRemovingUCAppInFLP(FlowLayoutPanel clickedflowLayoutPanel, int NumberOfVisibleControlsOfClickedFLP, int positioncol, int positionrow)
+        {
             //Absolute
             if (ParentFormucday.TLPAppointment.ColumnStyles[positioncol].SizeType is SizeType.Absolute)
             {
-
-                //The FlowLayoutpanel where we dispose the ucdata does it have akbar aadad ucdata before we dispose this ucdata if yes it will affect the TBL
-                bool havethemaxucdata = true;
-
-                for (int i = 0; i < ParentFormucday.TLPAppointment.RowCount; i++)
-                {
-                    if (positionrow != i)
-                    {
-                        Control cellControl = ParentFormucday.TLPAppointment.GetControlFromPosition(positioncol, i);
-                        if (cellControl is FlowLayoutPanel)
-                        {
-                            FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                            int NumberOfVisibleControls = 0;
-                            foreach (Control ctrl in innerFlowLayoutPanel.Controls)
-                            {
-                                if (ctrl.Visible)
-                                {
-                                    NumberOfVisibleControls++;
-                                }
-                            }
-                            if ((NumberOfVisibleControlsOfClickedFLP + 1)/*+1 li2anno manna na3rif abel ma yaeemil dispose*/ > NumberOfVisibleControls)
-                            {
-
-                            }
-
-                            //eza hata = la hada bet batil zabta
-                            else
-                            {
-                                //if it's equal or false then the supposition is false so we have to break
-                                havethemaxucdata = false;
-                                break;
-                            }
-                        }
-                    }
-
-                    //Eza ata3 bi halo akid ma y2arin halo
-                    else
-                    {
-
-                    }
-
-                }
-
+                bool isThisTheMaxFLP = IsThisTheMaxFLP(positioncol, positionrow, NumberOfVisibleControlsOfClickedFLP);
 
                 //hayde lconidtion => moujarad ma ysir lwidth taba3 kel lcontrols azghar men lpercentage width TLP
                 int[] columnWidths = ParentFormucday.TLPAppointment.GetColumnWidths();
@@ -492,7 +450,7 @@ namespace MKproject.Schedule
                 int ColumnPercentageWidth = (ParentFormucday.TLPAppointment.Width - columnWidths[0]) / (ParentFormucday.TLPAppointment.ColumnCount - 1);
                 int AppointemntsTotalWidth = UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP;
 
-                if (AppointemntsTotalWidth < ColumnPercentageWidth && havethemaxucdata)
+                if (AppointemntsTotalWidth < ColumnPercentageWidth && isThisTheMaxFLP)
                 {
                     RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPAppointment);
                     RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ParentFormucday.TLPEmployees);
@@ -501,12 +459,19 @@ namespace MKproject.Schedule
                     //eza ee edit width
                     if (((UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP) + ParentFormucday.KeepSpace) > columnwidth)
                     {
-                        ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
+                        ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, ColumnPercentageWidth, NumberOfVisibleControlsOfClickedFLP);
+                    }
+                    else
+                    {
+                        foreach (UCappointment ucappointment in clickedflowLayoutPanel.Controls.OfType<UCappointment>())
+                        {
+                            ucappointment.Width = UCappointment.OriginalWidth;
+                        }
                     }
                 }
 
                 //eza ken lflow layout panel li mahayna fiyo ucappointment aando akbar aada hone it may edit the size of the absolute column
-                else if (havethemaxucdata)
+                else if (isThisTheMaxFLP)
                 {
                     ParentFormucday.EditColumnAbsoluteSize(positioncol, positionrow);
                 }
@@ -518,7 +483,14 @@ namespace MKproject.Schedule
                     //eza ee edit width
                     if (((UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP) + ParentFormucday.KeepSpace) > columnwidth)
                     {
-                        ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
+                        ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth, NumberOfVisibleControlsOfClickedFLP);
+                    }
+                    else
+                    {
+                        foreach (UCappointment ucappointment in clickedflowLayoutPanel.Controls.OfType<UCappointment>())
+                        {
+                            ucappointment.Width = UCappointment.OriginalWidth;
+                        }
                     }
                 }
             }
@@ -530,11 +502,62 @@ namespace MKproject.Schedule
                 //eza ee edit width
                 if (((UCappointment.OriginalWidth * NumberOfVisibleControlsOfClickedFLP) + ParentFormucday.KeepSpace) > columnwidth)
                 {
-                    ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth);
+                    ParentFormucday.EditWidthAppointment(clickedflowLayoutPanel, columnwidth, NumberOfVisibleControlsOfClickedFLP);
+                }
+                else
+                {
+                    foreach (UCappointment ucappointment in clickedflowLayoutPanel.Controls.OfType<UCappointment>())
+                    {
+                        ucappointment.Width = UCappointment.OriginalWidth;
+                    }
                 }
             }
         }
+        public bool IsThisTheMaxFLP(int positioncol,int positionrow, int NumberOfVisibleControlsOfClickedFLP)//WHO CONTAINS THE Biggest Count
+        {
+            //The FlowLayoutpanel where we dispose the ucdata does it have akbar aadad ucdata before we dispose this ucdata if yes it will affect the TBL
+            bool havethemaxucdata = true;
 
+            for (int i = 0; i < ParentFormucday.TLPAppointment.RowCount; i++)
+            {
+                if (positionrow != i)
+                {
+                    Control cellControl = ParentFormucday.TLPAppointment.GetControlFromPosition(positioncol, i);
+                    if (cellControl is FlowLayoutPanel)
+                    {
+                        FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;
+                        int NumberOfVisibleControls = 0;
+                        foreach (Control ctrl in innerFlowLayoutPanel.Controls)
+                        {
+                            if (ctrl.Visible)
+                            {
+                                NumberOfVisibleControls++;
+                            }
+                        }
+                        if ((NumberOfVisibleControlsOfClickedFLP + 1)/*+1 li2anno manna na3rif abel ma yaeemil dispose*/ > NumberOfVisibleControls)
+                        {
+
+                        }
+
+                        //eza hata = la hada bet batil zabta
+                        else
+                        {
+                            //if it's equal or false then the supposition is false so we have to break
+                            havethemaxucdata = false;
+                            break;
+                        }
+                    }
+                }
+
+                //Eza ata3 bi halo akid ma y2arin halo
+                else
+                {
+
+                }
+
+            }
+            return havethemaxucdata;
+        }
 
 
 
@@ -551,6 +574,7 @@ namespace MKproject.Schedule
                     Math.Abs(e.Y - initialMouseDownPoint.Y) > SystemInformation.DoubleClickSize.Height)
                 {
                     isDragging = true; // The control is being dragged.
+
                     DoDragDrop(this, DragDropEffects.Move);
                 }
             }
@@ -574,9 +598,11 @@ namespace MKproject.Schedule
                 TLPGlobal.BackColor = Color.White;
             }
         }
+
         private void Control_MouseDown(object sender, MouseEventArgs e)
         {
             initialMouseDownPoint = e.Location;
+            ParentFormucday.TouchscrollPanelUCDay.RemoveEventPanelUCDay(ParentFormucday.TLPAppointment);
             isDragging = false; // Reset dragging flag
         }
 
@@ -585,5 +611,7 @@ namespace MKproject.Schedule
         {
             FixUCDesign();//ejbare kermel tfout fiya aal add appointment w tkun badda tekhud original size, tkun bel designer different then the original width.
         }
+
+       
     }
 }

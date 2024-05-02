@@ -539,17 +539,17 @@ namespace MKproject.Schedule
           
             
             int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
-            int employeePosition = UcDayParentForm.ListEmployee_idAllTime.IndexOf((int)DesiredAppointmentAppForm.EmployeeId);
+            string positionrowstring = HourOfTheAppointment.ToString();
 
 
             //ListEmployee_idAllTime and EmployeeAvailabilityByOrder both are ranked by order => both same index
-            bool IsPanelAvailable = false;
+            int employeePosition = UcDayParentForm.ListEmployee_idAllTime.IndexOf((int)DesiredAppointmentAppForm.EmployeeId);
             string HoursAvailability = UcDayParentForm.EmployeeAvailabilityByOrder[employeePosition];
             string[] TheHoursAvailability = HoursAvailability.Split('-');
+
+            bool IsPanelAvailable = false;
             for (int i = 0; i < TheHoursAvailability.Count(); i++)
             {
-                string positionrowstring = HourOfTheAppointment.ToString();
-
                 if (TheHoursAvailability[i] == positionrowstring)
                 {
                     IsPanelAvailable = true;
@@ -985,6 +985,10 @@ namespace MKproject.Schedule
             if (!DisableClosingOnDisactivating)
             {
                 this.Close();
+            }
+            if(IsAddOrUpdate == false)//update
+            {
+                UcDayParentForm.TouchscrollPanelUCDay.AssignEventPanelUCDay(UcDayParentForm.TLPAppointment);
             }
         }
         private void Appointment_VisibleChanged(object sender, EventArgs e)
