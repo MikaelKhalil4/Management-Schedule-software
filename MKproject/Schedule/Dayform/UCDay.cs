@@ -133,81 +133,98 @@ namespace MKproject.Schedule
             flowLayoutPanel.DragDrop += FlowLayoutPanel_DragDrop;
             return flowLayoutPanel;
         }
+
+       
         private void FlowLayoutPanel_DragDrop(object sender, DragEventArgs e)
         {
             FlowLayoutPanel AddflowLayoutPanel = sender as FlowLayoutPanel;
             UCappointment UCApointmentDraged = e.Data.GetData(typeof(UCappointment)) as UCappointment;
-            if (AddflowLayoutPanel != null && UCApointmentDraged != null)
+
+            int NewPositionrow = TLPAppointment.GetRow(AddflowLayoutPanel);
+            int NewPositioncol = TLPAppointment.GetColumn(AddflowLayoutPanel);
+    
+            int OldPositionrow = UCApointmentDraged.RowPosition;
+            int OldPositioncol = UCApointmentDraged.ColumnPosition;
+
+            if (AddflowLayoutPanel != null && UCApointmentDraged != null && (NewPositioncol != OldPositioncol || NewPositionrow != OldPositionrow))
             {
-                FlowLayoutPanel RemoveflowLayoutPanel = UCApointmentDraged.Parent as FlowLayoutPanel;
-                if (RemoveflowLayoutPanel != null)
+                if (CheckIfTimeAvailable(NewPositionrow, NewPositioncol))
                 {
-                    RemoveflowLayoutPanel.Controls.Remove(UCApointmentDraged);
-                }
-                AddflowLayoutPanel.Controls.Add(UCApointmentDraged);
-                AddflowLayoutPanel.Invalidate();
 
-                int AddPositionrow = TLPAppointment.GetRow(AddflowLayoutPanel);
-                int AddPositioncol = TLPAppointment.GetColumn(AddflowLayoutPanel);
 
-                int RemovePositionrow = TLPAppointment.GetRow(RemoveflowLayoutPanel);
-                int RemovePositioncol = TLPAppointment.GetColumn(RemoveflowLayoutPanel) ;
-          
-
-                int NumberOfVisibleControlsRemoveFLP = 0;
-                foreach (Control ctrl in RemoveflowLayoutPanel.Controls)
-                {
-                    if (ctrl.Visible)
+                    FlowLayoutPanel RemoveflowLayoutPanel = UCApointmentDraged.Parent as FlowLayoutPanel;
+                    if (RemoveflowLayoutPanel != null)
                     {
-                        NumberOfVisibleControlsRemoveFLP++;
+                        RemoveflowLayoutPanel.Controls.Remove(UCApointmentDraged);
                     }
-                }
-                int NumberOfVisibleControlsAddFLP = 0;
-                foreach (Control ctrl in AddflowLayoutPanel.Controls)
-                {
-                    if (ctrl.Visible)
+                    AddflowLayoutPanel.Controls.Add(UCApointmentDraged);
+                    AddflowLayoutPanel.Invalidate();
+
+
+
+
+
+
+                    int NumberOfVisibleControlsRemoveFLP = 0;
+                    foreach (Control ctrl in RemoveflowLayoutPanel.Controls)
                     {
-                        NumberOfVisibleControlsAddFLP++;
+                        if (ctrl.Visible)
+                        {
+                            NumberOfVisibleControlsRemoveFLP++;
+                        }
                     }
+                    int NumberOfVisibleControlsAddFLP = 0;
+                    foreach (Control ctrl in AddflowLayoutPanel.Controls)
+                    {
+                        if (ctrl.Visible)
+                        {
+                            NumberOfVisibleControlsAddFLP++;
+                        }
+                    }
+
+                    ResizeINAddingUCAppInFLP(AddflowLayoutPanel, UCApointmentDraged, NumberOfVisibleControlsAddFLP, NewPositionrow, NewPositioncol);
+                    UCApointmentDraged.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, OldPositioncol, OldPositionrow);
+
+
+                    UCApointmentDraged.RowPosition = NewPositionrow;
+                    UCApointmentDraged.ColumnPosition = NewPositioncol;
+
+
+                    UCApointmentDraged.OldDesiredAppointmentUCApp = UCApointmentDraged.DesiredAppointmentUCApp.Copy();//we should copy before changing to the new time
+                    //StartTime
+                    TimeSpan OldStartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay;
+                    TimeSpan NewStartTime = new TimeSpan(NewPositionrow, OldStartTime.Minutes, 0);
+                    UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
+
+                  
+
+                    //EndTime
+                    int DifferenceHours = NewStartTime.Hours - OldStartTime.Hours;//Ma sta3malna loriginale starttime li2anno bi koun sar new
+                    int NewHour = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Hours + DifferenceHours;//Hasab kam hour bi adim aw bi rajiee lstarttime zet shi lal endtime
+
+
+                    TimeSpan NewEndTime = new TimeSpan(NewHour, UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Minutes, 0);
+                    UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
+
+
+                   
+
+                    //Employee
+                    UCApointmentDraged.DesiredAppointmentUCApp.EmployeeId = ListEmployee_idChecked[NewPositioncol - 1];
+
+                    //SQL
+                    UCApointmentDraged.DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);
+
+                    //
+                    UCApointmentDraged.SetUCDesign();
+                    UCApointmentDraged.DragAndDropOperationDone();
                 }
-
-                ResizeINAddingUCAppInFLP(AddflowLayoutPanel, UCApointmentDraged, NumberOfVisibleControlsAddFLP, AddPositionrow, AddPositioncol);
-                UCApointmentDraged.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, RemovePositioncol, RemovePositionrow);
-
-
-                UCApointmentDraged.RowPosition = AddPositionrow;
-                UCApointmentDraged.ColumnPosition = AddPositioncol;
-
-
-
-                //StartTime
-                TimeSpan OldStartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay;
-                TimeSpan NewStartTime = new TimeSpan(AddPositionrow, OldStartTime.Minutes, 0);
-                UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
-
-                string timestring = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.ToString("h:mm tt");
-                string[] partstime = timestring.Split(' ');
-                UCApointmentDraged.labelTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
-
-                //EndTime
-                int DifferenceHours = NewStartTime.Hours - OldStartTime.Hours;//Ma sta3malna loriginale starttime li2anno bi koun sar new
-                int NewHour = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Hours + DifferenceHours;//Hasab kam hour bi adim aw bi rajiee lstarttime zet shi lal endtime
-
-
-                TimeSpan NewEndTime = new TimeSpan(NewHour, UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Minutes, 0);
-                UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
-
-
-                timestring = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.ToString("h:mm tt");
-                partstime = timestring.Split(' ');
-                UCApointmentDraged.labelTime.Text += " - " + partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
-
-                //Employee
-                UCApointmentDraged.DesiredAppointmentUCApp.EmployeeId = ListEmployee_idChecked[AddPositioncol-1];
-
-                //SQL
-                UCApointmentDraged.DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);
+                else
+                {
+                    NotificationBanner.Show("Time Not Available!", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                }
             }
+           
 
             TouchscrollPanelUCDay.AssignEventPanelUCDay(TLPAppointment);
         }
@@ -222,8 +239,40 @@ namespace MKproject.Schedule
                 e.Effect = DragDropEffects.Move;
             }
         }
+        public  bool CheckIfTimeAvailable(int UCNewPositionRow, int UCNewPositionCol)//rae
+        {
+            //ListEmployee_idAllTime and EmployeeAvailabilityByOrder both are ranked by order => both same index
+            string HoursAvailability = EmployeeAvailabilityByOrder[UCNewPositionCol - 1];// employeePosition=PositionCol - 1
+
+            string positionrowstring = UCNewPositionRow.ToString();
 
 
+            string[] TheHoursAvailability = HoursAvailability.Split('-');
+
+
+            bool IsPanelAvailable = false;
+            for (int i = 0; i < TheHoursAvailability.Count(); i++)
+            {
+                if (TheHoursAvailability[i] == positionrowstring)
+                {
+                    IsPanelAvailable = true;
+                    break;
+                }
+            }
+
+            return IsPanelAvailable;
+        }
+     
+        public (int, int) GetUCAppointmentPosition(ClassAppointment DesiredAppointment)
+        {
+            TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
+            int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
+            int employeePosition = ListEmployee_idAllTime.IndexOf((int)DesiredAppointment.EmployeeId);
+
+            return (employeePosition + 1, HourOfTheAppointment);//position flowlayoutpanel hiye position employee bel list-1 
+        }
+      
+        
         private void UCDay_Load(object sender, EventArgs e)
         {
             //Initialise List
@@ -822,7 +871,7 @@ namespace MKproject.Schedule
         {
             //Design
             FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;
-            UCappointment AddUCAppointment = new UCappointment(DesiredAppointment, this);
+            UCappointment AddUCAppointment = new UCappointment(DesiredAppointment, this, ListEmployee_idAllTime);
             AddflowLayoutPanel.Controls.Add(AddUCAppointment);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
             int NumberOfVisibleControlsOfAddFLP = 0;
@@ -837,6 +886,7 @@ namespace MKproject.Schedule
             ResizeINAddingUCAppInFLP(AddflowLayoutPanel, AddUCAppointment, NumberOfVisibleControlsOfAddFLP, positionrow, positioncol);
 
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
+            return AddUCAppointment;
         }
 
         public void ResizeINAddingUCAppInFLP(FlowLayoutPanel AddflowLayoutPanel, UCappointment AddUCAppointment, int NumberOfVisibleControlsOfAddFLP, int positionrow, int positioncol)
@@ -918,16 +968,13 @@ namespace MKproject.Schedule
             }
             return (rowOfThemaxflowLayPan, MaxNumberOfUcData);
         }
-        public void ChangePositionUCappointments(UCappointment ucappointmentclicked, int AddPositioncol, int AddPositionrow, bool IsUCAppPosChanged)
+        public void ChangePositionUCappointments(UCappointment ucappointmentclicked, int NewPositionCol, int NewPositionRow, bool IsUCAppPosChanged)
         {
-            if (IsUCAppPosChanged == false)
+            
+            if (IsUCAppPosChanged)
             {
-
-            }
-            else
-            {
-                int RemovePositioncol = ucappointmentclicked.ColumnPosition;
-                int RemovePositionrow = ucappointmentclicked.RowPosition;
+                int OldPositioncol = ucappointmentclicked.ColumnPosition;
+                int OldPositionrow = ucappointmentclicked.RowPosition;
 
 
                 //Changing the palce of the ucappointmentclicked
@@ -945,7 +992,7 @@ namespace MKproject.Schedule
                 }
 
                 //Add
-                FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(AddPositioncol, AddPositionrow) as FlowLayoutPanel;
+                FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(NewPositionCol, NewPositionRow) as FlowLayoutPanel;
                 AddflowLayoutPanel.Controls.Add(ucappointmentclicked);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
                 int NumberOfVisibleControlsAddFLP = 0;
@@ -957,13 +1004,15 @@ namespace MKproject.Schedule
                     }
                 }
 
-                ResizeINAddingUCAppInFLP(AddflowLayoutPanel, ucappointmentclicked, NumberOfVisibleControlsAddFLP, AddPositionrow, AddPositioncol);
-                ucappointmentclicked.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, RemovePositioncol, RemovePositionrow);
+                ResizeINAddingUCAppInFLP(AddflowLayoutPanel, ucappointmentclicked, NumberOfVisibleControlsAddFLP, NewPositionRow, NewPositionCol);
+                ucappointmentclicked.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, OldPositioncol, OldPositionrow);
 
 
 
-                ucappointmentclicked.RowPosition = AddPositionrow;
-                ucappointmentclicked.ColumnPosition = AddPositioncol;
+                ucappointmentclicked.RowPosition = NewPositionRow;
+                ucappointmentclicked.ColumnPosition = NewPositionCol;
+
+
                 TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
             }
         }
@@ -1036,7 +1085,7 @@ namespace MKproject.Schedule
             {
                 ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);
 
-                UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
+                UCappointment ucappointments = new UCappointment(DesiredAppointment, this, ListEmployee_idAllTime);
 
 
                 TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
@@ -1119,7 +1168,7 @@ namespace MKproject.Schedule
             {
 
                 ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);
-                UCappointment ucappointments = new UCappointment(DesiredAppointment, this);
+                UCappointment ucappointments = new UCappointment(DesiredAppointment, this, rankemployees_id);
 
 
                 TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime

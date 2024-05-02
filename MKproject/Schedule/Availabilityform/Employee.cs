@@ -208,7 +208,7 @@ namespace MKproject.Schedule
                             //eza ee edit width
                             if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + schedule.ucday.KeepSpace) > columnwidth)
                             {
-                                schedule.ucday.EditWidthAppointment(flowLayoutPanel, columnwidth);
+                                schedule.ucday.EditWidthAppointment(flowLayoutPanel, columnwidth, NumberOfVisibleControls);
                             }
                         }
                     }
@@ -233,6 +233,9 @@ namespace MKproject.Schedule
             //Editing the Design of the table layout panel and in the same time, Getting the new ListEmployee_idAllTime and the new  ListEmployee_idChecked, But don't forget we used ListEmployee_idChecked as comparaison before we update it
             for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
             {
+                //Getting the new ListEmployee_idAllTime, it will be the same of ListEmployee_idChecked
+                schedule.ucday.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
+
                 //Comparing if the first employee is still the same, the second...
                 if (ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId == schedule.ucday.ListEmployee_idChecked[i])
                 {
@@ -247,9 +250,6 @@ namespace MKproject.Schedule
                     //If it's a different employee e will have to fill a new column with new appointments and availibity
                     schedule.ucday.UCappointmentsfillColumn(i + 1, ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId, EmployeeFullName);//BOOM COLUMNINDEX = i+1, LI2ANNO FI UCTime zyede w ha yon3ata employee_id taba3 ucemployee li maee rang 1
                 }
-
-                //Getting the new ListEmployee_idAllTime, it will be the same of ListEmployee_idChecked
-                schedule.ucday.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
             }
         }
 

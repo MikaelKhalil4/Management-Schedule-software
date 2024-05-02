@@ -24,19 +24,20 @@ namespace MKproject.Schedule
         public TimeSpan DifferenceTime { get; set; }
 
         public bool IsReadOrEdit { get; set; }
+        bool IsAddOrUpdateMode { get; set; }
 
         //VARIABLES
         public UCDay UcDayParentForm;
         UCTime ucTime;
 
         bool isstarttime;
-        bool IsAddOrUpdate;
 
-        int PositionCol;
-        int PositionRow;
+        int UCNewPositionCol;
+        int UCNewPositionRow;
 
 
         public ClassAppointment DesiredAppointmentAppForm;
+        public ClassAppointment OldDesiredAppointmentAppForm;//al undo bel Notf banner
 
         public UCClientApp ucClientApp;
         public UCappointment UCappointment;
@@ -66,7 +67,7 @@ namespace MKproject.Schedule
             Opacity = 0;
 
             IsReadOrEdit = false;//adding Mode
-            IsAddOrUpdate = true;
+            IsAddOrUpdateMode = true;
             ucTime = UCtime;
             UcDayParentForm = UCday;
 
@@ -105,23 +106,16 @@ namespace MKproject.Schedule
             {
                 IsReadOrEdit = true;
             }
-            IsAddOrUpdate = false;
+            IsAddOrUpdateMode = false;
             UcDayParentForm = UCday;
 
             UCappointment = ucappointment;
 
 
-            //Aam nekhoud Col and Row pos taba3 lucappointment
-            TimeSpan starttimeTimeSpan = DesiredAppointmentAppForm.StartTime.TimeOfDay;//bas kermel le2e uctime
-            int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
-            int employeePosition = UcDayParentForm.ListEmployee_idAllTime.IndexOf((int)DesiredAppointmentAppForm.EmployeeId);
 
-            UCappointment.ColumnPosition = employeePosition + 1;//position flowlayoutpanel hiye position employee bel list-1 
-            UCappointment.RowPosition = HourOfTheAppointment;
-
-
-            PositionCol = UCappointment.ColumnPosition;
-            PositionRow = UCappointment.RowPosition;
+            //ased hattaynehun hone, ta eza eemelet delete, rjeet undo delete, yuno msayavin
+            UCNewPositionCol = UCappointment.ColumnPosition;
+            UCNewPositionRow = UCappointment.RowPosition;
 
 
             ucClientApp = new UCClientApp(this);
@@ -189,7 +183,7 @@ namespace MKproject.Schedule
                 }
 
                 //
-                if (IsAddOrUpdate)//ma mneedar nfout aalaya since bel past mamnuu to add an apointment
+                if (IsAddOrUpdateMode)//ma mneedar nfout aalaya since bel past mamnuu to add an apointment
                 {
 
                     ButtonAddOrUpdate.Text = "Add";
@@ -242,7 +236,7 @@ namespace MKproject.Schedule
             if (DesiredAppointmentAppForm.StartTime.Date <= DateTime.Now.Date)//present-past
             {
                 //Always
-                if (!IsAddOrUpdate)
+                if (!IsAddOrUpdateMode)
                 {
                     if (DesiredAppointmentAppForm.IsCanceled)
                     {
@@ -417,53 +411,6 @@ namespace MKproject.Schedule
 
 
         //used present-future
-        bool ISRequiredFieldsExists(bool IsCallingFromComplete)
-        {
-
-            bool IsPanelAvailable = CheckIfTimeAvailableAndSetAppointmentPosition();//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
-
-            if (!IsReadOrEdit)//Edit Mode
-            {
-                if (IsPanelAvailable)
-                {
-                    if (ucClientApp.IsServiceOrOthersMode)
-                    {
-
-                        if (DesiredAppointmentAppForm.DesiredClient == null)
-                        {
-                            ucClientApp.textBoxSearch.IsRequiredModeOn = true;
-                            return true;
-                        }
-                        else if (IsCallingFromComplete && DesiredAppointmentAppForm.DesiredClientBalance == null && (DesiredAppointmentAppForm.ChoseBundlesString == null && DesiredAppointmentAppForm.ChosenBundlesList == null))
-                        {
-                            //DisableClosingOnDisactivating = true;
-                            //CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
-                            //DisableClosingOnDisactivating = false;
-                            //return true;
-                        }
-                    }
-                    //else if (DesiredAppointmentAppForm.Title == null)
-                    //{
-                    //    ucClientApp.textBoxTitle.IsRequiredModeOn = true;
-                    //    return true;
-                    //}
-                }
-                else
-                {
-                    DisableClosingOnDisactivating = true;
-                    CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.Ok);
-                    DisableClosingOnDisactivating = false;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
         void FillDesiredClientObject()//only used eza aam naamil changes aal appointment w aam nsayevun: Complete/Cancel/Update Or kell shi Undo NoSense, lieanno ha ykuno read only
         {
 
@@ -530,43 +477,67 @@ namespace MKproject.Schedule
                 //Employee
                 dynamic selectedItem = comboBoxEmployee.SelectedItem;
                 DesiredAppointmentAppForm.EmployeeId = Convert.ToInt16(selectedItem.Value);
+
+                //makhassun bel object bas khassun bel Position tb3 el UCappointment bel flowlayoutpannel
+                //
+
+                (UCNewPositionCol, UCNewPositionRow) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm);
+              
             }
         }
-        bool CheckIfTimeAvailableAndSetAppointmentPosition()//rae
+        bool ISRequiredFieldsExists(bool IsCallingFromComplete)
         {
-            //
-            TimeSpan starttimeTimeSpan = DesiredAppointmentAppForm.StartTime.TimeOfDay;//bas kermel le2e uctime
-          
-            
-            int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
-            string positionrowstring = HourOfTheAppointment.ToString();
 
+            bool IsPanelAvailable = UcDayParentForm.CheckIfTimeAvailable(UCNewPositionRow,UCNewPositionCol);//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
 
-            //ListEmployee_idAllTime and EmployeeAvailabilityByOrder both are ranked by order => both same index
-            int employeePosition = UcDayParentForm.ListEmployee_idAllTime.IndexOf((int)DesiredAppointmentAppForm.EmployeeId);
-            string HoursAvailability = UcDayParentForm.EmployeeAvailabilityByOrder[employeePosition];
-            string[] TheHoursAvailability = HoursAvailability.Split('-');
-
-            bool IsPanelAvailable = false;
-            for (int i = 0; i < TheHoursAvailability.Count(); i++)
+            if (!IsReadOrEdit)//Edit Mode
             {
-                if (TheHoursAvailability[i] == positionrowstring)
+                if (IsPanelAvailable)
                 {
-                    IsPanelAvailable = true;
-                    break;
+                    if (ucClientApp.IsServiceOrOthersMode)
+                    {
+
+                        if (DesiredAppointmentAppForm.DesiredClient == null)
+                        {
+                            ucClientApp.textBoxSearch.IsRequiredModeOn = true;
+                            return true;
+                        }
+                        else if (IsCallingFromComplete && DesiredAppointmentAppForm.DesiredClientBalance == null && (DesiredAppointmentAppForm.ChoseBundlesString == null && DesiredAppointmentAppForm.ChosenBundlesList == null))
+                        {
+                            //DisableClosingOnDisactivating = true;
+                            //CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
+                            //DisableClosingOnDisactivating = false;
+                            //return true;
+                        }
+                    }
+                    //else if (DesiredAppointmentAppForm.Title == null)
+                    //{
+                    //    ucClientApp.textBoxTitle.IsRequiredModeOn = true;
+                    //    return true;
+                    //}
                 }
+                else
+                {
+                    DisableClosingOnDisactivating = true;
+                    CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.Ok);
+                    DisableClosingOnDisactivating = false;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return false;
             }
 
-            PositionCol = employeePosition + 1;//position flowlayoutpanel hiye position employee bel list-1 
-            PositionRow = HourOfTheAppointment;
-
-            return IsPanelAvailable;
         }
+      
         void ChangeAppointmentLocation()
         {
             //Design
             bool IsUCAppPosChanged;
-            if (UCappointment.RowPosition == PositionRow && UCappointment.ColumnPosition == PositionCol)//checking eza tghayrarit its position or no
+            if (UCappointment.RowPosition == UCNewPositionRow && UCappointment.ColumnPosition == UCNewPositionCol)//checking eza tghayrarit its position or no
             {
                 IsUCAppPosChanged = false;
             }
@@ -574,7 +545,7 @@ namespace MKproject.Schedule
             {
                 IsUCAppPosChanged = true;
             }
-            UcDayParentForm.ChangePositionUCappointments(UCappointment, DesiredAppointmentAppForm, PositionCol, PositionRow, IsUCAppPosChanged);
+            UcDayParentForm.ChangePositionUCappointments(UCappointment, UCNewPositionCol, UCNewPositionRow, IsUCAppPosChanged);
         }
 
 
@@ -589,16 +560,16 @@ namespace MKproject.Schedule
         void AddOrUpdateSQL()
         {
 
-            if (IsAddOrUpdate)
+            if (IsAddOrUpdateMode)
             {
                 //SQL:
                 DesiredAppointmentAppForm.InsertOrUpdateAppointment(true);
                 DesiredAppointmentAppForm.AppointmentID = ClassAppointment.GetLastAppointmentId();
                 //Design
-                UCappointment = UcDayParentForm.AddUCappointments(DesiredAppointmentAppForm, PositionCol, PositionRow);
+                UCappointment = UcDayParentForm.AddUCappointments(DesiredAppointmentAppForm, UCNewPositionCol, UCNewPositionRow);
                 //OnAppointmentUpdate?.Invoke(this, EventArgs.Empty); // mahhal meshlogic hone, anw za toloolak mashekil bi kun ela reason, bas now keep it like this, cz aal undo men el notif aam taamil mashekil
 
-                NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode, Program.HomeForm);
+                NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode,true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                 NotfBanner.UndoNotficationBanner += NotfBanner_UndoAddNotficationBanner;
             }
             else
@@ -606,6 +577,7 @@ namespace MKproject.Schedule
                 //SQL:
                 DesiredAppointmentAppForm.InsertOrUpdateAppointment(false);
                 //Design
+                OldDesiredAppointmentAppForm = UCappointment.DesiredAppointmentUCApp.Copy();//ejabre foe el event   OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);, cz inside it amm tetghayar Cappointment.DesiredAppointmentUCApp
                 ChangeAppointmentLocation();
                 OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
             }
@@ -680,9 +652,9 @@ namespace MKproject.Schedule
             {
                 AddOrUpdateSQL();//Notf banner inside
 
-                if (!IsAddOrUpdate)//NotificationBanner tb3 el add, inside of  AddOrUpdateSQL(); ased 
+                if (!IsAddOrUpdateMode)//NotificationBanner tb3 el add, inside of  AddOrUpdateSQL(); ased 
                 {
-                    NotfBanner = NotificationBanner.Show("Appointment Updated", NotificationBanner.EnumType.ConfirmationMode, Program.HomeForm);
+                    NotfBanner = NotificationBanner.Show("Appointment Updated", NotificationBanner.EnumType.ConfirmationMode,true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                     NotfBanner.UndoNotficationBanner += NotfBanner_UndoUpdateNotficationBanner;
                 }
             }
@@ -715,7 +687,7 @@ namespace MKproject.Schedule
 
                                     //
                                     CompletingOrUndoingCompletionAppointment(true);
-                                    NotfBanner = NotificationBanner.Show("Appointment Completed, Session Reduced", NotificationBanner.EnumType.ConfirmationMode, Program.HomeForm);
+                                    NotfBanner = NotificationBanner.Show("Appointment Completed, Session Reduced", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                                 }
                                 else
                                 {
@@ -740,7 +712,7 @@ namespace MKproject.Schedule
                             DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();
                             //SQl
                             CompletingOrUndoingCompletionAppointment(false);
-                            NotfBanner = NotificationBanner.Show("Appointment completion undo succeeded", NotificationBanner.EnumType.UndoMode, Program.HomeForm);
+                            NotfBanner = NotificationBanner.Show("Appointment completion undo succeeded", NotificationBanner.EnumType.UndoMode, true , Program.HomeForm, UndoFromNotficationBannerModeOn);
                             if (DesiredAppointmentAppForm.StartTime.Date == DateTime.Now.Date)
                             {
                                 DesiredAppointmentAppForm.HistoryClientBalance = DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceSessionLeftDetails;
@@ -754,12 +726,12 @@ namespace MKproject.Schedule
                         if (!DesiredAppointmentAppForm.IsCompleted)
                         {
                             CompletingOrUndoingCompletionAppointment(true);
-                            NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, Program.HomeForm);
+                            NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm,UndoFromNotficationBannerModeOn);
                         }
                         else
                         {
                             CompletingOrUndoingCompletionAppointment(false);
-                            NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, Program.HomeForm);
+                            NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true , Program.HomeForm, UndoFromNotficationBannerModeOn);
                         }
                     }
                 }
@@ -787,12 +759,12 @@ namespace MKproject.Schedule
                         DisableClosingOnDisactivating = false;
                         //
                         CompletingOrUndoingCompletionAppointment(true);
-                        NotfBanner = NotificationBanner.Show("Appointment Completed, Services Purchased", NotificationBanner.EnumType.ConfirmationMode, Program.HomeForm);
+                        NotfBanner = NotificationBanner.Show("Appointment Completed, Services Purchased", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                     }
                     else
                     {
                         CompletingOrUndoingCompletionAppointment(false);
-                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, Program.HomeForm);
+                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                     }
                 }
                 else //Tile Or Nothing
@@ -801,12 +773,12 @@ namespace MKproject.Schedule
                     if (!DesiredAppointmentAppForm.IsCompleted)
                     {
                         CompletingOrUndoingCompletionAppointment(true);
-                        NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, Program.HomeForm);
+                        NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                     }
                     else
                     {
                         CompletingOrUndoingCompletionAppointment(false);
-                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, Program.HomeForm);
+                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                     }
                 }
 
@@ -833,14 +805,14 @@ namespace MKproject.Schedule
 
                     DesiredAppointmentAppForm.IsCanceled = true;
                     AddOrUpdateSQL(); //ejabre tahtha
-                    NotfBanner = NotificationBanner.Show("Appointment Canceled", NotificationBanner.EnumType.CanceledMode, Program.HomeForm);
+                    NotfBanner = NotificationBanner.Show("Appointment Canceled", NotificationBanner.EnumType.CanceledMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                     OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
                 }
                 else//in this case bi kun kell shi read only, that why ma mnaamil update la kell el info
                 {
                     DesiredAppointmentAppForm.IsCanceled = false;//lezim nemnaa yghayir hayalla shi foe, read only kello
                     DesiredAppointmentAppForm.SetOrResetIsCanceled();
-                    NotfBanner = NotificationBanner.Show("Appointment Cancelation Undo Succeeded", NotificationBanner.EnumType.UndoMode, Program.HomeForm);
+                    NotfBanner = NotificationBanner.Show("Appointment Cancelation Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
                     OnAppointmentUndoCancelation?.Invoke(this, EventArgs.Empty);
                 }
                 if (NotfBanner != null)
@@ -859,7 +831,7 @@ namespace MKproject.Schedule
             UCappointment.Dispose();
             UCappointment.RemoveAppointmentFromTLP();
 
-            NotfBanner = NotificationBanner.Show("Appointment Deleted", NotificationBanner.EnumType.DeletedMode, Program.HomeForm);
+            NotfBanner = NotificationBanner.Show("Appointment Deleted", NotificationBanner.EnumType.DeletedMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
             if (NotfBanner != null)
             {
                 NotfBanner.UndoNotficationBanner += NotfBanner_UndoDeleteNotficationBanner; ;
@@ -878,6 +850,12 @@ namespace MKproject.Schedule
         private void NotfBanner_UndoUpdateNotficationBanner(object sender, EventArgs e)
         {
             UndoFromNotficationBannerModeOn = true;
+        
+            DesiredAppointmentAppForm = OldDesiredAppointmentAppForm.Copy();
+            (UCNewPositionCol, UCNewPositionRow) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm);
+
+            IsAddOrUpdateMode = false;
+            AddOrUpdateSQL();
         }
         private void Notf_UndoComplitionNotficationBanner(object sender, EventArgs e)
         {
@@ -892,7 +870,7 @@ namespace MKproject.Schedule
         private void NotfBanner_UndoDeleteNotficationBanner(object sender, EventArgs e)
         {
             UndoFromNotficationBannerModeOn = true;
-            IsAddOrUpdate = true;
+            IsAddOrUpdateMode = true;
             AddOrUpdateSQL();
         }
 
@@ -984,11 +962,11 @@ namespace MKproject.Schedule
         {
             if (!DisableClosingOnDisactivating)
             {
+                if (IsAddOrUpdateMode == false)//update
+                {
+                    UcDayParentForm.TouchscrollPanelUCDay.AssignEventPanelUCDay(UcDayParentForm.TLPAppointment);
+                }
                 this.Close();
-            }
-            if(IsAddOrUpdate == false)//update
-            {
-                UcDayParentForm.TouchscrollPanelUCDay.AssignEventPanelUCDay(UcDayParentForm.TLPAppointment);
             }
         }
         private void Appointment_VisibleChanged(object sender, EventArgs e)

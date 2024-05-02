@@ -16,59 +16,103 @@ namespace CustomizedTools
     public partial class NotificationBanner : Form
     {
         public Form ParentFormHome { get; set; }
-        public string text { get; set; }
+        public string Text { get; set; }
         public EnumType type { get; set; }
+        bool UndoFromNotficationBannerClicked { get; set; }
+        bool WithOrWithoutButtonDone { get; set; }
+
+
+        Color GreenColor = Color.FromArgb(2, 162, 111);//green
+        Color OrangeColor = Color.FromArgb(244, 86, 7);//orange
 
         public enum EnumType
         {
             ConfirmationMode,//Green
             CanceledMode,//orange color
-            UndoMode,
+            UndoMode,//metel lamma ekbus undii cancelation or undo comletion
             DeletedMode//red color
+
         }
-        private NotificationBanner(string Text, EnumType type, Form parentFormHome)
+        private NotificationBanner(string text, EnumType type,bool withOrWithoutButtonDone , Form parentFormHome,bool undoFromNotficationBannerModeOn)
         {
             InitializeComponent();
             this.Opacity = 0;
             this.TopMost = true;
+            UndoFromNotficationBannerClicked = undoFromNotficationBannerModeOn;
+            WithOrWithoutButtonDone = withOrWithoutButtonDone;
             this.type = type;
-            text = Text;
+            Text = text;
             ParentFormHome = parentFormHome;
             LoadForm();
-
 
         }
 
 
-
+        void SetDeignWithoutUndoButton()
+        {
+            ButtonUndo.Dispose();
+            TLPglobal.ColumnStyles[2].Width = 0;
+            
+        }
         void LoadForm()
         {
+            int ButtonUndoWidth;
 
-            labelText.Text = text;
-            float LabelDesiredWeight = RandomFunctions.MeasureLabelText(labelText);
-            this.Width = Convert.ToInt16(LabelDesiredWeight) + pictureBox.Width + ButtonUndo.Width + 12;
+
+            if (UndoFromNotficationBannerClicked)
+            {
+                SetDeignWithoutUndoButton();
+                ButtonUndoWidth = 40;//since the text is so small
+                Text = "Undone";    
+            }
+            else
+            {
+                if (WithOrWithoutButtonDone)
+                {
+                    ButtonUndoWidth = ButtonUndo.Width;
+                }
+                else
+                {
+                    SetDeignWithoutUndoButton();
+                    ButtonUndoWidth = 0;
+                }
+            }
+
+          
+
+            labelText.Text = Text;
+            this.Width = Convert.ToInt16(RandomFunctions.MeasureLabelText(labelText)) + pictureBox.Width + ButtonUndoWidth + 17;
 
             Image DesiredIcon = null;
-            if (type == EnumType.ConfirmationMode)
+            if (!UndoFromNotficationBannerClicked)
+            {
+                if (type == EnumType.ConfirmationMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
+                    this.TLPglobal.BackColor = GreenColor;
+                }
+                else if (type == EnumType.UndoMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
+                    this.TLPglobal.BackColor = GreenColor;
+                }
+                else if (type == EnumType.CanceledMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
+                    this.TLPglobal.BackColor = OrangeColor;
+                }
+                else if (type == EnumType.DeletedMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
+                    this.TLPglobal.BackColor = Color.Red;
+                }
+            }
+            else
             {
                 DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
-                this.TLPglobal.BackColor = Color.FromArgb(2, 162, 111);//green
+                this.TLPglobal.BackColor = GreenColor;
             }
-            else if (type == EnumType.UndoMode)
-            {
-                DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
-                this.TLPglobal.BackColor = Color.FromArgb(2, 162, 111);//green
-            }
-            else if (type == EnumType.CanceledMode)
-            {
-                DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
-                this.TLPglobal.BackColor = Color.FromArgb(244, 86, 7);//orange
-            }
-            else if (type == EnumType.DeletedMode)
-            {
-                DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
-                this.TLPglobal.BackColor = Color.Red;
-            }
+
             ButtonUndo.BackAndMouseHoverColor = this.TLPglobal.BackColor;
             pictureBox.BackgroundImage = DesiredIcon;
 
@@ -145,7 +189,7 @@ namespace CustomizedTools
 
 
         static NotificationBanner cmb;
-        public static NotificationBanner Show(string message, EnumType type, Form parentFormHome)
+        public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome,bool UndoFromNotficationBannerCliked)
         {
             if (cmb != null)
             {
@@ -153,7 +197,7 @@ namespace CustomizedTools
                 cmb.Dispose();
                 cmb = null;
             }
-            cmb = new NotificationBanner(message, type, parentFormHome);
+            cmb = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked);
             cmb.Show();
             return cmb;
         }
