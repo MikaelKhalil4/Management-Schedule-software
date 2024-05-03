@@ -134,6 +134,8 @@ namespace MKproject.Schedule
 
         void SetDesign()
         {
+            
+
             TLPGlobal.Controls.Add(ucClientApp, 0, 0);
             TLPGlobal.SetColumnSpan(ucClientApp, 2);
             ucClientApp.Anchor = AnchorStyles.None;
@@ -531,8 +533,7 @@ namespace MKproject.Schedule
                 return false;
             }
 
-        }
-      
+        }   
         void ChangeAppointmentLocation()
         {
             //Design

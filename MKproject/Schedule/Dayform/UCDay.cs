@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using MKproject.Schedule.UCData;
 using MKproject.Management;
 using CustomizedTools;
+using MKproject.Schedule.Dayform;
 
 namespace MKproject.Schedule
 {
@@ -113,28 +114,8 @@ namespace MKproject.Schedule
             TLPAppointment.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 125);
             TLPEmployees.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 125);
         }
-        public FlowLayoutPanel CreateFLP()
-        {
-            FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
-            //Properties
-            flowLayoutPanel.AllowDrop = true;
-            flowLayoutPanel.Dock = DockStyle.Fill;
-            flowLayoutPanel.BackColor = Color.White;
-            flowLayoutPanel.Cursor = Cursors.Hand;
-            flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
 
-            //Events
-            flowLayoutPanel.Click += flowLayoutPanel1_Click;
-            flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
-            flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
 
-            flowLayoutPanel.DragEnter += FlowLayoutPanel_DragEnter;
-            flowLayoutPanel.DragOver += FlowLayoutPanel_DragOver;
-            flowLayoutPanel.DragDrop += FlowLayoutPanel_DragDrop;
-            return flowLayoutPanel;
-        }
-
-       
         private void FlowLayoutPanel_DragDrop(object sender, DragEventArgs e)
         {
             FlowLayoutPanel AddflowLayoutPanel = sender as FlowLayoutPanel;
@@ -142,7 +123,7 @@ namespace MKproject.Schedule
 
             int NewPositionrow = TLPAppointment.GetRow(AddflowLayoutPanel);
             int NewPositioncol = TLPAppointment.GetColumn(AddflowLayoutPanel);
-    
+
             int OldPositionrow = UCApointmentDraged.RowPosition;
             int OldPositioncol = UCApointmentDraged.ColumnPosition;
 
@@ -191,12 +172,12 @@ namespace MKproject.Schedule
 
 
                     UCApointmentDraged.OldDesiredAppointmentUCApp = UCApointmentDraged.DesiredAppointmentUCApp.Copy();//we should copy before changing to the new time
+
                     //StartTime
                     TimeSpan OldStartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay;
                     TimeSpan NewStartTime = new TimeSpan(NewPositionrow, OldStartTime.Minutes, 0);
                     UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
 
-                  
 
                     //EndTime
                     int DifferenceHours = NewStartTime.Hours - OldStartTime.Hours;//Ma sta3malna loriginale starttime li2anno bi koun sar new
@@ -207,7 +188,7 @@ namespace MKproject.Schedule
                     UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
 
 
-                   
+
 
                     //Employee
                     UCApointmentDraged.DesiredAppointmentUCApp.EmployeeId = ListEmployee_idChecked[NewPositioncol - 1];
@@ -224,7 +205,7 @@ namespace MKproject.Schedule
                     NotificationBanner.Show("Time Not Available!", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
                 }
             }
-           
+
 
             TouchscrollPanelUCDay.AssignEventPanelUCDay(TLPAppointment);
         }
@@ -239,7 +220,7 @@ namespace MKproject.Schedule
                 e.Effect = DragDropEffects.Move;
             }
         }
-        public  bool CheckIfTimeAvailable(int UCNewPositionRow, int UCNewPositionCol)//rae
+        public bool CheckIfTimeAvailable(int UCNewPositionRow, int UCNewPositionCol)//rae
         {
             //ListEmployee_idAllTime and EmployeeAvailabilityByOrder both are ranked by order => both same index
             string HoursAvailability = EmployeeAvailabilityByOrder[UCNewPositionCol - 1];// employeePosition=PositionCol - 1
@@ -262,7 +243,7 @@ namespace MKproject.Schedule
 
             return IsPanelAvailable;
         }
-     
+
         public (int, int) GetUCAppointmentPosition(ClassAppointment DesiredAppointment)
         {
             TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
@@ -271,8 +252,8 @@ namespace MKproject.Schedule
 
             return (employeePosition + 1, HourOfTheAppointment);//position flowlayoutpanel hiye position employee bel list-1 
         }
-      
-        
+
+
         private void UCDay_Load(object sender, EventArgs e)
         {
             //Initialise List
@@ -288,24 +269,15 @@ namespace MKproject.Schedule
             {
                 if (TLPEmployees.Controls.Count == 0)
                 {
-                    //Label Add
-                    Label label = new Label();
-                    label.Dock = DockStyle.Fill;
-                    label.BackColor = Color.FromArgb(119, 132, 234);
-                    label.ForeColor = Color.White;
-                    label.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    label.AutoSize = true;
-                    label.TextAlign = ContentAlignment.MiddleCenter;
-
-                    TLPEmployees.Controls.Add(label, 1, 0);
-                    label.Click += TLPEmployees_Click;
+                    LabelEmployee labelEmployee = CreateLabelEmployee();
+                    TLPEmployees.Controls.Add(labelEmployee, 1, 0);
 
                     //Getting the name and the family of the first employee who is checked but not adding it to the list because we want to add the first employee and the other employees at the same time
                     for (int i = 0; i < ListEmployeeSchedule.Count; i++)
                     {
                         if (ListEmployeeSchedule[i].IsChecked == true)
                         {
-                            label.Text = ListEmployeeSchedule[i].Fname + " " + ListEmployeeSchedule[i].Lname;
+                            labelEmployee.Text = ListEmployeeSchedule[i].Fname + " " + ListEmployeeSchedule[i].Lname;
                             break;//he will get the first one and then get out
                         }
                     }
@@ -330,8 +302,8 @@ namespace MKproject.Schedule
                         AddColumnUCDay();// there's in it add to the ListEmployee_idChecked
 
                         ClassEmployee EmployeeSelected = ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == ListEmployee_idChecked[i + 1]);
-                        Label label = (Label)TLPEmployees.GetControlFromPosition(i + 2, 0);
-                        label.Text = EmployeeSelected.Fname + " " + EmployeeSelected.Lname;
+                        LabelEmployee labelEmployee = (LabelEmployee)TLPEmployees.GetControlFromPosition(i + 2, 0);
+                        labelEmployee.Text = EmployeeSelected.Fname + " " + EmployeeSelected.Lname;
                     }
                 }
 
@@ -462,6 +434,167 @@ namespace MKproject.Schedule
         }
 
 
+        public FlowLayoutPanel CreateFLP()
+        {
+            FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+            //Properties
+            flowLayoutPanel.AllowDrop = true;
+            flowLayoutPanel.Dock = DockStyle.Fill;
+            flowLayoutPanel.BackColor = Color.White;
+            flowLayoutPanel.Cursor = Cursors.Hand;
+            flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
+
+            //Events
+            flowLayoutPanel.Click += flowLayoutPanel1_Click;
+            flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
+            flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
+
+            flowLayoutPanel.DragEnter += FlowLayoutPanel_DragEnter;
+            flowLayoutPanel.DragOver += FlowLayoutPanel_DragOver;
+            flowLayoutPanel.DragDrop += FlowLayoutPanel_DragDrop;
+            return flowLayoutPanel;
+        }
+        LabelEmployee CreateLabelEmployee()
+        {
+            //Design 
+            LabelEmployee labelEmployee = new LabelEmployee();
+            labelEmployee.Dock = DockStyle.Fill;
+            labelEmployee.BackColor = Color.FromArgb(119, 132, 234);
+            labelEmployee.ForeColor = Color.White;
+            labelEmployee.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            labelEmployee.AutoSize = true;
+            labelEmployee.TextAlign = ContentAlignment.MiddleCenter;
+            labelEmployee.Cursor = Cursors.Hand;
+            //Events
+            labelEmployee.Click += TLPEmployees_Click;
+            labelEmployee.MouseMove += LabelEmployee_MouseMove;
+            labelEmployee.MouseLeave += LabelEmployee_MouseLeave;
+            return labelEmployee;
+        }
+        void ActiveDesiredLabel(LabelEmployee DesiredLabelEmployee)
+        {
+            //Design
+            foreach (LabelEmployee labelEmployee in TLPEmployees.Controls)
+            {
+                if (labelEmployee.IsClicked && labelEmployee != DesiredLabelEmployee)
+                {
+                    labelEmployee.IsClicked = false;
+                    labelEmployee.SetDefaultModeDesign();
+                }
+                else if (labelEmployee == DesiredLabelEmployee)
+                {
+                    labelEmployee.IsClicked = true;
+                    labelEmployee.SetActiveModeDesign();
+                }
+            }
+        }
+        public void DesActiveAllLabels()
+        {
+            foreach (LabelEmployee labelEmployee in TLPEmployees.Controls)
+            {
+                if (labelEmployee.IsClicked)//we re turnin them off all
+                {
+                    labelEmployee.IsClicked = false;
+                    labelEmployee.SetDefaultModeDesign();
+                }
+            }
+        }
+
+
+
+        private void TLPEmployees_Click(object sender, EventArgs e)
+        {
+            IsClickEmployeNameToExpandColumn = true;
+
+
+            if (TLPAppointment.ColumnCount != 2)//if ==2 , It's when the table has one columnemployee of course this column will be always in percentage
+            {
+
+                if (sender is LabelEmployee)
+                {
+                    Cursor = Cursors.WaitCursor;
+
+                    LabelEmployee clickedLabel = (LabelEmployee)sender;
+                    int ClickedRow = TLPEmployees.GetRow(clickedLabel);
+                    int ClickedCol = TLPEmployees.GetColumn(clickedLabel);
+
+                    //The click event will activate, if it's not the first cell where's there's no name of a employee in tableLayoutPanelEmployees
+                    if (ClickedCol != 0)
+                    {
+
+
+
+                        //Absolute -> Percentage
+                        if (TLPAppointment.ColumnStyles[ClickedCol].SizeType is SizeType.Absolute)
+                        {
+                            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPEmployees);
+                            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
+
+                            //kermel kel ucappointment ybaynoma bel column
+                            for (int j = 1; j < TLPAppointment.ColumnCount; j++)
+                            {
+                                ResizeWidthAppointmentInTheColumnPecentage(j);
+                            }
+
+
+                            //Design
+                            DesActiveAllLabels();
+                        }
+
+
+                        //Percentage -> Absolute
+                        else
+                        {
+                            //eza toli3 fi column absolute gher li eemelnela  click laken mana nredo percentage
+                            if (CheckOtherColumnsStylesType(TLPAppointment, ClickedCol))
+                            {
+                                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPEmployees);
+                                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
+                            }
+
+                            bool HasChanged = EditTLPWithTheColumnAbsolute(ClickedCol);
+
+                            if (HasChanged)
+                            {
+                                ActiveDesiredLabel(clickedLabel);
+                            }
+                            else
+                            {
+                                DesActiveAllLabels();
+                            }
+                        }
+
+                    }
+
+
+                    Cursor = Cursors.Default;
+                }
+            }
+
+            IsClickEmployeNameToExpandColumn = false;
+
+        }//changing size column of the Table Layout Panel
+        private void LabelEmployee_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            LabelEmployee labelEmployee = (LabelEmployee)sender;
+            if (!labelEmployee.IsClicked)
+            {
+                labelEmployee.SetActiveModeDesign();
+            }
+
+        }
+        private void LabelEmployee_MouseLeave(object sender, EventArgs e)
+        {
+            LabelEmployee labelEmployee = (LabelEmployee)sender;
+            if (!labelEmployee.IsClicked)
+            {
+                labelEmployee.SetDefaultModeDesign();
+            }
+        }
+
+
+
 
 
 
@@ -498,72 +631,6 @@ namespace MKproject.Schedule
 
             }
         }//inside TableLayoutPanel Of UcDay
-        private void TLPEmployees_Click(object sender, EventArgs e)
-        {
-            IsClickEmployeNameToExpandColumn = true;
-            //It's when the table has one columnemployee of course this column will be always in percentage
-            if (TLPAppointment.ColumnCount == 2)
-            {
-
-            }
-
-            else
-            {
-
-                if (sender is Label)
-                {
-                    Cursor = Cursors.WaitCursor;
-
-                    Label clickedLabel = (Label)sender;
-                    int ClickedRow = TLPEmployees.GetRow(clickedLabel);
-                    int ClickedCol = TLPEmployees.GetColumn(clickedLabel);
-
-                    //The click event will activate, if it's not the first cell where's there's no name of a employee in tableLayoutPanelEmployees
-                    if (ClickedCol != 0)
-                    {
-
-                        //Absolute -> Percentage
-                        if (TLPAppointment.ColumnStyles[ClickedCol].SizeType is SizeType.Absolute)
-                        {
-                            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPEmployees);
-                            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
-
-                            //kermel kel ucappointment ybaynoma bel column
-                            for (int j = 1; j < TLPAppointment.ColumnCount; j++)
-                            {
-                                ResizeWidthAppointmentInTheColumnPecentage(j);
-                            }
-                        }
-
-
-                        //Percentage -> Absolute
-                        else
-                        {
-                            //eza toli3 fi column absolute gher li eemelnela  click laken mana nredo percentage
-                            if (CheckOtherColumnsStylesType(TLPAppointment, ClickedCol))
-                            {
-                                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPEmployees);
-                                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(TLPAppointment);
-                            }
-
-                            EditTLPWithTheColumnAbsolute(ClickedCol);
-                        }
-
-                    }
-
-
-                    else
-                    {
-
-                    }
-
-                    Cursor = Cursors.Default;
-                }
-            }
-
-            IsClickEmployeNameToExpandColumn = false;
-
-        }//changing size column of the Table Layout Panel
         private void buttonToday_Click(object sender, EventArgs e)
         {
             if (SelectedDate.Date != DateTime.Now.Date)
@@ -646,7 +713,7 @@ namespace MKproject.Schedule
         }
         private void labelDate_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor(Program.HomeForm, true, false,Color.Transparent);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, Color.Transparent);
             Program.GreyForm.Show();
             //UCmonth show
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
@@ -744,7 +811,7 @@ namespace MKproject.Schedule
                     }
                 }
             }
-
+            DesActiveAllLabels();
             ucdayoldwidth = this.Size.Width;
         }
 
@@ -970,7 +1037,7 @@ namespace MKproject.Schedule
         }
         public void ChangePositionUCappointments(UCappointment ucappointmentclicked, int NewPositionCol, int NewPositionRow, bool IsUCAppPosChanged)
         {
-            
+
             if (IsUCAppPosChanged)
             {
                 int OldPositioncol = ucappointmentclicked.ColumnPosition;
@@ -1122,8 +1189,8 @@ namespace MKproject.Schedule
 
 
 
-            Label label = (Label)TLPEmployees.GetControlFromPosition(columnindex, 0);
-            label.Text = employeename;
+            LabelEmployee labelEmployee = (LabelEmployee)TLPEmployees.GetControlFromPosition(columnindex, 0);
+            labelEmployee.Text = employeename;
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
 
 
@@ -1272,8 +1339,8 @@ namespace MKproject.Schedule
                     {
                         //hone mafik tehkheda list li2anno momkin ykoun men employee disactive
                         string employeename = SQLToProject.DisplayEmployeeName(rankemployees_id[i]);
-                        Label label = (Label)TLPEmployees.GetControlFromPosition(columnindex, 0);
-                        label.Text = employeename;
+                        LabelEmployee labelEmployee = (LabelEmployee)TLPEmployees.GetControlFromPosition(columnindex, 0);
+                        labelEmployee.Text = employeename;
                         string[] HoursOfTheday = availabilityrankorder[i].Split('-');
                         AvailibilityColumnNClearUCA(columnindex, HoursOfTheday);//listemployeeid ma3 tanesou2 columns BOOM
                     }
@@ -1285,8 +1352,8 @@ namespace MKproject.Schedule
             else
             {
                 string employeename = "No Appointments were assigned";
-                Label label = (Label)TLPEmployees.GetControlFromPosition(1, 0);//BOOM
-                label.Text = employeename;
+                LabelEmployee labelEmployee = (LabelEmployee)TLPEmployees.GetControlFromPosition(1, 0);//BOOM
+                labelEmployee.Text = employeename;
                 string[] HoursOfTheday = availabilityrankorder[0].Split('-');
                 AvailibilityColumnNClearUCA(1, HoursOfTheday);//listemployeeid ma3 tanesou2 columns BOOM
             }
@@ -1348,6 +1415,7 @@ namespace MKproject.Schedule
         }
 
         ///-Fill and Remove (Labels & Flow Layout Panel)
+
         public void FillLastColumnPanelAppointmentsWithFlowLayoutPanel()
         {
             for (int j = 0; j < 24; j++)
@@ -1357,20 +1425,7 @@ namespace MKproject.Schedule
         }
         public void FillLastColumnPanelEmployeesWithLabels()
         {
-            //Design 
-            Label label = new Label();
-            label.Dock = DockStyle.Fill;
-            label.BackColor = Color.FromArgb(119, 132, 234);
-            label.ForeColor = Color.White;
-            label.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            label.AutoSize = true;
-            label.TextAlign = ContentAlignment.MiddleCenter;
-
-
-            TLPEmployees.Controls.Add(label, TLPEmployees.ColumnCount - 1, 0);
-
-            //Events
-            label.Click += TLPEmployees_Click;
+            TLPEmployees.Controls.Add(CreateLabelEmployee(), TLPEmployees.ColumnCount - 1, 0);
         }
         public void RemoveControlsFromLastColumnPanelApCo()
         {
@@ -1721,9 +1776,9 @@ namespace MKproject.Schedule
                 }
             }
         }
-        public void EditTLPWithTheColumnAbsolute(int AbsoluteColumn)
+        public bool EditTLPWithTheColumnAbsolute(int AbsoluteColumn)
         {
-
+            bool HasChangedToAbsolute;
 
 
             //FLP That has the biggest number of ucdata
@@ -1736,6 +1791,7 @@ namespace MKproject.Schedule
             if (MaxNumberOfUcData == 0 || ((UCappointment.OriginalWidth * MaxNumberOfUcData) + KeepSpace) < columnwidth)//approximately because without using the margins to compare
             {
                 //It will Stay Percentage
+                HasChangedToAbsolute = false;
             }
             //If not then we will Edit The Clicked Column making him to absolute
             else
@@ -1751,8 +1807,9 @@ namespace MKproject.Schedule
                         ResizeWidthAppointmentInTheColumnPecentage(j);
                     }
                 }
+                HasChangedToAbsolute = true;
             }
-
+            return HasChangedToAbsolute;
         }
 
 

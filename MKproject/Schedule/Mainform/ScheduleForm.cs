@@ -243,6 +243,7 @@ namespace MKproject.Schedule
                 for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
                 {
                     ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
+
                 }
             }
         }

@@ -159,7 +159,6 @@ namespace MKproject.Management
                         {
                            //Sql And Logic
                             DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, Date, ParentFormClientMang.Client,null);//hattayneha global lieanno ha nestaamela men kaza mahal
-                            DateTime NewCheckInDate = SQLToProject.GetMaxAttendanceDateOfClient(ParentFormClientMang.Client.ClientId);//ma stamlna DateTime.Now, lieanno ma32oul ma tetghayar, eza fi date akbar menna
 
 
                         //Design
@@ -191,6 +190,8 @@ namespace MKproject.Management
 
                             if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
                             {
+                                DateTime NewCheckInDate = SQLToProject.GetMaxAttendanceDateOfClient(ParentFormClientMang.Client.ClientId);//ma stamlna DateTime.Now, lieanno ma32oul ma tetghayar, eza fi date akbar menna
+
                                 ParentFormClientMang.UCLastVisit.Detail = RandomFunctions.SetDateFormat(NewCheckInDate.ToString());
                                 ParentFormClientMang.Client.LastVisit = NewCheckInDate;
 

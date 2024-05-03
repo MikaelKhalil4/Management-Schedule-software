@@ -37,6 +37,8 @@ namespace CustomizedTools
         {
             InitializeComponent();
             this.Opacity = 0;
+           
+
             this.TopMost = true;
             UndoFromNotficationBannerClicked = undoFromNotficationBannerModeOn;
             WithOrWithoutButtonDone = withOrWithoutButtonDone;
@@ -150,6 +152,7 @@ namespace CustomizedTools
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+          
             if (Opacity == 1)
             {
                 timer1.Stop();
@@ -167,7 +170,7 @@ namespace CustomizedTools
                 timer2.Stop();
                 this.Close();
                 this.Dispose();
-                cmb = null;
+                //mamnuu thot null hone elak
             }
             FirstCyclePassed = true;
         }
@@ -191,14 +194,19 @@ namespace CustomizedTools
         static NotificationBanner cmb;
         public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome,bool UndoFromNotficationBannerCliked)
         {
+            //closing the old one
             if (cmb != null)
             {
                 cmb.Close();
                 cmb.Dispose();
                 cmb = null;
             }
+
+            //starting the new one
             cmb = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked);
             cmb.Show();
+            cmb.timer1.Start();
+
             return cmb;
         }
 

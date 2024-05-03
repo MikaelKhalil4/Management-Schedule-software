@@ -106,12 +106,11 @@
             // 
             // timer2
             // 
-            timer2.Interval = 1500;
+            timer2.Interval = 1700;
             timer2.Tick += timer2_Tick;
             // 
             // timer1
             // 
-            timer1.Enabled = true;
             timer1.Interval = 10;
             timer1.Tick += timer1_Tick_1;
             // 
