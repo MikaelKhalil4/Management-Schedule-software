@@ -871,7 +871,7 @@ namespace MKproject.Management
                 {
 
                  
-                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
                     Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
                     payment.ClientManagementProfileParentForm = this;
@@ -884,7 +884,7 @@ namespace MKproject.Management
                 {
                     if (LOGIN.Employee.CanAccessTransaction)
                     {
-                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                         Program.GreyForm.Show();
                         BackOffice backOffice = new BackOffice(this, ClientBalanceId, RetrievingSpecificRowsInDt(false, ClientBalanceId), null);
                         backOffice.ShowDialog();
@@ -928,7 +928,7 @@ namespace MKproject.Management
         }
         private void buttonPayTotalBalance_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
             Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(true, null), this, false);
             payment.ClientManagementProfileParentForm = this;
@@ -939,7 +939,7 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanAccessTransaction)
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 BackOffice backOffice = new BackOffice(this, null, null, Client.ClientId);
                 backOffice.ShowDialog();
@@ -955,7 +955,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(false);//true becuase it s a bundle
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -967,7 +967,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 BuyBundleOrProudct BuyServiceOrProudct = new BuyBundleOrProudct(true);//true becuase it s a product
                 BuyServiceOrProudct.ParentFormClientMang = this;
@@ -1056,7 +1056,7 @@ namespace MKproject.Management
             if (Client.IsParent == true)
             {
 
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 RelatedChildrens relatedChildrens = new RelatedChildrens(Client.PhoneNumber, true, IsFromSchedule);
                 relatedChildrens.ParentFormClientMang = this;
@@ -1080,7 +1080,7 @@ namespace MKproject.Management
         private void buttonEditClientInfo_Click(object sender, EventArgs e)
         {
 
-            Program.GreyForm = new GreyColor(Program.HomeForm, false, false);//cz aam t3alie w ma tsakkir el form
+            Program.GreyForm = new GreyColor(Program.HomeForm, false, false, null);//cz aam t3alie w ma tsakkir el form
             Program.GreyForm.Show();
 
             if (Program.NewRegisterForm == null)
@@ -1108,7 +1108,7 @@ namespace MKproject.Management
         {
             if (Program.GreyForm == null)
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 Album s = new Album(null);
                 s.ClientManagementProfileForm = this;
@@ -1121,7 +1121,7 @@ namespace MKproject.Management
         {
             if (Client.ProfileImage != null)
             {
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
                 ImageForm i = new ImageForm(Client.ProfileImage);
                 i.Show();

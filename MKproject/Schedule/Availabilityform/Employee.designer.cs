@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panelContainsEmployees = new System.Windows.Forms.Panel();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ButtonDone = new CustomizedTools.CustomButton();
+            timer1 = new System.Windows.Forms.Timer(components);
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -41,7 +43,7 @@
             panelContainsEmployees.Location = new System.Drawing.Point(0, 0);
             panelContainsEmployees.Margin = new System.Windows.Forms.Padding(0);
             panelContainsEmployees.Name = "panelContainsEmployees";
-            panelContainsEmployees.Size = new System.Drawing.Size(312, 380);
+            panelContainsEmployees.Size = new System.Drawing.Size(273, 285);
             panelContainsEmployees.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -51,13 +53,13 @@
             tableLayoutPanel1.Controls.Add(ButtonDone, 0, 1);
             tableLayoutPanel1.Controls.Add(panelContainsEmployees, 0, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(7, 11);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            tableLayoutPanel1.Location = new System.Drawing.Point(6, 8);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.3333359F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.666666F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(312, 456);
+            tableLayoutPanel1.Size = new System.Drawing.Size(273, 342);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // ButtonDone
@@ -67,30 +69,37 @@
             ButtonDone.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             ButtonDone.Cursor = System.Windows.Forms.Cursors.Hand;
             ButtonDone.FlatAppearance.BorderSize = 0;
+            ButtonDone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
             ButtonDone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
             ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonDone.ForeColor = System.Drawing.Color.White;
-            ButtonDone.Location = new System.Drawing.Point(105, 398);
-            ButtonDone.Margin = new System.Windows.Forms.Padding(3, 4, 6, 4);
+            ButtonDone.Location = new System.Drawing.Point(92, 299);
+            ButtonDone.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
             ButtonDone.Name = "ButtonDone";
-            ButtonDone.Size = new System.Drawing.Size(99, 39);
+            ButtonDone.Size = new System.Drawing.Size(87, 29);
             ButtonDone.TabIndex = 1;
             ButtonDone.Text = "Done";
             ButtonDone.UseVisualStyleBackColor = false;
             ButtonDone.Click += buttonD_Click;
             // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
+            // 
             // Employee
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
-            ClientSize = new System.Drawing.Size(326, 467);
+            ClientSize = new System.Drawing.Size(285, 350);
             ControlBox = false;
             Controls.Add(tableLayoutPanel1);
-            Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Employee";
-            Padding = new System.Windows.Forms.Padding(7, 11, 7, 0);
+            Padding = new System.Windows.Forms.Padding(6, 8, 6, 0);
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Deactivate += Employee_Deactivate;
             tableLayoutPanel1.ResumeLayout(false);
@@ -101,5 +110,6 @@
         private System.Windows.Forms.Panel panelContainsEmployees;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public CustomizedTools.CustomButton ButtonDone;
+        private System.Windows.Forms.Timer timer1;
     }
 }

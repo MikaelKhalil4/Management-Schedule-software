@@ -16,84 +16,143 @@ namespace CustomizedTools
     public partial class NotificationBanner : Form
     {
         public Form ParentFormHome { get; set; }
-        public string text { get; set; }
-        public Type type { get; set; }
+        public string Text { get; set; }
+        public EnumType type { get; set; }
+        bool UndoFromNotficationBannerClicked { get; set; }
+        bool WithOrWithoutButtonDone { get; set; }
 
-        public enum Type
+
+        Color GreenColor = Color.FromArgb(2, 162, 111);//green
+        Color OrangeColor = Color.FromArgb(244, 86, 7);//orange
+
+        public enum EnumType
         {
             ConfirmationMode,//Green
             CanceledMode,//orange color
-            UndoMode,
+            UndoMode,//metel lamma ekbus undii cancelation or undo comletion
             DeletedMode//red color
+
         }
-        private NotificationBanner(string Text, Type type, Form parentFormHome)
+        private NotificationBanner(string text, EnumType type,bool withOrWithoutButtonDone , Form parentFormHome,bool undoFromNotficationBannerModeOn)
         {
             InitializeComponent();
             this.Opacity = 0;
+           
+
             this.TopMost = true;
+            UndoFromNotficationBannerClicked = undoFromNotficationBannerModeOn;
+            WithOrWithoutButtonDone = withOrWithoutButtonDone;
             this.type = type;
-            text = Text;
+            Text = text;
             ParentFormHome = parentFormHome;
             LoadForm();
 
         }
 
+
+        void SetDeignWithoutUndoButton()
+        {
+            ButtonUndo.Dispose();
+            TLPglobal.ColumnStyles[2].Width = 0;
+            
+        }
         void LoadForm()
         {
+            int ButtonUndoWidth;
 
-            labelText.Text = text;
-            float LabelDesiredWeight = RandomFunctions.MeasureLabelText(labelText);
-            this.Width = Convert.ToInt16(LabelDesiredWeight) + 70;
+
+            if (UndoFromNotficationBannerClicked)
+            {
+                SetDeignWithoutUndoButton();
+                ButtonUndoWidth = 40;//since the text is so small
+                Text = "Undone";    
+            }
+            else
+            {
+                if (WithOrWithoutButtonDone)
+                {
+                    ButtonUndoWidth = ButtonUndo.Width;
+                }
+                else
+                {
+                    SetDeignWithoutUndoButton();
+                    ButtonUndoWidth = 0;
+                }
+            }
+
+          
+
+            labelText.Text = Text;
+            this.Width = Convert.ToInt16(RandomFunctions.MeasureLabelText(labelText)) + pictureBox.Width + ButtonUndoWidth + 17;
 
             Image DesiredIcon = null;
-            if (type == Type.ConfirmationMode)
+            if (!UndoFromNotficationBannerClicked)
+            {
+                if (type == EnumType.ConfirmationMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
+                    this.TLPglobal.BackColor = GreenColor;
+                }
+                else if (type == EnumType.UndoMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
+                    this.TLPglobal.BackColor = GreenColor;
+                }
+                else if (type == EnumType.CanceledMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
+                    this.TLPglobal.BackColor = OrangeColor;
+                }
+                else if (type == EnumType.DeletedMode)
+                {
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
+                    this.TLPglobal.BackColor = Color.Red;
+                }
+            }
+            else
             {
                 DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
-                this.TLPGlobal.BackColor = Color.FromArgb(2, 162, 111);//green
-            }
-            else if (type == Type.UndoMode)
-            {
-                DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "checkCircle.png");
-                this.TLPGlobal.BackColor = Color.FromArgb(2, 162, 111);//green
-            }
-            else if (type == Type.CanceledMode)
-            {
-                DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
-                this.TLPGlobal.BackColor = Color.FromArgb(244, 86, 7);//orange
-            }
-            else if (type == Type.DeletedMode)
-            {
-                DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
-                this.TLPGlobal.BackColor = Color.Red;
+                this.TLPglobal.BackColor = GreenColor;
             }
 
+            ButtonUndo.BackAndMouseHoverColor = this.TLPglobal.BackColor;
             pictureBox.BackgroundImage = DesiredIcon;
 
             //LOCATION
 
             Point locationRelativeToScreen = ParentFormHome.PointToScreen(Point.Empty);
-            locationRelativeToScreen.Offset(ParentFormHome.Width / 2-(this.Width/2), 8);
+            locationRelativeToScreen.Offset(ParentFormHome.Width / 2 - (this.Width / 2), 8);
             this.Location = locationRelativeToScreen;
 
-        }
-
-        static NotificationBanner cmb;
-        public static void Show(string message, Type type, Form parentFormHome)
-        {
-            if (cmb != null)
+            //Event
+            TLPglobal.MouseLeave += TLPglobal_MouseLeave; ;
+            TLPglobal.MouseMove += TLPglobal_MouseMove; ;
+            foreach (Control control in TLPglobal.Controls)
             {
-                cmb.Close();
-                cmb.Dispose();
-                cmb = null;      
+                control.MouseMove += TLPglobal_MouseMove;
+                control.MouseLeave += TLPglobal_MouseLeave;
             }
-            cmb = new NotificationBanner(message, type, parentFormHome);
-            cmb.Show();
 
         }
+        private void TLPglobal_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Opacity == 1)
+            {
+                timer2.Stop();
+                timer1.Stop();
+            }
+        }
+        private void TLPglobal_MouseLeave(object sender, EventArgs e)
+        {
+            timer2.Start();
+        }
+
+
 
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+          
             if (Opacity == 1)
             {
                 timer1.Stop();
@@ -111,23 +170,49 @@ namespace CustomizedTools
                 timer2.Stop();
                 this.Close();
                 this.Dispose();
-                cmb = null;
+                //mamnuu thot null hone elak
             }
             FirstCyclePassed = true;
         }
 
-     
+        public event EventHandler UndoNotficationBanner;
+        private void ButtonUndo_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+
+            if (cmb != null)
+            {
+                cmb = null;
+            }
+
+            UndoNotficationBanner?.Invoke(sender, e);//ejare tahet hawde
+        }
 
 
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        CreateParams cp = base.CreateParams;
-        //        cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-        //        return cp;
-        //    }
-        //}
 
+        static NotificationBanner cmb;
+        public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome,bool UndoFromNotficationBannerCliked)
+        {
+            //closing the old one
+            if (cmb != null)
+            {
+                cmb.Close();
+                cmb.Dispose();
+                cmb = null;
+            }
+
+            //starting the new one
+            cmb = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked);
+            cmb.Show();
+            cmb.timer1.Start();
+
+            return cmb;
+        }
+
+        private void NotificationBanner_Deactivate(object sender, EventArgs e)
+        {
+            labelText.Select();//kermel ma el button ybayyin eendo borders
+        }
     }
 }

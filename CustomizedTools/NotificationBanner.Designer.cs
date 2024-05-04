@@ -30,32 +30,34 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationBanner));
-            TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
+            TLPglobal = new System.Windows.Forms.TableLayoutPanel();
             pictureBox = new System.Windows.Forms.PictureBox();
             labelText = new System.Windows.Forms.Label();
+            ButtonUndo = new CustomButton();
             timer2 = new System.Windows.Forms.Timer(components);
             timer1 = new System.Windows.Forms.Timer(components);
-            TLPGlobal.SuspendLayout();
+            TLPglobal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
-            // TLPGlobal
+            // TLPglobal
             // 
-            TLPGlobal.BackColor = System.Drawing.Color.FromArgb(2, 162, 111);
-            TLPGlobal.ColumnCount = 2;
-            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPGlobal.Controls.Add(pictureBox, 0, 0);
-            TLPGlobal.Controls.Add(labelText, 1, 0);
-            TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
-            TLPGlobal.Location = new System.Drawing.Point(0, 0);
-            TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
-            TLPGlobal.Name = "TLPGlobal";
-            TLPGlobal.RowCount = 1;
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            TLPGlobal.Size = new System.Drawing.Size(271, 51);
-            TLPGlobal.TabIndex = 31;
+            TLPglobal.BackColor = System.Drawing.Color.FromArgb(2, 162, 111);
+            TLPglobal.ColumnCount = 3;
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            TLPglobal.Controls.Add(pictureBox, 0, 0);
+            TLPglobal.Controls.Add(labelText, 1, 0);
+            TLPglobal.Controls.Add(ButtonUndo, 2, 0);
+            TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPglobal.Location = new System.Drawing.Point(0, 0);
+            TLPglobal.Margin = new System.Windows.Forms.Padding(0);
+            TLPglobal.Name = "TLPglobal";
+            TLPglobal.RowCount = 1;
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPglobal.Size = new System.Drawing.Size(304, 51);
+            TLPglobal.TabIndex = 31;
             // 
             // pictureBox
             // 
@@ -81,14 +83,34 @@
             labelText.TabIndex = 32;
             labelText.Text = "Appointment Added";
             // 
+            // ButtonUndo
+            // 
+            ButtonUndo.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            ButtonUndo.BackAndMouseHoverColor = System.Drawing.Color.Transparent;
+            ButtonUndo.BackColor = System.Drawing.Color.Transparent;
+            ButtonUndo.Cursor = System.Windows.Forms.Cursors.Hand;
+            ButtonUndo.FlatAppearance.BorderSize = 0;
+            ButtonUndo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(215, 215, 215);
+            ButtonUndo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(235, 235, 235);
+            ButtonUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ButtonUndo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            ButtonUndo.ForeColor = System.Drawing.Color.White;
+            ButtonUndo.Location = new System.Drawing.Point(233, 11);
+            ButtonUndo.Margin = new System.Windows.Forms.Padding(0);
+            ButtonUndo.Name = "ButtonUndo";
+            ButtonUndo.Size = new System.Drawing.Size(61, 29);
+            ButtonUndo.TabIndex = 33;
+            ButtonUndo.Text = "Undo";
+            ButtonUndo.UseVisualStyleBackColor = false;
+            ButtonUndo.Click += ButtonUndo_Click;
+            // 
             // timer2
             // 
-            timer2.Interval = 1500;
+            timer2.Interval = 1700;
             timer2.Tick += timer2_Tick;
             // 
             // timer1
             // 
-            timer1.Enabled = true;
             timer1.Interval = 10;
             timer1.Tick += timer1_Tick_1;
             // 
@@ -97,9 +119,9 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(124, 218, 124);
-            ClientSize = new System.Drawing.Size(271, 51);
+            ClientSize = new System.Drawing.Size(304, 51);
             ControlBox = false;
-            Controls.Add(TLPGlobal);
+            Controls.Add(TLPglobal);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -107,18 +129,20 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            TLPGlobal.ResumeLayout(false);
-            TLPGlobal.PerformLayout();
+            Deactivate += NotificationBanner_Deactivate;
+            TLPglobal.ResumeLayout(false);
+            TLPglobal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel TLPGlobal;
+        private System.Windows.Forms.TableLayoutPanel TLPglobal;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Label labelText;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer1;
+        public CustomButton ButtonUndo;
     }
 }

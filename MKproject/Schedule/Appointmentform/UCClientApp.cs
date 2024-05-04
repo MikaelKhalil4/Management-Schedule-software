@@ -91,6 +91,7 @@ namespace MKproject.Schedule
             textBoxSearch.Dispose();
             //
 
+
             if (DesiredAppointmentUCClientApp.DesiredClient != null)
             {
                 SetDesignIfClientExist();
@@ -115,6 +116,8 @@ namespace MKproject.Schedule
             }
 
 
+
+
             if (DesiredAppointmentUCClientApp.Title != null)
             {
               
@@ -129,10 +132,17 @@ namespace MKproject.Schedule
                 }
 
                 LabelServiceOutput.Text= "Title:";
-               
             }
-            FunctionsForWinformsTool.AdjustTableLayoutPanelHeight(TLPglobal);
+            else if (DesiredAppointmentUCClientApp.IsPackageMode)
+            {
+                LabelServiceOutput.Text = "Service:";
+            }
+            else
+            {
+                LabelServiceOutput.Text = "Service/Title:";               
+            }
 
+            FunctionsForWinformsTool.AdjustTableLayoutPanelHeight(TLPglobal);
             this.Height = TLPglobal.Height;
             TLPglobal.Dock = DockStyle.Fill;
         }
@@ -552,7 +562,7 @@ namespace MKproject.Schedule
                 }
                 else if (DesiredAppointmentUCClientApp.StartTime.Date < DateTime.Now.Date)// past
                 {
-
+                    
                     LabelService.Text = DesiredAppointmentUCClientApp.HistoryClientBalance;
 
                 }
@@ -574,7 +584,7 @@ namespace MKproject.Schedule
                 }
                 else
                 {
-                    LabelService.Text = "";// ma bet sir bas enno
+                    LabelService.Text = "N/A";
                 }
 
             }
@@ -693,7 +703,7 @@ namespace MKproject.Schedule
         private void ButtonChangeORChooseService_Click(object sender, EventArgs e)
         {
             ParentFormAppointment.DisableClosingOnDisactivating = true;
-            Program.GreyFormJunior = new GreyColor(this.ParentFormAppointment, true, true);
+            Program.GreyFormJunior = new GreyColor(this.ParentFormAppointment, true, true, null);
             Program.GreyFormJunior.Show();
             ChooseService chooseService = new ChooseService(this);
             chooseService.FormClosed += ChooseService_FormClosed;
@@ -799,7 +809,7 @@ namespace MKproject.Schedule
 
 
             ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
-            Program.GreyForm = new GreyColor(Program.HomeForm, true, false);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
 
 
@@ -831,7 +841,7 @@ namespace MKproject.Schedule
                 SetReadOnlyDesign();
             }
 
-            if (ParentFormAppointment.ucappointment != null && ParentFormAppointment.ucappointment.DesiredAppointmentUCApp.IsPackageMode)//update mmode
+            if (ParentFormAppointment.UCappointment != null && ParentFormAppointment.UCappointment.DesiredAppointmentUCApp.IsPackageMode)//update mmode
             {
                 OnUpdatingTheChosenClientBalance?.Invoke(this, EventArgs.Empty);
             }
@@ -844,7 +854,7 @@ namespace MKproject.Schedule
             {// lamma nkun bel present , juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               
                 
                 ParentFormAppointment.Close();
-                ParentFormAppointment.ucappointment.Control_MouseClick(null, null);
+                ParentFormAppointment.UCappointment.Control_MouseClick(null, null);
           
             }
             else
@@ -861,7 +871,7 @@ namespace MKproject.Schedule
             ParentFormAppointment.DisableClosingOnDisactivating = true;
 
 
-            Program.GreyFormJunior = new GreyColor(this.ParentFormAppointment, true, true);
+            Program.GreyFormJunior = new GreyColor(this.ParentFormAppointment, true, true, null);
             Program.GreyFormJunior.Show();
             if (Program.NewRegisterForm == null)
             {

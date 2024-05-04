@@ -29,6 +29,8 @@ namespace MKproject.Schedule
         public UCMonth(ScheduleForm form, UCDay form1)
         {
             InitializeComponent();
+            this.Opacity = 0;
+
             schedule = form;
             ucday = form1;
 
@@ -141,6 +143,11 @@ namespace MKproject.Schedule
         }
         private void UCMonth_Deactivate(object sender, EventArgs e)
         {
+            if (Program.GreyForm != null)
+            {
+                Program.GreyForm.Close();
+                Program.GreyForm = null;
+            }
             //Just to setUp the ucmonth again when I deactivate it and we will to set it on UCCalanderday
             this.Hide();
 
@@ -357,6 +364,25 @@ namespace MKproject.Schedule
         private void labelTitleDay_MouseEnter(object sender, EventArgs e)
         {
             labelTitleDay.ForeColor = Program.BoldColor;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Opacity == 1)
+            {
+                timer1.Stop();
+            }
+            Opacity += .1;
+        }
+
+        private void UCMonth_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                Opacity = 0;
+                timer1.Start();
+            }
+      
         }
     }
 }

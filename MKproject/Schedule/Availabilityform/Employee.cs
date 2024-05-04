@@ -27,6 +27,8 @@ namespace MKproject.Schedule
         public Employee(ScheduleForm form1)
         {
             InitializeComponent();
+            this.Opacity =0;
+
             schedule = form1;
             ListUCEmployeeChecked = new List<UCEmployee>();
             ListUCEmployee = new List<UCEmployee>();
@@ -196,21 +198,17 @@ namespace MKproject.Schedule
                                 }
                             }
 
-
+                            //Getting them to originale width
+                            foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
+                            {
+                                ucappointment.Width = UCappointment.OriginalWidth; 
+                            }
 
 
                             //eza ee edit width
                             if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + schedule.ucday.KeepSpace) > columnwidth)
                             {
                                 schedule.ucday.EditWidthAppointment(flowLayoutPanel, columnwidth, NumberOfVisibleControls);
-                            }
-                            else
-                            {
-                                //Getting them to originale width
-                                foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
-                                {
-                                    ucappointment.Width = UCappointment.OriginalWidth;
-                                }
                             }
                         }
                     }
@@ -235,6 +233,9 @@ namespace MKproject.Schedule
             //Editing the Design of the table layout panel and in the same time, Getting the new ListEmployee_idAllTime and the new  ListEmployee_idChecked, But don't forget we used ListEmployee_idChecked as comparaison before we update it
             for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
             {
+                //Getting the new ListEmployee_idAllTime, it will be the same of ListEmployee_idChecked
+                schedule.ucday.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
+
                 //Comparing if the first employee is still the same, the second...
                 if (ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId == schedule.ucday.ListEmployee_idChecked[i])
                 {
@@ -249,14 +250,16 @@ namespace MKproject.Schedule
                     //If it's a different employee e will have to fill a new column with new appointments and availibity
                     schedule.ucday.UCappointmentsfillColumn(i + 1, ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId, EmployeeFullName);//BOOM COLUMNINDEX = i+1, LI2ANNO FI UCTime zyede w ha yon3ata employee_id taba3 ucemployee li maee rang 1
                 }
-
-                //Getting the new ListEmployee_idAllTime, it will be the same of ListEmployee_idChecked
-                schedule.ucday.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
             }
         }
 
         private void Employee_Deactivate(object sender, EventArgs e)
         {
+            if (Program.GreyForm != null)
+            {
+                Program.GreyForm.Close();
+                Program.GreyForm = null;
+            }
             //Kermel watta yeftah lavailability form ma ysakir lemployee form
             if (IsButtonAvailability == false)
             {
@@ -266,6 +269,15 @@ namespace MKproject.Schedule
             {
                 IsButtonAvailability = false;//eza ken true byerjaee bi sir false
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Opacity == 1)
+            {
+                timer1.Stop();
+            }
+            Opacity += .1;
         }
     }
 
