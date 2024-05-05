@@ -1,4 +1,6 @@
-﻿namespace MKproject.Management
+﻿using MKproject.Schedule;
+
+namespace MKproject.Management
 
 {
     partial class TransferData
@@ -29,26 +31,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new System.Windows.Forms.Button();
             SuspendLayout();
-            // 
-            // button1
-            // 
-            button1.Location = new System.Drawing.Point(686, 271);
-            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(133, 46);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // TransferData
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(933, 519);
-            Controls.Add(button1);
+            ClientSize = new System.Drawing.Size(1123, 654);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "TransferData";
             Text = "TransferData";
@@ -56,7 +45,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
     }
 }

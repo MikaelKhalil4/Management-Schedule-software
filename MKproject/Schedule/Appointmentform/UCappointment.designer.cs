@@ -108,10 +108,13 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             Controls.Add(TLPGlobal);
+            Cursor = System.Windows.Forms.Cursors.Hand;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "UCappointment";
             Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             Size = new System.Drawing.Size(249, 81);
+            GiveFeedback += UCappointment_GiveFeedback;
+            QueryContinueDrag += UCappointment_QueryContinueDrag;
             MouseLeave += UCappointments_MouseLeave;
             MouseMove += UCappointments_MouseMove;
             Resize += UCappointment_Resize;

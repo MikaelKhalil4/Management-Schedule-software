@@ -51,7 +51,7 @@ namespace MKproject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new LOGIN();
-            Application.Run(LoginForm);       
+            Application.Run(new TransferData());       
         }
 
 

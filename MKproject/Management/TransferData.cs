@@ -1,7 +1,11 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
+using System.Security.Cryptography.Xml;
 using System.Windows.Forms;
 using GlobalFunctions;
 using MKproject.Schedule;
@@ -11,940 +15,542 @@ namespace MKproject.Management
 
     public partial class TransferData : Form
     {
-        //public static SqlConnection conOld = new SqlConnection("Data Source=MKpc;Initial Catalog=MK-ELKdata;Integrated Security=True;");
-        //public static SqlConnection conNew = new SqlConnection("Data Source=MKpc;Initial Catalog=MK-ELKdataNew;Integrated Security=True");
-        //public TransferData()
-        //{
-        //    InitializeComponent();
-        //}
-        private void button1_Click(object sender, EventArgs e)
+
+
+        TableLayoutPanelDoubleBufferedNoscroll TLPSchedule;
+        UCappointment UCApointmentDraged;
+
+        List<(ClassEmployee, List<int>)> AllIndexesGroupList = new List<(ClassEmployee, List<int>)>();
+
+
+        (ClassEmployee, List<int>) DesiredIndexesGroup = (null, null);//stores the index columns Related To dame employee 
+
+        private (int, int) hoveredCellColmnRow = (-1, -1);  // Stores the  (column,row) of the hovered cell
+        private (int, int) OldUCColumnRow = (-1, -1); //Stores the old postion of Draged Control
+
+        int NbreofRowsHighlighted = -1;
+
+        Brush hoverBrush = new SolidBrush(Color.LightGray); // Change the color as needed
+
+        public TransferData()
         {
-            //TransferClientInfo();
-            //TransferClientBalanceBundle();
-            //TransferClientBalanceProduct();
-            //TransferClientPaidBundle();
-            //TransferClientPaidProduct();
-            //TransferClientInfoTrialsInvitationBrochure();
-            //UpdateClientInfoTrialsInvitationBrochure();
-            //InsertIntoFinance();
-            //UpdateTotalPayment();
-            this.Close();
-        }
-        //void InsertIntoFinance()
-        //{
+            InitializeComponent();
 
-        //    DataTable dtBundles = selectFinancepackges();
-        //    foreach (DataRow dr in dtBundles.Rows)
-        //    {
-        //        int ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        int IdClientBalance = GetBalanceId(ClientId, true);
-        //        string AlbumType = GetAlbumType(ClientId);
-        //        double amountPaid = (double)dr["amount_payed"];
-        //        DateTime PaymentDate = (DateTime)dr["payment_date"];
 
-        //        InsertToFinance(IdClientBalance, AlbumType, amountPaid, PaymentDate);
-        //    }
 
 
-        //    DataTable dtproduct = selectFinanceproducts();
-        //    foreach (DataRow dr in dtproduct.Rows)
-        //    {
-        //        int ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        int IdClientBalance = GetBalanceId(ClientId, false);
-        //        string AlbumType = GetAlbumType(ClientId);
-        //        double amountPaid = (double)dr["amount_paid"];
-        //        DateTime PaymentDate = (DateTime)dr["payment_date"];
+            List<ClassEmployee> ListEmployeeSchedule = ClassEmployee.GetEmployeeScheduleMemberASC();
 
-        //        InsertToFinance(IdClientBalance, AlbumType, amountPaid, PaymentDate);
-        //    }
+            //these indexes value, should initially be t Setbased on the ranks and on there s more then 2 appointment in the same hour, and any changes dureing the way, this list will be modifid , and apply to it one of the AppPercentage Design
+            List<int> Employee0 = new List<int>() { 1, 2 };
+            List<int> Employee1 = new List<int>() { 3, 4 };
+            List<int> Employee2 = new List<int>() { 5, 6 };
+            List<int> Employee3 = new List<int>() { 7, 8, 9 };
+            List<int> Employee4 = new List<int>() { 10 };
+            List<int> Employee5 = new List<int>() { 11, 12 };
 
+            AllIndexesGroupList.Add((ListEmployeeSchedule[0], Employee0));
+            AllIndexesGroupList.Add((ListEmployeeSchedule[1], Employee1));
+            AllIndexesGroupList.Add((ListEmployeeSchedule[2], Employee2));
 
-        //    //trials
-        //    DataTable dttrials = selectFinanceTrials();
-        //    foreach (DataRow dr in dttrials.Rows)
-        //    {
-        //        int ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        if (ClientId != -1)
-        //        {
-        //            int IdClientBalance = GetBalanceId(ClientId, true);
-        //            if (IdClientBalance != -1)
-        //            {
-        //                string AlbumType = GetAlbumType(ClientId);
-        //                double amountPaid = (double)dr["amount_payed"];
-        //                DateTime PaymentDate = (DateTime)dr["trial_date"];
-        //                InsertToFinance(IdClientBalance, AlbumType, amountPaid, PaymentDate);
-        //            }
-        //        }
-        //    }
+            AllIndexesGroupList.Add((ListEmployeeSchedule[3], Employee3));
+            AllIndexesGroupList.Add((ListEmployeeSchedule[4], Employee4));
+            AllIndexesGroupList.Add((ListEmployeeSchedule[5], Employee5));
 
-        //}
 
-        //void UpdateClientInfoTrialsInvitationBrochure()
-        //{
-        //    DataTable dtTrials = selectTrialsClients(true);
-        //    DataTable dtInv = selectInvitationClients(true);
-        //    DataTable dtBroch = selectBrochureClients(true);
-        //    int bundleid = SelectOldBundleId();
-
-        //    foreach (DataRow dr in dtTrials.Rows)
-        //    {
-        //        int ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        if (ClientId != -1)
-        //        {
-        //            UpdateAlbum(ClientId, "Trials");
-
-        //            double AmountPaid = (double)dr["amount_payed"];
-        //            if (AmountPaid != 0)
-        //            {
-        //                UpdateClientBalancePaid(ClientId, bundleid, AmountPaid);
-        //                UpdateClientTotalPayemntsSQL(ClientId, AmountPaid);
-        //            }
-
-
-        //        }
-        //    }
-
-        //    foreach (DataRow dr in dtInv.Rows)
-        //    {
-        //        int ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-
-        //        if (ClientId != -1)
-        //        {
-        //            UpdateAlbum(ClientId, "Invitations");
-        //        }
-        //    }
-
-        //    foreach (DataRow dr in dtBroch.Rows)
-        //    {
-        //        int ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        if (ClientId != -1)
-        //        {
-        //            UpdateAlbum(ClientId, "Trials");
-        //            double AmountPaid = (double)dr["price"];
-        //            if (AmountPaid != 0)
-        //            {
-        //                UpdateClientBalancePaid(ClientId, bundleid, AmountPaid);
-        //                UpdateClientTotalPayemntsSQL(ClientId, AmountPaid);
-        //            }
-        //        }
-
-        //    }
-        //}
-
-        //void TransferClientInfoTrialsInvitationBrochure()
-        //{
-        //    DateTime Date = DateTime.Now;
-
-        //    DataTable dtTrials = selectTrialsClients(false);
-        //    DataTable dtInv = selectInvitationClients(false);
-        //    DataTable dtBroch = selectBrochureClients(false);
-
-        //    int bundleid = SelectOldBundleId();
-
-        //    foreach (DataRow dr in dtTrials.Rows)
-        //    {
-        //        int clientid = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        if (clientid == -1)
-        //        {
-        //            ClassClient NewClient = new ClassClient();
-        //            NewClient.AlbumType = "Trials";
-        //            NewClient.IsChild = false;
-        //            NewClient.IsParent = false;
-        //            NewClient.Fname = (string)dr["first_name"];
-        //            NewClient.Lname = (string)dr["last_name"];
-        //            NewClient.PhoneNumber = (string)dr["phone_number"];
-        //            if (((string)dr["username"]) != "none")//remove the first charchter @
-        //                NewClient.InstaUserName = ((string)dr["username"]).Substring(1);
-
-        //            NewClient.InsertClientToSQL();
-
-
-        //            double AmountPaid = (double)dr["amount_payed"];
-        //            if (AmountPaid != 0)
-        //            {
-        //                int lastinsetClientid = GetLastClientIDSQL();
-        //                InsertBundleToClientPayments(lastinsetClientid, bundleid, AmountPaid);
-        //                UpdateClientTotalPayemntsSQL(lastinsetClientid, AmountPaid);
-        //            }
-
-
-
-        //            //update
-        //            int ClientId = ClassClient.GetLastClientIDSQL();
-
-        //            if (dr["trial_date"] != DBNull.Value)
-        //            {
-        //                ClassClient.UpdateClientCheckInSQLIfShould(ClientId, (DateTime)dr["trial_date"]);
-        //            }
-        //            UpdateClientSaveDateSQL(ClientId, Date);
-
-        //        }
-        //    }
-        //    foreach (DataRow dr in dtInv.Rows)
-        //    {
-        //        int clientid = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        if (clientid == -1)
-        //        {
-        //            ClassClient NewClient = new ClassClient();
-        //            NewClient.AlbumType = "Invitations";
-        //            NewClient.IsChild = false;
-        //            NewClient.IsParent = false;
-        //            NewClient.Fname = (string)dr["first_name"];
-        //            NewClient.Lname = (string)dr["last_name"];
-        //            NewClient.PhoneNumber = (string)dr["phone_number"];
-        //            if (((string)dr["username"]) != "none")//remove the first charchter @
-        //                NewClient.InstaUserName = ((string)dr["username"]).Substring(1);
-
-        //            NewClient.InsertClientToSQL();
-
-
-        //            //update
-        //            int ClientId = ClassClient.GetLastClientIDSQL();
-
-        //            if (dr["invitation_date"] != DBNull.Value)
-        //            {
-        //                ClassClient.UpdateClientCheckInSQLIfShould(ClientId, (DateTime)dr["invitation_date"]);
-        //            }
-        //            UpdateClientSaveDateSQL(ClientId, Date);
-
-        //        }
-        //    }
-        //    foreach (DataRow dr in dtBroch.Rows)
-        //    {
-        //        int clientid = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        if (clientid == -1)
-        //        {
-        //            ClassClient NewClient = new ClassClient();
-        //            NewClient.AlbumType = "Trials";
-        //            NewClient.IsChild = false;
-        //            NewClient.IsParent = false;
-        //            NewClient.Fname = (string)dr["first_name"];
-        //            NewClient.Lname = (string)dr["last_name"];
-        //            NewClient.PhoneNumber = (string)dr["phone_number"];
-        //            if (((string)dr["username"]) != "none")//remove the first charchter @
-        //                NewClient.InstaUserName = ((string)dr["username"]).Substring(1);
-
-        //            NewClient.InsertClientToSQL();
-
-
-        //            double AmountPaid = (double)dr["price"];
-        //            if (AmountPaid != 0)
-        //            {
-        //                int lastinsetClientid = GetLastClientIDSQL();
-        //                InsertBundleToClientPayments(lastinsetClientid, bundleid, AmountPaid);
-        //                UpdateClientTotalPayemntsSQL(lastinsetClientid, AmountPaid);
-        //            }
-
-        //            //update
-        //            int ClientId = ClassClient.GetLastClientIDSQL();
-
-        //            if (dr["brochure_date"] != DBNull.Value)
-        //            {
-        //                ClassClient.UpdateClientCheckInSQLIfShould(ClientId, (DateTime)dr["brochure_date"]);
-        //            }
-        //            UpdateClientSaveDateSQL(ClientId, Date);
-
-        //        }
-        //    }
-        //}
-
-        //void TransferClientInfo()
-        //{
-
-        //    DateTime Date = DateTime.Now;
-
-
-        //    DataTable dt = selectClients();
-
-
-        //    foreach (DataRow dr in dt.Rows)
-        //    {
-        //        ClassClient NewClient = new ClassClient();
-        //        NewClient.IsChild = false;
-        //        NewClient.IsParent = false;
-        //        NewClient.AlbumType = null;
-        //        NewClient.Fname = (string)dr["name"];
-        //        NewClient.Lname = (string)dr["family_name"];
-        //        NewClient.PhoneNumber = (string)dr["phone_number"];
-        //        NewClient.Gender = (string)dr["gender"];
-        //        NewClient.BirthDate = (DateTime)dr["date_of_birth"];
-
-
-        //        if (((string)dr["special_note"]) != "none")
-        //            NewClient.Note = (string)dr["special_note"];
-
-        //        if (((string)dr["insta_user"]) != "none")//remove the first charchter @
-        //            NewClient.InstaUserName = ((string)dr["insta_user"]).Substring(1);
-
-        //        if (((string)dr["job"]) != "none")
-        //            NewClient.Job = (string)dr["job"];
-
-        //        if (((string)dr["adress"]) != "none")
-        //            NewClient.Adress = (string)dr["adress"];
-
-
-        //        //capital at the start and after each / + remove the last /        
-        //        NewClient.BodyShapeTarget = CapitalizeSegmentsAndRemoveLastSlash((string)dr["body_shape_target"], false);
-        //        NewClient.MuscleFocusOn = CapitalizeSegmentsAndRemoveLastSlash((string)dr["muscles_focus_on"], false);
-        //        NewClient.Injuries = CapitalizeSegmentsAndRemoveLastSlash((string)dr["injuries"], true);
-
-
-
-        //        NewClient.Weight = (int)dr["weight"] + "/kg";
-        //        NewClient.Height = (int)dr["height"] + "/cm";
-
-
-        //        NewClient.Hand = (string)dr["hand"];
-        //        NewClient.SessionPerWeek = (int)dr["sessions_per_week"];
-
-
-        //        NewClient.InsertClientToSQL();
-
-        //        //update
-        //        int ClientId = ClassClient.GetLastClientIDSQL();
-
-        //        if (dr["check_in"] != DBNull.Value)
-        //        {
-        //            ClassClient.UpdateClientCheckInSQLIfShould(ClientId, (DateTime)dr["check_in"]);
-        //        }
-        //        UpdateClientSaveDateSQL(ClientId, Date);
-        //        UpdateClientRegistrationDateSQL(ClientId, Date);
-        //    }
-
-        //}
-        //void TransferClientBalanceBundle()
-        //{
-        //    DataTable dt = selectClients();
-
-        //    int ClientId;
-        //    int SessionLeft;
-        //    string PackageName;
-        //    int PackageId;
-        //    double BalancePackage;
-        //    double offrePrice;
-        //    int offreSessions;
-        //    string offre;
-        //    foreach (DataRow dr in dt.Rows)
-        //    {
-        //        ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        SessionLeft = (int)dr["sessions_left"];
-        //        PackageName = (string)dr["package_type"];
-        //        PackageId = FindBundleId(PackageName);
-        //        (offrePrice, offreSessions) = FindBundleDetails(PackageId);
-        //        offre = offrePrice + "/" + Convert.ToInt16(offreSessions) + " " + ClassBundles.Session;
-        //        BalancePackage = (double)dr["balance_package"];
-        //        if (BalancePackage > 0)
-        //        {
-        //            BalancePackage = BalancePackage * -1;
-        //        }
-        //        if (BalancePackage != 0 || SessionLeft > 0)
-        //        {
-        //            InsertBundleToClientBalance(ClientId, PackageId, offre, BalancePackage, SessionLeft);
-        //            UpdateClientTotalBalanceSQL(ClientId, BalancePackage);
-        //        }
-        //    }
-
-        //}
-        //void TransferClientBalanceProduct()
-        //{
-        //    DataTable dt = selectClients();
-
-        //    int ClientId;
-        //    string ProductName;
-        //    int ProductId;
-        //    double BalancePRODUCT;
-        //    double offre;
-        //    foreach (DataRow dr in dt.Rows)
-        //    {
-        //        ClientId = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        if (!String.IsNullOrEmpty((string)dr["product_name"]))
-        //        {
-        //            ProductName = RetrieveBeforeLastSegment((string)dr["product_name"]);
-        //            ProductId = FindProductId(ProductName);
-        //            offre = FindProductDetails(ProductId);
-        //            BalancePRODUCT = (double)dr["balance_products"];
-        //            if (BalancePRODUCT > 0)
-        //            {
-        //                BalancePRODUCT = BalancePRODUCT * -1;
-        //            }
-        //            if (BalancePRODUCT != 0)
-        //            {
-        //                InsertProducetToClientBalance(ClientId, offre, ProductId, BalancePRODUCT);
-        //                UpdateClientTotalBalanceSQL(ClientId, BalancePRODUCT);
-        //            }
-        //        }
-        //    }
-
-        //}
-
-
-        //void TransferClientPaidBundle()
-        //{
-        //    DataTable dt = SelectClientBundlePayments();
-
-        //    int bundleid = SelectOldBundleId();
-        //    int clientid;
-        //    double AmountPaid;
-        //    foreach (DataRow dr in dt.Rows)
-        //    {
-        //        clientid = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);//id in the new sql
-        //        AmountPaid = (double)dr["AmountPaid"];
-        //        InsertBundleToClientPayments(clientid, bundleid, AmountPaid);
-        //        UpdateClientTotalPayemntsSQL(clientid, AmountPaid);
-        //    }
-
-        //}
-        //void TransferClientPaidProduct()
-        //{
-        //    DataTable dt = SelectClientProductPayments();
-        //    int productid = SelectOldProductId();
-        //    int clientid;
-        //    double AmountPaid;
-        //    foreach (DataRow dr in dt.Rows)
-        //    {
-        //        clientid = GetClientIdFromPhoneNumberSQL((string)dr["phone_number"]);
-        //        AmountPaid = (double)dr["AmountPaid"];
-        //        InsertProductToClientPayments(clientid, productid, AmountPaid);
-        //        UpdateClientTotalPayemntsSQL(clientid, AmountPaid);
-        //    }
-        //}
-
-        //private string CapitalizeSegmentsAndRemoveLastSlash(string input, bool IsInjuries)
-        //{
-        //    if (string.IsNullOrEmpty(input))
-        //    {
-        //        return input;
-        //    }
-
-        //    // Split the string by '/'
-        //    string[] segments = input.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-
-        //    for (int i = 0; i < segments.Length; i++)
-        //    {
-
-
-        //        if (segments[i].Length > 0)
-        //        {
-        //            // Capitalize the first character of each segment
-        //            segments[i] = char.ToUpper(segments[i][0]) + segments[i].Substring(1);
-        //        }
-
-        //        if (IsInjuries)
-        //        {
-        //            bool ValueExist = false;
-        //            foreach (ClassOptionsInsideFields.enumInjuries enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumInjuries)))
-        //            {
-        //                if (segments[i] == enumValue.GetStringValue())
-        //                {
-        //                    ValueExist = true;
-        //                    break;
-        //                }
-        //            }
-        //            if (!ValueExist)
-        //            {
-        //                segments[i] = "Others:" + segments[i];
-        //            }
-        //        }
-
-
-        //    }
-
-        //    // Join the segments with a '/' and remove the last '/'
-        //    string result = string.Join("/", segments);
-        //    return result;
-        //}
-        //private string RetrieveBeforeLastSegment(string input)
-        //{
-
-        //    if (string.IsNullOrEmpty(input))
-        //    {
-        //        return input;
-        //    }
-        //    string[] segments = input.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-        //    string result = segments[segments.Length - 1].Trim();
-        //    return result;
-
-        //}
-
-
-
-        ////old
-
-        //DataTable selectFinancepackges()
-        //{
-        //    string queryClient = "Select phone_number,amount_payed,payment_date from finance_packages as f,client as c where f.client_id=c.client_id"; /*ORDER BY check_in DESC*/
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable selectFinanceproducts()
-        //{
-        //    string queryClient = "select phone_number,amount_paid,payment_date from finance_products as f,client as c where f.client_id=c.client_id"; /*ORDER BY check_in DESC*/
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable selectFinanceTrials()
-        //{
-        //    string queryClient = "select phone_number,amount_payed,trial_date from trials";
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable selectInvitationClients(bool status)
-        //{
-        //    string queryClient = "Select * from invitations where status_current='" + status + "'"; /*ORDER BY check_in DESC*/
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable selectTrialsClients(bool status)
-        //{
-        //    string queryClient = "Select * from trials where status_current='" + status + "' And first_name!='test'"; /*ORDER BY check_in DESC*/
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable selectBrochureClients(bool status)
-        //{
-        //    string queryClient = "Select * from brochures where  status_current='" + status + "' and  first_name is not null"; /*ORDER BY check_in DESC*/
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable selectClients()
-        //{
-        //    string queryClient = "Select * from client "; /*ORDER BY check_in DESC*/
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable SelectClientBundlePayments()
-        //{
-        //    string queryClient = "select phone_number,sum(amount_payed) as AmountPaid from finance_packages as f,client as c where f.client_id=c.client_id group by phone_number ";
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-        //DataTable SelectClientProductPayments()
-        //{
-        //    string queryClient = "select phone_number,sum(amount_paid) as AmountPaid from finance_products as f,client as c where f.client_id=c.client_id group by phone_number ";
-        //    SqlCommand cmd = new SqlCommand(queryClient, conOld);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return dt;
-        //}
-
-
-
-
-
-
-        ////new
-        //void UpdateTotalPayment()
-        //{
-
-
-        //    string query1 = @"Select client_id,SUM(amount_paid) as total
-        //                    from client_balance as c
-        //                     Group By  client_id ";
-
-        //    SqlCommand cmd1 = new SqlCommand(query1, conNew);
-        //    SqlDataAdapter sda1 = new SqlDataAdapter(cmd1);
-        //    DataTable dtClientBalance = new DataTable();
-        //    sda1.Fill(dtClientBalance);
-
-
-        //    foreach (DataRow dr in dtClientBalance.Rows)
-        //    {
-        //        string query = "UPDATE client SET total_payment=@total_payment where client_id=@client_id";
-        //        SqlCommand cmd = new SqlCommand(query, conNew);
-        //        cmd.Parameters.AddWithValue("@client_id", dr["client_id"]);
-        //        cmd.Parameters.AddWithValue("@total_payment", dr["total"]);
-        //        conNew.Open();
-        //        cmd.ExecuteNonQuery();
-        //        conNew.Close();
-        //    }
-        //}
-
-        //void InsertToFinance(int BalanceId, string AlbumType, double AmountPaid, DateTime Date)
-        //{
-        //    string query = "Insert into finance (client_balance_id,AlbumType,amount_paid,payment_date,Currency_Name) Values (@client_balance_id,@AlbumType,@amount_paid,@payment_date,@Currency_Name)";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-
-        //    cmd.Parameters.AddWithValue("@client_balance_id", BalanceId);
-        //    if (String.IsNullOrEmpty(AlbumType))
-        //    {
-        //        cmd.Parameters.AddWithValue("@AlbumType", DBNull.Value);
-        //    }
-        //    else
-        //    {
-        //        cmd.Parameters.AddWithValue("@AlbumType", AlbumType);
-        //    }
-        //    cmd.Parameters.AddWithValue("@amount_paid", AmountPaid);
-        //    cmd.Parameters.AddWithValue("@payment_date", Date);
-        //    cmd.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-
-
-        //void UpdateAlbum(int ClientID, string AlbumType)
-        //{
-        //    string query = "UPDATE client SET AlbumType=@AlbumType where client_id=@client_id";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    cmd.Parameters.AddWithValue("@client_id", ClientID);
-        //    cmd.Parameters.AddWithValue("@AlbumType", AlbumType);
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-
-        //int SelectOldBundleId()
-        //{
-        //    string queryClient = "select bundle_id from bundles where bundle_name='Old Services Data' ";
-        //    SqlCommand cmd = new SqlCommand(queryClient, conNew);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return (int)dt.Rows[0][0];
-        //}
-        //int SelectOldProductId()
-        //{
-        //    string queryClient = "select product_id from products where product_name='Old Products Data' ";
-        //    SqlCommand cmd = new SqlCommand(queryClient, conNew);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    return (int)dt.Rows[0][0];
-        //}
-
-
-
-        //public (double, int) FindBundleDetails(int BundleId)
-        //{
-
-        //    string query = "Select price,sessions_numb From bundles where bundle_id='" + BundleId + "'";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-
-        //    return ((double)dt.Rows[0]["price"], (int)dt.Rows[0]["sessions_numb"]);
-        //}
-        //public double FindProductDetails(int categoryId)
-        //{
-
-        //    string query = "Select product_price From products WHERE  product_id='" + categoryId + "'";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-
-
-        //    // Return the results as a tuple
-        //    return ((double)dt.Rows[0]["product_price"]);
-        //}
-        //public void UpdateClientRegistrationDateSQL(int ClientID, DateTime Date)
-        //{
-        //    string query = "UPDATE client SET Registration_Date=@Registration_Date WHERE client_id=@client_id ";
-        //    SqlCommand cmdUpdate = new SqlCommand(query, conNew);
-        //    cmdUpdate.Parameters.AddWithValue("@client_id", ClientID);
-        //    cmdUpdate.Parameters.AddWithValue("@Registration_Date", Date.AddYears(-1).AddMonths(-6));
-        //    conNew.Open();
-        //    cmdUpdate.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-        //public void UpdateClientSaveDateSQL(int ClientID, DateTime Date)
-        //{
-        //    string query = "UPDATE client SET save_date=@save_date WHERE client_id=@client_id ";
-        //    SqlCommand cmdUpdate = new SqlCommand(query, conNew);
-        //    cmdUpdate.Parameters.AddWithValue("@client_id", ClientID);
-        //    cmdUpdate.Parameters.AddWithValue("@save_date", Date.AddYears(-1).AddMonths(-6));
-        //    conNew.Open();
-        //    cmdUpdate.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-        //public void UpdateClientTotalBalanceSQL(int ClientID, double TotalBalance)
-        //{
-        //    string query = "UPDATE client SET total_balance+=@total_balance where client_id=@client_id";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    cmd.Parameters.AddWithValue("@client_id", ClientID);
-        //    cmd.Parameters.AddWithValue("@total_balance", TotalBalance);
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-        //public void UpdateClientTotalPayemntsSQL(int ClientID, double totalPayemnt)
-        //{
-        //    string query = "UPDATE client SET total_payment+=@total_payment where client_id=@client_id";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    cmd.Parameters.AddWithValue("@client_id", ClientID);
-        //    cmd.Parameters.AddWithValue("@total_payment", totalPayemnt);
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-        //public static int GetClientIdFromPhoneNumberSQL(string PhoneNumber)
-        //{
-        //    string queryClient = "select client_id  from client WHERE phone_number='" + PhoneNumber + "'";
-
-        //    SqlCommand cmd = new SqlCommand(queryClient, conNew);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-        //    if (dt.Rows.Count > 0)
-        //        return (int)dt.Rows[0]["client_id"];
-        //    else
-        //        return -1;
-        //}
-        //public static int GetLastClientIDSQL()
-        //{
-
-        //    int lastClientId;
-        //    conNew.Open();
-        //    string getLastClientIdQuery = "SELECT Max(client_id) FROM client";
-
-        //    using (SqlCommand command = new SqlCommand(getLastClientIdQuery, conNew))
-        //    {
-        //        lastClientId = Convert.ToInt32(command.ExecuteScalar());//we re sure enno ma tredd -1
-        //    }
-        //    conNew.Close();
-        //    return lastClientId;
-        //}
-        //string GetAlbumType(int ClientID)
-        //{
-        //    string query = "Select AlbumType from client where client_id=@client_id";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    cmd.Parameters.AddWithValue("@client_id", ClientID);
-        //    conNew.Open();
-        //    string albumType;
-        //    using (SqlCommand command = new SqlCommand(query, conNew))
-        //    {
-        //        command.Parameters.AddWithValue("@client_id", ClientID);
-        //        object result = command.ExecuteScalar();
-        //        if (result != null)
-        //        {
-        //            albumType = Convert.ToString(command.ExecuteScalar());
-        //        }
-        //        else
-        //        {
-        //            albumType = null;
-        //        }
-
-        //    }
-        //    conNew.Close();
-        //    return albumType;
-
-        //}
-        //int GetBalanceId(int ClientID, bool IsBundleOrProduct)
-        //{
-        //    string query;
-        //    query = "Select client_balance_id from client_balance where client_id=@client_id And is_expired=1  ";
-        //    if (IsBundleOrProduct)
-        //    {
-        //        query += " And bundle_id IS Not Null";
-        //    }
-        //    else
-        //    {
-        //        query += " And product_id IS Not Null";
-        //    }
-
-        //    int Id;
-        //    conNew.Open();
-        //    using (SqlCommand command = new SqlCommand(query, conNew))
-        //    {
-        //        command.Parameters.AddWithValue("@client_id", ClientID);
-        //        object result = command.ExecuteScalar();
-        //        if (result != null)
-        //        {
-        //            Id = Convert.ToInt16(command.ExecuteScalar());
-        //        }
-        //        else
-        //        {
-        //            Id = -1;
-        //        }
-
-        //    }
-        //    conNew.Close();
-        //    return Id;
-        //}
-
-
-        //public int FindBundleId(string packageName)
-        //{
-
-        //    string query = "Select bundle_id From bundles where bundle_name='" + packageName + "'";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-
-        //    // Return the results as a tuple
-        //    return (int)dt.Rows[0]["bundle_id"];
-        //}
-        //public int FindProductId(string productName)
-        //{
-        //    string query = "Select product_id From products WHERE  product_name='" + productName + "'";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //    DataTable dt = new DataTable();
-        //    sda.Fill(dt);
-
-
-        //    return (int)dt.Rows[0]["product_id"];
-
-
-        //}
-
-
-        //public void InsertBundleToClientPayments(int clientid, int BundleId, double AmountPaid)
-        //{
-        //    string query = @"INSERT into  client_balance
-        //          (client_id,bundle_id,amount_paid,Currency_Name,is_expired,session_left_days,isbundle_membership,balance) 
-        //                                                      VALUES 
-        //          (@client_id,@bundle_id,@amount_paid,@Currency_Name,@is_expired,@session_left_days,@isbundle_membership,@balance)";
-
-
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    cmd.Parameters.AddWithValue("@client_id", clientid);
-        //    cmd.Parameters.AddWithValue("@bundle_id", BundleId);
-        //    cmd.Parameters.AddWithValue("@amount_paid", AmountPaid);
-        //    cmd.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
-        //    cmd.Parameters.AddWithValue("@is_expired", true);
-        //    cmd.Parameters.AddWithValue("@session_left_days", 0);
-        //    cmd.Parameters.AddWithValue("@isbundle_membership", true);
-        //    cmd.Parameters.AddWithValue("@balance", 0);
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-        //public void InsertProductToClientPayments(int clientid, int ProductId, double AmountPaid)
-        //{
-        //    string query = @"INSERT into  client_balance
-        //          (client_id,product_id,amount_paid,Currency_Name,is_expired,balance) 
-        //                                                      VALUES 
-        //          (@client_id,@product_id,@amount_paid,@Currency_Name,@is_expired,@balance)";
-
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-
-        //    cmd.Parameters.AddWithValue("@client_id", clientid);
-        //    cmd.Parameters.AddWithValue("@product_id", ProductId);
-        //    cmd.Parameters.AddWithValue("@amount_paid", AmountPaid);
-        //    cmd.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
-        //    cmd.Parameters.AddWithValue("@is_expired", true);
-        //    cmd.Parameters.AddWithValue("@balance", 0);
-
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-        //void UpdateClientBalancePaid(int clientid, int BundleId, double AmountPaid)
-        //{
-        //    string query = @"Update client_balance Set amount_paid+=@amount_paid where bundle_id=@bundle_id And client_id=@client_id";
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-        //    cmd.Parameters.AddWithValue("@client_id", clientid);
-        //    cmd.Parameters.AddWithValue("@bundle_id", BundleId);
-        //    cmd.Parameters.AddWithValue("@amount_paid", AmountPaid);
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-
-
-
-        //public void InsertBundleToClientBalance(int clientid, int BundleId, string BundleOffre, double Balance, int SessionLeft)//Balance should be negative
-        //{
-        //    string query = @"INSERT into  client_balance
-        //          (client_id,bundle_id,offre,original_offre,amount_paid,balance,Currency_Name,session_left_days,isbundle_membership,is_expired) 
-        //                                                      VALUES 
-        //          (@client_id,@bundle_id,@offre,@original_offre,@amount_paid,@balance,@Currency_Name,@session_left_days,@isbundle_membership,@is_expired)";
-
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-
-        //    cmd.Parameters.AddWithValue("@client_id", clientid);
-        //    cmd.Parameters.AddWithValue("@bundle_id", BundleId);
-        //    cmd.Parameters.AddWithValue("@offre", BundleOffre);
-        //    cmd.Parameters.AddWithValue("@original_offre", BundleOffre);
-        //    cmd.Parameters.AddWithValue("@amount_paid", 0);
-        //    cmd.Parameters.AddWithValue("@balance", Balance);
-        //    cmd.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
-        //    cmd.Parameters.AddWithValue("@session_left_days", SessionLeft);
-        //    cmd.Parameters.AddWithValue("@isbundle_membership", true);
-        //    cmd.Parameters.AddWithValue("@is_expired", false);
-
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-        //public void InsertProducetToClientBalance(int clientid, double ProductOffre, int ProductId, double Balance)//Balance should be negative
-        //{
-        //    string query = @"INSERT into  client_balance
-        //          (client_id,product_id,offre,original_offre,amount_paid,balance,Currency_Name,is_expired) 
-        //                                                      VALUES 
-        //          (@client_id,@product_id,@offre,@original_offre,@amount_paid,@balance,@Currency_Name,@is_expired)";
-
-        //    SqlCommand cmd = new SqlCommand(query, conNew);
-
-        //    cmd.Parameters.AddWithValue("@client_id", clientid);
-        //    cmd.Parameters.AddWithValue("@product_id", ProductId);
-        //    cmd.Parameters.AddWithValue("@offre", ProductOffre);
-        //    cmd.Parameters.AddWithValue("@original_offre", ProductOffre);
-        //    cmd.Parameters.AddWithValue("@amount_paid", 0);
-        //    cmd.Parameters.AddWithValue("@balance", Balance);
-        //    cmd.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
-        //    cmd.Parameters.AddWithValue("@is_expired", false);
-
-        //    conNew.Open();
-        //    cmd.ExecuteNonQuery();
-        //    conNew.Close();
-        //}
-
-        private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(UCappointment)))
+            CreateTLP();//before creating our TLP we need AllIndexesGroupList
+            UCappointment uc1;
+            for (int i = 1; i < 25; i++)
             {
-                e.Effect = DragDropEffects.Move;
+                uc1 = new UCappointment();
+                uc1.Dock = DockStyle.Fill;
+                TLPSchedule.Controls.Add(uc1, 1, i + 4);
+                TLPSchedule.SetRowSpan(uc1, 4);
             }
+
+
+            uc1 = new UCappointment();
+            uc1.Dock = DockStyle.Fill;
+            TLPSchedule.Controls.Add(uc1, 2, 3);
+            TLPSchedule.SetRowSpan(uc1, 6);
+
+            uc1 = new UCappointment();
+            TLPSchedule.Controls.Add(uc1, 1, 8);
+            uc1.Dock = DockStyle.Fill;
+            TLPSchedule.SetRowSpan(uc1, 4);
+
+            uc1 = new UCappointment();
+            TLPSchedule.Controls.Add(uc1, 7, 10);
+            uc1.Dock = DockStyle.Fill;
+            TLPSchedule.SetRowSpan(uc1, 6);
+
+            uc1 = new UCappointment();
+            TLPSchedule.Controls.Add(uc1, 8, 10);
+            uc1.Dock = DockStyle.Fill;
+            TLPSchedule.SetRowSpan(uc1, 6);
+
+            uc1 = new UCappointment();
+            TLPSchedule.Controls.Add(uc1, 9, 10);
+            uc1.Dock = DockStyle.Fill;
+            TLPSchedule.SetRowSpan(uc1, 6);
+
+            uc1 = new UCappointment();
+            TLPSchedule.Controls.Add(uc1, 10, 8);
+            uc1.Dock = DockStyle.Fill;
+            TLPSchedule.SetRowSpan(uc1, 6);
+
+
+
+
+            ResizeTableLayoutPanelToPerc();
+            //ExpandTableLayoutPanelColumn(AllIndexesGroupList[2], 700);
         }
 
-        private void flowLayoutPanel1_DragOver(object sender, DragEventArgs e)
+
+        void CreateTLP()
+        {
+            TLPSchedule = new TableLayoutPanelDoubleBufferedNoscroll();
+            TLPSchedule.AllowDrop = true;
+            TLPSchedule.Dock = DockStyle.Fill;
+            TLPSchedule.AutoScroll = true;
+
+
+
+            //Hours
+            TLPSchedule.RowCount = 96;
+            for (int i = 0; i < TLPSchedule.RowCount; i++)
+            {
+                TLPSchedule.RowStyles.Add(new RowStyle(SizeType.Absolute, 20f));
+
+
+            }
+
+
+
+            //Colmns Groups,Employees
+            TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100f));
+            TLPSchedule.ColumnCount++;
+
+            foreach ((ClassEmployee, List<int>) Group in AllIndexesGroupList)
+            {
+                foreach (int ColumnIndex in Group.Item2)
+                {
+
+                    TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
+                    TLPSchedule.ColumnCount++;
+
+                }
+            }
+
+
+
+            //
+            for (int i = 0; i < TLPSchedule.RowCount; i += 4)
+            {
+                Label LabelTime = new Label();
+                LabelTime.Dock = DockStyle.Fill;
+                LabelTime.BackColor = Color.White;
+                LabelTime.Dock = DockStyle.Fill;
+                LabelTime.TextAlign = ContentAlignment.TopRight;
+                LabelTime.Font = new Font("Arial", 10f, System.Drawing.FontStyle.Regular);
+                TimeSpan Time = TimeSpan.FromHours(i / 4);
+
+                DateTime dateTime = DateTime.Today.Add(Time);//datetime it's a reference
+                string timestring = dateTime.ToString("h:mm tt");
+                string[] partstime = timestring.Split(' ');
+                LabelTime.Text = partstime[0] + " " + partstime[1];
+
+
+                TLPSchedule.Controls.Add(LabelTime, 0, i);
+                TLPSchedule.SetRowSpan(LabelTime, 4);
+            }
+
+
+
+            //Events
+            TLPSchedule.MouseWheel += TLPSchedule_MouseMove;
+            TLPSchedule.MouseMove += TLPSchedule_MouseMove;
+
+            TLPSchedule.MouseLeave += TLPSchedule_MouseLeave;
+
+            TLPSchedule.CellPaint += TLPSchedule_CellPaint;
+            TLPSchedule.DragDrop += TLPSchedule_DragDrop;
+            TLPSchedule.DragEnter += TLPSchedule_DragEnter;
+            TLPSchedule.DragOver += TLPSchedule_DragOver;
+
+            this.Controls.Add(TLPSchedule);
+        }
+
+        private void TLPSchedule_DragOver(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
-        }
+            NbreofRowsHighlighted = 1;
 
-        private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
+            Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y));
+            SetValuesthatweillAffectselection(clientPoint);
+        }
+        private void TLPSchedule_DragEnter(object sender, DragEventArgs e)
         {
-            FlowLayoutPanel panel = sender as FlowLayoutPanel;
-            UCappointment uc = e.Data.GetData(typeof(UCappointment)) as UCappointment;
-            if (panel != null && uc != null)
+            e.Effect = DragDropEffects.Move;
+            UCApointmentDraged = e.Data.GetData(typeof(UCappointment)) as UCappointment;
+            if (UCApointmentDraged.Parent != null)
             {
-                FlowLayoutPanel oldParent = uc.Parent as FlowLayoutPanel;
-                if (oldParent != null)
-                {
-                    oldParent.Controls.Remove(uc);
-                }
-                panel.Controls.Add(uc);
-                panel.Invalidate();
+                OldUCColumnRow = (TLPSchedule.GetColumn(UCApointmentDraged), TLPSchedule.GetRow(UCApointmentDraged));
+                TLPSchedule.Controls.Remove(UCApointmentDraged);
+
             }
         }
+        private void TLPSchedule_DragDrop(object sender, DragEventArgs e)
+        {
+            Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y));   // Convert the screen coordinates to client coordinates
+
+            (int column, int row) = GetCellPosition(TLPSchedule, clientPoint);
+
+
+            if (UCApointmentDraged != null && column >= 0 && row >= 0)
+            {
+               
+
+
+                int StartingRow = row;
+                int EndingRow = row+TLPSchedule.GetRowSpan(UCApointmentDraged);
+
+                int StartingColumn = DesiredIndexesGroup.Item2[0];
+                int EndingColumn = DesiredIndexesGroup.Item2[DesiredIndexesGroup.Item2.Count - 1];
+              
+                bool OtherUCExists = false; ;
+             
+               
+                for(int i= StartingRow; i < EndingRow; i++)
+                {
+                   for (int j = StartingColumn; j < EndingColumn; j++)
+                    {
+                        Control foundControl = GetControlFromPositionWithSpan(j, i);//we re checking each cell eza fiya shi, which will cover the whole area of the usercontrol
+                        if (foundControl != null)
+                        {
+                            OtherUCExists = true;
+                        }                     
+                    }
+                }
+
+                if (!OtherUCExists)
+                {
+                    TLPSchedule.Controls.Add(UCApointmentDraged, StartingColumn, StartingRow);
+                    TLPSchedule.SetColumnSpan(UCApointmentDraged, (EndingColumn- StartingColumn)+1);
+                }
+                else
+                {
+                    TLPSchedule.Controls.Add(UCApointmentDraged, column, row);//lezim tekhlaa column aw tsayoo haddo
+                }
+
+
+
+                UCApointmentDraged.Dock = DockStyle.Fill;
+                UCApointmentDraged.isDragging = false;
+                UCApointmentDraged.Show();
+                UCApointmentDraged = null;
+
+                ResetSelection();
+            }
+        }
+        private Control GetControlFromPositionWithSpan(int checkCol, int checkRow)//check for these specific indexes, eza fi hdn aalayun
+        {
+            foreach (Control control in TLPSchedule.Controls)
+            {
+                int startColumn = TLPSchedule.GetColumn(control);
+                int startRow = TLPSchedule.GetRow(control);
+
+                int columnSpan = TLPSchedule.GetColumnSpan(control);
+                int rowSpan = TLPSchedule.GetRowSpan(control);
+
+                // Check if the control spans over the checked cells (column and row of the cell)
+                if (startColumn <= checkCol && (startColumn + columnSpan) > checkCol &&
+                    startRow <= checkRow && (startRow + rowSpan) > checkRow)
+                {
+                    return control;
+                }
+            }
+            return null; // No control found spanning this position
+        }
+
+
+
+
+        private void TLPSchedule_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+
+
+            Graphics g = e.Graphics;
+            Rectangle r = e.CellBounds;
+
+
+            int NbrRowShouldPass;
+            int currentGroup=-1;
+            int hoveredGroup=-1;
+            if (UCApointmentDraged != null)
+            {
+                NbrRowShouldPass = TLPSchedule.GetRowSpan(UCApointmentDraged);
+                           
+            }
+            else
+            {
+                NbrRowShouldPass = -1;
+                 currentGroup = e.Row / NbreofRowsHighlighted;//hone ha temrue aa all cells tb3 el tlp
+                 hoveredGroup = hoveredCellColmnRow.Item2 / NbreofRowsHighlighted;//hone fix
+            }
+
+
+
+            if (NbrRowShouldPass == -1)
+            {
+                // Check if this cell's row belongs to the same group as the hovered cell
+                if (currentGroup == hoveredGroup && (DesiredIndexesGroup != (null, null) && DesiredIndexesGroup.Item2.Contains(e.Column)))
+                {
+
+                    g.FillRectangle(hoverBrush, r);
+                }
+            }
+              else
+            {
+                if ((e.Row>= hoveredCellColmnRow.Item2 && e.Row< (hoveredCellColmnRow.Item2+ NbrRowShouldPass)) && (DesiredIndexesGroup != (null, null) && DesiredIndexesGroup.Item2.Contains(e.Column)))
+                {
+
+                    g.FillRectangle(hoverBrush, r);
+                }
+            }
+
+
+
+
+
+            ////Check if we're in the last column; if not, don't draw vertical lines
+            if (e.Column < TLPSchedule.ColumnCount)
+            {
+                foreach ((ClassEmployee, List<int>) va in AllIndexesGroupList)
+                {
+
+                    if (e.Column == va.Item2[0] && e.Column != 0)
+                    {
+                        g.DrawLine(Pens.LightGray, r.Left, r.Top, r.Left, r.Bottom);
+                    }
+
+                }
+
+            }
+
+            // Always draw horizontal lines below the cell if not the last row
+            if (e.Row < TLPSchedule.RowCount)
+            {
+                if (e.Row % 4 == 0)
+                {
+                    if (e.Row != 0)
+                    {
+                        g.DrawLine(Pens.LightGray, r.Left, r.Top, r.Right, r.Top);
+
+                    }
+                }
+                else//hone el hidden rows
+                {
+                    //g.DrawLine(Pens.LightGray, r.Left, r.Top, r.Right, r.Top);
+                }
+            }
+
+        }
+        private void TLPSchedule_MouseMove(object sender, MouseEventArgs e)
+        {
+            NbreofRowsHighlighted = 4;
+            SetValuesthatweillAffectselection(e.Location);
+        }
+        private void TLPSchedule_MouseLeave(object sender, EventArgs e)
+        {
+            ResetSelection();
+        }
+
+        //private void InvalidateSpecificCells()
+        //{
+        //    // Find the desired group of column indices
+        //    List<int> columnIndices = null;
+        //    foreach (var group in AllIndexesGroupList)
+        //    {
+        //        if (group.Item2.Contains(hoveredCell.Item1))
+        //        {
+        //            columnIndices = group.Item2;
+        //            break;
+        //        }
+        //    }
+        //    if (columnIndices == null)
+        //        return; // No columns found, nothing to do)
+
+        //    // Calculate the group index for rows
+        //    int hoveredGroup = hoveredCell.Item2 / NbreofRowsHighlighted;
+
+
+
+        //    int NbrRowShouldPass;
+        //    if (UCApointmentDraged != null)
+        //    {
+        //        NbrRowShouldPass = TLPSchedule.GetRowSpan(UCApointmentDraged);
+
+        //    }
+        //    else
+        //    {
+        //        NbrRowShouldPass = NbreofRowsHighlighted;
+        //    }
+
+
+        //    for (int row = 0; row < TLPSchedule.RowCount; row++)
+        //    {
+        //        int rowGroup = row / NbreofRowsHighlighted;
+
+        //        if (rowGroup == hoveredGroup)
+        //        {
+        //            for (int i = 0; i < NbrRowShouldPass; i++)
+        //            {
+        //                foreach (int col in columnIndices)
+        //                {
+        //                    if (col < TLPSchedule.ColumnCount)
+        //                    {
+        //                        // Calculate the cell bounds
+        //                        Rectangle cellBounds = GetCellBounds(col, row);
+        //                        TLPSchedule.Invalidate(cellBounds, false); // Invalidate cell
+        //                    }
+        //                }
+        //            }
+        //            break;
+        //        }
+        //    }
+        //}
+
+        //private Rectangle GetCellBounds(int column, int row)
+        //{
+        //    // Calculate the cell bounds within the table layout panel
+        //    Rectangle cellRect = new Rectangle();
+        //    Control control = TLPSchedule.GetControlFromPosition(column, row);
+        //    if (control != null)
+        //    {
+        //        cellRect = new Rectangle(control.Location, control.Size);
+        //    }
+        //    return cellRect;
+        //}
+
+
+
+        void SetValuesthatweillAffectselection(Point Loaction)
+        {
+            (int, int) cellPos = GetCellPosition(TLPSchedule, Loaction);
+
+            if (cellPos != hoveredCellColmnRow)
+            {
+
+                //set whichcolumn and row we are
+                hoveredCellColmnRow = cellPos;
+
+                //Set which employee we re in
+                int WhichEmployee = 0;
+                foreach ((ClassEmployee, List<int>) Group in AllIndexesGroupList)
+                {
+                    if (Group.Item2.Contains(hoveredCellColmnRow.Item1))
+                    {
+                        DesiredIndexesGroup = AllIndexesGroupList[WhichEmployee];
+                        break;
+                    }
+                    WhichEmployee++;
+                }
+
+
+                TLPSchedule.Invalidate();
+                //InvalidateSpecificCells(); // Causes the control to be redrawn
+            }
+        }
+        private (int, int) GetCellPosition(TableLayoutPanel panel, Point location)
+        {
+            // Adjusting location based on the scroll position
+            Point scrollPosition = panel.AutoScrollPosition;
+            int adjustedX = location.X - scrollPosition.X;
+            int adjustedY = location.Y - scrollPosition.Y;
+
+            int width = 0;
+            int height = 0;
+
+            // Iterate through rows to find the row
+            int row;
+            for (row = 0; row < panel.RowCount; row++)
+            {
+                int rowHeight = panel.GetRowHeights()[row];
+                height += rowHeight;
+                if (height > adjustedY)
+                    break;
+            }
+
+            // Iterate through columns to find the column
+            int column;
+            for (column = 0; column < panel.ColumnCount; column++)
+            {
+                int columnWidth = panel.GetColumnWidths()[column];
+                width += columnWidth;
+                if (width > adjustedX)
+                    break;
+            }
+
+            // If the point is out of the bounds of the actual cells, reset to -1, -1
+            if (row >= panel.RowCount || column >= panel.ColumnCount)
+                return (-1, -1);
+
+            return (column, row);
+        }
+
+        void ResetSelection()
+        {
+            hoveredCellColmnRow = (-1, -1);
+            DesiredIndexesGroup = (null, null);
+            Cursor.Current = Cursors.Default; // Reset the cursor to the default
+            TLPSchedule.Invalidate();
+        }
+
+
+
+
+
+
+        public void ExpandTableLayoutPanelColumn((ClassEmployee, List<int>) DesiredIndexesGroup, int MaxWidth)
+        {
+
+            int OriginalWidthOfDesiredGroup = UCappointment.OriginalWidth * DesiredIndexesGroup.Item2.Count;
+
+            int DesiredWidthOfTheGroup = OriginalWidthOfDesiredGroup < MaxWidth ? OriginalWidthOfDesiredGroup : MaxWidth;
+
+
+
+            int DesiredWidthPerColumn = DesiredWidthOfTheGroup / DesiredIndexesGroup.Item2.Count;
+
+            foreach (int ColumnIndex in DesiredIndexesGroup.Item2)
+            {
+                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Absolute, DesiredWidthPerColumn);
+            }
+        }
+
+        void ResizeTableLayoutPanelToPerc()
+        {
+            float PercentageOfEachGroup = 100 / AllIndexesGroupList.Count;
+
+            foreach ((ClassEmployee, List<int>) Group in AllIndexesGroupList)
+            {
+                float PercentageOfEachColumn = PercentageOfEachGroup / Group.Item2.Count;
+
+                foreach (int ColumnIndex in Group.Item2)
+                {
+                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                }
+            }
+        }
+
+
+
+
+
+
+
     }
+
+
 }

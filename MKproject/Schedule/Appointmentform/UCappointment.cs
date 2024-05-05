@@ -14,7 +14,7 @@ namespace MKproject.Schedule
 {
     public partial class UCappointment : UserControl
     {
- 
+
         public ClassAppointment DesiredAppointmentUCApp { get; set; }
         //kermel el drag and Drop
         public ClassAppointment OldDesiredAppointmentUCApp { get; set; }
@@ -31,13 +31,16 @@ namespace MKproject.Schedule
         public UCDay ParentFormUCday { get; set; }
         public static int OriginalWidth = 230;
         private Point initialMouseDownPoint;
-        private bool isDragging = false;
+        public bool isDragging = false;
 
 
         //
         Label LabelBalance;
 
-
+        public UCappointment()
+        {
+            InitializeComponent();
+        }
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
         public UCappointment(ClassAppointment desiredappointment, UCDay uCDay, List<int> ListEmployee_id)
         {
@@ -120,9 +123,9 @@ namespace MKproject.Schedule
                 labelTime.Margin = new Padding(0, 0, 0, 0);
             }
 
-         
-            
-            
+
+
+
             if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-Future
             {
                 //Balance
@@ -169,7 +172,7 @@ namespace MKproject.Schedule
                     this.Visible = false;
                     RemoveAppointmentFromTLP();
                 }
-                else if(ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
+                else if (ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
                 {
                     this.Visible = true;
                 }
@@ -205,7 +208,7 @@ namespace MKproject.Schedule
             }
 
 
-            
+
 
 
         }
@@ -623,53 +626,109 @@ namespace MKproject.Schedule
 
         }
 
-
+        Cursor customCursor;
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
-            if (TouchScroll.MoveHoldClick == false)
-            {
-                if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)//229, 226, 244
-                {
-                    TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
-                }
-            }
+            //if (TouchScroll.MoveHoldClick == false)
+            //{
+            //    if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)//229, 226, 244
+            //    {
+            TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
+            //    }
+            //}
 
-            // Check if the mouse has moved enough to be considered a drag.
-            if (!isDragging && e.Button == MouseButtons.Left && this.DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)
+            if (!isDragging && e.Button == MouseButtons.Left)
             {
                 if (Math.Abs(e.X - initialMouseDownPoint.X) > SystemInformation.DoubleClickSize.Width ||
                     Math.Abs(e.Y - initialMouseDownPoint.Y) > SystemInformation.DoubleClickSize.Height)
                 {
-                    isDragging = true; // The control is being dragged.
-                    DoDragDrop(this, DragDropEffects.Move);
+                    isDragging = true; // Set the dragging flag
+                   
+                    Bitmap controlImage = CaptureControlImage(this); // Capture the image of the control
+                    customCursor = CreateCursorFromImage(controlImage); // Create a cursor
 
-
-
-                    UCappointments_MouseLeave(null, EventArgs.Empty);
-                    FixUCDesign();//lieanno sometimes el size tb3a ma ha yetghayar, yaaane ma ha naayit la UCappointment_Resize, bas el time  ha yetghayar, w el time ma aam bi se3 aweat , so maale men aayetla marten m-to make sure
+              
+                     DoDragDrop(this, DragDropEffects.Move);
+                    Cursor.Current = customCursor; // Set custom cursor during drag
                 }
             }
         }
         private void UCappointments_MouseLeave(object sender, EventArgs e)
         {
-            if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)
-            {
-                TLPGlobal.BackColor = Color.White;
-            }
+            //if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)
+            //{
+            TLPGlobal.BackColor = Color.White;
+            //}
         }
         private void Control_MouseDown(object sender, MouseEventArgs e)
         {
             initialMouseDownPoint = e.Location;
-            ParentFormUCday.TouchscrollPanelUCDay.RemoveEventPanelUCDay(ParentFormUCday.TLPAppointment);
             isDragging = false; // Reset dragging flag
+
+
+            //ParentFormUCday.TouchscrollPanelUCDay.RemoveEventPanelUCDay(ParentFormUCday.TLPAppointment);
+        }
+        private Bitmap CaptureControlImage(Control control)
+        {
+            Bitmap controlImage = new Bitmap(control.Width, control.Height);
+            control.DrawToBitmap(controlImage, new Rectangle(0, 0, control.Width, control.Height));
+            return controlImage;
         }
 
+
+        // DLL imports to use the GetIconInfo and CreateIconIndirect functions
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
+
+        public struct IconInfo
+        {
+            public bool fIcon;
+            public int xHotspot;
+            public int yHotspot;
+            public IntPtr hbmMask;
+            public IntPtr hbmColor;
+        }
+        private Cursor CreateCursorFromImage(Bitmap bmp)
+        {
+            int hotspotX = bmp.Width / 2;
+            int hotspotY = 0; // Top of the image
+
+            // Create a cursor with the specified hotspot
+            IntPtr ptr = bmp.GetHicon();
+            IconInfo tmp = new IconInfo();
+            GetIconInfo(ptr, ref tmp);
+            tmp.xHotspot = hotspotX;
+            tmp.yHotspot = hotspotY;
+            tmp.fIcon = false; // Specify that this is a cursor, not an icon
+
+            ptr = CreateIconIndirect(ref tmp);
+            return new Cursor(ptr);
+        }
 
         private void UCappointment_Resize(object sender, EventArgs e)
         {
-            FixUCDesign();//ejbare kermel tfout fiya aal add appointment w tkun badda tekhud original size, tkun bel designer different then the original width.
+            //FixUCDesign();//ejbare kermel tfout fiya aal add appointment w tkun badda tekhud original size, tkun bel designer different then the original width.
         }
 
+        private void UCappointment_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+            if (e.Action == DragAction.Drop || e.Action == DragAction.Cancel)
+            {
+                Cursor.Current = Cursors.Default; // Reset the cursor to default
+                isDragging = false; // Reset dragging state
+            }
+        }
 
+        private void UCappointment_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            e.UseDefaultCursors = false; // Prevent the system from setting default cursors
+            if (isDragging)
+            {
+                Cursor.Current = customCursor; // Ensure the custom cursor is used
+            }
+        }
     }
 }
