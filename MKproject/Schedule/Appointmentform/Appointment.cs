@@ -114,8 +114,8 @@ namespace MKproject.Schedule
 
 
             //ased hattaynehun hone, ta eza eemelet delete, rjeet undo delete, yuno msayavin
-            UCNewPositionCol = UCappointment.ColumnPosition;
-            UCNewPositionRow = UCappointment.RowPosition;
+            UCNewPositionCol = UCappointment.ColumnIndex;
+            UCNewPositionRow = UCappointment.RowIndex;
 
 
             ucClientApp = new UCClientApp(this);
@@ -538,7 +538,7 @@ namespace MKproject.Schedule
         {
             //Design
             bool IsUCAppPosChanged;
-            if (UCappointment.RowPosition == UCNewPositionRow && UCappointment.ColumnPosition == UCNewPositionCol)//checking eza tghayrarit its position or no
+            if (UCappointment.RowIndex == UCNewPositionRow && UCappointment.ColumnIndex == UCNewPositionCol)//checking eza tghayrarit its position or no
             {
                 IsUCAppPosChanged = false;
             }

@@ -19,8 +19,8 @@ namespace MKproject.Schedule
         //kermel el drag and Drop
         public ClassAppointment OldDesiredAppointmentUCApp { get; set; }
 
-        public int ColumnPosition { get; set; }
-        public int RowPosition { get; set; }
+        public int ColumnIndex { get; set; }
+        public int RowIndex { get; set; }
 
 
 
@@ -37,9 +37,15 @@ namespace MKproject.Schedule
         //
         Label LabelBalance;
 
-        public UCappointment()
+        public UCappointment(ClassAppointment desiredappointment)
         {
             InitializeComponent();
+            //Aam nekhoud Col and Row pos taba3 lucappointment, bas lezim ykun mawjude honik, awwal ma yenkhalae el appointment
+
+            DesiredAppointmentUCApp = desiredappointment;
+            SetUCDesign();
+            SetServiceLogicAndDesign();
+
         }
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
         public UCappointment(ClassAppointment desiredappointment, UCDay uCDay, List<int> ListEmployee_id)
@@ -51,11 +57,13 @@ namespace MKproject.Schedule
 
             //Aam nekhoud Col and Row pos taba3 lucappointment, bas lezim ykun mawjude honik, awwal ma yenkhalae el appointment
             TimeSpan starttimeTimeSpan = DesiredAppointmentUCApp.StartTime.TimeOfDay;//bas kermel le2e uctime
+
+
             int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
             int employeePosition = ListEmployee_id.IndexOf((int)DesiredAppointmentUCApp.EmployeeId);
 
-            ColumnPosition = employeePosition + 1;//position flowlayoutpanel hiye position employee bel list-1 
-            RowPosition = HourOfTheAppointment;
+            ColumnIndex = employeePosition + 1;//position flowlayoutpanel hiye position employee bel list-1 
+            RowIndex = HourOfTheAppointment;
 
 
             SetUCDesign();
@@ -162,50 +170,50 @@ namespace MKproject.Schedule
             }
 
 
-            //State
-            if (DesiredAppointmentUCApp.IsCompleted)
-            {
-                this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
+            ////State
+            //if (DesiredAppointmentUCApp.IsCompleted)
+            //{
+            //    this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
 
-                if (!ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && this.Visible)
-                {
-                    this.Visible = false;
-                    RemoveAppointmentFromTLP();
-                }
-                else if (ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
-                {
-                    this.Visible = true;
-                }
-            }
-            else if (DesiredAppointmentUCApp.IsCanceled)
-            {
-                this.BackColor = Color.FromArgb(244, 86, 7);//orange
+            //    if (!ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && this.Visible)
+            //    {
+            //        this.Visible = false;
+            //        RemoveAppointmentFromTLP();
+            //    }
+            //    else if (ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
+            //    {
+            //        this.Visible = true;
+            //    }
+            //}
+            //else if (DesiredAppointmentUCApp.IsCanceled)
+            //{
+            //    this.BackColor = Color.FromArgb(244, 86, 7);//orange
 
-                if (!ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && this.Visible)
-                {
-                    this.Visible = false;
-                    RemoveAppointmentFromTLP();
+            //    if (!ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && this.Visible)
+            //    {
+            //        this.Visible = false;
+            //        RemoveAppointmentFromTLP();
 
-                }
-                if (ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && !this.Visible)
-                {
-                    this.Visible = true;
-                }
-            }
-            else
-            {
-                this.BackColor = Program.BoldColor;
+            //    }
+            //    if (ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && !this.Visible)
+            //    {
+            //        this.Visible = true;
+            //    }
+            //}
+            //else
+            //{
+            //    this.BackColor = Program.BoldColor;
 
-                if (!ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && this.Visible)
-                {
-                    this.Visible = false;
-                    RemoveAppointmentFromTLP();
-                }
-                else if (ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && !this.Visible)
-                {
-                    this.Visible = true;
-                }
-            }
+            //    if (!ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && this.Visible)
+            //    {
+            //        this.Visible = false;
+            //        RemoveAppointmentFromTLP();
+            //    }
+            //    else if (ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && !this.Visible)
+            //    {
+            //        this.Visible = true;
+            //    }
+            //}
 
 
 
@@ -603,10 +611,10 @@ namespace MKproject.Schedule
             }
             return havethemaxucdata;
         }
-
-
-
-
+        private void UCappointment_Resize(object sender, EventArgs e)
+        {
+            FixUCDesign();//ejbare kermel tfout fiya aal add appointment w tkun badda tekhud original size, tkun bel designer different then the original width.
+        }
 
 
         //DESIGN
@@ -625,6 +633,10 @@ namespace MKproject.Schedule
             NotificationBanner.Show("", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, true);
 
         }
+
+
+
+
 
         Cursor customCursor;
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
@@ -648,7 +660,7 @@ namespace MKproject.Schedule
                     customCursor = CreateCursorFromImage(controlImage); // Create a cursor
 
               
-                     DoDragDrop(this, DragDropEffects.Move);
+                    DoDragDrop(this, DragDropEffects.Move);
                     Cursor.Current = customCursor; // Set custom cursor during drag
                 }
             }
@@ -708,17 +720,16 @@ namespace MKproject.Schedule
             return new Cursor(ptr);
         }
 
-        private void UCappointment_Resize(object sender, EventArgs e)
-        {
-            //FixUCDesign();//ejbare kermel tfout fiya aal add appointment w tkun badda tekhud original size, tkun bel designer different then the original width.
-        }
-
+        public event EventHandler UCAppIsDroped;
         private void UCappointment_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
         {
             if (e.Action == DragAction.Drop || e.Action == DragAction.Cancel)
             {
+
                 Cursor.Current = Cursors.Default; // Reset the cursor to default
                 isDragging = false; // Reset dragging state
+                UCAppIsDroped?.Invoke(null, EventArgs.Empty);
+
             }
         }
 
@@ -730,5 +741,10 @@ namespace MKproject.Schedule
                 Cursor.Current = customCursor; // Ensure the custom cursor is used
             }
         }
+  
+    
+    
+    
+    
     }
 }

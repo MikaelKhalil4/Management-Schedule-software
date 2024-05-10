@@ -124,8 +124,8 @@ namespace MKproject.Schedule
             int NewPositionrow = TLPAppointment.GetRow(AddflowLayoutPanel);
             int NewPositioncol = TLPAppointment.GetColumn(AddflowLayoutPanel);
 
-            int OldPositionrow = UCApointmentDraged.RowPosition;
-            int OldPositioncol = UCApointmentDraged.ColumnPosition;
+            int OldPositionrow = UCApointmentDraged.RowIndex;
+            int OldPositioncol = UCApointmentDraged.ColumnIndex;
 
             if (AddflowLayoutPanel != null && UCApointmentDraged != null && (NewPositioncol != OldPositioncol || NewPositionrow != OldPositionrow))
             {
@@ -167,8 +167,8 @@ namespace MKproject.Schedule
                     UCApointmentDraged.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, OldPositioncol, OldPositionrow);
 
 
-                    UCApointmentDraged.RowPosition = NewPositionrow;
-                    UCApointmentDraged.ColumnPosition = NewPositioncol;
+                    UCApointmentDraged.RowIndex = NewPositionrow;
+                    UCApointmentDraged.ColumnIndex = NewPositioncol;
 
 
                     UCApointmentDraged.OldDesiredAppointmentUCApp = UCApointmentDraged.DesiredAppointmentUCApp.Copy();//we should copy before changing to the new time
@@ -1040,13 +1040,13 @@ namespace MKproject.Schedule
 
             if (IsUCAppPosChanged)
             {
-                int OldPositioncol = ucappointmentclicked.ColumnPosition;
-                int OldPositionrow = ucappointmentclicked.RowPosition;
+                int OldPositioncol = ucappointmentclicked.ColumnIndex;
+                int OldPositionrow = ucappointmentclicked.RowIndex;
 
 
                 //Changing the palce of the ucappointmentclicked
                 //Remove
-                FlowLayoutPanel RemoveflowLayoutPanel = TLPAppointment.GetControlFromPosition(ucappointmentclicked.ColumnPosition, ucappointmentclicked.RowPosition) as FlowLayoutPanel;
+                FlowLayoutPanel RemoveflowLayoutPanel = TLPAppointment.GetControlFromPosition(ucappointmentclicked.ColumnIndex, ucappointmentclicked.RowIndex) as FlowLayoutPanel;
                 RemoveflowLayoutPanel.Controls.Remove(ucappointmentclicked);//hone lezim hatta hasab lstarttime tabaee desired appointment
 
                 int NumberOfVisibleControlsRemoveFLP = 0;
@@ -1076,8 +1076,8 @@ namespace MKproject.Schedule
 
 
 
-                ucappointmentclicked.RowPosition = NewPositionRow;
-                ucappointmentclicked.ColumnPosition = NewPositionCol;
+                ucappointmentclicked.RowIndex = NewPositionRow;
+                ucappointmentclicked.ColumnIndex = NewPositionCol;
 
 
                 TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
