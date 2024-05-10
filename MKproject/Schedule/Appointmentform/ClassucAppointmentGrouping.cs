@@ -132,7 +132,7 @@ namespace MKproject.Schedule.Appointmentform
             List<UCappointment> component = new List<UCappointment>();
             HashSet<UCappointment> visited = new HashSet<UCappointment>();
             DFS(targetUC, visited, component);
-            component.Remove(targetUC);
+          
             return component;
         }
 
