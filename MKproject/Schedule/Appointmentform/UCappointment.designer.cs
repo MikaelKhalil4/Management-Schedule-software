@@ -127,6 +127,6 @@
         public System.Windows.Forms.Label labelTime;
         public System.Windows.Forms.TableLayoutPanel TLPGlobal;
         private System.Windows.Forms.Label labelService;
-        private System.Windows.Forms.Label labelFullName;
+        public System.Windows.Forms.Label labelFullName;
     }
 }
