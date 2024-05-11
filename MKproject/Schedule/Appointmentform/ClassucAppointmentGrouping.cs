@@ -10,7 +10,9 @@ namespace MKproject.Schedule.Appointmentform
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Common;
     using System.Linq;
+    using System.Windows.Documents;
     using System.Windows.Forms;
 
 
@@ -47,13 +49,26 @@ namespace MKproject.Schedule.Appointmentform
             }
             else if(targetColumns!=null)
             {
-                foreach (Control control in TLP.Controls)
+                List<UCappointment> ListUC = new List<UCappointment>();
+           
+                for (int i = 0; i < TLP.RowCount; i++)
                 {
-                    if (control is UCappointment uc && targetColumns.Contains(TLP.GetColumn(uc)))
+                    for (int j = targetColumns[0]; j <= targetColumns[targetColumns.Count()-1]; j++)
                     {
-                        CreatingAdjacencyList(uc);
+                        UCappointment founducapp = (UCappointment)TLP.GetControlFromPosition(j, i);
+                        if (founducapp != null)
+                        {
+                            if (!ListUC.Contains(founducapp))
+                            {
+                                ListUC.Add(founducapp);
+                                CreatingAdjacencyList(founducapp);
+
+                            }
+
+                        }
                     }
                 }
+             
             }
 
             // Build the adjacency list based on row intersections
@@ -119,7 +134,13 @@ namespace MKproject.Schedule.Appointmentform
                 }
             }
 
-            return groups;
+            // Sorting each group in the dictionary
+            foreach (var group in groups.Keys.ToList())
+            {
+                groups[group].Sort((x, y) =>
+                    x.ColumnIndex != y.ColumnIndex ? x.ColumnIndex.CompareTo(y.ColumnIndex) : x.RowIndex.CompareTo(y.RowIndex));
+            }
+            return groups; //ejbare to be sorted Column Asc, Row Asc
         }
 
 
@@ -135,7 +156,10 @@ namespace MKproject.Schedule.Appointmentform
             List<UCappointment> component = new List<UCappointment>();
             HashSet<UCappointment> visited = new HashSet<UCappointment>();
             DFS(targetUC, visited, component);
-          
+
+            // Sort the component based on RowIndex and ColumnIndex
+            component.Sort((x, y) => x.ColumnIndex != y.ColumnIndex ? x.ColumnIndex.CompareTo(y.ColumnIndex) : x.RowIndex.CompareTo(y.RowIndex));//ejbare to be sorted Column Asc, Row Asc
+
             return component;
         }
 
