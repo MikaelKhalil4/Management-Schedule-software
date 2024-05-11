@@ -19,35 +19,36 @@ namespace MKproject.Management
     public partial class TransferData : Form
     {
 
-
         TableLayoutPanelDoubleBufferedNoscroll TLPSchedule;
+        
+        List<(ClassEmployee, List<int>)> ListOfAlIGroups = new List<(ClassEmployee, List<int>)>();
 
 
-        UCappointment UCApointmentDraged;
-        //Stores the old postion of Draged Control
-        (ClassEmployee, List<int>) OldDesiredIndexesGroup;
+        (ClassEmployee, List<int>) OldGroupOfDraggedUC;
         int OldColumn;//old column is the exact column li ken aalaya el uc
+      
+        
+        
         int OldStartingColumn;//haya el old colmn mesh el exact, as enno men awwal column tb3 el hayda employee
         int OldEndingColumn;
         int OldStartingRow;
         int OldEndingRow;
 
 
-        List<UCappointment> ListSerpentConnectedUCsBeforeRemoving;//this serpent doesn tonly cover the area of the removed uc, but also outside the are, which
+        List<UCappointment> ListAllConnectedUCsToTheOneWereRemoving;//this serpent doesn tonly cover the area of the removed uc, but also outside the are, which
                                                                   //Which we care about , because the one we dont see could cause us problems, that s why the one we dont see if they exist, we dont do the auto size
 
 
-        List<(ClassEmployee, List<int>)> AllIndexesGroupList = new List<(ClassEmployee, List<int>)>();
 
-
-        (ClassEmployee, List<int>) DesiredIndexesGroupOfDraggedUc = (null, null);//stores the index columns Related To employee , when we re dragging a uc
-
+        UCappointment UCApointmentDraged;
+        (ClassEmployee, List<int>) GroupOfDraggedUC = (null, null);//stores the index columns Related To employee , when we re dragging a uc
         private (int, int) hoveredCellColmnRow = (-1, -1);  // Stores the  (column,row) of the hovered cell
 
 
         int NbreofRowsHighlighted = -1;//how many rows we need to highlight while mouse hover or dragging
-
         Brush hoverBrush = new SolidBrush(Color.LightGray); // Change the color as needed
+
+
 
         public TransferData()
         {
@@ -59,30 +60,33 @@ namespace MKproject.Management
             List<ClassEmployee> ListEmployeeSchedule = ClassEmployee.GetEmployeeScheduleMemberASC();
 
             //these indexes value, should initially be t Setbased on the ranks and on there s more then 2 appointment in the same hour, and any changes dureing the way, this list will be modifid , and apply to it one of the AppPercentage Design
-            List<int> Employee0 = new List<int>() { 1, 2, 3 };
-            List<int> Employee1 = new List<int>() { 4, 5, 6 };
-            List<int> Employee2 = new List<int>() { 7, 8, 9 };
-            List<int> Employee3 = new List<int>() { 10 };
-            List<int> Employee4 = new List<int>() { 11 };
-            List<int> Employee5 = new List<int>() { 12 };
+            List<int> Employee0 = new List<int>() { 1 };
+            List<int> Employee1 = new List<int>() { 2};
+            List<int> Employee2 = new List<int>() { 3};
+            List<int> Employee3 = new List<int>() { 4 };
+            List<int> Employee4 = new List<int>() { 5 };
+            List<int> Employee5 = new List<int>() { 6 };
 
-            AllIndexesGroupList.Add((ListEmployeeSchedule[0], Employee0));
-            AllIndexesGroupList.Add((ListEmployeeSchedule[1], Employee1));
-            AllIndexesGroupList.Add((ListEmployeeSchedule[2], Employee2));
+            ListOfAlIGroups.Add((ListEmployeeSchedule[0], Employee0));
+            ListOfAlIGroups.Add((ListEmployeeSchedule[1], Employee1));
+            ListOfAlIGroups.Add((ListEmployeeSchedule[2], Employee2));
 
-            AllIndexesGroupList.Add((ListEmployeeSchedule[3], Employee3));
-            AllIndexesGroupList.Add((ListEmployeeSchedule[4], Employee4));
-            AllIndexesGroupList.Add((ListEmployeeSchedule[5], Employee5));
+            ListOfAlIGroups.Add((ListEmployeeSchedule[3], Employee3));
+            ListOfAlIGroups.Add((ListEmployeeSchedule[4], Employee4));
+            ListOfAlIGroups.Add((ListEmployeeSchedule[5], Employee5));
 
 
             CreateTLP();//before creating our TLP we need AllIndexesGroupList
             UCappointment uc1;
-            for (int i = 1; i < 9; i++)
+            int value = 0;
+            for (int i = 1; i <= 6; i++)
             {
+
                 uc1 = new UCappointment(ClassAppointment.CreateObjectClassAppointment(40 + i));
                 uc1.Dock = DockStyle.Fill;
                 uc1.ColumnIndex = 1;
-                uc1.RowIndex = i * 3;
+                uc1.RowIndex = value;
+                value += 4;
                 TLPSchedule.Controls.Add(uc1, 1, uc1.RowIndex);
                 TLPSchedule.SetRowSpan(uc1, 4);
                 uc1.UCAppIsDroped += Uc1_UCAppIsDroped;
@@ -98,7 +102,7 @@ namespace MKproject.Management
             uc1.UCAppIsDroped += Uc1_UCAppIsDroped;
 
             uc1 = new UCappointment(ClassAppointment.CreateObjectClassAppointment(60));
-            uc1.ColumnIndex = 1;
+            uc1.ColumnIndex = 3;
             uc1.RowIndex = 8;
             TLPSchedule.Controls.Add(uc1, uc1.ColumnIndex, uc1.RowIndex);
             uc1.Dock = DockStyle.Fill;
@@ -109,7 +113,7 @@ namespace MKproject.Management
 
 
             uc1 = new UCappointment(ClassAppointment.CreateObjectClassAppointment(52));
-            uc1.ColumnIndex = 7;
+            uc1.ColumnIndex = 4;
             uc1.RowIndex = 10;
             TLPSchedule.Controls.Add(uc1, uc1.ColumnIndex, uc1.RowIndex);
             uc1.Dock = DockStyle.Fill;
@@ -117,7 +121,7 @@ namespace MKproject.Management
             uc1.UCAppIsDroped += Uc1_UCAppIsDroped;
 
             uc1 = new UCappointment(ClassAppointment.CreateObjectClassAppointment(53));
-            uc1.ColumnIndex = 8;
+            uc1.ColumnIndex = 5;
             uc1.RowIndex = 12;
             TLPSchedule.Controls.Add(uc1, uc1.ColumnIndex, uc1.RowIndex);
             uc1.Dock = DockStyle.Fill;
@@ -125,34 +129,23 @@ namespace MKproject.Management
             uc1.UCAppIsDroped += Uc1_UCAppIsDroped;
 
             uc1 = new UCappointment(ClassAppointment.CreateObjectClassAppointment(54));
-            uc1.ColumnIndex = 9;
+            uc1.ColumnIndex = 6;
             uc1.RowIndex = 14;
             TLPSchedule.Controls.Add(uc1, uc1.ColumnIndex, uc1.RowIndex);
             uc1.Dock = DockStyle.Fill;
             TLPSchedule.SetRowSpan(uc1, 6);
             uc1.UCAppIsDroped += Uc1_UCAppIsDroped;
 
-            uc1 = new UCappointment(ClassAppointment.CreateObjectClassAppointment(56));
-            uc1.ColumnIndex = 10;
-            uc1.RowIndex = 12;
-            TLPSchedule.Controls.Add(uc1, uc1.ColumnIndex, uc1.RowIndex);
-            uc1.Dock = DockStyle.Fill;
-            TLPSchedule.SetRowSpan(uc1, 8);
-            uc1.UCAppIsDroped += Uc1_UCAppIsDroped;
+
 
 
 
             ResizeTableLayoutPanelToPerc();
-            //ExpandTableLayoutPanelColumn(AllIndexesGroupList[3], 700);
+            //ExpandTableLayoutPanelColumn(ListOfAlIGroups[3], 700);
         }
 
-        static int columnIndex = 4;
-        private void button1_Click(object sender, EventArgs e)
-        {
-            InsertColumn(columnIndex);
-            TLPSchedule.Invalidate();
-            columnIndex++;
-        }
+       
+  
 
 
         void CreateTLP()
@@ -179,7 +172,7 @@ namespace MKproject.Management
             TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100f));
             TLPSchedule.ColumnCount++;
 
-            foreach ((ClassEmployee, List<int>) Group in AllIndexesGroupList)
+            foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
             {
                 foreach (int ColumnIndex in Group.Item2)
                 {
@@ -231,6 +224,7 @@ namespace MKproject.Management
 
 
 
+
         private void TLPSchedule_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
@@ -240,13 +234,13 @@ namespace MKproject.Management
             {
 
                 OldColumn = TLPSchedule.GetColumn(UCApointmentDraged);
-                OldDesiredIndexesGroup = GetWichDesiredIndexesGroup(OldColumn);
+                OldGroupOfDraggedUC = GetWichDesiredIndexesGroup(OldColumn);
 
-                (OldStartingColumn, OldEndingColumn, OldStartingRow, OldEndingRow) = Get4RectanglePoints(TLPSchedule.GetRow(UCApointmentDraged), OldDesiredIndexesGroup);
+                (OldStartingColumn, OldEndingColumn, OldStartingRow, OldEndingRow) = GetRectangle4Points(TLPSchedule.GetRow(UCApointmentDraged), OldGroupOfDraggedUC);//ejbare ouaa tshila, hole el values mestaamlin baaden
 
-                ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, OldDesiredIndexesGroup.Item2);
-                ListSerpentConnectedUCsBeforeRemoving = grouper.GetConnectedComponent(UCApointmentDraged);//it gives us a list of all connected uc in these columns to this ucappp 
-                ListSerpentConnectedUCsBeforeRemoving.Remove(UCApointmentDraged);//so now i have the list of the uc that are connecetd to this targeteduc, but without the targeteduc, so can compare it later on
+                ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, OldGroupOfDraggedUC.Item2);
+                ListAllConnectedUCsToTheOneWereRemoving = grouper.GetConnectedComponent(UCApointmentDraged);//it gives us a list of all connected uc in these columns to this ucappp 
+                ListAllConnectedUCsToTheOneWereRemoving.Remove(UCApointmentDraged);//so now i have the list of the uc that are connecetd to this targeteduc, but without the targeteduc, so can compare it later on
 
                 TLPSchedule.Controls.Remove(UCApointmentDraged);
 
@@ -268,18 +262,22 @@ namespace MKproject.Management
                 ResetSelection();
             }
         }
+    
+        
+        
         private void TLPSchedule_DragDrop(object sender, DragEventArgs e)
         {
-            Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y));   // Convert the screen coordinates to client coordinates
+            Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y)); // Convert the screen coordinates to client coordinates
             (int column, int row) = GetCellPosition(TLPSchedule, clientPoint);
-            (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = Get4RectanglePoints(row, DesiredIndexesGroupOfDraggedUc);
-
-
-
+           
+            
+            (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(row, GroupOfDraggedUC);
             List<UCappointment> NewListUC = GetListOfAllControlsInSpecifiedArea(StartingColumn, EndingColumn, StartingRow, EndingRow);//it  will give the list, without the uc we re adding
+           
+            
             ClassucAppointmentGrouping grouper2 = new ClassucAppointmentGrouping(TLPSchedule, NewListUC, null);
-            Dictionary<int, List<UCappointment>> NewgroupedUCs = grouper2.ClassifyGroupsThatIntersectsIndependly();
-            List<UCappointment> AllNewdUC = NewgroupedUCs.SelectMany(pair => pair.Value).ToList();
+            Dictionary<int, List<UCappointment>> NewgroupedUCsCoverredByTheArea = grouper2.ClassifyGroupsThatAreConnected();
+            List<UCappointment> AllNewdUCInTheArea = NewgroupedUCsCoverredByTheArea.SelectMany(pair => pair.Value).ToList();
 
 
 
@@ -287,18 +285,24 @@ namespace MKproject.Management
             //removing
             List<UCappointment> OldListUC = GetListOfAllControlsInSpecifiedArea(OldStartingColumn, OldEndingColumn, OldStartingRow, OldEndingRow);//it will give the list, without the uc we re removing
             ClassucAppointmentGrouping grouper1 = new ClassucAppointmentGrouping(TLPSchedule, OldListUC, null);
-            Dictionary<int, List<UCappointment>> OldIndependentgroupedUCs = grouper1.ClassifyGroupsThatIntersectsIndependly();
-            List<UCappointment> AllOldUC = OldIndependentgroupedUCs.SelectMany(pair => pair.Value).ToList();
+            Dictionary<int, List<UCappointment>> OldGroupedUCsCoverByTheArea = grouper1.ClassifyGroupsThatAreConnected();
+            List<UCappointment> AllOldUCInTheArea = OldGroupedUCsCoverByTheArea.SelectMany(pair => pair.Value).ToList();
 
-            if (ListSerpentConnectedUCsBeforeRemoving.Count > 0 && ListsHaveSameElements(AllOldUC, ListSerpentConnectedUCsBeforeRemoving) && !ListsHaveSameElements(AllOldUC, AllNewdUC))
+
+            //ListSerpentConnectedUCsBeforeRemoving.Count > 0 , eza men matrah ma aam nshila ma ken connected cotrols ela ma darure naamil shi
+            // !ListsHaveSameElements(AllOldUC, AllNewdUC) , eza eendun same elements, yaane shelneha w radayneha mahalla, no need to perform the reomove operation
+            //ListsHaveSameElements(AllOldUCInTheArea, ListAllConnectedUCsToTheOneWereRemoving), eza ma keno metel baaed, yaane el fi hidden controls related lal groups juwwet OldGroupedUCsCoverByTheArea,
+            //bas mesh mbaynin, lieannoun mannun covered by the area,which will cause errors fetna bel function
+           
+            if (ListAllConnectedUCsToTheOneWereRemoving.Count > 0 && ListsHaveSameElements(AllOldUCInTheArea, ListAllConnectedUCsToTheOneWereRemoving) && !ListsHaveSameElements(AllOldUCInTheArea, AllNewdUCInTheArea))
             {
-                foreach (KeyValuePair<int, List<UCappointment>> Oldentry in OldIndependentgroupedUCs)
+                foreach (KeyValuePair<int, List<UCappointment>> Oldentry in OldGroupedUCsCoverByTheArea)
                 {
-                    if (!CheckForOverlappingAppointments(Oldentry.Value))//GOOD SERPENT I FIX THEM
+                    if (!CheckColumnOverlappingUcApp(Oldentry.Value))//Only GOOD SERPENT I FIX THEM
                     {
                         List<UCappointment> ListucAppointments = Oldentry.Value;
 
-                        SetNewColumnSpanAndIndex(OldDesiredIndexesGroup, ListucAppointments, false);
+                        SetNewColumnSpanAndIndex(OldGroupOfDraggedUC, ListucAppointments, false);
 
                     }
                 }
@@ -323,7 +327,7 @@ namespace MKproject.Management
 
                     Dictionary<int, List<(int, int)>> OriginalCoulunIndexAndSpanForEachGroup = new Dictionary<int, List<(int, int)>>();//inside the list the original spans are ordered like the list appointmnent
 
-                    foreach (KeyValuePair<int, List<UCappointment>> entry in NewgroupedUCs)//lama ykuno hadd baeed bi tariea mafhume
+                    foreach (KeyValuePair<int, List<UCappointment>> entry in NewgroupedUCsCoverredByTheArea)//lama ykuno hadd baeed bi tariea mafhume
                     {
                         OriginalCoulunIndexAndSpanForEachGroup.Add(entry.Key, new List<(int, int)>());
                         foreach (UCappointment uc in entry.Value)
@@ -339,7 +343,7 @@ namespace MKproject.Management
                         bool OverLapByColumnsExists;//bad serpent
                         if (entry.Value.Count() > 2)
                         {
-                            OverLapByColumnsExists = CheckForOverlappingAppointments(entry.Value);
+                            OverLapByColumnsExists = CheckColumnOverlappingUcApp(entry.Value);
                         }
                         else
                         {
@@ -351,7 +355,7 @@ namespace MKproject.Management
                         {
                             // Get the single group's list of UCappointment
 
-                            SetNewColumnSpanAndIndex(DesiredIndexesGroupOfDraggedUc, entry.Value, true);
+                            SetNewColumnSpanAndIndex(GroupOfDraggedUC, entry.Value, true);
                         }
                         else
                         {
@@ -376,8 +380,8 @@ namespace MKproject.Management
 
 
                     Dictionary<int, List<UCappointment>> EachGroupWithItsSerpents = new Dictionary<int, List<UCappointment>>();
-                    ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredIndexesGroupOfDraggedUc.Item2);//it will give all the uc , including the one we added
-                    foreach (KeyValuePair<int, List<UCappointment>> entry in NewgroupedUCs)
+                    ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, GroupOfDraggedUC.Item2);//it will give all the uc , including the one we added
+                    foreach (KeyValuePair<int, List<UCappointment>> entry in NewgroupedUCsCoverredByTheArea)
                     {
                         List<UCappointment> ListSerpentConnectedUCsBeforeAdding = grouper.GetConnectedComponent(entry.Value[0]);//bi hemne one uc men kell small serpent , ta eedar ekmush the whole serpent
                                                                                                                                 // Add the key and the connected components to the dictionary
@@ -386,7 +390,7 @@ namespace MKproject.Management
 
 
                     //first condition eza ken fi groups w zabtna el span tb3un bas ma elo mahal, secd condition eza sar fi error bel design
-                    if (!IsUCAppScheduled && NewgroupedUCs.Count > 0 || (IsUCAppScheduled && !CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents)))//resetting to oginal spans, eza ma le2a mahal yoeuud fi el appointment
+                    if (!IsUCAppScheduled && NewgroupedUCsCoverredByTheArea.Count > 0 || (IsUCAppScheduled && !CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents)))//resetting to oginal spans, eza ma le2a mahal yoeuud fi el appointment
                     {
                         IsUCAppScheduled = false;
 
@@ -394,7 +398,7 @@ namespace MKproject.Management
                         {
                             for (int i = 0; i < OriginalSpanEntry.Value.Count; i++)
                             {
-                                UCappointment TargetedUCToFix = NewgroupedUCs[OriginalSpanEntry.Key][i];
+                                UCappointment TargetedUCToFix = NewgroupedUCsCoverredByTheArea[OriginalSpanEntry.Key][i];
 
                                 int OriginalIndex = OriginalSpanEntry.Value[i].Item1;
                                 int OriginalSpan = OriginalSpanEntry.Value[i].Item2;
@@ -409,15 +413,15 @@ namespace MKproject.Management
 
 
                         //Insert
-                        int ColumnToInsert = DesiredIndexesGroupOfDraggedUc.Item2[DesiredIndexesGroupOfDraggedUc.Item2.Count() - 1] + 1;
+                        int ColumnToInsert = GroupOfDraggedUC.Item2[GroupOfDraggedUC.Item2.Count() - 1] + 1;
                         InsertColumn(ColumnToInsert);
-                        (StartingColumn, EndingColumn, StartingRow, EndingRow) = Get4RectanglePoints(row, DesiredIndexesGroupOfDraggedUc);
+                        (StartingColumn, EndingColumn, StartingRow, EndingRow) = GetRectangle4Points(row, GroupOfDraggedUC);
                         FittingUCIfPlaceExist(StartingColumn, EndingColumn, StartingRow, EndingRow);
 
 
                         // optimization check here
-                        Stack<UCappointment> stack = new Stack<UCappointment>();
-                        ClassucAppointmentGrouping grouperInsert = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredIndexesGroupOfDraggedUc.Item2);//aam nekhlae el ajdency tb3 the whol DesiredgroupIndexes
+                        Stack<UCappointment> stack = new Stack<UCappointment>();//this stackis mde to prevent repition, since for a range of rows we can pass by the same uc
+                        ClassucAppointmentGrouping grouperInsert = new ClassucAppointmentGrouping(TLPSchedule, null, GroupOfDraggedUC.Item2);//aam nekhlae el ajdency tb3 the whol DesiredgroupIndexes
 
                         for (int rows = 0; rows < TLPSchedule.RowCount; rows++)//we need to change all the span of ucs groups in same DesiredIndexGroup(Same Big Column or Employee), ella AffectedGroup li already tghayaro foe
                         {
@@ -438,14 +442,14 @@ namespace MKproject.Management
 
                                     List<UCappointment> ListSerpentConnectedUCs = grouperInsert.GetConnectedComponent(ucapp);//it gives us a list of all connected uc in these columns to this ucappp 
 
-                                    if (CheckForOverlappingAppointments(ListSerpentConnectedUCs))
+                                    if (CheckColumnOverlappingUcApp(ListSerpentConnectedUCs))
                                     {
                                         TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) + 1);
 
                                     }
                                     else
                                     {
-                                        SetNewColumnSpanAndIndex(DesiredIndexesGroupOfDraggedUc, ListSerpentConnectedUCs, false);
+                                        SetNewColumnSpanAndIndex(GroupOfDraggedUC, ListSerpentConnectedUCs, false);
                                     }
                                 }
 
@@ -459,17 +463,19 @@ namespace MKproject.Management
 
                 //ma32oul yseebo sawa, in the same group of columns
 
-                int BigColumnCount = OldDesiredIndexesGroup.Item2.Count();
+                int BigColumnCount = OldGroupOfDraggedUC.Item2.Count();
+                Queue<UCappointment> QueueUCApp= new Queue<UCappointment>();//this one will be used ,to fix the columns span affected by remiving the last column
+                Stack<UCappointment> stackucApp = new Stack<UCappointment>();//this stackis mde to prevent repition, since for a range of rows we can pass by the same uc
                 if (BigColumnCount > 1)
                 {
 
-                    int LastColumn = OldDesiredIndexesGroup.Item2[BigColumnCount - 1];
+                    int LastColumn = OldGroupOfDraggedUC.Item2[BigColumnCount - 1];
 
                     bool IsUCAppExistOnTheLastColumn = false;
                     for (int rows = 0; rows < TLPSchedule.RowCount; rows++)
                     {
                         UCappointment ucapp = (UCappointment)TLPSchedule.GetControlFromPosition(LastColumn, rows);
-                        if (ucapp != null)
+                        if (ucapp != null && (stackucApp.Count == 0 || stackucApp.Count > 0 && stackucApp.Peek().DesiredAppointmentUCApp.AppointmentID != ucapp.DesiredAppointmentUCApp.AppointmentID))
                         {
                             if (ucapp.ColumnIndex == LastColumn)
                             {
@@ -478,13 +484,20 @@ namespace MKproject.Management
                             }
                             else//in case mesh el Column Index tabaa li ken mawjud, which mean hayda el span, men naesla el span
                             {
-                                TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) - 1);
+                                //TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) - 1);
+                                stackucApp.Push(ucapp);
+                                QueueUCApp.Enqueue(ucapp);
                             }
                         }
                     }
                     if (!IsUCAppExistOnTheLastColumn)
                     {
-                        RemoveColumn(OldDesiredIndexesGroup.Item2[OldDesiredIndexesGroup.Item2.Count() - 1]);
+                        foreach (UCappointment ucapp in QueueUCApp)
+                        {
+                            TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) - 1);
+                        }
+
+                        RemoveColumn(OldGroupOfDraggedUC.Item2[OldGroupOfDraggedUC.Item2.Count() - 1]);                    
                     }
 
                 }
@@ -506,67 +519,18 @@ namespace MKproject.Management
         }
 
 
-        private void RemoveColumn(int columnIndex)
-        {
-            TLPSchedule.ColumnCount--;
-            //finding the desiredIndexesgroup
-            int i;
-            for (i = 0; i < AllIndexesGroupList.Count; i++)
-            {
-                if (AllIndexesGroupList[i].Item2.Contains(columnIndex - 1))
-                {
-                    AllIndexesGroupList[i].Item2.Remove(columnIndex);
 
-                    i++;
-                    break;
-                }
-            }
-
-            //fixing the size
-            (ClassEmployee, List<int>) TargetedIndexesGroup = AllIndexesGroupList[i - 1];
-            float PercentageOfEachGroup = 100 / AllIndexesGroupList.Count;
-            float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item2.Count;
-
-            TLPSchedule.ColumnStyles.RemoveAt(columnIndex);
-
-            foreach (int ColumnIndex in TargetedIndexesGroup.Item2)
-            {
-                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
-            }
-
-            //fixing the calues in AllIndexesGroupList 
-            while (i < AllIndexesGroupList.Count)
-            {
-                for (int j = 0; j < AllIndexesGroupList[i].Item2.Count; j++)
-                {
-                    AllIndexesGroupList[i].Item2[j]--;
-                }
-                i++;
-            }
-
-            //fixing the indexes 
-            foreach (Control co in TLPSchedule.Controls)
-            {
-                int OldColumnsIndex = TLPSchedule.GetColumn(co);
-                if (co is UCappointment && TLPSchedule.GetColumn(co) >= columnIndex)
-                {
-                    int newIndex = OldColumnsIndex - 1;
-                    TLPSchedule.SetColumn(co, newIndex);
-                    ((UCappointment)co).ColumnIndex = newIndex;
-                }
-            }
-        }
         private void InsertColumn(int columnIndex)
         {
             TLPSchedule.ColumnCount++;
 
             //finding the desiredIndexesgroup
             int i;
-            for (i = 0; i < AllIndexesGroupList.Count; i++)
+            for (i = 0; i < ListOfAlIGroups.Count; i++)
             {
-                if (AllIndexesGroupList[i].Item2.Contains(columnIndex - 1))
+                if (ListOfAlIGroups[i].Item2.Contains(columnIndex - 1))
                 {
-                    AllIndexesGroupList[i].Item2.Add(columnIndex);
+                    ListOfAlIGroups[i].Item2.Add(columnIndex);
 
                     i++;
                     break;
@@ -576,8 +540,8 @@ namespace MKproject.Management
 
 
             //fixing the size
-            (ClassEmployee, List<int>) TargetedIndexesGroup = AllIndexesGroupList[i - 1];
-            float PercentageOfEachGroup = 100 / AllIndexesGroupList.Count;
+            (ClassEmployee, List<int>) TargetedIndexesGroup = ListOfAlIGroups[i - 1];
+            float PercentageOfEachGroup = 100 / ListOfAlIGroups.Count;
             float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item2.Count;
 
             TLPSchedule.ColumnStyles.Insert(columnIndex, new ColumnStyle(SizeType.Percent, PercentageOfEachColumn));
@@ -587,13 +551,12 @@ namespace MKproject.Management
                 TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
             }
 
-
             //fixing the calues in AllIndexesGroupList 
-            while (i < AllIndexesGroupList.Count)
+            while (i < ListOfAlIGroups.Count)
             {
-                for (int j = 0; j < AllIndexesGroupList[i].Item2.Count; j++)
+                for (int j = 0; j < ListOfAlIGroups[i].Item2.Count; j++)
                 {
-                    AllIndexesGroupList[i].Item2[j]++;
+                    ListOfAlIGroups[i].Item2[j]++;
                 }
                 i++;
             }
@@ -611,11 +574,64 @@ namespace MKproject.Management
                 }
             }
         }
-        bool CheckIfUCIsIntheRightColumn(Dictionary<int, List<UCappointment>> EachGroupWithItsSerpents)
+        private void RemoveColumn(int columnIndex)
+        {
+            TLPSchedule.ColumnCount--;
+            //finding the desiredIndexesgroup
+            int i;
+            for (i = 0; i < ListOfAlIGroups.Count; i++)
+            {
+                if (ListOfAlIGroups[i].Item2.Contains(columnIndex - 1))
+                {
+                    ListOfAlIGroups[i].Item2.Remove(columnIndex);
+
+                    i++;
+                    break;
+                }
+            }
+
+            //fixing the size
+            (ClassEmployee, List<int>) TargetedIndexesGroup = ListOfAlIGroups[i - 1];
+            float PercentageOfEachGroup = 100 / ListOfAlIGroups.Count-1;
+            float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item2.Count;
+
+            TLPSchedule.ColumnStyles.RemoveAt(columnIndex);
+
+            foreach (int ColumnIndex in TargetedIndexesGroup.Item2)
+            {
+                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn );
+            }
+
+            //fixing the calues in AllIndexesGroupList 
+            while (i < ListOfAlIGroups.Count)
+            {
+                for (int j = 0; j < ListOfAlIGroups[i].Item2.Count; j++)
+                {
+                    ListOfAlIGroups[i].Item2[j]--;
+                }
+                i++;
+            }
+
+            //fixing the indexes 
+            foreach (Control co in TLPSchedule.Controls)
+            {
+                int OldColumnsIndex = TLPSchedule.GetColumn(co);
+                if (co is UCappointment && TLPSchedule.GetColumn(co) >= columnIndex)
+                {
+                    int newIndex = OldColumnsIndex - 1;
+                    TLPSchedule.SetColumn(co, newIndex);
+                    ((UCappointment)co).ColumnIndex = newIndex;
+                }
+            }
+        }
+
+
+
+        bool CheckIfUCIsIntheRightColumn(Dictionary<int, List<UCappointment>> EachGroupWithItsSerpents)//usually used after performing an add operation, bel adding el index li byonhatt logic, bas sometimes, bcz of bad serpent, the control bel design byekab matrah ghalat, yaae lets ucapp index3, byenkab aal design index 4, bas bi hafiz aal index 3 , ma byetghayar
         {
 
           
-            foreach (KeyValuePair<int, List<UCappointment>> entry in EachGroupWithItsSerpents)//lama ykuno hadd baeed bi tariea mafhume
+            foreach (KeyValuePair<int, List<UCappointment>> entry in EachGroupWithItsSerpents)
             {
                 for (int i = 0; i < entry.Value.Count; i++)
                 {
@@ -629,17 +645,14 @@ namespace MKproject.Management
                 }
             }
 
-            //var DesignPos2 = TLPSchedule.GetPositionFromControl(UCApointmentDraged);
-            //if (!DesiredIndexesGroupOfDraggedUc.Item2.Contains(DesignPos2.Column))//if false, it doesnt containt it, ha tfout, which mean fi ghalat
-            //{
-            //    return false;
-            //}
-
+         
             return true;
 
         }
+       
 
-        int RecursiveDrop(int StartingColumn, int EndingColumn, int StartingRow, int EndingRow, bool ModeLRorRL)//l mnaamlo enno men sir na2is el area tabaa el rectangle, by reducing el starting if ModeLRorRL=true; or reducing el ending if ModeLRorRL=false, w once ma bi kun fi wala control in this area men hatto
+        
+        int RecursiveDrop(int StartingColumn, int EndingColumn, int StartingRow, int EndingRow, bool ModeLRorRL)//l mnaamlo enno men sir na2is el area tabaa el rectangle, by reducing el starting if ModeLRorRL=true; or reducing el ending if ModeLRorRL=false, Until no uc exist in the filtered area we put el uc bhayda el mahal
         {
             int TargetedColumn;//it could be the starting or the ending clolumn
 
@@ -648,7 +661,7 @@ namespace MKproject.Management
             {
                 if (StartingColumn > EndingColumn)
                 {
-                    TargetedColumn = -1;
+                    return -1;//in case ma 2derna nle2e wala wahad
                 }
                 else
                 {
@@ -660,7 +673,7 @@ namespace MKproject.Management
             {
                 if (EndingColumn < StartingColumn)
                 {
-                    TargetedColumn = -1;
+                    return -1;
                 }
                 else
                 {
@@ -683,25 +696,25 @@ namespace MKproject.Management
                         if (ModeLRorRL)
                         {
                             TargetedColumn = RecursiveDrop(StartingColumn + 1, EndingColumn, StartingRow, EndingRow, true);
+                            return TargetedColumn;
                         }
                         else
                         {
                             TargetedColumn = RecursiveDrop(StartingColumn, EndingColumn - 1, StartingRow, EndingRow, false);
+                            return TargetedColumn;
 
                         }
-                        if (TargetedColumn != -1)
-                        {
-                            break;
-                        }
+                       
                     }
                 }
             }
 
 
-            return TargetedColumn;
+            return TargetedColumn;//eza woslit la hone , yaane le2it el targeted one, w ha treddo
 
         }
-        bool FittingUCIfPlaceExist(int StartingColumn, int EndingColumn, int StartingRow, int EndingRow)
+        bool FittingUCIfPlaceExist(int StartingColumn, int EndingColumn, int StartingRow, int EndingRow)//this code is related RecursiveDrop, where we keep ( (startingcolumn++,endingColumn--) then call RecursiveDrop until needir nhotto lal appointment, aw eza jarabna all possible cases , and no empty spoy is available
+                                                                                                        //eemlina hek to cover all possible forms, it s 100% accurate
         {
 
             bool PlaceExist = false;
@@ -747,39 +760,36 @@ namespace MKproject.Management
         }
 
 
-        void SetNewColumnSpanAndIndex((ClassEmployee, List<int>) DesiredIndexesGroup, List<UCappointment> ListucAppointments, bool IsAddingMode)
+
+        void SetNewColumnSpanAndIndex((ClassEmployee, List<int>) DesiredIndexesGroup, List<UCappointment> ListucAppointments, bool IsAddingMode)//based ayya employee w nehna w el targeted controls baddun tozbit Span and index
         {
             int totalSpan= DesiredIndexesGroup.Item2.Count;
-            int newuc;
+            int NewNumOfUCs = ListucAppointments.Count ;
+          
             if (IsAddingMode)
             {
-                newuc = 1;
+                NewNumOfUCs++;//we re taking into considaration el the control lui ha yenzed , kermel naarif kif nwazii el spans 
             }
-            else//removing mode
-            {
-                newuc = 0;
-            }
-            
-
-            int NewNumOfUCs = ListucAppointments.Count + newuc; // +newuc for the new UCappointment if adding mode
-
+          
+             
             if (totalSpan < NewNumOfUCs)//in this case we should insert a column
             {
                 return;
             }
 
+
+
+
             // Calculate the fair span to be distributed to each UCappointment
             int fairSpan = totalSpan / NewNumOfUCs;
             int remainder = totalSpan % NewNumOfUCs;
-
-
+          
             List<int> spans = new List<int>();
-
             for (int i = 0; i < NewNumOfUCs; i++)  // Each UC gets at least the fairSpan
             {
                 if (i >= NewNumOfUCs - remainder)
                 {
-                    // Distribute the remainder by adding 1 to the last 'remainder' UCs,yaane akbar values aam naatiyun li aa yamin
+                    // akbar values aam naatiyun li aa yamin
                     spans.Add(fairSpan + 1);
                 }
                 else
@@ -788,6 +798,8 @@ namespace MKproject.Management
                 }
             }
         
+
+
             //Set Column Span
             for (int i = 0; i < spans.Count; i++)
             {
@@ -796,6 +808,8 @@ namespace MKproject.Management
                     TLPSchedule.SetColumnSpan(ListucAppointments[i], spans[i]);
                 }
             }
+
+
 
             //Set Index
             int ColumnIndexToStartWith = DesiredIndexesGroup.Item2[0];
@@ -806,18 +820,16 @@ namespace MKproject.Management
                 ColumnIndexToStartWith += TLPSchedule.GetColumnSpan(ucapp);
             }
         }
-        public bool CheckForOverlappingAppointments(List<UCappointment> appointments)
+        public bool CheckColumnOverlappingUcApp(List<UCappointment> ucAppList)//kermel naarif eza controls inside  listofserpent, eemlin column overlapp => bad serpent, we handle it in a specific way 
         {
             // Sort appointments by start column to make overlap detection easier
-            appointments.Sort((a, b) => TLPSchedule.GetColumn(a).CompareTo(TLPSchedule.GetColumn(b)));
+            ucAppList.Sort((a, b) => TLPSchedule.GetColumn(a).CompareTo(TLPSchedule.GetColumn(b)));
 
-            for (int i = 0; i < appointments.Count - 1; i++)
+            for (int i = 0; i < ucAppList.Count - 1; i++)
             {
-                // Get the current appointment and the next one
-                var current = appointments[i];
-                var next = appointments[i + 1];
+                var current = ucAppList[i];
+                var next = ucAppList[i + 1];
 
-                // Retrieve start column and column span from the TableLayoutPanel
                 int currentStartColumn = TLPSchedule.GetColumn(current);
                 int currentColumnSpan = TLPSchedule.GetColumnSpan(current);
                 int nextStartColumn = TLPSchedule.GetColumn(next);
@@ -839,6 +851,7 @@ namespace MKproject.Management
 
 
 
+
         bool ListsHaveSameElements(List<UCappointment> list1, List<UCappointment> list2)
         {
             var sortedList1 = list1.OrderBy(x => x.DesiredAppointmentUCApp.AppointmentID).ToList();
@@ -848,17 +861,17 @@ namespace MKproject.Management
         (ClassEmployee, List<int>) GetWichDesiredIndexesGroup(int StartingColumn)
         {
             int WhichEmployee = 0;
-            foreach ((ClassEmployee, List<int>) Group in AllIndexesGroupList)
+            foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
             {
                 if (Group.Item2.Contains(StartingColumn))
                 {
-                    return AllIndexesGroupList[WhichEmployee];
+                    return ListOfAlIGroups[WhichEmployee];
                 }
                 WhichEmployee++;
             }
             return (null, null);
         }
-        (int, int, int, int) Get4RectanglePoints(int DesiredRow, (ClassEmployee, List<int>) desiredIndexesGroup)
+        (int, int, int, int) GetRectangle4Points(int DesiredRow, (ClassEmployee, List<int>) desiredIndexesGroup)
         {
             int StartingColumn = desiredIndexesGroup.Item2[0];//in case  NULLLLLLLL bcz of debugging mode mesh aktar
             int EndingColumn = desiredIndexesGroup.Item2[desiredIndexesGroup.Item2.Count - 1];
@@ -926,7 +939,7 @@ namespace MKproject.Management
             if (NbrRowShouldPass == -1)
             {
                 // Check if this cell's row belongs to the same group as the hovered cell
-                if (currentGroup == hoveredGroup && (DesiredIndexesGroupOfDraggedUc != (null, null) && DesiredIndexesGroupOfDraggedUc.Item2.Contains(e.Column)))
+                if (currentGroup == hoveredGroup && (GroupOfDraggedUC != (null, null) && GroupOfDraggedUC.Item2.Contains(e.Column)))
                 {
 
                     g.FillRectangle(hoverBrush, r);
@@ -934,7 +947,7 @@ namespace MKproject.Management
             }
             else
             {
-                if ((e.Row >= hoveredCellColmnRow.Item2 && e.Row < (hoveredCellColmnRow.Item2 + NbrRowShouldPass)) && (DesiredIndexesGroupOfDraggedUc != (null, null) && DesiredIndexesGroupOfDraggedUc.Item2.Contains(e.Column)))
+                if ((e.Row >= hoveredCellColmnRow.Item2 && e.Row < (hoveredCellColmnRow.Item2 + NbrRowShouldPass)) && (GroupOfDraggedUC != (null, null) && GroupOfDraggedUC.Item2.Contains(e.Column)))
                 {
 
                     g.FillRectangle(hoverBrush, r);
@@ -948,7 +961,7 @@ namespace MKproject.Management
             ////Check if we're in the last column; if not, don't draw vertical lines
             if (e.Column < TLPSchedule.ColumnCount)
             {
-                foreach ((ClassEmployee, List<int>) va in AllIndexesGroupList)
+                foreach ((ClassEmployee, List<int>) va in ListOfAlIGroups)
                 {
 
                     if (e.Column == va.Item2[0] && e.Column != 0)
@@ -1002,11 +1015,11 @@ namespace MKproject.Management
 
                 //Set which employee we re in
                 int WhichEmployee = 0;
-                foreach ((ClassEmployee, List<int>) Group in AllIndexesGroupList)
+                foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
                 {
                     if (Group.Item2.Contains(hoveredCellColmnRow.Item1))
                     {
-                        DesiredIndexesGroupOfDraggedUc = AllIndexesGroupList[WhichEmployee];
+                        GroupOfDraggedUC = ListOfAlIGroups[WhichEmployee];
                         break;
                     }
                     WhichEmployee++;
@@ -1056,7 +1069,7 @@ namespace MKproject.Management
         void ResetSelection()
         {
             hoveredCellColmnRow = (-1, -1);
-            DesiredIndexesGroupOfDraggedUc = (null, null);
+            GroupOfDraggedUC = (null, null);
             Cursor.Current = Cursors.Default; // Reset the cursor to the default
             TLPSchedule.Invalidate();
         }
@@ -1084,9 +1097,9 @@ namespace MKproject.Management
         }
         void ResizeTableLayoutPanelToPerc()
         {
-            float PercentageOfEachGroup = 100 / AllIndexesGroupList.Count;
+            float PercentageOfEachGroup = 100 / ListOfAlIGroups.Count;
 
-            foreach ((ClassEmployee, List<int>) Group in AllIndexesGroupList)
+            foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
             {
                 float PercentageOfEachColumn = PercentageOfEachGroup / Group.Item2.Count;
 
@@ -1097,10 +1110,7 @@ namespace MKproject.Management
             }
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
     }
 
 

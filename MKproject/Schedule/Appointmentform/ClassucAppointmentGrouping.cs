@@ -13,6 +13,9 @@ namespace MKproject.Schedule.Appointmentform
     using System.Linq;
     using System.Windows.Forms;
 
+
+
+    //Target of this class: create serpents which means connected component is a set of nodes where each node is reachable by row from any other node within the same set, dorectly on undirectly.
     public class ClassucAppointmentGrouping
     {
         private TableLayoutPanel TLP;
@@ -76,7 +79,7 @@ namespace MKproject.Schedule.Appointmentform
             adjacencyList[uc] = new List<UCappointment>();
         }
 
-        public Dictionary<int, List<UCappointment>> ClassifyGroupsThatIntersectsIndependly()
+        public Dictionary<int, List<UCappointment>> ClassifyGroupsThatAreConnected()//this method is use when targeted column = null, li btaamlo enno btaatina groups of connected uccs li batenun bel desiredUC
         {
             Dictionary<int, List<UCappointment>> groups = new Dictionary<int, List<UCappointment>>();
             HashSet<UCappointment> visited = new HashSet<UCappointment>();
@@ -122,7 +125,7 @@ namespace MKproject.Schedule.Appointmentform
 
 
         //
-        public List<UCappointment> GetConnectedComponent(UCappointment targetUC)//serpent connected component is a set of nodes where each node is reachable by row from any other node within the same set, dorectly on undirectly.
+        public List<UCappointment> GetConnectedComponent(UCappointment targetUC)//this method is used when targeted column != null, what she do awwal shi, bet shelle kell serpent bel columns li eltella aanun, then it filter me the serpen include targetUC, that why bet redd one list
         {
             if (!adjacencyList.ContainsKey(targetUC))
             {
