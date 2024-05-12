@@ -16,16 +16,12 @@ namespace MKproject.Schedule
     public partial class UCDay : UserControl
     {
 
-
-
-
         //PROPERTY:
         ///-Date
         public DateTime SelectedDate { get; set; }
 
         ///-Reminder
-        public DataTable tablereminder { get; set; }
-        public List<UCreminder> ListUCreminder { get; set; }//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
+        public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
         ///-Employees Listed From Day Now to Infinity 
         public List<int> ListEmployee_idChecked { get; set; }
@@ -83,7 +79,7 @@ namespace MKproject.Schedule
         int ucdayoldwidth;//kermel resizing ysir optemized aktar
         public int KeepSpace = 25;//for the ucappointments to keep the space for clicking on the FLP
 
-
+      
         //INITIALISE:
         public UCDay(ScheduleForm form)
         {
@@ -97,17 +93,14 @@ namespace MKproject.Schedule
             ucdayoldwidth = this.Size.Width;
 
             //Fill TBP
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < 96; i += 4)
             {
                 UCTime uctime = new UCTime();
                 uctime.Dock = DockStyle.Fill;
-                uctime.Time = TimeSpan.FromHours(i);
+                uctime.Time = TimeSpan.FromHours((i / 4));
 
+                TLPAppointment.SetRowSpan(uctime, 4);
                 TLPAppointment.Controls.Add(uctime, 0, i);
-            }
-            for (int i = 0; i < 24; i++)
-            {
-                TLPAppointment.Controls.Add(CreateFLP(), 1, i);
             }
 
             //ColumnStyle
@@ -121,15 +114,15 @@ namespace MKproject.Schedule
             FlowLayoutPanel AddflowLayoutPanel = sender as FlowLayoutPanel;
             UCappointment UCApointmentDraged = e.Data.GetData(typeof(UCappointment)) as UCappointment;
 
-            int NewPositionrow = TLPAppointment.GetRow(AddflowLayoutPanel);
+            int NewPositionrowStart = TLPAppointment.GetRow(AddflowLayoutPanel);
             int NewPositioncol = TLPAppointment.GetColumn(AddflowLayoutPanel);
 
-            int OldPositionrow = UCApointmentDraged.RowIndex;
-            int OldPositioncol = UCApointmentDraged.ColumnIndex;
+            int OldPositionrowStart = UCApointmentDraged.PositionRowStart;
+            int OldPositioncol = UCApointmentDraged.ColumnPosition;
 
-            if (AddflowLayoutPanel != null && UCApointmentDraged != null && (NewPositioncol != OldPositioncol || NewPositionrow != OldPositionrow))
+            if (AddflowLayoutPanel != null && UCApointmentDraged != null && (NewPositioncol != OldPositioncol || NewPositionrowStart != OldPositionrowStart))
             {
-                if (CheckIfTimeAvailable(NewPositionrow, NewPositioncol))
+                if (CheckIfTimeAvailable(NewPositioncol, NewPositionrowStart))
                 {
 
 
@@ -139,7 +132,7 @@ namespace MKproject.Schedule
                         RemoveflowLayoutPanel.Controls.Remove(UCApointmentDraged);
                     }
                     AddflowLayoutPanel.Controls.Add(UCApointmentDraged);
-                    AddflowLayoutPanel.Invalidate();
+                    //AddflowLayoutPanel.Invalidate();
 
 
 
@@ -163,19 +156,19 @@ namespace MKproject.Schedule
                         }
                     }
 
-                    ResizeINAddingUCAppInFLP(AddflowLayoutPanel, UCApointmentDraged, NumberOfVisibleControlsAddFLP, NewPositionrow, NewPositioncol);
-                    UCApointmentDraged.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, OldPositioncol, OldPositionrow);
+                    ResizeINAddingUCAppInFLP(AddflowLayoutPanel, UCApointmentDraged, NumberOfVisibleControlsAddFLP, NewPositionrowStart, NewPositioncol);
+                    UCApointmentDraged.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, OldPositioncol, OldPositionrowStart);
 
 
-                    UCApointmentDraged.RowIndex = NewPositionrow;
-                    UCApointmentDraged.ColumnIndex = NewPositioncol;
+                    UCApointmentDraged.PositionRowStart = NewPositionrowStart;
+                    UCApointmentDraged.ColumnPosition = NewPositioncol;
 
 
                     UCApointmentDraged.OldDesiredAppointmentUCApp = UCApointmentDraged.DesiredAppointmentUCApp.Copy();//we should copy before changing to the new time
 
                     //StartTime
                     TimeSpan OldStartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay;
-                    TimeSpan NewStartTime = new TimeSpan(NewPositionrow, OldStartTime.Minutes, 0);
+                    TimeSpan NewStartTime = new TimeSpan(NewPositionrowStart, OldStartTime.Minutes, 0);
                     UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
 
 
@@ -220,12 +213,16 @@ namespace MKproject.Schedule
                 e.Effect = DragDropEffects.Move;
             }
         }
-        public bool CheckIfTimeAvailable(int UCNewPositionRow, int UCNewPositionCol)//rae
+
+
+
+
+        public bool CheckIfTimeAvailable(int UCNewPositionCol, int UCNewPositionCRowStart/*, int UCNewPositionCRowEnd*/)//rae
         {
             //ListEmployee_idAllTime and EmployeeAvailabilityByOrder both are ranked by order => both same index
             string HoursAvailability = EmployeeAvailabilityByOrder[UCNewPositionCol - 1];// employeePosition=PositionCol - 1
 
-            string positionrowstring = UCNewPositionRow.ToString();
+            string positionrowstring = UCNewPositionCol.ToString();
 
 
             string[] TheHoursAvailability = HoursAvailability.Split('-');
@@ -244,14 +241,7 @@ namespace MKproject.Schedule
             return IsPanelAvailable;
         }
 
-        public (int, int) GetUCAppointmentPosition(ClassAppointment DesiredAppointment)
-        {
-            TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
-            int HourOfTheAppointment = starttimeTimeSpan.Hours;//row and hours same position
-            int employeePosition = ListEmployee_idAllTime.IndexOf((int)DesiredAppointment.EmployeeId);
 
-            return (employeePosition + 1, HourOfTheAppointment);//position flowlayoutpanel hiye position employee bel list-1 
-        }
 
 
         private void UCDay_Load(object sender, EventArgs e)
@@ -319,7 +309,13 @@ namespace MKproject.Schedule
             }
 
 
-            displayNow();
+
+            if (DateTime.Now != SelectedDate)
+            {
+                SelectedDate = DateTime.Now;
+                ParentFormSchedule.TouchscrollPanelreminder = new TouchScroll(ParentFormSchedule.panelreminder, ParentFormSchedule);
+                displayDay();
+            }
 
             //Scroll
             TLPAppointment.rowHeight = TLPAppointment.GetRowHeights()[0];
@@ -335,46 +331,6 @@ namespace MKproject.Schedule
             VScrollBar1.SmallChange = 165;
 
 
-            //REMINDER
-            //CREATING ALL THE ucreminder and putting it on a list
-            ListUCreminder = new List<UCreminder>();
-            tablereminder = ClassReminder.DisplayReminder();
-
-            foreach (DataRow dr in tablereminder.Rows)
-            {
-                //Badna nt2akad eza lezim ton3ata lal DesiredReminder.DesiredClient
-                ClassReminder DesiredReminder = new ClassReminder();
-
-                //Fill DesiredReminder
-                DesiredReminder.Idreminder = (int)dr["reminder_id"];
-                if (dr["client_id"] != DBNull.Value)
-                {
-                    DesiredReminder.DesiredClient = new ClassClient();
-                    DesiredReminder.DesiredClient.ClientId = (int)dr["client_id"];
-                    DesiredReminder.DesiredClient.Fname = (string)dr["name"];
-                    DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
-                }
-                DesiredReminder.Reminder = (string)dr["reminder"];
-                DesiredReminder.Repeat = (string)dr["repeat"];
-                DesiredReminder.StartTime = (DateTime)dr["starttime"];
-                DesiredReminder.LabelQuote = (string)dr["labelquote"];
-                DesiredReminder.IsChecked = (bool)dr["is_checked"];
-                UCreminder ucreminder = new UCreminder(DesiredReminder, this, ParentFormSchedule);//li2anno manna bi client reminder
-
-                ListUCreminder.Add(ucreminder);
-
-                ParentFormSchedule.TouchscrollPanelreminder = new TouchScroll(ParentFormSchedule.panelreminder, ParentFormSchedule);
-                //If it's Checked, then it will not appear in schedule.panelreminder
-                if (ucreminder.DesiredReminder.IsChecked == false)
-                {
-                    if (isThedayofUCreminder(ucreminder, SelectedDate))
-                    {
-                        ucreminder.Dock = DockStyle.Top;
-                        ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
-                    }
-                }
-            }
-            ParentFormSchedule.TouchscrollPanelreminder = new TouchScroll(ParentFormSchedule.panelreminder, ParentFormSchedule);
 
 
 
@@ -434,26 +390,7 @@ namespace MKproject.Schedule
         }
 
 
-        public FlowLayoutPanel CreateFLP()
-        {
-            FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
-            //Properties
-            flowLayoutPanel.AllowDrop = true;
-            flowLayoutPanel.Dock = DockStyle.Fill;
-            flowLayoutPanel.BackColor = Color.White;
-            flowLayoutPanel.Cursor = Cursors.Hand;
-            flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
 
-            //Events
-            flowLayoutPanel.Click += flowLayoutPanel1_Click;
-            flowLayoutPanel.MouseMove += flowLayoutPanel1_MouseMove;
-            flowLayoutPanel.MouseLeave += flowLayoutPanel1_MouseLeave;
-
-            flowLayoutPanel.DragEnter += FlowLayoutPanel_DragEnter;
-            flowLayoutPanel.DragOver += FlowLayoutPanel_DragOver;
-            flowLayoutPanel.DragDrop += FlowLayoutPanel_DragDrop;
-            return flowLayoutPanel;
-        }
         LabelEmployee CreateLabelEmployee()
         {
             //Design 
@@ -601,42 +538,34 @@ namespace MKproject.Schedule
         //EVENT:
         ///-Click
 
-        public void flowLayoutPanel1_Click(object sender, EventArgs e)
+        private void TLPAppointment_MouseClick(object sender, MouseEventArgs e)
         {
+            (int column, int row) = GetCellPosition(TLPAppointment, e.Location);
             if (TouchScroll.MoveHoldClick == false && IsHistory == false)
             {
-                FlowLayoutPanel clickedPanel = sender as FlowLayoutPanel;
-                if (clickedPanel.BackColor == DisableColorTBUca)
-                {
+                UCTime uctime = (UCTime)TLPAppointment.GetControlFromPosition(0, row);//get the uctime wich he has the same row to get the time1 and display it in the combobox  of the appointment
 
-                }
-                else
-                {
-                    int rowIndex = TLPAppointment.GetRow(clickedPanel);//get the row of the flowlayoutpanel
-                    UCTime uctime = (UCTime)TLPAppointment.GetControlFromPosition(0, rowIndex);//get the uctime wich he has the same row to get the time1 and display it in the combobox  of the appointment
 
-                    int columnIndex = TLPAppointment.GetColumn(clickedPanel);
-
-                    ScheduleForm schedule = this.ParentFormSchedule;
-                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
-                    Program.GreyForm.Show();
-                    Appointment appointment = new Appointment(this, uctime, ListEmployee_idAllTime[columnIndex - 1]);//-1 li2anno list mafiya uctim Boom
-                    appointment.Show();
-                    //TouchscrollPanelUCDay.RemoveEventPanelUCDay(TLPAppointment);
-                    TouchscrollPanelUCDay.mouseDownPoint = Cursor.Position;
-                }
+                ScheduleForm schedule = this.ParentFormSchedule;
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+                Program.GreyForm.Show();
+                Appointment appointment = new Appointment(this, uctime, ListEmployee_idAllTime[column - 1]);//-1 li2anno list mafiya uctim Boom
+                appointment.Show();
+                //TouchscrollPanelUCDay.RemoveEventPanelUCDay(TLPAppointment);
+                TouchscrollPanelUCDay.mouseDownPoint = Cursor.Position;
             }
             else
             {
 
             }
-        }//inside TableLayoutPanel Of UcDay
+        }
         private void buttonToday_Click(object sender, EventArgs e)
         {
             if (SelectedDate.Date != DateTime.Now.Date)
             {
                 Cursor = Cursors.WaitCursor;
-                displayNow();
+                SelectedDate = DateTime.Now;
+                displayDay();
                 Cursor = Cursors.Default;
             }
             else
@@ -651,7 +580,6 @@ namespace MKproject.Schedule
             if (SelectedDate.Day != DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month))//add day
             {
                 SelectedDate = SelectedDate.AddDays(+1);
-                displayDay();
             }
             else if (SelectedDate.Month != 12)//day=1, add month
             {
@@ -659,14 +587,15 @@ namespace MKproject.Schedule
                 month = SelectedDate.Month;
                 year = SelectedDate.Year;
                 SelectedDate = new DateTime(year, month, 1);
-                displayDay();
             }
             else//day=1,month=1,add year
             {
                 SelectedDate = SelectedDate.AddYears(+1);
                 SelectedDate = new DateTime(year, 1, 1);
-                displayDay();
             }
+
+            displayDay();
+
 
             //Scroll
             TLPAppointment.AutoScrollPosition = new Point(0, 0);
@@ -674,8 +603,6 @@ namespace MKproject.Schedule
             VScrollBar1.Value = TLPAppointment.VerticalScroll.Value;
             TLPAppointment.currentRow = 6;
 
-            //Reminder
-            DisplayUCReminder();
 
             Cursor = Cursors.Default;
         }
@@ -685,7 +612,6 @@ namespace MKproject.Schedule
             if (SelectedDate.Day != 1)//remove day
             {
                 SelectedDate = SelectedDate.AddDays(-1);
-                displayDay();
             }
             else if (SelectedDate.Month != 1)//day= last day, remove month
             {
@@ -693,21 +619,21 @@ namespace MKproject.Schedule
                 month = SelectedDate.Month;
                 year = SelectedDate.Year;
                 SelectedDate = new DateTime(year, month, DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month));
-                displayDay();
             }
             else//day=last day,month=12,remove year
             {
                 SelectedDate = SelectedDate.AddYears(-1);
                 year = SelectedDate.Year;
                 SelectedDate = new DateTime(year, 12, DateTime.DaysInMonth(SelectedDate.Year, SelectedDate.Month));
-                displayDay();
             }
+
+            displayDay();
+
             TLPAppointment.AutoScrollPosition = new Point(0, 0);
             TLPAppointment.AutoScrollPosition = new Point(0, TLPAppointment.rowHeight * 6);
             VScrollBar1.Value = TLPAppointment.VerticalScroll.Value;
             TLPAppointment.currentRow = 6;
 
-            DisplayUCReminder();
 
             Cursor = Cursors.Default;
         }
@@ -819,19 +745,6 @@ namespace MKproject.Schedule
 
         //FUNCTIONS:
         ///-Display
-        public void displayNow()
-        {
-            if (DateTime.Now != SelectedDate)
-            {
-                SelectedDate = DateTime.Now;
-
-                displayDay();
-            }
-            else
-            {
-
-            }
-        }
         public void displayDay()
         {
             //copies
@@ -930,27 +843,18 @@ namespace MKproject.Schedule
             monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
             labelDate.Text = dayname + "," + monthname + " " + day + "," + year;
 
+            //Reminder
+            DisplayUCReminderForTheSelectedDate();
 
         }//Display the title and the ucappointments
 
         ///-Add
-        public UCappointment AddUCappointments(ClassAppointment DesiredAppointment, int positioncol, int positionrow)
+        public UCappointment AddOneUCappointmentsNResize(ClassAppointment DesiredAppointment, int PositionColumn, int PositionRowStart, int PositionRowEnd)
         {
             //Design
-            FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;
             UCappointment AddUCAppointment = new UCappointment(DesiredAppointment, this, ListEmployee_idAllTime);
-            AddflowLayoutPanel.Controls.Add(AddUCAppointment);//hone lezim hatta hasab lstarttime tabaee desired appointment
+            AddUCappointmentsInTLP(AddUCAppointment, PositionColumn, PositionRowStart, PositionRowEnd);
 
-            int NumberOfVisibleControlsOfAddFLP = 0;
-            foreach (Control ctrl in AddflowLayoutPanel.Controls)
-            {
-                if (ctrl.Visible)
-                {
-                    NumberOfVisibleControlsOfAddFLP++;
-                }
-            }
-
-            ResizeINAddingUCAppInFLP(AddflowLayoutPanel, AddUCAppointment, NumberOfVisibleControlsOfAddFLP, positionrow, positioncol);
 
             TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
             return AddUCAppointment;
@@ -958,53 +862,7 @@ namespace MKproject.Schedule
 
         public void ResizeINAddingUCAppInFLP(FlowLayoutPanel AddflowLayoutPanel, UCappointment AddUCAppointment, int NumberOfVisibleControlsOfAddFLP, int positionrow, int positioncol)
         {
-            //Absolute
-            if (TLPAppointment.ColumnStyles[positioncol].SizeType is SizeType.Absolute)
-            {
 
-                (int rowOfThemaxflowLayPan, int MaxNumberOfUcData) = FindingTheRowOfMaxFlowLayoutPanel(positioncol);
-
-                //If Clicked FLP is MaxFlowLayoutPanel then it may affect the column absolute size
-                if (rowOfThemaxflowLayPan == positionrow)
-                {
-                    EditColumnAbsoluteSize(positioncol, positionrow);
-                }
-
-                //se3eta bas momkin yet2asar lwidthucappointment
-                else
-                {
-                    int columnwidth = TLPAppointment.GetColumnWidths()[positioncol];
-
-                    //eza ee edit width
-                    if ((UCappointment.OriginalWidth * NumberOfVisibleControlsOfAddFLP) + KeepSpace > columnwidth)
-                    {
-                        EditWidthAppointment(AddflowLayoutPanel, columnwidth, NumberOfVisibleControlsOfAddFLP);
-                    }
-                    else
-                    {
-                        //lba2we aal akid aandoun originale size
-                        AddUCAppointment.Width = UCappointment.OriginalWidth;
-                    }
-                }
-            }
-
-
-            //Percentage
-            else
-            {
-                int columnwidth = TLPAppointment.GetColumnWidths()[positioncol];
-
-                //eza ee edit width
-                if ((UCappointment.OriginalWidth * NumberOfVisibleControlsOfAddFLP) + KeepSpace > columnwidth)//bala ucaddclick
-                {
-                    EditWidthAppointment(AddflowLayoutPanel, columnwidth, NumberOfVisibleControlsOfAddFLP);
-                }
-                else
-                {
-                    //lba2we aal akid aandoun originale size
-                    AddUCAppointment.Width = UCappointment.OriginalWidth;
-                }
-            }
         }
         (int, int) FindingTheRowOfMaxFlowLayoutPanel(int positioncol)
         {
@@ -1035,49 +893,17 @@ namespace MKproject.Schedule
             }
             return (rowOfThemaxflowLayPan, MaxNumberOfUcData);
         }
-        public void ChangePositionUCappointments(UCappointment ucappointmentclicked, int NewPositionCol, int NewPositionRow, bool IsUCAppPosChanged)
+        public void ChangePositionUCappointments(UCappointment ucappointmentclicked, int NewPositionCol, int NewPositionRowStart, int NewPositionRowEnd, bool IsUCAppPosChanged)
         {
 
             if (IsUCAppPosChanged)
             {
-                int OldPositioncol = ucappointmentclicked.ColumnIndex;
-                int OldPositionrow = ucappointmentclicked.RowIndex;
+                TLPAppointment.Controls.Remove(ucappointmentclicked);
+                AddUCappointmentsInTLP(ucappointmentclicked, NewPositionCol, NewPositionRowStart, NewPositionRowEnd);
 
-
-                //Changing the palce of the ucappointmentclicked
-                //Remove
-                FlowLayoutPanel RemoveflowLayoutPanel = TLPAppointment.GetControlFromPosition(ucappointmentclicked.ColumnIndex, ucappointmentclicked.RowIndex) as FlowLayoutPanel;
-                RemoveflowLayoutPanel.Controls.Remove(ucappointmentclicked);//hone lezim hatta hasab lstarttime tabaee desired appointment
-
-                int NumberOfVisibleControlsRemoveFLP = 0;
-                foreach (Control ctrl in RemoveflowLayoutPanel.Controls)
-                {
-                    if (ctrl.Visible)
-                    {
-                        NumberOfVisibleControlsRemoveFLP++;
-                    }
-                }
-
-                //Add
-                FlowLayoutPanel AddflowLayoutPanel = TLPAppointment.GetControlFromPosition(NewPositionCol, NewPositionRow) as FlowLayoutPanel;
-                AddflowLayoutPanel.Controls.Add(ucappointmentclicked);//hone lezim hatta hasab lstarttime tabaee desired appointment
-
-                int NumberOfVisibleControlsAddFLP = 0;
-                foreach (Control ctrl in AddflowLayoutPanel.Controls)
-                {
-                    if (ctrl.Visible)
-                    {
-                        NumberOfVisibleControlsAddFLP++;
-                    }
-                }
-
-                ResizeINAddingUCAppInFLP(AddflowLayoutPanel, ucappointmentclicked, NumberOfVisibleControlsAddFLP, NewPositionRow, NewPositionCol);
-                ucappointmentclicked.ResizeINRemovingUCAppInFLP(RemoveflowLayoutPanel, NumberOfVisibleControlsRemoveFLP, OldPositioncol, OldPositionrow);
-
-
-
-                ucappointmentclicked.RowIndex = NewPositionRow;
-                ucappointmentclicked.ColumnIndex = NewPositionCol;
+                ucappointmentclicked.ColumnPosition = NewPositionCol;
+                ucappointmentclicked.PositionRowStart = NewPositionRowStart;
+                ucappointmentclicked.PositionRowEnd = NewPositionRowEnd;
 
 
                 TouchscrollPanelUCDay.ReAssignEventPanelUCDay(TLPAppointment);
@@ -1237,34 +1063,8 @@ namespace MKproject.Schedule
                 ClassAppointment DesiredAppointment = ClassAppointment.CreateObjectClassAppointment((int)dr["appointment_id"]);
                 UCappointment ucappointments = new UCappointment(DesiredAppointment, this, rankemployees_id);
 
-
-                TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;//bas kermel le2e uctime
-                int positionrow = starttimeTimeSpan.Hours;
-                int positioncol = rankemployees_id.IndexOf((int)DesiredAppointment.EmployeeId) + 1;
-                FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
-
-                //Check Appointmnent if hide or show
-                if (ParentFormSchedule.checkBoxComplete.Checked == false && DesiredAppointment.IsCompleted)
-                {
-                    ucappointments.Hide();
-                }
-                if (ParentFormSchedule.checkBoxCancel.Checked == false && DesiredAppointment.IsCanceled)
-                {
-                    ucappointments.Hide();
-                }
-                if (ParentFormSchedule.checkBoxOnPending.Checked == false && DesiredAppointment.IsCanceled == false && DesiredAppointment.IsCompleted == false)
-                {
-                    ucappointments.Hide();
-                }
-
-
-                if (flowLayoutPanel.BackColor == DisableColorFLP)
-                {
-                    ucappointments.BackColor = ErrorColor;
-                    ucappointments.TLPGlobal.BackColor = DisableColorTBUca;
-                }
-                flowLayoutPanel.Controls.Add(ucappointments);
-                //EditWidthAppointment(flowLayoutPanel);
+                (int PositionColumn, int PositionRowStart, int PositionRowEnd) = GetUCAppointmentPosition(DesiredAppointment, rankemployees_id);
+                AddUCappointmentsInTLP(ucappointments, PositionColumn, PositionRowStart, PositionRowEnd);
             }
 
 
@@ -1388,7 +1188,6 @@ namespace MKproject.Schedule
         {
             //Adding A Column to the 2 TableLayoutPanel 
             RandomFunctionSchedule.AddColumnTableLayoutPanel(TLPAppointment);
-            FillLastColumnPanelAppointmentsWithFlowLayoutPanel();
             RandomFunctionSchedule.AddColumnTableLayoutPanel(TLPEmployees);
             FillLastColumnPanelEmployeesWithLabels();
 
@@ -1416,13 +1215,7 @@ namespace MKproject.Schedule
 
         ///-Fill and Remove (Labels & Flow Layout Panel)
 
-        public void FillLastColumnPanelAppointmentsWithFlowLayoutPanel()
-        {
-            for (int j = 0; j < 24; j++)
-            {
-                TLPAppointment.Controls.Add(CreateFLP(), TLPAppointment.ColumnCount - 1, j);
-            }
-        }
+
         public void FillLastColumnPanelEmployeesWithLabels()
         {
             TLPEmployees.Controls.Add(CreateLabelEmployee(), TLPEmployees.ColumnCount - 1, 0);
@@ -1443,121 +1236,33 @@ namespace MKproject.Schedule
         ///-Remove & Fill The Column with UCA
         public void AvailibilityColumnNClearUCA(int columnindex, string[] HoursOfTheday)
         {
-            //Editing the column of the employee
-            int k = 0;
-            for (int i = 0; i < TLPAppointment.RowCount; i++)
-            {
-                if (k != HoursOfTheday.Length)
-                {
-                    if (i.ToString() == HoursOfTheday[k])
-                    {
-                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
-                        flowLayoutPanel.Controls.Clear();
-                        flowLayoutPanel.BackColor = StaticColorFLP;
-                        k++;
-                    }
-                    else
-                    {
-                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
-                        flowLayoutPanel.Controls.Clear();
-                        flowLayoutPanel.BackColor = DisableColorFLP;
-                    }
-                }
-                else
-                {
-                    FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition(columnindex, i) as FlowLayoutPanel;
-                    flowLayoutPanel.Controls.Clear();
-                    flowLayoutPanel.BackColor = DisableColorFLP;
-                }
-            }
+
         }
         public void AvailibilityColumnChanged(int? columnindex, string[] HoursOfTheday)
         {
-            int k = 0;//number of flow layout panel with staticcolor
-            for (int i = 0; i < TLPAppointment.RowCount; i++)
-            {
-                //number of flow layout panel with staticcolor = number of availibility then the rest is disable
-                if (k != HoursOfTheday.Length)
-                {
-                    if (i.ToString() == HoursOfTheday[k])
-                    {
-                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition((int)columnindex, i) as FlowLayoutPanel;
-                        flowLayoutPanel.BackColor = StaticColorFLP;
-                        if (flowLayoutPanel.Controls.Count > 0)
-                        {
-                            //W have to change the color of ucappointment that the error is gone
-                            foreach (Control childControl in flowLayoutPanel.Controls)
-                            {
-                                if (childControl is UCappointment)
-                                {
-                                    UCappointment ucappointments = (UCappointment)childControl;
-                                    ucappointments.BackColor = MemberColor;
-                                    ucappointments.TLPGlobal.BackColor = StaticColorTBUca;
-                                }
-                            }
-                        }
 
-                        k++;
-                    }
-                    else
-                    {
-                        FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition((int)columnindex, i) as FlowLayoutPanel;
-                        flowLayoutPanel.BackColor = DisableColorFLP;
-                        if (flowLayoutPanel.Controls.Count > 0)
-                        {
-                            //To show that there's an error
-                            foreach (Control childControl in flowLayoutPanel.Controls)
-                            {
-                                if (childControl is UCappointment)
-                                {
-                                    UCappointment ucappointments = (UCappointment)childControl;
-                                    ucappointments.BackColor = ErrorColor;
-                                    ucappointments.TLPGlobal.BackColor = DisableColorTBUca;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    FlowLayoutPanel flowLayoutPanel = TLPAppointment.GetControlFromPosition((int)columnindex, i) as FlowLayoutPanel;
-                    flowLayoutPanel.BackColor = DisableColorFLP;
-                    if (flowLayoutPanel.Controls.Count > 0)
-                    {
-                        foreach (Control childControl in flowLayoutPanel.Controls)
-                        {
-                            if (childControl is UCappointment)
-                            {
-                                UCappointment ucappointments = (UCappointment)childControl;
-                                ucappointments.BackColor = ErrorColor;
-                                ucappointments.TLPGlobal.BackColor = DisableColorTBUca;
-                            }
-                        }
-                    }
-                }
-            }
         }
 
 
 
         ///-Reminder
-        public bool isThedayofUCreminder(UCreminder ucreminder, DateTime date)
+        public bool isThedayofUCreminder(ClassReminder DesiredReminder, DateTime date)
         {
             //For every day, no repeat
-            if (ucreminder.DesiredReminder.Partsrepeat.Length == 1)
+            if (DesiredReminder.Partsrepeat.Length == 1)
             {
-                if (ucreminder.DesiredReminder.Partsrepeat[0] == Reminder.NoRepeat)
+                if (DesiredReminder.Partsrepeat[0] == Reminder.NoRepeat)
                 {
-                    if (date.Date == ucreminder.DesiredReminder.StartTime.Date)
+                    if (date.Date == DesiredReminder.StartTime.Date)
                     {
                         return true;
                     }
 
                 }
-
-                else if (ucreminder.DesiredReminder.Partsrepeat[0] == Reminder.Everyday)
+                    
+                else if (DesiredReminder.Partsrepeat[0] == Reminder.Everyday)
                 {
-                    if (date.Date >= ucreminder.DesiredReminder.StartTime.Date)
+                    if (date.Date >= DesiredReminder.StartTime.Date)
                     {
                         return true;
                     }
@@ -1569,11 +1274,11 @@ namespace MKproject.Schedule
             //For every week
             else
             {
-                if (date.Date >= ucreminder.DesiredReminder.StartTime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
+                if (date.Date >= DesiredReminder.StartTime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
                 {
-                    for (int i = 1; i < ucreminder.DesiredReminder.Partsrepeat.Length; i++)
+                    for (int i = 1; i < DesiredReminder.Partsrepeat.Length; i++)
                     {
-                        if (date.DayOfWeek.ToString() == ucreminder.DesiredReminder.Partsrepeat[i])
+                        if (date.DayOfWeek.ToString() == DesiredReminder.Partsrepeat[i])
                         {
                             return true;
                         }
@@ -1583,27 +1288,42 @@ namespace MKproject.Schedule
             return false;
 
         }
-
-
-
-        public void DisplayUCReminder()
+        public void DisplayUCReminderForTheSelectedDate()
         {
             ParentFormSchedule.panelreminder.Controls.Clear();
-            foreach (UCreminder ucreminder in ListUCreminder)
+            ListUCreminderForTheSelectedDate.Clear();
+
+            DataTable AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate);
+
+            foreach (DataRow dr in AllReminders.Rows)
             {
-                if (ucreminder.DesiredReminder.IsChecked == false)//moujarad ma ykoun checked bel ucday ma bi bayin
-                {
-                    if (isThedayofUCreminder(ucreminder, SelectedDate))
-                    {
-                        ucreminder.Dock = DockStyle.Top;
-                        ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
-                    }
-                }
-                else
-                {
+                //Badna nt2akad eza lezim ton3ata lal DesiredReminder.DesiredClient
+                ClassReminder DesiredReminder = new ClassReminder();
 
+                //Fill DesiredReminder
+                DesiredReminder.Idreminder = (int)dr["reminder_id"];
+                if (dr["client_id"] != DBNull.Value)
+                {
+                    DesiredReminder.DesiredClient = new ClassClient();
+                    DesiredReminder.DesiredClient.ClientId = (int)dr["client_id"];
+                    DesiredReminder.DesiredClient.Fname = (string)dr["name"];
+                    DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
                 }
+                DesiredReminder.Reminder = (string)dr["reminder"];
+                DesiredReminder.Repeat = (string)dr["repeat"];
+                DesiredReminder.StartTime = (DateTime)dr["starttime"];
+                DesiredReminder.LabelQuote = (string)dr["labelquote"];
+                DesiredReminder.IsChecked = (bool)dr["is_checked"];
+                UCreminder ucreminder = new UCreminder(DesiredReminder, this, ParentFormSchedule);//li2anno manna bi client reminder
 
+                ListUCreminderForTheSelectedDate.Add(ucreminder);
+
+                //If it's Checked, then it will not appear in schedule.panelreminder
+                if (ucreminder.DesiredReminder.IsChecked == false)
+                {
+                    ucreminder.Dock = DockStyle.Top;
+                    ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
+                }
             }
             ParentFormSchedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(ParentFormSchedule.panelreminder);
         }
@@ -1957,6 +1677,142 @@ namespace MKproject.Schedule
 
 
         }
+
+
+
+        //Functions For Schedule Design
+        public void AddUCappointmentsInTLP(UCappointment AddUCAppointment, int PositionColumn, int PositionRowStart, int PositionRowEnd)
+        {
+            TLPAppointment.Controls.Add(AddUCAppointment, PositionColumn, PositionRowStart);//hone lezim hatta hasab lstarttime tabaee desired appointment
+            AddUCAppointment.Dock = DockStyle.Fill;
+
+            int RowSpan = PositionRowEnd - PositionRowStart;
+            TLPAppointment.SetRowSpan(AddUCAppointment, RowSpan);
+        }
+        public int ConvertHourToRow(int Hour, int Minutes)
+        {
+            int TotalHour = 24;
+            int TotalRow = 96;
+
+            int PositionRow = (Hour * TotalRow) / TotalHour;
+
+            //1 Row -> 15 min
+            int j = 0;
+            for (int i = 0; i <= 45; i += 15)
+            {
+                if (i <= Minutes && Minutes < (i + 15))
+                {
+                    PositionRow += j;
+                    break;
+                }
+                j++;
+            }
+            return PositionRow;
+        }
+        public (int, int, int) GetUCAppointmentPosition(ClassAppointment DesiredAppointment, List<int> ListEmployee_id)
+        {
+            TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;
+            int PositionRowStart = ConvertHourToRow(starttimeTimeSpan.Hours, starttimeTimeSpan.Minutes);
+
+            TimeSpan endtimeTimeSpan = DesiredAppointment.EndTime.TimeOfDay;
+            int PositionRowEnd = ConvertHourToRow(endtimeTimeSpan.Hours, endtimeTimeSpan.Minutes);
+
+            int employeePosition = ListEmployee_id.IndexOf((int)DesiredAppointment.EmployeeId);
+            int PositionColumn = employeePosition + 1;
+
+            return (PositionColumn, PositionRowStart, PositionRowEnd);//position flowlayoutpanel hiye position employee bel list-1 
+        }
+        private (int, int) GetCellPosition(TableLayoutPanel panel, Point location)
+        {
+            // Adjusting location based on the scroll position
+            Point scrollPosition = panel.AutoScrollPosition;
+            int adjustedX = location.X - scrollPosition.X;
+            int adjustedY = location.Y - scrollPosition.Y;
+
+            int width = 0;
+            int height = 0;
+
+            // Iterate through rows to find the row
+            int row;
+            for (row = 0; row < panel.RowCount; row++)
+            {
+                int rowHeight = panel.GetRowHeights()[row];
+                height += rowHeight;
+                if (height > adjustedY)
+                    break;
+            }
+
+            // Iterate through columns to find the column
+            int column;
+            for (column = 0; column < panel.ColumnCount; column++)
+            {
+                int columnWidth = panel.GetColumnWidths()[column];
+                width += columnWidth;
+                if (width > adjustedX)
+                    break;
+            }
+
+            // If the point is out of the bounds of the actual cells, reset to -1, -1
+            if (row >= panel.RowCount || column >= panel.ColumnCount)
+                return (-1, -1);
+
+            return (column, row);
+        }
+
+        private void TLPAppointment_DragDrop(object sender, DragEventArgs e)
+        {
+            UCappointment UCApointmentDraged = e.Data.GetData(typeof(UCappointment)) as UCappointment;
+            //if (UCApointmentDraged != null)
+            //{
+            //    TLPAppointment.Controls.Remove(UCApointmentDraged);
+            //    AddUCappointmentsInTLP(UCApointmentDraged, NewPositionCol, NewPositionRowStart, NewPositionRowEnd);
+
+            //    UCApointmentDraged.ColumnPosition = NewPositionCol;
+            //    UCApointmentDraged.PositionRowStart = NewPositionRowStart;
+            //    UCApointmentDraged.PositionRowEnd = NewPositionRowEnd;
+
+            //    //StartTime
+            //    TimeSpan OldStartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay;
+            //    TimeSpan NewStartTime = new TimeSpan(AddPositionrow, OldStartTime.Minutes, 0);
+            //    UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
+
+            //    string timestring = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.ToString("h:mm tt");
+            //    string[] partstime = timestring.Split(' ');
+            //    UCApointmentDraged.labelTime.Text = partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
+
+            //    //EndTime
+            //    int DifferenceHours = NewStartTime.Hours - OldStartTime.Hours;//Ma sta3malna loriginale starttime li2anno bi koun sar new
+            //    int NewHour = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Hours + DifferenceHours;//Hasab kam hour bi adim aw bi rajiee lstarttime zet shi lal endtime
+
+
+            //    TimeSpan NewEndTime = new TimeSpan(NewHour, UCApointmentDraged.DesiredAppointmentUCApp.EndTime.TimeOfDay.Minutes, 0);
+            //    UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
+
+
+            //    timestring = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.ToString("h:mm tt");
+            //    partstime = timestring.Split(' ');
+            //    UCApointmentDraged.labelTime.Text += " - " + partstime[0];//eza baddak yeha 7:00 PM fik terjaee tghayera w thot timestring 
+
+            //    //Employee
+            //    UCApointmentDraged.DesiredAppointmentUCApp.EmployeeId = ListEmployee_idChecked[AddPositioncol - 1];
+
+            //    //SQL
+            //    UCApointmentDraged.DesiredAppointmentUCApp.InsertOrUpdateAppointment(false);
+            //}
+            TouchscrollPanelUCDay.AssignEventPanelUCDay(TLPAppointment);
+        }
+        private void TLPAppointment_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(UCappointment)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+        }
+        private void TLPAppointment_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
     }
 }
 

@@ -36,12 +36,12 @@ namespace MKproject.Schedule
             if (Cursor.Position.Y - mouseDownPoint.Y > 0)
             {
                 // Scrolling up
-                Panel.currentRow = Math.Max(0, Panel.currentRow - 1);
+                Panel.currentRow = Math.Max(0, Panel.currentRow - 4);
             }
             else
             {
                 // Scrolling down
-                Panel.currentRow = Math.Min(Panel.RowCount - Panel.GetVisibleRowsCount(), Panel.currentRow + 1);
+                Panel.currentRow = Math.Min(Panel.RowCount - Panel.GetVisibleRowsCount(), Panel.currentRow + 4);
             }
 
             // Ensure we're not exceeding the maximum allowable value
@@ -102,7 +102,7 @@ namespace MKproject.Schedule
         public void MouseMovePanelUCDay(object sender, MouseEventArgs e)
         {
             //Point currAutoS = parentPanelT.AutoScrollPosition;
-            if (Math.Abs(Cursor.Position.Y - mouseDownPoint.Y) >= PanelUCDay.rowHeight / 2)
+            if (Math.Abs(Cursor.Position.Y - mouseDownPoint.Y) >= PanelUCDay.rowHeight)
             {
                 if (e.Button != MouseButtons.Left)
                 {

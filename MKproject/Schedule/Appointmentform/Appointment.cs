@@ -33,7 +33,8 @@ namespace MKproject.Schedule
         bool isstarttime;
 
         int UCNewPositionCol;
-        int UCNewPositionRow;
+        int UCNewPositionRowStart;
+        int UCNewPositionRowEnd;
 
 
         public ClassAppointment DesiredAppointmentAppForm;
@@ -114,8 +115,9 @@ namespace MKproject.Schedule
 
 
             //ased hattaynehun hone, ta eza eemelet delete, rjeet undo delete, yuno msayavin
-            UCNewPositionCol = UCappointment.ColumnIndex;
-            UCNewPositionRow = UCappointment.RowIndex;
+            UCNewPositionCol = UCappointment.ColumnPosition;
+            UCNewPositionRowStart = UCappointment.PositionRowStart;
+            UCNewPositionRowEnd = UCappointment.PositionRowEnd;
 
 
             ucClientApp = new UCClientApp(this);
@@ -483,14 +485,14 @@ namespace MKproject.Schedule
                 //makhassun bel object bas khassun bel Position tb3 el UCappointment bel flowlayoutpannel
                 //
 
-                (UCNewPositionCol, UCNewPositionRow) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm);
+                (UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm, UcDayParentForm.ListEmployee_idAllTime);
               
             }
         }
         bool ISRequiredFieldsExists(bool IsCallingFromComplete)
         {
 
-            bool IsPanelAvailable = UcDayParentForm.CheckIfTimeAvailable(UCNewPositionRow,UCNewPositionCol);//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
+            bool IsPanelAvailable = UcDayParentForm.CheckIfTimeAvailable(UCNewPositionCol, UCNewPositionRowStart);//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
 
             if (!IsReadOrEdit)//Edit Mode
             {
@@ -538,7 +540,7 @@ namespace MKproject.Schedule
         {
             //Design
             bool IsUCAppPosChanged;
-            if (UCappointment.RowIndex == UCNewPositionRow && UCappointment.ColumnIndex == UCNewPositionCol)//checking eza tghayrarit its position or no
+            if (UCappointment.ColumnPosition == UCNewPositionCol && UCappointment.PositionRowStart == UCNewPositionRowStart && UCappointment.PositionRowEnd == UCNewPositionRowEnd)//checking eza tghayrarit its position or no
             {
                 IsUCAppPosChanged = false;
             }
@@ -546,7 +548,7 @@ namespace MKproject.Schedule
             {
                 IsUCAppPosChanged = true;
             }
-            UcDayParentForm.ChangePositionUCappointments(UCappointment, UCNewPositionCol, UCNewPositionRow, IsUCAppPosChanged);
+            UcDayParentForm.ChangePositionUCappointments(UCappointment, UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd, IsUCAppPosChanged);
         }
 
 
@@ -567,7 +569,7 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.InsertOrUpdateAppointment(true);
                 DesiredAppointmentAppForm.AppointmentID = ClassAppointment.GetLastAppointmentId();
                 //Design
-                UCappointment = UcDayParentForm.AddUCappointments(DesiredAppointmentAppForm, UCNewPositionCol, UCNewPositionRow);
+                UCappointment = UcDayParentForm.AddOneUCappointmentsNResize(DesiredAppointmentAppForm, UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd);
                 //OnAppointmentUpdate?.Invoke(this, EventArgs.Empty); // mahhal meshlogic hone, anw za toloolak mashekil bi kun ela reason, bas now keep it like this, cz aal undo men el notif aam taamil mashekil
 
                 NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode,true, Program.HomeForm, UndoFromNotficationBannerModeOn);
@@ -853,7 +855,7 @@ namespace MKproject.Schedule
             UndoFromNotficationBannerModeOn = true;
         
             DesiredAppointmentAppForm = OldDesiredAppointmentAppForm.Copy();
-            (UCNewPositionCol, UCNewPositionRow) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm);
+            (UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm, UcDayParentForm.ListEmployee_idAllTime);
 
             IsAddOrUpdateMode = false;
             AddOrUpdateSQL();

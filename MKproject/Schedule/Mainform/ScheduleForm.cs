@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -39,7 +40,8 @@ namespace MKproject.Schedule
         ///-CLICK
         private void buttonAllReminder_Click(object sender, EventArgs e)
         {
-
+            ClientReminder clientReminderForm = new ClientReminder(null,this,ucday);
+            clientReminderForm.ShowDialog();
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -268,8 +270,7 @@ namespace MKproject.Schedule
             }
 
 
-            //reminder
-            ucday.DisplayUCReminder();
+          
 
         }// changing DateUCDAY
 
