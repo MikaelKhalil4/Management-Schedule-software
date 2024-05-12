@@ -30,6 +30,7 @@ namespace MKproject.Schedule
         //VARIABLE
         public UCDay ParentFormUCday { get; set; }
         public static int OriginalWidth = 230;
+        public static int OriginalHeiht =82 ;
         private Point initialMouseDownPoint;
         public bool isDragging = false;
 
@@ -170,50 +171,50 @@ namespace MKproject.Schedule
             }
 
 
-            ////State
-            //if (DesiredAppointmentUCApp.IsCompleted)
-            //{
-            //    this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
+            //State
+            if (DesiredAppointmentUCApp.IsCompleted)
+            {
+                this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
 
-            //    if (!ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && this.Visible)
-            //    {
-            //        this.Visible = false;
-            //        RemoveAppointmentFromTLP();
-            //    }
-            //    else if (ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
-            //    {
-            //        this.Visible = true;
-            //    }
-            //}
-            //else if (DesiredAppointmentUCApp.IsCanceled)
-            //{
-            //    this.BackColor = Color.FromArgb(244, 86, 7);//orange
+                if (!ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && this.Visible)
+                {
+                    this.Visible = false;
+                    RemoveAppointmentFromTLP();
+                }
+                else if (ParentFormUCday.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
+                {
+                    this.Visible = true;
+                }
+            }
+            else if (DesiredAppointmentUCApp.IsCanceled)
+            {
+                this.BackColor = Color.FromArgb(244, 86, 7);//orange
 
-            //    if (!ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && this.Visible)
-            //    {
-            //        this.Visible = false;
-            //        RemoveAppointmentFromTLP();
+                if (!ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && this.Visible)
+                {
+                    this.Visible = false;
+                    RemoveAppointmentFromTLP();
 
-            //    }
-            //    if (ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && !this.Visible)
-            //    {
-            //        this.Visible = true;
-            //    }
-            //}
-            //else
-            //{
-            //    this.BackColor = Program.BoldColor;
+                }
+                if (ParentFormUCday.ParentFormSchedule.checkBoxCancel.Checked && !this.Visible)
+                {
+                    this.Visible = true;
+                }
+            }
+            else
+            {
+                this.BackColor = Program.BoldColor;
 
-            //    if (!ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && this.Visible)
-            //    {
-            //        this.Visible = false;
-            //        RemoveAppointmentFromTLP();
-            //    }
-            //    else if (ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && !this.Visible)
-            //    {
-            //        this.Visible = true;
-            //    }
-            //}
+                if (!ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && this.Visible)
+                {
+                    this.Visible = false;
+                    RemoveAppointmentFromTLP();
+                }
+                else if (ParentFormUCday.ParentFormSchedule.checkBoxOnPending.Checked && !this.Visible)
+                {
+                    this.Visible = true;
+                }
+            }
 
 
 
@@ -641,13 +642,13 @@ namespace MKproject.Schedule
         Cursor customCursor;
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (TouchScroll.MoveHoldClick == false)
-            //{
-            //    if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)//229, 226, 244
-            //    {
-            TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
-            //    }
-            //}
+            if (TouchScroll.MoveHoldClick == false)
+            {
+                if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)//229, 226, 244
+                {
+                    TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
+                }
+            }
 
             if (!isDragging && e.Button == MouseButtons.Left)
             {
@@ -667,10 +668,10 @@ namespace MKproject.Schedule
         }
         private void UCappointments_MouseLeave(object sender, EventArgs e)
         {
-            //if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)
-            //{
-            TLPGlobal.BackColor = Color.White;
-            //}
+            if (TLPGlobal.BackColor != ParentFormUCday.DisableColorTBUca)
+            {
+                TLPGlobal.BackColor = Color.White;
+            }
         }
         private void Control_MouseDown(object sender, MouseEventArgs e)
         {

@@ -22,14 +22,14 @@ namespace MKproject.Management
 
         TableLayoutPanelDoubleBufferedNoscroll TLPSchedule;
 
-        List<(ClassEmployee, List<int>)> ListOfAlIGroups = new List<(ClassEmployee, List<int>)>();
+        List<(ClassEmployee, List<int>)> ListOfAllColumnIndexesGroups = new List<(ClassEmployee, List<int>)>();
+        (ClassEmployee, List<int>) FocusOnColumnIndexGroup;
+        int FocusOnMaxWidth;
 
-
-        (ClassEmployee, List<int>) OldGroupOfDesiredUC;
-        int DesiredUCOldColumn;//old column is the exact column li ken aalaya el uc
-        int DesiredUCOldRow;
-
-
+        //these are for the values of the uc while drag/drop operation
+        (ClassEmployee, List<int>) OldColumnIndexGroupOfDesiredUC;
+        int OldColumnofDraggedUC;//old column is the exact column li ken aalaya el uc
+        int OldRowOfDraggedUC;
 
         List<UCappointment> ListAllConnectedUCsToTheOneWereRemoving;//this serpent doesn tonly cover the area of the removed uc, but also outside the are, which
                                                                     //Which we care about , because the one we dont see could cause us problems, that s why the one we dont see if they exist, we dont do the auto size
@@ -37,12 +37,14 @@ namespace MKproject.Management
 
 
         UCappointment UCApointmentDraged;
-        (ClassEmployee, List<int>) GroupOfDraggingUC = (null, null);//stores the index columns Related To employee , when we re dragging a uc
+        (ClassEmployee, List<int>) ColumnIndexGroupOfDraggingUC = (null, null);//stores the index columns Related To employee , when we re dragging a uc
         private (int, int) hoveredCellColmnRow = (-1, -1);  // Stores the  (column,row) of the hovered cell
 
 
         int NbreofRowsHighlighted = -1;//how many rows we need to highlight while mouse hover or dragging
-        Brush hoverBrush = new SolidBrush(Color.LightGray); // Change the color as needed
+        Brush hoverBrush = new SolidBrush(Color.FromArgb(225, 235, 245)); // Change the color as needed
+
+
 
 
 
@@ -54,7 +56,6 @@ namespace MKproject.Management
 
 
             List<ClassEmployee> ListEmployeeSchedule = ClassEmployee.GetEmployeeScheduleMemberASC();
-
             //these indexes value, should initially be t Setbased on the ranks and on there s more then 2 appointment in the same hour, and any changes dureing the way, this list will be modifid , and apply to it one of the AppPercentage Design
             List<int> Employee0 = new List<int>() { 1 };
             List<int> Employee1 = new List<int>() { 2 };
@@ -63,13 +64,13 @@ namespace MKproject.Management
             List<int> Employee4 = new List<int>() { 5 };
             List<int> Employee5 = new List<int>() { 6 };
 
-            ListOfAlIGroups.Add((ListEmployeeSchedule[0], Employee0));
-            ListOfAlIGroups.Add((ListEmployeeSchedule[1], Employee1));
-            ListOfAlIGroups.Add((ListEmployeeSchedule[2], Employee2));
+            ListOfAllColumnIndexesGroups.Add((ListEmployeeSchedule[0], Employee0));
+            ListOfAllColumnIndexesGroups.Add((ListEmployeeSchedule[1], Employee1));
+            ListOfAllColumnIndexesGroups.Add((ListEmployeeSchedule[2], Employee2));
 
-            ListOfAlIGroups.Add((ListEmployeeSchedule[3], Employee3));
-            ListOfAlIGroups.Add((ListEmployeeSchedule[4], Employee4));
-            ListOfAlIGroups.Add((ListEmployeeSchedule[5], Employee5));
+            ListOfAllColumnIndexesGroups.Add((ListEmployeeSchedule[3], Employee3));
+            ListOfAllColumnIndexesGroups.Add((ListEmployeeSchedule[4], Employee4));
+            ListOfAllColumnIndexesGroups.Add((ListEmployeeSchedule[5], Employee5));
 
 
             CreateTLP();//before creating our TLP we need AllIndexesGroupList
@@ -137,28 +138,30 @@ namespace MKproject.Management
 
 
             ResizeTableLayoutPanelToPerc();
-            //ExpandTableLayoutPanelColumn(ListOfAlIGroups[3], 700);
+            FocusOnEmployee(ListEmployeeSchedule[3]);
+
         }
-
-
-
 
 
         void CreateTLP()
         {
+            //Getting the maximum width of the absolute column so that other columns always appear
+
+
+
+            //
             TLPSchedule = new TableLayoutPanelDoubleBufferedNoscroll();
             TLPSchedule.AllowDrop = true;
             TLPSchedule.Dock = DockStyle.Fill;
             TLPSchedule.AutoScroll = true;
-
+            TLPSchedule.BackColor = Color.FromArgb(245, 245, 245);
 
 
             //Hours
             TLPSchedule.RowCount = 96;
             for (int i = 0; i < TLPSchedule.RowCount; i++)
             {
-                TLPSchedule.RowStyles.Add(new RowStyle(SizeType.Absolute, 20f));
-
+                TLPSchedule.RowStyles.Add(new RowStyle(SizeType.Absolute, 22f));
 
             }
 
@@ -168,7 +171,7 @@ namespace MKproject.Management
             TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100f));
             TLPSchedule.ColumnCount++;
 
-            foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
+            foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
             {
                 foreach (int ColumnIndex in Group.Item2)
                 {
@@ -186,14 +189,16 @@ namespace MKproject.Management
             {
                 Label LabelTime = new Label();
                 LabelTime.Dock = DockStyle.Fill;
-                LabelTime.BackColor = Color.White;
+                LabelTime.BackColor = TLPSchedule.BackColor;
+                LabelTime.ForeColor = Color.FromArgb(50, 50, 50);
                 LabelTime.Dock = DockStyle.Fill;
                 LabelTime.TextAlign = ContentAlignment.TopRight;
-                LabelTime.Font = new Font("Arial", 10f, System.Drawing.FontStyle.Regular);
+                LabelTime.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+
                 TimeSpan Time = TimeSpan.FromHours(i / 4);
 
                 DateTime dateTime = DateTime.Today.Add(Time);//datetime it's a reference
-                string timestring = dateTime.ToString("h:mm tt");
+                string timestring = dateTime.ToString("h tt");
                 string[] partstime = timestring.Split(' ');
                 LabelTime.Text = partstime[0] + " " + partstime[1];
 
@@ -204,7 +209,10 @@ namespace MKproject.Management
 
 
 
+
             //Events
+            TLPSchedule.Resize += TLPSchedule_Resize;
+
             TLPSchedule.MouseWheel += TLPSchedule_MouseMove;
             TLPSchedule.MouseMove += TLPSchedule_MouseMove;
 
@@ -216,7 +224,58 @@ namespace MKproject.Management
             TLPSchedule.DragOver += TLPSchedule_DragOver;
 
             this.Controls.Add(TLPSchedule);
+
+            //
+
+            SetFocusOnMaxWidth();
+
         }
+
+        private void TLPSchedule_Resize(object sender, EventArgs e)
+        {
+            SetFocusOnMaxWidth();
+            ResizeTableLayoutPanelToPerc();
+            FocusOnColumnIndexGroup = (null, null);
+        }
+
+        void SetFocusOnMaxWidth()
+        {
+            FocusOnMaxWidth = (int)((TLPSchedule.Width - TLPSchedule.GetColumnWidths()[0]) * 0.85);//so he will be 90 % of the columns without the first column
+        }
+        void FocusOnEmployee(ClassEmployee emp)
+        {
+            foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
+            {
+                if (Group.Item1.EmployeeId == emp.EmployeeId)
+                {
+                    FocusOnColumnIndexGroup = Group;
+                }
+            }
+            ExpandTableLayoutPanelColumn();
+        }
+
+
+
+        //Functions Used By code
+        void UndoMode((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int NewRow)
+        {
+            AddUc(DesiredColumnIndexesGroup, NewRow);
+            RemoveUc(null);
+        }
+        void PurellyAddingUcApp((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int NewRow)
+        {
+            AddUc(DesiredColumnIndexesGroup, NewRow);
+        }
+        void PurelyRemovingUcApp()
+        {
+            RemoveUc(null);
+            CheckIfLastColumnsShouldBeRemoved();
+        }
+        int GetHourOfDesiredRow(int row)
+        {
+            return row / 4;
+        }
+
 
 
 
@@ -229,13 +288,13 @@ namespace MKproject.Management
             if (UCApointmentDraged.Parent != null)
             {
 
-                DesiredUCOldColumn = TLPSchedule.GetColumn(UCApointmentDraged);
-                DesiredUCOldRow = TLPSchedule.GetRow(UCApointmentDraged);
+                OldColumnofDraggedUC = TLPSchedule.GetColumn(UCApointmentDraged);
+                OldRowOfDraggedUC = TLPSchedule.GetRow(UCApointmentDraged);
 
-                OldGroupOfDesiredUC = GetWichDesiredIndexesGroup(DesiredUCOldColumn);
+                OldColumnIndexGroupOfDesiredUC = GetWichDesiredIndexesGroup(OldColumnofDraggedUC);
 
 
-                ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, OldGroupOfDesiredUC.Item2);
+                ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, OldColumnIndexGroupOfDesiredUC.Item2);
                 ListAllConnectedUCsToTheOneWereRemoving = grouper.GetConnectedComponent(UCApointmentDraged);//it gives us a list of all connected uc in these columns to this ucappp 
                 ListAllConnectedUCsToTheOneWereRemoving.Remove(UCApointmentDraged);//so now i have the list of the uc that are connecetd to this targeteduc, but without the targeteduc, so can compare it later on
 
@@ -256,7 +315,7 @@ namespace MKproject.Management
             Point cursorPosition = this.PointToClient(Cursor.Position);
             if (!TLPSchedule.ClientRectangle.Contains(cursorPosition))
             {
-                TLPSchedule.Controls.Add(UCApointmentDraged, DesiredUCOldColumn, DesiredUCOldRow);//lezim tekhlaa column aw tsayoo haddo
+                TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);//lezim tekhlaa column aw tsayoo haddo
                 ResetSelection();
             }
         }
@@ -266,45 +325,58 @@ namespace MKproject.Management
             Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y)); // Convert the screen coordinates to client coordinates
             (int column, int row) = GetCellPosition(TLPSchedule, clientPoint);
 
-
-
-            //adding
-            if (UCApointmentDraged != null && column >= 1 && row >= 0)//first column for the timer
+            if (ColumnIndexGroupOfDraggingUC != (null, null))
             {
+                //adding
+                if (UCApointmentDraged != null && column >= 1 && row >= 0)//first column for the timer
+                {
+                    (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(row, ColumnIndexGroupOfDraggingUC);
+                    List<UCappointment> NewListUC = GetListOfAllControlsInSpecifiedArea(StartingColumn, EndingColumn, StartingRow, EndingRow);//it  will give the list, without the uc we re adding
 
-                (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(row, GroupOfDraggingUC);
-                List<UCappointment> NewListUC = GetListOfAllControlsInSpecifiedArea(StartingColumn, EndingColumn, StartingRow, EndingRow);//it  will give the list, without the uc we re adding
-
-                ClassucAppointmentGrouping grouper2 = new ClassucAppointmentGrouping(TLPSchedule, NewListUC, null);
-                Dictionary<int, List<UCappointment>> NewgroupedUCsCoverredByTheArea = grouper2.ClassifyGroupsThatAreConnected();
-                List<UCappointment> AllNewdUCInTheArea = NewgroupedUCsCoverredByTheArea.SelectMany(pair => pair.Value).ToList();
+                    ClassucAppointmentGrouping grouper2 = new ClassucAppointmentGrouping(TLPSchedule, NewListUC, null);
+                    Dictionary<int, List<UCappointment>> NewgroupedUCsCoverredByTheArea = grouper2.ClassifyGroupsThatAreConnected();
+                    List<UCappointment> AllNewdUCInTheArea = NewgroupedUCsCoverredByTheArea.SelectMany(pair => pair.Value).ToList();
 
 
-                //Removing Mode
-                RemoveUc(AllNewdUCInTheArea);
 
-                AddUc(row, GroupOfDraggingUC);
+                    //Removing Mode
+                    RemoveUc(AllNewdUCInTheArea);//mafina abel el add, lieanno ma32oul yse2ib bel old area, ykun intesects maa el ucapp li aam yonhatt in its new position
+                                                 //so when we call el remove, we need to make ykun sure enno el appointment baaed ma nhatt, yaane ma aayetna baeed lal AddUc
 
+
+                    AddUc(ColumnIndexGroupOfDraggingUC, row);
+
+
+                    UCApointmentDraged.Dock = DockStyle.Fill;
+                    UCApointmentDraged.isDragging = false;
+                    UCApointmentDraged.Show();
+                    UCApointmentDraged = null;
+
+                    ResetSelection();
+                }
+                else
+                {
+                    TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
+                    ResetSelection();
+                }
             }
             else
             {
-                TLPSchedule.Controls.Add(UCApointmentDraged, DesiredUCOldColumn, DesiredUCOldRow);
+                TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
                 ResetSelection();
             }
-
         }
 
 
 
 
 
-
-        void AddUc(int NewRow, (ClassEmployee, List<int>) DesiredGroupOfUC)//eza from drag:DesiredGroupOfUC=GroupOfDraggingUC , eza by code:DesiredGroupOfUC=Shi nehna ha nebaato hasab wen aam naamil add or undo
+        void AddUc((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int NewRow)//eza from drag:DesiredGroupOfUC=GroupOfDraggingUC , eza by code:DesiredGroupOfUC=Shi nehna ha nebaato hasab wen aam naamil add or undo
         {
 
             Cursor = Cursors.WaitCursor;
 
-            (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(NewRow, DesiredGroupOfUC);
+            (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(NewRow, DesiredColumnIndexesGroup);
             List<UCappointment> NewListUC = GetListOfAllControlsInSpecifiedArea(StartingColumn, EndingColumn, StartingRow, EndingRow);//it  will give the list, without the uc we re adding
 
 
@@ -352,7 +424,7 @@ namespace MKproject.Management
                     if (!OverLapByColumnsExists)
                     {
                         // Get the single group's list of UCappointment
-                        SetNewColumnSpanAndIndex(DesiredGroupOfUC, entry.Value, true);
+                        SetNewColumnSpanAndIndex(DesiredColumnIndexesGroup, entry.Value, true);
                     }
 
 
@@ -366,7 +438,7 @@ namespace MKproject.Management
 
 
                 Dictionary<int, List<UCappointment>> EachGroupWithItsSerpents = new Dictionary<int, List<UCappointment>>();
-                ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredGroupOfUC.Item2);//it will give all the uc , including the one we added
+                ClassucAppointmentGrouping grouper = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredColumnIndexesGroup.Item2);//it will give all the uc , including the one we added
                 foreach (KeyValuePair<int, List<UCappointment>> entry in NewgroupedUCsCoverredByTheArea)
                 {
                     List<UCappointment> ListSerpentConnectedUCsBeforeAdding = grouper.GetConnectedComponent(entry.Value[0]);//bi hemne one uc men kell small serpent , ta eedar ekmush the whole serpent
@@ -400,14 +472,14 @@ namespace MKproject.Management
 
 
                     //Insert
-                    int ColumnToInsert = DesiredGroupOfUC.Item2[DesiredGroupOfUC.Item2.Count() - 1] + 1;
+                    int ColumnToInsert = DesiredColumnIndexesGroup.Item2[DesiredColumnIndexesGroup.Item2.Count() - 1] + 1;
                     InsertColumn(ColumnToInsert);
-                    (StartingColumn, EndingColumn, StartingRow, EndingRow) = GetRectangle4Points(NewRow, DesiredGroupOfUC);
+                    (StartingColumn, EndingColumn, StartingRow, EndingRow) = GetRectangle4Points(NewRow, DesiredColumnIndexesGroup);
                     FittingUCIfPlaceExist(StartingColumn, EndingColumn, StartingRow, EndingRow);
 
 
                     List<UCappointment> ListOfAppPassed = new List<UCappointment>();//this stackis mde to prevent repition, since for a range of rows we can pass by the same uc
-                    ClassucAppointmentGrouping grouperInsert = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredGroupOfUC.Item2);//aam nekhlae el ajdency tb3 the whol DesiredgroupIndexes
+                    ClassucAppointmentGrouping grouperInsert = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredColumnIndexesGroup.Item2);//aam nekhlae el ajdency tb3 the whol DesiredgroupIndexes
 
                     for (int rows = 0; rows < TLPSchedule.RowCount; rows++)//we need to change all the span of ucs groups in same DesiredIndexGroup(Same Big Column or Employee), ella AffectedGroup li already tghayaro foe
                     {
@@ -439,7 +511,7 @@ namespace MKproject.Management
                                     }
                                     else
                                     {
-                                        SetNewColumnSpanAndIndex(DesiredGroupOfUC, ListSerpentConnectedUCs, false);
+                                        SetNewColumnSpanAndIndex(DesiredColumnIndexesGroup, ListSerpentConnectedUCs, false);
                                     }
                                 }
 
@@ -450,16 +522,23 @@ namespace MKproject.Management
                 }
             }
 
+            //ejbare men baeed el add, Read why 
+            CheckIfLastColumnsShouldBeRemoved();
 
-            //ejbare men baeed el add, lieanno eza ken in the same column shelnha men matrah w hattayna matrah (hayda el uc li aam aam yaamil insert la new column, huwwe zeit baddo yemnaa hayde el column ma tenmehe bhal code, lieanno ha ykun eendo latest index)
+
+            Cursor = Cursors.Default;
+
+        }
+        void CheckIfLastColumnsShouldBeRemoved()//if add exists,ejbare men baeed el add, lieanno eza ken in the Same column shelnha men matrah w hattayna matrah tene (hayda el uc li aam aam yaamil insert la new column, huwwe zeit baddo yemnaa hayde el column ma tenmehe bhal code, lieanno ha ykun eendo latest index)
+        {
             //ma32oul yseebo sawa, in the same group of columns
-            int BigColumnCount = OldGroupOfDesiredUC.Item2.Count();
+            int BigColumnCount = OldColumnIndexGroupOfDesiredUC.Item2.Count();
             Queue<UCappointment> QueueUCApp = new Queue<UCappointment>();//this one will be used ,to fix the columns span affected by removing the last column
             Stack<UCappointment> stackucApp = new Stack<UCappointment>();//this stackis mde to prevent repition, since for a range of rows we can pass by the same uc
             if (BigColumnCount > 1)
             {
 
-                int LastColumn = OldGroupOfDesiredUC.Item2[BigColumnCount - 1];
+                int LastColumn = OldColumnIndexGroupOfDesiredUC.Item2[BigColumnCount - 1];
 
                 bool IsUCAppExistOnTheLastColumn = false;
                 for (int rows = 0; rows < TLPSchedule.RowCount; rows++)
@@ -487,26 +566,17 @@ namespace MKproject.Management
                         TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) - 1);
                     }
 
-                    RemoveColumn(OldGroupOfDesiredUC.Item2[OldGroupOfDesiredUC.Item2.Count() - 1]);
+                    RemoveColumn(OldColumnIndexGroupOfDesiredUC.Item2[OldColumnIndexGroupOfDesiredUC.Item2.Count() - 1]);
                 }
 
             }
 
-            UCApointmentDraged.Dock = DockStyle.Fill;
-            UCApointmentDraged.isDragging = false;
-            UCApointmentDraged.Show();
-            UCApointmentDraged = null;
-
-            ResetSelection();
-            Cursor = Cursors.Default;
-
         }
-
         void RemoveUc(List<UCappointment> AllNewdUCInTheArea)//it will be !=null only in dragdrop operation
         {
             //removing
 
-            (int OldStartingColumn, int OldEndingColumn, int OldStartingRow, int OldEndingRow) = GetRectangle4Points(TLPSchedule.GetRow(UCApointmentDraged), OldGroupOfDesiredUC);//ejbare ouaa tshila, hole el values mestaamlin baaden
+            (int OldStartingColumn, int OldEndingColumn, int OldStartingRow, int OldEndingRow) = GetRectangle4Points(OldRowOfDraggedUC, OldColumnIndexGroupOfDesiredUC);//ejbare ouaa tshila, hole el values mestaamlin baaden
             List<UCappointment> OldListUC = GetListOfAllControlsInSpecifiedArea(OldStartingColumn, OldEndingColumn, OldStartingRow, OldEndingRow);//it will give the list, without the uc we re removing
 
 
@@ -525,8 +595,6 @@ namespace MKproject.Management
             if (AllNewdUCInTheArea != null && !ListsHaveSameElements(AllOldUCInTheArea, AllNewdUCInTheArea))
             {
 
-
-
                 if (ListAllConnectedUCsToTheOneWereRemoving.Count > 0 && ListsHaveSameElements(AllOldUCInTheArea, ListAllConnectedUCsToTheOneWereRemoving))
                 {
                     foreach (KeyValuePair<int, List<UCappointment>> Oldentry in OldGroupedUCsCoverByTheArea)
@@ -535,7 +603,7 @@ namespace MKproject.Management
                         {
                             List<UCappointment> ListucAppointments = Oldentry.Value;
 
-                            SetNewColumnSpanAndIndex(OldGroupOfDesiredUC, ListucAppointments, false);
+                            SetNewColumnSpanAndIndex(OldColumnIndexGroupOfDesiredUC, ListucAppointments, false);
 
                         }
                     }
@@ -549,18 +617,18 @@ namespace MKproject.Management
 
 
 
-
+        float PricisionError = 0f;//ma aa eedir le2e the error value
         private void InsertColumn(int columnIndex)
         {
             TLPSchedule.ColumnCount++;
 
             //finding the desiredIndexesgroup
             int i;
-            for (i = 0; i < ListOfAlIGroups.Count; i++)
+            for (i = 0; i < ListOfAllColumnIndexesGroups.Count; i++)
             {
-                if (ListOfAlIGroups[i].Item2.Contains(columnIndex - 1))
+                if (ListOfAllColumnIndexesGroups[i].Item2.Contains(columnIndex - 1))
                 {
-                    ListOfAlIGroups[i].Item2.Add(columnIndex);
+                    ListOfAllColumnIndexesGroups[i].Item2.Add(columnIndex);
 
                     i++;
                     break;
@@ -568,25 +636,38 @@ namespace MKproject.Management
 
             }
 
+            ////fixing the size
 
-            //fixing the size
-            (ClassEmployee, List<int>) TargetedIndexesGroup = ListOfAlIGroups[i - 1];
-            float PercentageOfEachGroup = 100 / ListOfAlIGroups.Count;
-            float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item2.Count;
 
-            TLPSchedule.ColumnStyles.Insert(columnIndex, new ColumnStyle(SizeType.Percent, PercentageOfEachColumn));
-
-            foreach (int ColumnIndex in TargetedIndexesGroup.Item2)
+            if (FocusOnColumnIndexGroup != (null, null))
             {
-                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                TLPSchedule.ColumnStyles.Insert(columnIndex, new ColumnStyle(SizeType.Percent, 0F));
+                ExpandTableLayoutPanelColumn();
+            }
+            else
+            {
+
+
+                (ClassEmployee, List<int>) TargetedIndexesGroup = ListOfAllColumnIndexesGroups[i - 1];
+                float PercentageOfEachGroup = 100f / ListOfAllColumnIndexesGroups.Count + PricisionError;
+                float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item2.Count;
+
+                TLPSchedule.ColumnStyles.Insert(columnIndex, new ColumnStyle(SizeType.Percent, PercentageOfEachColumn));
+
+
+                foreach (int ColumnIndex in TargetedIndexesGroup.Item2)
+                {
+                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                }
             }
 
-            //fixing the calues in AllIndexesGroupList 
-            while (i < ListOfAlIGroups.Count)
+
+            //fixing the values in AllIndexesGroupList 
+            while (i < ListOfAllColumnIndexesGroups.Count)
             {
-                for (int j = 0; j < ListOfAlIGroups[i].Item2.Count; j++)
+                for (int j = 0; j < ListOfAllColumnIndexesGroups[i].Item2.Count; j++)
                 {
-                    ListOfAlIGroups[i].Item2[j]++;
+                    ListOfAllColumnIndexesGroups[i].Item2[j]++;
                 }
                 i++;
             }
@@ -609,11 +690,11 @@ namespace MKproject.Management
             TLPSchedule.ColumnCount--;
             //finding the desiredIndexesgroup
             int i;
-            for (i = 0; i < ListOfAlIGroups.Count; i++)
+            for (i = 0; i < ListOfAllColumnIndexesGroups.Count; i++)
             {
-                if (ListOfAlIGroups[i].Item2.Contains(columnIndex - 1))
+                if (ListOfAllColumnIndexesGroups[i].Item2.Contains(columnIndex - 1))
                 {
-                    ListOfAlIGroups[i].Item2.Remove(columnIndex);
+                    ListOfAllColumnIndexesGroups[i].Item2.Remove(columnIndex);
 
                     i++;
                     break;
@@ -621,23 +702,31 @@ namespace MKproject.Management
             }
 
             //fixing the size
-            (ClassEmployee, List<int>) TargetedIndexesGroup = ListOfAlIGroups[i - 1];
-            float PercentageOfEachGroup = 100 / ListOfAlIGroups.Count - 1;
-            float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item2.Count;
-
             TLPSchedule.ColumnStyles.RemoveAt(columnIndex);
 
-            foreach (int ColumnIndex in TargetedIndexesGroup.Item2)
+            if (FocusOnColumnIndexGroup != (null, null))
             {
-                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                ExpandTableLayoutPanelColumn();
+            }
+            else
+            {
+                (ClassEmployee, List<int>) TargetedIndexesGroup = ListOfAllColumnIndexesGroups[i - 1];
+                float PercentageOfEachGroup = 100f / ListOfAllColumnIndexesGroups.Count - PricisionError;
+                float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item2.Count;
+
+                foreach (int ColumnIndex in TargetedIndexesGroup.Item2)
+                {
+                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                }
+
             }
 
             //fixing the calues in AllIndexesGroupList 
-            while (i < ListOfAlIGroups.Count)
+            while (i < ListOfAllColumnIndexesGroups.Count)
             {
-                for (int j = 0; j < ListOfAlIGroups[i].Item2.Count; j++)
+                for (int j = 0; j < ListOfAllColumnIndexesGroups[i].Item2.Count; j++)
                 {
-                    ListOfAlIGroups[i].Item2[j]--;
+                    ListOfAllColumnIndexesGroups[i].Item2[j]--;
                 }
                 i++;
             }
@@ -654,6 +743,7 @@ namespace MKproject.Management
                 }
             }
         }
+
 
 
 
@@ -679,6 +769,7 @@ namespace MKproject.Management
             return true;
 
         }
+
 
 
 
@@ -791,6 +882,7 @@ namespace MKproject.Management
 
 
 
+
         void SetNewColumnSpanAndIndex((ClassEmployee, List<int>) DesiredIndexesGroup, List<UCappointment> ListucAppointments, bool IsAddingMode)//using this method make sure  to be sorted Column Asc, Row Asc
                                                                                                                                                 //based ayya employee w nehna w el targeted controls baddun tozbit Span and index
         {
@@ -897,11 +989,11 @@ namespace MKproject.Management
         (ClassEmployee, List<int>) GetWichDesiredIndexesGroup(int StartingColumn)
         {
             int WhichEmployee = 0;
-            foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
+            foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
             {
                 if (Group.Item2.Contains(StartingColumn))
                 {
-                    return ListOfAlIGroups[WhichEmployee];
+                    return ListOfAllColumnIndexesGroups[WhichEmployee];
                 }
                 WhichEmployee++;
             }
@@ -944,6 +1036,35 @@ namespace MKproject.Management
 
 
 
+        public void ExpandTableLayoutPanelColumn()
+        {
+
+            int OriginalWidthOfDesiredGroup = UCappointment.OriginalWidth * FocusOnColumnIndexGroup.Item2.Count;
+
+            int DesiredWidthOfTheGroup = OriginalWidthOfDesiredGroup < FocusOnMaxWidth ? OriginalWidthOfDesiredGroup : FocusOnMaxWidth;
+
+
+            int DesiredWidthPerColumn = DesiredWidthOfTheGroup / FocusOnColumnIndexGroup.Item2.Count;
+
+            foreach (int ColumnIndex in FocusOnColumnIndexGroup.Item2)
+            {
+                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Absolute, DesiredWidthPerColumn);
+            }
+        }
+        void ResizeTableLayoutPanelToPerc()
+        {
+            float PercentageOfEachGroup = 100 / ListOfAllColumnIndexesGroups.Count;
+
+            foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
+            {
+                float PercentageOfEachColumn = PercentageOfEachGroup / Group.Item2.Count;
+
+                foreach (int ColumnIndex in Group.Item2)
+                {
+                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                }
+            }
+        }
 
 
 
@@ -975,7 +1096,7 @@ namespace MKproject.Management
             if (NbrRowShouldPass == -1)
             {
                 // Check if this cell's row belongs to the same group as the hovered cell
-                if (currentGroup == hoveredGroup && (GroupOfDraggingUC != (null, null) && GroupOfDraggingUC.Item2.Contains(e.Column)))
+                if (currentGroup == hoveredGroup && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
                 {
 
                     g.FillRectangle(hoverBrush, r);
@@ -983,10 +1104,31 @@ namespace MKproject.Management
             }
             else
             {
-                if ((e.Row >= hoveredCellColmnRow.Item2 && e.Row < (hoveredCellColmnRow.Item2 + NbrRowShouldPass)) && (GroupOfDraggingUC != (null, null) && GroupOfDraggingUC.Item2.Contains(e.Column)))
+                if ((e.Row >= hoveredCellColmnRow.Item2 && e.Row < (hoveredCellColmnRow.Item2 + NbrRowShouldPass)) && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
                 {
 
                     g.FillRectangle(hoverBrush, r);
+
+                    //if (e.Row == hoveredCellColmnRow.Item2 && e.Column== ColumnIndexGroupOfDraggingUC.Item2[0])
+                    //{
+
+                    //    string textToDraw = "12:00 am";
+                    //    Rectangle spanRect = new Rectangle(r.X, r.Y, r.Width * 2, r.Height);
+
+                    //    // Define the format for the text
+                    //    using (StringFormat sf = new StringFormat())
+                    //    {
+                    //        sf.Alignment = StringAlignment.Center; // Horizontal alignment
+                    //        sf.LineAlignment = StringAlignment.Center; // Vertical alignment
+
+                    //        // Define the brush and font for the text
+                    //        using (Brush textBrush = new SolidBrush(Color.Gray))
+                    //        using (Font textFont = new Font("Arial", 12, FontStyle.Regular))
+                    //        {
+                    //            g.DrawString(textToDraw, textFont, textBrush, r, sf);
+                    //        }
+                    //    }
+                    //}
                 }
             }
 
@@ -997,7 +1139,7 @@ namespace MKproject.Management
             ////Check if we're in the last column; if not, don't draw vertical lines
             if (e.Column < TLPSchedule.ColumnCount)
             {
-                foreach ((ClassEmployee, List<int>) va in ListOfAlIGroups)
+                foreach ((ClassEmployee, List<int>) va in ListOfAllColumnIndexesGroups)
                 {
 
                     if (e.Column == va.Item2[0] && e.Column != 0)
@@ -1051,11 +1193,11 @@ namespace MKproject.Management
 
                 //Set which employee we re in
                 int WhichEmployee = 0;
-                foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
+                foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
                 {
                     if (Group.Item2.Contains(hoveredCellColmnRow.Item1))
                     {
-                        GroupOfDraggingUC = ListOfAlIGroups[WhichEmployee];
+                        ColumnIndexGroupOfDraggingUC = ListOfAllColumnIndexesGroups[WhichEmployee];
                         break;
                     }
                     WhichEmployee++;
@@ -1105,46 +1247,12 @@ namespace MKproject.Management
         void ResetSelection()
         {
             hoveredCellColmnRow = (-1, -1);
-            GroupOfDraggingUC = (null, null);
+            ColumnIndexGroupOfDraggingUC = (null, null);
             Cursor.Current = Cursors.Default; // Reset the cursor to the default
             TLPSchedule.Invalidate();
         }
 
 
-
-
-
-
-        public void ExpandTableLayoutPanelColumn((ClassEmployee, List<int>) DesiredIndexesGroup, int MaxWidth)
-        {
-
-            int OriginalWidthOfDesiredGroup = UCappointment.OriginalWidth * DesiredIndexesGroup.Item2.Count;
-
-            int DesiredWidthOfTheGroup = OriginalWidthOfDesiredGroup < MaxWidth ? OriginalWidthOfDesiredGroup : MaxWidth;
-
-
-
-            int DesiredWidthPerColumn = DesiredWidthOfTheGroup / DesiredIndexesGroup.Item2.Count;
-
-            foreach (int ColumnIndex in DesiredIndexesGroup.Item2)
-            {
-                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Absolute, DesiredWidthPerColumn);
-            }
-        }
-        void ResizeTableLayoutPanelToPerc()
-        {
-            float PercentageOfEachGroup = 100 / ListOfAlIGroups.Count;
-
-            foreach ((ClassEmployee, List<int>) Group in ListOfAlIGroups)
-            {
-                float PercentageOfEachColumn = PercentageOfEachGroup / Group.Item2.Count;
-
-                foreach (int ColumnIndex in Group.Item2)
-                {
-                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
-                }
-            }
-        }
 
 
     }

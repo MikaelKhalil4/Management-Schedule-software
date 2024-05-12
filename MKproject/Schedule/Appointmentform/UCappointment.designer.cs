@@ -51,7 +51,7 @@
             TLPGlobal.RowCount = 2;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            TLPGlobal.Size = new System.Drawing.Size(249, 76);
+            TLPGlobal.Size = new System.Drawing.Size(249, 77);
             TLPGlobal.TabIndex = 0;
             TLPGlobal.MouseLeave += UCappointments_MouseLeave;
             TLPGlobal.MouseMove += UCappointments_MouseMove;
@@ -65,7 +65,7 @@
             labelTime.Location = new System.Drawing.Point(154, 35);
             labelTime.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             labelTime.Name = "labelTime";
-            labelTime.Size = new System.Drawing.Size(95, 41);
+            labelTime.Size = new System.Drawing.Size(95, 42);
             labelTime.TabIndex = 2;
             labelTime.Text = "10:00 - 11:00";
             labelTime.MouseLeave += UCappointments_MouseLeave;
@@ -80,9 +80,9 @@
             labelFullName.Location = new System.Drawing.Point(1, 35);
             labelFullName.Margin = new System.Windows.Forms.Padding(1, 5, 1, 0);
             labelFullName.Name = "labelFullName";
-            labelFullName.Size = new System.Drawing.Size(152, 41);
+            labelFullName.Size = new System.Drawing.Size(152, 42);
             labelFullName.TabIndex = 15;
-            labelFullName.Text = "Full Name\r\nf\r\n";
+            labelFullName.Text = "Full Name\r\nFull Name\r\n";
             labelFullName.MouseLeave += UCappointments_MouseLeave;
             labelFullName.MouseMove += UCappointments_MouseMove;
             // 
@@ -112,7 +112,7 @@
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "UCappointment";
             Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            Size = new System.Drawing.Size(249, 81);
+            Size = new System.Drawing.Size(249, 82);
             GiveFeedback += UCappointment_GiveFeedback;
             QueryContinueDrag += UCappointment_QueryContinueDrag;
             MouseLeave += UCappointments_MouseLeave;
