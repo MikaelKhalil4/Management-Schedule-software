@@ -51,12 +51,12 @@ namespace MKproject.Schedule
                 if (e.Delta > 0)
                 {
                     // Scrolling up
-                    currentRow = Math.Max(0, currentRow - 1);
+                    currentRow = Math.Max(0, currentRow - 4);
                 }
                 else
                 {
                     // Scrolling down
-                    currentRow = Math.Min(this.RowCount - GetVisibleRowsCount(), currentRow + 1);
+                    currentRow = Math.Min(this.RowCount - GetVisibleRowsCount(), currentRow + 4);
                 }
 
                 // Ensure we're not exceeding the maximum allowable value

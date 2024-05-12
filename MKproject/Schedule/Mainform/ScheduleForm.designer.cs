@@ -58,12 +58,11 @@
             tableLayoutPanelForm.Name = "tableLayoutPanelForm";
             tableLayoutPanelForm.RowCount = 1;
             tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanelForm.Size = new System.Drawing.Size(1485, 841);
+            tableLayoutPanelForm.Size = new System.Drawing.Size(1485, 791);
             tableLayoutPanelForm.TabIndex = 0;
             // 
             // tableLayoutPanelSide
             // 
-            tableLayoutPanelSide.Anchor = System.Windows.Forms.AnchorStyles.Top;
             tableLayoutPanelSide.BackColor = System.Drawing.Color.White;
             tableLayoutPanelSide.ColumnCount = 4;
             tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.7887306F));
@@ -78,6 +77,7 @@
             tableLayoutPanelSide.Controls.Add(AddButton, 3, 2);
             tableLayoutPanelSide.Controls.Add(buttonAllReminder, 2, 2);
             tableLayoutPanelSide.Controls.Add(checkBoxOnPending, 0, 0);
+            tableLayoutPanelSide.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanelSide.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanelSide.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanelSide.Name = "tableLayoutPanelSide";
@@ -87,7 +87,7 @@
             tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.972375F));
             tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95.027626F));
             tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanelSide.Size = new System.Drawing.Size(268, 841);
+            tableLayoutPanelSide.Size = new System.Drawing.Size(268, 791);
             tableLayoutPanelSide.TabIndex = 0;
             // 
             // checkBoxCancel
@@ -116,7 +116,7 @@
             pictureBox2.BackColor = System.Drawing.Color.Transparent;
             pictureBox2.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pictureBox2.Location = new System.Drawing.Point(8, 85);
+            pictureBox2.Location = new System.Drawing.Point(8, 83);
             pictureBox2.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new System.Drawing.Size(22, 25);
@@ -151,7 +151,7 @@
             label1.BackColor = System.Drawing.Color.Transparent;
             label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            label1.Location = new System.Drawing.Point(51, 86);
+            label1.Location = new System.Drawing.Point(51, 85);
             label1.Margin = new System.Windows.Forms.Padding(0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(70, 17);
@@ -165,11 +165,11 @@
             panelreminder.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
             tableLayoutPanelSide.SetColumnSpan(panelreminder, 4);
             panelreminder.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelreminder.Location = new System.Drawing.Point(4, 117);
+            panelreminder.Location = new System.Drawing.Point(4, 114);
             panelreminder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelreminder.Name = "panelreminder";
             panelreminder.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            panelreminder.Size = new System.Drawing.Size(260, 721);
+            panelreminder.Size = new System.Drawing.Size(260, 674);
             panelreminder.TabIndex = 0;
             // 
             // AddButton
@@ -178,10 +178,10 @@
             AddButton.BackgroundImage = (System.Drawing.Image)resources.GetObject("AddButton.BackgroundImage");
             AddButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             AddButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            AddButton.Location = new System.Drawing.Point(230, 82);
+            AddButton.Location = new System.Drawing.Point(230, 80);
             AddButton.Margin = new System.Windows.Forms.Padding(0);
             AddButton.Name = "AddButton";
-            AddButton.Size = new System.Drawing.Size(29, 25);
+            AddButton.Size = new System.Drawing.Size(30, 26);
             AddButton.TabIndex = 66;
             AddButton.TabStop = false;
             AddButton.Click += AddButton_Click;
@@ -195,7 +195,7 @@
             buttonAllReminder.FlatAppearance.BorderSize = 0;
             buttonAllReminder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAllReminder.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            buttonAllReminder.Location = new System.Drawing.Point(154, 82);
+            buttonAllReminder.Location = new System.Drawing.Point(154, 81);
             buttonAllReminder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonAllReminder.Name = "buttonAllReminder";
             buttonAllReminder.Size = new System.Drawing.Size(46, 25);
@@ -229,7 +229,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(1485, 841);
+            ClientSize = new System.Drawing.Size(1485, 791);
             Controls.Add(tableLayoutPanelForm);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "ScheduleForm";

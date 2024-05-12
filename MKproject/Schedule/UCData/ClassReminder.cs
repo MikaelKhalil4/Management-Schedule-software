@@ -51,10 +51,44 @@ namespace MKproject.Schedule.UCData
         //Reminder
         public static DataTable DisplayReminder()
         {
-            SqlCommand command1 = new SqlCommand(@"SELECT reminder.*, client.name , client.family_name
+            SqlCommand command1 = new SqlCommand(@"SELECT reminder.*, client.name , client.family_name, client.phone_number
                                                    FROM reminder
-                                                   LEFT JOIN client ON reminder.client_id = client.client_id", con);
+                                                   LEFT JOIN client ON reminder.client_id = client.client_id
+                                                   ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
 
+            SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
+            DataTable dt1 = new DataTable();
+            adapter1.Fill(dt1);
+            dt1.PrimaryKey = new DataColumn[] { dt1.Columns["reminder_id"] };
+            con.Open();
+            command1.ExecuteNonQuery();
+            con.Close();
+            return dt1;
+        }
+        public static DataTable DisplayReminderInASpecificDate(DateTime SelectedDate)
+        {
+            SqlCommand command1 = new SqlCommand(@"SELECT reminder.*, client.name, client.family_name, client.phone_number
+                                                   FROM reminder
+                                                   LEFT JOIN client ON reminder.client_id = client.client_id
+                                                   WHERE
+                                                   (
+                                                       -- No Repeat: Reminder should occur only once on the exact date.
+                                                       (reminder.repeat = 'Does not repeat' AND CAST(reminder.starttime AS date) = @SELECTED_DATE)
+
+                                                       OR
+
+                                                       -- Everyday: Reminder repeats daily starting from the starttime onward.
+                                                       (reminder.repeat = 'Every day' AND CAST(reminder.starttime AS date) <= @SELECTED_DATE)
+
+                                                       OR
+
+                                                       -- Every Week: Checks if the current day is one of the specified weekdays in the repeat pattern.
+                                                       (reminder.repeat LIKE 'Every week%' AND CAST(reminder.starttime AS date) <= @SELECTED_DATE
+                                                       AND CHARINDEX(DATENAME(dw, @SELECTED_DATE), reminder.repeat) > 0)
+                                                   )
+                                                   ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
+
+            command1.Parameters.AddWithValue("@SELECTED_DATE", SelectedDate.Date);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
@@ -68,7 +102,8 @@ namespace MKproject.Schedule.UCData
         {
             SqlCommand command1 = new SqlCommand(@"SELECT reminder_id, reminder, repeat, starttime, labelquote, is_checked
                                                    FROM reminder
-                                                   WHERE client_id = @client_id", con);
+                                                   WHERE client_id = @client_id
+                                                   ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
             command1.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
