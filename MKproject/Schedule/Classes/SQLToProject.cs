@@ -38,7 +38,16 @@ namespace MKproject.Schedule
         //HistoryEmployeeavailibility
         public static DataTable DisplayRankEmployeesNAvailabilityASC(DateTime history_date)
         {
-            SqlCommand command = new SqlCommand("SELECT  employee_id, rank, availability FROM history_employee_availability WHERE history_date = @history_date ORDER BY rank ASC", con);
+
+            string query = @"SELECT emp.employee_id,emp.first_name,emp.last_name,h.rank,h.availability
+                            FROM history_employee_availability as h
+                            Join employee as emp on emp.employee_id=h.employee_id
+                            WHERE history_date = @history_date ORDER BY rank ASC";
+
+
+            SqlCommand command = new SqlCommand(query, con);
+          
+            
             command.Parameters.AddWithValue("@history_date", history_date.Date);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();

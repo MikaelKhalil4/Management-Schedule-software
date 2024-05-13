@@ -230,7 +230,7 @@ namespace MKproject.Management
 
 
 
-        public static ClassEmployee CreateEmployeeObject(int employeeID)
+        public static ClassEmployee CreateEmployeeObject(int employeeID)//in case of one employee
         {
 
             DataTable dt;
@@ -241,7 +241,18 @@ namespace MKproject.Management
 
             return employee;
         }
-        public static ClassEmployee DataTableRowToObject(DataRow datarow)
+        private static List<ClassEmployee> DataTableToList(DataTable dt)//in case of mutiple employees
+        {
+            List<ClassEmployee> list = new List<ClassEmployee>();
+
+            foreach (DataRow datarow in dt.Rows)
+            {
+                ClassEmployee employee = DataTableRowToObject(datarow);
+                list.Add(employee);
+            };
+            return list;
+        }
+        private static ClassEmployee DataTableRowToObject(DataRow datarow)
         {
             ClassEmployee employee = new ClassEmployee();
 
@@ -280,9 +291,9 @@ namespace MKproject.Management
                 if (employee.Access.ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
                     employee.CanInsertOrEditClients = true;
             }
-
             return employee;
         }
+    
         public bool CheckIfPAsswordExist(string OldPass)
         {
             string query = " Select Count(*) from employee where password='" + Password + "'";
@@ -567,17 +578,7 @@ namespace MKproject.Management
             List<ClassEmployee> ListEmployeeSchedule = DataTableToList(dt);
             return ListEmployeeSchedule;
         }
-        public static List<ClassEmployee> DataTableToList(DataTable dt)
-        {
-            List<ClassEmployee> list = new List<ClassEmployee>();
-
-            foreach (DataRow datarow in dt.Rows)
-            {
-                ClassEmployee employee = DataTableRowToObject(datarow);
-                list.Add(employee);
-            };
-            return list;
-        }
+      
 
 
 

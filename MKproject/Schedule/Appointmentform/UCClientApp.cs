@@ -764,7 +764,7 @@ namespace MKproject.Schedule
 
             Cursor = Cursors.WaitCursor;
 
-            ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
+            ScheduleForm schedule = this.ParentFormAppointment.UcScheduleParentForm.ParentFormSchedule;
             Home home = Program.HomeForm;
 
 
@@ -808,7 +808,7 @@ namespace MKproject.Schedule
             menu.GoingFromChildToChild -= Menu_GoingFromChildToChild;
 
 
-            ScheduleForm schedule = this.ParentFormAppointment.UcDayParentForm.ParentFormSchedule;
+            ScheduleForm schedule = this.ParentFormAppointment.UcScheduleParentForm.ParentFormSchedule;
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
 

@@ -13,7 +13,7 @@ namespace MKproject.Schedule
         //VARIABLES:
         public ScheduleForm schedule;
         public UCMonth ucmonths;
-        public UCDay ucday;
+        public UCSchedule ucday;
 
 
         //INITIALISE

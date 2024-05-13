@@ -167,94 +167,94 @@ namespace MKproject.Schedule
         }
         private void buttonD_Click(object sender, EventArgs e)
         {
-            //getting the old availability
-            string oldavailability = UCemployee.DesiredEmployee.Availability;
+            ////getting the old availability
+            //string oldavailability = UCemployee.DesiredEmployee.Availability;
 
-            //it's a reset
-            UCemployee.DesiredEmployee.Availability = "";
+            ////it's a reset
+            //UCemployee.DesiredEmployee.Availability = "";
 
-            //i is a reference for the days: Monday...
-            for (int i = 1; i < 8; i++)
-            {
-                //j is a reference for the hours of the day
-                for (int j = 0; j < 24; j++)
-                {
-                    //Getting the active hours of the day
-                    var control = tableLayoutPanelAvailability.GetControlFromPosition(i, j); // Replace YourUserControl with the actual UserControl type
-                    if (control.BackColor == ActiveColor)
-                    {
-                        UCemployee.DesiredEmployee.Availability += j.ToString() + "-";
-                    }
-                    else
-                    {
+            ////i is a reference for the days: Monday...
+            //for (int i = 1; i < 8; i++)
+            //{
+            //    //j is a reference for the hours of the day
+            //    for (int j = 0; j < 24; j++)
+            //    {
+            //        //Getting the active hours of the day
+            //        var control = tableLayoutPanelAvailability.GetControlFromPosition(i, j); // Replace YourUserControl with the actual UserControl type
+            //        if (control.BackColor == ActiveColor)
+            //        {
+            //            UCemployee.DesiredEmployee.Availability += j.ToString() + "-";
+            //        }
+            //        else
+            //        {
 
-                    }
+            //        }
 
-                }
-                if (UCemployee.DesiredEmployee.Availability == "")//none hours
-                {
+            //    }
+            //    if (UCemployee.DesiredEmployee.Availability == "")//none hours
+            //    {
 
-                }
-                else if (UCemployee.DesiredEmployee.Availability[UCemployee.DesiredEmployee.Availability.Length - 1] == '-')//Exemple: 1-2-4-6- so we will have to substract (-)
-                {
-                    UCemployee.DesiredEmployee.Availability = UCemployee.DesiredEmployee.Availability.Substring(0, UCemployee.DesiredEmployee.Availability.Length - 1);
-                }
-                else//se3eta ma bi shil / fabyotla3 Monday//Thuesday
-                {
+            //    }
+            //    else if (UCemployee.DesiredEmployee.Availability[UCemployee.DesiredEmployee.Availability.Length - 1] == '-')//Exemple: 1-2-4-6- so we will have to substract (-)
+            //    {
+            //        UCemployee.DesiredEmployee.Availability = UCemployee.DesiredEmployee.Availability.Substring(0, UCemployee.DesiredEmployee.Availability.Length - 1);
+            //    }
+            //    else//se3eta ma bi shil / fabyotla3 Monday//Thuesday
+            //    {
 
-                }
+            //    }
 
-                UCemployee.DesiredEmployee.Availability += "/";
-            }
+            //    UCemployee.DesiredEmployee.Availability += "/";
+            //}
 
-            //result:7-8/8//8-9/9-10/8-9-10-11/   (from 0 to 6 like from Monday to Sunday)
-            UCemployee.DesiredEmployee.Availability = UCemployee.DesiredEmployee.Availability.Substring(0, UCemployee.DesiredEmployee.Availability.Length - 1);
+            ////result:7-8/8//8-9/9-10/8-9-10-11/   (from 0 to 6 like from Monday to Sunday)
+            //UCemployee.DesiredEmployee.Availability = UCemployee.DesiredEmployee.Availability.Substring(0, UCemployee.DesiredEmployee.Availability.Length - 1);
 
-            //Checking if the availibibility has changed if yes then we have to update SQL and the 2 datatables: the originale and the copy
-            if (oldavailability != UCemployee.DesiredEmployee.Availability)
-            {
-                int Employee_id = UCemployee.DesiredEmployee.EmployeeId;
-                string NewAvailability = UCemployee.DesiredEmployee.Availability;
+            ////Checking if the availibibility has changed if yes then we have to update SQL and the 2 datatables: the originale and the copy
+            //if (oldavailability != UCemployee.DesiredEmployee.Availability)
+            //{
+            //    int Employee_id = UCemployee.DesiredEmployee.EmployeeId;
+            //    string NewAvailability = UCemployee.DesiredEmployee.Availability;
 
-                //SQL:
-                //Update the EmployeeAvailability
-                ClassEmployee.UpdateEmployeeScheduleMemberSQL(UCemployee.DesiredEmployee.EmployeeId, UCemployee.DesiredEmployee.Availability);
-
-
-                //Update the historyemployeeavailability
-                //getting availibility for this day of this employee
-                string NewAvailabilityOfToday = "";
-                int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                string[] HoursOfThedays = NewAvailability.Split('/');
-
-                NewAvailabilityOfToday += HoursOfThedays[dayOfWeekInt];
-
-                ProjectToSql.UpdateAvailability_HistoryEmployeeavailibity(DateTime.Now, Employee_id, NewAvailabilityOfToday);
+            //    //SQL:
+            //    //Update the EmployeeAvailability
+            //    ClassEmployee.UpdateEmployeeScheduleMemberSQL(UCemployee.DesiredEmployee.EmployeeId, UCemployee.DesiredEmployee.Availability);
 
 
-                //BackEnd
-                //UPDATE ListEmployeeSchedule
-                ClassEmployee EmployeeSelected = UCemployee.ParentFormEmployee.schedule.ucday.ListEmployeeSchedule.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
-                EmployeeSelected.Availability = NewAvailability;
+            //    //Update the historyemployeeavailability
+            //    //getting availibility for this day of this employee
+            //    string NewAvailabilityOfToday = "";
+            //    int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
+            //    string[] HoursOfThedays = NewAvailability.Split('/');
+
+            //    NewAvailabilityOfToday += HoursOfThedays[dayOfWeekInt];
+
+            //    ProjectToSql.UpdateAvailability_HistoryEmployeeavailibity(DateTime.Now, Employee_id, NewAvailabilityOfToday);
+
+
+            //    //BackEnd
+            //    //UPDATE ListEmployeeSchedule
+            //    ClassEmployee EmployeeSelected = UCemployee.ParentFormEmployee.schedule.ucSchedule.EmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
+            //    EmployeeSelected.Availability = NewAvailability;
 
 
 
-                //UPDATE ListEmployeeScheduleCopy
-                ClassEmployee EmployeeSelectedCopy = UCemployee.ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
-                EmployeeSelectedCopy.Availability = NewAvailability;
-               
+            //    //UPDATE ListEmployeeScheduleCopy
+            //    ClassEmployee EmployeeSelectedCopy = UCemployee.ParentFormEmployee.ListEmployeeScheduleCopy.FirstOrDefault(emp => emp.EmployeeId == Employee_id);
+            //    EmployeeSelectedCopy.Availability = NewAvailability;
 
-                //Then We have to change the design of TLP because the employee is in the TLP
-                if (UCemployee.DesiredEmployee.IsChecked == true)
-                {
-                    //Design So we have to just cahnge the availibility of the column
-                    dayOfWeekInt = ((int)UCemployee.ParentFormEmployee.schedule.ucday.SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
-                    HoursOfThedays = NewAvailability.Split('/');
-                    string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');
-                    UCemployee.ParentFormEmployee.schedule.ucday.AvailibilityColumnChanged(UCemployee.DesiredEmployee.Rank, HoursOfTheday);//The Rank have the same number of with column the employee is in
-                }
-            }
-            this.Close();
+
+            //    //Then We have to change the design of TLP because the employee is in the TLP
+            //    if (UCemployee.DesiredEmployee.IsChecked == true)
+            //    {
+            //        //Design So we have to just cahnge the availibility of the column
+            //        dayOfWeekInt = ((int)UCemployee.ParentFormEmployee.schedule.ucSchedule.SelectedDate.DayOfWeek + 6) % 7; //0 Monday to 6 Sunday
+            //        HoursOfThedays = NewAvailability.Split('/');
+            //        string[] HoursOfTheday = HoursOfThedays[dayOfWeekInt].Split('-');
+            //        UCemployee.ParentFormEmployee.schedule.ucSchedule.AvailibilityColumnChanged(UCemployee.DesiredEmployee.Rank, HoursOfTheday);//The Rank have the same number of with column the employee is in
+            //    }
+            //}
+            //this.Close();
         }
 
         ///-SCROLL

@@ -15,7 +15,7 @@ namespace MKproject.Schedule
 
         //VARIABLES:
         DateTime date; int month, year, days; string monthname;//just copies
-        public ScheduleForm schedule; public UCDay ucday; public UCCalanderday uccalanderday; public UCCalandermonth uccalandermonth; public UCCalanderyear uccalanderyear;
+        public ScheduleForm schedule; public UCSchedule ucday; public UCCalanderday uccalanderday; public UCCalandermonth uccalandermonth; public UCCalanderyear uccalanderyear;
         public UCDays ucdayOfDateUCDay; public UCDays ucdayOfToday; public LabelMonth labelmonthcopy; public LabelYear labelyearcopy;//for their borders
 
         public int wichuccalander;//1:uccalanderday  2:uccalandermonth  3:uccalanderyear
@@ -26,7 +26,7 @@ namespace MKproject.Schedule
 
         //INITIALISE:
         ///-CONSTRUCTOR
-        public UCMonth(ScheduleForm form, UCDay form1)
+        public UCMonth(ScheduleForm form, UCSchedule form1)
         {
             InitializeComponent();
             this.Opacity = 0;

@@ -15,7 +15,7 @@ namespace MKproject.Schedule
 
         ScheduleForm ParentFormSchedule;
         UCreminder ucreminderInClientReminder;
-        public UCDay ucday;
+        public UCSchedule ucSchedule;
         ClientReminder clientReminder;
 
         public bool isupdate;
@@ -33,11 +33,11 @@ namespace MKproject.Schedule
 
         ///-From ClientReminder
         ///ADD
-        public Reminder(ScheduleForm form1, UCDay form2, ClientReminder clientreminder)
+        public Reminder(ScheduleForm form1, UCSchedule form2, ClientReminder clientreminder)
         {
             InitializeComponent();
             ParentFormSchedule = form1;
-            ucday = form2;
+            ucSchedule = form2;
             clientReminder = clientreminder;
 
             Isclientreminder = true;
@@ -54,7 +54,7 @@ namespace MKproject.Schedule
             GetQuoteFromDate();
         }
         ///UPDATE
-        public Reminder(UCreminder UCreminderfromClientReminder, UCDay form2, ScheduleForm form3, bool isclientreminder, ClientReminder clientreminder)
+        public Reminder(UCreminder UCreminderfromClientReminder, UCSchedule form2, ScheduleForm form3, bool isclientreminder, ClientReminder clientreminder)
         {
             InitializeComponent();
 
@@ -62,7 +62,7 @@ namespace MKproject.Schedule
 
             DesiredReminder = ucreminderInClientReminder.DesiredReminder;
 
-            ucday = form2;
+            ucSchedule = form2;
             ParentFormSchedule = form3;
 
             clientReminder = clientreminder;
@@ -119,11 +119,11 @@ namespace MKproject.Schedule
 
         ///-From Schedule
         ///ADD
-        public Reminder(ScheduleForm form1, UCDay form2)
+        public Reminder(ScheduleForm form1, UCSchedule form2)
         {
             InitializeComponent();
             ParentFormSchedule = form1;
-            ucday = form2;
+            ucSchedule = form2;
 
 
             Isclientreminder = false;
@@ -133,12 +133,12 @@ namespace MKproject.Schedule
 
         }
         ///UPDATE
-        public Reminder(ClassReminder desiredreminder, UCDay form2, ScheduleForm form3, bool isclientreminder)
+        public Reminder(ClassReminder desiredreminder, UCSchedule form2, ScheduleForm form3, bool isclientreminder)
         {
             InitializeComponent();
 
             DesiredReminder = desiredreminder;
-            ucday = form2;
+            ucSchedule = form2;
             ParentFormSchedule = form3;
 
             //Getting The Type Of this form from where it comes and if it's update or add
@@ -218,7 +218,7 @@ namespace MKproject.Schedule
                 //Bi koun akhad lDesiredCient men abel
                 DesiredReminder.Reminder = textBoxReminder.Text;
                 DesiredReminder.Repeat = repeat;
-                DesiredReminder.StartTime = ucday.SelectedDate;
+                DesiredReminder.StartTime = ucSchedule.SelectedDate;
                 DesiredReminder.LabelQuote = labelQuote.Text;
 
                 //UPDATE
@@ -230,7 +230,7 @@ namespace MKproject.Schedule
                     //DESIGN
 
                     //KERMEL NSHIL LI BEL List taba3 lschedule w n3adlo
-                    UCreminder UcReminderSchedule = ucday.ListUCreminderForTheSelectedDate.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
+                    UCreminder UcReminderSchedule = ucSchedule.ListUCreminderForTheSelectedDate.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
                     if(UcReminderSchedule != null)
                     {
                         UcReminderSchedule.DesiredReminder = DesiredReminder;
@@ -243,16 +243,16 @@ namespace MKproject.Schedule
                         
                         //Design Schedule
                         //Addinds or removing a reminder in panelreminder
-                        if (ucday.isThedayofUCreminder(DesiredReminder, ucday.SelectedDate) == false && UcReminderSchedule != null)
+                        if (ucSchedule.isThedayofUCreminder(DesiredReminder, ucSchedule.SelectedDate) == false && UcReminderSchedule != null)
                         {
                             //fik tzid condition IsControlInPanel(foundUcReminder, schedule.panelreminder) bas ma daroure law ma kenit mawjoude
                             ParentFormSchedule.panelreminder.Controls.Remove(UcReminderSchedule);
-                            ucday.ListUCreminderForTheSelectedDate.Remove(UcReminderSchedule);
+                            ucSchedule.ListUCreminderForTheSelectedDate.Remove(UcReminderSchedule);
                         }
                         else//True and == null
                         {
-                            UCreminder NewUcReminderSchedule = new UCreminder(DesiredReminder, ucday, ParentFormSchedule);
-                            ucday.ListUCreminderForTheSelectedDate.Add(NewUcReminderSchedule);
+                            UCreminder NewUcReminderSchedule = new UCreminder(DesiredReminder, ucSchedule, ParentFormSchedule);
+                            ucSchedule.ListUCreminderForTheSelectedDate.Add(NewUcReminderSchedule);
                             ParentFormSchedule.panelreminder.Controls.Add(NewUcReminderSchedule);
                             ParentFormSchedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(ParentFormSchedule.panelreminder);
                         }
@@ -277,10 +277,10 @@ namespace MKproject.Schedule
                     else
                     {
                         //DESIGN Schedule
-                        if (ucday.isThedayofUCreminder(DesiredReminder, ucday.SelectedDate) == false)
+                        if (ucSchedule.isThedayofUCreminder(DesiredReminder, ucSchedule.SelectedDate) == false)
                         {
                             ParentFormSchedule.panelreminder.Controls.Remove(UcReminderSchedule);
-                            ucday.ListUCreminderForTheSelectedDate.Remove(UcReminderSchedule);
+                            ucSchedule.ListUCreminderForTheSelectedDate.Remove(UcReminderSchedule);
                         }
 
                     }
@@ -296,14 +296,14 @@ namespace MKproject.Schedule
 
 
                     //DESIGN SCHEDULE
-                    if (ucday.isThedayofUCreminder(DesiredReminder, ucday.SelectedDate))//ma daroure chouf eza checked akid ha tkoun la2
+                    if (ucSchedule.isThedayofUCreminder(DesiredReminder, ucSchedule.SelectedDate))//ma daroure chouf eza checked akid ha tkoun la2
                     {
-                        UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, ParentFormSchedule);//we add it to the SQL in the same time
-                        ucday.ListUCreminderForTheSelectedDate.Add(ucreminder);//li2anno nehna aam men mashe lprogram lezim na3mello add
+                        UCreminder ucreminder = new UCreminder(DesiredReminder, ucSchedule, ParentFormSchedule);//we add it to the SQL in the same time
+                        ucSchedule.ListUCreminderForTheSelectedDate.Add(ucreminder);//li2anno nehna aam men mashe lprogram lezim na3mello add
                         ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
 
                         ucreminder.Dock = DockStyle.Top;
-                        ParentFormSchedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(ParentFormSchedule.panelreminder);
+                        //ParentFormSchedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(ParentFormSchedule.panelreminder);
                     }
 
                     //DESIGN IF IT'S IN ClientReminder
@@ -329,7 +329,7 @@ namespace MKproject.Schedule
         }
         void AddUCReminderInClientReminderForm()
         {
-            UCreminder ucreminder1 = new UCreminder(DesiredReminder, ucday, ParentFormSchedule, clientReminder);
+            UCreminder ucreminder1 = new UCreminder(DesiredReminder, ucSchedule, ParentFormSchedule, clientReminder);
             clientReminder.panelreminder.Controls.Add(ucreminder1);
             ucreminder1.Dock = DockStyle.Top;
             clientReminder.TouchscrollPanelclientreminder.ReAssignEventPanelclientreminder(clientReminder.panelreminder);
@@ -418,13 +418,13 @@ namespace MKproject.Schedule
         {
             //Getting the Quote
             string datestart;
-            if (ucday.SelectedDate.Date == DateTime.Today.Date)
+            if (ucSchedule.SelectedDate.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = ucday.SelectedDate.Date.ToString("dddd d MMMM");
+                datestart = ucSchedule.SelectedDate.Date.ToString("dddd d MMMM");
             }
 
             //no repeat

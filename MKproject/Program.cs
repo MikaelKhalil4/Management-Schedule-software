@@ -35,7 +35,7 @@ namespace MKproject
         //Mikas: Data Source=MKpc;Initial Catalog=MKproject;User ID=sa;Password=1234
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
 
-        public static string DataLocation = "  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True";
+        public static string DataLocation = "Data Source=MKpc;Initial Catalog=MKproject;User ID=sa;Password=1234";
         public static string FolderProfileImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProfileImages");
         public static string ExecptionString = "Unexpected error:\n";
 
@@ -51,7 +51,7 @@ namespace MKproject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new LOGIN();
-            Application.Run(new TransferData());       
+            Application.Run(LoginForm);       
         }
 
 

@@ -29,6 +29,7 @@ namespace MKproject.Schedule
         }
         public string EmployeeFullName { get; set; }//this one is additional
 
+
         public string Title { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
@@ -38,6 +39,7 @@ namespace MKproject.Schedule
 
         //used in UCClientApp
         public ClassClient DesiredClient { get; set; }
+
 
 
         //Hole el tnen Wahde mennun Null Always, kermel naarif eza package or New Solo Service
@@ -83,6 +85,8 @@ namespace MKproject.Schedule
         }
 
         //SQL    
+       
+      
         public static DataTable GetAllAppointmentInfoSql(int appointmentId)
         {
             SqlCommand cmd = new SqlCommand("select * from appointments where appointment_id=@appointment_id", con);
@@ -101,55 +105,20 @@ namespace MKproject.Schedule
             sda.Fill(dt);
             return dt;
         }
-        public static List<int> DisplayEmployeesIdWhoTrained(UCDay ucday, List<int> listrankemployees_id)
-        {
-            string querry = "SELECT DISTINCT employee_id FROM appointments WHERE CAST(start_time AS DATE) = @Date ";
-            if (listrankemployees_id.Count > 0)
-            {
-                querry += "AND employee_id IN (";
-
-                for (int i = 0; i < listrankemployees_id.Count; i++)
-                {
-                    querry += listrankemployees_id[i];
-                    if (i < listrankemployees_id.Count - 1)
-                    {
-                        querry += ", ";
-                    }
-                }
-
-                querry += ")";
-            }
-            SqlCommand command1 = new SqlCommand(querry, con);
-            command1.Parameters.AddWithValue("@Date", ucday.SelectedDate.Date);
-            con.Open();
-
-            // Execute the second query to get the list of employee IDs
-            List<int> employeeIdsWithAppointments = new List<int>();
-            using (SqlDataReader reader = command1.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    employeeIdsWithAppointments.Add(reader.GetInt32(0));
-                }
-            }
-
-            con.Close();
-            return employeeIdsWithAppointments;
-        }
-        public static DataTable DisplayAppointmentsWhereEmployees(UCDay ucday, List<int> listrankemployees_id)
+        public static List<ClassAppointment> GetAppointmentOfSpecificEmployees(DateTime SelectedDate, List<ClassEmployee> ListEmployeeSchedule)
         {
             string query = @"SELECT appointment_id 
                           FROM appointments                                 
                           WHERE CAST(start_time AS DATE) = @Date ";
 
-            if (listrankemployees_id.Count > 0)
+            if (ListEmployeeSchedule.Count > 0)
             {
                 query += "AND employee_id IN (";
 
-                for (int i = 0; i < listrankemployees_id.Count; i++)
+                for (int i = 0; i < ListEmployeeSchedule.Count; i++)
                 {
-                    query += listrankemployees_id[i];
-                    if (i < listrankemployees_id.Count - 1)
+                    query += ListEmployeeSchedule[i].EmployeeId;
+                    if (i < ListEmployeeSchedule.Count - 1)
                     {
                         query += ", ";
                     }
@@ -158,31 +127,15 @@ namespace MKproject.Schedule
             }
 
             SqlCommand command1 = new SqlCommand(query, con);
-            command1.Parameters.AddWithValue("@Date", ucday.SelectedDate.Date);
+            command1.Parameters.AddWithValue("@Date", SelectedDate.Date);
             SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
             con.Open();
             command1.ExecuteNonQuery();
             con.Close();
-            return dt1;
-        }
-        public static DataTable DisplayAppointmentsOneEmployee(UCDay ucday, int employee_id)
-        {
-            SqlCommand command1 = new SqlCommand(@"SELECT appointment_id
-                                                   FROM appointments 
-                                                   WHERE CAST(start_time AS DATE) = @Date  AND employee_id =@employee_id", con);
 
-            command1.Parameters.AddWithValue("@Date", ucday.SelectedDate.Date);
-            command1.Parameters.AddWithValue("@employee_id", employee_id);
-            SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
-            DataTable dt1 = new DataTable();
-            adapter1.Fill(dt1);
-            con.Open();
-            command1.ExecuteNonQuery();
-            con.Close();
-            return dt1;
-
+            return DataTableToList(dt1);
         }
         public static int GetLastAppointmentId()
         {
@@ -452,12 +405,29 @@ namespace MKproject.Schedule
         }
 
 
-        public static ClassAppointment CreateObjectClassAppointment(int appointmentId)
+        public static ClassAppointment CreateObjectClassAppointment(int appointmentId)//one appointment
         {
             DataTable dt;
             dt = ClassAppointment.GetAllAppointmentInfoSql(appointmentId);
             DataRow datarow = dt.Rows[0];//since we re expecting one row of return
 
+            return DataTableRowToObject(datarow);
+        }
+        private static List<ClassAppointment> DataTableToList(DataTable dt)//in case of mutiple appointment
+        {
+            List<ClassAppointment> list = new List<ClassAppointment>();
+
+            foreach (DataRow datarow in dt.Rows)
+            {
+                ClassAppointment appointment = DataTableRowToObject(datarow);
+                list.Add(appointment);
+            };
+            return list;
+        }
+      
+
+        private static ClassAppointment DataTableRowToObject(DataRow datarow)
+        {
 
             ClassAppointment DesiredApp = new ClassAppointment();
 
@@ -519,7 +489,6 @@ namespace MKproject.Schedule
 
             return DesiredApp;
         }
-
         // Method to clone the object
 
         public ClassAppointment Copy()

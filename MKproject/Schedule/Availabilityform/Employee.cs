@@ -35,10 +35,10 @@ namespace MKproject.Schedule
             ListUCEmployee_idOld = new List<int>();
 
             //Getting A copy of ListEmployeeSchedule
-            ListEmployeeScheduleCopy = new List<ClassEmployee>(schedule.ucday.ListEmployeeSchedule);
+            ListEmployeeScheduleCopy = new List<ClassEmployee>(schedule.ucSchedule.EmployeeScheduleList);
 
             //Getting reversedListemployee in a reversed order of ListEmployeeSchedule because when we display them in the panel their user control will be reversed
-            List<ClassEmployee> reversedListemployee = schedule.ucday.ListEmployeeSchedule.OrderByDescending(emp => emp.Rank).ToList();
+            List<ClassEmployee> reversedListemployee = schedule.ucSchedule.EmployeeScheduleList.OrderByDescending(emp => emp.Rank).ToList();
 
 
 
@@ -80,178 +80,177 @@ namespace MKproject.Schedule
         //Event:
         private void buttonD_Click(object sender, EventArgs e)
         {
-            bool NoEmployeeIsChecked = true;
-            foreach (UCEmployee ucemployee in ListUCEmployee)
-            {
-                if (ucemployee.DesiredEmployee.IsChecked == true)
-                {
-                    NoEmployeeIsChecked = false;
-                }
-            }
-            if (NoEmployeeIsChecked == false)
-            {
-                Cursor = Cursors.WaitCursor;
-                //SQL
-                //Getting the EmployeeAvailability
-                ClassEmployee.UpdateRankNIsCheckedEmployeeScheduleMemberSQL(ListEmployeeScheduleCopy);
+            //bool NoEmployeeIsChecked = true;
+            //foreach (UCEmployee ucemployee in ListUCEmployee)
+            //{
+            //    if (ucemployee.DesiredEmployee.IsChecked == true)
+            //    {
+            //        NoEmployeeIsChecked = false;
+            //    }
+            //}
+            //if (NoEmployeeIsChecked == false)
+            //{
+            //    Cursor = Cursors.WaitCursor;
+            //    //SQL
+            //    //Getting the EmployeeAvailability
+            //    ClassEmployee.UpdateRankNIsCheckedEmployeeScheduleMemberSQL(ListEmployeeScheduleCopy);
 
-                //Getting the historyemployeeavailability
-                //and we can add acondition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
-                for (int i = 0; i < ListUCEmployee.Count; i++)//both of the string are in the order of the rank
-                {
-                    int rank = i + 1;
-                    ProjectToSql.UpdateRank_HistoryEmployeeavailibility(DateTime.Now, ListUCEmployee[i].DesiredEmployee.EmployeeId, rank);
-                }
+            //    //Getting the historyemployeeavailability
+            //    //and we can add acondition to prevent the update  by knowing if someone has changed something in the manager program active or disactive
+            //    for (int i = 0; i < ListUCEmployee.Count; i++)//both of the string are in the order of the rank
+            //    {
+            //        int rank = i + 1;
+            //        ProjectToSql.UpdateRank_HistoryEmployeeavailibility(DateTime.Now, ListUCEmployee[i].DesiredEmployee.EmployeeId, rank);
+            //    }
 
-                //Design 
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(schedule.ucday.TLPEmployees);
-                RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(schedule.ucday.TLPAppointment);
+            //    //Design 
+            //    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(schedule.ucSchedule.TLPEmployees);
+            //    RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(schedule.ucSchedule.TLPAppointment);
 
-                //Updating ListEmployeeSchedule
-                schedule.ucday.ListEmployeeSchedule = ListEmployeeScheduleCopy;
-
-
-                //Getting The Checked Employeees
-                ListUCEmployeeChecked = new List<UCEmployee>();
-                foreach (UCEmployee ucemployee in ListUCEmployee)
-                {
-                    if (ucemployee.DesiredEmployee.IsChecked == true)
-                    {
-                        ListUCEmployeeChecked.Add(ucemployee);//men hatine men rank 1 lal ekhir bi taratoubiye
-                    }
-                }
+            //    //Updating ListEmployeeSchedule
+            //    schedule.ucSchedule.ListEmployeeSchedule = ListEmployeeScheduleCopy;
 
 
-                //if it's history, only ListEmployeeSchedule,ListEmployee_idChecked will change
-                if (schedule.ucday.IsHistory)
-                {
-                    //Getting the new ListEmployee_idChecked
-                    schedule.ucday.ListEmployee_idChecked.Clear();
-                    for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
-                    {
-                        schedule.ucday.ListEmployee_idChecked.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
-                    }
-                }
-
-                //if not, The design, EmployeeAvailabilityByOrder, ListEmployee_idAllTime will also change
-                else
-                {
-
-                    int difference = ListUCEmployeeChecked.Count() - schedule.ucday.TLPAppointment.ColumnCount + 1;//BOOM aadad lemployees bel datatable hene rows w aadad lemployees bel tablelayout ma3 wahad la uctime houwe aada lcolumms
-                    ///men lekhir li ha yen3aml te3dil bi aadad column table ma3 tefwit aw shel kel shi jouwet hal column , te3dil bein aadad list, teedil bi madmoun list w ekher shi lcolumn ucappointment
+            //    //Getting The Checked Employeees
+            //    ListUCEmployeeChecked = new List<UCEmployee>();
+            //    foreach (UCEmployee ucemployee in ListUCEmployee)
+            //    {
+            //        if (ucemployee.DesiredEmployee.IsChecked == true)
+            //        {
+            //            ListUCEmployeeChecked.Add(ucemployee);//men hatine men rank 1 lal ekhir bi taratoubiye
+            //        }
+            //    }
 
 
+            //    //if it's history, only ListEmployeeSchedule,ListEmployee_idChecked will change
+            //    if (schedule.ucSchedule.IsHistory)
+            //    {
+            //        //Getting the new ListEmployee_idChecked
+            //        schedule.ucSchedule.ListEmployee_idChecked.Clear();
+            //        for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
+            //        {
+            //            schedule.ucSchedule.ListEmployee_idChecked.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
+            //        }
+            //    }
 
-                    if (difference > 0)//fi hal li keno unchecked rjeena eemelnehoun checked
-                    {
-                        //hataynehoun monfoslin kermel lcount taba3 ListUCEmployeeChecked ma yotla3 fo2 lcount taba3 schedule.ucday.ListEmployee_id
-                        for (int i = 0; i < difference; i++)
-                        {
-                            schedule.ucday.AddColumnUCDay();
-                        }
-                        SwitchEmployeeIfDifferent();
+            //    //if not, The design, EmployeeAvailabilityByOrder, ListEmployee_idAllTime will also change
+            //    else
+            //    {
 
-                    }
-                    else if (difference < 0)
-                    {
-                        for (int i = 0; i < Math.Abs(difference); i++)
-                        {
-                            schedule.ucday.RemoveColumnUCDay();
-                        }
-                        SwitchEmployeeIfDifferent();
-                    }
-                    else
-                    {
-                        SwitchEmployeeIfDifferent();
-                    }
+            //        int difference = ListUCEmployeeChecked.Count() - schedule.ucSchedule.TLPAppointment.ColumnCount + 1;//BOOM aadad lemployees bel datatable hene rows w aadad lemployees bel tablelayout ma3 wahad la uctime houwe aada lcolumms
+            //        ///men lekhir li ha yen3aml te3dil bi aadad column table ma3 tefwit aw shel kel shi jouwet hal column , te3dil bein aadad list, teedil bi madmoun list w ekher shi lcolumn ucappointment
 
 
-                    schedule.ucday.EmployeeAvailabilityByOrder.Clear();
-                    //Getting EmployeeAvailabilityByOrder for ListEmployee_idAllTime
-                    for (int i = 0; i < ListUCEmployeeChecked.Count; i++)//both of the string are in the order of the rank
-                    {
-                        //getting availibility for this day of every employeechecked
-                        int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
-                        string availibility = ListUCEmployeeChecked[i].DesiredEmployee.Availability;
-                        string[] HoursOfThedays = availibility.Split('/');
-                        schedule.ucday.EmployeeAvailabilityByOrder.Add(HoursOfThedays[dayOfWeekInt]);
-                    }
-                }
+
+            //        if (difference > 0)//fi hal li keno unchecked rjeena eemelnehoun checked
+            //        {
+            //            //hataynehoun monfoslin kermel lcount taba3 ListUCEmployeeChecked ma yotla3 fo2 lcount taba3 schedule.ucSchedule.ListEmployee_id
+            //            for (int i = 0; i < difference; i++)
+            //            {
+            //                schedule.ucSchedule.AddColumnUCDay();
+            //            }
+            //            SwitchEmployeeIfDifferent();
+
+            //        }
+            //        else if (difference < 0)
+            //        {
+            //            for (int i = 0; i < Math.Abs(difference); i++)
+            //            {
+            //                schedule.ucSchedule.RemoveColumnUCDay();
+            //            }
+            //            SwitchEmployeeIfDifferent();
+            //        }
+            //        else
+            //        {
+            //            SwitchEmployeeIfDifferent();
+            //        }
 
 
-                //kermel kel ucappointment ybaynoma bel column
-                for (int j = 0; j < schedule.ucday.TLPAppointment.ColumnCount; j++)
-                {
-                    int columnwidth = schedule.ucday.TLPAppointment.GetColumnWidths()[j];
-                    for (int i = 0; i < schedule.ucday.TLPAppointment.RowCount; i++)
-                    {
-                        Control cellControl = schedule.ucday.TLPAppointment.GetControlFromPosition(j, i);//cell li fi yo akbar aadad ucappointment
-                        if (cellControl is FlowLayoutPanel)
-                        {
-                            FlowLayoutPanel flowLayoutPanel = (FlowLayoutPanel)cellControl;
-                            int NumberOfVisibleControls = 0;
-                            foreach (Control ctrl in flowLayoutPanel.Controls)
-                            {
-                                if (ctrl.Visible)
-                                {
-                                    NumberOfVisibleControls++;
-                                }
-                            }
-
-                            //Getting them to originale width
-                            foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
-                            {
-                                ucappointment.Width = UCappointment.OriginalWidth; 
-                            }
+            //        schedule.ucSchedule.EmployeeAvailabilityByOrder.Clear();
+            //        //Getting EmployeeAvailabilityByOrder for ListEmployee_idAllTime
+            //        for (int i = 0; i < ListUCEmployeeChecked.Count; i++)//both of the string are in the order of the rank
+            //        {
+            //            //getting availibility for this day of every employeechecked
+            //            int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
+            //            string availibility = ListUCEmployeeChecked[i].DesiredEmployee.Availability;
+            //            string[] HoursOfThedays = availibility.Split('/');
+            //            schedule.ucSchedule.EmployeeAvailabilityByOrder.Add(HoursOfThedays[dayOfWeekInt]);
+            //        }
+            //    }
 
 
-                            //eza ee edit width
-                            if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + schedule.ucday.KeepSpace) > columnwidth)
-                            {
-                                schedule.ucday.EditWidthAppointment(flowLayoutPanel, columnwidth, NumberOfVisibleControls);
-                            }
-                        }
-                    }
-                }
+            //    //kermel kel ucappointment ybaynoma bel column
+            //    for (int j = 0; j < schedule.ucSchedule.TLPAppointment.ColumnCount; j++)
+            //    {
+            //        int columnwidth = schedule.ucSchedule.TLPAppointment.GetColumnWidths()[j];
+            //        for (int i = 0; i < schedule.ucSchedule.TLPAppointment.RowCount; i++)
+            //        {
+            //            Control cellControl = schedule.ucSchedule.TLPAppointment.GetControlFromPosition(j, i);//cell li fi yo akbar aadad ucappointment
+            //            if (cellControl is FlowLayoutPanel)
+            //            {
+            //                FlowLayoutPanel flowLayoutPanel = (FlowLayoutPanel)cellControl;
+            //                int NumberOfVisibleControls = 0;
+            //                foreach (Control ctrl in flowLayoutPanel.Controls)
+            //                {
+            //                    if (ctrl.Visible)
+            //                    {
+            //                        NumberOfVisibleControls++;
+            //                    }
+            //                }
 
-                this.Close();
-                Cursor = Cursors.Default;
-            }
-            else
-            {
-                MessageBox.Show("Check at least one employee");
-            }
+            //                //Getting them to originale width
+            //                foreach (UCappointment ucappointment in flowLayoutPanel.Controls.OfType<UCappointment>())
+            //                {
+            //                    ucappointment.Width = UCappointment.OriginalWidth;
+            //                }
+
+
+            //                //eza ee edit width
+            //                if (((UCappointment.OriginalWidth * NumberOfVisibleControls) + schedule.ucSchedule.KeepSpace) > columnwidth)
+            //                {
+            //                    schedule.ucSchedule.EditWidthAppointment(flowLayoutPanel, columnwidth, NumberOfVisibleControls);
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    this.Close();
+            //    Cursor = Cursors.Default;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Check at least one employee");
+            //}
         }
-
-
 
         //Function:
         void SwitchEmployeeIfDifferent()
         {
-            schedule.ucday.ListEmployee_idAllTime.Clear();
+            //schedule.ucSchedule.ListEmployee_idAllTime.Clear();
 
-            //Editing the Design of the table layout panel and in the same time, Getting the new ListEmployee_idAllTime and the new  ListEmployee_idChecked, But don't forget we used ListEmployee_idChecked as comparaison before we update it
-            for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
-            {
-                //Getting the new ListEmployee_idAllTime, it will be the same of ListEmployee_idChecked
-                schedule.ucday.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
+            ////Editing the Design of the table layout panel and in the same time, Getting the new ListEmployee_idAllTime and the new  ListEmployee_idChecked, But don't forget we used ListEmployee_idChecked as comparaison before we update it
+            //for (int i = 0; i < ListUCEmployeeChecked.Count(); i++)
+            //{
+            //    //Getting the new ListEmployee_idAllTime, it will be the same of ListEmployee_idChecked
+            //    schedule.ucSchedule.ListEmployee_idAllTime.Add(ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId);
 
-                //Comparing if the first employee is still the same, the second...
-                if (ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId == schedule.ucday.ListEmployee_idChecked[i])
-                {
-                    //we already changed the availability when we clicked the button of AvailabilityLayout
-                }
-                else//ha yetghayar
-                {
-                    //Not the same employee so Updating ListEmployee_idChecked
-                    schedule.ucday.ListEmployee_idChecked[i] = ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId;
+            //    //Comparing if the first employee is still the same, the second...
+            //    if (ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId == schedule.ucSchedule.ListEmployee_idChecked[i])
+            //    {
+            //        //we already changed the availability when we clicked the button of AvailabilityLayout
+            //    }
+            //    else//ha yetghayar
+            //    {
+            //        //Not the same employee so Updating ListEmployee_idChecked
+            //        schedule.ucSchedule.ListEmployee_idChecked[i] = ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId;
 
-                    string EmployeeFullName = ListUCEmployeeChecked[i].DesiredEmployee.Fname + " " + ListUCEmployeeChecked[i].DesiredEmployee.Lname;
-                    //If it's a different employee e will have to fill a new column with new appointments and availibity
-                    schedule.ucday.UCappointmentsfillColumn(i + 1, ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId, EmployeeFullName);//BOOM COLUMNINDEX = i+1, LI2ANNO FI UCTime zyede w ha yon3ata employee_id taba3 ucemployee li maee rang 1
-                }
-            }
+            //        string EmployeeFullName = ListUCEmployeeChecked[i].DesiredEmployee.Fname + " " + ListUCEmployeeChecked[i].DesiredEmployee.Lname;
+            //        //If it's a different employee e will have to fill a new column with new appointments and availibity
+            //        schedule.ucSchedule.UCappointmentsfillColumn(i + 1, ListUCEmployeeChecked[i].DesiredEmployee.EmployeeId, EmployeeFullName);//BOOM COLUMNINDEX = i+1, LI2ANNO FI UCTime zyede w ha yon3ata employee_id taba3 ucemployee li maee rang 1
+            //    }
+            //}
         }
+
 
         private void Employee_Deactivate(object sender, EventArgs e)
         {

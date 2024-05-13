@@ -20,7 +20,7 @@ namespace MKproject.Schedule
         Panel Panelclientreminder;
 
         ScheduleForm schedule;
-        UCDay ucday;
+        UCSchedule ucSchedule;
         CBdisplayTime cbdisplaytime;
         AvailabilityLayout availabilityLayout;
         ClientReminder clientreminder;
@@ -64,10 +64,10 @@ namespace MKproject.Schedule
         }
 
 
-        public TouchScroll(TableLayoutPanelBuffered panelUCDay, UCDay form1, VScrollBar vscroll)
+        public TouchScroll(TableLayoutPanelBuffered panelUCDay, UCSchedule form1, VScrollBar vscroll)
         {
             PanelUCDay = panelUCDay;
-            ucday = form1;
+            ucSchedule = form1;
             vScrollBar = vscroll;
             AssignEventPanelUCDay(PanelUCDay);//ha hayrouh menna appointments w yejo
         }
@@ -118,46 +118,46 @@ namespace MKproject.Schedule
                 MouseMoveFunctionRBR(PanelUCDay);
 
 
-                Control control = sender as Control;
-                if ((control is UCTime) || control == PanelUCDay)
-                {
+                //Control control = sender as Control;
+                //if ((control is UCTime) || control == PanelUCDay)
+                //{
 
-                }
-                else if ((control is FlowLayoutPanel) || (control is TableLayoutPanel))//the other are inside ucappointment
-                {
-                    if (control.BackColor == ucday.DisableColorFLP)
-                    {
+                //}
+                //else if ((control is FlowLayoutPanel) || (control is TableLayoutPanel))//the other are inside ucappointment
+                //{
+                //    if (control.BackColor == ucSchedule.DisableColorFLP)
+                //    {
 
-                    }
-                    else
-                    {
-                        control.BackColor = ucday.StaticColorFLP;
-                    }
-                }
-                else if (control is UCappointment)
-                {
-                    UCappointment ucappointments = (UCappointment)control;
-                    if (ucappointments.TLPGlobal.BackColor == ucday.DisableColorTBUca)
-                    {
+                //    }
+                //    else
+                //    {
+                //        control.BackColor = ucSchedule.StaticColorFLP;
+                //    }
+                //}
+                //else if (control is UCappointment)
+                //{
+                //    UCappointment ucappointments = (UCappointment)control;
+                //    if (ucappointments.TLPGlobal.BackColor == ucSchedule.DisableColorTBUca)
+                //    {
 
-                    }
-                    else
-                    {
-                        ucappointments.TLPGlobal.BackColor = ucday.StaticColorTBUca;
-                    }
+                //    }
+                //    else
+                //    {
+                //        ucappointments.TLPGlobal.BackColor = ucSchedule.StaticColorTBUca;
+                //    }
 
-                }
-                else//lbe2e ha ykoun taba3 haw jouwet UCappointments
-                {
-                    if (control.Parent.BackColor == ucday.DisableColorTBUca)
-                    {
+                //}
+                //else//lbe2e ha ykoun taba3 haw jouwet UCappointments
+                //{
+                //    if (control.Parent.BackColor == ucSchedule.DisableColorTBUca)
+                //    {
 
-                    }
-                    else
-                    {
-                        control.Parent.BackColor = ucday.StaticColorTBUca;
-                    }
-                }
+                //    }
+                //    else
+                //    {
+                //        control.Parent.BackColor = ucSchedule.StaticColorTBUca;
+                //    }
+                //}
 
                 //Console.WriteLine("Value: " + PanelUCDay.VerticalScroll.Value + "\nValueCust: " + vScrollBar.Value + "\nMax= " + PanelUCDay.VerticalScroll.Maximum + "\nMaxCust " + vScrollBar.Maximum + "\n");
             }

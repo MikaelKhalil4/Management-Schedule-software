@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 
-namespace MKproject.Schedule.Appointmentform
+namespace MKproject.Schedule
 {
     using System;
     using System.Collections.Generic;
@@ -138,7 +138,7 @@ namespace MKproject.Schedule.Appointmentform
             foreach (var group in groups.Keys.ToList())
             {
                 groups[group].Sort((x, y) =>
-                    x.ColumnIndex != y.ColumnIndex ? x.ColumnIndex.CompareTo(y.ColumnIndex) : x.RowIndex.CompareTo(y.RowIndex));
+                    x.ColumnIndex != y.ColumnIndex ? x.ColumnIndex.CompareTo(y.ColumnIndex) : x.RowIndexStart.CompareTo(y.RowIndexStart));
             }
             return groups; //ejbare to be sorted Column Asc, Row Asc
         }
@@ -158,7 +158,7 @@ namespace MKproject.Schedule.Appointmentform
             DFS(targetUC, visited, component);
 
             // Sort the component based on RowIndex and ColumnIndex
-            component.Sort((x, y) => x.ColumnIndex != y.ColumnIndex ? x.ColumnIndex.CompareTo(y.ColumnIndex) : x.RowIndex.CompareTo(y.RowIndex));//ejbare to be sorted Column Asc, Row Asc
+            component.Sort((x, y) => x.ColumnIndex != y.ColumnIndex ? x.ColumnIndex.CompareTo(y.ColumnIndex) : x.RowIndexStart.CompareTo(y.RowIndexStart));//ejbare to be sorted Column Asc, Row Asc
 
             return component;
         }

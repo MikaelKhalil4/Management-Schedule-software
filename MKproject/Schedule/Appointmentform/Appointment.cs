@@ -22,19 +22,20 @@ namespace MKproject.Schedule
         //testing the pu
         //Property
         public TimeSpan DifferenceTime { get; set; }
+        ClassEmployee SelectedEmployee { get; set; }//since ma eena object bel classapointment, eena bas employee-id, bi haje la hayda el object for many use(availabilty for example), check the references
 
         public bool IsReadOrEdit { get; set; }
         bool IsAddOrUpdateMode { get; set; }
 
         //VARIABLES
-        public UCDay UcDayParentForm;
+        public UCSchedule UcScheduleParentForm;
         UCTime ucTime;
 
         bool isstarttime;
 
-        int UCNewPositionCol;
-        int UCNewPositionRowStart;
-        int UCNewPositionRowEnd;
+
+
+       
 
 
         public ClassAppointment DesiredAppointmentAppForm;
@@ -62,7 +63,7 @@ namespace MKproject.Schedule
         bool UndoFromNotficationBannerModeOn = false;
 
         //ADD
-        public Appointment(UCDay UCday, UCTime UCtime, int employeeid)
+        public Appointment(UCSchedule ucSch, UCTime UCtime, ClassEmployee selectedEmployee)
         {
             InitializeComponent();
             Opacity = 0;
@@ -70,11 +71,13 @@ namespace MKproject.Schedule
             IsReadOrEdit = false;//adding Mode
             IsAddOrUpdateMode = true;
             ucTime = UCtime;
-            UcDayParentForm = UCday;
+            UcScheduleParentForm = ucSch;
 
 
             DesiredAppointmentAppForm = new ClassAppointment();
-            DesiredAppointmentAppForm.EmployeeId = employeeid;
+            SelectedEmployee = selectedEmployee;
+         
+         
             TimeSpan endtime;
             if (ucTime.Time == new TimeSpan(23, 0, 0))
             {
@@ -85,8 +88,8 @@ namespace MKproject.Schedule
                 endtime = ucTime.Time + TimeSpan.FromHours(1);
             }
             //badde yehoun kermel bel display ma hada yotlaee fo2 tene
-            DesiredAppointmentAppForm.StartTime = UcDayParentForm.SelectedDate.Date + ucTime.Time;
-            DesiredAppointmentAppForm.EndTime = UcDayParentForm.SelectedDate.Date + endtime;
+            DesiredAppointmentAppForm.StartTime = UcScheduleParentForm.SelectedDate.Date + ucTime.Time;
+            DesiredAppointmentAppForm.EndTime = UcScheduleParentForm.SelectedDate.Date + endtime;
 
             ucClientApp = new UCClientApp(this);
 
@@ -95,7 +98,7 @@ namespace MKproject.Schedule
         }
 
         //UPDATE
-        public Appointment(UCappointment ucappointment, UCDay UCday)
+        public Appointment(UCappointment ucappointment, UCSchedule uCSchedule)
         {
             InitializeComponent();
             Opacity = 0;
@@ -108,19 +111,13 @@ namespace MKproject.Schedule
                 IsReadOrEdit = true;
             }
             IsAddOrUpdateMode = false;
-            UcDayParentForm = UCday;
+            UcScheduleParentForm = uCSchedule;
 
             UCappointment = ucappointment;
-
-
-
-            //ased hattaynehun hone, ta eza eemelet delete, rjeet undo delete, yuno msayavin
-            UCNewPositionCol = UCappointment.ColumnPosition;
-            UCNewPositionRowStart = UCappointment.PositionRowStart;
-            UCNewPositionRowEnd = UCappointment.PositionRowEnd;
-
+       
 
             ucClientApp = new UCClientApp(this);
+
 
             ucClientApp.OnClientProfileInfoChanging += UcClientApp_OnClientProfileInfoChanging;
             ucClientApp.OnUpdatingTheChosenClientBalance += UcClientApp_OnUpdatingTheChosenClientBalance;
@@ -159,14 +156,14 @@ namespace MKproject.Schedule
                 textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
 
                 //
-                foreach (ClassEmployee emp in UcDayParentForm.ListEmployeeSchedule)
+                foreach (ClassEmployee emp in UcScheduleParentForm.EmployeeScheduleList)
                 {
                     if ((bool)emp.IsChecked)
                     {
                         var item = new
                         {
                             Text = $"{emp.Fname} {emp.Lname}",
-                            Value = emp.EmployeeId
+                            Value = emp
                         };
 
                         comboBoxEmployee.Items.Add(item);
@@ -175,7 +172,7 @@ namespace MKproject.Schedule
                     }
                     comboBoxEmployee.Width = FunctionsForWinformsTool.ReturnComboBoxWidth(comboBoxEmployee) + 17;
                 }
-                comboBoxEmployee.SelectedIndex = comboBoxEmployee.FindString(DesiredAppointmentAppForm.EmployeeFullName);
+                comboBoxEmployee.SelectedIndex = comboBoxEmployee.FindString($"{SelectedEmployee.Fname} {SelectedEmployee.Lname}");
 
                 //
 
@@ -464,8 +461,8 @@ namespace MKproject.Schedule
                 DateTime.TryParseExact(endtimestring, "h:mm tt", null, System.Globalization.DateTimeStyles.None, out HourEndTime);
 
 
-                DesiredAppointmentAppForm.StartTime = UcDayParentForm.SelectedDate.Date + HourStartTime.TimeOfDay;
-                DesiredAppointmentAppForm.EndTime = UcDayParentForm.SelectedDate.Date + HourEndTime.TimeOfDay;
+                DesiredAppointmentAppForm.StartTime = UcScheduleParentForm.SelectedDate.Date + HourStartTime.TimeOfDay;
+                DesiredAppointmentAppForm.EndTime = UcScheduleParentForm.SelectedDate.Date + HourEndTime.TimeOfDay;
 
                 //Note
                 string Note = textBoxNotes.Text;
@@ -480,23 +477,20 @@ namespace MKproject.Schedule
 
                 //Employee
                 dynamic selectedItem = comboBoxEmployee.SelectedItem;
-                DesiredAppointmentAppForm.EmployeeId = Convert.ToInt16(selectedItem.Value);
+                DesiredAppointmentAppForm.EmployeeId = ((ClassEmployee)selectedItem.Value).EmployeeId;
 
-                //makhassun bel object bas khassun bel Position tb3 el UCappointment bel flowlayoutpannel
-                //
+                
 
-                (UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm, UcDayParentForm.ListEmployee_idAllTime);
-              
+               
             }
         }
         bool ISRequiredFieldsExists(bool IsCallingFromComplete)
         {
-
-            bool IsPanelAvailable = UcDayParentForm.CheckIfTimeAvailable(UCNewPositionCol, UCNewPositionRowStart);//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
+            //hone el object is updated to the new values, aa hal ases we re checking it
 
             if (!IsReadOrEdit)//Edit Mode
             {
-                if (IsPanelAvailable)
+                if (CheckIfTimeAvailable())//kermel naarif eza ghayarna waet el appointment, eza fi mahal ela, w mnaamella set also
                 {
                     if (ucClientApp.IsServiceOrOthersMode)
                     {
@@ -505,20 +499,8 @@ namespace MKproject.Schedule
                         {
                             ucClientApp.textBoxSearch.IsRequiredModeOn = true;
                             return true;
-                        }
-                        else if (IsCallingFromComplete && DesiredAppointmentAppForm.DesiredClientBalance == null && (DesiredAppointmentAppForm.ChoseBundlesString == null && DesiredAppointmentAppForm.ChosenBundlesList == null))
-                        {
-                            //DisableClosingOnDisactivating = true;
-                            //CustomMessageBox.Show("Select a package or a service", CustomMessageBox.Type.Ok);
-                            //DisableClosingOnDisactivating = false;
-                            //return true;
-                        }
-                    }
-                    //else if (DesiredAppointmentAppForm.Title == null)
-                    //{
-                    //    ucClientApp.textBoxTitle.IsRequiredModeOn = true;
-                    //    return true;
-                    //}
+                        }                  
+                    }             
                 }
                 else
                 {
@@ -539,18 +521,24 @@ namespace MKproject.Schedule
         void ChangeAppointmentLocation()
         {
             //Design
-            bool IsUCAppPosChanged;
-            if (UCappointment.ColumnPosition == UCNewPositionCol && UCappointment.PositionRowStart == UCNewPositionRowStart && UCappointment.PositionRowEnd == UCNewPositionRowEnd)//checking eza tghayrarit its position or no
+            //hone UCappointment.DesiredAppointmentUCApp baeed ma sarit hiyye zeita DesiredAppointmentAppForm tb3 li hone, lieanno eza bet ruh bet shuf wen maaytin lal ChangeAppointmentLocation, abel el event 
+            if (UCappointment.DesiredAppointmentUCApp.EmployeeId != DesiredAppointmentAppForm.EmployeeId || UCappointment.DesiredAppointmentUCApp.StartTime != DesiredAppointmentAppForm.StartTime || UCappointment.DesiredAppointmentUCApp.EndTime != DesiredAppointmentAppForm.EndTime)//checking eza tghayrarit its position or no
             {
-                IsUCAppPosChanged = false;
+                UcScheduleParentForm.ChangePositionUCappointments(UCappointment, UCappointment.DesiredAppointmentUCApp, DesiredAppointmentAppForm);
+            }
+           
+        }
+        bool CheckIfTimeAvailable()
+        {
+            if (SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.StartTime.ToString("hh")) && SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.EndTime.ToString("hh")))
+            {
+                return true;
             }
             else
             {
-                IsUCAppPosChanged = true;
+                return false;
             }
-            UcDayParentForm.ChangePositionUCappointments(UCappointment, UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd, IsUCAppPosChanged);
         }
-
 
 
 
@@ -569,7 +557,8 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.InsertOrUpdateAppointment(true);
                 DesiredAppointmentAppForm.AppointmentID = ClassAppointment.GetLastAppointmentId();
                 //Design
-                UCappointment = UcDayParentForm.AddOneUCappointmentsNResize(DesiredAppointmentAppForm, UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd);
+                UCappointment = new UCappointment(DesiredAppointmentAppForm, UcScheduleParentForm);
+                UcScheduleParentForm.AddUCappointmentsInTLP(UCappointment);
                 //OnAppointmentUpdate?.Invoke(this, EventArgs.Empty); // mahhal meshlogic hone, anw za toloolak mashekil bi kun ela reason, bas now keep it like this, cz aal undo men el notif aam taamil mashekil
 
                 NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode,true, Program.HomeForm, UndoFromNotficationBannerModeOn);
@@ -855,7 +844,6 @@ namespace MKproject.Schedule
             UndoFromNotficationBannerModeOn = true;
         
             DesiredAppointmentAppForm = OldDesiredAppointmentAppForm.Copy();
-            (UCNewPositionCol, UCNewPositionRowStart, UCNewPositionRowEnd) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentAppForm, UcDayParentForm.ListEmployee_idAllTime);
 
             IsAddOrUpdateMode = false;
             AddOrUpdateSQL();
@@ -967,7 +955,7 @@ namespace MKproject.Schedule
             {
                 if (IsAddOrUpdateMode == false)//update
                 {
-                    UcDayParentForm.TouchscrollPanelUCDay.AssignEventPanelUCDay(UcDayParentForm.TLPAppointment);
+                    //UcScheduleParentForm.TouchscrollPanelUCDay.AssignEventPanelUCDay(UcScheduleParentForm.TLPAppointment);
                 }
                 this.Close();
             }

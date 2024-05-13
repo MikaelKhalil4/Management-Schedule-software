@@ -37,13 +37,13 @@ namespace MKproject.Schedule
 
             //For the Quote
             string datestart;
-            if (reminder.ucday.SelectedDate.Date == DateTime.Today.Date)   
+            if (reminder.ucSchedule.SelectedDate.Date == DateTime.Today.Date)   
             {
                 datestart = "today";
             }
             else
             {
-                datestart = reminder.ucday.SelectedDate.Date.ToString("dddd d MMMM");
+                datestart = reminder.ucSchedule.SelectedDate.Date.ToString("dddd d MMMM");
             }
             reminder.labelQuote.Text = "Only for " + datestart;
 
@@ -68,13 +68,13 @@ namespace MKproject.Schedule
             //For the Quote
             //badda teje deghre baeed awal virgule  daily repitition
             string datestart;
-            if (reminder.ucday.SelectedDate.Date == DateTime.Today.Date)
+            if (reminder.ucSchedule.SelectedDate.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = reminder.ucday.SelectedDate.Date.ToString("dddd d MMMM");
+                datestart = reminder.ucSchedule.SelectedDate.Date.ToString("dddd d MMMM");
             }
             reminder.labelQuote.Text = "Starting " + datestart + ", a daily repitition";
 
@@ -97,15 +97,15 @@ namespace MKproject.Schedule
             //For the Quote
             //badda teje deghre baeed awal virgule  daily repitition on Monday(hasab date tabaee lstart time)
             string dayname;
-            dayname = reminder.ucday.SelectedDate.DayOfWeek.ToString();
+            dayname = reminder.ucSchedule.SelectedDate.DayOfWeek.ToString();
             string datestart;
-            if (reminder.ucday.SelectedDate.Date == DateTime.Today.Date)
+            if (reminder.ucSchedule.SelectedDate.Date == DateTime.Today.Date)
             {
                 datestart = "today";
             }
             else
             {
-                datestart = reminder.ucday.SelectedDate.Date.ToString("dddd d MMMM");
+                datestart = reminder.ucSchedule.SelectedDate.Date.ToString("dddd d MMMM");
             }
             reminder.labelQuote.Text = "Starting " + datestart + ", a weekley repitition on " + dayname;
 

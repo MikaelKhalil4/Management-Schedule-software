@@ -25,7 +25,7 @@ namespace MKproject.Schedule
         public TouchScroll TouchscrollPanelclientreminder { get; set; }
 
         ScheduleForm schedule;
-        UCDay ucday;
+        UCSchedule ucday;
         Label LabelNoReminder;
 
         protected override CreateParams CreateParams
@@ -42,7 +42,7 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
         }
-        public ClientReminder(ClassClient desiredclient, ScheduleForm form1, UCDay uc1)
+        public ClientReminder(ClassClient desiredclient, ScheduleForm form1, UCSchedule uc1)
         {
             InitializeComponent();
             schedule = form1;

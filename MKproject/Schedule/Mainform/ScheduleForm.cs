@@ -12,7 +12,7 @@ namespace MKproject.Schedule
 
         //VARIABLES:
         public UCMonth ucmonths;
-        public UCDay ucday;
+        public UCSchedule ucSchedule;
         public Employee employee;
 
 
@@ -21,15 +21,15 @@ namespace MKproject.Schedule
         public ScheduleForm()
         {
             InitializeComponent();
-            ucday = new UCDay(this);
-            ucmonths = new UCMonth(this, ucday);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
+            ucSchedule = new UCSchedule(this);
+            ucmonths = new UCMonth(this, ucSchedule);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
 
             ucmonths.Dock = DockStyle.Fill;
-            ucday.Dock = DockStyle.Fill;
+            ucSchedule.Dock = DockStyle.Fill;
             ucmonths.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
-            ucday.Margin = new Padding(10, 15, 10, 10);
+            ucSchedule.Margin = new Padding(10, 15, 10, 10);
 
-            tableLayoutPanelForm.Controls.Add(ucday);
+            tableLayoutPanelForm.Controls.Add(ucSchedule);
             new TouchScroll(panelreminder, this);
         }
 
@@ -40,12 +40,12 @@ namespace MKproject.Schedule
         ///-CLICK
         private void buttonAllReminder_Click(object sender, EventArgs e)
         {
-            ClientReminder clientReminderForm = new ClientReminder(null,this,ucday);
+            ClientReminder clientReminderForm = new ClientReminder(null,this,ucSchedule);
             clientReminderForm.ShowDialog();
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Reminder reminder = new Reminder(this, ucday);
+            Reminder reminder = new Reminder(this, ucSchedule);
             reminder.ShowDialog();
         }
 
@@ -55,11 +55,11 @@ namespace MKproject.Schedule
             bool IsUCAppCanceldExist = false;
             if (checkBoxCancel.Checked)
             {
-                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                for (int row = 0; row < ucSchedule.TLPAppointment.RowCount; row++)
                 {
-                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    for (int col = 1; col < ucSchedule.TLPAppointment.ColumnCount; col++) // Start from column 1
                     {
-                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        Control cellControl = ucSchedule.TLPAppointment.GetControlFromPosition(col, row);
 
                         if (cellControl is FlowLayoutPanel flowLayoutPanel)
                         {
@@ -78,11 +78,11 @@ namespace MKproject.Schedule
             }
             else
             {
-                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                for (int row = 0; row < ucSchedule.TLPAppointment.RowCount; row++)
                 {
-                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    for (int col = 1; col < ucSchedule.TLPAppointment.ColumnCount; col++) // Start from column 1
                     {
-                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        Control cellControl = ucSchedule.TLPAppointment.GetControlFromPosition(col, row);
 
                         if (cellControl is FlowLayoutPanel flowLayoutPanel)
                         {
@@ -101,7 +101,7 @@ namespace MKproject.Schedule
             }
             if (IsUCAppCanceldExist)
             {
-                EditTLPWithUCAppWidth();
+                ucSchedule.ResizeTLPScheduleToPerc();
             }
         }
         private void checkBoxComplete_CheckedChanged(object sender, EventArgs e)
@@ -109,11 +109,11 @@ namespace MKproject.Schedule
             bool ISUCAppCompleteExist = false;
             if (checkBoxComplete.Checked)
             {
-                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                for (int row = 0; row < ucSchedule.TLPAppointment.RowCount; row++)
                 {
-                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    for (int col = 1; col < ucSchedule.TLPAppointment.ColumnCount; col++) // Start from column 1
                     {
-                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        Control cellControl = ucSchedule.TLPAppointment.GetControlFromPosition(col, row);
 
                         if (cellControl is FlowLayoutPanel flowLayoutPanel)
                         {
@@ -132,11 +132,11 @@ namespace MKproject.Schedule
             }
             else
             {
-                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                for (int row = 0; row < ucSchedule.TLPAppointment.RowCount; row++)
                 {
-                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    for (int col = 1; col < ucSchedule.TLPAppointment.ColumnCount; col++) // Start from column 1
                     {
-                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        Control cellControl = ucSchedule.TLPAppointment.GetControlFromPosition(col, row);
 
                         if (cellControl is FlowLayoutPanel flowLayoutPanel)
                         {
@@ -155,7 +155,7 @@ namespace MKproject.Schedule
             }
             if (ISUCAppCompleteExist)
             {
-                EditTLPWithUCAppWidth();
+                ucSchedule.ResizeTLPScheduleToPerc();
             }
         }
         private void checkBoxOnPending_CheckedChanged(object sender, EventArgs e)
@@ -163,11 +163,11 @@ namespace MKproject.Schedule
             bool IsUCAppOnPendingExist = false;
             if (checkBoxOnPending.Checked)
             {
-                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                for (int row = 0; row < ucSchedule.TLPAppointment.RowCount; row++)
                 {
-                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    for (int col = 1; col < ucSchedule.TLPAppointment.ColumnCount; col++) // Start from column 1
                     {
-                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        Control cellControl = ucSchedule.TLPAppointment.GetControlFromPosition(col, row);
 
                         if (cellControl is FlowLayoutPanel flowLayoutPanel)
                         {
@@ -186,11 +186,11 @@ namespace MKproject.Schedule
             }
             else
             {
-                for (int row = 0; row < ucday.TLPAppointment.RowCount; row++)
+                for (int row = 0; row < ucSchedule.TLPAppointment.RowCount; row++)
                 {
-                    for (int col = 1; col < ucday.TLPAppointment.ColumnCount; col++) // Start from column 1
+                    for (int col = 1; col < ucSchedule.TLPAppointment.ColumnCount; col++) // Start from column 1
                     {
-                        Control cellControl = ucday.TLPAppointment.GetControlFromPosition(col, row);
+                        Control cellControl = ucSchedule.TLPAppointment.GetControlFromPosition(col, row);
 
                         if (cellControl is FlowLayoutPanel flowLayoutPanel)
                         {
@@ -211,7 +211,7 @@ namespace MKproject.Schedule
             if (IsUCAppOnPendingExist)
             {
 
-                EditTLPWithUCAppWidth();
+                ucSchedule.ResizeTLPScheduleToPerc();
             }
         }
 
@@ -220,34 +220,8 @@ namespace MKproject.Schedule
         //FUNCTIONS:
         private void EditTLPWithUCAppWidth()
         {
-            bool IsAbsoluteCondition = false;
-            int ColumnAbsolute = -1;
-            for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
-            {
-                if (ucday.TLPAppointment.ColumnStyles[j].SizeType is SizeType.Absolute)
-                {
-                    IsAbsoluteCondition = true;
-                    ColumnAbsolute = j;
-                }
-            }
-            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPEmployees);
-            RandomFunctionSchedule.ResizeTableLayoutPanelToPerc(ucday.TLPAppointment);
-
-            if (IsAbsoluteCondition)
-            {
-                ucday.IsClickEmployeNameToExpandColumn = true;
-                ucday.EditTLPWithTheColumnAbsolute(ColumnAbsolute);
-                ucday.IsClickEmployeNameToExpandColumn = false;
-            }
-            else
-            {
-               
-                for (int j = 1; j < ucday.TLPAppointment.ColumnCount; j++)
-                {
-                    ucday.ResizeWidthAppointmentInTheColumnPecentage(j);
-
-                }
-            }
+          
+           
         }
         public void UCDaysClick()
         {
@@ -257,16 +231,14 @@ namespace MKproject.Schedule
         public void EditUCDay()
         {
             //Scroll
-            ucday.TLPAppointment.AutoScrollPosition = new Point(0, 0);
-            ucday.TLPAppointment.AutoScrollPosition = new Point(0, ucday.TLPAppointment.rowHeight * 6);
-            ucday.VScrollBar1.Value = ucday.TLPAppointment.VerticalScroll.Value;
-            ucday.TLPAppointment.currentRow = 6;
+            ucSchedule.TLPAppointment.AutoScrollPosition = new Point(0, 0);
+            ucSchedule.TLPAppointment.AutoScrollPosition = new Point(0, ucSchedule.TLPAppointment.rowHeight * 6);          
+            ucSchedule.TLPAppointment.currentRow = 6;
 
             //edit DateUCDay
-            if (ucday.SelectedDate.Date != ucmonths.DateUCMonth.Date)
+            if (ucSchedule.SelectedDate.Date != ucmonths.DateUCMonth.Date)
             {
-                ucday.SelectedDate = ucmonths.DateUCMonth;
-                ucday.displayDay();
+                ucSchedule.LoadForm(ucmonths.DateUCMonth);
             }
 
 

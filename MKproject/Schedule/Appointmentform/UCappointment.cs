@@ -19,9 +19,9 @@ namespace MKproject.Schedule
         //kermel el drag and Drop
         public ClassAppointment OldDesiredAppointmentUCApp { get; set; }
 
-        public int ColumnPosition { get; set; }
-        public int PositionRowStart { get; set; }
-        public int PositionRowEnd { get; set; }
+        public int ColumnIndex { get; set; }//used for drag&drop operations
+        public int RowIndexStart { get; set; }
+        public int RowIndexEnd { get; set; }
 
 
 
@@ -29,9 +29,9 @@ namespace MKproject.Schedule
         public bool IsChildMode { get; set; }
 
         //VARIABLE
-        public UCDay UcDayParentForm { get; set; }
+        public UCSchedule UcScheduleParentForm { get; set; }
         public static int OriginalWidth = 230;
-        public static int OriginalHeiht =82 ;
+        public static int OriginalHeiht = 82;
         private Point initialMouseDownPoint;
         public bool isDragging = false;
 
@@ -50,15 +50,15 @@ namespace MKproject.Schedule
 
         }
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
-        public UCappointment(ClassAppointment desiredappointment, UCDay uCDay, List<int> ListEmployee_id)
+        public UCappointment(ClassAppointment desiredappointment, UCSchedule uCSchedule)
         {
             InitializeComponent();
             DesiredAppointmentUCApp = desiredappointment;
-            UcDayParentForm = uCDay;
+            UcScheduleParentForm = uCSchedule;
 
 
-            
-            (ColumnPosition,PositionRowStart, PositionRowEnd) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentUCApp, UcDayParentForm.ListEmployee_idAllTime);
+
+            (RowIndexStart, RowIndexEnd) = UcScheduleParentForm.GetUCAppointmentRowIndexes(DesiredAppointmentUCApp);
 
 
             SetUCDesign();
@@ -170,12 +170,12 @@ namespace MKproject.Schedule
             {
                 this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
 
-                if (!UcDayParentForm.ParentFormSchedule.checkBoxComplete.Checked && this.Visible)
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxComplete.Checked && this.Visible)
                 {
                     this.Visible = false;
                     RemoveAppointmentFromTLP();
                 }
-                else if(UcDayParentForm.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
+                else if (UcScheduleParentForm.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
                 {
                     this.Visible = true;
                 }
@@ -184,13 +184,13 @@ namespace MKproject.Schedule
             {
                 this.BackColor = Color.FromArgb(244, 86, 7);//orange
 
-                if (!UcDayParentForm.ParentFormSchedule.checkBoxCancel.Checked && this.Visible)
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxCancel.Checked && this.Visible)
                 {
                     this.Visible = false;
                     RemoveAppointmentFromTLP();
 
                 }
-                if (UcDayParentForm.ParentFormSchedule.checkBoxCancel.Checked && !this.Visible)
+                if (UcScheduleParentForm.ParentFormSchedule.checkBoxCancel.Checked && !this.Visible)
                 {
                     this.Visible = true;
                 }
@@ -199,12 +199,12 @@ namespace MKproject.Schedule
             {
                 this.BackColor = Program.BoldColor;
 
-                if (!UcDayParentForm.ParentFormSchedule.checkBoxOnPending.Checked && this.Visible)
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxOnPending.Checked && this.Visible)
                 {
                     this.Visible = false;
                     RemoveAppointmentFromTLP();
                 }
-                else if (UcDayParentForm.ParentFormSchedule.checkBoxOnPending.Checked && !this.Visible)
+                else if (UcScheduleParentForm.ParentFormSchedule.checkBoxOnPending.Checked && !this.Visible)
                 {
                     this.Visible = true;
                 }
@@ -453,10 +453,10 @@ namespace MKproject.Schedule
                 }
                 else//present future
                 {
-                    ScheduleForm schedule = this.UcDayParentForm.ParentFormSchedule;
+                    ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
                     Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
-                    Appointment appointmentupdate = new Appointment(this, UcDayParentForm);
+                    Appointment appointmentupdate = new Appointment(this, UcScheduleParentForm);
                     appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
                     appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
                     appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion;
@@ -467,38 +467,22 @@ namespace MKproject.Schedule
         }
         public void RemoveAppointmentFromTLP()
         {
-            //DESIGN
-            TimeSpan starttimeTimeSpan = DesiredAppointmentUCApp.StartTime.TimeOfDay;
-            int positionrow = starttimeTimeSpan.Hours;
-            int positioncol = UcDayParentForm.ListEmployee_idChecked.IndexOf((int)DesiredAppointmentUCApp.EmployeeId) + 1;
-            FlowLayoutPanel clickedflowLayoutPanel = UcDayParentForm.TLPAppointment.GetControlFromPosition(positioncol, positionrow) as FlowLayoutPanel;//position flowlayoutpanel hiye position employee bel list-1 
-
-
-            int NumberOfVisibleControlsOfClickedFLP = 0;
-            foreach (Control ctrl in clickedflowLayoutPanel.Controls)
-            {
-                if (ctrl.Visible)
-                {
-                    NumberOfVisibleControlsOfClickedFLP++;
-                }
-            }
-
-            ResizeINRemovingUCAppInFLP(clickedflowLayoutPanel, NumberOfVisibleControlsOfClickedFLP, positioncol, positionrow);
+              UcScheduleParentForm.RemoveUcAppointmentFromTLP(this);
         }
         public void ResizeINRemovingUCAppInFLP(FlowLayoutPanel clickedflowLayoutPanel, int NumberOfVisibleControlsOfClickedFLP, int positioncol, int positionrow)
         {
-           
+
         }
         public bool IsThisTheMaxFLP(int positioncol, int positionrow, int NumberOfVisibleControlsOfClickedFLP)//WHO CONTAINS THE Biggest Count
         {
             //The FlowLayoutpanel where we dispose the ucdata does it have akbar aadad ucdata before we dispose this ucdata if yes it will affect the TBL
             bool havethemaxucdata = true;
 
-            for (int i = 0; i < UcDayParentForm.TLPAppointment.RowCount; i++)
+            for (int i = 0; i < UcScheduleParentForm.TLPAppointment.RowCount; i++)
             {
                 if (positionrow != i)
                 {
-                    Control cellControl = UcDayParentForm.TLPAppointment.GetControlFromPosition(positioncol, i);
+                    Control cellControl = UcScheduleParentForm.TLPAppointment.GetControlFromPosition(positioncol, i);
                     if (cellControl is FlowLayoutPanel)
                     {
                         FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;
@@ -548,10 +532,7 @@ namespace MKproject.Schedule
         }
         private void NotfBanner_UndoNotficationBanner(object sender, EventArgs e)
         {
-            DesiredAppointmentUCApp = OldDesiredAppointmentUCApp.Copy();
-            (int OldPositionColumn, int OldPositionRowStart, int OldPositionRowEnd) = UcDayParentForm.GetUCAppointmentPosition(DesiredAppointmentUCApp, UcDayParentForm.ListEmployee_idAllTime);
-            UcDayParentForm.ChangePositionUCappointments(this, OldPositionColumn, OldPositionRowStart, OldPositionRowEnd, true);
-
+            UcScheduleParentForm.ChangePositionUCappointments(this, OldDesiredAppointmentUCApp, DesiredAppointmentUCApp);
             SetUCDesign();
             NotificationBanner.Show("", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, true);
 
@@ -566,10 +547,7 @@ namespace MKproject.Schedule
         {
             if (TouchScroll.MoveHoldClick == false)
             {
-                if (TLPGlobal.BackColor != UcDayParentForm.DisableColorTBUca)//229, 226, 244
-                {
-                    TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
-                }
+                TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
             }
 
             if (!isDragging && e.Button == MouseButtons.Left)
@@ -578,11 +556,11 @@ namespace MKproject.Schedule
                     Math.Abs(e.Y - initialMouseDownPoint.Y) > SystemInformation.DoubleClickSize.Height)
                 {
                     isDragging = true; // Set the dragging flag
-                   
+
                     Bitmap controlImage = CaptureControlImage(this); // Capture the image of the control
                     customCursor = CreateCursorFromImage(controlImage); // Create a cursor
 
-              
+
                     DoDragDrop(this, DragDropEffects.Move);
                     Cursor.Current = customCursor; // Set custom cursor during drag
                 }
@@ -590,10 +568,9 @@ namespace MKproject.Schedule
         }
         private void UCappointments_MouseLeave(object sender, EventArgs e)
         {
-            if (TLPGlobal.BackColor != UcDayParentForm.DisableColorTBUca)
-            {
-                TLPGlobal.BackColor = Color.White;
-            }
+
+            TLPGlobal.BackColor = Color.White;
+
         }
         private void Control_MouseDown(object sender, MouseEventArgs e)
         {
@@ -665,10 +642,10 @@ namespace MKproject.Schedule
                 Cursor.Current = customCursor; // Ensure the custom cursor is used
             }
         }
-  
-    
-    
-    
-    
+
+
+
+
+
     }
 }
