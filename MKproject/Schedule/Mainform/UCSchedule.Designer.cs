@@ -40,7 +40,6 @@
             labelDate = new System.Windows.Forms.Label();
             DownArrow = new System.Windows.Forms.PictureBox();
             buttonPrevious = new System.Windows.Forms.Button();
-            TLPEmployees = new TableLayoutPanelDoubleBufferedNoscroll();
             TLPGlobal.SuspendLayout();
             panelMembers.SuspendLayout();
             flowLayoutPanelDoubleBufferedcs2.SuspendLayout();
@@ -55,7 +54,6 @@
             TLPGlobal.ColumnCount = 1;
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPGlobal.Controls.Add(panelMembers, 0, 0);
-            TLPGlobal.Controls.Add(TLPEmployees, 0, 1);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
             TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
@@ -64,7 +62,7 @@
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.619596F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.195965F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 82.70893F));
-            TLPGlobal.Size = new System.Drawing.Size(1152, 668);
+            TLPGlobal.Size = new System.Drawing.Size(1317, 891);
             TLPGlobal.TabIndex = 1;
             // 
             // panelMembers
@@ -78,7 +76,7 @@
             panelMembers.Location = new System.Drawing.Point(0, 0);
             panelMembers.Margin = new System.Windows.Forms.Padding(0);
             panelMembers.Name = "panelMembers";
-            panelMembers.Size = new System.Drawing.Size(1152, 39);
+            panelMembers.Size = new System.Drawing.Size(1317, 52);
             panelMembers.TabIndex = 61;
             // 
             // flowLayoutPanelDoubleBufferedcs2
@@ -87,10 +85,10 @@
             flowLayoutPanelDoubleBufferedcs2.Controls.Add(labelMember);
             flowLayoutPanelDoubleBufferedcs2.Controls.Add(pictureBox1);
             flowLayoutPanelDoubleBufferedcs2.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            flowLayoutPanelDoubleBufferedcs2.Location = new System.Drawing.Point(2107, 10);
-            flowLayoutPanelDoubleBufferedcs2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanelDoubleBufferedcs2.Location = new System.Drawing.Point(2408, 13);
+            flowLayoutPanelDoubleBufferedcs2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             flowLayoutPanelDoubleBufferedcs2.Name = "flowLayoutPanelDoubleBufferedcs2";
-            flowLayoutPanelDoubleBufferedcs2.Size = new System.Drawing.Size(113, 22);
+            flowLayoutPanelDoubleBufferedcs2.Size = new System.Drawing.Size(129, 29);
             flowLayoutPanelDoubleBufferedcs2.TabIndex = 70;
             // 
             // labelMember
@@ -99,10 +97,10 @@
             labelMember.Cursor = System.Windows.Forms.Cursors.Hand;
             labelMember.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMember.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            labelMember.Location = new System.Drawing.Point(4, 0);
-            labelMember.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            labelMember.Location = new System.Drawing.Point(5, 0);
+            labelMember.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             labelMember.Name = "labelMember";
-            labelMember.Size = new System.Drawing.Size(59, 17);
+            labelMember.Size = new System.Drawing.Size(78, 23);
             labelMember.TabIndex = 60;
             labelMember.Text = "Member";
             labelMember.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -112,10 +110,10 @@
             pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            pictureBox1.Location = new System.Drawing.Point(63, 0);
+            pictureBox1.Location = new System.Drawing.Point(83, 0);
             pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(27, 22);
+            pictureBox1.Size = new System.Drawing.Size(31, 29);
             pictureBox1.TabIndex = 61;
             pictureBox1.TabStop = false;
             // 
@@ -127,10 +125,10 @@
             buttonToday.FlatAppearance.BorderSize = 0;
             buttonToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonToday.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            buttonToday.Location = new System.Drawing.Point(13, 9);
-            buttonToday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonToday.Location = new System.Drawing.Point(15, 12);
+            buttonToday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             buttonToday.Name = "buttonToday";
-            buttonToday.Size = new System.Drawing.Size(97, 25);
+            buttonToday.Size = new System.Drawing.Size(111, 33);
             buttonToday.TabIndex = 69;
             buttonToday.Text = "Today";
             buttonToday.UseVisualStyleBackColor = false;
@@ -146,10 +144,10 @@
             buttonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
             buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonNext.ForeColor = System.Drawing.Color.Transparent;
-            buttonNext.Location = new System.Drawing.Point(150, 10);
-            buttonNext.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonNext.Location = new System.Drawing.Point(171, 13);
+            buttonNext.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             buttonNext.Name = "buttonNext";
-            buttonNext.Size = new System.Drawing.Size(40, 27);
+            buttonNext.Size = new System.Drawing.Size(46, 36);
             buttonNext.TabIndex = 58;
             buttonNext.UseVisualStyleBackColor = false;
             // 
@@ -158,10 +156,10 @@
             flowLayoutPanelDoubleBufferedcs1.Controls.Add(labelDate);
             flowLayoutPanelDoubleBufferedcs1.Controls.Add(DownArrow);
             flowLayoutPanelDoubleBufferedcs1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            flowLayoutPanelDoubleBufferedcs1.Location = new System.Drawing.Point(194, 13);
-            flowLayoutPanelDoubleBufferedcs1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanelDoubleBufferedcs1.Location = new System.Drawing.Point(222, 17);
+            flowLayoutPanelDoubleBufferedcs1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             flowLayoutPanelDoubleBufferedcs1.Name = "flowLayoutPanelDoubleBufferedcs1";
-            flowLayoutPanelDoubleBufferedcs1.Size = new System.Drawing.Size(204, 22);
+            flowLayoutPanelDoubleBufferedcs1.Size = new System.Drawing.Size(233, 29);
             flowLayoutPanelDoubleBufferedcs1.TabIndex = 0;
             // 
             // labelDate
@@ -170,10 +168,10 @@
             labelDate.Cursor = System.Windows.Forms.Cursors.Hand;
             labelDate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelDate.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            labelDate.Location = new System.Drawing.Point(4, 0);
-            labelDate.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            labelDate.Location = new System.Drawing.Point(5, 0);
+            labelDate.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             labelDate.Name = "labelDate";
-            labelDate.Size = new System.Drawing.Size(118, 17);
+            labelDate.Size = new System.Drawing.Size(154, 23);
             labelDate.TabIndex = 60;
             labelDate.Text = "Day,00 Week,Year";
             labelDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -184,10 +182,10 @@
             DownArrow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             DownArrow.Cursor = System.Windows.Forms.Cursors.Hand;
             DownArrow.Image = (System.Drawing.Image)resources.GetObject("DownArrow.Image");
-            DownArrow.Location = new System.Drawing.Point(122, 0);
+            DownArrow.Location = new System.Drawing.Point(159, 0);
             DownArrow.Margin = new System.Windows.Forms.Padding(0);
             DownArrow.Name = "DownArrow";
-            DownArrow.Size = new System.Drawing.Size(27, 22);
+            DownArrow.Size = new System.Drawing.Size(31, 29);
             DownArrow.TabIndex = 61;
             DownArrow.TabStop = false;
             // 
@@ -202,34 +200,21 @@
             buttonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
             buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonPrevious.ForeColor = System.Drawing.Color.Transparent;
-            buttonPrevious.Location = new System.Drawing.Point(117, 9);
-            buttonPrevious.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonPrevious.Location = new System.Drawing.Point(134, 12);
+            buttonPrevious.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             buttonPrevious.Name = "buttonPrevious";
-            buttonPrevious.Size = new System.Drawing.Size(38, 27);
+            buttonPrevious.Size = new System.Drawing.Size(43, 36);
             buttonPrevious.TabIndex = 57;
             buttonPrevious.UseVisualStyleBackColor = false;
             // 
-            // TLPEmployees
-            // 
-            TLPEmployees.ColumnCount = 2;
-            TLPEmployees.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.05152F));
-            TLPEmployees.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.94848F));
-            TLPEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
-            TLPEmployees.Location = new System.Drawing.Point(0, 39);
-            TLPEmployees.Margin = new System.Windows.Forms.Padding(0);
-            TLPEmployees.Name = "TLPEmployees";
-            TLPEmployees.RowCount = 1;
-            TLPEmployees.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            TLPEmployees.Size = new System.Drawing.Size(1152, 43);
-            TLPEmployees.TabIndex = 68;
-            // 
             // UCSchedule
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(TLPGlobal);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "UCSchedule";
-            Size = new System.Drawing.Size(1152, 668);
+            Size = new System.Drawing.Size(1317, 891);
             TLPGlobal.ResumeLayout(false);
             panelMembers.ResumeLayout(false);
             flowLayoutPanelDoubleBufferedcs2.ResumeLayout(false);
@@ -254,6 +239,5 @@
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.PictureBox DownArrow;
         private System.Windows.Forms.Button buttonPrevious;
-        public TableLayoutPanelDoubleBufferedNoscroll TLPEmployees;
     }
 }

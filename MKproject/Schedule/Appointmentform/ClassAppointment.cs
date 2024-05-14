@@ -107,7 +107,7 @@ namespace MKproject.Schedule
         }
         public static List<ClassAppointment> GetAppointmentOfSpecificEmployees(DateTime SelectedDate, List<ClassEmployee> ListEmployeeSchedule)
         {
-            string query = @"SELECT appointment_id 
+            string query = @"SELECT * 
                           FROM appointments                                 
                           WHERE CAST(start_time AS DATE) = @Date ";
 

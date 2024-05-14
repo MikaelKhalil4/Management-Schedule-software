@@ -39,16 +39,6 @@ namespace MKproject.Schedule
         //
         Label LabelBalance;
 
-        public UCappointment(ClassAppointment desiredappointment)
-        {
-            InitializeComponent();
-            //Aam nekhoud Col and Row pos taba3 lucappointment, bas lezim ykun mawjude honik, awwal ma yenkhalae el appointment
-
-            DesiredAppointmentUCApp = desiredappointment;
-            SetUCDesign();
-            SetServiceLogicAndDesign();
-
-        }
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
         public UCappointment(ClassAppointment desiredappointment, UCSchedule uCSchedule)
         {
@@ -478,11 +468,11 @@ namespace MKproject.Schedule
             //The FlowLayoutpanel where we dispose the ucdata does it have akbar aadad ucdata before we dispose this ucdata if yes it will affect the TBL
             bool havethemaxucdata = true;
 
-            for (int i = 0; i < UcScheduleParentForm.TLPAppointment.RowCount; i++)
+            for (int i = 0; i < UcScheduleParentForm.TLPSchedule.RowCount; i++)
             {
                 if (positionrow != i)
                 {
-                    Control cellControl = UcScheduleParentForm.TLPAppointment.GetControlFromPosition(positioncol, i);
+                    Control cellControl = UcScheduleParentForm.TLPSchedule.GetControlFromPosition(positioncol, i);
                     if (cellControl is FlowLayoutPanel)
                     {
                         FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;

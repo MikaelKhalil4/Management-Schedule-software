@@ -29,7 +29,7 @@ namespace MKproject.Schedule
 
         //VARIABLES
         public UCSchedule UcScheduleParentForm;
-        UCTime ucTime;
+
 
         bool isstarttime;
 
@@ -63,33 +63,32 @@ namespace MKproject.Schedule
         bool UndoFromNotficationBannerModeOn = false;
 
         //ADD
-        public Appointment(UCSchedule ucSch, UCTime UCtime, ClassEmployee selectedEmployee)
+        public Appointment(UCSchedule ucSch,ClassEmployee selectedEmployee,TimeSpan StartTime)
         {
             InitializeComponent();
             Opacity = 0;
 
             IsReadOrEdit = false;//adding Mode
             IsAddOrUpdateMode = true;
-            ucTime = UCtime;
+           
             UcScheduleParentForm = ucSch;
 
 
             DesiredAppointmentAppForm = new ClassAppointment();
             SelectedEmployee = selectedEmployee;
-         
-         
-            TimeSpan endtime;
-            if (ucTime.Time == new TimeSpan(23, 0, 0))
+
+
+            DesiredAppointmentAppForm.StartTime = UcScheduleParentForm.SelectedDate.Date + StartTime;
+          
+            if (DesiredAppointmentAppForm.StartTime.TimeOfDay < new TimeSpan(23, 0, 0))
             {
-                endtime = ucTime.Time + TimeSpan.FromMinutes(45);
+                DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.StartTime.AddHours(1);
             }
             else
             {
-                endtime = ucTime.Time + TimeSpan.FromHours(1);
+                DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.StartTime.Date + new TimeSpan(23, 45, 0);
             }
-            //badde yehoun kermel bel display ma hada yotlaee fo2 tene
-            DesiredAppointmentAppForm.StartTime = UcScheduleParentForm.SelectedDate.Date + ucTime.Time;
-            DesiredAppointmentAppForm.EndTime = UcScheduleParentForm.SelectedDate.Date + endtime;
+
 
             ucClientApp = new UCClientApp(this);
 
@@ -530,14 +529,15 @@ namespace MKproject.Schedule
         }
         bool CheckIfTimeAvailable()
         {
-            if (SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.StartTime.ToString("hh")) && SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.EndTime.ToString("hh")))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            //if (SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.StartTime.ToString("hh")) && SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.EndTime.ToString("hh")))
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+            return true;
         }
 
 

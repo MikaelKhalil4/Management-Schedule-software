@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace MKproject.Schedule
 
     internal class LabelEmployee : Label
     {
+        public  ClassEmployee DesiredEmployee { get; set; }
         public bool IsClicked { get; set; }
         public void SetDefaultModeDesign()
         {
