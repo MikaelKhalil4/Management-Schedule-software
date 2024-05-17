@@ -16,18 +16,17 @@ namespace MKproject.Schedule.UCData
         public string Reminder { get; set; }
         public ClassClient DesiredClient { get; set; }
       
-        public string[] Partsrepeat { get; set; }
+        public string[] PartsRepeat { get; set; }
         private string repeat;
         public string Repeat
         {
             get { return repeat; }
             set { 
                 repeat = value;
-                Partsrepeat =Repeat.Split('/');
+                PartsRepeat =Repeat.Split('/');
             }
         }
 
-        public string LabelQuote { get; set; }
         public DateTime StartTime { get; set; }
 
         //Awal ma yenkhala2 is checked ha ykou false
@@ -121,7 +120,7 @@ namespace MKproject.Schedule.UCData
             int idreminder;
             IsChecked = false;
 
-            SqlCommand command = new SqlCommand("INSERT INTO reminder VALUES (@client_id,@reminder,@repeat,@starttime,@labelquote,@is_checked) ", con);
+            SqlCommand command = new SqlCommand("INSERT INTO reminder VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked) ", con);
             SqlCommand cmd = new SqlCommand("SELECT Max(reminder_id) FROM reminder", con);
           
 
@@ -136,7 +135,6 @@ namespace MKproject.Schedule.UCData
             }
             command.Parameters.AddWithValue("@repeat", Repeat);
             command.Parameters.AddWithValue("@starttime", StartTime);
-            command.Parameters.AddWithValue("@labelquote", LabelQuote);
             command.Parameters.AddWithValue("@is_checked", IsChecked);
 
             con.Open();
@@ -150,7 +148,7 @@ namespace MKproject.Schedule.UCData
         }
         public  void UpdateFromRemindertoSQL()
         {
-            SqlCommand command = new SqlCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime,labelquote=@labelquote WHERE reminder_id =@reminder_id", con);
+            SqlCommand command = new SqlCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime WHERE reminder_id =@reminder_id", con);
 
 
             command.Parameters.AddWithValue("@reminder", Reminder);
@@ -164,7 +162,6 @@ namespace MKproject.Schedule.UCData
             }
             command.Parameters.AddWithValue("@repeat", Repeat);
             command.Parameters.AddWithValue("@starttime", StartTime);
-            command.Parameters.AddWithValue("@labelquote", LabelQuote);
             command.Parameters.AddWithValue("@is_checked", IsChecked);
             command.Parameters.AddWithValue("@reminder_id", Idreminder);
 

@@ -23,7 +23,7 @@ namespace MKproject.Schedule
         public void SetActiveModeDesign()
         {
             //BackColor = Color.FromArgb(2, 162, 111);
-            ForeColor = Color.FromArgb(57, 240, 252);
+            ForeColor = Color.Lime;
             Font = new Font("Segoe UI", 13, FontStyle.Bold);
         }
     }

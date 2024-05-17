@@ -50,7 +50,7 @@ namespace MKproject.Schedule
 
             //panelreminder.PerformLayout();
             DisplayUCReminder(desiredclient);
-
+            panelreminder.VerticalScroll.Value = 0;
 
         }
         private void ClientReminder_Load(object sender, EventArgs e)
@@ -123,7 +123,6 @@ namespace MKproject.Schedule
                 DesiredReminder.Reminder = (string)dr["reminder"];
                 DesiredReminder.Repeat = (string)dr["repeat"];
                 DesiredReminder.StartTime = (DateTime)dr["starttime"];
-                DesiredReminder.LabelQuote = (string)dr["labelquote"];
                 DesiredReminder.IsChecked = (bool)dr["is_checked"];
 
 
@@ -141,6 +140,10 @@ namespace MKproject.Schedule
                 TouchscrollPanelclientreminder = new TouchScroll(panelreminder, this);
             }
             Cursor = Cursors.Default;
+            panelreminder.VerticalScroll.Value = 0;
+            panelreminder.AutoScroll = false;
+            panelreminder.AutoScroll = true;
+            panelreminder.AutoScrollPosition = new Point(0,0);
         }
 
         public Label GetNoReminderLable(string Text)//in case we had no bundles

@@ -39,7 +39,7 @@ namespace MKproject.Schedule
         ///-CLICK
         private void buttonAllReminder_Click(object sender, EventArgs e)
         {
-            ClientReminder clientReminderForm = new ClientReminder(null,this,ucSchedule);
+            ClientReminder clientReminderForm = new ClientReminder(null, this, ucSchedule);
             clientReminderForm.ShowDialog();
         }
         private void AddButton_Click(object sender, EventArgs e)
@@ -219,8 +219,8 @@ namespace MKproject.Schedule
         //FUNCTIONS:
         private void EditTLPWithUCAppWidth()
         {
-          
-           
+
+
         }
         public void UCDaysClick()
         {
@@ -231,7 +231,7 @@ namespace MKproject.Schedule
         {
             //Scroll
             ucSchedule.TLPSchedule.AutoScrollPosition = new Point(0, 0);
-            ucSchedule.TLPSchedule.AutoScrollPosition = new Point(0, ucSchedule.TLPSchedule.rowHeight * 6);          
+            ucSchedule.TLPSchedule.AutoScrollPosition = new Point(0, ucSchedule.TLPSchedule.rowHeight * 6);
             ucSchedule.TLPSchedule.currentRow = 6;
 
             //edit DateUCDay
@@ -241,10 +241,11 @@ namespace MKproject.Schedule
             }
 
 
-          
+
 
         }// changing DateUCDAY
 
+        
     }
 }
 
