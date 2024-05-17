@@ -272,28 +272,32 @@ namespace MKproject.Management
             employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
             employee.IsChecked = datarow["is_checked"] is DBNull ? null : (bool)datarow["is_checked"];
 
-            if (employee.Access != null)
-            {
-                if (employee.Access.ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
-                    employee.CanAccesSchedule = true;
-                if (employee.Access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
-                    employee.CanEditOffre = true;
-                if (employee.Access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
-                    employee.CanAccessTransaction = true;
-                if (employee.Access.ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
-                    employee.CanAccessSevicesProductsEmployees = true;
-                if (employee.Access.ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
-                    employee.CanAccessStatistics = true;
-                if (employee.Access.ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
-                    employee.CanEditRegistrationFields = true;
-                if (employee.Access.ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
-                    employee.CanDeleteClient = true;
-                if (employee.Access.ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
-                    employee.CanInsertOrEditClients = true;
-            }
+
             return employee;
         }
-    
+        public void SetEmployeeAccess()
+        {
+            if (Access != null)
+            {
+                if (Access.ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
+                    CanAccesSchedule = true;
+                if (Access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
+                    CanEditOffre = true;
+                if (Access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))
+                    CanAccessTransaction = true;
+                if (Access.ToString().Contains(Features.enumFeatures.ServicesProductsEmployees.GetStringValue()))
+                    CanAccessSevicesProductsEmployees = true;
+                if (Access.ToString().Contains(Features.enumFeatures.Statistics.GetStringValue()))
+                    CanAccessStatistics = true;
+                if (Access.ToString().Contains(Features.enumFeatures.RegistrationFields.GetStringValue()))
+                    CanEditRegistrationFields = true;
+                if (Access.ToString().Contains(Features.enumFeatures.DeleteClients.GetStringValue()))
+                    CanDeleteClient = true;
+                if (Access.ToString().Contains(Features.enumFeatures.EditClients.GetStringValue()))
+                    CanInsertOrEditClients = true;
+            }
+        }
+
         public bool CheckIfPAsswordExist(string OldPass)
         {
             string query = " Select Count(*) from employee where password='" + Password + "'";
@@ -317,10 +321,10 @@ namespace MKproject.Management
                 return true;
             }
         }
- 
+
         public void InsertEmployee()
         {
-           
+
 
             string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank,is_checked) " +
                          "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank,@is_checked)";
@@ -353,7 +357,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@rank", Rank);
                 command.Parameters.AddWithValue("@is_checked", IsChecked);
 
-            
+
             }
             else
             {
@@ -371,7 +375,7 @@ namespace MKproject.Management
 
             if (IsScheduleMember)
             {
-                
+
                 DateTime Today = DateTime.Now.Date;
                 if (Schedule.SQLToProject.CheckIfHistoryExistsToday(Today))
                 {
@@ -416,7 +420,7 @@ namespace MKproject.Management
 
             if (IsScheduleMember)//ma32oul tkun true, w yerjaa true again, so ma men ghayir el old results
             {
-                bool IsBecomingAScheduleMember = false; 
+                bool IsBecomingAScheduleMember = false;
 
 
                 if (Availability == null && Rank == null && IsChecked == null)
@@ -430,7 +434,7 @@ namespace MKproject.Management
                 }
                 //eza ma feto foe bel condtion , btenzal their old value
                 command.Parameters.AddWithValue("@availability", Availability);
-                command.Parameters.AddWithValue("@rank", Rank);        
+                command.Parameters.AddWithValue("@rank", Rank);
                 command.Parameters.AddWithValue("@is_checked", IsChecked);
 
 
@@ -480,7 +484,7 @@ namespace MKproject.Management
             cmd.ExecuteNonQuery();
             con.Close();
         }
-  
+
         public bool CheckIfEmployeeHasAppointments()
         {
             string query = @"
@@ -510,7 +514,7 @@ namespace MKproject.Management
             " Exists(Select* from archive as a where a.employee_id = b.employee_id) " +
             "Or" +
             " Exists(Select* from appointments as a where a.employee_id = b.employee_id) )";
-         
+
 
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -578,7 +582,7 @@ namespace MKproject.Management
             List<ClassEmployee> ListEmployeeSchedule = DataTableToList(dt);
             return ListEmployeeSchedule;
         }
-      
+
 
 
 

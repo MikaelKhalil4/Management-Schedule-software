@@ -190,11 +190,11 @@ namespace MKproject.Management
             textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             textBoxSearch.ForeColor = System.Drawing.Color.Gray;
             textBoxSearch.IsRequiredModeOn = false;
-            textBoxSearch.Location = new System.Drawing.Point(36, 4);
+            textBoxSearch.Location = new System.Drawing.Point(36, 9);
             textBoxSearch.Margin = new Padding(3, 3, 3, 6);
             textBoxSearch.Name = "textBoxSearch";
             textBoxSearch.PlaceholderText = "Search by name or phone number...";
-            textBoxSearch.Size = new System.Drawing.Size(277, 34);
+            textBoxSearch.Size = new System.Drawing.Size(277, 29);
             textBoxSearch.TabIndex = 30;
             textBoxSearch.Text = "Search by name or phone number...";
             textBoxSearch.TextChanged += textBoxSearch_TextChanged;
@@ -327,9 +327,9 @@ namespace MKproject.Management
             labelResults.AutoSize = true;
             labelResults.Dock = DockStyle.Left;
             labelResults.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelResults.Location = new System.Drawing.Point(225, 0);
+            labelResults.Location = new System.Drawing.Point(179, 0);
             labelResults.Name = "labelResults";
-            labelResults.Size = new System.Drawing.Size(37, 32);
+            labelResults.Size = new System.Drawing.Size(31, 25);
             labelResults.TabIndex = 1;
             labelResults.Text = "10";
             // 
@@ -340,7 +340,7 @@ namespace MKproject.Management
             label13.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label13.Location = new System.Drawing.Point(0, 0);
             label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(225, 32);
+            label13.Size = new System.Drawing.Size(179, 25);
             label13.TabIndex = 0;
             label13.Text = "Number Of Results:";
             // 

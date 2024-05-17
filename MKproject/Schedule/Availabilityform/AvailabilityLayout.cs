@@ -23,7 +23,6 @@ namespace MKproject.Schedule
             InitializeComponent();
 
             tableLayoutPanelAvailability.AutoScroll = true;
-            tableLayoutPanelAvailability.VerticalScrollBarTable = VScrollBar1;
 
             //Fill uctime
             for (int i = 0; i < 24; i++)
@@ -75,7 +74,6 @@ namespace MKproject.Schedule
             VScrollBar1.LargeChange = tableLayoutPanelAvailability.VerticalScroll.LargeChange;
             VScrollBar1.SmallChange = 165;
 
-            tableLayoutPanelAvailability.VerticalScrollBarTable = VScrollBar1;
 
             //TestScroll:
             Console.WriteLine("Value: " + this.VerticalScroll.Value + "\nMax= " + this.VerticalScroll.Maximum + "\n");
@@ -146,24 +144,16 @@ namespace MKproject.Schedule
         ///-CLICK
         public void panel1_Click(object sender, EventArgs e)
         {
-            if (TouchScroll.MoveHoldClick == false)
+            Panel panel = sender as Panel;
+            if (panel.BackColor == ActiveColor)
             {
-                Panel panel = sender as Panel;
-                if (panel.BackColor == ActiveColor)
-                {
-                    panel.BackColor = DisactiveColor;
-                }
-                else
-                {
-                    panel.BackColor = ActiveColor;
-
-                }
+                panel.BackColor = DisactiveColor;
             }
             else
             {
+                panel.BackColor = ActiveColor;
 
             }
-
         }
         private void buttonD_Click(object sender, EventArgs e)
         {

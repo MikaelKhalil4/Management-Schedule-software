@@ -30,7 +30,6 @@ namespace MKproject.Schedule
             ucSchedule.Margin = new Padding(10, 15, 10, 10);
 
             tableLayoutPanelForm.Controls.Add(ucSchedule);
-            new TouchScroll(panelreminder, this);
         }
 
 

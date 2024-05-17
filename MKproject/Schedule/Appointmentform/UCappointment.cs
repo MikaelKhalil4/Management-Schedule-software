@@ -432,32 +432,31 @@ namespace MKproject.Schedule
                 isDragging = false; // Reset the dragging flag
                 return;
             }
-            if (TouchScroll.MoveHoldClick == false)
+
+            if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date && DesiredAppointmentUCApp.IsPackageMode && ((DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null) || (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance == null)))//past
             {
-                if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date && DesiredAppointmentUCApp.IsPackageMode && ((DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null) || (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance == null)))//past
-                {
-                    //package deleted or package not selected In The Past
+                //package deleted or package not selected In The Past
 
-                    CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.Ok);
 
-                }
-                else//present future
-                {
-                    ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
-                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
-                    Program.GreyForm.Show();
-                    Appointment appointmentupdate = new Appointment(this, UcScheduleParentForm);
-                    appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
-                    appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
-                    appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion;
-                    appointmentupdate.Show();
-                }
             }
+            else//present future
+            {
+                ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+                Program.GreyForm.Show();
+                Appointment appointmentupdate = new Appointment(this, UcScheduleParentForm);
+                appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
+                appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
+                appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion;
+                appointmentupdate.Show();
+            }
+
 
         }
         public void RemoveAppointmentFromTLP()
         {
-              UcScheduleParentForm.RemoveUcAppointmentFromTLP(this);
+            UcScheduleParentForm.RemoveUcAppointmentFromTLP(this);
         }
         public void ResizeINRemovingUCAppInFLP(FlowLayoutPanel clickedflowLayoutPanel, int NumberOfVisibleControlsOfClickedFLP, int positioncol, int positionrow)
         {
@@ -522,7 +521,7 @@ namespace MKproject.Schedule
         }
         private void NotfBanner_UndoNotficationBanner(object sender, EventArgs e)
         {
-            UcScheduleParentForm.ChangePositionUCappointments(this, OldDesiredAppointmentUCApp, DesiredAppointmentUCApp);
+            UcScheduleParentForm.ChangePositionUCappointments(this, DesiredAppointmentUCApp, OldDesiredAppointmentUCApp);
             SetUCDesign();
             NotificationBanner.Show("", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, true);
 
@@ -531,14 +530,13 @@ namespace MKproject.Schedule
 
 
 
-
+        public event EventHandler UCAppIsDroped;
         Cursor customCursor;
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
-            if (TouchScroll.MoveHoldClick == false)
-            {
-                TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
-            }
+
+            TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
+
 
             if (!isDragging && e.Button == MouseButtons.Left)
             {
@@ -552,6 +550,7 @@ namespace MKproject.Schedule
 
 
                     DoDragDrop(this, DragDropEffects.Move);
+                    UCAppIsDroped?.Invoke(null, EventArgs.Empty);
                     Cursor.Current = customCursor; // Set custom cursor during drag
                 }
             }
@@ -565,11 +564,9 @@ namespace MKproject.Schedule
         private void Control_MouseDown(object sender, MouseEventArgs e)
         {
             initialMouseDownPoint = e.Location;
-            //UcDayParentForm.TouchscrollPanelUCDay.RemoveEventPanelUCDay(UcDayParentForm.TLPAppointment);
             isDragging = false; // Reset dragging flag
 
 
-            //ParentFormUCday.TouchscrollPanelUCDay.RemoveEventPanelUCDay(ParentFormUCday.TLPAppointment);
         }
         private Bitmap CaptureControlImage(Control control)
         {
@@ -611,16 +608,11 @@ namespace MKproject.Schedule
             return new Cursor(ptr);
         }
 
-        public event EventHandler UCAppIsDroped;
         private void UCappointment_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
         {
             if (e.Action == DragAction.Drop || e.Action == DragAction.Cancel)
             {
-
-                Cursor.Current = Cursors.Default; // Reset the cursor to default
                 isDragging = false; // Reset dragging state
-                UCAppIsDroped?.Invoke(null, EventArgs.Empty);
-
             }
         }
 

@@ -16,20 +16,6 @@ namespace MKproject.Schedule
         //Property
         public int AppointmentID { get; set; }
 
-        private int employeeId;
-        public int EmployeeId
-        {
-            get { return employeeId; }
-            set
-            {
-
-                employeeId = value;
-                EmployeeFullName = ClassEmployee.GetEmployeeFullName(value);
-            }
-        }
-        public string EmployeeFullName { get; set; }//this one is additional
-
-
         public string Title { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
@@ -37,8 +23,8 @@ namespace MKproject.Schedule
         public bool IsCompleted { get; set; }//default false, which we want
         public bool IsCanceled { get; set; }//default false, which we want
 
-        //used in UCClientApp
-        public ClassClient DesiredClient { get; set; }
+        public ClassEmployee DesiredEmployee { get; set; }
+        public ClassClient DesiredClient { get; set; } //used in UCClientApp
 
 
 
@@ -213,7 +199,7 @@ namespace MKproject.Schedule
 
             }
 
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@employee_id", (int)EmployeeId);
+            cmdInsertOrUpdateApp.Parameters.AddWithValue("@employee_id", DesiredEmployee.EmployeeId);
 
 
 
@@ -450,7 +436,7 @@ namespace MKproject.Schedule
             }
 
 
-            DesiredApp.EmployeeId = (int)datarow["employee_id"];
+            DesiredApp.DesiredEmployee = ClassEmployee.CreateEmployeeObject((int)datarow["employee_id"]);
             DesiredApp.Title = datarow["title"] is DBNull ? null : (string)datarow["title"];
             DesiredApp.Notes = datarow["Note"] is DBNull ? null : (string)datarow["Note"];
 

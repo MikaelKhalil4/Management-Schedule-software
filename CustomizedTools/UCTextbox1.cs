@@ -170,7 +170,7 @@ namespace CustomizedTools
             
             groupBox1.ForeColor = Color.Black;
             myTextBox1.Enabled = true;
-
+            myTextBox1.IsRequiredModeOn = false;
             SetUCModeForString();
         }
         public void DisableUC()

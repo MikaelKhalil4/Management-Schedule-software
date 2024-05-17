@@ -53,15 +53,10 @@ namespace MKproject.Schedule
         private void labeltime_MouseClick(object sender, MouseEventArgs e)
         {
 
-            if (TouchScroll.MoveHoldClick == false)
-            {
-                displaytime.textBoxTime.Text = this.Text;
-                displaytime.Close();
-            }
-            else
-            {
 
-            }
+            displaytime.textBoxTime.Text = this.Text;
+            displaytime.Close();
+
         }
 
 
@@ -69,16 +64,11 @@ namespace MKproject.Schedule
         //DESIGN
         private void labeltime_MouseMove(object sender, MouseEventArgs e)
         {
-            if (TouchScroll.MoveHoldClick == false)
-            {
+           
                 // MouseMove event handler
                 Label label = (Label)sender;
                 label.BackColor = Color.FromArgb(229, 226, 244);
-            }
-            else
-            {
-
-            }
+           
         }
 
         private void labeltime_MouseLeave(object sender, EventArgs e)

@@ -22,7 +22,6 @@ namespace MKproject.Schedule
         //testing the pu
         //Property
         public TimeSpan DifferenceTime { get; set; }
-        ClassEmployee SelectedEmployee { get; set; }//since ma eena object bel classapointment, eena bas employee-id, bi haje la hayda el object for many use(availabilty for example), check the references
 
         public bool IsReadOrEdit { get; set; }
         bool IsAddOrUpdateMode { get; set; }
@@ -75,7 +74,9 @@ namespace MKproject.Schedule
 
 
             DesiredAppointmentAppForm = new ClassAppointment();
-            SelectedEmployee = selectedEmployee;
+           
+            
+            DesiredAppointmentAppForm.DesiredEmployee = selectedEmployee;
 
 
             DesiredAppointmentAppForm.StartTime = UcScheduleParentForm.SelectedDate.Date + StartTime;
@@ -171,7 +172,7 @@ namespace MKproject.Schedule
                     }
                     comboBoxEmployee.Width = FunctionsForWinformsTool.ReturnComboBoxWidth(comboBoxEmployee) + 17;
                 }
-                comboBoxEmployee.SelectedIndex = comboBoxEmployee.FindString($"{SelectedEmployee.Fname} {SelectedEmployee.Lname}");
+                comboBoxEmployee.SelectedIndex = comboBoxEmployee.FindString($"{DesiredAppointmentAppForm.DesiredEmployee.Fname} {DesiredAppointmentAppForm.DesiredEmployee.Lname}");
 
                 //
 
@@ -227,7 +228,7 @@ namespace MKproject.Schedule
                 LabelEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
                 TLPGlobal.Controls.Add(LabelEndTime, 1, 2);
 
-                labelEmployee.Text = DesiredAppointmentAppForm.EmployeeFullName;
+                labelEmployee.Text = DesiredAppointmentAppForm.DesiredEmployee.Fname+" "+DesiredAppointmentAppForm.DesiredEmployee.Lname;
                 TLPGlobal.Controls.Add(labelEmployee, 1, 4);
 
             }
@@ -476,7 +477,7 @@ namespace MKproject.Schedule
 
                 //Employee
                 dynamic selectedItem = comboBoxEmployee.SelectedItem;
-                DesiredAppointmentAppForm.EmployeeId = ((ClassEmployee)selectedItem.Value).EmployeeId;
+                DesiredAppointmentAppForm.DesiredEmployee = (ClassEmployee)selectedItem.Value;
 
                 
 
@@ -521,7 +522,7 @@ namespace MKproject.Schedule
         {
             //Design
             //hone UCappointment.DesiredAppointmentUCApp baeed ma sarit hiyye zeita DesiredAppointmentAppForm tb3 li hone, lieanno eza bet ruh bet shuf wen maaytin lal ChangeAppointmentLocation, abel el event 
-            if (UCappointment.DesiredAppointmentUCApp.EmployeeId != DesiredAppointmentAppForm.EmployeeId || UCappointment.DesiredAppointmentUCApp.StartTime != DesiredAppointmentAppForm.StartTime || UCappointment.DesiredAppointmentUCApp.EndTime != DesiredAppointmentAppForm.EndTime)//checking eza tghayrarit its position or no
+            if (UCappointment.DesiredAppointmentUCApp.DesiredEmployee.EmployeeId != DesiredAppointmentAppForm.DesiredEmployee.EmployeeId || UCappointment.DesiredAppointmentUCApp.StartTime != DesiredAppointmentAppForm.StartTime || UCappointment.DesiredAppointmentUCApp.EndTime != DesiredAppointmentAppForm.EndTime)//checking eza tghayrarit its position or no
             {
                 UcScheduleParentForm.ChangePositionUCappointments(UCappointment, UCappointment.DesiredAppointmentUCApp, DesiredAppointmentAppForm);
             }
@@ -557,8 +558,7 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.InsertOrUpdateAppointment(true);
                 DesiredAppointmentAppForm.AppointmentID = ClassAppointment.GetLastAppointmentId();
                 //Design
-                UCappointment = new UCappointment(DesiredAppointmentAppForm, UcScheduleParentForm);
-                UcScheduleParentForm.AddUCappointmentsInTLP(UCappointment);
+                UCappointment= UcScheduleParentForm.AddUCappointmentsInTLP(DesiredAppointmentAppForm);
                 //OnAppointmentUpdate?.Invoke(this, EventArgs.Empty); // mahhal meshlogic hone, anw za toloolak mashekil bi kun ela reason, bas now keep it like this, cz aal undo men el notif aam taamil mashekil
 
                 NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode,true, Program.HomeForm, UndoFromNotficationBannerModeOn);
