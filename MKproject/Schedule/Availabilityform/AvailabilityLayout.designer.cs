@@ -145,8 +145,6 @@
             tableLayoutPanelAvailability.Location = new System.Drawing.Point(2, 78);
             tableLayoutPanelAvailability.Margin = new System.Windows.Forms.Padding(2);
             tableLayoutPanelAvailability.Name = "tableLayoutPanelAvailability";
-            tableLayoutPanelAvailability.PanelAppointment = null;
-            tableLayoutPanelAvailability.PanelUCTime = null;
             tableLayoutPanelAvailability.RowCount = 24;
             tableLayoutPanelAvailability.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
             tableLayoutPanelAvailability.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
@@ -196,7 +194,6 @@
             tableLayoutPanelAvailability.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             tableLayoutPanelAvailability.Size = new System.Drawing.Size(1203, 512);
             tableLayoutPanelAvailability.TabIndex = 68;
-            tableLayoutPanelAvailability.VerticalScrollBarTable = null;
             // 
             // tableLayoutPanel1
             // 

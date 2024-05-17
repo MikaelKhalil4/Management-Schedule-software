@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 
 namespace MKproject.Schedule
@@ -26,14 +27,14 @@ namespace MKproject.Schedule
         public List<ClassAppointment> AppointmentsList { get; set; }
 
 
-        public TableLayoutPanel TLPEmployees;
+        public TableLayoutPanelDoubleBufferedNoscroll TLPEmployees;
         public TableLayoutPanelBuffered TLPSchedule;
         List<(ClassEmployee, List<int>)> ListOfAllColumnIndexesGroups = new List<(ClassEmployee, List<int>)>();
         (ClassEmployee, List<int>) FocusOnColumnIndexGroup;
         int FocusOnMaxWidth;
 
 
-        ///-Reminder
+        //Reminder
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
 
@@ -48,22 +49,60 @@ namespace MKproject.Schedule
 
         public void LoadForm(DateTime selectedDate)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
+            FocusOnColumnIndexGroup = (null, null);
+
+            if (EmployeeScheduleList != null)
+                EmployeeScheduleList.Clear();
+
+            if (AppointmentsList != null)
+                AppointmentsList.Clear();
+
+            if (ListOfAllColumnIndexesGroups != null)
+                ListOfAllColumnIndexesGroups.Clear();
+
+
+
+
             SelectedDate = selectedDate;
 
             FillEmployeLists();
 
             AppointmentsList = ClassAppointment.GetAppointmentOfSpecificEmployees(SelectedDate, EmployeeScheduleList);
 
-            SetListOfAllColumnIndexesGroups();//ejbare men baaed li foe
 
             CreateTLPDesign();
-           
-            //Colmns Groups, ha ykun percentage
-            SetTLPEmployeesColumn();
-            SetTLPSchGroupColumn();//el resizing bi sir juwweta lal tnen Employees and TlpAppointmnet
-            //
-          
-            AddAppointmentsToTlpSchedule();     
+
+            if (AppointmentsList.Count == 0 && SelectedDate.Date < DateTime.Now.Date)
+            {
+                BlockedModeDesign("No Appointments Available");
+                IsDesignBlocked = true;
+
+            }
+            else if (EmployeeScheduleList.Count == 0 && SelectedDate.Date <= DateTime.Now.Date)
+            {
+                BlockedModeDesign("No Employees Available");
+                IsDesignBlocked = true;
+
+            }
+            else
+            {
+
+                SetListOfAllColumnIndexesGroups();//ejbare men baaed li foe
+
+                //Colmns Groups, ha ykun percentage
+                SetTLPEmployeesColumn();
+                SetTLPSchGroupColumn();//el resizing bi sir juwweta lal tnen Employees and TlpAppointmnet
+                                       //
+
+                AddAppointmentsToTlpSchedule();
+
+                IsDesignBlocked = false;
+            }
+
+            Cursor.Current = Cursors.Default;
+
         }
 
 
@@ -81,11 +120,15 @@ namespace MKproject.Schedule
             labelEmployee.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             labelEmployee.AutoSize = true;
             labelEmployee.TextAlign = ContentAlignment.MiddleCenter;
-            labelEmployee.Cursor = Cursors.Hand;
             //Events
-            labelEmployee.Click += LAbelEmployee_Click;
-            labelEmployee.MouseMove += LabelEmployee_MouseMove;
-            labelEmployee.MouseLeave += LabelEmployee_MouseLeave;
+            if (!IsDesignBlocked)
+            {
+                labelEmployee.Cursor = Cursors.Hand;
+                labelEmployee.Click += LAbelEmployee_Click;
+                labelEmployee.MouseMove += LabelEmployee_MouseMove;
+                labelEmployee.MouseLeave += LabelEmployee_MouseLeave;
+            }
+
             return labelEmployee;
         }
         void ActiveDesiredLabel(LabelEmployee DesiredLabelEmployee)
@@ -119,7 +162,7 @@ namespace MKproject.Schedule
 
         private void LAbelEmployee_Click(object sender, EventArgs e)
         {
-          
+
 
             if (sender is LabelEmployee)
             {
@@ -151,7 +194,7 @@ namespace MKproject.Schedule
             Cursor = Cursors.Default;
 
 
-          
+
 
         }//changing size column of the Table Layout Panel
         private void LabelEmployee_MouseMove(object sender, MouseEventArgs e)
@@ -279,16 +322,16 @@ namespace MKproject.Schedule
             }
         }
 
-      
+
 
 
         void SetListOfAllColumnIndexesGroups()
         {
-            int StartintColumnIndex = 1;//lieanno fi el time 0
+            int StartintColumnIndex = 1; // Initial column index, assuming 0 is reserved
 
             foreach (ClassEmployee employee in EmployeeScheduleList)
             {
-                if (employee.IsChecked == true)
+                if ((bool)employee.IsChecked)
                 {
                     var events = new List<(DateTime time, bool isStart)>();
 
@@ -299,20 +342,42 @@ namespace MKproject.Schedule
                     }
 
                     // Sorting events
-                    events.Sort((a, b) => a.time == b.time ? (a.isStart == b.isStart ? 0 : (a.isStart ? -1 : 1)) : a.time.CompareTo(b.time));
+                    events.Sort((a, b) =>
+                    {
+                        int timeComparison = a.time.CompareTo(b.time);
+                        if (timeComparison != 0)
+                        {
+                            return timeComparison;
+                        }
+                        // Ensure that end times come before start times when times are equal
+                        if (!a.isStart && b.isStart)
+                        {
+                            return -1;
+                        }
+                        if (a.isStart && !b.isStart)
+                        {
+                            return 1;
+                        }
+                        return 0;
+                    });
 
                     int maxOverlap = 0, currentOverlap = 0;
                     foreach (var e in events)
                     {
                         if (e.isStart)
+                        {
                             currentOverlap++;
+                        }
                         else
+                        {
                             currentOverlap--;
+                        }
 
                         if (currentOverlap > maxOverlap)
+                        {
                             maxOverlap = currentOverlap;
+                        }
                     }
-
 
                     var indices = new List<int>();
                     if (maxOverlap > 0)
@@ -331,6 +396,7 @@ namespace MKproject.Schedule
                 }
             }
         }
+
         void InsertHistroyToSqlIfNecessary()
         {
             if (!SQLToProject.CheckIfHistoryExistsToday(DateTime.Now))//eza exists update 
@@ -350,10 +416,13 @@ namespace MKproject.Schedule
         }
         void AddAppointmentsToTlpSchedule()
         {
+
             foreach (ClassAppointment DesiredAppointment in AppointmentsList)
-            {      
+            {
                 AddUCappointmentsInTLP(DesiredAppointment);
             }
+
+
         }
 
 
@@ -382,6 +451,7 @@ namespace MKproject.Schedule
                         employee.Lname = datarow["last_name"] is DBNull ? null : (string)datarow["last_name"];
                         employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
                         employee.Availability = datarow["availability"] is DBNull ? null : (string)datarow["availability"];
+                        employee.IsChecked = true;//since he is from the past
                         EmployeeScheduleList.Add(employee);
                     }
                 }
@@ -397,10 +467,9 @@ namespace MKproject.Schedule
 
         public void ChangePositionUCappointments(UCappointment DesiredUCApp, ClassAppointment OldAppointment, ClassAppointment UpdatedAppointment)
         {
-            int EmployeeId = DesiredUCApp.DesiredAppointmentUCApp.DesiredEmployee.EmployeeId;
 
             (int RowIndexStart, int RowIndexEnd) = GetUCAppointmentRowIndexes(OldAppointment);//hone el el start  w el end time before updating
-            PurelyRemovingUcApp(EmployeeId, RowIndexStart, DesiredUCApp);
+            PurelyRemovingUcApp(OldAppointment.DesiredEmployee.EmployeeId, RowIndexStart, DesiredUCApp);
 
 
             (RowIndexStart, RowIndexEnd) = GetUCAppointmentRowIndexes(UpdatedAppointment);//hone el  start  w el end time after updating
@@ -411,9 +480,9 @@ namespace MKproject.Schedule
             }
             TLPSchedule.SetRowSpan(DesiredUCApp, RowSpan);
 
-            PurellyAddingUcApp(EmployeeId, RowIndexStart, DesiredUCApp);
+            PurellyAddingUcApp(UpdatedAppointment.DesiredEmployee.EmployeeId, RowIndexStart, DesiredUCApp);
 
-            
+
         }
         public void RemoveUcAppointmentFromTLP(UCappointment DesiredUCApp)
         {
@@ -443,12 +512,8 @@ namespace MKproject.Schedule
 
 
             PurellyAddingUcApp(EmployeeId, RowIndexStart, DesiredUCApp);
-            
-            return DesiredUCApp;
-        }
-        void SetRowSpan()
-        {
 
+            return DesiredUCApp;
         }
 
         public (int, int) GetUCAppointmentRowIndexes(ClassAppointment DesiredAppointment)
@@ -464,13 +529,28 @@ namespace MKproject.Schedule
         }
 
 
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+
+            LoadForm(SelectedDate.AddDays(+1));
+        }
+        private void buttonPrevious_Click(object sender, EventArgs e)
+        {
+            LoadForm(SelectedDate.AddDays(-1));
+        }
+        private void buttonToday_Click(object sender, EventArgs e)
+        {
+            LoadForm(DateTime.Now);
+        }
 
 
-        ///////////////////////////////////////
+        
 
 
 
-        //these are for the values of the uc while drag/drop operation
+   
+       /////////these are for the values of the uc while drag/drop operation
+      
         (ClassEmployee, List<int>) OldColumnIndexGroupOfDesiredUC;
         int OldColumnofDraggedUC;//old column is the exact column li ken aalaya el uc
         int OldRowOfDraggedUC;
@@ -486,7 +566,7 @@ namespace MKproject.Schedule
 
 
         int NbreofRowsHighlighted = -1;//how many rows we need to highlight while mouse hover or dragging
-        Brush hoverBrush = new SolidBrush(Color.FromArgb(225, 235, 245)); // Change the color as needed
+        Brush hoverBrush = new SolidBrush(Color.FromArgb(50, 109, 122, 224)); // Change the color as needed
 
         Dictionary<Point, bool> AvailableCells = new Dictionary<Point, bool>();
 
@@ -499,14 +579,14 @@ namespace MKproject.Schedule
 
 
             //
-            if (TLPSchedule == null && TLPEmployees==null)
+            if (TLPSchedule == null && TLPEmployees == null)
             {
                 //TLPSchedule
                 TLPSchedule = new TableLayoutPanelBuffered();
                 TLPSchedule.AllowDrop = true;
                 TLPSchedule.Dock = DockStyle.Fill;
                 TLPSchedule.AutoScroll = true;
-                TLPSchedule.BackColor = Color.FromArgb(245, 245, 245);
+                TLPSchedule.BackColor = Color.FromArgb(249, 246, 254);
 
 
                 //Hours
@@ -517,12 +597,12 @@ namespace MKproject.Schedule
                 }
 
 
-               //TLPEmployee
-                TLPEmployees = new TableLayoutPanel();
-                TLPEmployees.Dock=DockStyle.Fill;
+                //TLPEmployee
+                TLPEmployees = new TableLayoutPanelDoubleBufferedNoscroll();
+                TLPEmployees.Dock = DockStyle.Fill;
                 TLPEmployees.RowCount = 1;
                 TLPEmployees.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
-                TLPEmployees.Margin = new Padding(0,0, SystemInformation.VerticalScrollBarWidth,0);
+                TLPEmployees.Margin = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth + 4, 0);
 
 
                 //Time
@@ -585,27 +665,20 @@ namespace MKproject.Schedule
 
         }
 
-      
+
 
         void SetTLPSchGroupColumn()
         {
 
-            TLPSchedule.SuspendLayout();  // Suspend layout to improve performance        
-            TLPSchedule.ColumnCount = 1;
-            while (TLPSchedule.ColumnStyles.Count > 1)
-            {
-                TLPSchedule.ColumnStyles.RemoveAt(1);
-            }
-            TLPSchedule.ResumeLayout();  // Resume layout after making changes
 
-
+            ResetTLPScheduleToInitialState();
 
 
             if (ListOfAllColumnIndexesGroups.Count > 0)
             {
                 //Employees, ejbare percentage
                 foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
-                {               
+                {
                     foreach (int ColumnIndex in Group.Item2)
                     {
                         TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
@@ -613,33 +686,100 @@ namespace MKproject.Schedule
                     }
                 }
                 PercentageResizeTLPScheduleAndTlpEmp();
+
+                TLPSchedule.Enabled = true;
             }
             else
             {
-                BlockedModeDesign("No Employees Available");
+                TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
+                TLPSchedule.ColumnCount++;
+
             }
         }
         void SetTLPEmployeesColumn()//always called after SetTLPSchGroupColumn 
         {
+
+            ResetTLPEmployeeToInitialState();
+
+            TLPSchedule.Enabled = true;
+
             for (int i = 0; i < ListOfAllColumnIndexesGroups.Count; i++)
             {
+
                 TLPEmployees.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
                 TLPEmployees.ColumnCount++;
 
 
                 LabelEmployee labelEmployee = CreateLabelEmployee();
-                labelEmployee.DesiredEmployee = EmployeeScheduleList[i];
-                labelEmployee.Text = EmployeeScheduleList[i].Fname + " " + EmployeeScheduleList[i].Lname;
+                labelEmployee.DesiredEmployee = ListOfAllColumnIndexesGroups[i].Item1;
+                labelEmployee.Text = ListOfAllColumnIndexesGroups[i].Item1.Fname + " " + ListOfAllColumnIndexesGroups[i].Item1.Lname;
                 TLPEmployees.Controls.Add(labelEmployee, i + 1, 0);//i+1, lieanno first column kermel el time
             }
 
-           
+
+
+
         }
+        void ResetTLPScheduleToInitialState()
+        {
+            TLPSchedule.SuspendLayout();  // Suspend layout to improve performance
+            TLPSchedule.ColumnCount = 1;
+
+            for (int i = TLPSchedule.Controls.Count - 1; i >= 0; i--)
+            {
+                var control = TLPSchedule.Controls[i];
+                if (TLPSchedule.GetColumn(control) != 0)  //kermel eltime label
+                {
+                    TLPSchedule.Controls.Remove(control);
+                }
+            }
+            while (TLPSchedule.ColumnStyles.Count > 1)
+            {
+                TLPSchedule.ColumnStyles.RemoveAt(1);
+            }
+            TLPSchedule.ResumeLayout();
+        }
+        void ResetTLPEmployeeToInitialState()
+        {
+            TLPEmployees.SuspendLayout();  // Suspend layout to improve performance
+            TLPEmployees.ColumnCount = 1;
+
+            for (int i = TLPEmployees.Controls.Count - 1; i >= 0; i--)
+            {
+                var control = TLPEmployees.Controls[i];
+
+                TLPEmployees.Controls.Remove(control);
+
+            }
+            while (TLPEmployees.ColumnStyles.Count > 1)
+            {
+                TLPEmployees.ColumnStyles.RemoveAt(1);
+            }
+            TLPEmployees.ResumeLayout();
+
+        }
+
+        bool IsDesignBlocked;
         void BlockedModeDesign(string OutputText)
         {
-            LabelEmployee labelEmployee = (LabelEmployee)TLPEmployees.GetControlFromPosition(1, 0);//BOOM
+
+            ResetTLPScheduleToInitialState();
+            ResetTLPEmployeeToInitialState();
+
+            //we add only one column in the block design
+            TLPEmployees.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
+            TLPEmployees.ColumnCount++;
+            TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
+            TLPSchedule.ColumnCount++;
+
+            LabelEmployee labelEmployee = CreateLabelEmployee();
             labelEmployee.Text = OutputText;
+
+
+            TLPEmployees.Controls.Add(labelEmployee, 1, 0);//1, lieanno first column kermel el time
+
             TLPSchedule.Enabled = false;
+
         }
 
 
@@ -660,7 +800,7 @@ namespace MKproject.Schedule
 
 
             //TLPAppointment 
-            
+
             int DesiredWidthPerColumn = DesiredWidthOfTheGroup / FocusOnColumnIndexGroup.Item2.Count;
             foreach (int ColumnIndex in FocusOnColumnIndexGroup.Item2)
             {
@@ -716,7 +856,7 @@ namespace MKproject.Schedule
             }
 
         }
-      
+
 
 
 
@@ -823,71 +963,97 @@ namespace MKproject.Schedule
             Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y));
             SetValuesthatWillAffectselection(clientPoint);
         }
+
+
+        bool DragDropIsEntered;
         private void Uc_UCAppIsDroped(object sender, EventArgs e)//kermel eza kabbayneha outside the bounds what to return it mahalla
         {
-            Point cursorPosition = this.PointToClient(Cursor.Position);
-            if (!TLPSchedule.ClientRectangle.Contains(cursorPosition))
+
+            if (!DragDropIsEntered)//which mean we ve started an dragdrop operation but we throw it outside the bound, which mean dragdrop event wont be activated, so we need to reset the values
             {
-                TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);//lezim tekhlaa column aw tsayoo haddo
+                TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
                 ResetSelection();
             }
+            DragDropIsEntered = false;//reset the value
+
         }
         private void TLPSchedule_DragDrop(object sender, DragEventArgs e)
         {
-
+            DragDropIsEntered = true;
             Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y)); // Convert the screen coordinates to client coordinates
             (int ColumnIndex, int RowIndexStart) = GetCellPosition(TLPSchedule, clientPoint);
 
 
-            if (ColumnIndexGroupOfDraggingUC != (null, null))
+            if (ColumnIndexGroupOfDraggingUC != (null, null))//ejbariyye
             {
+                if (RowIndexStart > 0)
+                {
+                    RowIndexStart--;//lieanno deyman aam nhotto fawea bel row matrah ma el cursor, for visual things
+                }
 
-                (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(RowIndexStart, ColumnIndexGroupOfDraggingUC, UCApointmentDraged);
 
                 //adding
-                if (UCApointmentDraged != null && StartingColumn >= 1 && StartingRow >= 0 && CheckIfPositionAvailable(StartingColumn, StartingRow))//first column for the timer
+                if (UCApointmentDraged != null && ColumnIndex >= 1 && RowIndexStart >= 0)//first column for the timer
                 {
-
-                    DragDropBusinessLogic(ColumnIndex, RowIndexStart);
-
-                    //
-
-                    List<UCappointment> NewListUC = GetListOfAllControlsInSpecifiedArea(StartingColumn, EndingColumn, StartingRow, EndingRow);//it  will give the list, without the uc we re adding
-
-                    ClassucAppointmentGrouping grouper2 = new ClassucAppointmentGrouping(TLPSchedule, NewListUC, null);
-                    Dictionary<int, List<UCappointment>> NewgroupedUCsCoverredByTheArea = grouper2.ClassifyGroupsThatAreConnected();
-                    List<UCappointment> AllNewdUCInTheArea = NewgroupedUCsCoverredByTheArea.SelectMany(pair => pair.Value).ToList();
+                    (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(RowIndexStart, ColumnIndexGroupOfDraggingUC, UCApointmentDraged);
 
 
-
-                    //Removing Mode
-                    RemoveUc(OldColumnIndexGroupOfDesiredUC, OldRowOfDraggedUC, AllNewdUCInTheArea, UCApointmentDraged);//mafina abel el add, lieanno ma32oul yse2ib bel old area, ykun intesects maa el ucapp li aam yonhatt in its new position
-                                                                                                                        //so when we call el remove, we need to make ykun sure enno el appointment baaed ma nhatt, yaane ma aayetna baeed lal AddUc
+                    if (CheckIfPositionAvailable(StartingColumn, StartingRow))
+                    {
 
 
-                    AddUc(ColumnIndexGroupOfDraggingUC, RowIndexStart, UCApointmentDraged);
+                        DragDropBusinessLogic(ColumnIndex, RowIndexStart);
 
-                    CheckIfLastColumnsShouldBeRemoved(OldColumnIndexGroupOfDesiredUC);  //ejbare men baeed el add in drag drop cases, Read why 
+                        //
 
-                    UCApointmentDraged.Dock = DockStyle.Fill;
-                    UCApointmentDraged.isDragging = false;
-                    UCApointmentDraged.Show();
-                    UCApointmentDraged = null;
+                        List<UCappointment> NewListUC = GetListOfAllControlsInSpecifiedArea(StartingColumn, EndingColumn, StartingRow, EndingRow);//it  will give the list, without the uc we re adding
 
-                    ResetSelection();
+                        ClassucAppointmentGrouping grouper2 = new ClassucAppointmentGrouping(TLPSchedule, NewListUC, null);
+                        Dictionary<int, List<UCappointment>> NewgroupedUCsCoverredByTheArea = grouper2.ClassifyGroupsThatAreConnected();
+                        List<UCappointment> AllNewdUCInTheArea = NewgroupedUCsCoverredByTheArea.SelectMany(pair => pair.Value).ToList();
 
+
+
+                        //Removing Mode
+                        RemoveUc(OldColumnIndexGroupOfDesiredUC, OldRowOfDraggedUC, AllNewdUCInTheArea, UCApointmentDraged);//mafina abel el add, lieanno ma32oul yse2ib bel old area, ykun intesects maa el ucapp li aam yonhatt in its new position
+                                                                                                                            //so when we call el remove, we need to make ykun sure enno el appointment baaed ma nhatt, yaane ma aayetna baeed lal AddUc
+
+
+                        AddUc(ColumnIndexGroupOfDraggingUC, RowIndexStart, UCApointmentDraged);
+
+                        CheckIfLastColumnsShouldBeRemoved(OldColumnIndexGroupOfDesiredUC);  //ejbare men baeed el add in drag drop cases, Read why 
+
+                        UCApointmentDraged.Dock = DockStyle.Fill;
+                        UCApointmentDraged.isDragging = false;
+                        UCApointmentDraged.Show();
+                        UCApointmentDraged = null;
+
+                        ResetSelection();
+                    }
+                    else
+                    {
+
+                        NotificationBanner.Show("Time Not Available!", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+
+                    }
                 }
                 else
                 {
-                    TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
-                    ResetSelection();
+                    if (UCApointmentDraged != null)
+                    {
+                        TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
+                        ResetSelection();
+                    }
                 }
 
             }
             else
             {
-                TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
-                ResetSelection();
+                if (UCApointmentDraged != null)
+                {
+                    TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
+                    ResetSelection();
+                }
             }
             //TouchscrollPanelUCDay.AssignEventPanelUCDay(TLPSchedule);
 
@@ -901,12 +1067,15 @@ namespace MKproject.Schedule
         void DragDropBusinessLogic(int NewColumnIndex, int NewRowIndexStart)//Test
         {
 
-            int NewRowIndexEnd = NewRowIndexStart + TLPSchedule.GetRowSpan(UCApointmentDraged) - 1;
+            int NewRowIndexEnd = NewRowIndexStart + TLPSchedule.GetRowSpan(UCApointmentDraged);
 
-            int OldPositionrowStart = UCApointmentDraged.RowIndexStart;
-            int OldPositioncol = UCApointmentDraged.ColumnIndex;
+            int OldRowIndexStart = UCApointmentDraged.RowIndexStart;
 
-            if (UCApointmentDraged != null && (NewColumnIndex != OldPositioncol || NewRowIndexStart != OldPositionrowStart))
+            int OldCollumnsIndex = UCApointmentDraged.ColumnIndex;
+
+
+
+            if (UCApointmentDraged != null && (GetWhichEmployeeForSpecifieColumn(NewColumnIndex).EmployeeId != GetWhichEmployeeForSpecifieColumn(OldCollumnsIndex).EmployeeId || NewRowIndexStart != OldRowIndexStart))
             {
 
                 UCApointmentDraged.RowIndexStart = NewRowIndexStart;
@@ -935,10 +1104,7 @@ namespace MKproject.Schedule
                 UCApointmentDraged.SetUCDesign();
                 UCApointmentDraged.DragAndDropOperationDone();
             }
-            else
-            {
-                NotificationBanner.Show("Time Not Available!", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
-            }
+
 
 
         }
@@ -949,7 +1115,6 @@ namespace MKproject.Schedule
         void AddUc((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int NewRow, UCappointment DesiredUCApp)//eza from drag:DesiredGroupOfUC=GroupOfDraggingUC , eza by code:DesiredGroupOfUC=Shi nehna ha nebaato hasab wen aam naamil add or undo
         {
 
-            Cursor = Cursors.WaitCursor;
 
             (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(NewRow, DesiredColumnIndexesGroup, DesiredUCApp);
             List<UCappointment> NewListUC = GetListOfAllControlsInSpecifiedArea(StartingColumn, EndingColumn, StartingRow, EndingRow);//it  will give the list, without the uc we re adding
@@ -964,6 +1129,11 @@ namespace MKproject.Schedule
             bool IsUCAppScheduled;
 
             IsUCAppScheduled = FittingUCIfPlaceExist(DesiredUCApp, StartingColumn, EndingColumn, StartingRow, EndingRow);
+
+            if (UCApointmentDraged != null)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+            }
 
             if (!IsUCAppScheduled)//eza ma l2ina empty space men el asel, mnekhlaela mahal, ya men zabbit el spans w men saye3a, if not we create a new column 
             {
@@ -1049,7 +1219,7 @@ namespace MKproject.Schedule
                     //Insert
                     int ColumnToInsert = DesiredColumnIndexesGroup.Item2[DesiredColumnIndexesGroup.Item2.Count() - 1] + 1;
                     InsertColumn(ColumnToInsert);
-                    (StartingColumn, EndingColumn, StartingRow, EndingRow) = GetRectangle4Points(NewRow, DesiredColumnIndexesGroup, DesiredUCApp);
+                    (StartingColumn, EndingColumn, StartingRow, EndingRow) = GetRectangle4Points(NewRow, DesiredColumnIndexesGroup, DesiredUCApp);//aam nerjaa naamela lieano new column is added,EndingColumn will change
                     FittingUCIfPlaceExist(DesiredUCApp, StartingColumn, EndingColumn, StartingRow, EndingRow);
 
 
@@ -1097,10 +1267,12 @@ namespace MKproject.Schedule
                 }
             }
 
-          
 
 
-            Cursor = Cursors.Default;
+            if (UCApointmentDraged != null)
+            {
+                Cursor.Current = Cursors.Default;
+            }
 
         }
         void CheckIfLastColumnsShouldBeRemoved((ClassEmployee, List<int>) DesiredColumnIndexesGroup)//in case of dragrdrop, and we re removing and adding the same column ,ejbare men baeed el add, lieanno eza ken in the Same column shelnha men matrah w hattayna matrah tene (hayda el uc li aam aam yaamil insert la new column, huwwe zeit baddo yemnaa hayde el column ma tenmehe bhal code, lieanno ha ykun eendo latest index)
@@ -1621,7 +1793,26 @@ namespace MKproject.Schedule
 
 
 
+        private readonly Brush CellTextBrush = new SolidBrush(Color.Blue);
+        private readonly Font CellTextFont = new Font("Arial", 9, FontStyle.Regular);
+        private void DrawTextOnCell(Graphics g, Rectangle cellBounds, int rowIndex)
+        {
 
+            // Assuming GetTimeFromRow is a method that returns a TimeSpan for the given row
+            DateTime dateTime = DateTime.Today.Add(GetTimeFromRow(rowIndex));
+            string textToDraw = dateTime.ToString("hh:mm tt");
+
+            // Define the format for the text
+            using (StringFormat sf = new StringFormat())
+            {
+                sf.Alignment = StringAlignment.Near; // Horizontal alignment
+                sf.LineAlignment = StringAlignment.Center; // Vertical alignment
+
+
+                g.DrawString(textToDraw, CellTextFont, CellTextBrush, cellBounds, sf);
+
+            }
+        }
 
         private void TLPSchedule_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
@@ -1656,52 +1847,28 @@ namespace MKproject.Schedule
 
                     g.FillRectangle(hoverBrush, r);
 
+
+                    //drwaing the text only
                     if (e.Row == hoveredCellColmnRow.Item2 && e.Column == ColumnIndexGroupOfDraggingUC.Item2[0])
                     {
-
-                        string textToDraw = "12:00 am";
-
-                        // Define the format for the text
-                        using (StringFormat sf = new StringFormat())
-                        {
-                            sf.Alignment = StringAlignment.Near; // Horizontal alignment
-                            sf.LineAlignment = StringAlignment.Center; // Vertical alignment
-
-                            // Define the brush and font for the text
-                            using (Brush textBrush = new SolidBrush(Color.Blue))
-                            using (Font textFont = new Font("Arial", 9, FontStyle.Regular))
-                            {
-                                g.DrawString(textToDraw, textFont, textBrush, r, sf);
-                            }
-                        }
+                        DrawTextOnCell(g, r, e.Row);
                     }
                 }
             }
             else
             {
-                if ((e.Row >= hoveredCellColmnRow.Item2 && e.Row <= (hoveredCellColmnRow.Item2 + NbrRowShouldPass)) && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
+                if ((e.Row >= hoveredCellColmnRow.Item2 - 1 && e.Row <= (hoveredCellColmnRow.Item2 + NbrRowShouldPass - 1)) && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
                 {
 
                     g.FillRectangle(hoverBrush, r);
 
-                    if (e.Row == hoveredCellColmnRow.Item2 && e.Column == ColumnIndexGroupOfDraggingUC.Item2[0])
+                    if (e.Row == hoveredCellColmnRow.Item2 - 1 && e.Column == ColumnIndexGroupOfDraggingUC.Item2[0])
                     {
 
-                        string textToDraw = "12:00 am";
+                        // Draw text on the specified cell
+                        DrawTextOnCell(g, r, e.Row);
 
-                        // Define the format for the text
-                        using (StringFormat sf = new StringFormat())
-                        {
-                            sf.Alignment = StringAlignment.Near; // Horizontal alignment
-                            sf.LineAlignment = StringAlignment.Center; // Vertical alignment
 
-                            // Define the brush and font for the text
-                            using (Brush textBrush = new SolidBrush(Color.Blue))
-                            using (Font textFont = new Font("Arial", 9, FontStyle.Regular))
-                            {
-                                g.DrawString(textToDraw, textFont, textBrush, r, sf);
-                            }
-                        }
                     }
 
                 }
@@ -1762,9 +1929,7 @@ namespace MKproject.Schedule
 
             if (cellPos != hoveredCellColmnRow)
             {
-
-                //set whichcolumn and row we are
-                hoveredCellColmnRow = cellPos;
+                hoveredCellColmnRow = cellPos; //set whichcolumn and row we are
 
                 //Set which employee we re in
                 int WhichEmployee = 0;
@@ -1780,7 +1945,7 @@ namespace MKproject.Schedule
 
 
                 TLPSchedule.Invalidate();
-                //InvalidateSpecificCells(); // Causes the control to be redrawn
+
             }
         }
         private (int, int) GetCellPosition(TableLayoutPanel panel, Point location)
@@ -1824,11 +1989,11 @@ namespace MKproject.Schedule
         {
             hoveredCellColmnRow = (-1, -1);
             ColumnIndexGroupOfDraggingUC = (null, null);
+            UCApointmentDraged = null;
             Cursor.Current = Cursors.Default; // Reset the cursor to the default
             TLPSchedule.Invalidate();
         }
 
-
-
+       
     }
 }

@@ -615,8 +615,8 @@ namespace MKproject.Management
             pictureBoxSearch.Select();//hone mahalla ejbare, kermel ma tfout aal search
             DataView sortedView = Filtereddt.DefaultView;
             sortedView.Sort = "last_time_searched  DESC ";
-            Originaldt = sortedView.ToTable(); // Reassigning dt here, which should still work
-            DataTableToDatagrid(Originaldt);
+            Filtereddt = sortedView.ToTable(); // Reassigning dt here, which should still work
+            DataTableToDatagrid(Filtereddt);
             buttonResetOrder.Visible = false;
 
         }
