@@ -542,15 +542,45 @@ namespace MKproject.Schedule
         {
             LoadForm(DateTime.Now);
         }
+        private void labelDate_Click(object sender, EventArgs e)
+        {
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, Color.Transparent);
+            Program.GreyForm.Show();
+            //UCmonth show
+            Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(-6, 25);
+            ParentFormSchedule.ucmonths.Location = locationRelativeToScreen;
+            ParentFormSchedule.ucmonths.Show();
 
 
-        
+            //Showing the ucmonth from the calanderday in the date that we are
+            ParentFormSchedule.ucmonths.DateUCMonth = SelectedDate;
+            if (ParentFormSchedule.ucmonths.wichuccalander == 2)
+            {
+                ParentFormSchedule.ucmonths.wichuccalander = 1;
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalandermonth);
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
+            }
+            else if (ParentFormSchedule.ucmonths.wichuccalander == 3)
+            {
+                ParentFormSchedule.ucmonths.wichuccalander = 1;
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalanderyear);
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
+
+            }
+
+            ParentFormSchedule.ucmonths.EditLabelUCdays();
+        }
 
 
 
-   
-       /////////these are for the values of the uc while drag/drop operation
-      
+
+
+
+
+
+        /////////these are for the values of the uc while drag/drop operation
+
         (ClassEmployee, List<int>) OldColumnIndexGroupOfDesiredUC;
         int OldColumnofDraggedUC;//old column is the exact column li ken aalaya el uc
         int OldRowOfDraggedUC;
@@ -1994,6 +2024,13 @@ namespace MKproject.Schedule
             TLPSchedule.Invalidate();
         }
 
-       
+        private void labelDate_MouseMove(object sender, MouseEventArgs e)
+        {
+            labelDate.ForeColor = Color.Blue;
+        }
+        private void labelDate_MouseLeave(object sender, EventArgs e)
+        {
+            labelDate.ForeColor = Color.Black;
+        }
     }
 }

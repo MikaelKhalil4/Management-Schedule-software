@@ -177,6 +177,9 @@
             labelDate.TabIndex = 60;
             labelDate.Text = "Day,00 Week,Year";
             labelDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelDate.Click += labelDate_Click;
+            labelDate.MouseLeave += labelDate_MouseLeave;
+            labelDate.MouseMove += labelDate_MouseMove;
             // 
             // DownArrow
             // 
@@ -190,6 +193,7 @@
             DownArrow.Size = new System.Drawing.Size(27, 22);
             DownArrow.TabIndex = 61;
             DownArrow.TabStop = false;
+            DownArrow.Click += labelDate_Click;
             // 
             // buttonPrevious
             // 
