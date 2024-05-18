@@ -30,8 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScheduleForm));
             tableLayoutPanelForm = new System.Windows.Forms.TableLayoutPanel();
-            tableLayoutPanelSide = new System.Windows.Forms.TableLayoutPanel();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
+            TLPSide = new System.Windows.Forms.TableLayoutPanel();
             labelFilter = new System.Windows.Forms.Label();
             checkBoxCancel = new System.Windows.Forms.CheckBox();
             checkBoxComplete = new System.Windows.Forms.CheckBox();
@@ -41,11 +40,18 @@
             buttonAllReminder = new System.Windows.Forms.Button();
             AddButton = new System.Windows.Forms.PictureBox();
             panelreminder = new System.Windows.Forms.Panel();
+            tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanelDoubleBufferedNoscroll();
+            buttonToday = new System.Windows.Forms.Button();
+            flowLayoutPanelDoubleBufferedcs1 = new System.Windows.Forms.FlowLayoutPanel();
+            labelDate = new System.Windows.Forms.Label();
+            DownArrow = new System.Windows.Forms.PictureBox();
             tableLayoutPanelForm.SuspendLayout();
-            tableLayoutPanelSide.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            TLPSide.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddButton).BeginInit();
+            tableLayoutPanelDoubleBufferedNoscroll1.SuspendLayout();
+            flowLayoutPanelDoubleBufferedcs1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DownArrow).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanelForm
@@ -53,86 +59,73 @@
             tableLayoutPanelForm.BackColor = System.Drawing.Color.WhiteSmoke;
             tableLayoutPanelForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             tableLayoutPanelForm.ColumnCount = 2;
-            tableLayoutPanelForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.07407F));
-            tableLayoutPanelForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.92593F));
-            tableLayoutPanelForm.Controls.Add(tableLayoutPanelSide, 0, 0);
+            tableLayoutPanelForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 208F));
+            tableLayoutPanelForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanelForm.Controls.Add(TLPSide, 0, 0);
             tableLayoutPanelForm.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanelForm.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             tableLayoutPanelForm.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanelForm.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanelForm.Name = "tableLayoutPanelForm";
             tableLayoutPanelForm.RowCount = 1;
-            tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 715F));
             tableLayoutPanelForm.Size = new System.Drawing.Size(1485, 791);
             tableLayoutPanelForm.TabIndex = 0;
             // 
-            // tableLayoutPanelSide
+            // TLPSide
             // 
-            tableLayoutPanelSide.BackColor = System.Drawing.Color.White;
-            tableLayoutPanelSide.ColumnCount = 4;
-            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.73375F));
-            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0803757F));
-            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.05948F));
-            tableLayoutPanelSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.1263943F));
-            tableLayoutPanelSide.Controls.Add(pictureBox1, 3, 0);
-            tableLayoutPanelSide.Controls.Add(labelFilter, 0, 0);
-            tableLayoutPanelSide.Controls.Add(checkBoxCancel, 0, 3);
-            tableLayoutPanelSide.Controls.Add(checkBoxComplete, 0, 2);
-            tableLayoutPanelSide.Controls.Add(checkBoxOnPending, 0, 1);
-            tableLayoutPanelSide.Controls.Add(pictureBox2, 0, 4);
-            tableLayoutPanelSide.Controls.Add(label1, 1, 4);
-            tableLayoutPanelSide.Controls.Add(buttonAllReminder, 2, 4);
-            tableLayoutPanelSide.Controls.Add(AddButton, 3, 4);
-            tableLayoutPanelSide.Controls.Add(panelreminder, 0, 5);
-            tableLayoutPanelSide.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanelSide.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanelSide.Margin = new System.Windows.Forms.Padding(0);
-            tableLayoutPanelSide.Name = "tableLayoutPanelSide";
-            tableLayoutPanelSide.RowCount = 6;
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.66318941F));
-            tableLayoutPanelSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.33681F));
-            tableLayoutPanelSide.Size = new System.Drawing.Size(268, 791);
-            tableLayoutPanelSide.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
-            pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
-            pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            pictureBox1.Location = new System.Drawing.Point(229, 0);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(39, 30);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            TLPSide.BackColor = System.Drawing.Color.White;
+            TLPSide.ColumnCount = 4;
+            TLPSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.73375F));
+            TLPSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
+            TLPSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.1730766F));
+            TLPSide.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.1263943F));
+            TLPSide.Controls.Add(labelFilter, 0, 0);
+            TLPSide.Controls.Add(checkBoxCancel, 0, 3);
+            TLPSide.Controls.Add(checkBoxComplete, 0, 2);
+            TLPSide.Controls.Add(checkBoxOnPending, 0, 1);
+            TLPSide.Controls.Add(pictureBox2, 0, 4);
+            TLPSide.Controls.Add(label1, 1, 4);
+            TLPSide.Controls.Add(buttonAllReminder, 2, 4);
+            TLPSide.Controls.Add(AddButton, 3, 4);
+            TLPSide.Controls.Add(panelreminder, 0, 5);
+            TLPSide.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPSide.Location = new System.Drawing.Point(0, 0);
+            TLPSide.Margin = new System.Windows.Forms.Padding(0);
+            TLPSide.Name = "TLPSide";
+            TLPSide.RowCount = 6;
+            TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPSide.Size = new System.Drawing.Size(208, 791);
+            TLPSide.TabIndex = 1;
             // 
             // labelFilter
             // 
             labelFilter.AutoSize = true;
-            labelFilter.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
-            tableLayoutPanelSide.SetColumnSpan(labelFilter, 3);
+            labelFilter.BackColor = System.Drawing.Color.White;
+            TLPSide.SetColumnSpan(labelFilter, 4);
             labelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             labelFilter.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelFilter.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            labelFilter.ForeColor = System.Drawing.Color.Black;
             labelFilter.Location = new System.Drawing.Point(0, 0);
             labelFilter.Margin = new System.Windows.Forms.Padding(0);
             labelFilter.Name = "labelFilter";
-            labelFilter.Size = new System.Drawing.Size(229, 30);
+            labelFilter.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
+            labelFilter.Size = new System.Drawing.Size(208, 30);
             labelFilter.TabIndex = 0;
-            labelFilter.Text = "Filter";
-            labelFilter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelFilter.Text = "Filters:";
+            labelFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // checkBoxCancel
             // 
             checkBoxCancel.BackColor = System.Drawing.Color.White;
             checkBoxCancel.Checked = true;
             checkBoxCancel.CheckState = System.Windows.Forms.CheckState.Checked;
-            tableLayoutPanelSide.SetColumnSpan(checkBoxCancel, 2);
+            TLPSide.SetColumnSpan(checkBoxCancel, 2);
             checkBoxCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             checkBoxCancel.Dock = System.Windows.Forms.DockStyle.Fill;
             checkBoxCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -140,11 +133,10 @@
             checkBoxCancel.Location = new System.Drawing.Point(10, 93);
             checkBoxCancel.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             checkBoxCancel.Name = "checkBoxCancel";
-            checkBoxCancel.Size = new System.Drawing.Size(120, 24);
+            checkBoxCancel.Size = new System.Drawing.Size(95, 24);
             checkBoxCancel.TabIndex = 0;
             checkBoxCancel.Text = "Canceled";
             checkBoxCancel.UseVisualStyleBackColor = false;
-            checkBoxCancel.CheckedChanged += checkBoxCancel_CheckedChanged;
             // 
             // checkBoxComplete
             // 
@@ -152,7 +144,7 @@
             checkBoxComplete.BackColor = System.Drawing.Color.White;
             checkBoxComplete.Checked = true;
             checkBoxComplete.CheckState = System.Windows.Forms.CheckState.Checked;
-            tableLayoutPanelSide.SetColumnSpan(checkBoxComplete, 2);
+            TLPSide.SetColumnSpan(checkBoxComplete, 2);
             checkBoxComplete.Cursor = System.Windows.Forms.Cursors.Hand;
             checkBoxComplete.Dock = System.Windows.Forms.DockStyle.Fill;
             checkBoxComplete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(128, 255, 128);
@@ -161,11 +153,10 @@
             checkBoxComplete.Location = new System.Drawing.Point(10, 63);
             checkBoxComplete.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             checkBoxComplete.Name = "checkBoxComplete";
-            checkBoxComplete.Size = new System.Drawing.Size(120, 24);
+            checkBoxComplete.Size = new System.Drawing.Size(95, 24);
             checkBoxComplete.TabIndex = 0;
             checkBoxComplete.Text = "Completed";
             checkBoxComplete.UseVisualStyleBackColor = false;
-            checkBoxComplete.CheckedChanged += checkBoxComplete_CheckedChanged;
             // 
             // checkBoxOnPending
             // 
@@ -173,7 +164,7 @@
             checkBoxOnPending.BackColor = System.Drawing.Color.White;
             checkBoxOnPending.Checked = true;
             checkBoxOnPending.CheckState = System.Windows.Forms.CheckState.Checked;
-            tableLayoutPanelSide.SetColumnSpan(checkBoxOnPending, 2);
+            TLPSide.SetColumnSpan(checkBoxOnPending, 2);
             checkBoxOnPending.Cursor = System.Windows.Forms.Cursors.Hand;
             checkBoxOnPending.Dock = System.Windows.Forms.DockStyle.Fill;
             checkBoxOnPending.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -181,11 +172,10 @@
             checkBoxOnPending.Location = new System.Drawing.Point(10, 33);
             checkBoxOnPending.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             checkBoxOnPending.Name = "checkBoxOnPending";
-            checkBoxOnPending.Size = new System.Drawing.Size(120, 24);
+            checkBoxOnPending.Size = new System.Drawing.Size(95, 24);
             checkBoxOnPending.TabIndex = 0;
             checkBoxOnPending.Text = "Onpending";
             checkBoxOnPending.UseVisualStyleBackColor = false;
-            checkBoxOnPending.CheckedChanged += checkBoxOnPending_CheckedChanged;
             // 
             // pictureBox2
             // 
@@ -193,10 +183,10 @@
             pictureBox2.BackColor = System.Drawing.Color.Transparent;
             pictureBox2.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pictureBox2.Location = new System.Drawing.Point(8, 130);
+            pictureBox2.Location = new System.Drawing.Point(2, 125);
             pictureBox2.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new System.Drawing.Size(22, 23);
+            pictureBox2.Size = new System.Drawing.Size(25, 34);
             pictureBox2.TabIndex = 64;
             pictureBox2.TabStop = false;
             // 
@@ -207,7 +197,7 @@
             label1.BackColor = System.Drawing.Color.Transparent;
             label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            label1.Location = new System.Drawing.Point(51, 130);
+            label1.Location = new System.Drawing.Point(34, 131);
             label1.Margin = new System.Windows.Forms.Padding(0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(70, 17);
@@ -224,7 +214,7 @@
             buttonAllReminder.FlatAppearance.BorderSize = 0;
             buttonAllReminder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAllReminder.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            buttonAllReminder.Location = new System.Drawing.Point(162, 126);
+            buttonAllReminder.Location = new System.Drawing.Point(123, 127);
             buttonAllReminder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonAllReminder.Name = "buttonAllReminder";
             buttonAllReminder.Size = new System.Drawing.Size(38, 25);
@@ -239,10 +229,10 @@
             AddButton.BackgroundImage = (System.Drawing.Image)resources.GetObject("AddButton.BackgroundImage");
             AddButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             AddButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            AddButton.Location = new System.Drawing.Point(233, 128);
+            AddButton.Location = new System.Drawing.Point(177, 127);
             AddButton.Margin = new System.Windows.Forms.Padding(0);
             AddButton.Name = "AddButton";
-            AddButton.Size = new System.Drawing.Size(30, 22);
+            AddButton.Size = new System.Drawing.Size(30, 25);
             AddButton.TabIndex = 66;
             AddButton.TabStop = false;
             AddButton.Click += AddButton_Click;
@@ -251,14 +241,86 @@
             // 
             panelreminder.AutoScroll = true;
             panelreminder.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
-            tableLayoutPanelSide.SetColumnSpan(panelreminder, 4);
+            TLPSide.SetColumnSpan(panelreminder, 4);
             panelreminder.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelreminder.Location = new System.Drawing.Point(4, 161);
-            panelreminder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelreminder.Location = new System.Drawing.Point(0, 159);
+            panelreminder.Margin = new System.Windows.Forms.Padding(0);
             panelreminder.Name = "panelreminder";
             panelreminder.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            panelreminder.Size = new System.Drawing.Size(260, 627);
+            panelreminder.Size = new System.Drawing.Size(208, 632);
             panelreminder.TabIndex = 0;
+            // 
+            // tableLayoutPanelDoubleBufferedNoscroll1
+            // 
+            tableLayoutPanelDoubleBufferedNoscroll1.ColumnCount = 5;
+            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 218F));
+            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(buttonToday, 0, 0);
+            tableLayoutPanelDoubleBufferedNoscroll1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanelDoubleBufferedNoscroll1.Name = "tableLayoutPanelDoubleBufferedNoscroll1";
+            tableLayoutPanelDoubleBufferedNoscroll1.RowCount = 1;
+            tableLayoutPanelDoubleBufferedNoscroll1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanelDoubleBufferedNoscroll1.Size = new System.Drawing.Size(200, 100);
+            tableLayoutPanelDoubleBufferedNoscroll1.TabIndex = 0;
+            // 
+            // buttonToday
+            // 
+            buttonToday.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonToday.BackColor = System.Drawing.Color.WhiteSmoke;
+            buttonToday.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonToday.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            buttonToday.FlatAppearance.BorderSize = 0;
+            buttonToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonToday.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            buttonToday.Location = new System.Drawing.Point(10, 37);
+            buttonToday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonToday.Name = "buttonToday";
+            buttonToday.Size = new System.Drawing.Size(97, 25);
+            buttonToday.TabIndex = 69;
+            buttonToday.Text = "Today";
+            buttonToday.UseVisualStyleBackColor = false;
+            // 
+            // flowLayoutPanelDoubleBufferedcs1
+            // 
+            flowLayoutPanelDoubleBufferedcs1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            flowLayoutPanelDoubleBufferedcs1.Controls.Add(labelDate);
+            flowLayoutPanelDoubleBufferedcs1.Controls.Add(DownArrow);
+            flowLayoutPanelDoubleBufferedcs1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            flowLayoutPanelDoubleBufferedcs1.Location = new System.Drawing.Point(194, 37);
+            flowLayoutPanelDoubleBufferedcs1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanelDoubleBufferedcs1.Name = "flowLayoutPanelDoubleBufferedcs1";
+            flowLayoutPanelDoubleBufferedcs1.Size = new System.Drawing.Size(204, 25);
+            flowLayoutPanelDoubleBufferedcs1.TabIndex = 0;
+            // 
+            // labelDate
+            // 
+            labelDate.AutoSize = true;
+            labelDate.Cursor = System.Windows.Forms.Cursors.Hand;
+            labelDate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelDate.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            labelDate.Location = new System.Drawing.Point(4, 3);
+            labelDate.Margin = new System.Windows.Forms.Padding(4, 3, 0, 0);
+            labelDate.Name = "labelDate";
+            labelDate.Size = new System.Drawing.Size(118, 17);
+            labelDate.TabIndex = 60;
+            labelDate.Text = "Day,00 Week,Year";
+            labelDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // DownArrow
+            // 
+            DownArrow.BackgroundImage = (System.Drawing.Image)resources.GetObject("DownArrow.BackgroundImage");
+            DownArrow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            DownArrow.Cursor = System.Windows.Forms.Cursors.Hand;
+            DownArrow.Image = (System.Drawing.Image)resources.GetObject("DownArrow.Image");
+            DownArrow.Location = new System.Drawing.Point(122, 0);
+            DownArrow.Margin = new System.Windows.Forms.Padding(0);
+            DownArrow.Name = "DownArrow";
+            DownArrow.Size = new System.Drawing.Size(27, 22);
+            DownArrow.TabIndex = 61;
+            DownArrow.TabStop = false;
             // 
             // ScheduleForm
             // 
@@ -272,27 +334,34 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Form1";
             tableLayoutPanelForm.ResumeLayout(false);
-            tableLayoutPanelSide.ResumeLayout(false);
-            tableLayoutPanelSide.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            TLPSide.ResumeLayout(false);
+            TLPSide.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)AddButton).EndInit();
+            tableLayoutPanelDoubleBufferedNoscroll1.ResumeLayout(false);
+            flowLayoutPanelDoubleBufferedcs1.ResumeLayout(false);
+            flowLayoutPanelDoubleBufferedcs1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DownArrow).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSide;
+        public System.Windows.Forms.TableLayoutPanel tableLayoutPanelForm;
+        private System.Windows.Forms.TableLayoutPanel TLPSide;
+        private System.Windows.Forms.Label labelFilter;
+        public System.Windows.Forms.CheckBox checkBoxCancel;
+        public System.Windows.Forms.CheckBox checkBoxComplete;
+        public System.Windows.Forms.CheckBox checkBoxOnPending;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TableLayoutPanel tableLayoutPanelForm;
         private System.Windows.Forms.Button buttonAllReminder;
-        public System.Windows.Forms.CheckBox checkBoxOnPending;
-        public System.Windows.Forms.CheckBox checkBoxComplete;
-        public System.Windows.Forms.CheckBox checkBoxCancel;
-        public System.Windows.Forms.Panel panelreminder;
         private System.Windows.Forms.PictureBox AddButton;
-        private System.Windows.Forms.Label labelFilter;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.Panel panelreminder;
+        private TableLayoutPanelDoubleBufferedNoscroll tableLayoutPanelDoubleBufferedNoscroll1;
+        private System.Windows.Forms.Button buttonToday;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelDoubleBufferedcs1;
+        private System.Windows.Forms.Label labelDate;
+        private System.Windows.Forms.PictureBox DownArrow;
     }
 }
 

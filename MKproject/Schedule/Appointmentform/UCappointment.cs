@@ -31,7 +31,7 @@ namespace MKproject.Schedule
         //VARIABLE
         public UCSchedule UcScheduleParentForm { get; set; }
         public static int OriginalWidth = 230;
-        public static int OriginalHeiht = 82;
+        public static int OriginalHeiht = 75;
         private Point initialMouseDownPoint;
         public bool isDragging = false;
 
@@ -535,23 +535,26 @@ namespace MKproject.Schedule
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
 
-            TLPGlobal.BackColor = Color.FromArgb(249, 246, 254);
+            TLPGlobal.BackColor = Color.WhiteSmoke;
 
-
-            if (!isDragging && e.Button == MouseButtons.Left)
+            if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//onlty present or future
             {
-                if (Math.Abs(e.X - initialMouseDownPoint.X) > SystemInformation.DoubleClickSize.Width ||
-                    Math.Abs(e.Y - initialMouseDownPoint.Y) > SystemInformation.DoubleClickSize.Height)
+
+                if (!isDragging && e.Button == MouseButtons.Left)
                 {
-                    isDragging = true; // Set the dragging flag
+                    if (Math.Abs(e.X - initialMouseDownPoint.X) > SystemInformation.DoubleClickSize.Width ||
+                        Math.Abs(e.Y - initialMouseDownPoint.Y) > SystemInformation.DoubleClickSize.Height)
+                    {
+                        isDragging = true; // Set the dragging flag
 
-                    Bitmap controlImage = CaptureControlImage(this); // Capture the image of the control
-                    customCursor = CreateCursorFromImage(controlImage); // Create a cursor
+                        Bitmap controlImage = CaptureControlImage(this); // Capture the image of the control
+                        customCursor = CreateCursorFromImage(controlImage); // Create a cursor
 
 
-                    DoDragDrop(this, DragDropEffects.Move);
-                    UCAppIsDroped?.Invoke(null, EventArgs.Empty);
-                    Cursor.Current = customCursor; // Set custom cursor during drag
+                        DoDragDrop(this, DragDropEffects.Move);
+                        UCAppIsDroped?.Invoke(null, EventArgs.Empty);
+                        Cursor.Current = customCursor; // Set custom cursor during drag
+                    }
                 }
             }
         }
