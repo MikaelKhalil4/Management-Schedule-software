@@ -1,6 +1,6 @@
 ﻿namespace MKproject.Schedule
 {
-    partial class UCMonth
+    partial class CalanderForm
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCMonth));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalanderForm));
             buttonPrevious = new System.Windows.Forms.Button();
             labelTitleDay = new System.Windows.Forms.Label();
             buttonNext = new System.Windows.Forms.Button();

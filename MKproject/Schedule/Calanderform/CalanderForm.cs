@@ -8,14 +8,14 @@ using GlobalFunctions;
 
 namespace MKproject.Schedule
 {
-    public partial class UCMonth : Form
+    public partial class CalanderForm : Form
     {
         //PROPERTIES:
-        public DateTime DateUCMonth { get; set; }// kel shi get,te3dil ha2i2e mnstaeemil DateUCMonth
+        public DateTime DateCalander { get; set; }// kel shi get,te3dil ha2i2e mnstaeemil DateUCMonth
 
         //VARIABLES:
         DateTime date; int month, year, days; string monthname;//just copies
-        public ScheduleForm schedule; public UCSchedule ucday; public UCCalanderday uccalanderday; public UCCalandermonth uccalandermonth; public UCCalanderyear uccalanderyear;
+        public ScheduleForm scheduleForm; public DateTime SelectedDate; public UCCalanderday uccalanderday; public UCCalandermonth uccalandermonth; public UCCalanderyear uccalanderyear;
         public UCDays ucdayOfDateUCDay; public UCDays ucdayOfToday; public LabelMonth labelmonthcopy; public LabelYear labelyearcopy;//for their borders
 
         public int wichuccalander;//1:uccalanderday  2:uccalandermonth  3:uccalanderyear
@@ -26,17 +26,17 @@ namespace MKproject.Schedule
 
         //INITIALISE:
         ///-CONSTRUCTOR
-        public UCMonth(ScheduleForm form, UCSchedule form1)
+        public CalanderForm(ScheduleForm form, DateTime selecteddate)//We Cam Give Hime the date immediatly
         {
             InitializeComponent();
             this.Opacity = 0;
 
-            schedule = form;
-            ucday = form1;
+            scheduleForm = form;
+            SelectedDate = selecteddate;
 
-            DateUCMonth = DateTime.Now;
+            DateCalander = DateTime.Now;
 
-            uccalanderday = new UCCalanderday(schedule, this, ucday);
+            uccalanderday = new UCCalanderday(scheduleForm, this);
             uccalandermonth = new UCCalandermonth(this);
             uccalanderyear = new UCCalanderyear(this);
 
@@ -62,28 +62,28 @@ namespace MKproject.Schedule
             //manna nshouf bi aya uc nehna kermel nshouf shou manna n3adil
             if (wichuccalander == 1)
             {
-                if (DateUCMonth.Month != 12)//hone baeed ma eemil next year ella eza sar december sar fi year++
+                if (DateCalander.Month != 12)//hone baeed ma eemil next year ella eza sar december sar fi year++
                 {
-                    DateUCMonth = new DateTime(DateUCMonth.Year, DateUCMonth.Month + 1, 1);
+                    DateCalander = new DateTime(DateCalander.Year, DateCalander.Month + 1, 1);
                     EditLabelUCdays();//aa hal kabse bi koun akid deja eemlo display
                 }
                 else
                 {
-                    DateUCMonth = new DateTime(DateUCMonth.Year + 1, 1, 1);
+                    DateCalander = new DateTime(DateCalander.Year + 1, 1, 1);
                     EditLabelUCdays();//aa hal kabse bi koun akid deja eemlo display
 
                 }
             }
             else if (wichuccalander == 2)
             {
-                DateUCMonth = new DateTime(DateUCMonth.Year + 1, 1, 1);
-                labelTitleDay.Text = DateUCMonth.Year.ToString();
+                DateCalander = new DateTime(DateCalander.Year + 1, 1, 1);
+                labelTitleDay.Text = DateCalander.Year.ToString();
                 HighlightSelectedMonth();
             }
             else
             {
-                DateUCMonth = new DateTime(DateUCMonth.Year + 12, 1, 1);
-                labelTitleDay.Text = DateUCMonth.Year + "-" + (DateUCMonth.Year + NODifferenceYears);
+                DateCalander = new DateTime(DateCalander.Year + 12, 1, 1);
+                labelTitleDay.Text = DateCalander.Year + "-" + (DateCalander.Year + NODifferenceYears);
                 HighlightNDisplaySelectedYear();
             }
         }
@@ -91,29 +91,29 @@ namespace MKproject.Schedule
         {
             if (wichuccalander == 1)
             {
-                if (DateUCMonth.Month != 1)//metel taba3 next same concept
+                if (DateCalander.Month != 1)//metel taba3 next same concept
                 {
-                    DateUCMonth = new DateTime(DateUCMonth.Year, DateUCMonth.Month - 1, 1);
+                    DateCalander = new DateTime(DateCalander.Year, DateCalander.Month - 1, 1);
                     EditLabelUCdays();//aa hal kabse bi koun akid deja eemlo display
 
                 }
                 else
                 {
-                    DateUCMonth = new DateTime(DateUCMonth.Year - 1, 12, 1);
+                    DateCalander = new DateTime(DateCalander.Year - 1, 12, 1);
                     EditLabelUCdays();//aa hal kabse bi koun akid deja eemlo display
 
                 }
             }
             else if (wichuccalander == 2)
             {
-                DateUCMonth = new DateTime(DateUCMonth.Year - 1, 1, 1);
-                labelTitleDay.Text = DateUCMonth.Year.ToString();
+                DateCalander = new DateTime(DateCalander.Year - 1, 1, 1);
+                labelTitleDay.Text = DateCalander.Year.ToString();
                 HighlightSelectedMonth();
             }
             else
             {
-                DateUCMonth = new DateTime(DateUCMonth.Year - 12, 1, 1);
-                labelTitleDay.Text = DateUCMonth.Year + "-" + (DateUCMonth.Year + NODifferenceYears);
+                DateCalander = new DateTime(DateCalander.Year - 12, 1, 1);
+                labelTitleDay.Text = DateCalander.Year + "-" + (DateCalander.Year + NODifferenceYears);
 
                 HighlightNDisplaySelectedYear();
             }
@@ -127,7 +127,7 @@ namespace MKproject.Schedule
                 tableLayoutPanelMonth.Controls.Remove(uccalanderday);
                 tableLayoutPanelMonth.Controls.Add(uccalandermonth, 0, 1);
                 tableLayoutPanelMonth.SetColumnSpan(uccalandermonth, 3);
-                labelTitleDay.Text = DateUCMonth.Year.ToString();
+                labelTitleDay.Text = DateCalander.Year.ToString();
                 HighlightSelectedMonth();
 
             }
@@ -137,7 +137,7 @@ namespace MKproject.Schedule
                 tableLayoutPanelMonth.Controls.Remove(uccalandermonth);
                 tableLayoutPanelMonth.Controls.Add(uccalanderyear, 0, 1);
                 tableLayoutPanelMonth.SetColumnSpan(uccalanderyear, 3);
-                labelTitleDay.Text = DateUCMonth.Year + "-" + (DateUCMonth.Year + NODifferenceYears);
+                labelTitleDay.Text = DateCalander.Year + "-" + (DateCalander.Year + NODifferenceYears);
                 HighlightNDisplaySelectedYear();
             }
         }
@@ -151,8 +151,7 @@ namespace MKproject.Schedule
             //Just to setUp the ucmonth again when I deactivate it and we will to set it on UCCalanderday
             this.Hide();
 
-            DateUCMonth = ucday.SelectedDate;
-
+            DateCalander = SelectedDate;
         }
 
 
@@ -160,9 +159,9 @@ namespace MKproject.Schedule
         public void EditLabelUCdays()
         {
             //part 1
-            date = DateUCMonth;//copy
-            year = DateUCMonth.Year;//copy
-            month = DateUCMonth.Month;//copy
+            date = DateCalander;//copy
+            year = DateCalander.Year;//copy
+            month = DateCalander.Month;//copy
 
             //part 2
             monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
@@ -262,15 +261,29 @@ namespace MKproject.Schedule
             {
                 ucdays.labelDay.BackColor = Color.Transparent;
                 //Hayda lucday eza zabat w akhad today w se2abit 3endo kamen DateUCDay byekoud today bass
-                if (ucdays.DateUCdays.Date == DateTime.Now.Date)
+                if (ucdays.DateUCdays.Date == DateTime.Now.Date && ucdays.DateUCdays.Date == SelectedDate.Date)
+                {
+                    ucdays.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "circle.png"); //sdawa luc li na2ayne
+                    ucdays.BackColor = Color.FromArgb(229, 226, 244);
+                    ucdays.labelDay.ForeColor = Color.White;
+
+                    ucdayOfToday = ucdays;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
+                    ucdayOfDateUCDay = ucdays;
+
+                    ucdayOfDateUCDayexist = true;
+                    ucdayOfTodayexist = true;
+                }
+
+                else if (ucdays.DateUCdays.Date == DateTime.Now.Date)
                 {
                     ucdays.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "circle.png"); //sdawa luc li na2ayne
                     ucdays.labelDay.ForeColor = Color.White;
                     ucdayOfToday = ucdays;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
+
                     ucdayOfTodayexist = true;
                 }
 
-                else if (ucdays.DateUCdays.Date == ucday.SelectedDate.Date)
+                else if (ucdays.DateUCdays.Date == SelectedDate.Date)
                 {
                     ucdays.BackColor = Color.FromArgb(229, 226, 244); //sdawa luc li na2ayne
                     ucdayOfDateUCDay = ucdays;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
@@ -301,7 +314,7 @@ namespace MKproject.Schedule
                     Control control = uccalandermonth.tableLayoutPanel1.GetControlFromPosition(j, i);//to get the labels by order
                     if (control is LabelMonth m)
                     {
-                        if (m.Month == ucday.SelectedDate.Month && DateUCMonth.Year == ucday.SelectedDate.Year)
+                        if (m.Month == SelectedDate.Month && DateCalander.Year == SelectedDate.Year)
                         {
                             m.BackColor = Color.FromArgb(229, 226, 244); //sdawa luc li na2ayne
                             labelmonthcopy = m;
@@ -324,7 +337,7 @@ namespace MKproject.Schedule
         private void HighlightNDisplaySelectedYear()
         {
             bool labelyearcopyexist = false;
-            int yearint = DateUCMonth.Year;
+            int yearint = DateCalander.Year;
 
             for (int i = 0; i < 3; i++)
             {
@@ -335,7 +348,7 @@ namespace MKproject.Schedule
                     {
                         y.Year = yearint;//display
                         yearint++;
-                        if (y.Year == ucday.SelectedDate.Year)
+                        if (y.Year == SelectedDate.Year)
                         {
                             y.BackColor = Color.FromArgb(229, 226, 244); //sdawa luc li na2ayne
                             labelyearcopy = y;
@@ -382,7 +395,7 @@ namespace MKproject.Schedule
                 Opacity = 0;
                 timer1.Start();
             }
-      
+
         }
     }
 }

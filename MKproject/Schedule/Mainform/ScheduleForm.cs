@@ -11,7 +11,7 @@ namespace MKproject.Schedule
         public TouchScroll TouchscrollPanelreminder { get; set; }
 
         //VARIABLES:
-        public UCMonth ucmonths;
+        public CalanderForm calanderForm;
         public UCSchedule ucSchedule;
         public Employee employee;
 
@@ -22,11 +22,11 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
             ucSchedule = new UCSchedule(this);
-            ucmonths = new UCMonth(this, ucSchedule);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
+            calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
 
-            ucmonths.Dock = DockStyle.Fill;
+            calanderForm.Dock = DockStyle.Fill;
             ucSchedule.Dock = DockStyle.Fill;
-            ucmonths.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
+            calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
             ucSchedule.Margin = new Padding(10, 15, 10, 10);
 
             tableLayoutPanelForm.Controls.Add(ucSchedule);
@@ -216,15 +216,10 @@ namespace MKproject.Schedule
 
 
         //FUNCTIONS:
-        private void EditTLPWithUCAppWidth()
-        {
-
-
-        }
         public void UCDaysClick()
         {
             EditUCDay();
-            ucmonths.Hide();
+            calanderForm.Hide();
         }//click on a day of UCMONTH
         public void EditUCDay()
         {
@@ -234,14 +229,10 @@ namespace MKproject.Schedule
             ucSchedule.TLPSchedule.currentRow = 6;
 
             //edit DateUCDay
-            if (ucSchedule.SelectedDate.Date != ucmonths.DateUCMonth.Date)
+            if (ucSchedule.SelectedDate.Date != calanderForm.DateCalander.Date)
             {
-                ucSchedule.LoadForm(ucmonths.DateUCMonth);
+                ucSchedule.LoadForm(calanderForm.DateCalander);
             }
-
-
-
-
         }// changing DateUCDAY
 
         

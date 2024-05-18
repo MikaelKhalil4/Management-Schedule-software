@@ -11,9 +11,8 @@ namespace MKproject.Schedule
         public DateTime DateUCdays { get; set; } //date of each case in UCMONTH
 
         //VARIABLES:
-        public ScheduleForm schedule;
-        public UCMonth ucmonths;
-        public UCSchedule ucday;
+        public ScheduleForm scheduleForm;
+        public CalanderForm calanderForm;
 
 
         //INITIALISE
@@ -22,20 +21,23 @@ namespace MKproject.Schedule
             InitializeComponent();
         }
 
-       
+
         //EVENTS:
+        public event EventHandler SelectedDateChanged;
         private void UCDays_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-            ucmonths.DateUCMonth = DateUCdays;
-            schedule.UCDaysClick();
+            calanderForm.DateCalander = DateUCdays;
+            scheduleForm.UCDaysClick();
+            SelectedDateChanged?.Invoke(this, EventArgs.Empty);
+
             Cursor = Cursors.Default;
         }
 
 
         private void labelDays_MouseEnter(object sender, EventArgs e)
         {
-            if (ucmonths.ucdayOfDateUCDay != this)
+            if (calanderForm.ucdayOfDateUCDay != this)
             {
                 this.BackColor = Color.FromArgb(229, 226, 244);
             }
@@ -44,7 +46,7 @@ namespace MKproject.Schedule
         }
         private void labelDays_MouseLeave(object sender, EventArgs e)
         {
-            if (ucmonths.ucdayOfDateUCDay != this)
+            if (calanderForm.ucdayOfDateUCDay != this)
             {
                 this.BackColor = Color.White;
             }

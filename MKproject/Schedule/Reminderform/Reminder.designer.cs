@@ -32,6 +32,11 @@ namespace MKproject.Schedule
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reminder));
             TLPReminder = new System.Windows.Forms.TableLayoutPanel();
+            panel1 = new System.Windows.Forms.Panel();
+            flowLayoutPanelDoubleBufferedcs1 = new System.Windows.Forms.FlowLayoutPanel();
+            labelDate = new System.Windows.Forms.Label();
+            DownArrowDate = new System.Windows.Forms.PictureBox();
+            label = new System.Windows.Forms.Label();
             panelDaysofTheWeek = new System.Windows.Forms.Panel();
             checkBoxMonday = new System.Windows.Forms.CheckBox();
             checkBoxSunday = new System.Windows.Forms.CheckBox();
@@ -54,6 +59,9 @@ namespace MKproject.Schedule
             ButtonDone = new CustomButton();
             labelQuote = new System.Windows.Forms.Label();
             TLPReminder.SuspendLayout();
+            panel1.SuspendLayout();
+            flowLayoutPanelDoubleBufferedcs1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DownArrowDate).BeginInit();
             panelDaysofTheWeek.SuspendLayout();
             panel6.SuspendLayout();
             TBLRepeat.SuspendLayout();
@@ -67,23 +75,89 @@ namespace MKproject.Schedule
             // 
             TLPReminder.ColumnCount = 1;
             TLPReminder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPReminder.Controls.Add(panel1, 0, 3);
             TLPReminder.Controls.Add(panelDaysofTheWeek, 0, 2);
             TLPReminder.Controls.Add(panel6, 0, 1);
             TLPReminder.Controls.Add(panel2, 0, 0);
-            TLPReminder.Controls.Add(panel5, 0, 4);
-            TLPReminder.Controls.Add(labelQuote, 0, 3);
+            TLPReminder.Controls.Add(panel5, 0, 5);
+            TLPReminder.Controls.Add(labelQuote, 0, 4);
             TLPReminder.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPReminder.Location = new System.Drawing.Point(0, 0);
             TLPReminder.Margin = new System.Windows.Forms.Padding(0);
             TLPReminder.Name = "TLPReminder";
-            TLPReminder.RowCount = 5;
+            TLPReminder.RowCount = 6;
             TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 129F));
             TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66F));
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            TLPReminder.Size = new System.Drawing.Size(418, 387);
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 77F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            TLPReminder.Size = new System.Drawing.Size(418, 451);
             TLPReminder.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(flowLayoutPanelDoubleBufferedcs1);
+            panel1.Controls.Add(label);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(0, 265);
+            panel1.Margin = new System.Windows.Forms.Padding(0);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(418, 64);
+            panel1.TabIndex = 75;
+            // 
+            // flowLayoutPanelDoubleBufferedcs1
+            // 
+            flowLayoutPanelDoubleBufferedcs1.Controls.Add(labelDate);
+            flowLayoutPanelDoubleBufferedcs1.Controls.Add(DownArrowDate);
+            flowLayoutPanelDoubleBufferedcs1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            flowLayoutPanelDoubleBufferedcs1.Location = new System.Drawing.Point(142, 18);
+            flowLayoutPanelDoubleBufferedcs1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanelDoubleBufferedcs1.Name = "flowLayoutPanelDoubleBufferedcs1";
+            flowLayoutPanelDoubleBufferedcs1.Size = new System.Drawing.Size(204, 22);
+            flowLayoutPanelDoubleBufferedcs1.TabIndex = 73;
+            // 
+            // labelDate
+            // 
+            labelDate.AutoSize = true;
+            labelDate.Cursor = System.Windows.Forms.Cursors.Hand;
+            labelDate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelDate.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            labelDate.Location = new System.Drawing.Point(4, 0);
+            labelDate.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            labelDate.Name = "labelDate";
+            labelDate.Size = new System.Drawing.Size(118, 17);
+            labelDate.TabIndex = 60;
+            labelDate.Text = "Day,00 Week,Year";
+            labelDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelDate.Click += labelDate_Click;
+            // 
+            // DownArrowDate
+            // 
+            DownArrowDate.BackgroundImage = (System.Drawing.Image)resources.GetObject("DownArrowDate.BackgroundImage");
+            DownArrowDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            DownArrowDate.Cursor = System.Windows.Forms.Cursors.Hand;
+            DownArrowDate.Image = (System.Drawing.Image)resources.GetObject("DownArrowDate.Image");
+            DownArrowDate.Location = new System.Drawing.Point(122, 0);
+            DownArrowDate.Margin = new System.Windows.Forms.Padding(0);
+            DownArrowDate.Name = "DownArrowDate";
+            DownArrowDate.Size = new System.Drawing.Size(27, 22);
+            DownArrowDate.TabIndex = 61;
+            DownArrowDate.TabStop = false;
+            DownArrowDate.Click += labelDate_Click;
+            // 
+            // label
+            // 
+            label.AutoSize = true;
+            label.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label.Location = new System.Drawing.Point(15, 18);
+            label.Margin = new System.Windows.Forms.Padding(6);
+            label.Name = "label";
+            label.Size = new System.Drawing.Size(39, 17);
+            label.TabIndex = 72;
+            label.Text = "Date:";
+            label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelDaysofTheWeek
             // 
@@ -367,10 +441,10 @@ namespace MKproject.Schedule
             panel5.Controls.Add(ButtonCancel);
             panel5.Controls.Add(ButtonDone);
             panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel5.Location = new System.Drawing.Point(0, 346);
+            panel5.Location = new System.Drawing.Point(0, 406);
             panel5.Margin = new System.Windows.Forms.Padding(0);
             panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(418, 41);
+            panel5.Size = new System.Drawing.Size(418, 45);
             panel5.TabIndex = 72;
             // 
             // ButtonCancel
@@ -385,13 +459,14 @@ namespace MKproject.Schedule
             ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonCancel.ForeColor = System.Drawing.Color.White;
-            ButtonCancel.Location = new System.Drawing.Point(231, 4);
+            ButtonCancel.Location = new System.Drawing.Point(231, 6);
             ButtonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ButtonCancel.Name = "ButtonCancel";
             ButtonCancel.Size = new System.Drawing.Size(83, 29);
             ButtonCancel.TabIndex = 2;
             ButtonCancel.Text = "Cancel";
             ButtonCancel.UseVisualStyleBackColor = false;
+            ButtonCancel.Click += ButtonCancel_Click;
             // 
             // ButtonDone
             // 
@@ -405,7 +480,7 @@ namespace MKproject.Schedule
             ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonDone.ForeColor = System.Drawing.Color.White;
-            ButtonDone.Location = new System.Drawing.Point(329, 4);
+            ButtonDone.Location = new System.Drawing.Point(329, 6);
             ButtonDone.Margin = new System.Windows.Forms.Padding(4, 3, 6, 3);
             ButtonDone.Name = "ButtonDone";
             ButtonDone.Size = new System.Drawing.Size(83, 29);
@@ -421,7 +496,7 @@ namespace MKproject.Schedule
             labelQuote.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             labelQuote.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelQuote.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            labelQuote.Location = new System.Drawing.Point(51, 275);
+            labelQuote.Location = new System.Drawing.Point(51, 337);
             labelQuote.Margin = new System.Windows.Forms.Padding(0);
             labelQuote.Name = "labelQuote";
             labelQuote.Size = new System.Drawing.Size(316, 61);
@@ -434,7 +509,7 @@ namespace MKproject.Schedule
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
-            ClientSize = new System.Drawing.Size(418, 387);
+            ClientSize = new System.Drawing.Size(418, 451);
             Controls.Add(TLPReminder);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Reminder";
@@ -442,6 +517,11 @@ namespace MKproject.Schedule
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Reminder";
             TLPReminder.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            flowLayoutPanelDoubleBufferedcs1.ResumeLayout(false);
+            flowLayoutPanelDoubleBufferedcs1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DownArrowDate).EndInit();
             panelDaysofTheWeek.ResumeLayout(false);
             panelDaysofTheWeek.PerformLayout();
             panel6.ResumeLayout(false);
@@ -468,9 +548,6 @@ namespace MKproject.Schedule
         public System.Windows.Forms.Label labelrepeat;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Panel panel5;
-        private CustomButton ButtonDone;
-        private CustomButton ButtonCancel;
         public TextBoxWithPlaceHolder textBoxReminder;
         public TextBoxWithPlaceHolder textBoxSearch;
         private System.Windows.Forms.Label labelStartTime;
@@ -480,5 +557,13 @@ namespace MKproject.Schedule
         public System.Windows.Forms.Panel panelDaysofTheWeek;
         public System.Windows.Forms.TableLayoutPanel TBLRepeat;
         public System.Windows.Forms.TableLayoutPanel TLPReminder;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Panel panel5;
+        private CustomButton ButtonCancel;
+        private CustomButton ButtonDone;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelDoubleBufferedcs1;
+        private System.Windows.Forms.Label labelDate;
+        private System.Windows.Forms.PictureBox DownArrowDate;
     }
 }

@@ -122,7 +122,7 @@
     <Compile Update="Schedule\Mainform\UCSchedule.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Monthform\UCMonth.cs">
+    <Compile Update="Schedule\Calanderform\CalanderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Schedule\Reminderform\ClientReminder.cs">
