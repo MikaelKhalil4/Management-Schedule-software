@@ -100,7 +100,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = System.Drawing.Color.FromArgb(238, 241, 254);
+            pictureBox1.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
             pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -114,7 +114,7 @@
             // labelFilter
             // 
             labelFilter.AutoSize = true;
-            labelFilter.BackColor = System.Drawing.Color.FromArgb(238, 241, 254);
+            labelFilter.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
             tableLayoutPanelSide.SetColumnSpan(labelFilter, 3);
             labelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             labelFilter.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -250,7 +250,7 @@
             // panelreminder
             // 
             panelreminder.AutoScroll = true;
-            panelreminder.BackColor = System.Drawing.Color.WhiteSmoke;
+            panelreminder.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
             tableLayoutPanelSide.SetColumnSpan(panelreminder, 4);
             panelreminder.Dock = System.Windows.Forms.DockStyle.Fill;
             panelreminder.Location = new System.Drawing.Point(4, 161);

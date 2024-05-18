@@ -37,7 +37,7 @@
             // 
             // TLPGlobal
             // 
-            TLPGlobal.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
+            TLPGlobal.BackColor = System.Drawing.Color.White;
             TLPGlobal.ColumnCount = 2;
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));

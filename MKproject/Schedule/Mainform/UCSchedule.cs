@@ -76,14 +76,16 @@ namespace MKproject.Schedule
 
             if (AppointmentsList.Count == 0 && SelectedDate.Date < DateTime.Now.Date)
             {
-                BlockedModeDesign("No Appointments Available");
                 IsDesignBlocked = true;
+
+                BlockedModeDesign("No Appointments Available");
 
             }
             else if (EmployeeScheduleList.Count == 0 && SelectedDate.Date <= DateTime.Now.Date)
             {
-                BlockedModeDesign("No Employees Available");
                 IsDesignBlocked = true;
+
+                BlockedModeDesign("No Employees Available");
 
             }
             else

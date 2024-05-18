@@ -29,6 +29,16 @@ namespace MKproject.Schedule
         //Just to get the check boxes in the order thet we want
         CheckBox[] checkBoxes;
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
         //Initialise
         public Reminder()
         {
