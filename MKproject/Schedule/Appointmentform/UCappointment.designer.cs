@@ -45,13 +45,13 @@
             TLPGlobal.Controls.Add(labelFullName, 0, 1);
             TLPGlobal.Controls.Add(labelService, 0, 0);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
-            TLPGlobal.Location = new System.Drawing.Point(0, 5);
-            TLPGlobal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TLPGlobal.Location = new System.Drawing.Point(0, 4);
+            TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
             TLPGlobal.Name = "TLPGlobal";
             TLPGlobal.RowCount = 2;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            TLPGlobal.Size = new System.Drawing.Size(249, 77);
+            TLPGlobal.Size = new System.Drawing.Size(249, 78);
             TLPGlobal.TabIndex = 0;
             TLPGlobal.MouseLeave += UCappointments_MouseLeave;
             TLPGlobal.MouseMove += UCappointments_MouseMove;
@@ -62,7 +62,7 @@
             labelTime.Dock = System.Windows.Forms.DockStyle.Fill;
             labelTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelTime.ForeColor = System.Drawing.Color.DarkGray;
-            labelTime.Location = new System.Drawing.Point(154, 35);
+            labelTime.Location = new System.Drawing.Point(154, 36);
             labelTime.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             labelTime.Name = "labelTime";
             labelTime.Size = new System.Drawing.Size(95, 42);
@@ -77,7 +77,7 @@
             labelFullName.Dock = System.Windows.Forms.DockStyle.Fill;
             labelFullName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.55F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelFullName.ForeColor = System.Drawing.Color.FromArgb(89, 102, 204);
-            labelFullName.Location = new System.Drawing.Point(1, 35);
+            labelFullName.Location = new System.Drawing.Point(1, 36);
             labelFullName.Margin = new System.Windows.Forms.Padding(1, 5, 1, 0);
             labelFullName.Name = "labelFullName";
             labelFullName.Size = new System.Drawing.Size(152, 42);
@@ -93,7 +93,7 @@
             TLPGlobal.SetColumnSpan(labelService, 2);
             labelService.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelService.ForeColor = System.Drawing.Color.FromArgb(94, 94, 94);
-            labelService.Location = new System.Drawing.Point(1, 6);
+            labelService.Location = new System.Drawing.Point(1, 7);
             labelService.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             labelService.Name = "labelService";
             labelService.Size = new System.Drawing.Size(51, 17);
@@ -109,9 +109,9 @@
             BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             Controls.Add(TLPGlobal);
             Cursor = System.Windows.Forms.Cursors.Hand;
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             Name = "UCappointment";
-            Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
             Size = new System.Drawing.Size(249, 82);
             GiveFeedback += UCappointment_GiveFeedback;
             QueryContinueDrag += UCappointment_QueryContinueDrag;

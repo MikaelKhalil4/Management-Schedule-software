@@ -99,7 +99,7 @@ namespace MKproject.Schedule.UCData
         }
         public static DataTable DisplayReminderByClientName(ClassClient DesiredClient)
         {
-            SqlCommand command1 = new SqlCommand(@"SELECT reminder_id, reminder, repeat, starttime, labelquote, is_checked
+            SqlCommand command1 = new SqlCommand(@"SELECT reminder_id, reminder, repeat, starttime, is_checked
                                                    FROM reminder
                                                    WHERE client_id = @client_id
                                                    ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
@@ -120,7 +120,7 @@ namespace MKproject.Schedule.UCData
             int idreminder;
             IsChecked = false;
 
-            SqlCommand command = new SqlCommand("INSERT INTO reminder VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked) ", con);
+            SqlCommand command = new SqlCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked) ", con);
             SqlCommand cmd = new SqlCommand("SELECT Max(reminder_id) FROM reminder", con);
           
 

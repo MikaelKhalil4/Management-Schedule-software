@@ -32,7 +32,7 @@ namespace MKproject.Schedule
         List<(ClassEmployee, List<int>)> ListOfAllColumnIndexesGroups = new List<(ClassEmployee, List<int>)>();
         (ClassEmployee, List<int>) FocusOnColumnIndexGroup;
         int FocusOnMaxWidth;
-
+        bool IsHistory;
 
         //Reminder
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
@@ -74,6 +74,16 @@ namespace MKproject.Schedule
 
             CreateTLPDesign();
 
+            if (SelectedDate.Date < DateTime.Now.Date)
+            {
+                IsHistory = true;
+            }
+            else
+            {
+                IsHistory = false;
+
+            }
+
             if (AppointmentsList.Count == 0 && SelectedDate.Date < DateTime.Now.Date)
             {
                 IsDesignBlocked = true;
@@ -86,7 +96,6 @@ namespace MKproject.Schedule
                 IsDesignBlocked = true;
 
                 BlockedModeDesign("No Employees Available");
-
             }
             else
             {
@@ -301,27 +310,31 @@ namespace MKproject.Schedule
                     ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
                 }
             }
-          
+
         }
 
         private void TLPSchedule_MouseClick(object sender, MouseEventArgs e)
         {
-            (int column, int row) = GetCellPosition(TLPSchedule, e.Location);
-
-
-            if (column > 0)
+            if (!IsHistory && !IsDesignBlocked)
             {
-                TimeSpan StartTime = GetTimeFromRow(row);
-                ClassEmployee SelectedEmployee = GetWhichEmployeeForSpecifieColumn(column);
+
+                (int column, int row) = GetCellPosition(TLPSchedule, e.Location);
 
 
-                ScheduleForm schedule = this.ParentFormSchedule;
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
-                Program.GreyForm.Show();
-                Appointment appointment = new Appointment(this, SelectedEmployee, StartTime);
-                appointment.Show();
-                //
+                if (column > 0)
+                {
+                    TimeSpan StartTime = GetTimeFromRow(row);
+                    ClassEmployee SelectedEmployee = GetWhichEmployeeForSpecifieColumn(column);
 
+
+                    ScheduleForm schedule = this.ParentFormSchedule;
+                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+                    Program.GreyForm.Show();
+                    Appointment appointment = new Appointment(this, SelectedEmployee, StartTime);
+                    appointment.Show();
+                    //
+
+                }
             }
         }
 
@@ -543,17 +556,57 @@ namespace MKproject.Schedule
         }
         private void buttonToday_Click(object sender, EventArgs e)
         {
-            LoadForm(DateTime.Now);
+            if (SelectedDate.Date.Day != DateTime.Now.Day)
+            {
+                LoadForm(DateTime.Now);
+            }
+        }
+        private void labelDate_Click(object sender, EventArgs e)
+        {
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, Color.Transparent);
+            Program.GreyForm.Show();
+            //UCmonth show
+            Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(-6, 25);
+            ParentFormSchedule.ucmonths.Location = locationRelativeToScreen;
+            ParentFormSchedule.ucmonths.Show();
+
+
+            //Showing the ucmonth from the calanderday in the date that we are
+            ParentFormSchedule.ucmonths.DateUCMonth = SelectedDate;
+            if (ParentFormSchedule.ucmonths.wichuccalander == 2)
+            {
+                ParentFormSchedule.ucmonths.wichuccalander = 1;
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalandermonth);
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
+            }
+            else if (ParentFormSchedule.ucmonths.wichuccalander == 3)
+            {
+                ParentFormSchedule.ucmonths.wichuccalander = 1;
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalanderyear);
+                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
+
+            }
+
+            ParentFormSchedule.ucmonths.EditLabelUCdays();
+        }
+
+        private void labelDate_MouseMove(object sender, MouseEventArgs e)
+        {
+            labelDate.ForeColor = Program.BoldColor;
+        }
+        private void labelDate_MouseLeave(object sender, EventArgs e)
+        {
+            labelDate.ForeColor = Color.Black;
         }
 
 
-        
 
 
 
-   
-       /////////these are for the values of the uc while drag/drop operation
-      
+
+        /////////these are for the values of the uc while drag/drop operation
+
         (ClassEmployee, List<int>) OldColumnIndexGroupOfDesiredUC;
         int OldColumnofDraggedUC;//old column is the exact column li ken aalaya el uc
         int OldRowOfDraggedUC;
@@ -590,7 +643,7 @@ namespace MKproject.Schedule
                 TLPSchedule.Dock = DockStyle.Fill;
                 TLPSchedule.AutoScroll = true;
                 TLPSchedule.BackColor = Color.FromArgb(249, 246, 254);
-
+                TLPSchedule.Margin = new Padding(0, 0, 0, 0);
 
                 //Hours
                 TLPSchedule.RowCount = 96;
@@ -605,8 +658,8 @@ namespace MKproject.Schedule
                 TLPEmployees.Dock = DockStyle.Fill;
                 TLPEmployees.RowCount = 1;
                 TLPEmployees.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
-                TLPEmployees.Margin = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth + 4, 0);
-
+                TLPEmployees.Margin = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth + 2, 0);
+                TLPEmployees.BackColor = TLPSchedule.BackColor;
 
                 //Time
 
@@ -690,7 +743,7 @@ namespace MKproject.Schedule
                 }
                 PercentageResizeTLPScheduleAndTlpEmp();
 
-                TLPSchedule.Enabled = true;
+                //TLPSchedule.Enabled = true;
             }
             else
             {
@@ -704,7 +757,7 @@ namespace MKproject.Schedule
 
             ResetTLPEmployeeToInitialState();
 
-            TLPSchedule.Enabled = true;
+            //TLPSchedule.Enabled = true;
 
             for (int i = 0; i < ListOfAllColumnIndexesGroups.Count; i++)
             {
@@ -781,7 +834,7 @@ namespace MKproject.Schedule
 
             TLPEmployees.Controls.Add(labelEmployee, 1, 0);//1, lieanno first column kermel el time
 
-            TLPSchedule.Enabled = false;
+            //TLPSchedule.Enabled = false;
 
         }
 
@@ -797,10 +850,10 @@ namespace MKproject.Schedule
             }
 
 
-            int OriginalWidthOfDesiredGroup = UCappointment.OriginalWidth * FocusOnColumnIndexGroup.Item2.Count;
+            //int OriginalWidthOfDesiredGroup = UCappointment.OriginalWidth * FocusOnColumnIndexGroup.Item2.Count;
 
-            int DesiredWidthOfTheGroup = OriginalWidthOfDesiredGroup < FocusOnMaxWidth ? OriginalWidthOfDesiredGroup : FocusOnMaxWidth;
-
+            //int DesiredWidthOfTheGroup = OriginalWidthOfDesiredGroup < FocusOnMaxWidth ? OriginalWidthOfDesiredGroup : FocusOnMaxWidth;
+            int DesiredWidthOfTheGroup = FocusOnMaxWidth;
 
             //TLPAppointment 
 
@@ -856,6 +909,7 @@ namespace MKproject.Schedule
             {
                 PercentageResizeTLPScheduleAndTlpEmp();
                 FocusOnColumnIndexGroup = (null, null);
+                DesActiveAllLabels();
             }
 
         }
@@ -1819,66 +1873,69 @@ namespace MKproject.Schedule
 
         private void TLPSchedule_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-
-
             Graphics g = e.Graphics;
             Rectangle r = e.CellBounds;
 
-
-            int NbrRowShouldPass;
-            int currentGroup = -1;
-            int hoveredGroup = -1;
-            if (UCApointmentDraged != null)
+            if (!IsHistory && !IsDesignBlocked)
             {
-                NbrRowShouldPass = TLPSchedule.GetRowSpan(UCApointmentDraged) - 1;
-
-            }
-            else
-            {
-                NbrRowShouldPass = -1;
-                currentGroup = e.Row / NbreofRowsHighlighted;//hone ha temrue aa all cells tb3 el tlp
-                hoveredGroup = hoveredCellColmnRow.Item2 / NbreofRowsHighlighted;//hone fix
-            }
 
 
 
-            if (NbrRowShouldPass == -1)
-            {
-                // Check if this cell's row belongs to the same group as the hovered cell
-                if (currentGroup == hoveredGroup && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
+
+                int NbrRowShouldPass;
+                int currentGroup = -1;
+                int hoveredGroup = -1;
+                if (UCApointmentDraged != null)
                 {
-
-                    g.FillRectangle(hoverBrush, r);
-
-
-                    //drwaing the text only
-                    if (e.Row == hoveredCellColmnRow.Item2 && e.Column == ColumnIndexGroupOfDraggingUC.Item2[0])
-                    {
-                        DrawTextOnCell(g, r, e.Row);
-                    }
-                }
-            }
-            else
-            {
-                if ((e.Row >= hoveredCellColmnRow.Item2 - 1 && e.Row <= (hoveredCellColmnRow.Item2 + NbrRowShouldPass - 1)) && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
-                {
-
-                    g.FillRectangle(hoverBrush, r);
-
-                    if (e.Row == hoveredCellColmnRow.Item2 - 1 && e.Column == ColumnIndexGroupOfDraggingUC.Item2[0])
-                    {
-
-                        // Draw text on the specified cell
-                        DrawTextOnCell(g, r, e.Row);
-
-
-                    }
+                    NbrRowShouldPass = TLPSchedule.GetRowSpan(UCApointmentDraged) - 1;
 
                 }
+                else
+                {
+                    NbrRowShouldPass = -1;
+                    currentGroup = e.Row / NbreofRowsHighlighted;//hone ha temrue aa all cells tb3 el tlp
+                    hoveredGroup = hoveredCellColmnRow.Item2 / NbreofRowsHighlighted;//hone fix
+                }
+
+
+
+                if (NbrRowShouldPass == -1)
+                {
+                    // Check if this cell's row belongs to the same group as the hovered cell
+                    if (currentGroup == hoveredGroup && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
+                    {
+
+                        g.FillRectangle(hoverBrush, r);
+
+
+                        //drwaing the text only
+                        if (e.Row == hoveredCellColmnRow.Item2 && e.Column == ColumnIndexGroupOfDraggingUC.Item2[0])
+                        {
+                            DrawTextOnCell(g, r, e.Row);
+                        }
+                    }
+                }
+                else
+                {
+                    if ((e.Row >= hoveredCellColmnRow.Item2 - 1 && e.Row <= (hoveredCellColmnRow.Item2 + NbrRowShouldPass - 1)) && (ColumnIndexGroupOfDraggingUC != (null, null) && ColumnIndexGroupOfDraggingUC.Item2.Contains(e.Column)))
+                    {
+
+                        g.FillRectangle(hoverBrush, r);
+
+                        if (e.Row == hoveredCellColmnRow.Item2 - 1 && e.Column == ColumnIndexGroupOfDraggingUC.Item2[0])
+                        {
+
+                            // Draw text on the specified cell
+                            DrawTextOnCell(g, r, e.Row);
+
+
+                        }
+
+                    }
+                }
+
+
             }
-
-
-
 
 
             ////Check if we're in the last column; if not, don't draw vertical lines
@@ -1909,7 +1966,7 @@ namespace MKproject.Schedule
                 }
                 else//hone el hidden rows
                 {
-                    //g.DrawLine(Pens.LightGray, r.Left, r.Top, r.Right, r.Top);
+                    //g.DrawLine(Pens.WhiteSmoke, r.Left, r.Top, r.Right, r.Top);
                 }
             }
 
@@ -1997,6 +2054,8 @@ namespace MKproject.Schedule
             TLPSchedule.Invalidate();
         }
 
-       
+
+
+
     }
 }

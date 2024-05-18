@@ -27,9 +27,10 @@ namespace MKproject.Schedule
             calanderForm.Dock = DockStyle.Fill;
             ucSchedule.Dock = DockStyle.Fill;
             calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
-            ucSchedule.Margin = new Padding(10, 15, 10, 10);
+            ucSchedule.Margin = new Padding(10, 10, 0, 0);
 
-            tableLayoutPanelForm.Controls.Add(ucSchedule);
+            TLPSide.Margin = new Padding(0, 0, 0, 0);
+            tableLayoutPanelForm.Controls.Add(ucSchedule, 1, 0);
         }
 
 
@@ -235,7 +236,7 @@ namespace MKproject.Schedule
             }
         }// changing DateUCDAY
 
-        
+       
     }
 }
 
