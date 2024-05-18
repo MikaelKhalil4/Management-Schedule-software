@@ -31,7 +31,7 @@ namespace MKproject.Schedule
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reminder));
-            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            TLPReminder = new System.Windows.Forms.TableLayoutPanel();
             panelDaysofTheWeek = new System.Windows.Forms.Panel();
             checkBoxMonday = new System.Windows.Forms.CheckBox();
             checkBoxSunday = new System.Windows.Forms.CheckBox();
@@ -53,7 +53,7 @@ namespace MKproject.Schedule
             ButtonCancel = new CustomButton();
             ButtonDone = new CustomButton();
             labelQuote = new System.Windows.Forms.Label();
-            tableLayoutPanel1.SuspendLayout();
+            TLPReminder.SuspendLayout();
             panelDaysofTheWeek.SuspendLayout();
             panel6.SuspendLayout();
             TBLRepeat.SuspendLayout();
@@ -63,27 +63,27 @@ namespace MKproject.Schedule
             panel5.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // TLPReminder
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(panelDaysofTheWeek, 0, 2);
-            tableLayoutPanel1.Controls.Add(panel6, 0, 1);
-            tableLayoutPanel1.Controls.Add(panel2, 0, 0);
-            tableLayoutPanel1.Controls.Add(panel5, 0, 4);
-            tableLayoutPanel1.Controls.Add(labelQuote, 0, 3);
-            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 5;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(418, 387);
-            tableLayoutPanel1.TabIndex = 3;
+            TLPReminder.ColumnCount = 1;
+            TLPReminder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPReminder.Controls.Add(panelDaysofTheWeek, 0, 2);
+            TLPReminder.Controls.Add(panel6, 0, 1);
+            TLPReminder.Controls.Add(panel2, 0, 0);
+            TLPReminder.Controls.Add(panel5, 0, 4);
+            TLPReminder.Controls.Add(labelQuote, 0, 3);
+            TLPReminder.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPReminder.Location = new System.Drawing.Point(0, 0);
+            TLPReminder.Margin = new System.Windows.Forms.Padding(0);
+            TLPReminder.Name = "TLPReminder";
+            TLPReminder.RowCount = 5;
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 129F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            TLPReminder.Size = new System.Drawing.Size(418, 387);
+            TLPReminder.TabIndex = 3;
             // 
             // panelDaysofTheWeek
             // 
@@ -100,7 +100,6 @@ namespace MKproject.Schedule
             panelDaysofTheWeek.Name = "panelDaysofTheWeek";
             panelDaysofTheWeek.Size = new System.Drawing.Size(418, 66);
             panelDaysofTheWeek.TabIndex = 74;
-            panelDaysofTheWeek.Visible = false;
             // 
             // checkBoxMonday
             // 
@@ -381,6 +380,7 @@ namespace MKproject.Schedule
             ButtonCancel.BackColor = System.Drawing.Color.FromArgb(95, 97, 99);
             ButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             ButtonCancel.FlatAppearance.BorderSize = 0;
+            ButtonCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(0, 0, 0);
             ButtonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(20, 20, 20);
             ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -400,6 +400,7 @@ namespace MKproject.Schedule
             ButtonDone.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             ButtonDone.Cursor = System.Windows.Forms.Cursors.Hand;
             ButtonDone.FlatAppearance.BorderSize = 0;
+            ButtonDone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
             ButtonDone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
             ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -434,13 +435,13 @@ namespace MKproject.Schedule
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
             ClientSize = new System.Drawing.Size(418, 387);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(TLPReminder);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Reminder";
             ShowIcon = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Reminder";
-            tableLayoutPanel1.ResumeLayout(false);
+            TLPReminder.ResumeLayout(false);
             panelDaysofTheWeek.ResumeLayout(false);
             panelDaysofTheWeek.PerformLayout();
             panel6.ResumeLayout(false);
@@ -456,8 +457,6 @@ namespace MKproject.Schedule
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.Label labelQuote;
         private System.Windows.Forms.Panel panel6;
@@ -480,5 +479,6 @@ namespace MKproject.Schedule
         public System.Windows.Forms.CheckBox checkBoxSunday;
         public System.Windows.Forms.Panel panelDaysofTheWeek;
         public System.Windows.Forms.TableLayoutPanel TBLRepeat;
+        public System.Windows.Forms.TableLayoutPanel TLPReminder;
     }
 }

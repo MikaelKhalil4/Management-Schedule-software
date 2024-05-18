@@ -76,14 +76,16 @@ namespace MKproject.Schedule
 
             if (AppointmentsList.Count == 0 && SelectedDate.Date < DateTime.Now.Date)
             {
-                BlockedModeDesign("No Appointments Available");
                 IsDesignBlocked = true;
+
+                BlockedModeDesign("No Appointments Available");
 
             }
             else if (EmployeeScheduleList.Count == 0 && SelectedDate.Date <= DateTime.Now.Date)
             {
-                BlockedModeDesign("No Employees Available");
                 IsDesignBlocked = true;
+
+                BlockedModeDesign("No Employees Available");
 
             }
             else
@@ -103,6 +105,8 @@ namespace MKproject.Schedule
 
             Cursor.Current = Cursors.Default;
 
+            //Reminder
+            DisplayUCReminderForTheSelectedDate();
         }
 
 
@@ -222,9 +226,9 @@ namespace MKproject.Schedule
         public bool isThedayofUCreminder(ClassReminder DesiredReminder, DateTime date)
         {
             //For every day, no repeat
-            if (DesiredReminder.Partsrepeat.Length == 1)
+            if (DesiredReminder.PartsRepeat.Length == 1)
             {
-                if (DesiredReminder.Partsrepeat[0] == Reminder.NoRepeat)
+                if (DesiredReminder.PartsRepeat[0] == Reminder.NoRepeat)
                 {
                     if (date.Date == DesiredReminder.StartTime.Date)
                     {
@@ -233,7 +237,7 @@ namespace MKproject.Schedule
 
                 }
 
-                else if (DesiredReminder.Partsrepeat[0] == Reminder.Everyday)
+                else if (DesiredReminder.PartsRepeat[0] == Reminder.Everyday)
                 {
                     if (date.Date >= DesiredReminder.StartTime.Date)
                     {
@@ -249,9 +253,9 @@ namespace MKproject.Schedule
             {
                 if (date.Date >= DesiredReminder.StartTime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
                 {
-                    for (int i = 1; i < DesiredReminder.Partsrepeat.Length; i++)
+                    for (int i = 1; i < DesiredReminder.PartsRepeat.Length; i++)
                     {
-                        if (date.DayOfWeek.ToString() == DesiredReminder.Partsrepeat[i])
+                        if (date.DayOfWeek.ToString() == DesiredReminder.PartsRepeat[i])
                         {
                             return true;
                         }
@@ -285,7 +289,6 @@ namespace MKproject.Schedule
                 DesiredReminder.Reminder = (string)dr["reminder"];
                 DesiredReminder.Repeat = (string)dr["repeat"];
                 DesiredReminder.StartTime = (DateTime)dr["starttime"];
-                DesiredReminder.LabelQuote = (string)dr["labelquote"];
                 DesiredReminder.IsChecked = (bool)dr["is_checked"];
                 UCreminder ucreminder = new UCreminder(DesiredReminder, this, ParentFormSchedule);//li2anno manna bi client reminder
 
@@ -298,7 +301,7 @@ namespace MKproject.Schedule
                     ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
                 }
             }
-            ParentFormSchedule.TouchscrollPanelreminder.ReAssignEventPanelreminder(ParentFormSchedule.panelreminder);
+          
         }
 
         private void TLPSchedule_MouseClick(object sender, MouseEventArgs e)
@@ -653,7 +656,7 @@ namespace MKproject.Schedule
                     Label LabelTime = new Label();
                     LabelTime.Dock = DockStyle.Fill;
                     LabelTime.BackColor = TLPSchedule.BackColor;
-                    LabelTime.ForeColor = Color.FromArgb(50, 50, 50);
+                    LabelTime.ForeColor = Color.FromArgb(64, 64, 64);
                     LabelTime.Dock = DockStyle.Fill;
                     LabelTime.TextAlign = ContentAlignment.TopRight;
                     LabelTime.Font = new Font("Segoe UI", 10, FontStyle.Regular);

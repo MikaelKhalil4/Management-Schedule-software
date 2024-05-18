@@ -66,30 +66,30 @@ namespace MKproject.Schedule
 
         //In Schedule
         //we want to add a ucreminder or we want to display from SQL
-        public UCreminder(ClassReminder desiredReminder, UCSchedule form1, ScheduleForm form2)
+        public UCreminder(ClassReminder desiredReminder, UCSchedule ucschedule, ScheduleForm scheduleform)
         {
             InitializeComponent();
             Isclientreminder = false;
             DesiredReminder = desiredReminder;
 
-            ucday = form1;
-            schedule = form2;
+            ucday = ucschedule;
+            schedule = scheduleform;
 
-            this.BackColor = Color.FromArgb(249, 246, 254);
+            this.BackColor = scheduleform.panelreminder.BackColor;
         }
 
         //In ClientReminder(from select SQL once we open ClientReminder or when we ADD in ClientReminder)
-        public UCreminder(ClassReminder desiredReminder, UCSchedule form1, ScheduleForm form2, ClientReminder clientreminder)
+        public UCreminder(ClassReminder desiredReminder, UCSchedule ucschedule, ScheduleForm scheduleform, ClientReminder clientreminder)
         {
             InitializeComponent();
             Isclientreminder = true;
             DesiredReminder = desiredReminder;
 
             clientReminder = clientreminder;
-            ucday = form1;
-            schedule = form2;
+            ucday = ucschedule;
+            schedule = scheduleform;
 
-            this.BackColor = Color.FromArgb(238, 241, 254);
+            this.BackColor = clientreminder.panelreminder.BackColor;
 
             if (DesiredReminder.IsChecked)
             {
@@ -113,7 +113,7 @@ namespace MKproject.Schedule
             }
             else
             {
-                reminder = new Reminder(DesiredReminder, ucday, schedule, Isclientreminder);
+                reminder = new Reminder(this, ucday, schedule, Isclientreminder);
             }
             reminder.Show();
         }
@@ -131,12 +131,10 @@ namespace MKproject.Schedule
                 {
                     ucday.ListUCreminderForTheSelectedDate.Remove(foundUcReminder);
                     schedule.panelreminder.Controls.Remove(foundUcReminder);
+                    foundUcReminder.Dispose();
                 }
-             
+
                 clientReminder.panelreminder.Controls.Remove(this);
-
-
-                foundUcReminder.Dispose();
                 this.Dispose();
             }
             else
