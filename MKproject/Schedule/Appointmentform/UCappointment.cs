@@ -160,44 +160,30 @@ namespace MKproject.Schedule
             {
                 this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
 
-                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxComplete.Checked && this.Visible)
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxComplete.Checked )
                 {
-                    this.Visible = false;
                     RemoveAppointmentFromTLP();
-                }
-                else if (UcScheduleParentForm.ParentFormSchedule.checkBoxComplete.Checked && !this.Visible)
-                {
-                    this.Visible = true;
                 }
             }
             else if (DesiredAppointmentUCApp.IsCanceled)
             {
                 this.BackColor = Color.FromArgb(244, 86, 7);//orange
 
-                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxCancel.Checked && this.Visible)
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxCancel.Checked )
                 {
-                    this.Visible = false;
                     RemoveAppointmentFromTLP();
 
-                }
-                if (UcScheduleParentForm.ParentFormSchedule.checkBoxCancel.Checked && !this.Visible)
-                {
-                    this.Visible = true;
                 }
             }
             else
             {
                 this.BackColor = Program.BoldColor;
 
-                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxOnPending.Checked && this.Visible)
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxOnPending.Checked)
                 {
-                    this.Visible = false;
                     RemoveAppointmentFromTLP();
                 }
-                else if (UcScheduleParentForm.ParentFormSchedule.checkBoxOnPending.Checked && !this.Visible)
-                {
-                    this.Visible = true;
-                }
+
             }
 
 
@@ -417,6 +403,11 @@ namespace MKproject.Schedule
         {
             Appointment appointmentupdate = (Appointment)sender;
             DesiredAppointmentUCApp = appointmentupdate.DesiredAppointmentAppForm.Copy();
+
+            //Updating the list in uc schedule
+            int index = UcScheduleParentForm.AppointmentsList.FindIndex(a => a.AppointmentID == DesiredAppointmentUCApp.AppointmentID); 
+            UcScheduleParentForm.AppointmentsList[index] = DesiredAppointmentUCApp;//they should refer to each others, since bcz of the copy they have lost their refrence, kermel el checkbox filters 
+
             SetUCDesign();
             FixUCDesign();
             SetServiceLogicAndDesign();
@@ -458,55 +449,6 @@ namespace MKproject.Schedule
         {
             UcScheduleParentForm.RemoveUcAppointmentFromTLP(this);
         }
-        public void ResizeINRemovingUCAppInFLP(FlowLayoutPanel clickedflowLayoutPanel, int NumberOfVisibleControlsOfClickedFLP, int positioncol, int positionrow)
-        {
-
-        }
-        public bool IsThisTheMaxFLP(int positioncol, int positionrow, int NumberOfVisibleControlsOfClickedFLP)//WHO CONTAINS THE Biggest Count
-        {
-            //The FlowLayoutpanel where we dispose the ucdata does it have akbar aadad ucdata before we dispose this ucdata if yes it will affect the TBL
-            bool havethemaxucdata = true;
-
-            for (int i = 0; i < UcScheduleParentForm.TLPSchedule.RowCount; i++)
-            {
-                if (positionrow != i)
-                {
-                    Control cellControl = UcScheduleParentForm.TLPSchedule.GetControlFromPosition(positioncol, i);
-                    if (cellControl is FlowLayoutPanel)
-                    {
-                        FlowLayoutPanel innerFlowLayoutPanel = (FlowLayoutPanel)cellControl;
-                        int NumberOfVisibleControls = 0;
-                        foreach (Control ctrl in innerFlowLayoutPanel.Controls)
-                        {
-                            if (ctrl.Visible)
-                            {
-                                NumberOfVisibleControls++;
-                            }
-                        }
-                        if ((NumberOfVisibleControlsOfClickedFLP + 1)/*+1 li2anno manna na3rif abel ma yaeemil dispose*/ > NumberOfVisibleControls)
-                        {
-
-                        }
-
-                        //eza hata = la hada bet batil zabta
-                        else
-                        {
-                            //if it's equal or false then the supposition is false so we have to break
-                            havethemaxucdata = false;
-                            break;
-                        }
-                    }
-                }
-
-                //Eza ata3 bi halo akid ma y2arin halo
-                else
-                {
-
-                }
-
-            }
-            return havethemaxucdata;
-        }
         private void UCappointment_Resize(object sender, EventArgs e)
         {
             FixUCDesign();//ejbare kermel tfout fiya aal add appointment w tkun badda tekhud original size, tkun bel designer different then the original width.
@@ -522,9 +464,9 @@ namespace MKproject.Schedule
         private void NotfBanner_UndoNotficationBanner(object sender, EventArgs e)
         {
             UcScheduleParentForm.ChangePositionUCappointments(this, DesiredAppointmentUCApp, OldDesiredAppointmentUCApp);
+            DesiredAppointmentUCApp = OldDesiredAppointmentUCApp.Copy();
             SetUCDesign();
             NotificationBanner.Show("", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, true);
-
         }
 
 
@@ -551,9 +493,8 @@ namespace MKproject.Schedule
                         customCursor = CreateCursorFromImage(controlImage); // Create a cursor
 
 
-                        DoDragDrop(this, DragDropEffects.Move);
+                        DoDragDrop(this, DragDropEffects.Move);//ha ndalna hone until naaml drop
                         UCAppIsDroped?.Invoke(null, EventArgs.Empty);
-                        Cursor.Current = customCursor; // Set custom cursor during drag
                     }
                 }
             }

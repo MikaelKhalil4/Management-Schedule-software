@@ -21,7 +21,7 @@ namespace MKproject.Management
 
         private Color ButtonColorEditing = Color.Green;
         private Color ButtonColorNotEditing = Color.FromArgb(109, 122, 224);
-  
+
         public Album(NewRegister registerForm)
         {
             InitializeComponent();
@@ -59,11 +59,11 @@ namespace MKproject.Management
             TLPAddAlbum.Visible = true;
             TLPAddAlbum.Dock = DockStyle.Fill;
 
-            UCAlbum = new UCTextbox1(ClassClient.enumType.Album.ToString(), true);            
+            UCAlbum = new UCTextbox1(ClassClient.enumType.Album.ToString(), true);
             UCAlbum.BackColor = Color.FromArgb(196, 210, 245);
             UCAlbum.Dock = DockStyle.Top;
             UCAlbum.Margin = new Padding(3, 20, 3, 3);
-            TLPAddAlbum.Controls.Add(UCAlbum,0,1);
+            TLPAddAlbum.Controls.Add(UCAlbum, 0, 1);
             TLPAddAlbum.SetColumnSpan(UCAlbum, 3);
 
             if (IsEditClicked)
@@ -87,8 +87,8 @@ namespace MKproject.Management
             }
             TLPHome.Visible = true;
             TLPAddAlbum.Visible = false;
-            TLPHome.Dock = DockStyle.Fill;         
-            buttonEditAlbum.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "editgray.png");      
+            TLPHome.Dock = DockStyle.Fill;
+            buttonEditAlbum.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "editgray.png");
             if (IsEditClicked)
             {
                 IsEditClicked = false;
@@ -101,14 +101,14 @@ namespace MKproject.Management
                 DataTable dt = SQLToProject.GetAlbums();
                 foreach (DataRow row in dt.Rows)
                 {
-                    CreateAlbumButton(row["AlbumType"].ToString(),false);
-                   
+                    CreateAlbumButton(row["AlbumType"].ToString(), false);
+
                 }
-                
+
             }
 
         }
-        void CreateAlbumButton(string albumName,bool SetIndex0)
+        void CreateAlbumButton(string albumName, bool SetIndex0)
         {
             Button button = new Button();
             button.Text = albumName;
@@ -127,20 +127,20 @@ namespace MKproject.Management
                 FLPHome.Controls.SetChildIndex(button, 0);
             }
         }
-      
-      
+
+
         private void AlbumButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
             albumName = clickedButton.Text;
             if (!IsEditClicked)
             {
-                if (ClientManagementProfileForm == null )//jeyin men new register
+                if (ClientManagementProfileForm == null)//jeyin men new register
                 {
                     RegisterForm.SaveOrUpdate(albumName);
                 }
                 else//jeyin men clientProfile
-                {               
+                {
                     //sql
                     ClassClient.UpdateClientAlbumSQL(ClientManagementProfileForm.Client.ClientId, albumName);
                     //design
@@ -167,7 +167,7 @@ namespace MKproject.Management
 
                         ProjectToSQL.InsertNewAlbum(UCAlbum.myTextBox1.Text);
                         //design
-                        CreateAlbumButton(UCAlbum.myTextBox1.Text,true);                       
+                        CreateAlbumButton(UCAlbum.myTextBox1.Text, true);
                         DisplayHome();
                         UCAlbum.Dispose();
 
@@ -238,7 +238,7 @@ namespace MKproject.Management
                     {
                         ClientManagementProfileForm.Client.AlbumType = null;
                         ClientManagementProfileForm.UpdateAlbum();
-                    }                      
+                    }
                 }
                 DisplayHome();
                 ButtonEditClicked.Dispose();
@@ -263,13 +263,13 @@ namespace MKproject.Management
         }
         private void buttonBack_Click(object sender, EventArgs e)
         {
-         
-            DisplayHome();    
+
+            DisplayHome();
             UCAlbum.Dispose();//kermel eza rje3na fetna 3laya nerja3 ne5la2o
         }
-      
-  
-     
+
+
+
 
 
         private void ChangeButtonsColor(Color newColor)
@@ -284,8 +284,8 @@ namespace MKproject.Management
         }
 
 
-  
-     
+
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Opacity == 1)
@@ -302,8 +302,13 @@ namespace MKproject.Management
 
         private void Album_FormClosing(object sender, FormClosingEventArgs e)
         {
-        //ejbare hek
-            if (Program.GreyFormJunior != null)
+            //ejbare hek
+            if (Program.GreyFormJuniorJunior != null)
+            {
+                Program.GreyFormJuniorJunior.Close();
+                Program.GreyFormJuniorJunior = null;
+            }
+            else if (Program.GreyFormJunior != null)
             {
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;

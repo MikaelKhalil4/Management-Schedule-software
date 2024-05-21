@@ -62,6 +62,7 @@
             // 
             // tableLayoutPanelDoubleBufferedNoscroll1
             // 
+            tableLayoutPanelDoubleBufferedNoscroll1.BackColor = System.Drawing.Color.White;
             tableLayoutPanelDoubleBufferedNoscroll1.ColumnCount = 5;
             tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
             tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));

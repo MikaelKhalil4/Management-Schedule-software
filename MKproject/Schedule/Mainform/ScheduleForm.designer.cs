@@ -45,6 +45,11 @@
             flowLayoutPanelDoubleBufferedcs1 = new System.Windows.Forms.FlowLayoutPanel();
             labelDate = new System.Windows.Forms.Label();
             DownArrow = new System.Windows.Forms.PictureBox();
+            tableLayoutPanelDoubleBufferedNoscroll2 = new TableLayoutPanelDoubleBufferedNoscroll();
+            button1 = new System.Windows.Forms.Button();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            label2 = new System.Windows.Forms.Label();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
             tableLayoutPanelForm.SuspendLayout();
             TLPSide.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -52,6 +57,9 @@
             tableLayoutPanelDoubleBufferedNoscroll1.SuspendLayout();
             flowLayoutPanelDoubleBufferedcs1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DownArrow).BeginInit();
+            tableLayoutPanelDoubleBufferedNoscroll2.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanelForm
@@ -68,8 +76,9 @@
             tableLayoutPanelForm.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanelForm.Name = "tableLayoutPanelForm";
             tableLayoutPanelForm.RowCount = 1;
-            tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 715F));
-            tableLayoutPanelForm.Size = new System.Drawing.Size(1485, 791);
+            tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 691F));
+            tableLayoutPanelForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanelForm.Size = new System.Drawing.Size(1148, 672);
             tableLayoutPanelForm.TabIndex = 0;
             // 
             // TLPSide
@@ -100,7 +109,7 @@
             TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             TLPSide.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPSide.Size = new System.Drawing.Size(208, 791);
+            TLPSide.Size = new System.Drawing.Size(208, 691);
             TLPSide.TabIndex = 1;
             // 
             // labelFilter
@@ -137,6 +146,7 @@
             checkBoxCancel.TabIndex = 0;
             checkBoxCancel.Text = "Canceled";
             checkBoxCancel.UseVisualStyleBackColor = false;
+            checkBoxCancel.CheckedChanged += checkBoxCancel_CheckedChanged;
             // 
             // checkBoxComplete
             // 
@@ -157,6 +167,7 @@
             checkBoxComplete.TabIndex = 0;
             checkBoxComplete.Text = "Completed";
             checkBoxComplete.UseVisualStyleBackColor = false;
+            checkBoxComplete.CheckedChanged += checkBoxComplete_CheckedChanged;
             // 
             // checkBoxOnPending
             // 
@@ -176,6 +187,7 @@
             checkBoxOnPending.TabIndex = 0;
             checkBoxOnPending.Text = "Onpending";
             checkBoxOnPending.UseVisualStyleBackColor = false;
+            checkBoxOnPending.CheckedChanged += checkBoxOnPending_CheckedChanged;
             // 
             // pictureBox2
             // 
@@ -247,7 +259,7 @@
             panelreminder.Margin = new System.Windows.Forms.Padding(0);
             panelreminder.Name = "panelreminder";
             panelreminder.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            panelreminder.Size = new System.Drawing.Size(208, 632);
+            panelreminder.Size = new System.Drawing.Size(208, 532);
             panelreminder.TabIndex = 0;
             // 
             // tableLayoutPanelDoubleBufferedNoscroll1
@@ -322,12 +334,85 @@
             DownArrow.TabIndex = 61;
             DownArrow.TabStop = false;
             // 
+            // tableLayoutPanelDoubleBufferedNoscroll2
+            // 
+            tableLayoutPanelDoubleBufferedNoscroll2.ColumnCount = 5;
+            tableLayoutPanelDoubleBufferedNoscroll2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            tableLayoutPanelDoubleBufferedNoscroll2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanelDoubleBufferedNoscroll2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanelDoubleBufferedNoscroll2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 218F));
+            tableLayoutPanelDoubleBufferedNoscroll2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanelDoubleBufferedNoscroll2.Controls.Add(button1, 0, 0);
+            tableLayoutPanelDoubleBufferedNoscroll2.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanelDoubleBufferedNoscroll2.Name = "tableLayoutPanelDoubleBufferedNoscroll2";
+            tableLayoutPanelDoubleBufferedNoscroll2.RowCount = 1;
+            tableLayoutPanelDoubleBufferedNoscroll2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanelDoubleBufferedNoscroll2.Size = new System.Drawing.Size(200, 100);
+            tableLayoutPanelDoubleBufferedNoscroll2.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            button1.BackColor = System.Drawing.Color.WhiteSmoke;
+            button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            button1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button1.ForeColor = System.Drawing.Color.Black;
+            button1.Location = new System.Drawing.Point(15, 37);
+            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(86, 26);
+            button1.TabIndex = 69;
+            button1.Text = "Today";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            flowLayoutPanel1.Controls.Add(label2);
+            flowLayoutPanel1.Controls.Add(pictureBox1);
+            flowLayoutPanel1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            flowLayoutPanel1.Location = new System.Drawing.Point(194, 39);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(204, 22);
+            flowLayoutPanel1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Cursor = System.Windows.Forms.Cursors.Hand;
+            label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label2.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            label2.Location = new System.Drawing.Point(4, 3);
+            label2.Margin = new System.Windows.Forms.Padding(4, 3, 0, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(118, 17);
+            label2.TabIndex = 60;
+            label2.Text = "Day,00 Week,Year";
+            label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new System.Drawing.Point(122, 0);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(27, 20);
+            pictureBox1.TabIndex = 61;
+            pictureBox1.TabStop = false;
+            // 
             // ScheduleForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(1485, 791);
+            ClientSize = new System.Drawing.Size(1148, 672);
             Controls.Add(tableLayoutPanelForm);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "ScheduleForm";
@@ -342,6 +427,10 @@
             flowLayoutPanelDoubleBufferedcs1.ResumeLayout(false);
             flowLayoutPanelDoubleBufferedcs1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DownArrow).EndInit();
+            tableLayoutPanelDoubleBufferedNoscroll2.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -362,6 +451,11 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelDoubleBufferedcs1;
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.PictureBox DownArrow;
+        private TableLayoutPanelDoubleBufferedNoscroll tableLayoutPanelDoubleBufferedNoscroll2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

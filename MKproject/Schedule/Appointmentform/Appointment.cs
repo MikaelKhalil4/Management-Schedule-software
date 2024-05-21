@@ -559,6 +559,8 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.AppointmentID = ClassAppointment.GetLastAppointmentId();
                 //Design
                 UCappointment= UcScheduleParentForm.AddUCappointmentsInTLP(DesiredAppointmentAppForm);
+                UcScheduleParentForm.AppointmentsList.Add(DesiredAppointmentAppForm);
+
                 //OnAppointmentUpdate?.Invoke(this, EventArgs.Empty); // mahhal meshlogic hone, anw za toloolak mashekil bi kun ela reason, bas now keep it like this, cz aal undo men el notif aam taamil mashekil
 
                 NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode,true, Program.HomeForm, UndoFromNotficationBannerModeOn);
@@ -586,7 +588,7 @@ namespace MKproject.Schedule
             {
                 DesiredAppointmentAppForm.IsCompleted = true;
                 AddOrUpdateSQL();//ejbare tahet el completed, w hone mafi ISRequiredFieldsExists, since we used it abel ma naayit CompletingOrUndoingCompletionAppointment
-                OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
+                                 // OnAppointmentUpdate?.Invoke(this, EventArgs.Empty); mawjude bel AddOrUpdateSQL
             }
             else
             {
@@ -819,9 +821,9 @@ namespace MKproject.Schedule
         {
             //SQL
             UCappointment.DesiredAppointmentUCApp.DeleteAppointment();//ejbare hone mahalla mesh bel appointment form
-
-            UCappointment.Dispose();
+           
             UCappointment.RemoveAppointmentFromTLP();
+            UcScheduleParentForm.AppointmentsList.Remove(DesiredAppointmentAppForm);
 
             NotfBanner = NotificationBanner.Show("Appointment Deleted", NotificationBanner.EnumType.DeletedMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
             if (NotfBanner != null)
