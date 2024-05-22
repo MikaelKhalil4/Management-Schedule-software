@@ -1,14 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "J9zYVgGUkJEZV1jXHxQ2T+Yrjp8wJOKZUjGFEpFcJ1gwCIyRLn3T0b9fBf26/0D8QWX2Y61FTj4Yd/xuHDHkRA==",
+  "dgSpecHash": "VJekTlgeNvFpLUTrPndfeOxbrF3ELp0/7XmArqtCaIvk4qUx4cZMyGQSajVGTog/UiYlgM+lRfq3XXRPm0riaA==",
   "success": true,
-  "projectFilePath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj",
+  "projectFilePath": "C:\\MKProject code\\MKproject\\CustomizedTools\\CustomizedTools.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.22\\microsoft.windowsdesktop.app.ref.6.0.22.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.22\\microsoft.netcore.app.ref.6.0.22.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.22\\microsoft.aspnetcore.app.ref.6.0.22.nupkg.sha512"
+    "C:\\Users\\GK\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\GK\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }

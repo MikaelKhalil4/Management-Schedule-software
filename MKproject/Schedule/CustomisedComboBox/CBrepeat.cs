@@ -35,7 +35,7 @@ namespace MKproject.Schedule
             ReminderForm.labelrepeat.Text = labelNoRepeat.Text;
 
             ReminderForm.TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 0F);//0 pixels
-            ReminderForm.Height = 360;
+            ReminderForm.Height = Reminder.HeightWithoutchekBoxes;
 
             //For the Quote
             string datestart = ReminderForm.GetStringDateStart();
@@ -59,7 +59,7 @@ namespace MKproject.Schedule
             ReminderForm.labelrepeat.Text = labelDay.Text;
 
             ReminderForm.TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 0F);//0 pixels
-            ReminderForm.Height = 360;
+            ReminderForm.Height = Reminder.HeightWithoutchekBoxes;
 
             //For the Quote
             //badda teje deghre baeed awal virgule  daily repitition
@@ -84,7 +84,7 @@ namespace MKproject.Schedule
             ReminderForm.labelrepeat.Text = labelWeek.Text;
 
             ReminderForm.TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 66F);//66 pixels
-            ReminderForm.Height = 426;
+            ReminderForm.Height = Reminder.HeightWithchekBoxes;
 
             //For the Quote
             //badda teje deghre baeed awal virgule  daily repitition on Monday(hasab date tabaee lstart time)

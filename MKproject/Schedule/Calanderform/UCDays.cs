@@ -23,14 +23,11 @@ namespace MKproject.Schedule
 
 
         //EVENTS:
-        public event EventHandler SelectedDateChanged;
         private void UCDays_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
             calanderForm.DateCalander = DateUCdays;
-            scheduleForm.UCDaysClick();
-            SelectedDateChanged?.Invoke(this, EventArgs.Empty);
-
+            calanderForm.ActivateSelectedDateChanged();
             Cursor = Cursors.Default;
         }
 

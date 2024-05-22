@@ -568,27 +568,45 @@ namespace MKproject.Schedule
             //UCmonth show
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-6, 25);
-            ParentFormSchedule.ucmonths.Location = locationRelativeToScreen;
-            ParentFormSchedule.ucmonths.Show();
+            ParentFormSchedule.calanderForm.Location = locationRelativeToScreen;
+            ParentFormSchedule.calanderForm.Size = new Size(365, 307);
+            ParentFormSchedule.calanderForm.Show();
 
+            ParentFormSchedule.calanderForm.SelectedDateChanged += SelectedDate_Changed;
 
             //Showing the ucmonth from the calanderday in the date that we are
-            ParentFormSchedule.ucmonths.DateUCMonth = SelectedDate;
-            if (ParentFormSchedule.ucmonths.wichuccalander == 2)
+            ParentFormSchedule.calanderForm.DateCalander = SelectedDate;
+            ParentFormSchedule.calanderForm.SelectedDate = SelectedDate;
+            if (ParentFormSchedule.calanderForm.wichuccalander == 2)
             {
-                ParentFormSchedule.ucmonths.wichuccalander = 1;
-                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalandermonth);
-                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
+                ParentFormSchedule.calanderForm.wichuccalander = 1;
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalandermonth);
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
             }
-            else if (ParentFormSchedule.ucmonths.wichuccalander == 3)
+            else if (ParentFormSchedule.calanderForm.wichuccalander == 3)
             {
-                ParentFormSchedule.ucmonths.wichuccalander = 1;
-                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.ucmonths.uccalanderyear);
-                ParentFormSchedule.ucmonths.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.ucmonths.uccalanderday);
+                ParentFormSchedule.calanderForm.wichuccalander = 1;
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalanderyear);
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
 
             }
 
-            ParentFormSchedule.ucmonths.EditLabelUCdays();
+            ParentFormSchedule.calanderForm.EditLabelUCdays();
+        }
+        public void SelectedDate_Changed(object sender, EventArgs e)
+        {
+            //Scroll
+           TLPSchedule.AutoScrollPosition = new Point(0, 0);
+           TLPSchedule.AutoScrollPosition = new Point(0, TLPSchedule.rowHeight * 6);
+           TLPSchedule.currentRow = 6;
+
+            //edit DateUCDay
+            if (SelectedDate.Date != ParentFormSchedule.calanderForm.DateCalander.Date)
+            {
+                SelectedDate = ParentFormSchedule.calanderForm.DateCalander.Date;
+                LoadForm(ParentFormSchedule.calanderForm.DateCalander);
+            }
+            ParentFormSchedule.calanderForm.Hide();
         }
 
         private void labelDate_MouseMove(object sender, MouseEventArgs e)

@@ -23,7 +23,6 @@ namespace MKproject.Schedule
             InitializeComponent();
             ucSchedule = new UCSchedule(this);
             calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
-
             calanderForm.Dock = DockStyle.Fill;
             ucSchedule.Dock = DockStyle.Fill;
             calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
@@ -214,29 +213,6 @@ namespace MKproject.Schedule
             }
         }
 
-
-
-        //FUNCTIONS:
-        public void UCDaysClick()
-        {
-            EditUCDay();
-            calanderForm.Hide();
-        }//click on a day of UCMONTH
-        public void EditUCDay()
-        {
-            //Scroll
-            ucSchedule.TLPSchedule.AutoScrollPosition = new Point(0, 0);
-            ucSchedule.TLPSchedule.AutoScrollPosition = new Point(0, ucSchedule.TLPSchedule.rowHeight * 6);
-            ucSchedule.TLPSchedule.currentRow = 6;
-
-            //edit DateUCDay
-            if (ucSchedule.SelectedDate.Date != calanderForm.DateCalander.Date)
-            {
-                ucSchedule.LoadForm(calanderForm.DateCalander);
-            }
-        }// changing DateUCDAY
-
-       
     }
 }
 

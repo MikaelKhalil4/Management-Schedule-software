@@ -11,11 +11,17 @@ namespace MKproject.Schedule
     public partial class CalanderForm : Form
     {
         //PROPERTIES:
-        public DateTime DateCalander { get; set; }// kel shi get,te3dil ha2i2e mnstaeemil DateUCMonth
+        public DateTime DateCalander { get; set; }// kel shi get,te3dil ha2i2e mnstaeemil DateUCMonth, hayda bi dallo yetghayar kel ma ghayir bel calander
+        public event EventHandler SelectedDateChanged;//hayda bas byetghayar lamma na2e value
+        public void ActivateSelectedDateChanged()
+        {
+            SelectedDateChanged?.Invoke(this, EventArgs.Empty);
+        }
 
+        public DateTime SelectedDate;//Bi Masil Date li na2a
         //VARIABLES:
         DateTime date; int month, year, days; string monthname;//just copies
-        public ScheduleForm scheduleForm; public DateTime SelectedDate; public UCCalanderday uccalanderday; public UCCalandermonth uccalandermonth; public UCCalanderyear uccalanderyear;
+        public ScheduleForm scheduleForm; public UCCalanderday uccalanderday; public UCCalandermonth uccalandermonth; public UCCalanderyear uccalanderyear;
         public UCDays ucdayOfDateUCDay; public UCDays ucdayOfToday; public LabelMonth labelmonthcopy; public LabelYear labelyearcopy;//for their borders
 
         public int wichuccalander;//1:uccalanderday  2:uccalandermonth  3:uccalanderyear
@@ -49,7 +55,7 @@ namespace MKproject.Schedule
 
             wichuccalander = 1;
             tableLayoutPanelMonth.Controls.Add(uccalanderday, 0, 1);
-            tableLayoutPanelMonth.SetColumnSpan(uccalanderday, 3);
+            tableLayoutPanelMonth.SetColumnSpan(uccalanderday, 4);
 
             EditLabelUCdays();
         }//moujarad ma eftah lschedule
@@ -126,7 +132,7 @@ namespace MKproject.Schedule
                 wichuccalander = 2;
                 tableLayoutPanelMonth.Controls.Remove(uccalanderday);
                 tableLayoutPanelMonth.Controls.Add(uccalandermonth, 0, 1);
-                tableLayoutPanelMonth.SetColumnSpan(uccalandermonth, 3);
+                tableLayoutPanelMonth.SetColumnSpan(uccalandermonth, 4);
                 labelTitleDay.Text = DateCalander.Year.ToString();
                 HighlightSelectedMonth();
 
@@ -136,10 +142,33 @@ namespace MKproject.Schedule
                 wichuccalander = 3;
                 tableLayoutPanelMonth.Controls.Remove(uccalandermonth);
                 tableLayoutPanelMonth.Controls.Add(uccalanderyear, 0, 1);
-                tableLayoutPanelMonth.SetColumnSpan(uccalanderyear, 3);
+                tableLayoutPanelMonth.SetColumnSpan(uccalanderyear, 4);
                 labelTitleDay.Text = DateCalander.Year + "-" + (DateCalander.Year + NODifferenceYears);
                 HighlightNDisplaySelectedYear();
             }
+        }
+        private void buttonToday_Click(object sender, EventArgs e)
+        {
+            if (DateCalander != DateTime.Now)
+            {
+                DateCalander = DateTime.Now;
+                //manna nshouf bi aya uc nehna kermel nshouf shou manna n3adil
+                if (wichuccalander == 1)
+                {
+                    EditLabelUCdays();
+                }
+                else if (wichuccalander == 2)
+                {
+                    labelTitleDay.Text = DateCalander.Year.ToString();
+                    HighlightSelectedMonth();
+                }
+                else
+                {
+                    labelTitleDay.Text = DateCalander.Year + "-" + (DateCalander.Year + NODifferenceYears);
+                    HighlightNDisplaySelectedYear();
+                }
+            }
+
         }
         private void UCMonth_Deactivate(object sender, EventArgs e)
         {
@@ -151,7 +180,6 @@ namespace MKproject.Schedule
             //Just to setUp the ucmonth again when I deactivate it and we will to set it on UCCalanderday
             this.Hide();
 
-            DateCalander = SelectedDate;
         }
 
 
@@ -278,6 +306,7 @@ namespace MKproject.Schedule
                 {
                     ucdays.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "circle.png"); //sdawa luc li na2ayne
                     ucdays.labelDay.ForeColor = Color.White;
+                    ucdays.BackColor = Color.White;
                     ucdayOfToday = ucdays;//hala2 eza eemelna shi aal ucdaycopy ha yet2asar kamen u, exemple: disactivatebordercolor
 
                     ucdayOfTodayexist = true;
@@ -369,6 +398,7 @@ namespace MKproject.Schedule
 
 
 
+
         private void labelTitleDay_MouseLeave(object sender, EventArgs e)
         {
             labelTitleDay.ForeColor = Color.FromArgb(64, 64, 64);
@@ -397,6 +427,7 @@ namespace MKproject.Schedule
             }
 
         }
+
     }
 }
 
