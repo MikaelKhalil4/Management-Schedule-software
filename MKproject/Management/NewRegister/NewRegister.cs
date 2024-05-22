@@ -2156,7 +2156,7 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanEditRegistrationFields)
             {
-                Program.GreyFormJunior = new GreyColor(this, true, true,null);
+                Program.GreyFormJunior = new GreyColor(this, true, true, null);
                 Program.GreyFormJunior.Show();
                 RegistrationFields r = new RegistrationFields(this);
                 r.ShowDialog();
@@ -2246,8 +2246,16 @@ namespace MKproject.Management
             {
                 if (!CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
                 {
-                    Program.GreyFormJunior = new GreyColor(this, true, true, null);
-                    Program.GreyFormJunior.Show();
+                    if (!IsFromSchedule)
+                    {
+                        Program.GreyFormJunior = new GreyColor(this, true, true, null);
+                        Program.GreyFormJunior.Show();
+                    }
+                    else
+                    {
+                        Program.GreyFormJuniorJunior = new GreyColor(this, true, true, null);
+                        Program.GreyFormJuniorJunior.Show();
+                    }
                     Album album = new Album(this);
                     album.ShowDialog();
                 }
@@ -2453,7 +2461,7 @@ namespace MKproject.Management
                 {
                     CustomMessageBox.Show("In order to Delete this Client , you need first to remove all his childrens", CustomMessageBox.Type.Error);
                 }
-            
+
             }
 
         }//try catch
@@ -2472,8 +2480,8 @@ namespace MKproject.Management
         }
 
         private void NewRegister_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Program.GreyFormJunior != null)
+         {
+           if (Program.GreyFormJunior != null)
             {
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;
