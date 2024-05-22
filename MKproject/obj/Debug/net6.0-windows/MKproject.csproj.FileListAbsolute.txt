@@ -277,7 +277,6 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCCalandermonth.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCCalanderyear.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCDays.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCMonth.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.ClientReminder.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.Reminder.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCData.UCData.resources
@@ -296,3 +295,4 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.CalanderForm.resources
