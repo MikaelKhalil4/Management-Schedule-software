@@ -59,13 +59,15 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.WaitCursor;
             if (checkBoxOnPending.Checked)
             {
-              foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsList)
+                ucSchedule.IsCursorBlocked = true;
+                foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsList)
                 {
                     if (!desiredAppointment.IsCompleted && !desiredAppointment.IsCanceled)
                     {
                         ucSchedule.AddUCappointmentsInTLP(desiredAppointment);
                     }
                 }
+                ucSchedule.IsCursorBlocked = false;
             }
             else
             {
@@ -96,13 +98,16 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.WaitCursor;
             if (checkBoxComplete.Checked)
             {
+                ucSchedule.IsCursorBlocked = true;
                 foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsList)
                 {
                     if (desiredAppointment.IsCompleted)
                     {
+                      
                         ucSchedule.AddUCappointmentsInTLP(desiredAppointment);
                     }
                 }
+                ucSchedule.IsCursorBlocked = false;
             }
             else
             {
@@ -132,6 +137,7 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.WaitCursor;
             if (checkBoxCancel.Checked)
             {
+                ucSchedule.IsCursorBlocked = true;
                 foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsList)
                 {
                     if (desiredAppointment.IsCanceled)
@@ -139,6 +145,7 @@ namespace MKproject.Schedule
                         ucSchedule.AddUCappointmentsInTLP(desiredAppointment);
                     }
                 }
+                ucSchedule.IsCursorBlocked = false;
             }
             else
             {

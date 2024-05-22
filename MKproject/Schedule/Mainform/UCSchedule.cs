@@ -35,7 +35,7 @@ namespace MKproject.Schedule
         (ClassEmployee, List<int>) FocusOnColumnIndexGroup;
         int FocusOnMaxWidth;
         bool IsHistory;
-
+        public bool IsCursorBlocked;
         //Reminder
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
@@ -51,7 +51,7 @@ namespace MKproject.Schedule
 
         public void LoadForm(DateTime selectedDate)
         {
-            Cursor.Current = Cursors.WaitCursor;
+
 
             FocusOnColumnIndexGroup = (null, null);
 
@@ -73,7 +73,7 @@ namespace MKproject.Schedule
 
             AppointmentsList = ClassAppointment.GetAppointmentOfSpecificEmployees(SelectedDate, EmployeeScheduleList);
 
-           
+
 
             CreateTLPDesign();
 
@@ -110,13 +110,14 @@ namespace MKproject.Schedule
                 SetTLPEmployeesColumn();
                 SetTLPSchGroupColumn();//el resizing bi sir juwweta lal tnen Employees and TlpAppointmnet
                                        //
-
+                IsCursorBlocked = true;
                 AddAppointmentsToTlpSchedule();
+                IsCursorBlocked = false;
 
                 IsDesignBlocked = false;
             }
 
-            Cursor.Current = Cursors.Default;
+
 
             //Reminder
             DisplayUCReminderForTheSelectedDate();
@@ -434,7 +435,7 @@ namespace MKproject.Schedule
 
                 if (column > 0)
                 {
-                    TimeSpan StartTime = GetTimeFromRow(row,false);
+                    TimeSpan StartTime = GetTimeFromRow(row, false);
                     ClassEmployee SelectedEmployee = GetWhichEmployeeForSpecifieColumn(column);
 
 
@@ -591,14 +592,14 @@ namespace MKproject.Schedule
         }//Display the title and the ucappointments
 
 
-       
+
         public void ChangePositionUCappointments(UCappointment DesiredUCApp, ClassAppointment OldAppointment, ClassAppointment UpdatedAppointment)
         {
             (int OldRowIndexStart, int OldRowIndexEnd) = GetUCAppointmentRowIndexes(OldAppointment);//hone el el start  w el end time before updating
             (int NewRowIndexStart, int NewRowIndexEnd) = GetUCAppointmentRowIndexes(UpdatedAppointment);//hone el  start  w el end time after updating
 
             int RowSpan = GetControlSpan(NewRowIndexStart, NewRowIndexEnd);
-         
+
             TLPSchedule.SetRowSpan(DesiredUCApp, RowSpan);
 
             PurellyAddingAndRemovingUC(UpdatedAppointment.DesiredEmployee.EmployeeId, NewRowIndexStart, OldAppointment.DesiredEmployee.EmployeeId, OldRowIndexStart, DesiredUCApp);
@@ -624,7 +625,7 @@ namespace MKproject.Schedule
 
             (int RowIndexStart, int RowIndexEnd) = GetUCAppointmentRowIndexes(DesiredUCApp.DesiredAppointmentUCApp);
 
-            int RowSpan = GetControlSpan(RowIndexStart, RowIndexEnd);          
+            int RowSpan = GetControlSpan(RowIndexStart, RowIndexEnd);
             TLPSchedule.SetRowSpan(DesiredUCApp, RowSpan);
 
 
@@ -639,10 +640,10 @@ namespace MKproject.Schedule
         public (int, int) GetUCAppointmentRowIndexes(ClassAppointment DesiredAppointment)
         {
             TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;
-            int PositionRowStart = GetRowFromTime(starttimeTimeSpan,false);
+            int PositionRowStart = GetRowFromTime(starttimeTimeSpan, false);
 
             TimeSpan endtimeTimeSpan = DesiredAppointment.EndTime.TimeOfDay;
-            int PositionRowEnd = GetRowFromTime(endtimeTimeSpan,true);
+            int PositionRowEnd = GetRowFromTime(endtimeTimeSpan, true);
 
 
             return (PositionRowStart, PositionRowEnd);//position flowlayoutpanel hiye position employee bel list-1 
@@ -651,18 +652,30 @@ namespace MKproject.Schedule
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
 
             LoadForm(SelectedDate.AddDays(+1));
+
+            Cursor.Current = Cursors.Default;
+
         }
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             LoadForm(SelectedDate.AddDays(-1));
+
+            Cursor.Current = Cursors.Default;
         }
         private void buttonToday_Click(object sender, EventArgs e)
         {
             if (SelectedDate.Date.Day != DateTime.Now.Day)
             {
+                Cursor.Current = Cursors.WaitCursor;
+
                 LoadForm(DateTime.Now);
+
+                Cursor.Current = Cursors.Default;
             }
         }
         private void labelDate_Click(object sender, EventArgs e)
@@ -1042,36 +1055,63 @@ namespace MKproject.Schedule
         void PurellyAddingAndRemovingUC(int AddempId, int AddRow, int RmvempId, int RmvRow, UCappointment DesiredUCApp)
         {//it will opeate kaeeano dragrop
 
+            if (!IsCursorBlocked)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+            }
+
+
             (ClassEmployee, List<int>) DesiredColumnIndexesGroup = GetWhichDesiredGroup(RmvempId);
             SetSerpentBeforeRemovingAndThenRemoveIt(DesiredColumnIndexesGroup, DesiredUCApp);
 
-
-
-
-
-
             RemoveUc(DesiredColumnIndexesGroup, RmvRow, null, DesiredUCApp);
-
 
             AddUc(GetWhichDesiredGroup(AddempId), AddRow, DesiredUCApp);
 
-
             CheckIfLastColumnsShouldBeRemoved(DesiredColumnIndexesGroup);
-        }
 
+
+            if (!IsCursorBlocked)
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
         void PurellyAddingUcApp(int empId, int NewRow, UCappointment DesiredUCApp)
         {
+            if (!IsCursorBlocked)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+            }
+
             AddUc(GetWhichDesiredGroup(empId), NewRow, DesiredUCApp);
+
+            if (!IsCursorBlocked)
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
         void PurelyRemovingUcApp(int empId, int Row, UCappointment DesiredUCApp)
         {
+            if (!IsCursorBlocked)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+            }
+
+
             (ClassEmployee, List<int>) DesiredColumnIndexesGroup = GetWhichDesiredGroup(empId);
 
             SetSerpentBeforeRemovingAndThenRemoveIt(DesiredColumnIndexesGroup, DesiredUCApp);
             RemoveUc(DesiredColumnIndexesGroup, Row, null, DesiredUCApp);
             CheckIfLastColumnsShouldBeRemoved(DesiredColumnIndexesGroup);
 
+
+            if (!IsCursorBlocked)
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
         }
+
 
         (ClassEmployee, List<int>) GetWhichDesiredGroup(int empId)
         {
@@ -1085,7 +1125,7 @@ namespace MKproject.Schedule
 
             return (null, null);
         }
-        TimeSpan GetTimeFromRow(int row,bool IsEndTIme)
+        TimeSpan GetTimeFromRow(int row, bool IsEndTIme)
         {
             if (IsEndTIme)
             {
@@ -1103,7 +1143,7 @@ namespace MKproject.Schedule
 
             return new TimeSpan(hours, minutes, 0);
         }
-        public int GetRowFromTime(TimeSpan Time,bool IsEndTime)
+        public int GetRowFromTime(TimeSpan Time, bool IsEndTime)
         {
             int TotalHour = 24;
             int TotalRow = TLPSchedule.RowCount;
@@ -1125,12 +1165,12 @@ namespace MKproject.Schedule
             if (IsEndTime)
             {
                 // Adjust for end time
-                if (Time.Minutes % 15==0 && Time.Hours != 0)
+                if (Time.Minutes % 15 == 0 && Time.Hours != 0)
                 {
                     PositionRow -= 1;
                 }
             }
-           
+
 
             return PositionRow;
         }
@@ -1209,7 +1249,7 @@ namespace MKproject.Schedule
 
                     if (CheckIfPositionAvailable(StartingColumn, StartingRow))
                     {
-
+                        Cursor.Current = Cursors.WaitCursor;
 
                         DragDropBusinessLogic(ColumnIndex, RowIndexStart);
 
@@ -1238,6 +1278,8 @@ namespace MKproject.Schedule
                         UCApointmentDraged = null;
 
                         ResetSelection();
+
+                        Cursor.Current = Cursors.Default;
                     }
                     else
                     {
@@ -1267,16 +1309,14 @@ namespace MKproject.Schedule
             //TouchscrollPanelUCDay.AssignEventPanelUCDay(TLPSchedule);
 
         }
-
         bool CheckIfPositionAvailable(int StartingColumn, int StartingRow)
         {
             return true;
         }
-
         void DragDropBusinessLogic(int NewColumnIndex, int NewRowIndexStart)//Test
         {
 
-            int NewRowIndexEnd = NewRowIndexStart + TLPSchedule.GetRowSpan(UCApointmentDraged) -1;
+            int NewRowIndexEnd = NewRowIndexStart + TLPSchedule.GetRowSpan(UCApointmentDraged) - 1;
 
             int OldRowIndexStart = UCApointmentDraged.RowIndexStart;
 
@@ -1288,19 +1328,19 @@ namespace MKproject.Schedule
             {
                 UCApointmentDraged.OldDesiredAppointmentUCApp = UCApointmentDraged.DesiredAppointmentUCApp.Copy();//we should copy before changing to the new time
 
-             
+
                 UCApointmentDraged.RowIndexStart = NewRowIndexStart;
                 UCApointmentDraged.RowIndexEnd = NewRowIndexEnd;
                 UCApointmentDraged.ColumnIndex = NewColumnIndex;
 
 
                 //StartTime
-                TimeSpan NewStartTime = GetTimeFromRow(NewRowIndexStart,false);
+                TimeSpan NewStartTime = GetTimeFromRow(NewRowIndexStart, false);
                 UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
 
 
                 //EndTime
-                TimeSpan NewEndTime = GetTimeFromRow(NewRowIndexEnd,true); ;
+                TimeSpan NewEndTime = GetTimeFromRow(NewRowIndexEnd, true); ;
                 UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
 
 
@@ -1335,10 +1375,7 @@ namespace MKproject.Schedule
             List<UCappointment> AllNewdUCInTheArea = NewgroupedUCsCoverredByTheArea.SelectMany(pair => pair.Value).ToList();
 
 
-            if (UCApointmentDraged != null)//kermel lamma naayeta men constructure, nehna w aam nekhlae alef wahad
-            {
-                Cursor.Current = Cursors.WaitCursor;
-            }
+
 
             bool IsUCAppScheduled;
 
@@ -1489,14 +1526,9 @@ namespace MKproject.Schedule
 
 
 
-            if (UCApointmentDraged != null)
-            {
-                Cursor.Current = Cursors.Default;
-            }
+
 
         }
-
-
         void RemoveUc((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int Row, List<UCappointment> AllNewdUCInTheArea, UCappointment DesiredUCApp)//it will be !=null only in dragdrop operation
         {
             //removing
@@ -1547,8 +1579,6 @@ namespace MKproject.Schedule
 
             TLPSchedule.Controls.Remove(DesiredUcApp);
         }
-
-
         void CheckIfLastColumnsShouldBeRemoved((ClassEmployee, List<int>) DesiredColumnIndexesGroup)//in case of dragrdrop, and we re removing and adding the same column ,ejbare men baeed el add, lieanno eza ken in the Same column shelnha men matrah w hattayna matrah tene (hayda el uc li aam aam yaamil insert la new column, huwwe zeit baddo yemnaa hayde el column ma tenmehe bhal code, lieanno ha ykun eendo latest index)
         {
             //ma32oul yseebo sawa, in the same group of columns
@@ -2019,7 +2049,7 @@ namespace MKproject.Schedule
 
 
             int StartingRow = DesiredRow;
-            int EndingRow = DesiredRow + TLPSchedule.GetRowSpan(DesiredUCApp)-1;
+            int EndingRow = DesiredRow + TLPSchedule.GetRowSpan(DesiredUCApp) - 1;
 
             return (StartingColumn, EndingColumn, StartingRow, EndingRow);
         }
