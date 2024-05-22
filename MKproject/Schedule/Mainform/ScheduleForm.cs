@@ -12,7 +12,7 @@ namespace MKproject.Schedule
         public TouchScroll TouchscrollPanelreminder { get; set; }
 
         //VARIABLES:
-        public UCMonth ucmonths;
+        public CalanderForm calanderForm;
         public UCSchedule ucSchedule;
         public Employee employee;
 
@@ -22,8 +22,7 @@ namespace MKproject.Schedule
         public ScheduleForm()
         {
             InitializeComponent();
-
-
+           
             TLPSide.Margin = new Padding(0, 0, 0, 0);
 
             ucSchedule = new UCSchedule(this);
@@ -34,9 +33,9 @@ namespace MKproject.Schedule
             ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay,false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
 
             //ejare tahet ucSchedule
-            ucmonths = new UCMonth(this, ucSchedule);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
-            ucmonths.Dock = DockStyle.Fill;
-            ucmonths.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
+            calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
+            calanderForm.Dock = DockStyle.Fill;
+            calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
 
         }
 
@@ -177,7 +176,7 @@ namespace MKproject.Schedule
         public void UCDaysClick()
         {
             EditUCDay();
-            ucmonths.Hide();
+            calanderForm.Hide();
         }//click on a day of UCMONTH
         public void EditUCDay()
         {
@@ -187,14 +186,10 @@ namespace MKproject.Schedule
             ucSchedule.TLPSchedule.currentRow = 6;
 
             //edit DateUCDay
-            if (ucSchedule.SelectedDate.Date != ucmonths.DateUCMonth.Date)
+            if (ucSchedule.SelectedDate.Date != calanderForm.DateCalander.Date)
             {
-                ucSchedule.LoadForm(ucmonths.DateUCMonth);
+                ucSchedule.LoadForm(calanderForm.DateCalander);
             }
-
-
-
-
         }// changing DateUCDAY
 
       

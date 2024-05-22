@@ -4,10 +4,10 @@ namespace MKproject.Schedule
 {
     public partial class UCCalanderyear : UserControl
     {
-        public UCCalanderyear(UCMonth ucmonths)
+        public UCCalanderyear(CalanderForm ucmonths)
         {
             InitializeComponent();
-            int year = ucmonths.DateUCMonth.Year;
+            int year = ucmonths.DateCalander.Year;
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 4; j++)

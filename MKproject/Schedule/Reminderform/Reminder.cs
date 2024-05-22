@@ -25,7 +25,7 @@ namespace MKproject.Schedule
 
 
         //Kel ma yenfatah hayda lform lezim yenkhala2 object DesiredReminder
-        public  ClassReminder DesiredReminder = new ClassReminder();
+        public ClassReminder DesiredReminder = new ClassReminder();
         //Just to get the check boxes in the order thet we want
         CheckBox[] checkBoxes;
 
@@ -121,7 +121,7 @@ namespace MKproject.Schedule
 
         void LoadAddForm()
         {
-            checkBoxes =   new CheckBox[] { checkBoxMonday,checkBoxTuesday,checkBoxWednesday,checkBoxThursday,checkBoxFriday, checkBoxSaturday,checkBoxSunday};
+            checkBoxes = new CheckBox[] { checkBoxMonday, checkBoxTuesday, checkBoxWednesday, checkBoxThursday, checkBoxFriday, checkBoxSaturday, checkBoxSunday };
             TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 0F);//0 pixels
             Height = 360;
 
@@ -292,12 +292,12 @@ namespace MKproject.Schedule
                     //DESIGN IF IT'S IN ClientReminder
                     if (Isclientreminder)
                     {
-                        if(clientReminder.DesiredClient == null)//hone aal akid byaeemil add li2anno all
+                        if (clientReminder.DesiredClient == null)//hone aal akid byaeemil add li2anno all
                         {
                             AddUCReminderInClientReminderForm();
                         }
-                       
-                        else if(DesiredReminder.DesiredClient != null && DesiredReminder.DesiredClient.ClientId == clientReminder.DesiredClient.ClientId)
+
+                        else if (DesiredReminder.DesiredClient != null && DesiredReminder.DesiredClient.ClientId == clientReminder.DesiredClient.ClientId)
                         {
                             AddUCReminderInClientReminderForm();
                         }
@@ -353,7 +353,7 @@ namespace MKproject.Schedule
         }
 
 
-     
+
 
         ///-Check Boxes Changed(monday to sunday):
         private void checkBoxMonday_CheckedChanged(object sender, EventArgs e)
@@ -369,7 +369,7 @@ namespace MKproject.Schedule
                     if (checkBox.Checked)
                     {
                         labelQuote.Text += checkBox.Text + " ";
-                        DesiredReminder.Repeat  += "/" + checkBox.Text;
+                        DesiredReminder.Repeat += "/" + checkBox.Text;
                     }
                 }
                 //labelQuote.Text = labelQuote.Text.Remove(labelQuote.Text.Length - 1);
@@ -400,7 +400,7 @@ namespace MKproject.Schedule
         {
             //Getting the Quote
             string datestart = GetStringDateStart();
-          
+
 
             //no repeat
             if (DesiredReminder.PartsRepeat[0] == Reminder.NoRepeat)
@@ -458,6 +458,16 @@ namespace MKproject.Schedule
         private void flowLayoutPanelRepeat_MouseMove(object sender, MouseEventArgs e)
         {
             //labelrepeat.ForeColor = Color.FromArgb(229, 226, 244);
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void labelDate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

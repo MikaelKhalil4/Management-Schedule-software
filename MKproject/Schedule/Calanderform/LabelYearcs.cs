@@ -19,7 +19,7 @@ namespace MKproject.Schedule
         }
 
         //VARIABLE:
-        public UCMonth ucmonths;
+        public CalanderForm ucmonths;
 
 
 
@@ -44,12 +44,12 @@ namespace MKproject.Schedule
             ucmonths.wichuccalander = 2;
 
             LabelYear label = (LabelYear)sender;
-            ucmonths.DateUCMonth = new DateTime(label.Year, 1, 1);//laken bas lmonth byetghayr
+            ucmonths.DateCalander = new DateTime(label.Year, 1, 1);//laken bas lmonth byetghayr
 
             ucmonths.tableLayoutPanelMonth.Controls.Remove(ucmonths.uccalanderyear);
             ucmonths.tableLayoutPanelMonth.Controls.Add(ucmonths.uccalandermonth);
 
-            ucmonths.labelTitleDay.Text = ucmonths.DateUCMonth.Year.ToString();
+            ucmonths.labelTitleDay.Text = ucmonths.DateCalander.Year.ToString();
             ucmonths.HighlightSelectedMonth();
 
         }

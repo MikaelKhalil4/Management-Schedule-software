@@ -115,22 +115,22 @@
     <Compile Update="Schedule\Dayform\UCTime.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Monthform\LabelMonth.cs">
+    <Compile Update="Schedule\Calanderform\LabelMonth.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Schedule\Monthform\LabelYearcs.cs">
+    <Compile Update="Schedule\Calanderform\LabelYearcs.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Schedule\Monthform\UCCalanderday.cs">
+    <Compile Update="Schedule\Calanderform\UCCalanderday.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Monthform\UCCalandermonth.cs">
+    <Compile Update="Schedule\Calanderform\UCCalandermonth.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Monthform\UCCalanderyear.cs">
+    <Compile Update="Schedule\Calanderform\UCCalanderyear.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Monthform\UCDays.cs">
+    <Compile Update="Schedule\Calanderform\UCDays.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\Tools\TableLayoutPanelBuffered.cs">
