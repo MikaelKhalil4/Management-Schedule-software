@@ -22,20 +22,19 @@ namespace MKproject.Schedule
         public ScheduleForm()
         {
             InitializeComponent();
-           
-            TLPSide.Margin = new Padding(0, 0, 0, 0);
 
             ucSchedule = new UCSchedule(this);
             ucSchedule.Dock = DockStyle.Fill;
             ucSchedule.Margin = new Padding(10, 10, 0, 0);
 
             tableLayoutPanelForm.Controls.Add(ucSchedule, 1, 0);
-            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay,false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
-
+            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
             //ejare tahet ucSchedule
             calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
             calanderForm.Dock = DockStyle.Fill;
             calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
+
+            TLPSide.Margin = new Padding(0, 0, 0, 0);
 
         }
 
@@ -75,7 +74,7 @@ namespace MKproject.Schedule
                 {
                     if (control is UCappointment)
                     {
-                        UCappointment DesiredUC=control as UCappointment;
+                        UCappointment DesiredUC = control as UCappointment;
 
                         if (!DesiredUC.DesiredAppointmentUCApp.IsCompleted && !DesiredUC.DesiredAppointmentUCApp.IsCanceled)
                         {
@@ -102,7 +101,7 @@ namespace MKproject.Schedule
                 {
                     if (desiredAppointment.IsCompleted)
                     {
-                      
+
                         ucSchedule.AddUCappointmentsInTLP(desiredAppointment);
                     }
                 }
@@ -117,7 +116,7 @@ namespace MKproject.Schedule
                     {
                         UCappointment DesiredUC = control as UCappointment;
 
-                        if (DesiredUC.DesiredAppointmentUCApp.IsCompleted )
+                        if (DesiredUC.DesiredAppointmentUCApp.IsCompleted)
                         {
                             ControlsShouldBeRemoved.Add(DesiredUC);
                         }
@@ -192,6 +191,17 @@ namespace MKproject.Schedule
             }
         }// changing DateUCDAY
 
-      
+
+
+        private void ScheduleForm_Load(object sender, EventArgs e)
+        {
+            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//ouaa tshila,w ella ma btozbat w treka bel constrctor also
+        }
+
+        public event EventHandler ScheduleFormResize;
+        private void ScheduleForm_Resize(object sender, EventArgs e)
+        {
+            ScheduleFormResize?.Invoke(sender, e);
+        }
     }
 }

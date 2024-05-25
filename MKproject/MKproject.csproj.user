@@ -119,11 +119,11 @@
     <Compile Update="Schedule\Mainform\ScheduleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Schedule\Mainform\UCSchedule.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Schedule\Calanderform\CalanderForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Mainform\UCSchedule.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\Reminderform\ClientReminder.cs">
       <SubType>Form</SubType>

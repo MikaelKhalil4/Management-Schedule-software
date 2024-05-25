@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -37,6 +39,7 @@ namespace MKproject.Schedule
         bool IsHistory;
         public bool IsCursorBlocked;
         //Reminder
+      
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
 
@@ -44,10 +47,12 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
             ParentFormSchedule = parentform;
+            ParentFormSchedule.ScheduleFormResize += ParentFormSchedule_ScheduleFormResize;
             LoadForm(DateTime.Now);
             InsertHistroyToSqlIfNecessary();
-
         }
+
+     
 
         public void LoadForm(DateTime selectedDate)
         {
@@ -112,6 +117,15 @@ namespace MKproject.Schedule
                                        //
                 IsCursorBlocked = true;
                 AddAppointmentsToTlpSchedule();
+                PercentageResizeTLPScheduleAndTlpEmp();
+             
+                if (TLPSchedule.HorizontalScroll.Visible)//ejbariye , lieannommarrat aam tofsul
+                {
+                    TLPSchedule.AutoScroll = false;
+                    TLPSchedule.AutoScroll = true;
+                    //TLPSchedule.HorizontalScroll.Visible = false;
+                    this.Width += 50;
+                }
                 IsCursorBlocked = false;
 
                 IsDesignBlocked = false;
@@ -123,7 +137,10 @@ namespace MKproject.Schedule
             DisplayUCReminderForTheSelectedDate();
 
             //Scrol
-            ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
+            if (SelectedDate.Date == DateTime.Now.Date)
+            {
+                ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
+            }
 
             if (timeIndicatorLine != null)
             {
@@ -455,71 +472,13 @@ namespace MKproject.Schedule
 
         void SetListOfAllColumnIndexesGroups()
         {
-            int StartintColumnIndex = 1; // Initial column index, assuming 0 is reserved
-
+            int StartintColumnIndex = 1; // Initial column index, assuming 0 is reserved for the time
             foreach (ClassEmployee employee in EmployeeScheduleList)
             {
                 if ((bool)employee.IsChecked)
                 {
-                    var events = new List<(DateTime time, bool isStart)>();
-
-                    foreach (var appt in AppointmentsList.Where(a => a.DesiredEmployee.EmployeeId == employee.EmployeeId))
-                    {
-                        events.Add((appt.StartTime, true)); // start time
-                        events.Add((appt.EndTime, false)); // end time
-                    }
-
-                    // Sorting events
-                    events.Sort((a, b) =>
-                    {
-                        int timeComparison = a.time.CompareTo(b.time);
-                        if (timeComparison != 0)
-                        {
-                            return timeComparison;
-                        }
-                        // Ensure that end times come before start times when times are equal
-                        if (!a.isStart && b.isStart)
-                        {
-                            return -1;
-                        }
-                        if (a.isStart && !b.isStart)
-                        {
-                            return 1;
-                        }
-                        return 0;
-                    });
-
-                    int maxOverlap = 0, currentOverlap = 0;
-                    foreach (var e in events)
-                    {
-                        if (e.isStart)
-                        {
-                            currentOverlap++;
-                        }
-                        else
-                        {
-                            currentOverlap--;
-                        }
-
-                        if (currentOverlap > maxOverlap)
-                        {
-                            maxOverlap = currentOverlap;
-                        }
-                    }
-
                     var indices = new List<int>();
-                    if (maxOverlap > 0)
-                    {
-                        for (int i = 0; i < maxOverlap; i++)
-                        {
-                            indices.Add(StartintColumnIndex++);
-                        }
-                    }
-                    else
-                    {
-                        indices.Add(StartintColumnIndex++);
-                    }
-
+                    indices.Add(StartintColumnIndex++);
                     ListOfAllColumnIndexesGroups.Add((employee, indices));
                 }
             }
@@ -761,7 +720,7 @@ namespace MKproject.Schedule
                 TLPSchedule.AutoScroll = true;
                 TLPSchedule.BackColor = Color.FromArgb(249, 246, 254);
                 TLPSchedule.Margin = new Padding(0, 0, 0, 0);
-
+                TLPSchedule.AutoSize = false;
                 //Hours
                 TLPSchedule.RowCount = 96;
                 for (int i = 0; i < TLPSchedule.RowCount; i++)
@@ -815,7 +774,6 @@ namespace MKproject.Schedule
 
 
                 //Events
-                TLPSchedule.Resize += TLPSchedule_Resize;
                 TLPSchedule.Scroll += TLPSchedule_Scroll;
                 TLPSchedule.MouseWheel += TLPSchedule_MouseWheel; ;
 
@@ -860,15 +818,13 @@ namespace MKproject.Schedule
                         TLPSchedule.ColumnCount++;
                     }
                 }
-                PercentageResizeTLPScheduleAndTlpEmp();
 
-                //TLPSchedule.Enabled = true;
+               
             }
             else
             {
                 TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
                 TLPSchedule.ColumnCount++;
-
             }
         }
         void SetTLPEmployeesColumn()//always called after SetTLPSchGroupColumn 
@@ -1002,37 +958,41 @@ namespace MKproject.Schedule
         {
             FocusOnColumnIndexGroup = (null, null);
             //
-            float PercentageOfEachGroup = 100 / ListOfAllColumnIndexesGroups.Count;
-
-            int i = 1;
-            foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
+            if (ListOfAllColumnIndexesGroups.Count > 0)
             {
-                //TLPSchedule
-                TLPEmployees.ColumnStyles[i] = new ColumnStyle(SizeType.Percent, PercentageOfEachGroup);
-                i++;
+                float PercentageOfEachGroup = 100 / ListOfAllColumnIndexesGroups.Count;
 
-                //TLPAppoitment
-                float PercentageOfEachColumn = PercentageOfEachGroup / Group.Item2.Count;
-                foreach (int ColumnIndex in Group.Item2)
+                float TotalPercent = 0;
+                int i = 1;
+                foreach ((ClassEmployee, List<int>) Group in ListOfAllColumnIndexesGroups)
                 {
-                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                    //TLPSchedule
+                    TLPEmployees.ColumnStyles[i] = new ColumnStyle(SizeType.Percent, PercentageOfEachGroup);
+                    i++;
+                    //TLPAppoitment
+                    float PercentageOfEachColumn = PercentageOfEachGroup / Group.Item2.Count;
+                    foreach (int ColumnIndex in Group.Item2)
+                    {
+                        TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                        TotalPercent += PercentageOfEachColumn;
+                    }
                 }
             }
+           
         }
 
 
-
-        private void TLPSchedule_Resize(object sender, EventArgs e)
+        private void ParentFormSchedule_ScheduleFormResize(object sender, EventArgs e)
         {
             if (TLPSchedule.ColumnCount > 1)
             {
                 PercentageResizeTLPScheduleAndTlpEmp();
-                FocusOnColumnIndexGroup = (null, null);
                 DesActiveAllLabels();
+                FocusOnColumnIndexGroup = (null, null);
                 UpdateTimeIndicatorLinePosition();
             }
-
         }
+        
         private void TLPSchedule_Scroll(object sender, ScrollEventArgs e)
         {
             UpdateTimeIndicatorLinePosition();
@@ -1064,11 +1024,14 @@ namespace MKproject.Schedule
             (ClassEmployee, List<int>) DesiredColumnIndexesGroup = GetWhichDesiredGroup(RmvempId);
             SetSerpentBeforeRemovingAndThenRemoveIt(DesiredColumnIndexesGroup, DesiredUCApp);
 
-            RemoveUc(DesiredColumnIndexesGroup, RmvRow, null, DesiredUCApp);
+            bool IsDesignFixed = RemoveUc(DesiredColumnIndexesGroup, RmvRow, null, DesiredUCApp);
 
             AddUc(GetWhichDesiredGroup(AddempId), AddRow, DesiredUCApp);
 
-            CheckIfLastColumnsShouldBeRemoved(DesiredColumnIndexesGroup);
+            if (IsDesignFixed)
+            {
+                CheckIfLastColumnsShouldBeRemoved(DesiredColumnIndexesGroup);//lieanno once design is fixed, controls byetghara el idex tb3un wbi taria to empty the last column and remove it
+            }
 
 
             if (!IsCursorBlocked)
@@ -1101,8 +1064,11 @@ namespace MKproject.Schedule
             (ClassEmployee, List<int>) DesiredColumnIndexesGroup = GetWhichDesiredGroup(empId);
 
             SetSerpentBeforeRemovingAndThenRemoveIt(DesiredColumnIndexesGroup, DesiredUCApp);
-            RemoveUc(DesiredColumnIndexesGroup, Row, null, DesiredUCApp);
-            CheckIfLastColumnsShouldBeRemoved(DesiredColumnIndexesGroup);
+            bool IsDesignFixed = RemoveUc(DesiredColumnIndexesGroup, Row, null, DesiredUCApp);
+            if (IsDesignFixed)
+            {
+                CheckIfLastColumnsShouldBeRemoved(DesiredColumnIndexesGroup);//lieanno once design is fixed, controls byetghara el idex tb3un wbi taria to empty the last column and remove it
+            }
 
 
             if (!IsCursorBlocked)
@@ -1264,13 +1230,18 @@ namespace MKproject.Schedule
 
 
                         //Removing Mode
-                        RemoveUc(OldColumnIndexGroupOfDesiredUC, OldRowOfDraggedUC, AllNewdUCInTheArea, UCApointmentDraged);//mafina abel el add, lieanno ma32oul yse2ib bel old area, ykun intesects maa el ucapp li aam yonhatt in its new position
-                                                                                                                            //so when we call el remove, we need to make ykun sure enno el appointment baaed ma nhatt, yaane ma aayetna baeed lal AddUc
+                        bool IsDesignFixed = RemoveUc(OldColumnIndexGroupOfDesiredUC, OldRowOfDraggedUC, AllNewdUCInTheArea, UCApointmentDraged);//mafina baaed el add, lieanno ma32oul yse2ib bel old area, ykun intesects maa el ucapp li aam yonhatt in its new position
+                                                                                                                                                 //so when we call el remove, we need to make ykun sure enno el appointment baaed ma nhatt, yaane ma aayetna baeed lal AddUc
 
 
                         AddUc(ColumnIndexGroupOfDraggingUC, RowIndexStart, UCApointmentDraged);
 
-                        CheckIfLastColumnsShouldBeRemoved(OldColumnIndexGroupOfDesiredUC);  //ejbare men baeed el add in drag drop cases, Read why 
+                        if (IsDesignFixed) //ejbare men baeed el add in drag drop cases, Read why 
+                        {
+                            CheckIfLastColumnsShouldBeRemoved(OldColumnIndexGroupOfDesiredUC);//lieanno once design is fixed, controls byetghara el idex tb3un wbi taria to empty the last column and remove it
+                        }
+
+
 
                         UCApointmentDraged.Dock = DockStyle.Fill;
                         UCApointmentDraged.isDragging = false;
@@ -1309,6 +1280,7 @@ namespace MKproject.Schedule
             //TouchscrollPanelUCDay.AssignEventPanelUCDay(TLPSchedule);
 
         }
+
         bool CheckIfPositionAvailable(int StartingColumn, int StartingRow)
         {
             return true;
@@ -1466,17 +1438,25 @@ namespace MKproject.Schedule
 
 
 
+
+
                     //Insert
                     int ColumnToInsert = DesiredColumnIndexesGroup.Item2[DesiredColumnIndexesGroup.Item2.Count() - 1] + 1;
                     InsertColumn(ColumnToInsert);
+                    Debug.WriteLine("Number: " + DesiredColumnIndexesGroup.Item2.Count());
                     (StartingColumn, EndingColumn, StartingRow, EndingRow) = GetRectangle4Points(NewRow, DesiredColumnIndexesGroup, DesiredUCApp);//aam nerjaa naamela lieano new column is added,EndingColumn will change
                     FittingUCIfPlaceExist(DesiredUCApp, StartingColumn, EndingColumn, StartingRow, EndingRow);
 
 
+
+
+
+
+                    //we need to change all the span of ucs groups in same DesiredIndexGroup(Same Big Column or Employee), ella AffectedGroup li already tghayaro foe
                     List<UCappointment> ListOfAppPassed = new List<UCappointment>();//this stackis mde to prevent repition, since for a range of rows we can pass by the same uc
                     ClassucAppointmentGrouping grouperInsert = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredColumnIndexesGroup.Item2);//aam nekhlae el ajdency tb3 the whol DesiredgroupIndexes
 
-                    for (int rows = 0; rows < TLPSchedule.RowCount; rows++)//we need to change all the span of ucs groups in same DesiredIndexGroup(Same Big Column or Employee), ella AffectedGroup li already tghayaro foe
+                    for (int rows = 0; rows < TLPSchedule.RowCount; rows++)
                     {
                         UCappointment ucapp = (UCappointment)TLPSchedule.GetControlFromPosition(ColumnToInsert - 1, rows);
                         if (ucapp != null)
@@ -1501,7 +1481,7 @@ namespace MKproject.Schedule
 
                                     if (CheckColumnOverlappingUcApp(ListSerpentConnectedUCs))
                                     {
-                                        TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) + 1);
+                                        TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) + 1);//since fi eenda bad serpent , kell li mnaamlo enno el column li abel li nzedit, mnaamella span+1, ta tgahttiya w ma ybayyin fi faragh
 
                                     }
                                     else
@@ -1512,8 +1492,12 @@ namespace MKproject.Schedule
 
                             }
                         }
-
                     }
+                }
+                if(!CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents))
+                {
+                    MessageBox.Show("Design so Complicated! Only the last action won't be saved\nDesign will be reseted");
+                    //LoadForm(SelectedDate);
                 }
             }
 
@@ -1529,7 +1513,7 @@ namespace MKproject.Schedule
 
 
         }
-        void RemoveUc((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int Row, List<UCappointment> AllNewdUCInTheArea, UCappointment DesiredUCApp)//it will be !=null only in dragdrop operation
+        bool RemoveUc((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int Row, List<UCappointment> AllNewdUCInTheArea, UCappointment DesiredUCApp)//it will be !=null only in dragdrop operation
         {
             //removing
 
@@ -1548,7 +1532,7 @@ namespace MKproject.Schedule
             //ListsHaveSameElements(AllOldUCInTheArea, ListAllConnectedUCsToTheOneWereRemoving), eza ma keno metel baaed, yaane el fi hidden controls related lal groups juwwet OldGroupedUCsCoverByTheArea,
             //bas mesh mbaynin, lieannoun mannun covered by the area,which will cause errors fetna bel function
 
-
+            bool IsDesignFixed = false;
             if (AllNewdUCInTheArea == null || (AllNewdUCInTheArea != null && !ListsHaveSameElements(AllOldUCInTheArea, AllNewdUCInTheArea)))//first case, eza kennaaam naamil undo lal postion changing, w eza el Undo mawjud yaane aal akid tghayyar mahallo lal ucAppoint, scd case, eza kenna aam naamil dragdrop
             {
 
@@ -1561,13 +1545,18 @@ namespace MKproject.Schedule
                             List<UCappointment> ListucAppointments = Oldentry.Value;
 
                             SetNewColumnSpanAndIndex(DesiredColumnIndexesGroup, ListucAppointments, false);
-
+                            IsDesignFixed = true;
                         }
                     }
                 }
-
                 UpdateItsMargins(DesiredColumnIndexesGroup, ListAllConnectedUCsToTheOneWereRemoving);
             }
+            if (ListAllConnectedUCsToTheOneWereRemoving.Count == 0)
+            {
+                IsDesignFixed = true;
+            }
+
+            return true;
 
         }
         void SetSerpentBeforeRemovingAndThenRemoveIt((ClassEmployee, List<int>) DesiredColumnIndexesGroup, UCappointment DesiredUcApp)//uaed in dragdDrop or programatically
@@ -1579,7 +1568,7 @@ namespace MKproject.Schedule
 
             TLPSchedule.Controls.Remove(DesiredUcApp);
         }
-        void CheckIfLastColumnsShouldBeRemoved((ClassEmployee, List<int>) DesiredColumnIndexesGroup)//in case of dragrdrop, and we re removing and adding the same column ,ejbare men baeed el add, lieanno eza ken in the Same column shelnha men matrah w hattayna matrah tene (hayda el uc li aam aam yaamil insert la new column, huwwe zeit baddo yemnaa hayde el column ma tenmehe bhal code, lieanno ha ykun eendo latest index)
+        bool CheckIfLastColumnsShouldBeRemoved((ClassEmployee, List<int>) DesiredColumnIndexesGroup)//in case of dragrdrop, and we re removing and adding the same column ,ejbare men baeed el add, lieanno eza ken in the Same column shelnha men matrah w hattayna matrah tene (hayda el uc li aam aam yaamil insert la new column, huwwe zeit baddo yemnaa hayde el column ma tenmehe bhal code, lieanno ha ykun eendo latest index)
         {
             //ma32oul yseebo sawa, in the same group of columns
             int BigColumnCount = DesiredColumnIndexesGroup.Item2.Count();
@@ -1587,7 +1576,6 @@ namespace MKproject.Schedule
             Stack<UCappointment> stackucApp = new Stack<UCappointment>();//this stackis mde to prevent repition, since for a range of rows we can pass by the same uc
             if (BigColumnCount > 1)
             {
-
                 int LastColumn = DesiredColumnIndexesGroup.Item2[BigColumnCount - 1];
 
                 bool IsUCAppExistOnTheLastColumn = false;
@@ -1603,7 +1591,7 @@ namespace MKproject.Schedule
                         }
                         else//in case mesh el Column Index tabaa li ken mawjud, which mean hayda el span, men naesla el span
                         {
-                            //TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) - 1);
+
                             stackucApp.Push(ucapp);
                             QueueUCApp.Enqueue(ucapp);
                         }
@@ -1613,16 +1601,25 @@ namespace MKproject.Schedule
                 {
                     foreach (UCappointment ucapp in QueueUCApp)
                     {
-                        TLPSchedule.SetColumnSpan(ucapp, TLPSchedule.GetColumnSpan(ucapp) - 1);
+                        int ControlColumnSpan = TLPSchedule.GetColumnSpan(ucapp);
+                        if (ControlColumnSpan > 1)
+                        {
+                            ControlColumnSpan--;
+                        }
+                        TLPSchedule.SetColumnSpan(ucapp, ControlColumnSpan);
                     }
-
                     RemoveColumn(DesiredColumnIndexesGroup.Item2[DesiredColumnIndexesGroup.Item2.Count() - 1]);
+                    Debug.WriteLine("Number: " + DesiredColumnIndexesGroup.Item2.Count());
                     UpdateItsMargins(DesiredColumnIndexesGroup, ListAllConnectedUCsToTheOneWereRemoving);
+                    return true;
                 }
 
             }
+            return false;
 
         }
+
+
 
 
         void UpdateItsMargins((ClassEmployee, List<int>) DesiredColumnIndexesGroup, List<UCappointment> ListSerpentConnectedUCs)
@@ -1855,7 +1852,7 @@ namespace MKproject.Schedule
                 for (int j = StartingColumn; j <= EndingColumn; j++)
                 {
                     UCappointment founducapp = (UCappointment)TLPSchedule.GetControlFromPosition(j, i);//we re checking each cell eza fiya shi, which will cover the whole area of the usercontrol
-                    if (founducapp != null)
+                    if (founducapp != null)//l2ina shi 
                     {
                         if (ModeLRorRL)
                         {

@@ -414,10 +414,13 @@
             BackColor = System.Drawing.Color.White;
             ClientSize = new System.Drawing.Size(1148, 672);
             Controls.Add(tableLayoutPanelForm);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "ScheduleForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Form1";
+            Load += ScheduleForm_Load;
+            Resize += ScheduleForm_Resize;
             tableLayoutPanelForm.ResumeLayout(false);
             TLPSide.ResumeLayout(false);
             TLPSide.PerformLayout();
