@@ -39,7 +39,7 @@ namespace MKproject.Schedule
         bool IsHistory;
         public bool IsCursorBlocked;
         //Reminder
-      
+
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
 
@@ -52,7 +52,7 @@ namespace MKproject.Schedule
             InsertHistroyToSqlIfNecessary();
         }
 
-     
+
 
         public void LoadForm(DateTime selectedDate)
         {
@@ -118,7 +118,7 @@ namespace MKproject.Schedule
                 IsCursorBlocked = true;
                 AddAppointmentsToTlpSchedule();
                 PercentageResizeTLPScheduleAndTlpEmp();
-             
+
                 if (TLPSchedule.HorizontalScroll.Visible)//ejbariye , lieannommarrat aam tofsul
                 {
                     TLPSchedule.AutoScroll = false;
@@ -740,11 +740,11 @@ namespace MKproject.Schedule
                 //Time
 
                 //Time in Tlp employee
-                TLPEmployees.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100f));
+                TLPEmployees.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60f));
                 TLPEmployees.ColumnCount++;
 
                 //Time in TLP Schedule, ejbare absoloute
-                TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100f));
+                TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60f));
                 TLPSchedule.ColumnCount++;
 
 
@@ -819,7 +819,7 @@ namespace MKproject.Schedule
                     }
                 }
 
-               
+
             }
             else
             {
@@ -978,7 +978,7 @@ namespace MKproject.Schedule
                     }
                 }
             }
-           
+
         }
 
 
@@ -992,7 +992,7 @@ namespace MKproject.Schedule
                 UpdateTimeIndicatorLinePosition();
             }
         }
-        
+
         private void TLPSchedule_Scroll(object sender, ScrollEventArgs e)
         {
             UpdateTimeIndicatorLinePosition();
@@ -1333,7 +1333,10 @@ namespace MKproject.Schedule
 
 
 
-
+        //How It Works,first
+        //1-we check if there s place and put it
+        //2-in case no place, we try to fix the spans in order to fit it
+        //3- if didn work, we create a new column , and fit the uc in it
         void AddUc((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int NewRow, UCappointment DesiredUCApp)//eza from drag:DesiredGroupOfUC=GroupOfDraggingUC , eza by code:DesiredGroupOfUC=Shi nehna ha nebaato hasab wen aam naamil add or undo
         {
 
@@ -1349,33 +1352,19 @@ namespace MKproject.Schedule
 
 
 
-            bool IsUCAppScheduled;
+            bool IsUCAppScheduled = false ;
 
             IsUCAppScheduled = FittingUCIfPlaceExist(DesiredUCApp, StartingColumn, EndingColumn, StartingRow, EndingRow);
 
 
 
-
+            
             if (!IsUCAppScheduled)//eza ma l2ina empty space men el asel, mnekhlaela mahal, ya men zabbit el spans w men saye3a, if not we create a new column 
             {
 
-                Dictionary<int, List<(int, int)>> OriginalCoulunIndexAndSpanForEachGroup = new Dictionary<int, List<(int, int)>>();//inside the list the original spans are ordered like the list appointmnent
-                                                                                                                                   //it is used, in case the span operation has failed, mnerjaa mnaamelun reset
-
+              
                 foreach (KeyValuePair<int, List<UCappointment>> entry in NewgroupedUCsCoverredByTheArea)//now we study each group, trying to fix its design to the max
                 {
-
-
-                    OriginalCoulunIndexAndSpanForEachGroup.Add(entry.Key, new List<(int, int)>());
-                    foreach (UCappointment uc in entry.Value)
-                    {
-                        int OriginalIndex = uc.ColumnIndex;
-                        int originalSpan = TLPSchedule.GetColumnSpan(uc);
-                        OriginalCoulunIndexAndSpanForEachGroup[entry.Key].Add((OriginalIndex, originalSpan));
-
-                    }
-
-
 
                     bool OverLapByColumnsExists;//bad serpent
                     if (entry.Value.Count() > 2)//not possible ykun eendak bad serpent eza ken el count aeal men 2
@@ -1390,17 +1379,18 @@ namespace MKproject.Schedule
                     if (!OverLapByColumnsExists)
                     {
                         // Get the single group's list of UCappointment
-                        SetNewColumnSpanAndIndex(DesiredColumnIndexesGroup, entry.Value, true);
+                        bool PlaceExist = SetNewColumnSpanAndIndex(DesiredColumnIndexesGroup, entry.Value, true);
+                        
+                        if (PlaceExist)
+                        {
+                            IsUCAppScheduled=FittingUCIfPlaceExist(DesiredUCApp, StartingColumn, EndingColumn, StartingRow, EndingRow);//now men baaed ma zabatna el row spans tb3 el ucappointments, sar fi mahal elo lal appointment
+                        }
                     }
-
-
-
 
                 }//foreach ejbare hone tekhlas
 
-                //after fixing the span of all affected groups, we try to fit it
 
-                IsUCAppScheduled = FittingUCIfPlaceExist(DesiredUCApp, StartingColumn, EndingColumn, StartingRow, EndingRow);//now men baaed ma zabatna el row spans tb3 el ucappointments, sar fi mahal elo lal appointment
+
 
 
                 Dictionary<int, List<UCappointment>> EachGroupWithItsSerpents = new Dictionary<int, List<UCappointment>>();
@@ -1419,22 +1409,6 @@ namespace MKproject.Schedule
                 {
                     IsUCAppScheduled = false;
                     TLPSchedule.SetColumnSpan(DesiredUCApp, 1);//reseting its value, since ma32oul tetghayar bel FittingUCIfPlaceExist
-
-                    foreach (KeyValuePair<int, List<(int, int)>> OriginalSpanEntry in OriginalCoulunIndexAndSpanForEachGroup)
-                    {
-                        for (int i = 0; i < OriginalSpanEntry.Value.Count; i++)
-                        {
-                            UCappointment TargetedUCToFix = NewgroupedUCsCoverredByTheArea[OriginalSpanEntry.Key][i];
-
-                            int OriginalIndex = OriginalSpanEntry.Value[i].Item1;
-                            int OriginalSpan = OriginalSpanEntry.Value[i].Item2;
-
-                            TLPSchedule.SetColumn(TargetedUCToFix, OriginalIndex);
-                            TargetedUCToFix.ColumnIndex = OriginalIndex;
-
-                            TLPSchedule.SetColumnSpan(TargetedUCToFix, OriginalSpan);
-                        }
-                    }
 
 
 
@@ -1494,10 +1468,10 @@ namespace MKproject.Schedule
                         }
                     }
                 }
-                if(!CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents))
+                if (!CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents))
                 {
-                    MessageBox.Show("Design so Complicated! Only the last action won't be saved\nDesign will be reseted");
-                    //LoadForm(SelectedDate);
+                    CustomMessageBox.Show("Design so Complicated!\nDesign will be reseted",CustomMessageBox.Type.Error);
+                    LoadForm(SelectedDate);
                 }
             }
 
@@ -1513,6 +1487,11 @@ namespace MKproject.Schedule
 
 
         }
+
+
+        //how it works
+        //1- when we remove if it was clean serpent and no bad serpent, if fixes its spans, and delete unnessary columns at the end
+        //2- in case of bad serpents, nothing happen spans stay the same and unesscearry column sary,bas it starts autofixing itself lamma tsir good serpent
         bool RemoveUc((ClassEmployee, List<int>) DesiredColumnIndexesGroup, int Row, List<UCappointment> AllNewdUCInTheArea, UCappointment DesiredUCApp)//it will be !=null only in dragdrop operation
         {
             //removing
@@ -1923,8 +1902,7 @@ namespace MKproject.Schedule
 
 
 
-        void SetNewColumnSpanAndIndex((ClassEmployee, List<int>) DesiredIndexesGroup, List<UCappointment> ListucAppointments, bool IsAddingMode)//using this method make sure  to be sorted Column Asc, Row Asc
-                                                                                                                                                //based ayya employee w nehna w el targeted controls baddun tozbit Span and index
+        bool SetNewColumnSpanAndIndex((ClassEmployee, List<int>) DesiredIndexesGroup, List<UCappointment> ListucAppointments, bool IsAddingMode)//using this method make sure  to be sorted Column Asc, Row Asc                                                                                                                                                //based ayya employee w nehna w el targeted controls baddun tozbit Span and index
         {
             int totalSpan = DesiredIndexesGroup.Item2.Count;
             int NewNumOfUCs = ListucAppointments.Count;
@@ -1937,7 +1915,7 @@ namespace MKproject.Schedule
 
             if (totalSpan < NewNumOfUCs)//in this case we should insert a column
             {
-                return;
+                return false;
             }
 
 
@@ -1962,6 +1940,36 @@ namespace MKproject.Schedule
             }
 
 
+            //PreStudy if it will work without ambiguity
+
+
+            //here we check if after fixing the indexes, willm my controls intersect with ucapp mannun ListucAppointments men wara el bad serpents
+            //if yes, nothing will happen, returm false, so in the add we can add a column
+            //if no, we fix the span the indexes and make room to the new uc
+            int ColumnIndexToStartWithTest = DesiredIndexesGroup.Item2[0];
+            for (int i = 0; i < spans.Count; i++)
+            {
+                if (i < ListucAppointments.Count)//Existing UCappointment
+                {
+
+                    for (int k = ListucAppointments[i].RowIndexStart; k <= ListucAppointments[i].RowIndexEnd; k++)
+                    {
+                        UCappointment Ucapp = (UCappointment)TLPSchedule.GetControlFromPosition(ColumnIndexToStartWithTest, k);
+
+                        if (Ucapp != null)//we can t put this control at this index
+                        {
+                            bool IntersectsWithKnownControls = ListucAppointments.Any(ucapp => Ucapp.DesiredAppointmentUCApp.AppointmentID == ucapp.DesiredAppointmentUCApp.AppointmentID);
+                            if (!IntersectsWithKnownControls)
+                            {//eza fetna yaane intersects with unkonwo uc mesh sheyfino
+                                return false;
+                            }
+                        }
+                    }
+
+                    ColumnIndexToStartWithTest += spans[i];
+                }
+            }
+
 
             //Set Column Span
             for (int i = 0; i < spans.Count; i++)
@@ -1982,6 +1990,7 @@ namespace MKproject.Schedule
                 ucapp.ColumnIndex = ColumnIndexToStartWith;
                 ColumnIndexToStartWith += TLPSchedule.GetColumnSpan(ucapp);
             }
+            return true;
         }
         public bool CheckColumnOverlappingUcApp(List<UCappointment> UcAppListOrig)//kermel naarif eza controls inside  listofserpent, eemlin column overlapp => bad serpent, we handle it in a specific way 
         {
