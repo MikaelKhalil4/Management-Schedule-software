@@ -187,8 +187,6 @@ namespace MKproject
 
                 this.Close();//ejbare foe el event,glitch: kermel teftah el choose el service, since, bel event aam neftaha,
                 ChosenClientChanged?.Invoke(this, EventArgs.Empty);
-
-
             }
 
         }

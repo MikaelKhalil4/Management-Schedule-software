@@ -115,7 +115,7 @@ namespace MKproject.Schedule
             {
                 reminder = new Reminder(this, ucday, schedule, Isclientreminder);
             }
-            reminder.Show();
+            reminder.ShowDialog();
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {

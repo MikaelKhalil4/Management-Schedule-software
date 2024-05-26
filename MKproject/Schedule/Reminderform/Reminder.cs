@@ -1,4 +1,5 @@
-﻿using MKproject.Management;
+﻿using CustomizedTools;
+using MKproject.Management;
 using MKproject.Schedule.UCData;
 using System;
 using System.Drawing;
@@ -28,6 +29,9 @@ namespace MKproject.Schedule
         public ClassReminder DesiredReminder = new ClassReminder();
         //Just to get the check boxes in the order thet we want
         CheckBox[] checkBoxes;
+
+
+        public static int HeightWithoutchekBoxes = 416, HeightWithchekBoxes = 482;
 
         protected override CreateParams CreateParams
         {
@@ -123,12 +127,15 @@ namespace MKproject.Schedule
         {
             checkBoxes = new CheckBox[] { checkBoxMonday, checkBoxTuesday, checkBoxWednesday, checkBoxThursday, checkBoxFriday, checkBoxSaturday, checkBoxSunday };
             TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 0F);//0 pixels
-            Height = 360;
+            Height = HeightWithoutchekBoxes;
 
             DesiredReminder.StartTime = ucSchedule.SelectedDate.Date;
             DesiredReminder.Repeat = Reminder.NoRepeat;
 
+            labelDate.Text = DesiredReminder.StartTime.ToString("dddd,MMMM dd,yyyy");
             GetQuoteWhenReminderOpens();
+            ParentFormSchedule.calanderForm.SelectedDateChanged -= ucSchedule.SelectedDate_Changed;
+
         }
         void LoadUpdateForm()
         {
@@ -160,21 +167,23 @@ namespace MKproject.Schedule
             if (DesiredReminder.PartsRepeat[0] == Reminder.NoRepeat)//Checking the random state we didn't yet get it
             {
                 TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 0F);//0 pixels
-                Height = 360;
+                Height = Reminder.HeightWithoutchekBoxes;
             }
             else if (DesiredReminder.PartsRepeat[0] == Reminder.Everyday)
             {
                 TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 0F);//0 pixels
-                Height = 360;
+                Height = Reminder.HeightWithoutchekBoxes;
             }
             else
             {
                 TLPReminder.RowStyles[2] = new RowStyle(SizeType.Absolute, 66F);//66 pixels
-                Height = 426;
+                Height = Reminder.HeightWithchekBoxes;
             }
 
+            labelDate.Text = DesiredReminder.StartTime.ToString("dddd,MMMM dd,yyyy");
             GetQuoteWhenReminderOpens();
 
+            ParentFormSchedule.calanderForm.SelectedDateChanged -= ucSchedule.SelectedDate_Changed;
             isLoadUpdate = false;
         }
 
@@ -326,6 +335,8 @@ namespace MKproject.Schedule
             repeat.Show();
 
         }
+
+
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
             //Search searchname = new Search(textBoxSearch, DesiredClient);
@@ -344,7 +355,6 @@ namespace MKproject.Schedule
             searchname.Location = locationRelativeToScreen;
             searchname.Show();
         }
-
         private void Searchname_ChosenClientChanged(object sender, EventArgs e)
         {
             //reset
@@ -352,6 +362,73 @@ namespace MKproject.Schedule
             DesiredReminder.DesiredClient = searchname.NewDesiredClient;
         }
 
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void labelDate_Click(object sender, EventArgs e)
+        {
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, Color.Transparent);
+            Program.GreyForm.Show();
+            //UCmonth show
+            Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(-6, 25);
+
+            ParentFormSchedule.calanderForm.Location = locationRelativeToScreen;
+            ParentFormSchedule.calanderForm.Size = new Size(200, 169);
+            ParentFormSchedule.calanderForm.Show();
+
+            ParentFormSchedule.calanderForm.SelectedDateChanged += SelectedDate_Changed;
+
+            //Showing the ucmonth from the calanderday in the date that we are
+            ParentFormSchedule.calanderForm.DateCalander = DesiredReminder.StartTime;
+            ParentFormSchedule.calanderForm.SelectedDate = DesiredReminder.StartTime;
+            if (ParentFormSchedule.calanderForm.wichuccalander == 2)
+            {
+                ParentFormSchedule.calanderForm.wichuccalander = 1;
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalandermonth);
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
+            }
+            else if (ParentFormSchedule.calanderForm.wichuccalander == 3)
+            {
+                ParentFormSchedule.calanderForm.wichuccalander = 1;
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalanderyear);
+                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
+
+            }
+
+            ParentFormSchedule.calanderForm.EditLabelUCdays();
+        }
+        private void SelectedDate_Changed(object sender, EventArgs e)
+        {
+            //edit DateUCDay
+            DesiredReminder.StartTime = ParentFormSchedule.calanderForm.DateCalander.Date;
+
+            ChangingTheDateOfLabelQuote();
+            labelDate.Text = DesiredReminder.StartTime.ToString("dddd,MMMM dd,yyyy");
+
+            ParentFormSchedule.calanderForm.Hide();
+        }
+        private void ChangingTheDateOfLabelQuote()
+        {
+            //Getting the Quote
+            string datestart = GetStringDateStart();
+
+
+            //no repeat
+            if (DesiredReminder.PartsRepeat[0] == Reminder.NoRepeat)
+            {
+                labelQuote.Text = "Only for " + datestart;
+            }
+
+            //every day or every week
+            else
+            {
+                string[] PartsSplitByVirgule = labelQuote.Text.Split(new string[] { "," }, StringSplitOptions.None);
+                labelQuote.Text = "Starting " + datestart + "," + PartsSplitByVirgule[1];
+            }
+        }
 
 
 
@@ -362,8 +439,8 @@ namespace MKproject.Schedule
             if (DesiredReminder.PartsRepeat[0] == Reminder.Everyweek && isLoadUpdate == false)
             {
                 DesiredReminder.Repeat = Reminder.Everyweek;
-                string[] partson = labelQuote.Text.Split(new string[] { " on " }, StringSplitOptions.None);
-                labelQuote.Text = partson[0] + " on ";
+                string[] PartsSplitByON = labelQuote.Text.Split(new string[] { " on " }, StringSplitOptions.None);
+                labelQuote.Text = PartsSplitByON[0] + " on ";
                 foreach (CheckBox checkBox in checkBoxes)
                 {
                     if (checkBox.Checked)
@@ -385,17 +462,6 @@ namespace MKproject.Schedule
 
 
         //FUNCTION:
-        private bool IsControlInPanel(Control control, Panel panel)
-        {
-            foreach (Control panelControl in panel.Controls)
-            {
-                if (panelControl == control)
-                {
-                    return true; // The control is in the panel
-                }
-            }
-            return false; // The control is not in the panel
-        }
         private void GetQuoteWhenReminderOpens()
         {
             //Getting the Quote
@@ -460,14 +526,13 @@ namespace MKproject.Schedule
             //labelrepeat.ForeColor = Color.FromArgb(229, 226, 244);
         }
 
-        private void ButtonCancel_Click(object sender, EventArgs e)
+        private void labelDate_MouseMove(object sender, MouseEventArgs e)
         {
-            this.Close();
+            labelDate.ForeColor = Program.BoldColor;
         }
-
-        private void labelDate_Click(object sender, EventArgs e)
+        private void labelDate_MouseLeave(object sender, EventArgs e)
         {
-
+            labelDate.ForeColor = Color.Black;
         }
     }
 }

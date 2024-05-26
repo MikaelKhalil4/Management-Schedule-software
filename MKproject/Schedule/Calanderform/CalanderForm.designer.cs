@@ -34,6 +34,7 @@
             labelTitleDay = new System.Windows.Forms.Label();
             buttonNext = new System.Windows.Forms.Button();
             tableLayoutPanelMonth = new System.Windows.Forms.TableLayoutPanel();
+            buttonToday = new System.Windows.Forms.Button();
             timer1 = new System.Windows.Forms.Timer(components);
             tableLayoutPanelMonth.SuspendLayout();
             SuspendLayout();
@@ -49,7 +50,7 @@
             buttonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
             buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonPrevious.ForeColor = System.Drawing.Color.Transparent;
-            buttonPrevious.Location = new System.Drawing.Point(79, 7);
+            buttonPrevious.Location = new System.Drawing.Point(91, 7);
             buttonPrevious.Margin = new System.Windows.Forms.Padding(4);
             buttonPrevious.Name = "buttonPrevious";
             buttonPrevious.Size = new System.Drawing.Size(22, 20);
@@ -64,7 +65,7 @@
             labelTitleDay.Cursor = System.Windows.Forms.Cursors.Hand;
             labelTitleDay.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelTitleDay.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            labelTitleDay.Location = new System.Drawing.Point(122, 7);
+            labelTitleDay.Location = new System.Drawing.Point(130, 7);
             labelTitleDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelTitleDay.Name = "labelTitleDay";
             labelTitleDay.Size = new System.Drawing.Size(108, 20);
@@ -87,7 +88,7 @@
             buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonNext.Font = new System.Drawing.Font("Segoe UI", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonNext.ForeColor = System.Drawing.Color.Transparent;
-            buttonNext.Location = new System.Drawing.Point(252, 7);
+            buttonNext.Location = new System.Drawing.Point(255, 7);
             buttonNext.Margin = new System.Windows.Forms.Padding(4);
             buttonNext.Name = "buttonNext";
             buttonNext.Size = new System.Drawing.Size(22, 20);
@@ -98,29 +99,50 @@
             // tableLayoutPanelMonth
             // 
             tableLayoutPanelMonth.BackColor = System.Drawing.Color.White;
-            tableLayoutPanelMonth.ColumnCount = 3;
-            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.1408443F));
-            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.1267624F));
-            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.7323952F));
-            tableLayoutPanelMonth.Controls.Add(buttonNext, 2, 0);
-            tableLayoutPanelMonth.Controls.Add(labelTitleDay, 1, 0);
-            tableLayoutPanelMonth.Controls.Add(buttonPrevious, 0, 0);
+            tableLayoutPanelMonth.ColumnCount = 4;
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.630373F));
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.8939829F));
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.3954163F));
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.0802288F));
+            tableLayoutPanelMonth.Controls.Add(buttonNext, 3, 0);
+            tableLayoutPanelMonth.Controls.Add(labelTitleDay, 2, 0);
+            tableLayoutPanelMonth.Controls.Add(buttonPrevious, 1, 0);
+            tableLayoutPanelMonth.Controls.Add(buttonToday, 0, 0);
             tableLayoutPanelMonth.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanelMonth.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanelMonth.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanelMonth.Name = "tableLayoutPanelMonth";
             tableLayoutPanelMonth.RowCount = 2;
-            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.9601326F));
-            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.03986F));
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.9601307F));
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.03987F));
             tableLayoutPanelMonth.Size = new System.Drawing.Size(349, 291);
             tableLayoutPanelMonth.TabIndex = 0;
+            // 
+            // buttonToday
+            // 
+            buttonToday.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonToday.BackColor = System.Drawing.Color.WhiteSmoke;
+            buttonToday.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonToday.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            buttonToday.FlatAppearance.BorderSize = 0;
+            buttonToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonToday.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonToday.ForeColor = System.Drawing.Color.Black;
+            buttonToday.Location = new System.Drawing.Point(11, 6);
+            buttonToday.Margin = new System.Windows.Forms.Padding(10, 3, 4, 3);
+            buttonToday.Name = "buttonToday";
+            buttonToday.Size = new System.Drawing.Size(55, 22);
+            buttonToday.TabIndex = 70;
+            buttonToday.Text = "Today";
+            buttonToday.UseVisualStyleBackColor = false;
+            buttonToday.Click += buttonToday_Click;
             // 
             // timer1
             // 
             timer1.Interval = 1;
             timer1.Tick += timer1_Tick;
             // 
-            // UCMonth
+            // CalanderForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -131,7 +153,7 @@
             Margin = new System.Windows.Forms.Padding(0);
             MaximumSize = new System.Drawing.Size(365, 307);
             MinimumSize = new System.Drawing.Size(365, 307);
-            Name = "UCMonth";
+            Name = "CalanderForm";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Deactivate += UCMonth_Deactivate;
             VisibleChanged += UCMonth_VisibleChanged;
@@ -147,5 +169,6 @@
         private System.Windows.Forms.Button buttonNext;
         public System.Windows.Forms.TableLayoutPanel tableLayoutPanelMonth;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonToday;
     }
 }

@@ -645,11 +645,14 @@ namespace MKproject.Schedule
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-6, 25);
             ParentFormSchedule.calanderForm.Location = locationRelativeToScreen;
+            ParentFormSchedule.calanderForm.Size = new Size(365, 307);
             ParentFormSchedule.calanderForm.Show();
 
+            ParentFormSchedule.calanderForm.SelectedDateChanged += SelectedDate_Changed;
 
             //Showing the ucmonth from the calanderday in the date that we are
             ParentFormSchedule.calanderForm.DateCalander = SelectedDate;
+            ParentFormSchedule.calanderForm.SelectedDate = SelectedDate;
             if (ParentFormSchedule.calanderForm.wichuccalander == 2)
             {
                 ParentFormSchedule.calanderForm.wichuccalander = 1;
@@ -665,6 +668,21 @@ namespace MKproject.Schedule
             }
 
             ParentFormSchedule.calanderForm.EditLabelUCdays();
+        }
+        public void SelectedDate_Changed(object sender, EventArgs e)
+        {
+            //Scroll
+           TLPSchedule.AutoScrollPosition = new Point(0, 0);
+           TLPSchedule.AutoScrollPosition = new Point(0, TLPSchedule.rowHeight * 6);
+           TLPSchedule.currentRow = 6;
+
+            //edit DateUCDay
+            if (SelectedDate.Date != ParentFormSchedule.calanderForm.DateCalander.Date)
+            {
+                SelectedDate = ParentFormSchedule.calanderForm.DateCalander.Date;
+                LoadForm(ParentFormSchedule.calanderForm.DateCalander);
+            }
+            ParentFormSchedule.calanderForm.Hide();
         }
 
         private void labelDate_MouseMove(object sender, MouseEventArgs e)

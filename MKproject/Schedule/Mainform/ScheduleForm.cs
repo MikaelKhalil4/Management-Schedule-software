@@ -168,40 +168,5 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.Default;
         }
 
-
-
-        //FUNCTIONS:
-
-        public void UCDaysClick()
-        {
-            EditUCDay();
-            calanderForm.Hide();
-        }//click on a day of UCMONTH
-        public void EditUCDay()
-        {
-            //Scroll
-            ucSchedule.TLPSchedule.AutoScrollPosition = new Point(0, 0);
-            ucSchedule.TLPSchedule.AutoScrollPosition = new Point(0, ucSchedule.TLPSchedule.rowHeight * 6);
-            ucSchedule.TLPSchedule.currentRow = 6;
-
-            //edit DateUCDay
-            if (ucSchedule.SelectedDate.Date != calanderForm.DateCalander.Date)
-            {
-                ucSchedule.LoadForm(calanderForm.DateCalander);
-            }
-        }// changing DateUCDAY
-
-
-
-        private void ScheduleForm_Load(object sender, EventArgs e)
-        {
-            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//ouaa tshila,w ella ma btozbat w treka bel constrctor also
-        }
-
-        public event EventHandler ScheduleFormResize;
-        private void ScheduleForm_Resize(object sender, EventArgs e)
-        {
-            ScheduleFormResize?.Invoke(sender, e);
-        }
     }
 }
