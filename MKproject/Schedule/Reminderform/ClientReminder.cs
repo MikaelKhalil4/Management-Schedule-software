@@ -22,7 +22,6 @@ namespace MKproject.Schedule
         }
 
         public DataTable tablereminder { get; set; }
-        public TouchScroll TouchscrollPanelclientreminder { get; set; }
 
         ScheduleForm schedule;
         UCSchedule ucday;
@@ -135,10 +134,7 @@ namespace MKproject.Schedule
                 LabelNoReminder = GetNoReminderLable("N/A");
                 panelreminder.Controls.Add(LabelNoReminder);
             }
-            else
-            {
-                TouchscrollPanelclientreminder = new TouchScroll(panelreminder, this);
-            }
+          
             Cursor = Cursors.Default;
             panelreminder.VerticalScroll.Value = 0;
             panelreminder.AutoScroll = false;

@@ -1,6 +1,6 @@
 ﻿namespace MKproject.Schedule
 {
-    partial class Employee
+    partial class EmployeeSchedule
     {
         /// <summary>
         /// Required designer variable.
@@ -81,7 +81,7 @@
             ButtonDone.TabIndex = 1;
             ButtonDone.Text = "Done";
             ButtonDone.UseVisualStyleBackColor = false;
-            ButtonDone.Click += buttonD_Click;
+            ButtonDone.Click += ButtonDone_Click;
             // 
             // timer1
             // 
@@ -89,7 +89,7 @@
             timer1.Interval = 1;
             timer1.Tick += timer1_Tick;
             // 
-            // Employee
+            // EmployeeSchedule
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -98,8 +98,9 @@
             ControlBox = false;
             Controls.Add(tableLayoutPanel1);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "Employee";
+            Name = "EmployeeSchedule";
             Padding = new System.Windows.Forms.Padding(6, 8, 6, 0);
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Deactivate += Employee_Deactivate;
             tableLayoutPanel1.ResumeLayout(false);

@@ -266,9 +266,6 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.ChooseService.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCappointment.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCClientApp.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.AvailabilityLayout.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.Employee.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCTimeavailability.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.CalanderForm.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCCalanderday.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCCalandermonth.resources
@@ -277,7 +274,6 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.CBdisplayTime.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.CBrepeat.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.LabelTime.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCTime.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.ScheduleForm.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.UCSchedule.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.ClientReminder.resources
@@ -299,3 +295,4 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\images\oval-Small.png
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.EmployeeSchedule.resources

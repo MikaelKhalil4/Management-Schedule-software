@@ -8,13 +8,11 @@ namespace MKproject.Schedule
 {
     public partial class ScheduleForm : Form
     {
-        //Properties:
-        public TouchScroll TouchscrollPanelreminder { get; set; }
 
         //VARIABLES:
         public CalanderForm calanderForm;
         public UCSchedule ucSchedule;
-        public Employee employee;
+        public EmployeeSchedule employee;
 
 
 

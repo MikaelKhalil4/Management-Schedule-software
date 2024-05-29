@@ -69,7 +69,7 @@ namespace MKproject.Schedule
             scrollTimer.Interval = 100; // Adjust as needed
             scrollTimer.Tick += ScrollTimer_Tick; ;
 
-            LoadForm(DateTime.Now, true);
+            LoadForm(DateTime.Now, true,true);
             InsertHistroyToSqlIfNecessary();
 
 
@@ -77,7 +77,7 @@ namespace MKproject.Schedule
 
      
 
-        public void LoadForm(DateTime selectedDate, bool isDayOrWeek)
+        public void LoadForm(DateTime selectedDate, bool isDayOrWeek,bool IsScrollToNowHour)
         {
 
 
@@ -198,17 +198,11 @@ namespace MKproject.Schedule
 
 
             //Scrol
-            if (isDayOrWeek)
-            {
-                if (SelectedDate.Date == DateTime.Now.Date)
-                {
-                    ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
-                }
-            }
-            else
+            if (IsScrollToNowHour)
             {
                 ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
             }
+           
 
             if (timeIndicatorLine != null)
             {
@@ -463,7 +457,7 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        LoadForm(((DateTime)clickedLabel.DesiredDate), true);
+                        LoadForm(((DateTime)clickedLabel.DesiredDate), true,false);
                     }
                    
 
@@ -855,6 +849,12 @@ namespace MKproject.Schedule
 
         private void labelMember_Click(object sender, EventArgs e)
         {
+            EmployeeSchedule empSch = new EmployeeSchedule(EmployeeScheduleList);
+            empSch.ParentucSchedule = this;
+            Point locationRelativeToScreen = labelMember.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(FLPMembers.Width - empSch.Width, 25);
+            empSch.Location = locationRelativeToScreen;
+            empSch.Show();
             //
             ParentFormSchedule.CloseNotfBanner();
         }
@@ -863,12 +863,12 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.WaitCursor;
             if (IsDayOrWeek)
             {
-                LoadForm(SelectedDate.AddDays(+1), IsDayOrWeek);
+                LoadForm(SelectedDate.AddDays(+1), IsDayOrWeek,false);
             }
             else
             {
                 DateTime TargetedDate = SelectedDate.AddDays(+7);
-                LoadForm(TargetedDate, IsDayOrWeek);
+                LoadForm(TargetedDate, IsDayOrWeek,false);
             }
             Cursor.Current = Cursors.Default;
 
@@ -880,12 +880,12 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.WaitCursor;
             if (IsDayOrWeek)
             {
-                LoadForm(SelectedDate.AddDays(-1), IsDayOrWeek);
+                LoadForm(SelectedDate.AddDays(-1), IsDayOrWeek,false);
             }
             else
             {
                 DateTime TargetedDate = SelectedDate.AddDays(-7);
-                LoadForm(TargetedDate, IsDayOrWeek);
+                LoadForm(TargetedDate, IsDayOrWeek, false);
             }
             Cursor.Current = Cursors.Default;
 
@@ -901,14 +901,14 @@ namespace MKproject.Schedule
             {
                 if (DateTime.Now.Date != SelectedDate.Date)
                 {
-                    LoadForm(DateTime.Now, IsDayOrWeek);
+                    LoadForm(DateTime.Now, IsDayOrWeek, true);
                 }
             }
             else
             {
                 if (!PresentWeek.Any(d => d.Date == SelectedDate.Date))
                 {
-                    LoadForm(DateTime.Now, IsDayOrWeek);
+                    LoadForm(DateTime.Now, IsDayOrWeek,true);
                 }
             }
 
@@ -966,13 +966,13 @@ namespace MKproject.Schedule
                 SelectedDate = ParentFormSchedule.calanderForm.DateCalander.Date;
                 if (IsDayOrWeek)
                 {
-                    LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek);
+                    LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek,false);
                 }
                 else
                 {
                     if (!ListDaysOfDesiredWeek.Any(d => d.Date == SelectedDate.Date))
                     {
-                        LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek);
+                        LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek,false);
                     }
                 }
 
@@ -1020,11 +1020,11 @@ namespace MKproject.Schedule
 
             if (!IsDayOrWeek && comboBoxDaysOrWeek.SelectedItem.ToString() == EnumDaysOrWeek.Day.ToString())
             {
-                LoadForm(SelectedDate, true);
+                LoadForm(SelectedDate, true,false);
             }
             else if (IsDayOrWeek && comboBoxDaysOrWeek.SelectedItem.ToString() == EnumDaysOrWeek.Week.ToString())
             {
-                LoadForm(SelectedDate, false);
+                LoadForm(SelectedDate, false, false);
             }
 
             Cursor.Current = Cursors.Default;

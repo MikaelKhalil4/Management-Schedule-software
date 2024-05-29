@@ -322,7 +322,6 @@ namespace MKproject.Schedule
                     RandomFunctionSchedule.HighlightUserControl(targetlabeltimeHighlight);
                 }
             }
-            new TouchScroll(flowLayoutPanelContainerTime, this);//li2anno bas lendtime fiyo scroll
         }
 
 

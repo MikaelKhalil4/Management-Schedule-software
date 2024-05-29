@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCSchedule));
             TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanelDoubleBufferedNoscroll();
-            flowLayoutPanelDoubleBufferedcs2 = new System.Windows.Forms.FlowLayoutPanel();
+            FLPMembers = new System.Windows.Forms.FlowLayoutPanel();
             labelMember = new System.Windows.Forms.Label();
             pictureBoxMember = new System.Windows.Forms.PictureBox();
             comboBoxDaysOrWeek = new System.Windows.Forms.ComboBox();
@@ -43,7 +43,7 @@
             buttonNext = new System.Windows.Forms.Button();
             TLPGlobal.SuspendLayout();
             tableLayoutPanelDoubleBufferedNoscroll1.SuspendLayout();
-            flowLayoutPanelDoubleBufferedcs2.SuspendLayout();
+            FLPMembers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMember).BeginInit();
             flowLayoutPanelDoubleBufferedcs1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DownArrow).BeginInit();
@@ -77,7 +77,7 @@
             tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(flowLayoutPanelDoubleBufferedcs2, 6, 0);
+            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(FLPMembers, 6, 0);
             tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(comboBoxDaysOrWeek, 5, 0);
             tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(buttonToday, 0, 0);
             tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(flowLayoutPanelDoubleBufferedcs1, 3, 0);
@@ -92,18 +92,18 @@
             tableLayoutPanelDoubleBufferedNoscroll1.Size = new System.Drawing.Size(1152, 40);
             tableLayoutPanelDoubleBufferedNoscroll1.TabIndex = 62;
             // 
-            // flowLayoutPanelDoubleBufferedcs2
+            // FLPMembers
             // 
-            flowLayoutPanelDoubleBufferedcs2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            flowLayoutPanelDoubleBufferedcs2.BackColor = System.Drawing.Color.White;
-            flowLayoutPanelDoubleBufferedcs2.Controls.Add(labelMember);
-            flowLayoutPanelDoubleBufferedcs2.Controls.Add(pictureBoxMember);
-            flowLayoutPanelDoubleBufferedcs2.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            flowLayoutPanelDoubleBufferedcs2.Location = new System.Drawing.Point(1056, 9);
-            flowLayoutPanelDoubleBufferedcs2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            flowLayoutPanelDoubleBufferedcs2.Name = "flowLayoutPanelDoubleBufferedcs2";
-            flowLayoutPanelDoubleBufferedcs2.Size = new System.Drawing.Size(92, 21);
-            flowLayoutPanelDoubleBufferedcs2.TabIndex = 71;
+            FLPMembers.Anchor = System.Windows.Forms.AnchorStyles.None;
+            FLPMembers.BackColor = System.Drawing.Color.White;
+            FLPMembers.Controls.Add(labelMember);
+            FLPMembers.Controls.Add(pictureBoxMember);
+            FLPMembers.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            FLPMembers.Location = new System.Drawing.Point(1056, 9);
+            FLPMembers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            FLPMembers.Name = "FLPMembers";
+            FLPMembers.Size = new System.Drawing.Size(92, 21);
+            FLPMembers.TabIndex = 71;
             // 
             // labelMember
             // 
@@ -269,8 +269,8 @@
             Size = new System.Drawing.Size(1152, 668);
             TLPGlobal.ResumeLayout(false);
             tableLayoutPanelDoubleBufferedNoscroll1.ResumeLayout(false);
-            flowLayoutPanelDoubleBufferedcs2.ResumeLayout(false);
-            flowLayoutPanelDoubleBufferedcs2.PerformLayout();
+            FLPMembers.ResumeLayout(false);
+            FLPMembers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMember).EndInit();
             flowLayoutPanelDoubleBufferedcs1.ResumeLayout(false);
             flowLayoutPanelDoubleBufferedcs1.PerformLayout();
@@ -288,7 +288,7 @@
         private System.Windows.Forms.PictureBox DownArrow;
         private System.Windows.Forms.Button buttonPrevious;
         private TableLayoutPanelDoubleBufferedNoscroll tableLayoutPanelDoubleBufferedNoscroll1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelDoubleBufferedcs2;
+        private System.Windows.Forms.FlowLayoutPanel FLPMembers;
         private System.Windows.Forms.Label labelMember;
         private System.Windows.Forms.PictureBox pictureBoxMember;
         private System.Windows.Forms.ComboBox comboBoxDaysOrWeek;
