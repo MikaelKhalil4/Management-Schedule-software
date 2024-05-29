@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             TLPglobal = new System.Windows.Forms.TableLayoutPanel();
-            ucSlideButton = new CustomizedTools.UCSlideButton();
             labelFullName = new System.Windows.Forms.Label();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             buttonChoose = new System.Windows.Forms.Button();
             buttonCancel = new System.Windows.Forms.Button();
+            ucSlideButton = new CustomizedTools.UCSlideButton();
             TLPglobal.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -57,19 +57,6 @@
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             TLPglobal.Size = new System.Drawing.Size(447, 437);
             TLPglobal.TabIndex = 1;
-            // 
-            // ucSlideButton
-            // 
-            ucSlideButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            ucSlideButton.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
-            ucSlideButton.Button1text = "Available Package";
-            ucSlideButton.Button2text = "Services";
-            ucSlideButton.ClickedButton = null;
-            ucSlideButton.Location = new System.Drawing.Point(67, 45);
-            ucSlideButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            ucSlideButton.Name = "ucSlideButton";
-            ucSlideButton.Size = new System.Drawing.Size(313, 45);
-            ucSlideButton.TabIndex = 0;
             // 
             // labelFullName
             // 
@@ -133,6 +120,19 @@
             buttonCancel.UseVisualStyleBackColor = false;
             buttonCancel.Click += buttonCancel_Click;
             // 
+            // ucSlideButton
+            // 
+            ucSlideButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            ucSlideButton.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
+            ucSlideButton.Button1text = "Available Package";
+            ucSlideButton.Button2text = "Services";
+            ucSlideButton.ClickedButton = null;
+            ucSlideButton.Location = new System.Drawing.Point(67, 45);
+            ucSlideButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            ucSlideButton.Name = "ucSlideButton";
+            ucSlideButton.Size = new System.Drawing.Size(313, 45);
+            ucSlideButton.TabIndex = 0;
+            // 
             // ChooseService
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -144,6 +144,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ChooseService";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ChooseService";
             FormClosing += ChooseService_FormClosing;

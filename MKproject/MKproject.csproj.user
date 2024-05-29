@@ -12,6 +12,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <_LastSelectedProfileId>D:\Work\ELK projet 1\ELk-off\Managing Software%28ouaa tmahi%29\MKProject .Net6\MKproject\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="HomeAndMenu\Home.cs">
@@ -113,7 +114,7 @@
     <Compile Update="Schedule\CustomisedComboBox\CBrepeat.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Schedule\Mainform\LabelEmployee.cs">
+    <Compile Update="Schedule\Mainform\ButtonEmployeeOrDay.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Schedule\Mainform\ScheduleForm.cs">

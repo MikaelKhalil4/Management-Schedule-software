@@ -133,6 +133,7 @@ namespace MKproject
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Search";
             Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "SearchName";
             Deactivate += Search_Deactivate;

@@ -196,6 +196,7 @@
             ClientSize = new System.Drawing.Size(1271, 748);
             ControlBox = false;
             Controls.Add(TLPHome);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Name = "Home";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             TLPHome.ResumeLayout(false);

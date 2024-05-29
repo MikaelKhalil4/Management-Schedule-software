@@ -307,6 +307,7 @@ namespace MKproject.Management
             MinimizeBox = false;
             Name = "EditBundleProduct";
             Opacity = 0D;
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "EditBundle";
             FormClosing += EditBundleProduct_FormClosing;

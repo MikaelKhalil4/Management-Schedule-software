@@ -286,6 +286,7 @@ namespace MKproject.Management
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "NewRegister";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             FormClosing += NewRegister_FormClosing;
             tableLayoutPanelForm.ResumeLayout(false);

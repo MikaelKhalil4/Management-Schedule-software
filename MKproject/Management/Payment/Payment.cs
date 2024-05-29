@@ -465,11 +465,11 @@ namespace MKproject.Management
                 UpdateClientBalanceIfNotProfile(true);//eza men el schedule for example
             }
         }
-        public void PayBalanceRowByRow(DataRow DesiredClientBalanceRow, ref double AmountPaid)
+        public void PayBalanceRowByRow(DataRow DesiredClientBalanceRow, ref double TotalAmountPaid)
         {
 
-
-            double AmoutPerRow;
+            double AmountPaidPerRow;
+            double TotalBalancePerRow;
             int ClientBalanceId;
             bool IsBundleOrProduct;
             bool? IsPackageOrSolo = null;//null in case of product
@@ -498,17 +498,17 @@ namespace MKproject.Management
             }
 
 
-            AmoutPerRow = Math.Abs(Convert.ToDouble(DesiredClientBalanceRow["balance"].ToString()));
+            TotalBalancePerRow = Math.Abs(Convert.ToDouble(DesiredClientBalanceRow["balance"].ToString()));
             ClientBalanceId = (int)DesiredClientBalanceRow["client_balance_id"];
 
 
-            if (AmountPaid >= AmoutPerRow)
+            if (TotalAmountPaid >= TotalBalancePerRow)
             {
                 double balance = 0;
 
                 //Design
                 DesiredClientBalanceRow["balance"] = balance;
-                DesiredClientBalanceRow["amount_paid"] = AmoutPerRow + (double)DesiredClientBalanceRow["amount_paid"];
+                DesiredClientBalanceRow["amount_paid"] = TotalBalancePerRow + (double)DesiredClientBalanceRow["amount_paid"];
                 //IsExpired and only for products cz bundles mesh men hone
                 if (!IsBundleOrProduct)//product or sevice
                 {
@@ -531,28 +531,28 @@ namespace MKproject.Management
                 }
 
                 //
-                AmountPaid -= AmoutPerRow;
-
-
+                AmountPaidPerRow = TotalBalancePerRow;
+                TotalAmountPaid -= TotalBalancePerRow;
             }
-            else /* if (AmountPaid < AmoutPerRow)*/
+            else
             {
-                double balance = -(AmoutPerRow - AmountPaid);
+                double balance = -(TotalBalancePerRow - TotalAmountPaid);
 
                 //Design
                 DesiredClientBalanceRow["balance"] = balance;
-                DesiredClientBalanceRow["amount_paid"] = AmountPaid + (double)DesiredClientBalanceRow["amount_paid"];
+                DesiredClientBalanceRow["amount_paid"] = TotalAmountPaid + (double)DesiredClientBalanceRow["amount_paid"];
 
                 //
-                AmountPaid = 0;
+                AmountPaidPerRow = TotalAmountPaid;
+                TotalAmountPaid = 0;
 
             }
 
 
             //SQL
-            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRow, ClientBalanceId, AmoutPerRow, Date, DesiredClient.AlbumType);//ejbare tahet el design section foe, cz el values yetghdayaro b DesiredClientBalanceRow
+            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRow, ClientBalanceId, AmountPaidPerRow, Date, DesiredClient.AlbumType);//ejbare tahet el design section foe, cz el values yetghdayaro b DesiredClientBalanceRow
 
-            ClassBackOffice backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmoutPerRow, null, null, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaidPerRow, null, null, null, null, Date);
             backOffice.CreateActionDetails(DesiredClientBalanceRow);
             backOffice.InsertToArchiveSQL();
 

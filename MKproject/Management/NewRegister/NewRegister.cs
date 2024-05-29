@@ -2156,8 +2156,17 @@ namespace MKproject.Management
         {
             if (LOGIN.Employee.CanEditRegistrationFields)
             {
-                Program.GreyFormJunior = new GreyColor(this, true, true, null);
-                Program.GreyFormJunior.Show();
+                if (!IsFromSchedule)
+                {
+                    Program.GreyFormJunior = new GreyColor(this, true, true, null);
+                    Program.GreyFormJunior.Show();
+                }
+                else
+                {
+                    Program.GreyFormJuniorJunior = new GreyColor(this, true, true, null);
+                    Program.GreyFormJuniorJunior.Show();
+                }
+
                 RegistrationFields r = new RegistrationFields(this);
                 r.ShowDialog();
             }

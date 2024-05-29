@@ -36,17 +36,40 @@ namespace MKproject.Schedule
 
             TLPSide.Margin = new Padding(0, 0, 0, 0);
 
+
+            //
+            checkBoxOnPending.Click += CloseNotfBanner_Click;
+            checkBoxComplete.Click += CloseNotfBanner_Click;
+            checkBoxCancel.Click += CloseNotfBanner_Click;           
         }
 
+        private void CloseNotfBanner_Click(object sender, EventArgs e)
+        {
+            CloseNotfBanner();
+
+        }
+        public void CloseNotfBanner()
+        {
+            if (CustomizedTools.NotificationBanner.CurrentNotfBanner != null)
+            {
+                CustomizedTools.NotificationBanner.CloseTheNotfBanner();
+            }
+        }
 
         ///-CLICK
         private void buttonAllReminder_Click(object sender, EventArgs e)
         {
+            CloseNotfBanner();
+            //
+
             ClientReminder clientReminderForm = new ClientReminder(null, this, ucSchedule);
             clientReminderForm.ShowDialog();
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
+            CloseNotfBanner();
+            //
+
             Reminder reminder = new Reminder(this, ucSchedule);
             reminder.ShowDialog();
         }
@@ -58,7 +81,7 @@ namespace MKproject.Schedule
             if (checkBoxOnPending.Checked)
             {
                 ucSchedule.IsCursorBlocked = true;
-                foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsList)
+                foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsListWorkingOn)
                 {
                     if (!desiredAppointment.IsCompleted && !desiredAppointment.IsCanceled)
                     {
@@ -90,14 +113,13 @@ namespace MKproject.Schedule
             }
             Cursor.Current = Cursors.Default;
         }
-
         private void checkBoxComplete_CheckedChanged(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             if (checkBoxComplete.Checked)
             {
                 ucSchedule.IsCursorBlocked = true;
-                foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsList)
+                foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsListWorkingOn)
                 {
                     if (desiredAppointment.IsCompleted)
                     {
@@ -129,14 +151,13 @@ namespace MKproject.Schedule
             }
             Cursor.Current = Cursors.Default;
         }
-
         private void checkBoxCancel_CheckedChanged(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             if (checkBoxCancel.Checked)
             {
                 ucSchedule.IsCursorBlocked = true;
-                foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsList)
+                foreach (ClassAppointment desiredAppointment in ucSchedule.AppointmentsListWorkingOn)
                 {
                     if (desiredAppointment.IsCanceled)
                     {
@@ -168,5 +189,16 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.Default;
         }
 
+
+
+        private void ScheduleForm_Load(object sender, EventArgs e)
+        {
+            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+        }
+        public event EventHandler ScheduleFormResize;
+        private void ScheduleForm_Resize(object sender, EventArgs e)
+        {
+            ScheduleFormResize?.Invoke(this, e);
+        }
     }
 }

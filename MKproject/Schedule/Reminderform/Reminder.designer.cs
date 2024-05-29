@@ -547,9 +547,10 @@ namespace MKproject.Schedule
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
             ClientSize = new System.Drawing.Size(418, 447);
             Controls.Add(TLPReminder);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Reminder";
-            ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Reminder";
             TLPReminder.ResumeLayout(false);

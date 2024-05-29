@@ -62,7 +62,7 @@ namespace MKproject.Schedule
         bool UndoFromNotficationBannerModeOn = false;
 
         //ADD
-        public Appointment(UCSchedule ucSch,ClassEmployee selectedEmployee,TimeSpan StartTime)
+        public Appointment(UCSchedule ucSch,ClassEmployee selectedEmployee,DateTime StartTime)
         {
             InitializeComponent();
             Opacity = 0;
@@ -79,7 +79,7 @@ namespace MKproject.Schedule
             DesiredAppointmentAppForm.DesiredEmployee = selectedEmployee;
 
 
-            DesiredAppointmentAppForm.StartTime = UcScheduleParentForm.SelectedDate.Date + StartTime;
+            DesiredAppointmentAppForm.StartTime =StartTime;
           
             if (DesiredAppointmentAppForm.StartTime.TimeOfDay < new TimeSpan(23, 0, 0))
             {
@@ -103,21 +103,21 @@ namespace MKproject.Schedule
             InitializeComponent();
             Opacity = 0;
 
+            IsAddOrUpdateMode = false;
+            UcScheduleParentForm = uCSchedule;
+            UCappointment = ucappointment;
+
+
             DesiredAppointmentAppForm = ucappointment.DesiredAppointmentUCApp.Copy();//as we see hone eena copy aan el ucappointmnet, bas ucClientApp refers to the same DesiredAppointmentAppForm metel el appointment form
 
 
-            if (DesiredAppointmentAppForm.StartTime.Date < DateTime.Now.Date || DesiredAppointmentAppForm.IsCompleted || DesiredAppointmentAppForm.IsCanceled)
+            if (DesiredAppointmentAppForm.StartTime.Date < DateTime.Now.Date || DesiredAppointmentAppForm.IsCompleted || DesiredAppointmentAppForm.IsCanceled || (!UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee == null))
             {
                 IsReadOrEdit = true;
             }
-            IsAddOrUpdateMode = false;
-            UcScheduleParentForm = uCSchedule;
-
-            UCappointment = ucappointment;
-       
-
+         
+  
             ucClientApp = new UCClientApp(this);
-
 
             ucClientApp.OnClientProfileInfoChanging += UcClientApp_OnClientProfileInfoChanging;
             ucClientApp.OnUpdatingTheChosenClientBalance += UcClientApp_OnUpdatingTheChosenClientBalance;
@@ -461,8 +461,8 @@ namespace MKproject.Schedule
                 DateTime.TryParseExact(endtimestring, "h:mm tt", null, System.Globalization.DateTimeStyles.None, out HourEndTime);
 
 
-                DesiredAppointmentAppForm.StartTime = UcScheduleParentForm.SelectedDate.Date + HourStartTime.TimeOfDay;
-                DesiredAppointmentAppForm.EndTime = UcScheduleParentForm.SelectedDate.Date + HourEndTime.TimeOfDay;
+                DesiredAppointmentAppForm.StartTime = DesiredAppointmentAppForm.StartTime.Date + HourStartTime.TimeOfDay;
+                DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.EndTime.Date + HourEndTime.TimeOfDay;
 
                 //Note
                 string Note = textBoxNotes.Text;
@@ -559,7 +559,7 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.AppointmentID = ClassAppointment.GetLastAppointmentId();
                 //Design
                 UCappointment= UcScheduleParentForm.AddUCappointmentsInTLP(DesiredAppointmentAppForm);
-                UcScheduleParentForm.AppointmentsList.Add(DesiredAppointmentAppForm);
+                UcScheduleParentForm.AppointmentsListWorkingOn.Add(DesiredAppointmentAppForm);
 
                 //OnAppointmentUpdate?.Invoke(this, EventArgs.Empty); // mahhal meshlogic hone, anw za toloolak mashekil bi kun ela reason, bas now keep it like this, cz aal undo men el notif aam taamil mashekil
 
@@ -594,8 +594,11 @@ namespace MKproject.Schedule
             {
                 DesiredAppointmentAppForm.IsCompleted = false;
                 DesiredAppointmentAppForm.UndoCompletionAppointmentSQL();
-                DesiredAppointmentAppForm.DesiredClient.TotalBalance = ClassClient.GetClientTotalBalance(DesiredAppointmentAppForm.DesiredClient.ClientId);//ejbare tahet UndoCompletionAppointment();
-                                                                                                                                                           //used not always, only in case ken undoing a new solo service cz ma32oul tetghayar el balance
+                if (DesiredAppointmentAppForm.DesiredClient != null)
+                {
+                    DesiredAppointmentAppForm.DesiredClient.TotalBalance = ClassClient.GetClientTotalBalance(DesiredAppointmentAppForm.DesiredClient.ClientId);//ejbare tahet UndoCompletionAppointment();
+                                                                                                                                                               //used not always, only in case ken undoing a new solo service cz ma32oul tetghayar el balance
+                }
 
                 OnAppointmentUndoCompletion?.Invoke(this, EventArgs.Empty);//!!! Bas ejbare bel Undo nkun aam nemna3o yaamil update aa hayyala field(ReadOnly) aa hayalla field w ela ha yenzalo bel uCAppointment
             }
@@ -823,7 +826,7 @@ namespace MKproject.Schedule
             UCappointment.DesiredAppointmentUCApp.DeleteAppointment();//ejbare hone mahalla mesh bel appointment form
            
             UCappointment.RemoveAppointmentFromTLP();
-            UcScheduleParentForm.AppointmentsList.Remove(DesiredAppointmentAppForm);
+            UcScheduleParentForm.AppointmentsListWorkingOn.Remove(DesiredAppointmentAppForm);
 
             NotfBanner = NotificationBanner.Show("Appointment Deleted", NotificationBanner.EnumType.DeletedMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
             if (NotfBanner != null)

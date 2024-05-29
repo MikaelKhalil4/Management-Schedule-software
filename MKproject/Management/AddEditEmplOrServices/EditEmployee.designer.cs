@@ -43,9 +43,9 @@ namespace MKproject.Management
             ucTextboxPassword = new UCTextbox1();
             groupBoxFeatures = new CustomGroupBox();
             FLPFeatures = new System.Windows.Forms.FlowLayoutPanel();
+            checkBoxScheduleMember = new System.Windows.Forms.CheckBox();
             checkBoxStatus = new System.Windows.Forms.CheckBox();
             timer1 = new System.Windows.Forms.Timer(components);
-            checkBoxScheduleMember = new System.Windows.Forms.CheckBox();
             TLPMain.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             FLPTop.SuspendLayout();
@@ -266,6 +266,19 @@ namespace MKproject.Management
             FLPFeatures.TabIndex = 0;
             FLPFeatures.WrapContents = false;
             // 
+            // checkBoxScheduleMember
+            // 
+            checkBoxScheduleMember.Anchor = System.Windows.Forms.AnchorStyles.None;
+            checkBoxScheduleMember.AutoSize = true;
+            checkBoxScheduleMember.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxScheduleMember.Location = new System.Drawing.Point(167, 494);
+            checkBoxScheduleMember.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            checkBoxScheduleMember.Name = "checkBoxScheduleMember";
+            checkBoxScheduleMember.Size = new System.Drawing.Size(163, 25);
+            checkBoxScheduleMember.TabIndex = 9;
+            checkBoxScheduleMember.Text = "Schedule Member";
+            checkBoxScheduleMember.UseVisualStyleBackColor = true;
+            // 
             // checkBoxStatus
             // 
             checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -285,19 +298,6 @@ namespace MKproject.Management
             timer1.Interval = 1;
             timer1.Tick += timer1_Tick;
             // 
-            // checkBoxScheduleMember
-            // 
-            checkBoxScheduleMember.Anchor = System.Windows.Forms.AnchorStyles.None;
-            checkBoxScheduleMember.AutoSize = true;
-            checkBoxScheduleMember.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            checkBoxScheduleMember.Location = new System.Drawing.Point(167, 494);
-            checkBoxScheduleMember.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            checkBoxScheduleMember.Name = "checkBoxScheduleMember";
-            checkBoxScheduleMember.Size = new System.Drawing.Size(163, 25);
-            checkBoxScheduleMember.TabIndex = 9;
-            checkBoxScheduleMember.Text = "Schedule Member";
-            checkBoxScheduleMember.UseVisualStyleBackColor = true;
-            // 
             // EditEmployee
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -311,6 +311,7 @@ namespace MKproject.Management
             MinimizeBox = false;
             Name = "EditEmployee";
             Opacity = 0D;
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "EditEmployee";
             FormClosing += EditEmployee_FormClosing;

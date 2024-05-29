@@ -33,10 +33,11 @@ namespace MKproject
         public static GreyColor GreyFormJunior;//in case eende 3 forms foe baaed metel bel new register
         public static GreyColor GreyFormJuniorJunior;//in case eende 4 forms foe baaed metel bel new register
 
+        //Tablet/Mikas: Data Source=MKpc;Initial Catalog=MKproject;Integrated Security=True;
         //Mikas: Data Source=MKpc;Initial Catalog=MKproject;User ID=sa;Password=1234
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
 
-        public static string DataLocation = "Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True";
+        public static string DataLocation = "Data Source=MKpc;Initial Catalog=MKproject;Integrated Security=True;";
         public static string FolderProfileImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProfileImages");
         public static string ExecptionString = "Unexpected error:\n";
 

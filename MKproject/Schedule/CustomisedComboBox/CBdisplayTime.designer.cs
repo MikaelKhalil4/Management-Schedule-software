@@ -45,9 +45,9 @@
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 109F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(135, 216);
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(118, 162);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // textBoxTime
@@ -58,7 +58,7 @@
             textBoxTime.Location = new System.Drawing.Point(0, 0);
             textBoxTime.Margin = new System.Windows.Forms.Padding(0);
             textBoxTime.Name = "textBoxTime";
-            textBoxTime.Size = new System.Drawing.Size(135, 30);
+            textBoxTime.Size = new System.Drawing.Size(118, 26);
             textBoxTime.TabIndex = 10;
             textBoxTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -66,24 +66,25 @@
             // 
             flowLayoutPanelContainerTime.AutoScroll = true;
             flowLayoutPanelContainerTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanelContainerTime.Location = new System.Drawing.Point(0, 37);
+            flowLayoutPanelContainerTime.Location = new System.Drawing.Point(0, 28);
             flowLayoutPanelContainerTime.Margin = new System.Windows.Forms.Padding(0);
             flowLayoutPanelContainerTime.Name = "flowLayoutPanelContainerTime";
-            flowLayoutPanelContainerTime.Size = new System.Drawing.Size(135, 179);
+            flowLayoutPanelContainerTime.Size = new System.Drawing.Size(118, 134);
             flowLayoutPanelContainerTime.TabIndex = 11;
             flowLayoutPanelContainerTime.MouseEnter += flowLayoutPanelContainerTime_MouseEnter;
             // 
             // CBdisplayTime
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.SystemColors.Control;
-            ClientSize = new System.Drawing.Size(135, 216);
+            ClientSize = new System.Drawing.Size(118, 162);
             ControlBox = false;
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CBdisplayTime";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Deactivate += DisplayTime_Deactivate;
             tableLayoutPanel1.ResumeLayout(false);

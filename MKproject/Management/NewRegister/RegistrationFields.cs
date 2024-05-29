@@ -310,11 +310,6 @@ namespace MKproject.Management
 
 
 
-
-
-
-
-
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -331,12 +326,17 @@ namespace MKproject.Management
 
         private void RegistrationFields_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Program.GreyFormJunior != null)
+            //ejbare hek
+            if (Program.GreyFormJuniorJunior != null)
+            {
+                Program.GreyFormJuniorJunior.Close();
+                Program.GreyFormJuniorJunior = null;
+            }
+            else if (Program.GreyFormJunior != null)
             {
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;
-            }
-
+            }         
         }
 
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)

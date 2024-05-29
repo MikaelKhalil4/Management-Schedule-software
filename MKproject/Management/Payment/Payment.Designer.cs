@@ -285,6 +285,7 @@ namespace MKproject.Management
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Payment";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Payment";
             FormClosing += Payment_FormClosing;

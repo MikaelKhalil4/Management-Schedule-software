@@ -123,6 +123,39 @@ namespace MKproject.Schedule
 
             return DataTableToList(dt1);
         }
+        public static List<ClassAppointment> GetAppointmentOfSpecificDays( List<DateTime> ListDaysOfDesiredWeek)
+        {
+            string query = @"SELECT * 
+                     FROM appointments                                 
+                     WHERE 1=1 ";
+
+            if (ListDaysOfDesiredWeek.Count > 0)
+            {
+                query += " AND CAST(start_time AS DATE) IN (";
+                for (int i = 0; i < ListDaysOfDesiredWeek.Count; i++)
+                {
+                    query += $"@Date{i}";
+                    if (i < ListDaysOfDesiredWeek.Count - 1)
+                    {
+                        query += ", ";
+                    }
+                }
+                query += ")";
+            }
+
+            SqlCommand command1 = new SqlCommand(query, con);
+
+            for (int i = 0; i < ListDaysOfDesiredWeek.Count; i++)
+            {
+                command1.Parameters.AddWithValue($"@Date{i}", ListDaysOfDesiredWeek[i].Date);
+            }
+
+            SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
+            DataTable dt1 = new DataTable();
+            adapter1.Fill(dt1);
+
+            return DataTableToList(dt1);
+        }
         public static int GetLastAppointmentId()
         {
             SqlCommand cmd = new SqlCommand("SELECT Max(appointment_id) FROM appointments", con);

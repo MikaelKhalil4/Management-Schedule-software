@@ -190,6 +190,8 @@ namespace MKproject.Management
 
             Legend legend3 = new Legend();
             legend3.Name = "Legend3";
+            legend3.Name = "Legend3";
+            legend3.BackColor = Color.Transparent;
             chartIncomePerService.Legends.Add(legend3);
 
             chartIncomePerService.Location = new Point(156, 3);

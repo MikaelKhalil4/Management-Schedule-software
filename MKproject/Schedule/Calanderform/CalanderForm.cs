@@ -415,7 +415,7 @@ namespace MKproject.Schedule
             {
                 timer1.Stop();
             }
-            Opacity += .1;
+            Opacity += .25;
         }
 
         private void UCMonth_VisibleChanged(object sender, EventArgs e)

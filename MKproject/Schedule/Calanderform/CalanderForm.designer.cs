@@ -154,6 +154,7 @@
             MaximumSize = new System.Drawing.Size(365, 307);
             MinimumSize = new System.Drawing.Size(365, 307);
             Name = "CalanderForm";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Deactivate += UCMonth_Deactivate;
             VisibleChanged += UCMonth_VisibleChanged;

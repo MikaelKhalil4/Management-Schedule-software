@@ -30,263 +30,265 @@ namespace MKproject.Management
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Album));
-            this.TLPHome = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonAddNewAlbum = new IconButton();
-            this.buttonEditAlbum = new IconButton();
-            this.FLPHome = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonNoAlbum = new System.Windows.Forms.Button();
-            this.buttonBack = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.TLPAddAlbum = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonDeleteAlbum = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonCancel2 = new System.Windows.Forms.Button();
-            this.TLPHome.SuspendLayout();
-            this.TLPAddAlbum.SuspendLayout();
-            this.SuspendLayout();
+            TLPHome = new System.Windows.Forms.TableLayoutPanel();
+            buttonCancel = new System.Windows.Forms.Button();
+            buttonAddNewAlbum = new IconButton();
+            buttonEditAlbum = new IconButton();
+            FLPHome = new System.Windows.Forms.FlowLayoutPanel();
+            buttonNoAlbum = new System.Windows.Forms.Button();
+            buttonBack = new System.Windows.Forms.Button();
+            buttonSave = new System.Windows.Forms.Button();
+            timer1 = new System.Windows.Forms.Timer(components);
+            TLPAddAlbum = new System.Windows.Forms.TableLayoutPanel();
+            buttonCancel2 = new System.Windows.Forms.Button();
+            buttonDeleteAlbum = new System.Windows.Forms.Button();
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            TLPHome.SuspendLayout();
+            TLPAddAlbum.SuspendLayout();
+            SuspendLayout();
             // 
             // TLPHome
             // 
-            this.TLPHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPHome.ColumnCount = 3;
-            this.TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.26966F));
-            this.TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.677902F));
-            this.TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.052434F));
-            this.TLPHome.Controls.Add(this.buttonCancel, 0, 2);
-            this.TLPHome.Controls.Add(this.buttonAddNewAlbum, 2, 0);
-            this.TLPHome.Controls.Add(this.buttonEditAlbum, 1, 0);
-            this.TLPHome.Controls.Add(this.FLPHome, 0, 1);
-            this.TLPHome.Controls.Add(this.buttonNoAlbum, 0, 0);
-            this.TLPHome.Location = new System.Drawing.Point(22, 23);
-            this.TLPHome.Margin = new System.Windows.Forms.Padding(0);
-            this.TLPHome.Name = "TLPHome";
-            this.TLPHome.RowCount = 3;
-            this.TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.30502F));
-            this.TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.69498F));
-            this.TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.TLPHome.Size = new System.Drawing.Size(645, 259);
-            this.TLPHome.TabIndex = 0;
-            this.TLPHome.Visible = false;
-            // 
-            // buttonAddNewAlbum
-            // 
-            this.buttonAddNewAlbum.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonAddNewAlbum.BackColor = System.Drawing.Color.Transparent;
-            this.buttonAddNewAlbum.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonAddNewAlbum.BackgroundImage")));
-            this.buttonAddNewAlbum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonAddNewAlbum.FlatAppearance.BorderSize = 0;
-            this.buttonAddNewAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddNewAlbum.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddNewAlbum.ForeColor = System.Drawing.Color.White;
-            this.buttonAddNewAlbum.Location = new System.Drawing.Point(605, 6);
-            this.buttonAddNewAlbum.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonAddNewAlbum.MotionHeight = true;
-            this.buttonAddNewAlbum.MotionWidth = true;
-            this.buttonAddNewAlbum.Name = "buttonAddNewAlbum";
-            this.buttonAddNewAlbum.Size = new System.Drawing.Size(27, 30);
-            this.buttonAddNewAlbum.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.buttonAddNewAlbum, "Add New Album");
-            this.buttonAddNewAlbum.UseVisualStyleBackColor = false;
-            this.buttonAddNewAlbum.Click += new System.EventHandler(this.buttonAddNewAlbum_Click);
-            // 
-            // buttonEditAlbum
-            // 
-            this.buttonEditAlbum.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonEditAlbum.BackColor = System.Drawing.Color.Transparent;
-            this.buttonEditAlbum.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonEditAlbum.BackgroundImage")));
-            this.buttonEditAlbum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonEditAlbum.FlatAppearance.BorderSize = 0;
-            this.buttonEditAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonEditAlbum.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEditAlbum.ForeColor = System.Drawing.Color.White;
-            this.buttonEditAlbum.Location = new System.Drawing.Point(554, 6);
-            this.buttonEditAlbum.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonEditAlbum.MotionHeight = true;
-            this.buttonEditAlbum.MotionWidth = true;
-            this.buttonEditAlbum.Name = "buttonEditAlbum";
-            this.buttonEditAlbum.Size = new System.Drawing.Size(27, 30);
-            this.buttonEditAlbum.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.buttonEditAlbum, "Edit Mode");
-            this.buttonEditAlbum.UseVisualStyleBackColor = false;
-            this.buttonEditAlbum.Click += new System.EventHandler(this.buttonEditAlbum_Click);
-            // 
-            // FLPHome
-            // 
-            this.FLPHome.BackColor = System.Drawing.Color.Transparent;
-            this.TLPHome.SetColumnSpan(this.FLPHome, 3);
-            this.FLPHome.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FLPHome.Location = new System.Drawing.Point(3, 45);
-            this.FLPHome.Name = "FLPHome";
-            this.FLPHome.Size = new System.Drawing.Size(639, 170);
-            this.FLPHome.TabIndex = 3;
-            this.FLPHome.WrapContents = false;
-            // 
-            // buttonNoAlbum
-            // 
-            this.buttonNoAlbum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonNoAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonNoAlbum.FlatAppearance.BorderSize = 0;
-            this.buttonNoAlbum.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(112)))), ((int)(((byte)(214)))));
-            this.buttonNoAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNoAlbum.Font = new System.Drawing.Font("Segoe UI", 8.75F, System.Drawing.FontStyle.Bold);
-            this.buttonNoAlbum.ForeColor = System.Drawing.Color.White;
-            this.buttonNoAlbum.Location = new System.Drawing.Point(10, 10);
-            this.buttonNoAlbum.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.buttonNoAlbum.Name = "buttonNoAlbum";
-            this.buttonNoAlbum.Size = new System.Drawing.Size(172, 29);
-            this.buttonNoAlbum.TabIndex = 8;
-            this.buttonNoAlbum.Text = "Remove Client From Album";
-            this.buttonNoAlbum.UseVisualStyleBackColor = false;
-            this.buttonNoAlbum.Click += new System.EventHandler(this.buttonNoAlbum_Click);
-            // 
-            // buttonBack
-            // 
-            this.buttonBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonBack.FlatAppearance.BorderSize = 0;
-            this.buttonBack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(112)))), ((int)(((byte)(214)))));
-            this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBack.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBack.ForeColor = System.Drawing.Color.White;
-            this.buttonBack.Location = new System.Drawing.Point(10, 10);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(10);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(93, 29);
-            this.buttonBack.TabIndex = 3;
-            this.buttonBack.Text = "Back";
-            this.buttonBack.UseVisualStyleBackColor = false;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(122)))), ((int)(((byte)(224)))));
-            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonSave.FlatAppearance.BorderSize = 0;
-            this.buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(112)))), ((int)(((byte)(214)))));
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.ForeColor = System.Drawing.Color.White;
-            this.buttonSave.Location = new System.Drawing.Point(539, 10);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(10);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(93, 29);
-            this.buttonSave.TabIndex = 2;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = false;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // TLPAddAlbum
-            // 
-            this.TLPAddAlbum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(210)))), ((int)(((byte)(245)))));
-            this.TLPAddAlbum.ColumnCount = 3;
-            this.TLPAddAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPAddAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPAddAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.TLPAddAlbum.Controls.Add(this.buttonCancel2, 0, 2);
-            this.TLPAddAlbum.Controls.Add(this.buttonBack, 0, 0);
-            this.TLPAddAlbum.Controls.Add(this.buttonSave, 2, 0);
-            this.TLPAddAlbum.Controls.Add(this.buttonDeleteAlbum, 1, 0);
-            this.TLPAddAlbum.Location = new System.Drawing.Point(25, 309);
-            this.TLPAddAlbum.Margin = new System.Windows.Forms.Padding(0);
-            this.TLPAddAlbum.Name = "TLPAddAlbum";
-            this.TLPAddAlbum.RowCount = 3;
-            this.TLPAddAlbum.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.31034F));
-            this.TLPAddAlbum.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.68966F));
-            this.TLPAddAlbum.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.TLPAddAlbum.Size = new System.Drawing.Size(642, 225);
-            this.TLPAddAlbum.TabIndex = 2;
-            // 
-            // buttonDeleteAlbum
-            // 
-            this.buttonDeleteAlbum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteAlbum.BackColor = System.Drawing.Color.Red;
-            this.buttonDeleteAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDeleteAlbum.FlatAppearance.BorderSize = 0;
-            this.buttonDeleteAlbum.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.buttonDeleteAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDeleteAlbum.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDeleteAlbum.ForeColor = System.Drawing.Color.White;
-            this.buttonDeleteAlbum.Location = new System.Drawing.Point(427, 10);
-            this.buttonDeleteAlbum.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
-            this.buttonDeleteAlbum.Name = "buttonDeleteAlbum";
-            this.buttonDeleteAlbum.Size = new System.Drawing.Size(101, 29);
-            this.buttonDeleteAlbum.TabIndex = 4;
-            this.buttonDeleteAlbum.Text = "Delete Album";
-            this.buttonDeleteAlbum.UseVisualStyleBackColor = false;
-            this.buttonDeleteAlbum.Click += new System.EventHandler(this.buttonDeleteAlbum_Click);
+            TLPHome.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            TLPHome.ColumnCount = 3;
+            TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.26966F));
+            TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.677902F));
+            TLPHome.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.052434F));
+            TLPHome.Controls.Add(buttonCancel, 0, 2);
+            TLPHome.Controls.Add(buttonAddNewAlbum, 2, 0);
+            TLPHome.Controls.Add(buttonEditAlbum, 1, 0);
+            TLPHome.Controls.Add(FLPHome, 0, 1);
+            TLPHome.Controls.Add(buttonNoAlbum, 0, 0);
+            TLPHome.Location = new System.Drawing.Point(26, 27);
+            TLPHome.Margin = new System.Windows.Forms.Padding(0);
+            TLPHome.Name = "TLPHome";
+            TLPHome.RowCount = 3;
+            TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.30502F));
+            TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.69498F));
+            TLPHome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            TLPHome.Size = new System.Drawing.Size(752, 299);
+            TLPHome.TabIndex = 0;
+            TLPHome.Visible = false;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.TLPHome.SetColumnSpan(this.buttonCancel, 3);
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCancel.FlatAppearance.BorderSize = 0;
-            this.buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(545, 224);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(3, 3, 7, 3);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(93, 29);
-            this.buttonCancel.TabIndex = 738;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonCancel.BackColor = System.Drawing.Color.FromArgb(95, 97, 99);
+            TLPHome.SetColumnSpan(buttonCancel, 3);
+            buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonCancel.FlatAppearance.BorderSize = 0;
+            buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(105, 107, 109);
+            buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonCancel.ForeColor = System.Drawing.Color.White;
+            buttonCancel.Location = new System.Drawing.Point(636, 259);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 8, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(108, 33);
+            buttonCancel.TabIndex = 738;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = false;
+            buttonCancel.Click += buttonCancel_Click;
+            // 
+            // buttonAddNewAlbum
+            // 
+            buttonAddNewAlbum.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonAddNewAlbum.BackColor = System.Drawing.Color.Transparent;
+            buttonAddNewAlbum.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonAddNewAlbum.BackgroundImage");
+            buttonAddNewAlbum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonAddNewAlbum.FlatAppearance.BorderSize = 0;
+            buttonAddNewAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonAddNewAlbum.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonAddNewAlbum.ForeColor = System.Drawing.Color.White;
+            buttonAddNewAlbum.Location = new System.Drawing.Point(705, 6);
+            buttonAddNewAlbum.Margin = new System.Windows.Forms.Padding(0);
+            buttonAddNewAlbum.MotionHeight = true;
+            buttonAddNewAlbum.MotionWidth = true;
+            buttonAddNewAlbum.Name = "buttonAddNewAlbum";
+            buttonAddNewAlbum.Size = new System.Drawing.Size(31, 35);
+            buttonAddNewAlbum.TabIndex = 4;
+            toolTip1.SetToolTip(buttonAddNewAlbum, "Add New Album");
+            buttonAddNewAlbum.UseVisualStyleBackColor = false;
+            buttonAddNewAlbum.Click += buttonAddNewAlbum_Click;
+            // 
+            // buttonEditAlbum
+            // 
+            buttonEditAlbum.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonEditAlbum.BackColor = System.Drawing.Color.Transparent;
+            buttonEditAlbum.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonEditAlbum.BackgroundImage");
+            buttonEditAlbum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonEditAlbum.FlatAppearance.BorderSize = 0;
+            buttonEditAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonEditAlbum.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonEditAlbum.ForeColor = System.Drawing.Color.White;
+            buttonEditAlbum.Location = new System.Drawing.Point(646, 6);
+            buttonEditAlbum.Margin = new System.Windows.Forms.Padding(0);
+            buttonEditAlbum.MotionHeight = true;
+            buttonEditAlbum.MotionWidth = true;
+            buttonEditAlbum.Name = "buttonEditAlbum";
+            buttonEditAlbum.Size = new System.Drawing.Size(31, 35);
+            buttonEditAlbum.TabIndex = 7;
+            toolTip1.SetToolTip(buttonEditAlbum, "Edit Mode");
+            buttonEditAlbum.UseVisualStyleBackColor = false;
+            buttonEditAlbum.Click += buttonEditAlbum_Click;
+            // 
+            // FLPHome
+            // 
+            FLPHome.BackColor = System.Drawing.Color.Transparent;
+            TLPHome.SetColumnSpan(FLPHome, 3);
+            FLPHome.Dock = System.Windows.Forms.DockStyle.Fill;
+            FLPHome.Location = new System.Drawing.Point(4, 51);
+            FLPHome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            FLPHome.Name = "FLPHome";
+            FLPHome.Size = new System.Drawing.Size(744, 198);
+            FLPHome.TabIndex = 3;
+            FLPHome.WrapContents = false;
+            // 
+            // buttonNoAlbum
+            // 
+            buttonNoAlbum.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonNoAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonNoAlbum.FlatAppearance.BorderSize = 0;
+            buttonNoAlbum.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(100, 112, 214);
+            buttonNoAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonNoAlbum.Font = new System.Drawing.Font("Segoe UI", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonNoAlbum.ForeColor = System.Drawing.Color.White;
+            buttonNoAlbum.Location = new System.Drawing.Point(12, 12);
+            buttonNoAlbum.Margin = new System.Windows.Forms.Padding(12, 12, 4, 0);
+            buttonNoAlbum.Name = "buttonNoAlbum";
+            buttonNoAlbum.Size = new System.Drawing.Size(201, 33);
+            buttonNoAlbum.TabIndex = 8;
+            buttonNoAlbum.Text = "Remove Client From Album";
+            buttonNoAlbum.UseVisualStyleBackColor = false;
+            buttonNoAlbum.Click += buttonNoAlbum_Click;
+            // 
+            // buttonBack
+            // 
+            buttonBack.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonBack.FlatAppearance.BorderSize = 0;
+            buttonBack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(100, 112, 214);
+            buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonBack.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonBack.ForeColor = System.Drawing.Color.White;
+            buttonBack.Location = new System.Drawing.Point(12, 12);
+            buttonBack.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            buttonBack.Name = "buttonBack";
+            buttonBack.Size = new System.Drawing.Size(108, 33);
+            buttonBack.TabIndex = 3;
+            buttonBack.Text = "Back";
+            buttonBack.UseVisualStyleBackColor = false;
+            buttonBack.Click += buttonBack_Click;
+            // 
+            // buttonSave
+            // 
+            buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonSave.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonSave.FlatAppearance.BorderSize = 0;
+            buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(100, 112, 214);
+            buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonSave.ForeColor = System.Drawing.Color.White;
+            buttonSave.Location = new System.Drawing.Point(629, 12);
+            buttonSave.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new System.Drawing.Size(108, 33);
+            buttonSave.TabIndex = 2;
+            buttonSave.Text = "Save";
+            buttonSave.UseVisualStyleBackColor = false;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
+            // 
+            // TLPAddAlbum
+            // 
+            TLPAddAlbum.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            TLPAddAlbum.ColumnCount = 3;
+            TLPAddAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            TLPAddAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            TLPAddAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133F));
+            TLPAddAlbum.Controls.Add(buttonCancel2, 0, 2);
+            TLPAddAlbum.Controls.Add(buttonBack, 0, 0);
+            TLPAddAlbum.Controls.Add(buttonSave, 2, 0);
+            TLPAddAlbum.Controls.Add(buttonDeleteAlbum, 1, 0);
+            TLPAddAlbum.Location = new System.Drawing.Point(29, 357);
+            TLPAddAlbum.Margin = new System.Windows.Forms.Padding(0);
+            TLPAddAlbum.Name = "TLPAddAlbum";
+            TLPAddAlbum.RowCount = 3;
+            TLPAddAlbum.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.31034F));
+            TLPAddAlbum.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.68966F));
+            TLPAddAlbum.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            TLPAddAlbum.Size = new System.Drawing.Size(749, 260);
+            TLPAddAlbum.TabIndex = 2;
             // 
             // buttonCancel2
             // 
-            this.buttonCancel2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonCancel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(99)))));
-            this.TLPAddAlbum.SetColumnSpan(this.buttonCancel2, 3);
-            this.buttonCancel2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCancel2.FlatAppearance.BorderSize = 0;
-            this.buttonCancel2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(107)))), ((int)(((byte)(109)))));
-            this.buttonCancel2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.buttonCancel2.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel2.Location = new System.Drawing.Point(542, 190);
-            this.buttonCancel2.Margin = new System.Windows.Forms.Padding(3, 3, 7, 3);
-            this.buttonCancel2.Name = "buttonCancel2";
-            this.buttonCancel2.Size = new System.Drawing.Size(93, 29);
-            this.buttonCancel2.TabIndex = 739;
-            this.buttonCancel2.Text = "Cancel";
-            this.buttonCancel2.UseVisualStyleBackColor = false;
-            this.buttonCancel2.Click += new System.EventHandler(this.buttonCancel_Click);
+            buttonCancel2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonCancel2.BackColor = System.Drawing.Color.FromArgb(95, 97, 99);
+            TLPAddAlbum.SetColumnSpan(buttonCancel2, 3);
+            buttonCancel2.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonCancel2.FlatAppearance.BorderSize = 0;
+            buttonCancel2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(105, 107, 109);
+            buttonCancel2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonCancel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonCancel2.ForeColor = System.Drawing.Color.White;
+            buttonCancel2.Location = new System.Drawing.Point(633, 220);
+            buttonCancel2.Margin = new System.Windows.Forms.Padding(4, 3, 8, 3);
+            buttonCancel2.Name = "buttonCancel2";
+            buttonCancel2.Size = new System.Drawing.Size(108, 33);
+            buttonCancel2.TabIndex = 739;
+            buttonCancel2.Text = "Cancel";
+            buttonCancel2.UseVisualStyleBackColor = false;
+            buttonCancel2.Click += buttonCancel_Click;
+            // 
+            // buttonDeleteAlbum
+            // 
+            buttonDeleteAlbum.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonDeleteAlbum.BackColor = System.Drawing.Color.Red;
+            buttonDeleteAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonDeleteAlbum.FlatAppearance.BorderSize = 0;
+            buttonDeleteAlbum.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(192, 0, 0);
+            buttonDeleteAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDeleteAlbum.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonDeleteAlbum.ForeColor = System.Drawing.Color.White;
+            buttonDeleteAlbum.Location = new System.Drawing.Point(498, 12);
+            buttonDeleteAlbum.Margin = new System.Windows.Forms.Padding(12, 12, 0, 12);
+            buttonDeleteAlbum.Name = "buttonDeleteAlbum";
+            buttonDeleteAlbum.Size = new System.Drawing.Size(118, 33);
+            buttonDeleteAlbum.TabIndex = 4;
+            buttonDeleteAlbum.Text = "Delete Album";
+            buttonDeleteAlbum.UseVisualStyleBackColor = false;
+            buttonDeleteAlbum.Click += buttonDeleteAlbum_Click;
             // 
             // Album
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1014, 627);
-            this.Controls.Add(this.TLPAddAlbum);
-            this.Controls.Add(this.TLPHome);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Album";
-            this.Opacity = 0D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Save";
-            this.Deactivate += new System.EventHandler(this.Album_Deactivate);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Album_FormClosing);
-            this.TLPHome.ResumeLayout(false);
-            this.TLPAddAlbum.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.White;
+            ClientSize = new System.Drawing.Size(1183, 723);
+            Controls.Add(TLPAddAlbum);
+            Controls.Add(TLPHome);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "Album";
+            Opacity = 0D;
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Save";
+            Deactivate += Album_Deactivate;
+            FormClosing += Album_FormClosing;
+            TLPHome.ResumeLayout(false);
+            TLPAddAlbum.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

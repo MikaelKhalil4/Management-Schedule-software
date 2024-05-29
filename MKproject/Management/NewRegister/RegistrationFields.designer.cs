@@ -148,6 +148,7 @@ namespace MKproject.Management
             buttonSave.BackColor = System.Drawing.Color.FromArgb(109, 122, 224);
             buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonSave.FlatAppearance.BorderSize = 0;
+            buttonSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(69, 82, 184);
             buttonSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(129, 142, 244);
             buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -168,6 +169,7 @@ namespace MKproject.Management
             buttonCancel.BackColor = System.Drawing.Color.DarkGray;
             buttonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             buttonCancel.FlatAppearance.BorderSize = 0;
+            buttonCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(129, 129, 129);
             buttonCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(189, 189, 189);
             buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -198,6 +200,7 @@ namespace MKproject.Management
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "RegistrationFields";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             FormClosing += RegistrationFields_FormClosing;
             Load += RegistrationFields_Load;

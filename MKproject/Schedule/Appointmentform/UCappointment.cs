@@ -160,7 +160,7 @@ namespace MKproject.Schedule
             {
                 this.BackColor = this.BackColor = Color.FromArgb(124, 218, 124);//green
 
-                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxComplete.Checked )
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxComplete.Checked)
                 {
                     RemoveAppointmentFromTLP();
                 }
@@ -169,7 +169,7 @@ namespace MKproject.Schedule
             {
                 this.BackColor = Color.FromArgb(244, 86, 7);//orange
 
-                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxCancel.Checked )
+                if (!UcScheduleParentForm.ParentFormSchedule.checkBoxCancel.Checked)
                 {
                     RemoveAppointmentFromTLP();
 
@@ -380,7 +380,11 @@ namespace MKproject.Schedule
         {
             Appointment appointmentupdate = (Appointment)sender;
             DesiredAppointmentUCApp.IsCompleted = false;
-            DesiredAppointmentUCApp.DesiredClient.TotalBalance = appointmentupdate.DesiredAppointmentAppForm.DesiredClient.TotalBalance;
+
+            if (DesiredAppointmentUCApp.DesiredClient != null)
+            {
+                DesiredAppointmentUCApp.DesiredClient.TotalBalance = appointmentupdate.DesiredAppointmentAppForm.DesiredClient.TotalBalance;
+            }
 
             if (DesiredAppointmentUCApp.DesiredClientBalance != null && DesiredAppointmentUCApp.DesiredClientBalance.DueDate == null && DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays != null)//package of sessions
             {
@@ -405,8 +409,8 @@ namespace MKproject.Schedule
             DesiredAppointmentUCApp = appointmentupdate.DesiredAppointmentAppForm.Copy();
 
             //Updating the list in uc schedule
-            int index = UcScheduleParentForm.AppointmentsList.FindIndex(a => a.AppointmentID == DesiredAppointmentUCApp.AppointmentID); 
-            UcScheduleParentForm.AppointmentsList[index] = DesiredAppointmentUCApp;//they should refer to each others, since bcz of the copy they have lost their refrence, kermel el checkbox filters 
+            int index = UcScheduleParentForm.AppointmentsListWorkingOn.FindIndex(a => a.AppointmentID == DesiredAppointmentUCApp.AppointmentID);
+            UcScheduleParentForm.AppointmentsListWorkingOn[index] = DesiredAppointmentUCApp;//they should refer to each others, since bcz of the copy they have lost their refrence, kermel el checkbox filters 
 
             SetUCDesign();
             FixUCDesign();
@@ -465,6 +469,11 @@ namespace MKproject.Schedule
         {
             UcScheduleParentForm.ChangePositionUCappointments(this, DesiredAppointmentUCApp, OldDesiredAppointmentUCApp);
             DesiredAppointmentUCApp = OldDesiredAppointmentUCApp.Copy();
+
+            //Updating the list in uc schedule
+            int index = UcScheduleParentForm.AppointmentsListWorkingOn.FindIndex(a => a.AppointmentID == DesiredAppointmentUCApp.AppointmentID);
+            UcScheduleParentForm.AppointmentsListWorkingOn[index] = DesiredAppointmentUCApp;//they should refer to each others, since bcz of the copy they have lost their refrence, kermel el checkbox filters 
+
             SetUCDesign();
             NotificationBanner.Show("", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, true);
         }
@@ -479,7 +488,7 @@ namespace MKproject.Schedule
 
             TLPGlobal.BackColor = Color.WhiteSmoke;
 
-            if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//onlty present or future
+            if ((DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date) || (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date && !UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee != null))//onlty present or future
             {
 
                 if (!isDragging && e.Button == MouseButtons.Left)

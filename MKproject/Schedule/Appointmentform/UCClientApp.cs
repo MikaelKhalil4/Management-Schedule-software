@@ -83,8 +83,16 @@ namespace MKproject.Schedule
         {
             SetDesignIfServiceOrPackageSelected();
             FillLabelServiceFields();
-            SetLabelbalanceDesign();
 
+            if (DesiredAppointmentUCClientApp.DesiredClient != null)
+            {
+                SetLabelbalanceDesign();
+              
+            }
+            else
+            {
+                TLPglobal.RowStyles[3].Height = 0;
+            }
             TLPglobal.RowStyles[0].Height = 0;
             //
             ButtonNewClient.Dispose();
@@ -106,9 +114,7 @@ namespace MKproject.Schedule
                     TLPglobal.SetColumnSpan(labelFullName, 3);
                 }
                 labelFullName.Text = DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + DesiredAppointmentUCClientApp.DesiredClient.Lname;
-                //
-                TLPglobal.SetColumnSpan(LabelService, 3);
-                LabelService.Anchor = AnchorStyles.Right;
+              
             }
             else
             {
@@ -116,6 +122,9 @@ namespace MKproject.Schedule
             }
 
 
+            //
+            TLPglobal.SetColumnSpan(LabelService, 3);
+            LabelService.Anchor = AnchorStyles.Right;
 
 
             if (DesiredAppointmentUCClientApp.Title != null)

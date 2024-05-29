@@ -294,10 +294,12 @@
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
             ClientSize = new System.Drawing.Size(415, 536);
             Controls.Add(TLPGlobal);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Appointment";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Appointment";
             Deactivate += Appointment_Deactivate;

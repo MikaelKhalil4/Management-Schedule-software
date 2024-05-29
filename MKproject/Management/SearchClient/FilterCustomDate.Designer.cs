@@ -155,6 +155,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FilterCustomDate";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "FilterCustomDate";
             Deactivate += FilterCustomDate_Deactivate;

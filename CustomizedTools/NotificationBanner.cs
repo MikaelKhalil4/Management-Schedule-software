@@ -121,7 +121,7 @@ namespace CustomizedTools
             //LOCATION
 
             Point locationRelativeToScreen = ParentFormHome.PointToScreen(Point.Empty);
-            locationRelativeToScreen.Offset(ParentFormHome.Width / 2 - (this.Width / 2), 8);
+            locationRelativeToScreen.Offset(ParentFormHome.Width / 2 - (this.Width / 2), ParentFormHome.Height-this.Height-20);
             this.Location = locationRelativeToScreen;
 
             //Event
@@ -159,7 +159,7 @@ namespace CustomizedTools
                 timer2.Start();
             }
             Opacity += .2;
-            this.Location = new Point(this.Location.X, this.Location.Y + 4);
+            this.Location = new Point(this.Location.X, this.Location.Y - 2);
         }
 
         bool FirstCyclePassed = false;
@@ -181,9 +181,9 @@ namespace CustomizedTools
             this.Close();
             this.Dispose();
 
-            if (cmb != null)
+            if (CurrentNotfBanner != null)
             {
-                cmb = null;
+                CurrentNotfBanner = null;
             }
 
             UndoNotficationBanner?.Invoke(sender, e);//ejare tahet hawde
@@ -191,25 +191,28 @@ namespace CustomizedTools
 
 
 
-        static NotificationBanner cmb;
+       public static NotificationBanner CurrentNotfBanner;
         public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome,bool UndoFromNotficationBannerCliked)
         {
             //closing the old one
-            if (cmb != null)
-            {
-                cmb.Close();
-                cmb.Dispose();
-                cmb = null;
-            }
+            CloseTheNotfBanner();
 
             //starting the new one
-            cmb = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked);
-            cmb.Show();
-            cmb.timer1.Start();
+            CurrentNotfBanner = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked);
+            CurrentNotfBanner.Show();
+            CurrentNotfBanner.timer1.Start();
 
-            return cmb;
+            return CurrentNotfBanner;
         }
-
+        public static void CloseTheNotfBanner()
+        {
+            if (CurrentNotfBanner != null)
+            {
+                CurrentNotfBanner.Close();
+                CurrentNotfBanner.Dispose();
+                CurrentNotfBanner = null;
+            }
+        }
         private void NotificationBanner_Deactivate(object sender, EventArgs e)
         {
             labelText.Select();//kermel ma el button ybayyin eendo borders

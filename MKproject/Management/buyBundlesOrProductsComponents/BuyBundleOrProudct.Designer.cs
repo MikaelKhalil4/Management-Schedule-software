@@ -118,6 +118,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "BuyBundleOrProudct";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "BuyServiceOrProudct";
             Deactivate += BuyBundleOrProudct_Deactivate;

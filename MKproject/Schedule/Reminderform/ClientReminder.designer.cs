@@ -124,6 +124,7 @@
             Controls.Add(tableLayoutPanel1);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "ClientReminder";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ClientRemindercs";
             Load += ClientReminder_Load;
