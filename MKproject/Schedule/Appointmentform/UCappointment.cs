@@ -488,7 +488,7 @@ namespace MKproject.Schedule
 
             TLPGlobal.BackColor = Color.WhiteSmoke;
 
-            if ((DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date) || (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date && !UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee != null))//onlty present or future
+            if ((UcScheduleParentForm.IsDayOrWeek && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date) || (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date && !UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee != null))//onlty present or future
             {
 
                 if (!isDragging && e.Button == MouseButtons.Left)

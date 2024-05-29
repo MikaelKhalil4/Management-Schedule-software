@@ -595,11 +595,7 @@ namespace MKproject.Management
 
 
         private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            if (ClientManagementProfileParentForm == null)
-            {
-                UpdateClientBalanceIfNotProfile(false);
-            }
+        {         
             this.Close();
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -612,6 +608,12 @@ namespace MKproject.Management
         }
         private void Payment_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (ClientManagementProfileParentForm == null)
+            {
+                UpdateClientBalanceIfNotProfile(false);
+            }
+
+            //
             if (Program.GreyFormJunior != null)
             {
                 Program.GreyFormJunior.Close();

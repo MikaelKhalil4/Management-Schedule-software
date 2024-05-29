@@ -44,8 +44,9 @@ namespace MKproject.Schedule
 
         public bool IsDayOrWeek;
         public ClassEmployee TheOnlyEmployee;//eza fi aktar menn wahad bi null, used in 7 days, ta naarif if we can editt bel 7 days mode
-        //Reminder
 
+       
+        //Reminder
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
         private enum EnumDaysOrWeek
@@ -64,6 +65,9 @@ namespace MKproject.Schedule
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Day.ToString());
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Week.ToString());
 
+            scrollTimer = new Timer();
+            scrollTimer.Interval = 100; // Adjust as needed
+            scrollTimer.Tick += ScrollTimer_Tick; ;
 
             LoadForm(DateTime.Now, true);
             InsertHistroyToSqlIfNecessary();
@@ -71,7 +75,7 @@ namespace MKproject.Schedule
 
         }
 
-
+     
 
         public void LoadForm(DateTime selectedDate, bool isDayOrWeek)
         {
@@ -110,14 +114,14 @@ namespace MKproject.Schedule
                     IsHistory = false;
 
                 }
-                if (AppointmentsListWorkingOn.Count == 0 && SelectedDate.Date < DateTime.Now.Date)
+                if (AppointmentsListWorkingOn.Count == 0 && SelectedDate.Date < DateTime.Now.Date && CheckIfEmployeeAvailable())
                 {
                     IsDesignBlocked = true;
 
                     BlockedModeDesign("No Appointments Available");
 
                 }
-                else if (EmployeeScheduleList.Count == 0 && SelectedDate.Date <= DateTime.Now.Date)
+                else if (!CheckIfEmployeeAvailable())
                 {
                     IsDesignBlocked = true;
 
@@ -450,14 +454,18 @@ namespace MKproject.Schedule
                     }
                     if (IsDayOrWeek)
                     {
-                        ExpandTableLayoutPanelColumn(clickedLabel.DesiredEmployee.EmployeeId);
+                        if (ListOfAllColumnIndexesGroups.Count > 1)
+                        {
+                            ExpandTableLayoutPanelColumn(clickedLabel.DesiredEmployee.EmployeeId);
+                            //label design
+                            ActiveDesiredLabel(clickedLabel);
+                        }
                     }
                     else
                     {
                         LoadForm(((DateTime)clickedLabel.DesiredDate), true);
                     }
-                    //label design
-                    ActiveDesiredLabel(clickedLabel);
+                   
 
                 }
 
@@ -578,11 +586,11 @@ namespace MKproject.Schedule
 
         private void TLPSchedule_MouseClick(object sender, MouseEventArgs e)
         {
-            if ((IsDayOrWeek && !IsHistory && !IsDesignBlocked) || (!IsDayOrWeek && TheOnlyEmployee != null))
+            (int column, int row) = GetCellPosition(TLPSchedule, e.Location);
+
+            if ((IsDayOrWeek && !IsHistory && !IsDesignBlocked) || (!IsDayOrWeek && TheOnlyEmployee != null && GetWhichEmployeeOrDateForSpecifieColumn(column, false).Item2 >= DateTime.Now.Date))
             {
-                (int column, int row) = GetCellPosition(TLPSchedule, e.Location);
-
-
+            
                 if (column > 0)
                 {
                     DateTime? StartTime = null;
@@ -742,7 +750,19 @@ namespace MKproject.Schedule
 
 
         }//Display the title and the ucappointments
+        bool CheckIfEmployeeAvailable()
+        {
 
+            foreach (ClassEmployee emp in EmployeeScheduleList)
+            {
+                if (emp.IsChecked == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
 
 
         public void ChangePositionUCappointments(UCappointment DesiredUCApp, ClassAppointment OldAppointment, ClassAppointment UpdatedAppointment)
@@ -1169,6 +1189,7 @@ namespace MKproject.Schedule
         void SetTLPEmployeesColumn()//always called after SetTLPSchGroupColumn 
         {
             ResetTLPEmployeeToInitialState();
+
             for (int i = 0; i < ListOfAllColumnIndexesGroups.Count; i++)
             {
                 TLPEmployees.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
@@ -1176,37 +1197,20 @@ namespace MKproject.Schedule
 
 
                 ButtonEmployeeOrDay buttonEmployeeOrDay = CreateLabelEmployee();
+
+
                 if (IsDayOrWeek)
                 {
                     buttonEmployeeOrDay.DesiredEmployee = ListOfAllColumnIndexesGroups[i].Item1;
-                    buttonEmployeeOrDay.Text = ListOfAllColumnIndexesGroups[i].Item1.Fname + " " + ListOfAllColumnIndexesGroups[i].Item1.Lname;
-
-                    buttonEmployeeOrDay.BackColor = Color.FromArgb(119, 132, 234);
-                    buttonEmployeeOrDay.FlatAppearance.MouseOverBackColor = buttonEmployeeOrDay.BackColor;
-                    buttonEmployeeOrDay.FlatAppearance.MouseDownBackColor = buttonEmployeeOrDay.BackColor;
-                    buttonEmployeeOrDay.ForeColor = Color.White;
+                    buttonEmployeeOrDay.Text = ListOfAllColumnIndexesGroups[i].Item1.Fname + " " + ListOfAllColumnIndexesGroups[i].Item1.Lname;               
                 }
                 else
                 {
                     buttonEmployeeOrDay.DesiredDate = (DateTime)ListOfAllColumnIndexesGroups[i].Item2;
                     buttonEmployeeOrDay.Text = ((DateTime)ListOfAllColumnIndexesGroups[i].Item2).ToString("ddd dd");
-
-                    buttonEmployeeOrDay.BackColor = Color.Transparent;
-                    buttonEmployeeOrDay.FlatAppearance.MouseOverBackColor = buttonEmployeeOrDay.BackColor;
-                    buttonEmployeeOrDay.FlatAppearance.MouseDownBackColor = buttonEmployeeOrDay.BackColor;
-                    buttonEmployeeOrDay.ForeColor = Color.Black;
-
-                    if (((DateTime)buttonEmployeeOrDay.DesiredDate).Date == DateTime.Now.Date)
-                    {
-
-                        buttonEmployeeOrDay.Image = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "oval-Small.png");
-                        buttonEmployeeOrDay.ForeColor = Color.White;
-                    }
-                    else if (((DateTime)buttonEmployeeOrDay.DesiredDate).Date < DateTime.Now.Date)
-                    {
-                        buttonEmployeeOrDay.ForeColor = Color.FromArgb(100,100,100);
-                    }
                 }
+
+                buttonEmployeeOrDay.SetButtonDesignBehavor(IsDayOrWeek, false);//ejbare tahet el Set fow
 
                 TLPEmployees.Controls.Add(buttonEmployeeOrDay, i + 1, 0);//i+1, lieanno first column kermel el time
             }
@@ -1263,11 +1267,11 @@ namespace MKproject.Schedule
             TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
             TLPSchedule.ColumnCount++;
 
-            ButtonEmployeeOrDay labelEmployee = CreateLabelEmployee();
-            labelEmployee.Text = OutputText;
+            ButtonEmployeeOrDay buttonEmployee = CreateLabelEmployee();
+            buttonEmployee.Text = OutputText;        
+            buttonEmployee.SetButtonDesignBehavor(IsDayOrWeek, true);//ejbare tahet el Set fow
 
-
-            TLPEmployees.Controls.Add(labelEmployee, 1, 0);//1, lieanno first column kermel el time
+            TLPEmployees.Controls.Add(buttonEmployee, 1, 0);//1, lieanno first column kermel el time
 
             //TLPSchedule.Enabled = false;
 
@@ -1276,43 +1280,41 @@ namespace MKproject.Schedule
 
         public void ExpandTableLayoutPanelColumn(int? empId)
         {
-            FocusOnMaxWidth = (int)((TLPSchedule.Width - TLPSchedule.GetColumnWidths()[0]) * 0.85);//so he will be 90 % of the columns without the first column
+           
+                FocusOnMaxWidth = (int)((TLPSchedule.Width - TLPSchedule.GetColumnWidths()[0]) * 0.85);//so he will be 90 % of the columns without the first column
 
 
-            if (empId != null)//eza kenit null,yaane i  m using same FocusOnColumnIndexGroup, usd in remove or insert column
-            {
-                FocusOnColumnIndexGroup = GetWhichDesiredGroup((int)empId, null);
-            }
-
-
-            //int OriginalWidthOfDesiredGroup = UCappointment.OriginalWidth * FocusOnColumnIndexGroup.Item2.Count;
-
-            //int DesiredWidthOfTheGroup = OriginalWidthOfDesiredGroup < FocusOnMaxWidth ? OriginalWidthOfDesiredGroup : FocusOnMaxWidth;
-            int DesiredWidthOfTheGroup = FocusOnMaxWidth;
-
-            //TLPAppointment 
-
-            int DesiredWidthPerColumn = DesiredWidthOfTheGroup / FocusOnColumnIndexGroup.Item3.Count;
-            foreach (int ColumnIndex in FocusOnColumnIndexGroup.Item3)
-            {
-                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Absolute, DesiredWidthPerColumn);
-            }
-
-
-            //Employee tlp
-            int i = 1;//i=0 lal time
-            foreach ((ClassEmployee, DateTime?, List<int>) Group in ListOfAllColumnIndexesGroups)
-            {
-                if (FocusOnColumnIndexGroup.Item1.EmployeeId == Group.Item1.EmployeeId)
+                if (empId != null)//eza kenit null,yaane i  m using same FocusOnColumnIndexGroup, usd in remove or insert column
                 {
-                    TLPEmployees.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, DesiredWidthOfTheGroup);
-                    break;
+                    FocusOnColumnIndexGroup = GetWhichDesiredGroup((int)empId, null);
                 }
-                else
+
+
+                int DesiredWidthOfTheGroup = FocusOnMaxWidth;
+                //TLPAppointment 
+
+                int DesiredWidthPerColumn = DesiredWidthOfTheGroup / FocusOnColumnIndexGroup.Item3.Count;
+                foreach (int ColumnIndex in FocusOnColumnIndexGroup.Item3)
                 {
-                    i++;
+                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Absolute, DesiredWidthPerColumn);
                 }
-            }
+
+
+                //Employee tlp
+                int i = 1;//i=0 lal time
+                foreach ((ClassEmployee, DateTime?, List<int>) Group in ListOfAllColumnIndexesGroups)
+                {
+                    if (FocusOnColumnIndexGroup.Item1.EmployeeId == Group.Item1.EmployeeId)
+                    {
+                        TLPEmployees.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, DesiredWidthOfTheGroup);
+                        break;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            
         }
         public void PercentageResizeTLPScheduleAndTlpEmp()
         {
@@ -1593,18 +1595,104 @@ namespace MKproject.Schedule
 
             }
         }
+
+
+        //Scrolling
+        private Timer scrollTimer;
+      
+        private const int ScrollMarginSmall = 30; // Smaller distance from the edge to start scrolling
+        private const int ScrollSpeedFast = 30;   // Faster scrolling speed
+       
+        private const int ScrollMarginLarge = 60; // Larger distance from the edge to start scrolling
+        private const int ScrollSpeedSlow = 10;   // Slower scrolling speed
+      
         private void TLPSchedule_DragOver(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Move;
 
             Point clientPoint = TLPSchedule.PointToClient(new Point(e.X, e.Y));
             SetValuesthatWillAffectselection(clientPoint);
+
+
+            // Check if mouse is near the edges
+            if (clientPoint.Y <= ScrollMarginLarge)
+            {
+                // Near the top edge, determine scroll speed
+                if (clientPoint.Y <= ScrollMarginSmall)
+                {
+                    StartScrolling("Up", ScrollSpeedFast);
+                }
+                else
+                {
+                    StartScrolling("Up", ScrollSpeedSlow);
+                }
+            }
+            else if (clientPoint.Y >= TLPSchedule.Height - ScrollMarginLarge)
+            {
+                // Near the bottom edge, determine scroll speed
+                if (clientPoint.Y >= TLPSchedule.Height - ScrollMarginSmall)
+                {
+                    StartScrolling("Down", ScrollSpeedFast);
+                }
+                else
+                {
+                    StartScrolling("Down", ScrollSpeedSlow);
+                }
+            }
+            else
+            {
+                scrollTimer.Stop();
+            }
+
+            e.Effect = DragDropEffects.Move;
+
         }
+        private void StartScrolling(string direction, int speed)
+        {
+            scrollTimer.Tag = new ScrollInfo { Direction = direction, Speed = speed };
+            scrollTimer.Start();
+        }
+        private void ScrollTimer_Tick(object sender, EventArgs e)
+        {
+            if (scrollTimer.Tag is ScrollInfo scrollInfo)
+            {
+                if (scrollInfo.Direction == "Up")
+                {
+                    // Scroll up
+                    if (TLPSchedule.VerticalScroll.Value > 0)
+                    {
+                        TLPSchedule.VerticalScroll.Value = Math.Max(0, TLPSchedule.VerticalScroll.Value - scrollInfo.Speed);
+                        TLPSchedule.PerformLayout();
+                        UpdateTimeIndicatorLinePosition();
+
+
+                    }
+                }
+                else if (scrollInfo.Direction == "Down")
+                {
+                    // Scroll down
+                    if (TLPSchedule.VerticalScroll.Value < TLPSchedule.VerticalScroll.Maximum)
+                    {
+                        TLPSchedule.VerticalScroll.Value = Math.Min(TLPSchedule.VerticalScroll.Maximum, TLPSchedule.VerticalScroll.Value + scrollInfo.Speed);
+                        TLPSchedule.PerformLayout();
+                        UpdateTimeIndicatorLinePosition();
+
+                    }
+                }
+            }
+        }
+        private class ScrollInfo
+        {
+            public string Direction { get; set; }
+            public int Speed { get; set; }
+        }
+
+
 
 
         bool DragDropIsEntered;
         private void Uc_UCAppIsDroped(object sender, EventArgs e)//kermel eza kabbayneha outside the bounds what to return it mahalla
         {
+            scrollTimer.Stop();
 
             if (!DragDropIsEntered)//which mean we ve started an dragdrop operation but we throw it outside the bound, which mean dragdrop event wont be activated, so we need to reset the values
             {
@@ -1705,7 +1793,7 @@ namespace MKproject.Schedule
 
         bool CheckIfPositionAvailable(int StartingColumn, int StartingRow)
         {
-            if (!IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(StartingColumn, false).Item2 >= DateTime.Now.Date)
+            if (IsDayOrWeek || (!IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(StartingColumn, false).Item2 >= DateTime.Now.Date))
             {
                 return true;
             }
