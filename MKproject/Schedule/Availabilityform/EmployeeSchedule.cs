@@ -11,9 +11,9 @@ namespace MKproject.Schedule
     public partial class EmployeeSchedule : Form
     {
         //Property:
-    
-     
-        public List<ClassEmployee> EmployeeScheduleList { get; set; }//All the employees that are active
+
+
+        public List<ClassEmployee> TotalEmployeeScheduleList { get; set; }//All the employees that are active
 
         //Variable:
         public UCSchedule ParentucSchedule;
@@ -26,16 +26,16 @@ namespace MKproject.Schedule
             this.Opacity = 0;
 
 
-            EmployeeScheduleList = employeeScheduleList;
+            TotalEmployeeScheduleList = employeeScheduleList;
 
-      
+
 
             int Heightform = 0;//for the design of the form Employee
-            for (int i = EmployeeScheduleList.Count - 1; i >= 0; i--)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
+            for (int i = TotalEmployeeScheduleList.Count - 1; i >= 0; i--)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
             {
 
                 //Add UCEmployee
-                UCEmployee employee = new UCEmployee(EmployeeScheduleList[i], this);
+                UCEmployee employee = new UCEmployee(TotalEmployeeScheduleList[i], this);
                 panelContainsEmployees.Controls.Add(employee);
                 employee.Dock = DockStyle.Top;
 
@@ -81,19 +81,24 @@ namespace MKproject.Schedule
 
         private void ButtonDone_Click(object sender, EventArgs e)
         {
-            foreach(UCEmployee uc in panelContainsEmployees.Controls)
+            foreach (UCEmployee uc in panelContainsEmployees.Controls)
             {
-                //UPDATE ListEmployeeScheduleCopy
-                ClassEmployee  EmployeeSelectedOfThisUC = EmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == uc.DesiredEmployee.EmployeeId);
+                //UPDATE The reference 
+                ClassEmployee EmployeeSelectedOfThisUC = TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == uc.DesiredEmployee.EmployeeId);
                 EmployeeSelectedOfThisUC.IsChecked = uc.DesiredEmployee.IsChecked;
-            }
-            foreach (ClassEmployee emp in EmployeeScheduleList)
-            {
-                emp.UpdateEmployee();
-            }
 
-            Cursor.Current = Cursors.WaitCursor;    
-            ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek,false);
+            }
+            foreach (ClassEmployee emp in TotalEmployeeScheduleList)
+            {
+                if (!emp.IsChecked)
+                {
+                    ParentucSchedule.IsEmployeeFilterModeOn = true;
+                    break;
+                }
+                ParentucSchedule.IsEmployeeFilterModeOn = false;//in case all of them are checked
+            }
+            Cursor.Current = Cursors.WaitCursor;
+            ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false);
             Cursor.Current = Cursors.Default;
 
             this.Close();

@@ -226,6 +226,12 @@
     <None Update="images\down-arrow-BoldColor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="images\down-arrow-GreenColor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="images\down-arrow-LighterGreenColor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="images\eraser.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -29,9 +29,15 @@ namespace MKproject.Schedule
 
         List<DateTime> PresentWeek { get; set; }
         public List<DateTime> ListDaysOfDesiredWeek { get; set; }//used if week mode on
-        public List<ClassEmployee> EmployeeScheduleList { get; set; }//used if days mode on
+       
+        public bool IsEmployeeFilterModeOn;
+        public List<ClassEmployee> EmployeeScheduleListWorkingOn { get; set; }//used if days mode on
+        public List<ClassEmployee> TotalEmployeeScheduleList { get; set; }
+
+
         public List<ClassAppointment> AppointmentsListWorkingOn { get; set; }
         public List<ClassAppointment> TotalAppointmentsList { get; set; }
+
 
         public TableLayoutPanelDoubleBufferedNoscroll TLPEmployees;
         public TableLayoutPanelBuffered TLPSchedule;
@@ -46,6 +52,8 @@ namespace MKproject.Schedule
         public ClassEmployee TheOnlyEmployee;//eza fi aktar menn wahad bi null, used in 7 days, ta naarif if we can editt bel 7 days mode
 
        
+
+
         //Reminder
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
@@ -69,6 +77,12 @@ namespace MKproject.Schedule
             scrollTimer.Interval = 100; // Adjust as needed
             scrollTimer.Tick += ScrollTimer_Tick; ;
 
+            TotalEmployeeScheduleList = ClassEmployee.GetEmployeeScheduleMemberASC();
+            foreach (ClassEmployee emp in TotalEmployeeScheduleList)
+            {
+                emp.IsChecked = true;//by default bdawwe kell el existing employees
+            }
+
             LoadForm(DateTime.Now, true,true);
             InsertHistroyToSqlIfNecessary();
 
@@ -83,8 +97,8 @@ namespace MKproject.Schedule
 
             FocusOnColumnIndexGroup = (null, null, null);
 
-            if (EmployeeScheduleList != null)
-                EmployeeScheduleList.Clear();
+            if (EmployeeScheduleListWorkingOn != null)
+                EmployeeScheduleListWorkingOn.Clear();
 
             if (AppointmentsListWorkingOn != null)
                 AppointmentsListWorkingOn.Clear();
@@ -95,51 +109,81 @@ namespace MKproject.Schedule
 
             IsDayOrWeek = isDayOrWeek;
             SelectedDate = selectedDate;
+   
 
             CreateTLPDesign();
-            FillEmployeLists();
 
-            if (isDayOrWeek)
-            {
+           
+                FillEmployeLists();
 
-                //flling the appointmetn list
-                FillAppointmentList(isDayOrWeek);
-
-                if (SelectedDate.Date < DateTime.Now.Date)
+                if (isDayOrWeek)
                 {
-                    IsHistory = true;
+
+                    //flling the appointmetn list
+                    FillAppointmentList(isDayOrWeek);
+
+                    if (SelectedDate.Date < DateTime.Now.Date)
+                    {
+                        IsHistory = true;
+                    }
+                    else
+                    {
+                        IsHistory = false;
+
+                    }
+                    //if (AppointmentsListWorkingOn.Count == 0 && SelectedDate.Date < DateTime.Now.Date && CheckIfAnyEmployeeAvailable())
+                    //{
+                    //    IsDesignBlocked = true;
+
+                    //    BlockedModeDesign("No Appointments Available");
+
+                    //}
+                    //else
+                    if (!CheckIfAnyEmployeeAvailable())
+                    {
+                        IsDesignBlocked = true;
+
+                        BlockedModeDesign("No Employees Available");
+                    }
+                    else
+                    {
+                        SetListOfAllColumnIndexesGroups();//ejbare men baaed li foe
+
+
+
+                        //Colmns Groups, ha ykun percentage
+                        SetTLPEmployeesColumn();
+                        SetTLPSchGroupColumn();//el resizing bi sir juwweta lal tnen Employees and TlpAppointmnet
+
+                        IsCursorBlocked = true;
+                        AddAppointmentsToTlpSchedule();
+                        PercentageResizeTLPScheduleAndTlpEmp();
+
+                        if (TLPSchedule.HorizontalScroll.Visible)//ejbariye , lieannommarrat aam tofsul
+                        {
+                            TLPSchedule.AutoScroll = false;
+                            TLPSchedule.AutoScroll = true;
+                            //TLPSchedule.HorizontalScroll.Visible = false;
+                            this.Width += 50;
+                        }
+                        IsCursorBlocked = false;
+                        IsDesignBlocked = false;
+                    }
                 }
                 else
                 {
-                    IsHistory = false;
-
-                }
-                if (AppointmentsListWorkingOn.Count == 0 && SelectedDate.Date < DateTime.Now.Date && CheckIfEmployeeAvailable())
-                {
-                    IsDesignBlocked = true;
-
-                    BlockedModeDesign("No Appointments Available");
-
-                }
-                else if (!CheckIfEmployeeAvailable())
-                {
-                    IsDesignBlocked = true;
-
-                    BlockedModeDesign("No Employees Available");
-                }
-                else
-                {
-                    SetListOfAllColumnIndexesGroups();//ejbare men baaed li foe
-
-
-
-                    //Colmns Groups, ha ykun percentage
+                    ListDaysOfDesiredWeek = FillWeekLists(SelectedDate);
+                    PresentWeek = FillWeekLists(DateTime.Now);
+                    FillAppointmentList(isDayOrWeek);
+                    SetListOfAllColumnIndexesGroups();
                     SetTLPEmployeesColumn();
-                    SetTLPSchGroupColumn();//el resizing bi sir juwweta lal tnen Employees and TlpAppointmnet
+                    SetTLPSchGroupColumn();
+
 
                     IsCursorBlocked = true;
                     AddAppointmentsToTlpSchedule();
                     PercentageResizeTLPScheduleAndTlpEmp();
+
 
                     if (TLPSchedule.HorizontalScroll.Visible)//ejbariye , lieannommarrat aam tofsul
                     {
@@ -151,91 +195,77 @@ namespace MKproject.Schedule
                     IsCursorBlocked = false;
                     IsDesignBlocked = false;
                 }
-            }
-            else
-            {
-                ListDaysOfDesiredWeek = FillWeekLists(SelectedDate);
-                PresentWeek = FillWeekLists(DateTime.Now);
-                FillAppointmentList(isDayOrWeek);
-                SetListOfAllColumnIndexesGroups();
-                SetTLPEmployeesColumn();
-                SetTLPSchGroupColumn();
 
 
-                IsCursorBlocked = true;
-                AddAppointmentsToTlpSchedule();
-                PercentageResizeTLPScheduleAndTlpEmp();
-
-
-                if (TLPSchedule.HorizontalScroll.Visible)//ejbariye , lieannommarrat aam tofsul
+                //LabelText
+                if (isDayOrWeek)
                 {
-                    TLPSchedule.AutoScroll = false;
-                    TLPSchedule.AutoScroll = true;
-                    //TLPSchedule.HorizontalScroll.Visible = false;
-                    this.Width += 50;
+                    labelDate.Text = SelectedDate.ToString("dddd,MMMM dd yyyy");
                 }
-                IsCursorBlocked = false;
-                IsDesignBlocked = false;
-            }
-
-
-            //LabelText
-            if (isDayOrWeek)
-            {
-                labelDate.Text = SelectedDate.ToString("dddd,MMMM dd yyyy");
-            }
-            else
-            {
-                labelDate.Text = GetLabelDateifWeek();
-            }
-
-
-
-            //Reminder
-            DisplayUCReminderForTheSelectedDate();
-
-
-
-
-            //Scrol
-            if (IsScrollToNowHour)
-            {
-                ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
-            }
-           
-
-            if (timeIndicatorLine != null)
-            {
-                timeIndicatorLine.Dispose();
-                timeIndicatorLine = null;
-            }
-            if (isDayOrWeek)
-            {
-                if (SelectedDate.Date == DateTime.Now.Date)//oly bel present men bayyin real tme 
+                else
                 {
-                    CreateIndicatorLine();
-                    UpdateTimeIndicatorLinePosition();
-                }
-            }
-            else
-            {
-
-                if (PresentWeek.Any(d => d.Date == SelectedDate.Date))
-                {
-                    CreateIndicatorLine();
-                    UpdateTimeIndicatorLinePosition();
+                    labelDate.Text = GetLabelDateifWeek();
                 }
 
-            }
-            if (IsDayOrWeek)//Treka bel ekhir lieanno,amm tghayir el curso to default
-            {
-                comboBoxDaysOrWeek.SelectedIndex = 0;
 
-            }
-            else
-            {
-                comboBoxDaysOrWeek.SelectedIndex = 1;
-            }
+
+                //Reminder
+                DisplayUCReminderForTheSelectedDate();
+
+
+
+
+                //Scrol
+                if (IsScrollToNowHour)
+                {
+                    ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
+                }
+
+
+                if (timeIndicatorLine != null)
+                {
+                    timeIndicatorLine.Dispose();
+                    timeIndicatorLine = null;
+                }
+                if (isDayOrWeek)
+                {
+                    if (SelectedDate.Date == DateTime.Now.Date)//oly bel present men bayyin real tme 
+                    {
+                        CreateIndicatorLine();
+                        UpdateTimeIndicatorLinePosition();
+                    }
+                }
+                else
+                {
+
+                    if (PresentWeek.Any(d => d.Date == SelectedDate.Date))
+                    {
+                        CreateIndicatorLine();
+                        UpdateTimeIndicatorLinePosition();
+                    }
+
+                }
+                if (IsDayOrWeek)//Treka bel ekhir lieanno,amm tghayir el curso to default
+                {
+                    comboBoxDaysOrWeek.SelectedIndex = 0;
+
+                }
+                else
+                {
+                    comboBoxDaysOrWeek.SelectedIndex = 1;
+                }
+
+                if (IsEmployeeFilterModeOn)
+                {
+                    labelMember.ForeColor = Color.Green;
+                    pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-GreenColor.png");
+                }
+                else
+                {
+                    labelMember.ForeColor = Color.Black;
+                    pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-Black.png");
+                }
+        
         }
 
 
@@ -332,7 +362,7 @@ namespace MKproject.Schedule
         {
             if (isDayOrWeek)
             {
-                TotalAppointmentsList = ClassAppointment.GetAppointmentOfSpecificEmployees(SelectedDate, EmployeeScheduleList);
+                TotalAppointmentsList = ClassAppointment.GetAppointmentOfSpecificEmployees(SelectedDate, EmployeeScheduleListWorkingOn);
             }
             else
             {
@@ -341,8 +371,8 @@ namespace MKproject.Schedule
             AppointmentsListWorkingOn = new List<ClassAppointment>();
             foreach (ClassAppointment Desiredapp in TotalAppointmentsList)
             {
-                ClassEmployee DesiredEmp = Desiredapp.DesiredEmployee;
-                if ((bool)DesiredEmp.IsChecked)
+                ClassEmployee DesiredEmp = TotalEmployeeScheduleList.FirstOrDefault(e => e.EmployeeId == Desiredapp.DesiredEmployee.EmployeeId);
+                if (DesiredEmp.IsChecked)
                 {
                     AppointmentsListWorkingOn.Add(Desiredapp);
                 }
@@ -559,7 +589,6 @@ namespace MKproject.Schedule
                 DesiredReminder.Reminder = (string)dr["reminder"];
                 DesiredReminder.Repeat = (string)dr["repeat"];
                 DesiredReminder.StartTime = (DateTime)dr["starttime"];
-                DesiredReminder.IsChecked = (bool)dr["is_checked"];
                 UCreminder ucreminder = new UCreminder(DesiredReminder, this, ParentFormSchedule);//li2anno manna bi client reminder
 
                 ListUCreminderForTheSelectedDate.Add(ucreminder);
@@ -629,9 +658,9 @@ namespace MKproject.Schedule
             int StartintColumnIndex = 1; // Initial column index, assuming 0 is reserved for the time
             if (IsDayOrWeek)
             {
-                foreach (ClassEmployee employee in EmployeeScheduleList)
+                foreach (ClassEmployee employee in EmployeeScheduleListWorkingOn)
                 {
-                    if ((bool)employee.IsChecked)
+                    if (employee.IsChecked)
                     {
                         var indices = new List<int>();
                         indices.Add(StartintColumnIndex++);
@@ -654,16 +683,16 @@ namespace MKproject.Schedule
         {
             if (!SQLToProject.CheckIfHistoryExistsToday(DateTime.Now))//eza exists update 
             {
-                for (int i = 0; i < EmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
+                for (int i = 0; i < TotalEmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
                 {
                     //getting availibility for this day of every employee
                     int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
 
                     string availability = "";
-                    string[] HoursOfThedays = EmployeeScheduleList[i].Availability.Split('/');
+                    string[] HoursOfThedays = EmployeeScheduleListWorkingOn[i].Availability.Split('/');
                     availability += HoursOfThedays[dayOfWeekInt];
 
-                    ProjectToSql.InsertHistoryEmployeeavailibility(DateTime.Now, EmployeeScheduleList[i].EmployeeId, (int)EmployeeScheduleList[i].Rank, availability);
+                    ProjectToSql.InsertHistoryEmployeeavailibility(DateTime.Now, EmployeeScheduleListWorkingOn[i].EmployeeId, (int)EmployeeScheduleListWorkingOn[i].Rank, availability);
                 }
             }
         }
@@ -700,16 +729,19 @@ namespace MKproject.Schedule
         {
             if (SelectedDate.Date >= DateTime.Now.Date)//present-future
             {
-                EmployeeScheduleList = ClassEmployee.GetEmployeeScheduleMemberASC();
+                EmployeeScheduleListWorkingOn = ClassEmployee.GetEmployeeScheduleMemberASC();
 
                 int NoEmployeeChecked = 0;
-                for (int i = 0; i < EmployeeScheduleList.Count; i++)
+                for (int i = 0; i < EmployeeScheduleListWorkingOn.Count; i++)
                 {
-                    if ((bool)EmployeeScheduleList[i].IsChecked)
+                   ClassEmployee DesiredEmp= TotalEmployeeScheduleList.FirstOrDefault(e => e.EmployeeId == EmployeeScheduleListWorkingOn[i].EmployeeId);      
+                    if (DesiredEmp.IsChecked)
                     {
+                        EmployeeScheduleListWorkingOn[i].IsChecked = true;
                         NoEmployeeChecked++;
-                        TheOnlyEmployee = EmployeeScheduleList[i];
+                        TheOnlyEmployee = EmployeeScheduleListWorkingOn[i];
                     }
+
                 }
                 if (NoEmployeeChecked != 1)
                 {
@@ -718,7 +750,7 @@ namespace MKproject.Schedule
             }
             else  //History
             {
-                EmployeeScheduleList = new List<ClassEmployee>();
+                EmployeeScheduleListWorkingOn = new List<ClassEmployee>();
 
                 DataTable RankNAvailabilityEmployeesASC = SQLToProject.DisplayRankEmployeesNAvailabilityASC(SelectedDate);
 
@@ -734,8 +766,29 @@ namespace MKproject.Schedule
                         employee.Lname = datarow["last_name"] is DBNull ? null : (string)datarow["last_name"];
                         employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
                         employee.Availability = datarow["availability"] is DBNull ? null : (string)datarow["availability"];
-                        employee.IsChecked = true;//since he is from the past
-                        EmployeeScheduleList.Add(employee);
+
+                        //IsChecked Property
+                        ClassEmployee DesiredEmp = TotalEmployeeScheduleList.FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);                   
+                        //so in the past, by default men bayno , even la shelne men el management, since eendo history, bas men bayno in case no fliter mode is available, yaane all the coaches mdawayin
+                        if (DesiredEmp!=null && DesiredEmp.IsChecked)
+                        {
+                            employee.IsChecked = true;//since he is from the past
+                        }
+                        else
+                        {
+                            if (IsEmployeeFilterModeOn)
+                            {
+                                employee.IsChecked = false;
+                            }
+                            else
+                            {
+                                employee.IsChecked = true;
+                            }
+                        }
+
+
+
+                        EmployeeScheduleListWorkingOn.Add(employee);
                     }
                 }
             }
@@ -744,10 +797,10 @@ namespace MKproject.Schedule
 
 
         }//Display the title and the ucappointments
-        bool CheckIfEmployeeAvailable()
+        bool CheckIfAnyEmployeeAvailable()
         {
 
-            foreach (ClassEmployee emp in EmployeeScheduleList)
+            foreach (ClassEmployee emp in EmployeeScheduleListWorkingOn)
             {
                 if (emp.IsChecked == true)
                 {
@@ -849,7 +902,7 @@ namespace MKproject.Schedule
 
         private void labelMember_Click(object sender, EventArgs e)
         {
-            EmployeeSchedule empSch = new EmployeeSchedule(EmployeeScheduleList);
+            EmployeeSchedule empSch = new EmployeeSchedule(TotalEmployeeScheduleList);
             empSch.ParentucSchedule = this;
             Point locationRelativeToScreen = labelMember.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(FLPMembers.Width - empSch.Width, 25);
@@ -1000,13 +1053,29 @@ namespace MKproject.Schedule
         }
         private void labelMember_MouseMove(object sender, MouseEventArgs e)
         {
-            labelMember.ForeColor = Program.BoldColor;
-            pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-BoldColor.png");
+            if (IsEmployeeFilterModeOn)
+            {
+                labelMember.ForeColor = Color.FromArgb(0, 160, 0);
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-LighterGreenColor.png");
+            }
+            else
+            {
+                labelMember.ForeColor = Program.BoldColor;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-BoldColor.png");
+            }
         }
         private void labelMember_MouseLeave(object sender, EventArgs e)
         {
-            labelMember.ForeColor = Color.Black;
-            pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-Black.png");
+            if (IsEmployeeFilterModeOn)
+            {
+                labelMember.ForeColor = Color.Green;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-GreenColor.png");
+            }
+            else
+            {
+                labelMember.ForeColor = Color.Black;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-Black.png");
+            }      
         }
         private void comboBoxDaysOrWeek_MouseMove(object sender, MouseEventArgs e)
         {

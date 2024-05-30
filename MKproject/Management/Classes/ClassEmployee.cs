@@ -43,11 +43,12 @@ namespace MKproject.Management
         //Related table employee_availability
         public string Availability { get; set; }
         public int? Rank { get; set; }
-        public bool? IsChecked { get; set; }
         public bool IsScheduleMember { get; set; }
 
 
         //additional
+        public bool IsChecked { get; set; }//for the design Frontend used
+
         public bool CanAccesSchedule { get; set; }
         public bool CanEditOffre { get; set; }
         public bool CanAccessStatistics { get; set; }
@@ -119,7 +120,7 @@ namespace MKproject.Management
         }
         public static DataTable GetAllEmployeesOrLAstInseted(bool AllOrLastInsered)
         {
-            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member,availability,rank,is_checked from employee ";
+            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member,availability,rank from employee ";
 
             if (AllOrLastInsered)
             {
@@ -270,7 +271,6 @@ namespace MKproject.Management
             employee.IsScheduleMember = (bool)datarow["is_schedule_member"];
             employee.Availability = datarow["availability"] is DBNull ? null : (string)datarow["availability"];
             employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
-            employee.IsChecked = datarow["is_checked"] is DBNull ? null : (bool)datarow["is_checked"];
 
 
             return employee;
@@ -326,8 +326,8 @@ namespace MKproject.Management
         {
 
 
-            string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank,is_checked) " +
-                         "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank,@is_checked)";
+            string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank) " +
+                         "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank)";
 
             SqlCommand command = new SqlCommand(query, con);
             command.Parameters.AddWithValue("@first_name", Fname);
@@ -351,11 +351,11 @@ namespace MKproject.Management
             {
                 Availability = GetFullAvailabilty();
                 Rank = GetLastRank(EmployeeId) + 1;
-                IsChecked = true;
+           
 
                 command.Parameters.AddWithValue("@availability", Availability);
                 command.Parameters.AddWithValue("@rank", Rank);
-                command.Parameters.AddWithValue("@is_checked", IsChecked);
+            
 
 
             }
@@ -363,11 +363,11 @@ namespace MKproject.Management
             {
                 Availability = null;
                 Rank = null;
-                IsChecked = null;
+            
 
                 command.Parameters.AddWithValue("@availability", DBNull.Value);
                 command.Parameters.AddWithValue("@rank", DBNull.Value);
-                command.Parameters.AddWithValue("@is_checked", DBNull.Value);
+             
             }
             con.Open();
             command.ExecuteNonQuery();
@@ -394,7 +394,7 @@ namespace MKproject.Management
                            "password = @password, " +
                            "access = @access, " +
                            "status = @Status, " +
-                           "is_schedule_member=@is_schedule_member ,availability=@availability  ,rank=@rank , is_checked=@is_checked " +
+                           "is_schedule_member=@is_schedule_member ,availability=@availability  ,rank=@rank " +
                            "WHERE employee_id = @employee_id";
 
             // Create a SQL command with parameters
@@ -423,19 +423,18 @@ namespace MKproject.Management
                 bool IsBecomingAScheduleMember = false;
 
 
-                if (Availability == null && Rank == null && IsChecked == null)
+                if (Availability == null && Rank == null)
                 {
                     IsBecomingAScheduleMember = true;
 
                     Availability = GetFullAvailabilty();
                     Rank = GetLastRank(EmployeeId) + 1;
-                    IsChecked = true;
+                   
 
                 }
                 //eza ma feto foe bel condtion , btenzal their old value
                 command.Parameters.AddWithValue("@availability", Availability);
                 command.Parameters.AddWithValue("@rank", Rank);
-                command.Parameters.AddWithValue("@is_checked", IsChecked);
 
 
 
@@ -458,11 +457,9 @@ namespace MKproject.Management
 
                 Availability = null;
                 Rank = null;//ejbare tahet el condition foe
-                IsChecked = null;
 
                 command.Parameters.AddWithValue("@availability", DBNull.Value);
                 command.Parameters.AddWithValue("@rank", DBNull.Value);//i need to reOrder the others rank , ta yozbato
-                command.Parameters.AddWithValue("@is_checked", DBNull.Value);
 
 
             }
@@ -605,12 +602,11 @@ namespace MKproject.Management
             //Hone lezim ysir yaeetine list w baeemil for loop where employee_id w aa 2asesa baeemil update rank and is checked
             for (int i = 0; i < ListEmployeeSchedule.Count; i++)
             {
-                SqlCommand command = new SqlCommand("UPDATE employee SET rank = @rank, is_checked = @is_checked WHERE employee_id = @employee_id", con);
+                SqlCommand command = new SqlCommand("UPDATE employee SET rank = @rank WHERE employee_id = @employee_id", con);
 
                 // Add parameters to prevent SQL injection
                 command.Parameters.AddWithValue("@employee_id", ListEmployeeSchedule[i].EmployeeId);
                 command.Parameters.AddWithValue("@rank", ListEmployeeSchedule[i].Rank);
-                command.Parameters.AddWithValue("@is_checked", ListEmployeeSchedule[i].IsChecked);
 
                 // Open the connection and execute the command
                 con.Open();

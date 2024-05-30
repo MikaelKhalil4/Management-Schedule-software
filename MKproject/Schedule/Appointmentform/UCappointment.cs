@@ -226,7 +226,7 @@ namespace MKproject.Schedule
 
             if (DesiredHeightFortheLabel > cellHeight || CellWidth <= 0)//in case el label ma kenit sey3a
             {
-                int MinimumNameWidth = RandomFunctions.CalculateDesiredWidth(labelFullName, labelFullName.Height);
+                int MinimumNameWidth = RandomFunctions.CalculateDesiredWidth(labelFullName, labelFullName.Height)+10;
                 //Size MinimumNameSize = labelFullName.GetPreferredSize(new Size(0, labelFullName.Height));
                 //int MinimumNameWidth = MinimumNameSize.Width;
                 if (MinimumNameWidth < TLPGlobal.Width)

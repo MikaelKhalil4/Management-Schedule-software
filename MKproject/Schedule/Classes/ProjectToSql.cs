@@ -10,7 +10,7 @@ namespace MKproject.Schedule
 
         //HistoryEmployeeavailibility
         public static void UpdateRank_HistoryEmployeeavailibility(DateTime history_date, int employee_id, int rank)
-        { 
+        {
             SqlCommand command = new SqlCommand("UPDATE history_employee_availability SET rank= @rank WHERE history_date = @history_date and employee_id = @employee_id", con);
 
             command.Parameters.AddWithValue("@history_date", history_date.Date);
@@ -37,18 +37,18 @@ namespace MKproject.Schedule
         {
             SqlCommand command = new SqlCommand(@"INSERT INTO history_employee_availability (history_date,employee_id, rank, availability) 
                                                                   VALUES (@history_date,@employee_id,@rank,@availability) ", con);
-         
+
             command.Parameters.AddWithValue("@history_date", history_date);
             command.Parameters.AddWithValue("@employee_id", employee_id);
             command.Parameters.AddWithValue("@rank", rank);
-            //if(!String.IsNullOrEmpty(availability))
-            //{
-               command.Parameters.AddWithValue("@availability", availability);
-            //}
-            //else
-            //{
-            //    command.Parameters.AddWithValue("@availability", DBNull.Value);
-            //}
+            if (!String.IsNullOrEmpty(availability))
+            {
+                command.Parameters.AddWithValue("@availability", availability);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@availability", DBNull.Value);
+            }
 
             con.Open();
             command.ExecuteNonQuery();//first command
@@ -60,13 +60,13 @@ namespace MKproject.Schedule
             SqlCommand command = new SqlCommand("DELETE history_employee_availability  WHERE history_date = @history_date and employee_id = @employee_id", con);
             command.Parameters.AddWithValue("@history_date", history_date.Date);
             command.Parameters.AddWithValue("@employee_id", employee_id);
-          
+
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
         }
 
-       
+
 
     }
 }

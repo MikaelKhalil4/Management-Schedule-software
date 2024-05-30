@@ -432,7 +432,6 @@ namespace MKproject.Management
             //
             employee.EmployeeId = (int)DesiredRow["employee_id"];
          
-            employee.IsChecked= DesiredRow["is_checked"] is DBNull ? null: (bool)DesiredRow["is_checked"];
             employee.Rank = DesiredRow["rank"] is DBNull ? null : (int)DesiredRow["rank"];
             employee.Availability= DesiredRow["availability"] is DBNull? null : (string)DesiredRow["availability"];
 
@@ -470,7 +469,6 @@ namespace MKproject.Management
                     //hle ma32oul yetghdayaro by   employee.UpdateEmployee();
                     DesiredRow["availability"] = employee.Availability is null? DBNull.Value : employee.Availability;
                     DesiredRow["rank"] = employee.Rank is  null ? DBNull.Value : employee.Rank; ;
-                    DesiredRow["is_checked"] = employee.IsChecked is null ? DBNull.Value : employee.IsChecked; ;
                 }
                 this.Close();
 

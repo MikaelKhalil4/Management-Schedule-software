@@ -34,7 +34,7 @@ namespace MKproject.Schedule
                 desiredemployee = value;
                 CheckBoxAppearance.Text = desiredemployee.Fname + " " + desiredemployee.Lname;
                 labelRank.Text = desiredemployee.Rank.ToString();
-                CheckBoxAppearance.Checked = (bool)desiredemployee.IsChecked;
+                CheckBoxAppearance.Checked = desiredemployee.IsChecked;
             }
         }
 

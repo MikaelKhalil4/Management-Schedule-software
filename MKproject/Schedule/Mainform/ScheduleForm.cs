@@ -27,7 +27,10 @@ namespace MKproject.Schedule
 
             tableLayoutPanelForm.Controls.Add(ucSchedule, 1, 0);
             ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+
             //ejare tahet ucSchedule
+            Cursor.Current = Cursors.WaitCursor;
+
             calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
             calanderForm.Dock = DockStyle.Fill;
             calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
@@ -38,7 +41,9 @@ namespace MKproject.Schedule
             //
             checkBoxOnPending.Click += CloseNotfBanner_Click;
             checkBoxComplete.Click += CloseNotfBanner_Click;
-            checkBoxCancel.Click += CloseNotfBanner_Click;           
+            checkBoxCancel.Click += CloseNotfBanner_Click;
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void CloseNotfBanner_Click(object sender, EventArgs e)

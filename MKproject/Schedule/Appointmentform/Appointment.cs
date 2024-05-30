@@ -156,9 +156,9 @@ namespace MKproject.Schedule
                 textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
 
                 //
-                foreach (ClassEmployee emp in UcScheduleParentForm.EmployeeScheduleList)
+                foreach (ClassEmployee emp in UcScheduleParentForm.EmployeeScheduleListWorkingOn)
                 {
-                    if ((bool)emp.IsChecked)
+                    if (emp.IsChecked)
                     {
                         var item = new
                         {
