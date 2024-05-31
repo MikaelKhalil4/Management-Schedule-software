@@ -721,7 +721,7 @@ namespace MKproject.Management
                             }
                             else
                             {
-
+                                bool OldIsExpired = (bool)this.DesiredBalanceRowBinded["is_expired"];
 
                                 if (IsMoneyOrSession == true)//undo money update
                                 {
@@ -767,10 +767,13 @@ namespace MKproject.Management
 
 
                                         this.ParentFormClientManagem.UpdateSessionNumber(this.DesiredBalanceRowBinded);//from bel awwal ,lieanno hal value li badna nerjaa aalaya
+
+                                      
                                     }
                                 }
-                                //Design in Profile if Exists
 
+                                //Design in Profile if Exists
+    
                                 //design in BackofficeForm
                                 DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
                             }
@@ -868,7 +871,7 @@ namespace MKproject.Management
             this.DesiredBalanceRowBinded["balance"] = balance;
             this.DesiredBalanceRowBinded["amount_paid"] = (double)this.DesiredBalanceRowBinded["amount_paid"] - AmountPaid;
             bool IsExpired = (bool)this.DesiredBalanceRowBinded["is_expired"];
-            if (IsExpired == true)
+            if (IsExpired == true)//in case kenit true, akid sarit false men baaed ma meemelna undo
             {
                 this.DesiredBalanceRowBinded["is_expired"] = false;
             }
@@ -904,8 +907,6 @@ namespace MKproject.Management
             this.ParentFormClientManagem.CalculatingClientHistoryDesignAndSql(false);
 
         }
-
-
         void UpdateProfileDesingOnUndoSession(DateTime? NewLastVistDate)
         {
 
@@ -916,7 +917,7 @@ namespace MKproject.Management
 
             this.DesiredBalanceRowBinded["session_left_days"] = NoOfSessions;
 
-            if (IsExpired == true)
+            if (IsExpired == true)//in case kenit true, akid sarit false men baaed ma meemelna undo
             {
                 this.DesiredBalanceRowBinded["is_expired"] = false;
             }
@@ -957,6 +958,7 @@ namespace MKproject.Management
 
 
         }
+       
         void UpdateLastVisitDesign(DateTime? NewLastVistDate, BackOffice backofficeform)
         {
             //Client Prodile 

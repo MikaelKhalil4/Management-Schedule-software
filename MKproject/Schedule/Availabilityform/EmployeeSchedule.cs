@@ -13,30 +13,28 @@ namespace MKproject.Schedule
         //Property:
 
 
-        public List<ClassEmployee> TotalEmployeeScheduleList { get; set; }//All the employees that are active
 
         //Variable:
         public UCSchedule ParentucSchedule;
-        public bool IsButtonAvailability = false;//Kermel watta yeftah lavailability form ma ysakir lemployee form
+        public bool IsButtonAvailabilitylClicked = false;//Kermel watta yeftah lavailability form ma ysakir lemployee form
 
         //Initialise:
-        public EmployeeSchedule(List<ClassEmployee> employeeScheduleList)
+        public EmployeeSchedule(UCSchedule parentucSchedule)
         {
             InitializeComponent();
             this.Opacity = 0;
 
-
-            TotalEmployeeScheduleList = employeeScheduleList;
-
+            ParentucSchedule = parentucSchedule;
 
 
-            int Heightform = 0;//for the design of the form Employee
-            for (int i = TotalEmployeeScheduleList.Count - 1; i >= 0; i--)//bas hone men jib copy reverse li2anno panel bi zide uc men 2eleb
+
+            int Heightform = 0;
+            for (int i = ParentucSchedule.TotalEmployeeScheduleList.Count - 1; i >= 0; i--)
             {
 
                 //Add UCEmployee
-                UCEmployee employee = new UCEmployee(TotalEmployeeScheduleList[i], this);
-                panelContainsEmployees.Controls.Add(employee);
+                UCEmployee employee = new UCEmployee(ParentucSchedule.TotalEmployeeScheduleList[i], this);
+                panelGlobal.Controls.Add(employee);
                 employee.Dock = DockStyle.Top;
 
                 //Design
@@ -47,27 +45,14 @@ namespace MKproject.Schedule
             {
                 this.Size = new Size(this.Size.Width, Heightform + 80);
             }
-            this.Width = 246;
+            this.Width = 320;
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
         }
 
         private void Employee_Deactivate(object sender, EventArgs e)
         {
-            if (Program.GreyForm != null)
-            {
-                Program.GreyForm.Close();
-                Program.GreyForm = null;
-            }
-            //Kermel watta yeftah lavailability form ma ysakir lemployee form
-            if (IsButtonAvailability == false)
-            {
-                this.Close();
-            }
-            else
-            {
-                IsButtonAvailability = false;//eza ken true byerjaee bi sir false
-            }
+            this.Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -76,19 +61,18 @@ namespace MKproject.Schedule
             {
                 timer1.Stop();
             }
-            Opacity += .1;
+            Opacity += .25;
         }
 
         private void ButtonDone_Click(object sender, EventArgs e)
         {
-            foreach (UCEmployee uc in panelContainsEmployees.Controls)
+            foreach (UCEmployee uc in panelGlobal.Controls)
             {
-                //UPDATE The reference 
-                ClassEmployee EmployeeSelectedOfThisUC = TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == uc.DesiredEmployee.EmployeeId);
+                //UPDATE The references of TotalEmployeeScheduleList
+                ClassEmployee EmployeeSelectedOfThisUC = ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == uc.DesiredEmployee.EmployeeId);
                 EmployeeSelectedOfThisUC.IsChecked = uc.DesiredEmployee.IsChecked;
-
             }
-            foreach (ClassEmployee emp in TotalEmployeeScheduleList)
+            foreach (ClassEmployee emp in ParentucSchedule.TotalEmployeeScheduleList)
             {
                 if (!emp.IsChecked)
                 {
@@ -97,6 +81,20 @@ namespace MKproject.Schedule
                 }
                 ParentucSchedule.IsEmployeeFilterModeOn = false;//in case all of them are checked
             }
+
+            ParentucSchedule.TotalEmployeeScheduleList = ParentucSchedule.TotalEmployeeScheduleList.OrderBy(s => s.Rank).ToList();
+
+            for (int i = 0; i < ParentucSchedule.TotalEmployeeScheduleList.Count; i++)
+            {
+                ClassEmployee.UpdateRankEmployeeScheduleMemberSQL(ParentucSchedule.TotalEmployeeScheduleList[i]);
+            }
+
+            for (int i = 0; i < ParentucSchedule.TotalEmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
+            {
+                int rank = i + 1;
+                ProjectToSql.UpdateRank_HistoryEmployeeavailibility(DateTime.Now, ParentucSchedule.TotalEmployeeScheduleList[i].EmployeeId, rank);
+            }
+
             Cursor.Current = Cursors.WaitCursor;
             ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false);
             Cursor.Current = Cursors.Default;

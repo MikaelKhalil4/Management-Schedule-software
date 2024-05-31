@@ -98,7 +98,7 @@ namespace MKproject.Management
             UCNOSessionsOrDay.Maximum_number = 9999;
             UCNOSessionsOrDay.Number = 1;
             UCNOSessionsOrDay.textBoxValue.BackColor = ColorBackTExtbOxEditMode;
-            UCNOSessionsOrDay.BackColor= this.BackColor; 
+            UCNOSessionsOrDay.BackColor = this.BackColor;
             UCNOSessionsOrDay.buttonValueMinus.BackColor = this.BackColor;
             UCNOSessionsOrDay.buttonValuePlus.BackColor = this.BackColor;
 
@@ -250,9 +250,9 @@ namespace MKproject.Management
             }
 
         }
-        public bool BundleNameExists(string BundleName)
+        public bool BundleNameExists(string BundleName, string BundleType)
         {
-            if (DesiredRow != null && BundleName == DesiredRow["bundle_name"].ToString())
+            if (DesiredRow != null && BundleName == DesiredRow["bundle_name"].ToString() && BundleType == DesiredRow["bundle_type"].ToString())//in case ken same name as before
             {
                 return false;
             }
@@ -261,11 +261,10 @@ namespace MKproject.Management
                 DataTable dt = ParentFormViewBundle.dtBundles;
                 BundleName = BundleName.Trim();
 
-                bool bundleExists = dt.AsEnumerable().Any(row => row.Field<string>("bundle_name") == BundleName);
+                bool bundleExists = dt.AsEnumerable().Any(row => row.Field<string>("bundle_name") == BundleName && row.Field<string>("bundle_type") == BundleType);
 
                 if (bundleExists)
                 {
-
                     CustomMessageBox.Show("Bundle Name is already taken", CustomMessageBox.Type.Ok);
                     return true;
                 }
@@ -327,7 +326,7 @@ namespace MKproject.Management
                 this.Text = "Edit Product";
                 FillProductFields();
             }
- 
+
         }
         void CreateProductFields()
         {
@@ -335,7 +334,7 @@ namespace MKproject.Management
             UCBundleName = new UCTextbox1();
             FLPTop.Controls.Add(UCBundleName);
             FLPTop.Controls.SetChildIndex(UCBundleName, 0);
- 
+
             // Check if the "Required" value is true or false
             UCBundleName.IsRequired = true;
             UCBundleName.StringType = "Product Name";
@@ -445,17 +444,14 @@ namespace MKproject.Management
             {
                 if (CheckRequiredBundles())
                 {
-                    if (Edit)
+                    if (!BundleNameExists(UCBundleName.myTextBox1.Text, comboBoxBundle.SelectedItem.ToString()))
                     {
-                        if (!BundleNameExists(UCBundleName.myTextBox1.Text))
+                        if (Edit)
                         {
                             UpdateBundle();
                             this.Close();
                         }
-                    }
-                    else
-                    {
-                        if (!BundleNameExists(UCBundleName.myTextBox1.Text))
+                        else
                         {
                             AddBundle();
                             this.Close();
@@ -467,17 +463,14 @@ namespace MKproject.Management
             {
                 if (CheckRequiredProduct())
                 {
-                    if (Edit)
+                    if (!ProductNameExists(UCBundleName.myTextBox1.Text))
                     {
-                        if (!ProductNameExists(UCBundleName.myTextBox1.Text))
+                        if (Edit)
                         {
                             UpdateProduct();
                             this.Close();
                         }
-                    }
-                    else
-                    {
-                        if (!ProductNameExists(UCBundleName.myTextBox1.Text))
+                        else
                         {
                             AddProduct();
                             this.Close();
@@ -485,7 +478,7 @@ namespace MKproject.Management
                     }
                 }
             }
-          
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)

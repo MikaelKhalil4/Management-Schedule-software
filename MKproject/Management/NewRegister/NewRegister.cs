@@ -2351,8 +2351,17 @@ namespace MKproject.Management
 
                 if (!ISCallingFromTheConstructor)///eza aam aayetla awwal ma teftah el form , kermel ma tfout fiya
                 {
-                    Program.GreyFormJunior = new GreyColor(this, true, true, null);
-                    Program.GreyFormJunior.Show();
+                    if (!IsFromSchedule)
+                    {
+                        Program.GreyFormJunior = new GreyColor(this, true, true, null);
+                        Program.GreyFormJunior.Show();
+                    }
+                    else
+                    {
+                        Program.GreyFormJuniorJunior = new GreyColor(this, true, true, null);
+                        Program.GreyFormJuniorJunior.Show();
+                    }
+              
                     ChildParent c = new ChildParent(this);
                     c.ShowDialog();
                 }

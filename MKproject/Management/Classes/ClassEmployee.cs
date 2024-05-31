@@ -555,7 +555,7 @@ namespace MKproject.Management
 
         //Schedule
 
-        //Display
+       
         public static List<ClassEmployee> GetEmployeeScheduleMemberASC()
         {
             //Select employee id where status = schedule bhatoun bi datatable breja3 ba3mil for loop baeetiya la kel list
@@ -579,12 +579,7 @@ namespace MKproject.Management
             List<ClassEmployee> ListEmployeeSchedule = DataTableToList(dt);
             return ListEmployeeSchedule;
         }
-
-
-
-
-        //Update
-        public static void UpdateEmployeeScheduleMemberSQL(int Employee_id, string Availability)
+        public static void UpdateAvailabilityEmployeeScheduleMemberSQL(int Employee_id, string Availability)
         {
             //Where employee_id w b3adil aal availability
             SqlCommand command = new SqlCommand("UPDATE employee SET availability=@availability  WHERE employee_id = @employee_id", con);
@@ -597,22 +592,21 @@ namespace MKproject.Management
             command.ExecuteNonQuery();
             con.Close();
         }
-        public static void UpdateRankNIsCheckedEmployeeScheduleMemberSQL(List<ClassEmployee> ListEmployeeSchedule)
+        public static void UpdateRankEmployeeScheduleMemberSQL(ClassEmployee DesiredEmployee)
         {
             //Hone lezim ysir yaeetine list w baeemil for loop where employee_id w aa 2asesa baeemil update rank and is checked
-            for (int i = 0; i < ListEmployeeSchedule.Count; i++)
-            {
+      
                 SqlCommand command = new SqlCommand("UPDATE employee SET rank = @rank WHERE employee_id = @employee_id", con);
 
                 // Add parameters to prevent SQL injection
-                command.Parameters.AddWithValue("@employee_id", ListEmployeeSchedule[i].EmployeeId);
-                command.Parameters.AddWithValue("@rank", ListEmployeeSchedule[i].Rank);
+                command.Parameters.AddWithValue("@employee_id", DesiredEmployee.EmployeeId);
+                command.Parameters.AddWithValue("@rank", DesiredEmployee.Rank);
 
                 // Open the connection and execute the command
                 con.Open();
                 command.ExecuteNonQuery();
                 con.Close();
-            }
+            
         }
     }
 }

@@ -384,7 +384,6 @@ namespace MKproject.Schedule
 
 
         //Edit Mode
-        public event EventHandler OnUpdatingTheChosenClientBalance;//hayde ha ykun fiya event only to excute only eza update mode not add mode
         public void SetLogicAndDesignEditAndServiceMode(bool IsNewServiceOrOneOfMultipleIsSelected, bool IsCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
         {
             textBoxSearch.PlaceholderText = "By name or phone";
@@ -541,8 +540,7 @@ namespace MKproject.Schedule
 
                     if (!(bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired)//Package exist and not expired
                     {
-
-                        if (DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)//present
+                        if (DesiredAppointmentUCClientApp.StartTime.Date >= DateTime.Now.Date)//present-future
                         {
                             LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
                             if (DesiredAppointmentUCClientApp.DesiredClientBalance.SessionLeftDays == 0)
@@ -553,14 +551,7 @@ namespace MKproject.Schedule
                             {
                                 LabelService.ForeColor = Color.Black;
                             }
-                        }
-                        else if (DesiredAppointmentUCClientApp.StartTime.Date > DateTime.Now.Date)//future 
-                        {
-
-                            LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.BundleName + " Package";
-                        }
-
-
+                        }                     
                     }
                     else//Package exist and expired
                     {
@@ -765,7 +756,6 @@ namespace MKproject.Schedule
 
 
 
-        public event EventHandler OnClientProfileInfoChanging;
         private void IconProfile_Click(object sender, EventArgs e)
         {
             ParentFormAppointment.DisableClosingOnDisactivating = true;
@@ -822,9 +812,7 @@ namespace MKproject.Schedule
             Program.GreyForm.Show();
 
 
-
             DesiredAppointmentUCClientApp.DesiredClient = Program.clientManagementProfile.Client;//el balance and  Personal Info automatically will be set
-
 
 
             if (!IsReadOrEdit )
@@ -850,14 +838,9 @@ namespace MKproject.Schedule
                 SetReadOnlyDesign();
             }
 
-            if (ParentFormAppointment.UCappointment != null && ParentFormAppointment.UCappointment.DesiredAppointmentUCApp.IsPackageMode)//update mmode
-            {
-                OnUpdatingTheChosenClientBalance?.Invoke(this, EventArgs.Empty);
-            }
+         
 
-
-
-            OnClientProfileInfoChanging?.Invoke(this, EventArgs.Empty);//ejbare tahta
+            ParentFormAppointment.UcScheduleParentForm.RefreshAllRelatedAppointments(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
 
             if (IsReadOrEdit && !DesiredAppointmentUCClientApp.IsCompleted && DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)
             {// lamma nkun bel present , juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               

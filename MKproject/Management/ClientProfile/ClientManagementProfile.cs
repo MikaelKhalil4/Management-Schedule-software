@@ -1142,12 +1142,13 @@ namespace MKproject.Management
 
             //can implement try catch
             int ClientBalanceID = (int)DesiredClientBlanaceRow["client_balance_id"];
-            bool OldIsExpired = (bool)DesiredClientBlanaceRow["is_expired"];
+       
+            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);//fiya el old informatiomn
+            bool OldIsExpired = (bool)rowToEdit["is_expired"];
 
-          
+
 
             ///datagridgrid profile form
-            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
             rowToEdit["offre"] = DesiredClientBlanaceRow["offre"];
             rowToEdit["balance"] = DesiredClientBlanaceRow["balance"];
             rowToEdit["is_expired"] = DesiredClientBlanaceRow["is_expired"];
@@ -1189,16 +1190,16 @@ namespace MKproject.Management
          //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel backoffice
         public void UpdateSessionNumber(DataRow DesiredClientBlanaceRow )
         {
-            
             //ready for try catch
-            //datatable update
             int ClientBalanceID = Convert.ToInt16(DesiredClientBlanaceRow["client_balance_id"]);
-            bool OldIsExpired = (bool)DesiredClientBlanaceRow["is_expired"];
+         
+            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);//fiya el old informatiomn
+            bool OldIsExpired = (bool)rowToEdit["is_expired"];
 
 
-           
+
+            //datatable update
             //datagrid profile form
-            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
             rowToEdit["offre"] = DesiredClientBlanaceRow["offre"];
             rowToEdit["session_left_days"] = DesiredClientBlanaceRow["session_left_days"];
             rowToEdit["due_date"] = DesiredClientBlanaceRow["due_date"];

@@ -377,11 +377,18 @@ namespace MKproject.Management
             {
                 ParentFormNewRegist.radioButtonAdult.Checked = true;
             }
-            if (Program.GreyFormJunior != null)
+            //ejbare hek
+            if (Program.GreyFormJuniorJunior != null)
+            {
+                Program.GreyFormJuniorJunior.Close();
+                Program.GreyFormJuniorJunior = null;
+            }
+            else if (Program.GreyFormJunior != null)
             {
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;
             }
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)

@@ -30,47 +30,38 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCEmployee));
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            panel1 = new System.Windows.Forms.Panel();
             labelRank = new System.Windows.Forms.Label();
             buttonAvailability = new CustomizedTools.IconButton();
             CheckBoxAppearance = new System.Windows.Forms.CheckBox();
+            iconButtonUp = new CustomizedTools.IconButton();
+            iconButtonDown = new CustomizedTools.IconButton();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnCount = 5;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            tableLayoutPanel1.Controls.Add(panel1, 0, 1);
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             tableLayoutPanel1.Controls.Add(labelRank, 0, 0);
             tableLayoutPanel1.Controls.Add(buttonAvailability, 2, 0);
             tableLayoutPanel1.Controls.Add(CheckBoxAppearance, 1, 0);
+            tableLayoutPanel1.Controls.Add(iconButtonUp, 3, 0);
+            tableLayoutPanel1.Controls.Add(iconButtonDown, 4, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.12346F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.876543F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(197, 40);
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(269, 40);
             tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Click += buttonAvailability_Click;
             tableLayoutPanel1.MouseLeave += UCEmployee_MouseLeave;
             tableLayoutPanel1.MouseMove += UCEmployee_MouseMove;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = System.Drawing.Color.FromArgb(249, 246, 254);
-            tableLayoutPanel1.SetColumnSpan(panel1, 3);
-            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(0, 36);
-            panel1.Margin = new System.Windows.Forms.Padding(0);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(197, 4);
-            panel1.TabIndex = 4;
             // 
             // labelRank
             // 
@@ -80,7 +71,7 @@
             labelRank.Location = new System.Drawing.Point(4, 0);
             labelRank.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelRank.Name = "labelRank";
-            labelRank.Size = new System.Drawing.Size(12, 36);
+            labelRank.Size = new System.Drawing.Size(12, 40);
             labelRank.TabIndex = 7;
             labelRank.Text = "1";
             labelRank.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -95,7 +86,7 @@
             buttonAvailability.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             buttonAvailability.FlatAppearance.BorderSize = 0;
             buttonAvailability.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonAvailability.Location = new System.Drawing.Point(168, 7);
+            buttonAvailability.Location = new System.Drawing.Point(170, 9);
             buttonAvailability.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonAvailability.MotionHeight = true;
             buttonAvailability.MotionWidth = true;
@@ -115,7 +106,7 @@
             CheckBoxAppearance.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             CheckBoxAppearance.Location = new System.Drawing.Point(23, 3);
             CheckBoxAppearance.Name = "CheckBoxAppearance";
-            CheckBoxAppearance.Size = new System.Drawing.Size(135, 30);
+            CheckBoxAppearance.Size = new System.Drawing.Size(138, 34);
             CheckBoxAppearance.TabIndex = 8;
             CheckBoxAppearance.Text = "Elie Khalil";
             CheckBoxAppearance.UseVisualStyleBackColor = true;
@@ -123,16 +114,56 @@
             CheckBoxAppearance.MouseLeave += UCEmployee_MouseLeave;
             CheckBoxAppearance.MouseMove += UCEmployee_MouseMove;
             // 
+            // iconButtonUp
+            // 
+            iconButtonUp.Anchor = System.Windows.Forms.AnchorStyles.None;
+            iconButtonUp.BackColor = System.Drawing.Color.Transparent;
+            iconButtonUp.BackgroundImage = (System.Drawing.Image)resources.GetObject("iconButtonUp.BackgroundImage");
+            iconButtonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            iconButtonUp.FlatAppearance.BorderSize = 0;
+            iconButtonUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            iconButtonUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            iconButtonUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            iconButtonUp.Location = new System.Drawing.Point(205, 9);
+            iconButtonUp.MotionHeight = true;
+            iconButtonUp.MotionWidth = true;
+            iconButtonUp.Name = "iconButtonUp";
+            iconButtonUp.Size = new System.Drawing.Size(22, 22);
+            iconButtonUp.TabIndex = 9;
+            iconButtonUp.UseVisualStyleBackColor = false;
+            iconButtonUp.Click += iconButtonUp_Click;
+            iconButtonUp.MouseLeave += UCEmployee_MouseLeave;
+            iconButtonUp.MouseMove += UCEmployee_MouseMove;
+            // 
+            // iconButtonDown
+            // 
+            iconButtonDown.Anchor = System.Windows.Forms.AnchorStyles.None;
+            iconButtonDown.BackColor = System.Drawing.Color.Transparent;
+            iconButtonDown.BackgroundImage = (System.Drawing.Image)resources.GetObject("iconButtonDown.BackgroundImage");
+            iconButtonDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            iconButtonDown.FlatAppearance.BorderSize = 0;
+            iconButtonDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            iconButtonDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            iconButtonDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            iconButtonDown.Location = new System.Drawing.Point(240, 9);
+            iconButtonDown.MotionHeight = true;
+            iconButtonDown.MotionWidth = true;
+            iconButtonDown.Name = "iconButtonDown";
+            iconButtonDown.Size = new System.Drawing.Size(22, 22);
+            iconButtonDown.TabIndex = 9;
+            iconButtonDown.UseVisualStyleBackColor = false;
+            iconButtonDown.Click += iconButtonDown_Click;
+            iconButtonDown.MouseLeave += UCEmployee_MouseLeave;
+            iconButtonDown.MouseMove += UCEmployee_MouseMove;
+            // 
             // UCEmployee
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
             Controls.Add(tableLayoutPanel1);
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "UCEmployee";
-            Size = new System.Drawing.Size(197, 40);
-            Click += buttonAvailability_Click;
+            Size = new System.Drawing.Size(269, 40);
             MouseLeave += UCEmployee_MouseLeave;
             MouseMove += UCEmployee_MouseMove;
             tableLayoutPanel1.ResumeLayout(false);
@@ -143,9 +174,10 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelRank;
         public System.Windows.Forms.CheckBox CheckBoxAppearance;
         private CustomizedTools.IconButton buttonAvailability;
+        private CustomizedTools.IconButton iconButtonUp;
+        private CustomizedTools.IconButton iconButtonDown;
     }
 }

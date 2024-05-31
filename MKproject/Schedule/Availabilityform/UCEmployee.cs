@@ -5,25 +5,15 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using MKproject.Management;
 using System.Linq;
+using CustomizedTools;
+using MKproject.Schedule.Availabilityform;
 
 namespace MKproject.Schedule
 {
     public partial class UCEmployee : UserControl
     {
 
-        //PERFORMANCE:
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-                return cp;
-            }
-        }
-
-       
-
+     
         //GET SET:
         private ClassEmployee desiredemployee;
         public ClassEmployee DesiredEmployee
@@ -60,10 +50,18 @@ namespace MKproject.Schedule
 
         //EVENT:
         ///-CLICK
-     
+
         private void buttonAvailability_Click(object sender, EventArgs e)
         {
+            ParentFormEmployee.Close();
+
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+            Program.GreyForm.Show();
+
+            EmployeeAvailabiltyForm empAv = new EmployeeAvailabiltyForm();
+            empAv.ShowDialog(); 
           
+
         }
 
         ///-CHECKBOX
@@ -71,7 +69,7 @@ namespace MKproject.Schedule
         {
             DesiredEmployee.IsChecked = CheckBoxAppearance.Checked;
 
-           
+
         }
 
 
@@ -85,6 +83,76 @@ namespace MKproject.Schedule
         {
             this.BackColor = Color.FromArgb(229, 226, 244);
         }
+
+        private void iconButtonDown_Click(object sender, EventArgs e)
+        {
+            foreach (UCEmployee ucemployee in ParentFormEmployee.panelGlobal.Controls)//hone kamen bi zet lwa2et aam nghayir ListUCEmployee
+            {
+                //Getting The ucemployee that's after him to do the swap
+                if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank + 1)
+                {
+                    //UPDATE ListEmployeeSchedule
+
+                    ClassEmployee EmployeeSelectedOfTheOtherUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
+
+                    ClassEmployee EmployeeSelectedOfThisUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank + 1;
+
+
+                    //Design doing the swap of the 2 ucemployee
+                    Swapucemployee(ucemployee);
+                    break;
+                }
+            }
+        }
+        private void iconButtonUp_Click(object sender, EventArgs e)
+        {
+            foreach (UCEmployee ucemployee in ParentFormEmployee.panelGlobal.Controls)
+            {
+                //Getting The ucemployee that's before him to do the swap
+                if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank - 1)//yaeene faw2o
+                {
+                    //UPDATE ListEmployeeSchedule
+
+                    ClassEmployee EmployeeSelectedOfTheOtherUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
+
+                    ClassEmployee EmployeeSelectedOfThisUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
+                    EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank - 1;
+
+
+
+                    //Design doing the swap of the 2 ucemployee 
+                    Swapucemployee(ucemployee);
+                    break;
+                }
+            }
+        }
+        private void Swapucemployee(UCEmployee ucemployee)//ntebih hone byekhdo kel shi ella rank
+        {
+            //temp=a
+            UCEmployee TempUCEmployee = new UCEmployee(this.DesiredEmployee, this.ParentFormEmployee);
+
+            //a=b
+            this.DesiredEmployee = ucemployee.DesiredEmployee;
+
+            //b=temp
+            ucemployee.DesiredEmployee = TempUCEmployee.DesiredEmployee;
+            TempUCEmployee.Dispose();
+        }
+
+        //PERFORMANCE:
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
 
 
     }
