@@ -721,8 +721,6 @@ namespace MKproject.Management
                             }
                             else
                             {
-                                bool OldIsExpired = (bool)this.DesiredBalanceRowBinded["is_expired"];
-
                                 if (IsMoneyOrSession == true)//undo money update
                                 {
                                     double ToBalance = Convert.ToDouble(PreviousOffre.Split('/')[1]);
