@@ -446,7 +446,7 @@ namespace MKproject.Management
             }
             else if (OldIsScheduleMember == true && NewIsScheduleMember == false && employee.CheckIfEmployeeHasAppointments())//in case aam notfe el employee as schedule member
             {
-                CustomMessageBox.Show("To deactivate the employee's schedule, cancel all their existing appointments.", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("To deactivate the employee's schedule, cancel all their present And future appointments.", CustomMessageBox.Type.Ok);
             }
             else
             {
