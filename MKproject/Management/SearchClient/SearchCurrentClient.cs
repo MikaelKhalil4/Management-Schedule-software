@@ -87,7 +87,7 @@ namespace MKproject.Management
             DataGridViewRow DesiredRow = null;
             foreach (DataGridViewRow row in dataGridViewClients.Rows)
             {
-                if ((int)row.Cells["client_id"].Value == ClientId)
+                if (Convert.ToInt32(row.Cells["client_id"].Value) == ClientId)
                 {
                     // Found the phone number, select the row and scroll to it.
                     DesiredRow = row;
@@ -194,7 +194,7 @@ namespace MKproject.Management
                 string AgeCategory = NotAvailable;
                 if (d["IsChild"] != DBNull.Value)
                 {
-                    if ((bool)d["IsChild"])
+                    if (Convert.ToBoolean(d["IsChild"]))
                         AgeCategory = UCComboBoxFilterSearch.Child;
                     else
                         AgeCategory = UCComboBoxFilterSearch.Adult;
@@ -309,7 +309,7 @@ namespace MKproject.Management
                         cell.Style.SelectionForeColor = Color.FromArgb(64, 64, 64); ;
                     }
                 }
-                else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Total Payment")
+                else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Total payment")
                 {
                     if (!Convert.ToString(cell.Value).Contains("$0"))
                     {
@@ -349,7 +349,7 @@ namespace MKproject.Management
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow selectedRow = dataGridViewClients.Rows[e.RowIndex];
-                int ClientID = Convert.ToInt16(selectedRow.Cells["client_id"].Value);
+                int ClientID = Convert.ToInt32(selectedRow.Cells["client_id"].Value);
                 ClassClient.UpdateClientLastsearchedSQL(ClientID);
 
 

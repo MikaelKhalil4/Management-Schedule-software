@@ -68,7 +68,7 @@ namespace MKproject.Management
             foreach (DataRow row in Birthdt.Rows)
             {
 
-                birthDate = (DateTime)row["Birthday"];
+                birthDate = Convert.ToDateTime(row["Birthday"]);
                 nextBirthday = new DateTime(today.Year, birthDate.Month, birthDate.Day);
 
                 if (nextBirthday < today)
@@ -178,12 +178,12 @@ namespace MKproject.Management
             {
                 DataGridViewCell cellDaysLeft = (DataGridViewCell)row.Cells["DaysLeft"];
                 DataGridViewCell cell = (DataGridViewCell)row.Cells["Days till Birthday"];
-                if (Convert.ToInt16(cellDaysLeft.Value) == 0)
+                if (Convert.ToInt32(cellDaysLeft.Value) == 0)
                 {
                     cell.Style.ForeColor = Color.Red;
                     cell.Style.SelectionForeColor = Color.Red;
                 }
-                else if (Convert.ToInt16(cellDaysLeft.Value) == 1)
+                else if (Convert.ToInt32(cellDaysLeft.Value) == 1)
                 {
                     cell.Style.ForeColor = Color.Orange;
                     cell.Style.SelectionForeColor = Color.Orange;

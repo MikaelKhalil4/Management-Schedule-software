@@ -2,12 +2,13 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 
 namespace MKproject.Management
 {
     public class Features
     {
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         public static bool IsOnline { get; set; }
 
@@ -39,10 +40,10 @@ namespace MKproject.Management
         {
            
              DataTable dt = new DataTable();
-            string query = "SELECT TOP 1 * FROM Features";
+            string query = "SELECT * FROM Features";
 
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);         
             IsOnline= Convert.ToBoolean(dt.Rows[0]["online"]);

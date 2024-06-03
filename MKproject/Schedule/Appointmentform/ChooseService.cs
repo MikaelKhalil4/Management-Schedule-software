@@ -156,7 +156,7 @@ namespace MKproject.Schedule
             else
             {
 
-                CustomMessageBox.Show("Please choose a service", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("Please choose a service", CustomMessageBox.Type.OkInfo);
             }
 
         }

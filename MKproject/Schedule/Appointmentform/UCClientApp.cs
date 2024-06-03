@@ -623,7 +623,7 @@ namespace MKproject.Schedule
 
             if (DesiredRow != null)
             {
-                DesiredAppointmentUCClientApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)DesiredRow["client_balance_id"]);
+                DesiredAppointmentUCClientApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject(Convert.ToInt32(DesiredRow["client_balance_id"]));
                 DesiredAppointmentUCClientApp.DesiredClientBalance.SetStringDetailsIfBundle();
                 DesiredAppointmentUCClientApp.IsPackageMode = true;
             }

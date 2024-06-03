@@ -96,7 +96,7 @@ namespace MKproject.Schedule
             }
 
             Cursor.Current = Cursors.WaitCursor;
-            ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false);
+            ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false,false);
             Cursor.Current = Cursors.Default;
 
             this.Close();

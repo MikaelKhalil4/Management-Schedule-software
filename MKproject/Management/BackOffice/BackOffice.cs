@@ -535,9 +535,9 @@ namespace MKproject.Management
                 {
 
                     string ActionType = dataGridViewBackOffice.Rows[e.RowIndex].Cells["action_type"].Value.ToString();
-                    int clientId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["client_id"].Value);
-                    int ArchiveId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value);
-                    int clientBalanceId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["client_balance_id"].Value);
+                    int clientId = Convert.ToInt32(dataGridViewBackOffice.Rows[e.RowIndex].Cells["client_id"].Value);
+                    int ArchiveId = Convert.ToInt32(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value);
+                    int clientBalanceId = Convert.ToInt32(dataGridViewBackOffice.Rows[e.RowIndex].Cells["client_balance_id"].Value);
                     var cellValue = dataGridViewBackOffice.Rows[e.RowIndex].Cells["appointment_id"].Value;
                     int? AppointmentId = cellValue is DBNull ? (int?)null : Convert.ToInt32(cellValue);
 
@@ -556,16 +556,17 @@ namespace MKproject.Management
 
 
 
-                    string MessageShow = "To undo this action, you must first undo all related actions associated with this data.";
+                    string MessageShow;
+                    MessageShow = "Undoing this action could result in the deletion of all associated data related to this action.";
                     if (ActionType == ActionsEnum.Purchases.ToString() || ActionType == ActionsEnum.SoloPurchases.ToString())
                     {
                         if (ClassBackOffice.CheckIfDesiredArchiveHasRefrencesInTableArchive(clientBalanceId, ArchiveId))
                         {
+                            MessageShow = "To undo this action, you must first undo all related actions associated with this data.";
                             CustomMessageBox.Show(MessageShow, CustomMessageBox.Type.Error);
                         }
                         else
                         {
-                            MessageShow = "Undoing this action could result in the deletion of all associated data related to this action.";
                             DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
 
                             if (dialogResult == DialogResult.Yes)
@@ -575,16 +576,16 @@ namespace MKproject.Management
                                 if (ActionType == ActionsEnum.Purchases.ToString())
                                 {
 
-                                    DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
+                                    DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt32(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
                                     for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
                                     {
 
-                                        int DesiredArchiveID = Convert.ToInt16(foundOriginRows[i]["archive_id"]);
+                                        int DesiredArchiveID = Convert.ToInt32(foundOriginRows[i]["archive_id"]);
 
                                         if (foundOriginRows[i]["attendance_id"] != DBNull.Value)//only for packages, not for products,nor solo
                                         {
-                                            int DesiredStructId = Convert.ToInt16(foundOriginRows[i]["attendance_id"]);
-                                            int? AppointmentIdForSessionsDone = foundOriginRows[i]["appointment_id"] is DBNull ? null : (int)foundOriginRows[i]["appointment_id"];
+                                            int DesiredStructId = Convert.ToInt32(foundOriginRows[i]["attendance_id"]);
+                                            int? AppointmentIdForSessionsDone = foundOriginRows[i]["appointment_id"] is DBNull ? null : Convert.ToInt32(foundOriginRows[i]["appointment_id"]);
 
 
                                             DateTime? NewLastVistDate = ClassBackOffice.UndoSessionDoneActionsSQL(clientId, DesiredStructId, DesiredArchiveID, clientBalanceId, true, AppointmentIdForSessionsDone);//oly hayde lieanno eenda gher ab3ad(last visit) , or hawdik by cascade on delete bi tiro
@@ -616,13 +617,13 @@ namespace MKproject.Management
                                 {
 
 
-                                    int structId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
+                                    int structId = Convert.ToInt32(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
 
 
                                     int? BundleId = null;
                                     if (AppointmentId != null)
                                     {
-                                        BundleId = Convert.ToInt16(DesiredClientBlanaceRow["bundle_id"]);
+                                        BundleId = Convert.ToInt32(DesiredClientBlanaceRow["bundle_id"]);
                                     }
 
                                     (DateTime? NewLastVistDate, DateTime? MembershipDate, bool IsMembershipDateChanged) = ClassBackOffice.UndoSoloPurchaseActionsSQL(clientId, structId, ArchiveId, clientBalanceId, AppointmentId, BundleId);
@@ -635,10 +636,10 @@ namespace MKproject.Management
                                     }
 
                                     //design in Backoffice form
-                                    DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
+                                    DataRow[] foundOriginRows = OriginalBackOfficeDt.Select("client_balance_id = " + clientBalanceId + " AND archive_id <> " + Convert.ToInt32(dataGridViewBackOffice.Rows[e.RowIndex].Cells["archive_id"].Value));//seelcting all the rows, with same balance_id gher li aam nekbesa now
                                     for (int i = 0; i < foundOriginRows.Length; i++)//we will be deleting kell tl rows, foe ayda el row li elun aalea fi
                                     {
-                                        int DesiredArchiveID = Convert.ToInt16(foundOriginRows[i]["archive_id"]);
+                                        int DesiredArchiveID = Convert.ToInt32(foundOriginRows[i]["archive_id"]);
                                         DeletingDatagridRowsAndActiveTheEvent(DesiredArchiveID);
                                     }
 
@@ -661,8 +662,7 @@ namespace MKproject.Management
                     }
                     else if (ActionType == ActionsEnum.SessionDone.ToString())
                     {
-                        int structId = Convert.ToInt16(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
-
+                        int structId = Convert.ToInt32(dataGridViewBackOffice.Rows[e.RowIndex].Cells["attendance_id"].Value);
                         DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
                         if (dialogResult == DialogResult.Yes)
                         {
@@ -686,7 +686,6 @@ namespace MKproject.Management
 
                         double AmountPaid = Convert.ToDouble(dataGridViewBackOffice.Rows[e.RowIndex].Cells["amount_paid"].Value);
                         DateTime ArchiveDate = Convert.ToDateTime(dataGridViewBackOffice.Rows[e.RowIndex].Cells["date"].Value);
-
                         DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
                         if (dialogResult == DialogResult.Yes)
                         {
@@ -707,20 +706,25 @@ namespace MKproject.Management
                     }
                     else if (ActionType == ActionsEnum.Offers.ToString())//only this exception updating el design mawjude hone fiya, since already eenda it s own algo
                     {
-                        DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
-                        if (dialogResult == DialogResult.Yes)
-                        {
-                            bool IsMoneyOrSession = Convert.ToBoolean(dataGridViewBackOffice.Rows[e.RowIndex].Cells["is_moneyOrsession_offre"].Value);
-                            string PreviousOffre = Convert.ToString(dataGridViewBackOffice.Rows[e.RowIndex].Cells["previousBalanceOrSession_Offre"].Value);
-                            bool ISUndo = ClassBackOffice.UndoOffresSQL(clientId, ArchiveId, clientBalanceId);//if archive is undone
 
-                            if (!ISUndo)
+                        bool IsMoneyOrSession = Convert.ToBoolean(dataGridViewBackOffice.Rows[e.RowIndex].Cells["is_moneyOrsession_offre"].Value);
+                        string PreviousOffre = Convert.ToString(dataGridViewBackOffice.Rows[e.RowIndex].Cells["previousBalanceOrSession_Offre"].Value);
+                        bool CanUndo = ClassBackOffice.CanUndoOffresSQL(clientId, ArchiveId, clientBalanceId);//if archive is undone
+
+                        if (!CanUndo)
+                        {
+                            MessageShow = "This action cannot be undone to avoid conflicts with other offers unlesss it was the last action made.";
+                            DialogResult dialogResult1 = CustomMessageBox.Show(MessageShow + "\nOther Wise you can Edit it from the client Profile directly.", CustomMessageBox.Type.Error);
+                        }
+                        else
+                        {
+                            DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
+                            if (dialogResult == DialogResult.Yes)
                             {
-                                MessageShow = "This action cannot be undone to avoid conflicts with other offers unlesss it was the last action made.";
-                                DialogResult dialogResult1 = CustomMessageBox.Show(MessageShow + "\nOther Wise you can Edit it from the client Profile directly.", CustomMessageBox.Type.Ok);
-                            }
-                            else
-                            {
+                              
+                                ClassBackOffice.UndoOffresSQL(ArchiveId);
+
+
                                 if (IsMoneyOrSession == true)//undo money update
                                 {
                                     double ToBalance = Convert.ToDouble(PreviousOffre.Split('/')[1]);
@@ -740,8 +744,8 @@ namespace MKproject.Management
                                 }
                                 else
                                 {
-                                    int ToSessionOrDays = Convert.ToInt16(PreviousOffre.Split('/')[1]);//ma ela aaze el refe hone, bas lieanno bi payment eezneha , medtarrin nhatta hone, bas ma ha teaddim w teakkhir
-                                    int FromSessionOrDays = Convert.ToInt16(PreviousOffre.Split('/')[0]);
+                                    int ToSessionOrDays = Convert.ToInt32(PreviousOffre.Split('/')[1]);//ma ela aaze el refe hone, bas lieanno bi payment eezneha , medtarrin nhatta hone, bas ma ha teaddim w teakkhir
+                                    int FromSessionOrDays = Convert.ToInt32(PreviousOffre.Split('/')[0]);
 
                                     (int UpdatedSessionLeftORNoDays, string newoffre, DateTime? NewDueDate, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingSessionOffre(clientId, DesiredClientBlanaceRow, FromSessionOrDays, ToSessionOrDays, null, false);
 
@@ -766,17 +770,19 @@ namespace MKproject.Management
 
                                         this.ParentFormClientManagem.UpdateSessionNumber(this.DesiredBalanceRowBinded);//from bel awwal ,lieanno hal value li badna nerjaa aalaya
 
-                                      
+
                                     }
                                 }
 
                                 //Design in Profile if Exists
-    
+
                                 //design in BackofficeForm
                                 DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
                             }
 
                         }
+
+
 
                     }
 
@@ -868,7 +874,7 @@ namespace MKproject.Management
             //updating backoffice datatgridbalancce
             this.DesiredBalanceRowBinded["balance"] = balance;
             this.DesiredBalanceRowBinded["amount_paid"] = (double)this.DesiredBalanceRowBinded["amount_paid"] - AmountPaid;
-            bool IsExpired = (bool)this.DesiredBalanceRowBinded["is_expired"];
+            bool IsExpired = Convert.ToBoolean(this.DesiredBalanceRowBinded["is_expired"]);
             if (IsExpired == true)//in case kenit true, akid sarit false men baaed ma meemelna undo
             {
                 this.DesiredBalanceRowBinded["is_expired"] = false;
@@ -909,9 +915,9 @@ namespace MKproject.Management
         {
 
             //Datagridview 
-            int ClientBalanceID = Convert.ToInt16(this.DesiredBalanceRowBinded["client_balance_id"]);
-            int NoOfSessions = Convert.ToInt16(this.DesiredBalanceRowBinded["session_left_days"]) + 1;
-            bool IsExpired = (bool)this.DesiredBalanceRowBinded["is_expired"];
+            int ClientBalanceID = Convert.ToInt32(this.DesiredBalanceRowBinded["client_balance_id"]);
+            int NoOfSessions = Convert.ToInt32(this.DesiredBalanceRowBinded["session_left_days"]) + 1;
+            bool IsExpired = Convert.ToBoolean(this.DesiredBalanceRowBinded["is_expired"]);
 
             this.DesiredBalanceRowBinded["session_left_days"] = NoOfSessions;
 
@@ -956,7 +962,7 @@ namespace MKproject.Management
 
 
         }
-       
+
         void UpdateLastVisitDesign(DateTime? NewLastVistDate, BackOffice backofficeform)
         {
             //Client Prodile 

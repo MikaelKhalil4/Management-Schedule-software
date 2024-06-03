@@ -7,12 +7,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SQLite;
 
 namespace MKproject.Schedule
 {
     public class ClassAppointment
     {
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
         //Property
         public int AppointmentID { get; set; }
 
@@ -71,22 +72,22 @@ namespace MKproject.Schedule
         }
 
         //SQL    
-       
-      
+
+
         public static DataTable GetAllAppointmentInfoSql(int appointmentId)
         {
-            SqlCommand cmd = new SqlCommand("select * from appointments where appointment_id=@appointment_id", con);
+            SQLiteCommand cmd = new SQLiteCommand("select * from appointments where appointment_id=@appointment_id", con);
             cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
         }
         public static DataTable GetAllChosenSoloBundles(int appointmentId)
         {
-            SqlCommand cmd = new SqlCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id ORDER BY app_bundle_id ASC", con);
+            SQLiteCommand cmd = new SQLiteCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id ORDER BY app_bundle_id ASC", con);
             cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -95,7 +96,7 @@ namespace MKproject.Schedule
         {
             string query = @"SELECT * 
                           FROM appointments                                 
-                          WHERE CAST(start_time AS DATE) = @Date ";
+                          WHERE DATE(start_time) = @Date ";
 
             if (ListEmployeeSchedule.Count > 0)
             {
@@ -112,9 +113,9 @@ namespace MKproject.Schedule
                 query += ")";
             }
 
-            SqlCommand command1 = new SqlCommand(query, con);
-            command1.Parameters.AddWithValue("@Date", SelectedDate.Date);
-            SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
+            SQLiteCommand command1 = new SQLiteCommand(query, con);
+            command1.Parameters.AddWithValue("@Date", SelectedDate.ToString("yyyy-MM-dd"));
+            SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
             con.Open();
@@ -123,7 +124,7 @@ namespace MKproject.Schedule
 
             return DataTableToList(dt1);
         }
-        public static List<ClassAppointment> GetAppointmentOfSpecificDays( List<DateTime> ListDaysOfDesiredWeek)
+        public static List<ClassAppointment> GetAppointmentOfSpecificDays(List<DateTime> ListDaysOfDesiredWeek)
         {
             string query = @"SELECT * 
                      FROM appointments                                 
@@ -131,7 +132,7 @@ namespace MKproject.Schedule
 
             if (ListDaysOfDesiredWeek.Count > 0)
             {
-                query += " AND CAST(start_time AS DATE) IN (";
+                query += " AND DATE(start_time) IN (";
                 for (int i = 0; i < ListDaysOfDesiredWeek.Count; i++)
                 {
                     query += $"@Date{i}";
@@ -143,14 +144,14 @@ namespace MKproject.Schedule
                 query += ")";
             }
 
-            SqlCommand command1 = new SqlCommand(query, con);
+            SQLiteCommand command1 = new SQLiteCommand(query, con);
 
             for (int i = 0; i < ListDaysOfDesiredWeek.Count; i++)
             {
-                command1.Parameters.AddWithValue($"@Date{i}", ListDaysOfDesiredWeek[i].Date);
+                command1.Parameters.AddWithValue($"@Date{i}", ListDaysOfDesiredWeek[i].ToString("yyyy-MM-dd"));
             }
 
-            SqlDataAdapter adapter1 = new SqlDataAdapter(command1);
+            SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
 
@@ -158,41 +159,41 @@ namespace MKproject.Schedule
         }
         public static int GetLastAppointmentId()
         {
-            SqlCommand cmd = new SqlCommand("SELECT Max(appointment_id) FROM appointments", con);
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Max(appointment_id) FROM appointments", con);
             con.Open();
             object result = cmd.ExecuteScalar();//return the first cell
             con.Close();
-            return (int)result;
+            return Convert.ToInt32(result);
         }
         public static DataTable GetRelatedSoloBundles(int appointmentId)
         {
-            SqlCommand cmd = new SqlCommand("Select * from appointment_has_bundles WHERE  appointment_id = @appointment_id", con);
+            SQLiteCommand cmd = new SQLiteCommand("Select * from appointment_has_bundles WHERE  appointment_id = @appointment_id", con);
             cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
         }
         public static void DeleteRelatedSoloBundle(int appointmentId, int bundleId)
         {
-            SqlCommand cmdDeleteOldBundlesToApp = new SqlCommand(@"Delete from appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
+            SQLiteCommand cmdDeleteOldBundlesToApp = new SQLiteCommand(@"Delete FROM  from appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
             cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", appointmentId);
             cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@bundle_id", bundleId);
             con.Open();
             cmdDeleteOldBundlesToApp.ExecuteNonQuery();
             con.Close();
         }
-        public static void SwapClientBalanceIdOnRenewPackage(int ExistingClientBalanceId,int NewClientBalanceId)
+        public static void SwapClientBalanceIdOnRenewPackage(int ExistingClientBalanceId, int NewClientBalanceId)
         {
-            string query = "Update appointments Set client_balance_id='" + NewClientBalanceId + "' Where start_time >= '"+DateTime.Now.Date+"' And appointment_id in (Select appointment_id from appointments where client_balance_id='" + ExistingClientBalanceId + "')";
-            SqlCommand cmd = new SqlCommand(query, con);
+            string query = "Update appointments Set client_balance_id='" + NewClientBalanceId + "' Where start_time >= '" + DateTime.Now.ToString("yyyy-MM-dd") + "' And appointment_id in (Select appointment_id from appointments where client_balance_id='" + ExistingClientBalanceId + "')";
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
         }
 
 
-       
+
         public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
             string queryInsert = @"INSERT INTO appointments (employee_id, client_id,is_package_mode ,client_balance_id,history_client_balance,title, start_time, end_time, Note,is_completed,is_canceled) 
@@ -203,15 +204,15 @@ namespace MKproject.Schedule
                                                         start_time=@start_time, end_time=@end_time, Note=@Note ,is_completed=@is_completed,is_canceled=@is_canceled
                                                                 WHERE  appointment_id=@appointment_id ";
 
-            SqlCommand cmdInsertOrUpdateApp;
+            SQLiteCommand cmdInsertOrUpdateApp;
             if (InsertOrUpdate)
             {
-                cmdInsertOrUpdateApp = new SqlCommand(queryInsert, con);
+                cmdInsertOrUpdateApp = new SQLiteCommand(queryInsert, con);
 
             }
             else
             {
-                cmdInsertOrUpdateApp = new SqlCommand(queryUpdate, con);
+                cmdInsertOrUpdateApp = new SQLiteCommand(queryUpdate, con);
 
             }
 
@@ -291,8 +292,8 @@ namespace MKproject.Schedule
 
             if (!InsertOrUpdate)
             {
-                SqlCommand cmdDeleteOldBundlesToApp = new SqlCommand(@"Delete from appointment_has_bundles WHERE  appointment_id = @appointment_id ", con);
-                cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+                SQLiteCommand cmdDeleteOldBundlesToApp = new SQLiteCommand(@"Delete FROM appointment_has_bundles WHERE  appointment_id = @appointment_id ", con);
+                cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", AppointmentID);
                 con.Open();
                 cmdDeleteOldBundlesToApp.ExecuteNonQuery();
                 con.Close();
@@ -309,7 +310,7 @@ namespace MKproject.Schedule
                 }
                 else
                 {
-                    DesiredAppointmentId = (int)AppointmentID;
+                    DesiredAppointmentId = AppointmentID;
 
 
                 }
@@ -317,7 +318,7 @@ namespace MKproject.Schedule
 
                 foreach (ClassBundles bundle in chosenBundlesList)
                 {
-                    SqlCommand cmdInsertBundleToApp = new SqlCommand(@"INSERT INTO appointment_has_bundles (appointment_id, bundle_id) 
+                    SQLiteCommand cmdInsertBundleToApp = new SQLiteCommand(@"INSERT INTO appointment_has_bundles (appointment_id, bundle_id) 
                                                                   VALUES (@appointment_id, @bundle_id) ", con);
 
                     cmdInsertBundleToApp.Parameters.AddWithValue("@appointment_id", DesiredAppointmentId);
@@ -339,20 +340,20 @@ namespace MKproject.Schedule
 
             //Battal ela aaze Since aam yenma7o bel UndoCompletionAppointment
             //string queryDeleteArchive = "DELETE FROM archive WHERE appointment_id='" + (int)AppointmentID + "'";
-            //SqlCommand cmd1 = new SqlCommand(queryDeleteArchive, con);
+            //SQLiteCommand cmd1 = new SQLiteCommand(queryDeleteArchive, con);
             //cmd1.ExecuteNonQuery();
 
-            string queryDeleteRelation = "DELETE FROM appointment_has_bundles WHERE appointment_id='" + (int)AppointmentID + "'";
-            SqlCommand cmd3 = new SqlCommand(queryDeleteRelation, con);
+            string queryDeleteRelation = "DELETE FROM appointment_has_bundles WHERE appointment_id='" + AppointmentID + "'";
+            SQLiteCommand cmd3 = new SQLiteCommand(queryDeleteRelation, con);
             cmd3.ExecuteNonQuery();
 
 
-            string QueryDeleteClientAttendace = "DELETE FROM client_services_attendance WHERE appointment_id = '" + (int)AppointmentID + "'";
-            SqlCommand cmd4 = new SqlCommand(QueryDeleteClientAttendace, con);
+            string QueryDeleteClientAttendace = "DELETE FROM client_services_attendance WHERE appointment_id = '" + AppointmentID + "'";
+            SQLiteCommand cmd4 = new SQLiteCommand(QueryDeleteClientAttendace, con);
             cmd4.ExecuteNonQuery();
 
-            string queryDelteApp = "DELETE FROM appointments WHERE appointment_id='" + (int)AppointmentID + "'";
-            SqlCommand cmd2 = new SqlCommand(queryDelteApp, con);
+            string queryDelteApp = "DELETE FROM appointments WHERE appointment_id='" + AppointmentID + "'";
+            SQLiteCommand cmd2 = new SQLiteCommand(queryDelteApp, con);
             cmd2.ExecuteNonQuery();
 
 
@@ -363,22 +364,22 @@ namespace MKproject.Schedule
 
             //kermel naamil Undo lal Purchases 
 
-            SqlCommand cmd = new SqlCommand("select archive_id,attendance_id,client_balance_id,action_type from archive where appointment_id=@appointment_id", con);
-            cmd.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand("select archive_id,attendance_id,client_balance_id,action_type from archive where appointment_id=@appointment_id", con);
+            cmd.Parameters.AddWithValue("@appointment_id", AppointmentID);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
             foreach (DataRow dr in dt.Rows)
             {
-                int ClientBalanceId = (int)dr["client_balance_id"];
+                int ClientBalanceId = Convert.ToInt32(dr["client_balance_id"]);
                 if (dr["action_type"].ToString() == ActionsEnum.SoloPurchases.ToString())//Solo service
                 {
-                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
+                    ClassBackOffice.UndoSoloPurchaseActionsSQL(DesiredClient.ClientId, Convert.ToInt32(dr["attendance_id"]), Convert.ToInt32(dr["archive_id"]), ClientBalanceId, null, null);//ased mnebaat appointmnet id null, lieanno this id meant to be bas men el classbackoffice, hone in this we handled shu bi sir eza ken apointment, bas bel backoffice fi ykun appoint fi ma ykun
                 }
                 else if (dr["action_type"].ToString() == ActionsEnum.SessionDone.ToString())// package 
                 {
-                    ClassBackOffice.UndoSessionDoneActionsSQL(DesiredClient.ClientId, (int)dr["attendance_id"], (int)dr["archive_id"], ClientBalanceId, false, null);
+                    ClassBackOffice.UndoSessionDoneActionsSQL(DesiredClient.ClientId, Convert.ToInt32(dr["attendance_id"]), Convert.ToInt32(dr["archive_id"]), ClientBalanceId, false, null);
 
                 }
             }
@@ -388,8 +389,8 @@ namespace MKproject.Schedule
         }
         public void UpdateHistoryClientBalance()
         {
-            SqlCommand cmdUpdateCompletion = new SqlCommand(@" Update appointments SET  history_client_balance=@history_client_balance  WHERE  appointment_id=@appointment_id ", con); ;
-            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+            SQLiteCommand cmdUpdateCompletion = new SQLiteCommand(@" Update appointments SET  history_client_balance=@history_client_balance  WHERE  appointment_id=@appointment_id ", con); ;
+            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", AppointmentID);
             cmdUpdateCompletion.Parameters.AddWithValue("@history_client_balance", HistoryClientBalance);
             con.Open();
             cmdUpdateCompletion.ExecuteNonQuery();
@@ -397,8 +398,8 @@ namespace MKproject.Schedule
         }
         public void SetOrResetIsCompleted()
         {
-            SqlCommand cmdUpdateCompletion = new SqlCommand(@" Update appointments SET  is_completed=@is_completed  WHERE  appointment_id=@appointment_id ", con); ;
-            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+            SQLiteCommand cmdUpdateCompletion = new SQLiteCommand(@" Update appointments SET  is_completed=@is_completed  WHERE  appointment_id=@appointment_id ", con); ;
+            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", AppointmentID);
             cmdUpdateCompletion.Parameters.AddWithValue("@is_completed", IsCompleted);
             con.Open();
             cmdUpdateCompletion.ExecuteNonQuery();
@@ -406,8 +407,8 @@ namespace MKproject.Schedule
         }
         public void SetOrResetIsCanceled()
         {
-            SqlCommand cmdUpdateCompletion = new SqlCommand(@" Update appointments SET  is_canceled=@is_canceled  WHERE  appointment_id=@appointment_id ", con); ;
-            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", (int)AppointmentID);
+            SQLiteCommand cmdUpdateCompletion = new SQLiteCommand(@" Update appointments SET  is_canceled=@is_canceled  WHERE  appointment_id=@appointment_id ", con); ;
+            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", AppointmentID);
             cmdUpdateCompletion.Parameters.AddWithValue("@is_canceled", IsCanceled);
             con.Open();
             cmdUpdateCompletion.ExecuteNonQuery();
@@ -415,9 +416,9 @@ namespace MKproject.Schedule
         }
         public DataTable AllRelatedRowsInArchiveTable()
         {
-            SqlCommand cmd = new SqlCommand("Select * from archive WHERE  appointment_id = @appointment_id", con);
+            SQLiteCommand cmd = new SQLiteCommand("Select * from archive WHERE  appointment_id = @appointment_id", con);
             cmd.Parameters.AddWithValue("@appointment_id", AppointmentID);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -443,7 +444,7 @@ namespace MKproject.Schedule
             };
             return list;
         }
-      
+
 
         private static ClassAppointment DataTableRowToObject(DataRow datarow)
         {
@@ -451,55 +452,54 @@ namespace MKproject.Schedule
             ClassAppointment DesiredApp = new ClassAppointment();
 
 
-            DesiredApp.AppointmentID = (int)datarow["appointment_id"];//noway ykun bel db fi client ma endo clientid
+            DesiredApp.AppointmentID = Convert.ToInt32(datarow["appointment_id"]);//noway ykun bel db fi client ma endo clientid
 
 
             if (!(datarow["client_id"] is DBNull))
             {
-                //DesiredApp.DesiredClient = ClassClient.CreateClientObject((int)datarow["client_id"]);
                 //less time men el fawea this method
                 DesiredApp.DesiredClient = new ClassClient();
-                DataTable dtClient = ClassClient.GetAllClientsInfoSQL((int)datarow["client_id"]);
+                DataTable dtClient = ClassClient.GetAllClientsInfoSQL(Convert.ToInt32(datarow["client_id"]));
 
-                DesiredApp.DesiredClient.ClientId = (int)dtClient.Rows[0]["client_id"];//noway ykun bel db fi client ma endo clientid
+                DesiredApp.DesiredClient.ClientId = Convert.ToInt32(dtClient.Rows[0]["client_id"]);//noway ykun bel db fi client ma endo clientid
                 DesiredApp.DesiredClient.Fname = dtClient.Rows[0]["name"] is DBNull ? null : (string)dtClient.Rows[0]["name"];
                 DesiredApp.DesiredClient.Lname = dtClient.Rows[0]["family_name"] is DBNull ? null : (string)dtClient.Rows[0]["family_name"];
-                DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ? null : (DateTime)dtClient.Rows[0]["Registration_Date"];//kermel eza shataryna package with Membership
+                DesiredApp.DesiredClient.RegistrationDate = dtClient.Rows[0]["Registration_Date"] is DBNull ? null : Convert.ToDateTime(dtClient.Rows[0]["Registration_Date"]);//kermel eza shataryna package with Membership
                 DesiredApp.DesiredClient.TotalBalance = (double)dtClient.Rows[0]["total_balance"];//noway ykun bel db fi client ma endo totalBalance;
             }
 
 
-            DesiredApp.DesiredEmployee = ClassEmployee.CreateEmployeeObject((int)datarow["employee_id"]);
+            DesiredApp.DesiredEmployee = ClassEmployee.CreateEmployeeObject(Convert.ToInt32(datarow["employee_id"]));
             DesiredApp.Title = datarow["title"] is DBNull ? null : (string)datarow["title"];
             DesiredApp.Notes = datarow["Note"] is DBNull ? null : (string)datarow["Note"];
 
 
-            DesiredApp.StartTime = (DateTime)datarow["start_time"];
-            DesiredApp.EndTime = (DateTime)datarow["end_time"];
+            DesiredApp.StartTime = Convert.ToDateTime(datarow["start_time"]);
+            DesiredApp.EndTime = Convert.ToDateTime(datarow["end_time"]);
 
 
-            DesiredApp.IsCompleted = (bool)datarow["is_completed"];
-            DesiredApp.IsCanceled = (bool)datarow["is_canceled"];
+            DesiredApp.IsCompleted = Convert.ToBoolean(datarow["is_completed"]);
+            DesiredApp.IsCanceled = Convert.ToBoolean(datarow["is_canceled"]);
 
-            DesiredApp.IsPackageMode = (bool)datarow["is_package_mode"];
+            DesiredApp.IsPackageMode = Convert.ToBoolean(datarow["is_package_mode"]);
 
             if (!(datarow["client_balance_id"] is DBNull))
             {
                 //this one will be used if present or future
-                DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)datarow["client_balance_id"]);
+                DesiredApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject(Convert.ToInt32(datarow["client_balance_id"]));
                 DesiredApp.DesiredClientBalance.SetStringDetailsIfBundle();
             }
 
             DesiredApp.HistoryClientBalance = datarow["history_client_balance"] is DBNull ? null : (string)datarow["history_client_balance"];
 
 
-            DataTable ChosenBundles = GetAllChosenSoloBundles((int)DesiredApp.AppointmentID);
+            DataTable ChosenBundles = GetAllChosenSoloBundles(DesiredApp.AppointmentID);
             if (ChosenBundles.Rows.Count > 0)
             {
                 List<ClassBundles> bundles = new List<ClassBundles>();
                 foreach (DataRow dr in ChosenBundles.Rows)
                 {
-                    bundles.Add(ClassBundles.CreateBundleObject((int)dr["bundle_id"]));
+                    bundles.Add(ClassBundles.CreateBundleObject(Convert.ToInt32(dr["bundle_id"])));
                 }
                 DesiredApp.ChosenBundlesList = bundles;//ased eemelneha kermel yenkhalae el string ma3a
             }
@@ -525,7 +525,7 @@ namespace MKproject.Schedule
             }
             if (this.ChosenBundlesList != null)
             {
-               List<ClassBundles> BundleList = new List<ClassBundles>(this.ChosenBundlesList.Count); 
+                List<ClassBundles> BundleList = new List<ClassBundles>(this.ChosenBundlesList.Count);
                 foreach (var bundle in this.ChosenBundlesList)
                 {
                     BundleList.Add(bundle.Copy()); // Assuming ClassBundles has a Copy method

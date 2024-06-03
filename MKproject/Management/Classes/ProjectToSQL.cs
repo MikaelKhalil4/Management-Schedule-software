@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-
+using System.Data.SQLite;
 
 namespace MKproject.Management
 {
     internal class ProjectToSQL
     {
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
 
 
@@ -24,7 +24,7 @@ namespace MKproject.Management
                         VALUES
                         (@client_balance_id,@AlbumType,@amount_paid,@payment_date,@Currency_Name) ";
 
-            SqlCommand cmdInsert = new SqlCommand(QueryInsert, con); // Initialize the SqlCommand inside the loop
+            SQLiteCommand cmdInsert = new SQLiteCommand(QueryInsert, con); // Initialize the SQLiteCommand inside the loop
 
             cmdInsert.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
 
@@ -55,7 +55,7 @@ namespace MKproject.Management
         {
 
             string QueryInsert = "insert into client_services_attendance (client_id,client_balance_id,appointment_id,execute_date) values (@client_id,@client_balance_id,@appointment_id,@execute_date)";
-            SqlCommand cmdInsert = new SqlCommand(QueryInsert, con);
+            SQLiteCommand cmdInsert = new SQLiteCommand(QueryInsert, con);
             cmdInsert.Parameters.AddWithValue("@client_id", ClientID);
             cmdInsert.Parameters.AddWithValue("@client_balance_id", clientBalanceId);
             if (AppointmentID == null)
@@ -79,7 +79,7 @@ namespace MKproject.Management
         public static void InsertNewAlbum(string albumName)
         {
             string query = "INSERT INTO Albums (AlbumType) VALUES (@AlbumName)";
-            SqlCommand command = new SqlCommand(query, con);
+            SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@AlbumName", albumName);
             con.Open();
             command.ExecuteNonQuery();
@@ -89,7 +89,7 @@ namespace MKproject.Management
         public static void UpdateAlbum(string NewAlbumName, string OldAlbumName)
         {
             string query = "UPDATE Albums SET AlbumType = @NewAlbumName WHERE AlbumType = @AlbumName";
-            SqlCommand command = new SqlCommand(query, con);
+            SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@AlbumName", OldAlbumName);
             command.Parameters.AddWithValue("@NewAlbumName", NewAlbumName);
             con.Open();
@@ -98,8 +98,8 @@ namespace MKproject.Management
         }
         public static void DeleteAlbum(string AlbumName)
         {
-            string query = "Delete Albums  WHERE AlbumType = @AlbumName";
-            SqlCommand command = new SqlCommand(query, con);
+            string query = "Delete FROM  Albums  WHERE AlbumType = @AlbumName";
+            SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@AlbumName", AlbumName);
             con.Open();
             command.ExecuteNonQuery();
@@ -110,7 +110,7 @@ namespace MKproject.Management
         //registrationFidls
         public static void UpdateField(bool Isvisible, bool IsRequired, int id)
         {
-            SqlCommand command = new SqlCommand("UPDATE required_visible_fields SET Visible = @Visible, Required = @Required WHERE fields_id = @fields_id", con);
+            SQLiteCommand command = new SQLiteCommand("UPDATE required_visible_fields SET Visible = @Visible, Required = @Required WHERE fields_id = @fields_id", con);
             command.Parameters.AddWithValue("@Visible", Isvisible);
             command.Parameters.AddWithValue("@Required", IsRequired);
             command.Parameters.AddWithValue("@fields_id", id);

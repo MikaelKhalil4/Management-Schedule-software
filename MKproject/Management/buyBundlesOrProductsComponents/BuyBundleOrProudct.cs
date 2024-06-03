@@ -207,7 +207,7 @@ namespace MKproject.Management
                     }
                
                     //design
-                    ParentFormClientMang.UCTokenServices.Detail = Convert.ToString(NOBundles + Convert.ToInt16(ParentFormClientMang.UCTokenServices.Detail));
+                    ParentFormClientMang.UCTokenServices.Detail = Convert.ToString(NOBundles + Convert.ToInt32(ParentFormClientMang.UCTokenServices.Detail));
 
 
                     //Check if Member , if mo update in sql
@@ -258,7 +258,7 @@ namespace MKproject.Management
 
 
 
-                    ParentFormClientMang.UCTokenProducts.Detail = Convert.ToString(NOProducts + Convert.ToInt16(ParentFormClientMang.UCTokenProducts.Detail));
+                    ParentFormClientMang.UCTokenProducts.Detail = Convert.ToString(NOProducts + Convert.ToInt32(ParentFormClientMang.UCTokenProducts.Detail));
                     this.Close();
                 }
             }

@@ -413,7 +413,7 @@ namespace MKproject.Schedule
             {
                 //package deleted or package not selected In The Past
 
-                CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.OkInfo);
 
             }
             else//present future

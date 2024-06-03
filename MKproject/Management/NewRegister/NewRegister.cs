@@ -343,22 +343,16 @@ namespace MKproject.Management
 
             Cursor.Current = Cursors.WaitCursor;
             DataTable dt;
-            if (IsUpdateOrCreate)
-            {
-                dt = dtUpdatedFields;
-            }
-            else
-            {
-                dt = SQLToProject.GetAllVisibleFields();
-            }
 
+          
+            dt = SQLToProject.GetAllVisibleFields();
 
 
             foreach (DataRow row in dt.Rows)
             {
                 bool isRequired = Convert.ToBoolean(row["Required"]);
                 bool isVisible = Convert.ToBoolean(row["Visible"]);
-                int DesignIndex = Convert.ToInt16(row["design_index"]);
+                int DesignIndex = Convert.ToInt32(row["design_index"]);
                 string FieldName = row["Fields"].ToString();
 
                 // Check if the "Full Name" field exists in the table
@@ -1634,7 +1628,7 @@ namespace MKproject.Management
             List<Control> controls = FLPInfo.Controls.Cast<Control>().ToList();
 
             // Sort the controls based on their "Index" property in ascending order
-            controls.Sort((a, b) => ((int)a.GetType().GetProperty("Index").GetValue(a)).CompareTo((int)b.GetType().GetProperty("Index").GetValue(b)));
+            controls.Sort((a, b) => ((Int32)a.GetType().GetProperty("Index").GetValue(a)).CompareTo((Int32)b.GetType().GetProperty("Index").GetValue(b)));
 
             // Assign new indexes in ascending order
             for (int i = 0; i < controls.Count; i++)
@@ -2172,12 +2166,12 @@ namespace MKproject.Management
             }
             else
             {
-                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.OkInfo);
             }
         }
 
 
-        public void SaveOrUpdate(string AlbumName)//album name could be null,w only used on insert NOT UPDATE
+        public void SaveOrUpdate(string AlbumName,bool FromRegistrationFields)//album name could be null,w only used on insert NOT UPDATE
         {
 
             if (Client == null)//insert
@@ -2219,7 +2213,7 @@ namespace MKproject.Management
 
                 if (Client.IsParent == true && OldISChild == false && NewIsClhild == true)//aam nkhalle a parent ysir child!
                 {
-                    CustomMessageBox.Show("In order to make the client a child , you need first to remove all his childrens", CustomMessageBox.Type.Error);
+                    CustomMessageBox.Show("In order to make the client a child , you need first to remove all his childrens", CustomMessageBox.Type.OkInfo);
                 }
                 else
                 {
@@ -2243,7 +2237,11 @@ namespace MKproject.Management
                     UpdateOrInsertToSQLAndObj(null);//treka hone better
 
                     ClientManagementProfileForm.UpdateOrCreateUCLabelAndDetail(true);
-                    this.Close();
+                 
+                    if (!FromRegistrationFields)
+                    {
+                        this.Close();
+                    }
                 }
 
             }
@@ -2285,18 +2283,18 @@ namespace MKproject.Management
                 {
                     if (!CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
                     {
-                        SaveOrUpdate(null);
+                        SaveOrUpdate(null,false);
                     }
                     else
                     {
-                        CustomMessageBox.Show("Phone Number already exists, please choose another one", CustomMessageBox.Type.Ok);
+                        CustomMessageBox.Show("Phone Number already exists, please choose another one", CustomMessageBox.Type.Error);
                         FLPInfo.ScrollControlIntoView(UCPhoneNumber);
                     }
                 }
             }
             else
             {
-                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.OkInfo);
             }
         }//try catch
 
@@ -2307,13 +2305,13 @@ namespace MKproject.Management
             DataTable dtParent = ClassClient.GetLinkedPArentsSQL(OldPhoneNumber);//hayda el phone number abel ma yetghyar
             if (dtParent.Rows.Count > 0)//ejbare
             {
-                if (IsDeleteMode || radioButtonAdult.Checked || (ParentId != null && (int)dtParent.Rows[0]["client_id"] != ParentId))//case1 we re deleting the client,case2: eza ken child w sar adult /case3: eza ken child w raddayna child la gher parent aw same parent
+                if (IsDeleteMode || radioButtonAdult.Checked || (ParentId != null && Convert.ToInt32(dtParent.Rows[0]["client_id"]) != ParentId))//case1 we re deleting the client,case2: eza ken child w sar adult /case3: eza ken child w raddayna child la gher parent aw same parent
                 {
                     int NumberOfChilds = ClassClient.CalculateNumberOfChildrenSQL(dtParent.Rows[0]["phone_number"].ToString()) - 1;//-1 cz aam nshil hayda, since baaed ma eemelna update aa sql
                     if (NumberOfChilds == 0)
                     {
                         //update parent as adult based aal id
-                        ClassClient.UpdateClientIsParentSQL((int)dtParent.Rows[0]["client_id"], false);
+                        ClassClient.UpdateClientIsParentSQL(Convert.ToInt32(dtParent.Rows[0]["client_id"]), false);
                     }
                 }
             }
@@ -2361,7 +2359,7 @@ namespace MKproject.Management
                         Program.GreyFormJuniorJunior = new GreyColor(this, true, true, null);
                         Program.GreyFormJuniorJunior.Show();
                     }
-              
+
                     ChildParent c = new ChildParent(this);
                     c.ShowDialog();
                 }
@@ -2404,7 +2402,7 @@ namespace MKproject.Management
 
                 if (CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
                 {
-                    if (IsFromSchedule == true)
+                    if (IsFromSchedule == false)//from management
                     {
                         DialogResult dialogResult = CustomMessageBox.Show("The Client With this Phone Number Already Exists, Do you want to Check its profile?", CustomMessageBox.Type.YesNo);
                         if (dialogResult == DialogResult.Yes)
@@ -2416,7 +2414,7 @@ namespace MKproject.Management
                     }
                     else//from schedule
                     {
-                        CustomMessageBox.Show("The Client With this Phone Number Already Exists", CustomMessageBox.Type.Ok);
+                        CustomMessageBox.Show("The Client With this Phone Number Already Exists", CustomMessageBox.Type.Error);
                     }
                 }
             }
@@ -2435,11 +2433,11 @@ namespace MKproject.Management
         {
             if (!LOGIN.Employee.CanDeleteClient)
             {
-                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.OkInfo);
             }
             else if (ClientManagementProfileForm.IsFromSchedule || IsFromSchedule)//to be deleted one the restriction is put on the delete
             {
-                CustomMessageBox.Show("You can't delete a client while you re in the Schedule, Please delete it from the Management", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("You can't delete a client while you re in the Schedule, Please delete it from the Management", CustomMessageBox.Type.Error);
             }
             else
             {
@@ -2477,7 +2475,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    CustomMessageBox.Show("In order to Delete this Client , you need first to remove all his childrens", CustomMessageBox.Type.Error);
+                    CustomMessageBox.Show("In order to Delete this Client , you need first to remove all his childrens", CustomMessageBox.Type.OkInfo);
                 }
 
             }
@@ -2498,8 +2496,8 @@ namespace MKproject.Management
         }
 
         private void NewRegister_FormClosing(object sender, FormClosingEventArgs e)
-         {
-           if (Program.GreyFormJunior != null)
+        {
+            if (Program.GreyFormJunior != null)
             {
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;

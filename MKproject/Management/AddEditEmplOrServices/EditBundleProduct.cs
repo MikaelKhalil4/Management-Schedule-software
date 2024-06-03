@@ -19,8 +19,7 @@ namespace MKproject.Management
         public DataRow DesiredRow;
         public UCTextbox1 UCDescription;
         private UCTextbox1 UCBundleName;
-        public bool ButtonSaveClicked = false;//kermel l ucpayment la n8ayir lawna 
-        SqlConnection con = new SqlConnection(Program.DataLocation);
+        public bool ButtonSaveClicked = false;//kermel l ucpayment la n8ayir lawna   
         Color ColorBackTExtbOxEditMode = Color.White;
 
 
@@ -46,8 +45,7 @@ namespace MKproject.Management
             if (!Edit)//for packages and products
             {
                 UCBundleName.myTextBox1.Select();
-                checkBoxStatus.Visible = false;
-                this.Height = this.Height - (checkBoxStatus.Height + checkBoxMemberShip.Height);
+                //this.Height = this.Height - (checkBoxStatus.Height + checkBoxMemberShip.Height);
             }
 
 
@@ -106,6 +104,9 @@ namespace MKproject.Management
             UCDescription.NextControl = ucPaymentsPrice.textBoxPayment;
 
             checkBoxMemberShip.Visible = true;
+
+            checkBoxStatus.Visible = true;
+            checkBoxStatus.Checked = true;
         }
         void FillBundlesFields()
         {
@@ -181,7 +182,7 @@ namespace MKproject.Management
             }
 
             bundle.IsMemberShip = checkBoxMemberShip.Checked;
-
+            bundle.Status = checkBoxStatus.Checked;
             bundle.InsertBundle();
 
             DataTable dtinserteditem = ClassBundles.GetLastInsertBundle();
@@ -198,7 +199,7 @@ namespace MKproject.Management
         {
             ClassBundles bundle = new ClassBundles();
 
-            bundle.BundleID = (int)DesiredRow["bundle_id"];
+            bundle.BundleID = Convert.ToInt32(DesiredRow["bundle_id"]);
             bundle.BundleName = UCBundleName.Value;
             bundle.Description = UCDescription.Value;
             bundle.Price = ucPaymentsPrice.Amount;
@@ -265,7 +266,7 @@ namespace MKproject.Management
 
                 if (bundleExists)
                 {
-                    CustomMessageBox.Show("Bundle Name is already taken", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Bundle Name is already taken", CustomMessageBox.Type.Error);
                     return true;
                 }
                 else
@@ -349,6 +350,9 @@ namespace MKproject.Management
             UCBundleName.NextControl = ucPaymentsPrice.textBoxPayment;
 
             checkBoxMemberShip.Visible = false;
+          
+            checkBoxStatus.Visible = true;
+            checkBoxStatus.Checked = true;
         }
         void FillProductFields()
         {
@@ -367,7 +371,7 @@ namespace MKproject.Management
 
             product.Name = UCBundleName.Value;
             product.Price = ucPaymentsPrice.Amount;
-
+            product.Status = checkBoxStatus.Checked;
             product.InsertProduct();
 
             DataTable dtinserteditem = ClassProduct.GetLastInsertProduct();
@@ -387,7 +391,7 @@ namespace MKproject.Management
             product.Name = UCBundleName.Value;
             product.Price = ucPaymentsPrice.Amount;
             product.Status = checkBoxStatus.Checked;
-            product.ID = (int)DesiredRow["product_id"];
+            product.ID = Convert.ToInt32(DesiredRow["product_id"]);
             product.UpdateProduct();
 
             //design
@@ -411,7 +415,7 @@ namespace MKproject.Management
 
                 if (productExists)
                 {
-                    CustomMessageBox.Show("Product Name is already taken", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Product Name is already taken", CustomMessageBox.Type.Error);
                     return true;
                 }
                 else
@@ -509,10 +513,10 @@ namespace MKproject.Management
             if (BundleOrProduct)
             {
                 ClassBundles bundle = new ClassBundles();
-                bundle.BundleID = (int)DesiredRow["bundle_id"];
+                bundle.BundleID = Convert.ToInt32(DesiredRow["bundle_id"]);
                 if (bundle.CheckIBundletHasReferences())
                 {
-                    CustomMessageBox.Show("Cannot delete this Bundle as there is some data attached to them.", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Cannot delete this Bundle as there is some data attached to them.", CustomMessageBox.Type.Error);
                 }
                 else
                 {
@@ -525,10 +529,10 @@ namespace MKproject.Management
             else
             {
                 ClassProduct product = new ClassProduct();
-                product.ID = (int)DesiredRow["product_id"];
+                product.ID = Convert.ToInt32(DesiredRow["product_id"]);
                 if (product.CheckIProductHasReferences())
                 {
-                    CustomMessageBox.Show("Cannot delete this Product as there is some data attached to them.", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Cannot delete this Product as there is some data attached to them.", CustomMessageBox.Type.Error);
                 }
                 else
                 {

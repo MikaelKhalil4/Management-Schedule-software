@@ -235,6 +235,10 @@
               "target": "Package",
               "version": "[4.5.0, )"
             },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.118, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.6, )"

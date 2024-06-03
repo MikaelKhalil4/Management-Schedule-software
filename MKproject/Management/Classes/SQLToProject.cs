@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 
 namespace MKproject.Management
 {
     internal class SQLToProject
     {
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
 
 
@@ -15,9 +16,9 @@ namespace MKproject.Management
         public static DateTime GetAttendanceDateOfSpecificAttendace(int AttendanceId)
         {
             string query = "SELECT execute_date from client_services_attendance WHERE  attendance_id='" + AttendanceId + "' ";
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             con.Open();
-            DateTime ExecutedDate=(DateTime)cmd.ExecuteScalar();
+            DateTime ExecutedDate = Convert.ToDateTime(cmd.ExecuteScalar());//couldnt be null
             con.Close();
             return ExecutedDate;
         }
@@ -27,10 +28,10 @@ namespace MKproject.Management
             string query = "SELECT MAX(execute_date) from client_services_attendance where client_id='" + ClientId + "'";
 
 
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             con.Open();
-            DateTime ExecutedDate = (DateTime)cmd.ExecuteScalar();
+            DateTime ExecutedDate = Convert.ToDateTime(cmd.ExecuteScalar());//couldnt be null
             con.Close();
             return ExecutedDate;
         }
@@ -40,8 +41,8 @@ namespace MKproject.Management
             string query = "SELECT execute_date from client_services_attendance  ";
        
 
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -51,7 +52,7 @@ namespace MKproject.Management
             int Id;
             con.Open();
             string getLastIdQuery = "SELECT Max(attendance_id) FROM client_services_attendance";
-            using (SqlCommand command = new SqlCommand(getLastIdQuery, con))
+            using (SQLiteCommand command = new SQLiteCommand(getLastIdQuery, con))
             {
                 Id = Convert.ToInt32(command.ExecuteScalar());
             }
@@ -72,8 +73,8 @@ namespace MKproject.Management
            
 
             con.Open();
-            SqlCommand command = new SqlCommand(query, con);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            SQLiteCommand command = new SQLiteCommand(query, con);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             con.Close();          
             adapter.Fill(dt);
             return dt;
@@ -84,8 +85,8 @@ namespace MKproject.Management
         {
             DataTable dt = new DataTable();
             string query = "SELECT * FROM required_visible_fields ORDER BY design_index ASC";//la2n ma badna n3adil 3l full name w el phone number
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -95,8 +96,8 @@ namespace MKproject.Management
 
             DataTable dt = new DataTable();
             string query = "SELECT * FROM required_visible_fields WHERE Fields IN ('FullName','PhoneNumber','Adress')";
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -108,8 +109,8 @@ namespace MKproject.Management
         {
             DataTable dt = new DataTable();
             string query = "SELECT * FROM Albums order by Album_id DESC";
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
 
@@ -125,10 +126,10 @@ namespace MKproject.Management
             {
                 query+= " And AlbumType !='"+ oldname + "'";
             }
-            SqlCommand command = new SqlCommand(query, con);
+            SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@AlbumName", albumName);
             con.Open();
-            count = (int)command.ExecuteScalar();
+            count = Convert.ToInt32(command.ExecuteScalar());
             con.Close();
             return count > 0;
         }
@@ -142,8 +143,8 @@ namespace MKproject.Management
                                 from finance f,client c,client_balance cb 
                                WHERE f.client_balance_id=cb.client_balance_id AND cb.client_id=c.client_id";
 
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;

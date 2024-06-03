@@ -8,12 +8,13 @@ using System.Linq;
 using System.Reflection.Metadata;
 using GlobalFunctions;
 using static MKproject.Management.ClassBundles;
+using System.Data.SQLite;
 
 namespace MKproject.Management
 {
     public class ClassClient
     {
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
         //? bas btonhatt lal int w double ta neoul enno hole can be null, or string image, datetime by default fiyun yehkhdo nullvalues
         //personal
         public int ClientId { get; set; }
@@ -211,11 +212,11 @@ namespace MKproject.Management
 
 
         //select
-       
+
         public static int GetLastClientIDSQL()
         {
             string getLastClientIdQuery = "SELECT Max(client_id) FROM client";
-            SqlCommand command = new SqlCommand(getLastClientIdQuery, con);
+            SQLiteCommand command = new SQLiteCommand(getLastClientIdQuery, con);
             con.Open();
             int lastClientId = Convert.ToInt32(command.ExecuteScalar());
             con.Close();
@@ -226,8 +227,8 @@ namespace MKproject.Management
         {
             string queryClient = "select client_id,name,family_name,phone_number as \"Phone Number\",AlbumType as \"Album\",save_date,check_in,Registration_Date,total_balance,total_payment,IsChild,gender as \"Gender\",job as \"Job\",adress as \"Adress\",last_time_searched from client ORDER  BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
 
-            SqlCommand cmd = new SqlCommand(queryClient, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(queryClient, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -236,8 +237,8 @@ namespace MKproject.Management
         {
             string queryClient = "select client_id,name,family_name, phone_number as \"Phone Number\",Registration_Date,total_balance from client ORDER BY last_time_searched  DESC  "; /*ORDER BY check_in DESC*/
 
-            SqlCommand cmd = new SqlCommand(queryClient, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(queryClient, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -246,17 +247,17 @@ namespace MKproject.Management
         {
             string queryClient = "select client_id  from client WHERE phone_number='" + PhoneNumber + "'";
 
-            SqlCommand cmd = new SqlCommand(queryClient, con);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteCommand cmd = new SQLiteCommand(queryClient, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            return (int)dt.Rows[0]["client_id"];
+            return Convert.ToInt32(dt.Rows[0]["client_id"]);
         }//lezim nekhud into consideration el parent w el child li eendun samephone
         public static DataTable GetAllClientsInfoSQL(int ClientID)
         {
-            SqlCommand cmd = new SqlCommand("select * from client where client_id=@client_id", con);
+            SQLiteCommand cmd = new SQLiteCommand("select * from client where client_id=@client_id", con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -265,16 +266,16 @@ namespace MKproject.Management
         {
             con.Open();
             string checkQuery;
-            SqlCommand checkCommand = null;
+            SQLiteCommand checkCommand = null;
             if (ClientId == null)
             {
                 checkQuery = "SELECT COUNT(*) FROM client WHERE phone_number = @PhoneNumber AND IsChild = 0";
-                checkCommand = new SqlCommand(checkQuery, con);
+                checkCommand = new SQLiteCommand(checkQuery, con);
             }
             else
             {
                 checkQuery = "SELECT COUNT(*) FROM client WHERE phone_number = @PhoneNumber AND IsChild = 0 AND client_id!=@client_id";
-                checkCommand = new SqlCommand(checkQuery, con);
+                checkCommand = new SQLiteCommand(checkQuery, con);
                 checkCommand.Parameters.AddWithValue("@client_id", ClientId);
 
             }
@@ -304,10 +305,10 @@ namespace MKproject.Management
             con.Open();
 
             string query = "SELECT COUNT(*) FROM client WHERE phone_number = @phoneNumber AND IsChild = 1";
-            SqlCommand command = new SqlCommand(query, con);
+            SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
 
-            numberOfChildren = (int)command.ExecuteScalar();
+            numberOfChildren = Convert.ToInt32(command.ExecuteScalar());
             con.Close();
             return numberOfChildren;
 
@@ -315,11 +316,11 @@ namespace MKproject.Management
         public static DataTable GetLinkedChildrenSQL(string ChildOrParentPhoneNumber)
         {
             DataTable dt = new DataTable();
-            string query = "SELECT CONCAT(name, ' ', family_name) AS  [Full Name],client_id FROM client WHERE phone_number = @phoneNumber AND IsChild = 1";
+            string query = "SELECT name || ' ' || family_name AS  [Full Name],client_id FROM client WHERE phone_number = @phoneNumber AND IsChild = 1";
             con.Open();
-            SqlCommand command = new SqlCommand(query, con);
+            SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@phoneNumber", ChildOrParentPhoneNumber);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             con.Close();
             adapter.Fill(dt);
             return dt;
@@ -327,11 +328,11 @@ namespace MKproject.Management
         public static DataTable GetLinkedPArentsSQL(string ChildOrParentPhoneNumber)
         {
             DataTable dt = new DataTable();
-            string query = "SELECT CONCAT(name, ' ', family_name) AS [Full Name],client_id,phone_number FROM client WHERE phone_number = @phoneNumber AND IsParent = 1 ";
+            string query = "SELECT name || ' ' || family_name AS [Full Name],client_id,phone_number FROM client WHERE phone_number = @phoneNumber AND IsParent = 1 ";
             con.Open();
-            SqlCommand command = new SqlCommand(query, con);
+            SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@phoneNumber", ChildOrParentPhoneNumber);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             con.Close();
             adapter.Fill(dt);
             return dt;
@@ -340,8 +341,8 @@ namespace MKproject.Management
         {
 
             DataTable dt = new DataTable();
-            string query = "SELECT client_id,name,family_name,phone_number as \"Phone Number\",adress as \"Adress\",IsParent FROM Client WHERE IsChild='false' ";
-            SqlCommand command = null;
+            string query = "SELECT client_id,name,family_name,phone_number as \"Phone Number\",adress as \"Adress\",IsParent FROM Client WHERE IsChild='0' ";
+            SQLiteCommand command = null;
 
             if (ClientId != null)//update form
             {
@@ -350,7 +351,7 @@ namespace MKproject.Management
             query += " ORDER BY last_time_searched  DESC";
 
 
-            command = new SqlCommand(query, con);
+            command = new SQLiteCommand(query, con);
 
 
             if (ClientId != null)//update form
@@ -359,7 +360,7 @@ namespace MKproject.Management
             }
 
 
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             adapter.Fill(dt);
             return dt;
         }
@@ -367,33 +368,36 @@ namespace MKproject.Management
         {
 
             // SQL query to select clients with birthdays within 7 days
-            string query = @"DECLARE @Today DATE = GETDATE();
-                    DECLARE @In14Days DATE = DATEADD(DAY, 30, @Today);
-                    SELECT 
-                      client_id,  
-                      CONCAT(name, ' ', family_name) AS Name, 
-                      date_of_birth AS Birthday
-                    FROM 
-                       client 
-                    WHERE
-                    date_of_birth IS NOT NULL
-                    AND (
-                   (MONTH(date_of_birth) > MONTH(@Today) OR (MONTH(date_of_birth) = MONTH(@Today) AND DAY(date_of_birth) >= DAY(@Today)))
-                   AND
-                   (MONTH(date_of_birth) < MONTH(@In14Days) OR (MONTH(date_of_birth) = MONTH(@In14Days) AND DAY(date_of_birth) <= DAY(@In14Days)))
-                   OR
-                   (MONTH(@Today) > MONTH(@In14Days) AND (
-                 (MONTH(date_of_birth) > MONTH(@Today) OR (MONTH(date_of_birth) = MONTH(@Today) AND DAY(date_of_birth) >= DAY(@Today)))
-                   OR
-                 (MONTH(date_of_birth) < MONTH(@In14Days) OR (MONTH(date_of_birth) = MONTH(@In14Days) AND DAY(date_of_birth) <= DAY(@In14Days)))
-                ))
-                 )
-                ORDER BY 
-              MONTH(date_of_birth) ASC , DAY(date_of_birth) ASC
-              ";
+            string query = @"
+     SELECT 
+        client_id,  
+        name || ' ' || family_name AS Name, 
+        date_of_birth AS Birthday
+    FROM 
+        client 
+    WHERE
+        date_of_birth IS NOT NULL
+        AND (
+            (strftime('%m', date_of_birth) > strftime('%m', 'now') 
+                OR (strftime('%m', date_of_birth) = strftime('%m', 'now') AND strftime('%d', date_of_birth) >= strftime('%d', 'now')))
+            AND
+            (strftime('%m', date_of_birth) < strftime('%m', date('now', '+30 days')) 
+                OR (strftime('%m', date_of_birth) = strftime('%m', date('now', '+30 days')) AND strftime('%d', date_of_birth) <= strftime('%d', date('now', '+30 days'))))
+            OR
+            (strftime('%m', 'now') > strftime('%m', date('now', '+30 days')) AND (
+                (strftime('%m', date_of_birth) > strftime('%m', 'now') 
+                    OR (strftime('%m', date_of_birth) = strftime('%m', 'now') AND strftime('%d', date_of_birth) >= strftime('%d', 'now')))
+                OR
+                (strftime('%m', date_of_birth) < strftime('%m', date('now', '+30 days')) 
+                    OR (strftime('%m', date_of_birth) = strftime('%m', date('now', '+30 days')) AND strftime('%d', date_of_birth) <= strftime('%d', date('now', '+30 days'))))
+            ))
+        )
+    ORDER BY 
+        strftime('%m', date_of_birth) ASC, strftime('%d', date_of_birth) ASC
+";
 
-            SqlCommand command = new SqlCommand(query, con);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            SQLiteCommand command = new SQLiteCommand(query, con);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             return dt;
@@ -404,7 +408,7 @@ namespace MKproject.Management
             double TotalBalance;
             con.Open();
             string getLastClientIdQuery = "SELECT total_balance FROM client where client_id='" + ClientId + "'";
-            using (SqlCommand command = new SqlCommand(getLastClientIdQuery, con))
+            using (SQLiteCommand command = new SQLiteCommand(getLastClientIdQuery, con))
             {
                 TotalBalance = Convert.ToInt32(command.ExecuteScalar());
             }
@@ -417,16 +421,16 @@ namespace MKproject.Management
         public static bool UpdateClientCheckInSQLIfShould(int ClientID, DateTime Date)
         {
             string querySelect = @"SELECT MAX(execute_date) FROM client_services_attendance WHERE client_id = @client_id";
-            SqlCommand cmdSelect = new SqlCommand(querySelect, con);
+            SQLiteCommand cmdSelect = new SQLiteCommand(querySelect, con);
             cmdSelect.Parameters.AddWithValue("@client_id", ClientID);
             con.Open();
-            DateTime? MaxCheckInDate = cmdSelect.ExecuteScalar() as DateTime?;
+            DateTime? MaxCheckInDate = cmdSelect.ExecuteScalar() is DBNull ? null : Convert.ToDateTime(cmdSelect.ExecuteScalar());
             con.Close();
 
             if (MaxCheckInDate == null || MaxCheckInDate < Date)
             {
                 string query = "UPDATE client SET check_in=@check_in WHERE client_id=@client_id ";
-                SqlCommand cmdUpdate = new SqlCommand(query, con);
+                SQLiteCommand cmdUpdate = new SQLiteCommand(query, con);
                 cmdUpdate.Parameters.AddWithValue("@client_id", ClientID);
                 cmdUpdate.Parameters.AddWithValue("@check_in", Date);
                 con.Open();
@@ -450,10 +454,10 @@ namespace MKproject.Management
             }
             else
             {
-                query = "UPDATE client SET total_balance+=@total_balance where client_id=@client_id";
+                query = "UPDATE client SET total_balance = total_balance + @total_balance where client_id=@client_id";
             }
 
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             cmd.Parameters.AddWithValue("@total_balance", TotalBalance);
             con.Open();
@@ -470,10 +474,10 @@ namespace MKproject.Management
             }
             else
             {
-                query = "UPDATE client SET total_payment+=@total_payment where client_id=@client_id";
+                query = "UPDATE client SET total_payment= total_payment + @total_payment where client_id=@client_id";
             }
 
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             cmd.Parameters.AddWithValue("@total_payment", TotalPayemnt);
             con.Open();
@@ -483,7 +487,7 @@ namespace MKproject.Management
         public static void MakeClientMemberSQL(int ClientID)
         {
             string query = "UPDATE client SET Registration_Date=@Registration_Date  where client_id=@client_id";
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@Registration_Date", DateTime.Now);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             con.Open();
@@ -493,7 +497,7 @@ namespace MKproject.Management
         public static void UpdateClientLastsearchedSQL(int ClientID)
         {
             string query = "UPDATE client SET last_time_searched=@last_time_searched  where client_id=@client_id";
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@last_time_searched", DateTime.Now);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             con.Open();
@@ -503,7 +507,7 @@ namespace MKproject.Management
         public static void UpdateClientIsParentSQL(int ClientID, bool IsParent)
         {
             string query = "UPDATE client SET IsParent=@IsParent  where client_id=@client_id";
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@IsParent", IsParent);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             con.Open();
@@ -516,7 +520,7 @@ namespace MKproject.Management
             string updateQuery = "UPDATE client " +
                                 "SET AlbumType = @AlbumType " +
                                 "WHERE client_id = @client_id";
-            SqlCommand command = new SqlCommand(updateQuery, con);
+            SQLiteCommand command = new SQLiteCommand(updateQuery, con);
             if (AlbumName != null)
             {
                 command.Parameters.AddWithValue("@AlbumType", AlbumName);
@@ -535,7 +539,7 @@ namespace MKproject.Management
         public static void UpdateAllChildrensPhoneNumberSQL(string OldPhoneNumber, string NewPhoneNumber)
         {
             string query = "UPDATE client SET phone_number=@NewPhoneNumber where phone_number=@OldPhoneNumber ";
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@NewPhoneNumber", NewPhoneNumber);
             cmd.Parameters.AddWithValue("@OldPhoneNumber", OldPhoneNumber);
             con.Open();
@@ -553,7 +557,7 @@ namespace MKproject.Management
             ClassClientBalance.InsertToClientBalance(Client.ClientId, Bundle.BundleID, Bundle.EnumBundletype.ToString());
             DataTable dtinserteditem = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(null);
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                                            
-            int ClientBalanceId = (int)InsertedRow["client_balance_id"];
+            int ClientBalanceId = Convert.ToInt32(InsertedRow["client_balance_id"]);
 
             if (Bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
             {
@@ -574,7 +578,7 @@ namespace MKproject.Management
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
-            ProjectToSQL.InsertToFinance((int)InsertedRow["client_balance_id"], 0, BackOfficeDate, Client.AlbumType);//kermel el count
+            ProjectToSQL.InsertToFinance(Convert.ToInt32(InsertedRow["client_balance_id"]), 0, BackOfficeDate, Client.AlbumType);//kermel el count
 
             if (Client.RegistrationDate == null && Bundle.IsMemberShip == true)
             {
@@ -593,11 +597,11 @@ namespace MKproject.Management
 
             ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, -product.Price, false);
 
-            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["client_balance_id"], null, null, null, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null, null, null, null, Date);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
-            ProjectToSQL.InsertToFinance((int)InsertedRow["client_balance_id"], 0, Date, Client.AlbumType);//kermel el count
+            ProjectToSQL.InsertToFinance(Convert.ToInt32(InsertedRow["client_balance_id"]), 0, Date, Client.AlbumType);//kermel el count
             return dtinserteditem;
         }
 
@@ -609,22 +613,12 @@ namespace MKproject.Management
 
 
             // Phone number does not exist, proceed with insertion
-            string insertQuery = "INSERT INTO client (name, family_name, gender, date_of_birth, muscles_focus_on, weight, height, hand, body_shape_target, injuries, sessions_per_week, phone_number, adress, job, special_note, insta_user, IsChild,IsParent,AlbumType,last_time_searched,save_date,Registration_Date,check_in,total_balance,total_payment,email,marital_status,know_about_us,timeline_goals,smoking_consumption,alcohol_consumption,exercise_history,sleep_patterns,stress_levels,profile_image_path,fighting_skills) " +
-                                 "VALUES (@Name, @FamilyName, @Gender, @DateOfBirth, @MusclesFocusOn, @Weight, @Height, @Hand, @BodyShapeTarget, @Injuries, @SessionsPerWeek, @PhoneNumber, @Adress, @Job, @SpecialNote, @InstaUser, @IsChild,@IsParent,@AlbumType,@last_time_searched,@save_date,@Registration_Date,@check_in,@total_balance,@total_payment,@Email,@MaritalStatus,@KnowAboutUs,@TimelineGoals,@Smoking,@Alcohol,@ExerciseHistory,@SleepPattern,@StressLevel,@profile_image_path,@fighting_skills)";
+            string insertQuery = "INSERT INTO client (name, family_name, gender, date_of_birth, muscles_focus_on, weight, height, hand, body_shape_target, injuries, sessions_per_week, phone_number, adress, job, special_note, insta_user, IsChild,IsParent,AlbumType,last_time_searched,save_date,Registration_Date,check_in,total_balance,total_payment,email,marital_status,know_about_us,timeline_goals,smoking_consumption,alcohol_consumption,exercise_history,sleep_patterns,stress_levels,fighting_skills) " +
+                                 "VALUES (@Name, @FamilyName, @Gender, @DateOfBirth, @MusclesFocusOn, @Weight, @Height, @Hand, @BodyShapeTarget, @Injuries, @SessionsPerWeek, @PhoneNumber, @Adress, @Job, @SpecialNote, @InstaUser, @IsChild,@IsParent,@AlbumType,@last_time_searched,@save_date,@Registration_Date,@check_in,@total_balance,@total_payment,@Email,@MaritalStatus,@KnowAboutUs,@TimelineGoals,@Smoking,@Alcohol,@ExerciseHistory,@SleepPattern,@StressLevel,@fighting_skills)";
 
-            SqlCommand command = new SqlCommand(insertQuery, con);
+            SQLiteCommand command = new SQLiteCommand(insertQuery, con);
 
-            if (ProfileImage != null)
-            {
-                int InsertedClientId = GetLastClientIDSQL() + 1;
-                ImagesFunctions.SaveImage(this.ProfileImage, Program.FolderProfileImagePath, ImageName + InsertedClientId);
-                command.Parameters.AddWithValue("@profile_image_path", ImageName + InsertedClientId);
-            }
-            else
-            {
-                command.Parameters.AddWithValue("@profile_image_path", DBNull.Value);
-            }
-
+           
             if (Fname == null)
             {
 
@@ -808,11 +802,27 @@ namespace MKproject.Management
             command.ExecuteNonQuery();
             con.Close();
 
+           
+            if (ProfileImage != null)
+            {
+                string QueryUpdateImage = "Update client Set  profile_image_path=@profile_image_path where client_id=@client_id ";
+                SQLiteCommand commandUpdateImage = new SQLiteCommand(QueryUpdateImage, con);
+
+                int InsertedClientId = GetLastClientIDSQL();
+                ImagesFunctions.SaveImage(this.ProfileImage, Program.FolderProfileImagePath, ImageName + InsertedClientId);
+                commandUpdateImage.Parameters.AddWithValue("@profile_image_path", ImageName + InsertedClientId);
+                commandUpdateImage.Parameters.AddWithValue("@client_id", InsertedClientId);
+                con.Open();
+                commandUpdateImage.ExecuteNonQuery();
+                con.Close();
+            }
+           
+
         }
         public void UpdateClientToSQL(bool PicisChanged)
         {
             string UpdateQuery;
-            SqlCommand command;
+            SQLiteCommand command;
             if (PicisChanged)
             {
                 UpdateQuery = @"UPDATE client 
@@ -829,7 +839,7 @@ namespace MKproject.Management
                      WHERE client_id = @client_id";
 
 
-                command = new SqlCommand(UpdateQuery, con);
+                command = new SQLiteCommand(UpdateQuery, con);
 
                 if (ProfileImage == null)
                 {
@@ -857,7 +867,7 @@ namespace MKproject.Management
                      sleep_patterns = @SleepPattern, stress_levels = @StressLevel,fighting_skills = @fighting_skills 
                      WHERE client_id = @client_id";
 
-                command = new SqlCommand(UpdateQuery, con);
+                command = new SQLiteCommand(UpdateQuery, con);
 
             }
 
@@ -1033,47 +1043,49 @@ namespace MKproject.Management
 
             //kermel el balance
             string QueryDeleteArchive = "DELETE FROM archive WHERE client_id = '" + ClientId + "'";
-            SqlCommand cmd1 = new SqlCommand(QueryDeleteArchive, con);
+            SQLiteCommand cmd1 = new SQLiteCommand(QueryDeleteArchive, con);
             cmd1.ExecuteNonQuery();
 
             string QueryDeleteFinance = "DELETE FROM finance WHERE client_balance_id IN ( SELECT client_balance_id  FROM client_balance WHERE client_id = '" + ClientId + "')";
-            SqlCommand cmd2 = new SqlCommand(QueryDeleteFinance, con);
+            SQLiteCommand cmd2 = new SQLiteCommand(QueryDeleteFinance, con);
             cmd2.ExecuteNonQuery();
 
 
             //kermel el appintment
             string QueryDeleteClientAttendace = "DELETE FROM client_services_attendance WHERE client_id = '" + ClientId + "'";
-            SqlCommand cmd4 = new SqlCommand(QueryDeleteClientAttendace, con);
+            SQLiteCommand cmd4 = new SQLiteCommand(QueryDeleteClientAttendace, con);
             cmd4.ExecuteNonQuery();
 
             string QueryDeleteAppBundles = "DELETE FROM appointment_has_bundles WHERE appointment_id IN ( SELECT appointment_id  FROM appointments WHERE client_id = '" + ClientId + "')";
-            SqlCommand cmd8 = new SqlCommand(QueryDeleteAppBundles, con);
+            SQLiteCommand cmd8 = new SQLiteCommand(QueryDeleteAppBundles, con);
             cmd8.ExecuteNonQuery();
 
             string QueryDeleteAppointments = "DELETE FROM appointments WHERE client_id = '" + ClientId + "'";
-            SqlCommand cmd5 = new SqlCommand(QueryDeleteAppointments, con);
+            SQLiteCommand cmd5 = new SQLiteCommand(QueryDeleteAppointments, con);
             cmd5.ExecuteNonQuery();
             //
 
 
             string QueryDeleteClientBalance = "DELETE FROM client_balance WHERE client_id = '" + ClientId + "'";
-            SqlCommand cmd3 = new SqlCommand(QueryDeleteClientBalance, con);
+            SQLiteCommand cmd3 = new SQLiteCommand(QueryDeleteClientBalance, con);
             cmd3.ExecuteNonQuery();
             //
 
 
             string QueryDeleteClientReminders = "DELETE FROM reminder WHERE client_id = '" + ClientId + "'";
-            SqlCommand cmd7 = new SqlCommand(QueryDeleteClientReminders, con);
+            SQLiteCommand cmd7 = new SQLiteCommand(QueryDeleteClientReminders, con);
             cmd7.ExecuteNonQuery();
 
             string QueryDeleteClient = "DELETE FROM client WHERE client_id = '" + ClientId + "'";
-            SqlCommand cmd6 = new SqlCommand(QueryDeleteClient, con);
+            SQLiteCommand cmd6 = new SQLiteCommand(QueryDeleteClient, con);
             cmd6.ExecuteNonQuery();
 
 
             con.Close();
 
         }
+
+
 
         public bool CheckIfCLientHasClientBalanceRefrences()
         {
@@ -1083,7 +1095,7 @@ namespace MKproject.Management
                             And
                             EXISTS (SELECT * FROM client_balance as cb where cl.client_id=cb.client_id)";
 
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientId);
             con.Open();
             int nb = Convert.ToInt32(cmd.ExecuteScalar());
@@ -1112,7 +1124,7 @@ namespace MKproject.Management
             ClassClient client = new ClassClient();
 
 
-            client.ClientId = (int)datarow["client_id"];//noway ykun bel db fi client ma endo clientid
+            client.ClientId = Convert.ToInt32(datarow["client_id"]);//noway ykun bel db fi client ma endo clientid
             client.Fname = datarow["name"] is DBNull ? null : (string)datarow["name"];
             client.Lname = datarow["family_name"] is DBNull ? null : (string)datarow["family_name"];
             client.PhoneNumber = datarow["phone_number"] is DBNull ? null : (string)datarow["phone_number"];
@@ -1127,9 +1139,9 @@ namespace MKproject.Management
             client.MaritalStatus = datarow["marital_status"] is DBNull ? null : (string)datarow["marital_status"];
 
 
-            client.BirthDate = datarow["date_of_birth"] is DBNull ? (DateTime?)null : (DateTime)datarow["date_of_birth"];   //age is being calculated in the set of this prop     
-            client.IsChild = (Boolean)datarow["IsChild"];
-            client.IsParent = (Boolean)datarow["IsParent"];
+            client.BirthDate = datarow["date_of_birth"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["date_of_birth"]);   //age is being calculated in the set of this prop     
+            client.IsChild = Convert.ToBoolean(datarow["IsChild"]);
+            client.IsParent = Convert.ToBoolean(datarow["IsParent"]);
             client.AlbumType = datarow["AlbumType"] is DBNull ? null : (string)datarow["AlbumType"];
 
 
@@ -1137,17 +1149,17 @@ namespace MKproject.Management
             client.ProfileImage = ImagesFunctions.RetrieveImage(Program.FolderProfileImagePath, client.ProfileImageName);
 
 
-            client.SaveDate = datarow["save_date"] is DBNull ? (DateTime?)null : (DateTime)datarow["save_date"];
-            client.LastVisit = datarow["check_in"] is DBNull ? (DateTime?)null : (DateTime)datarow["check_in"];
-            client.RegistrationDate = datarow["Registration_Date"] is DBNull ? (DateTime?)null : (DateTime)datarow["Registration_Date"];
+            client.SaveDate = datarow["save_date"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["save_date"]);
+            client.LastVisit = datarow["check_in"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["check_in"]);
+            client.RegistrationDate = datarow["Registration_Date"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["Registration_Date"]);
 
             //should be calculated and inserted in other forms
 
-            client.TotalAttendance = CalculateNOAttendance((int)datarow["client_id"]);//always exist while inserting a new clien
+            client.TotalAttendance = CalculateNOAttendance(Convert.ToInt32(datarow["client_id"]));//always exist while inserting a new clien
 
 
-            client.TotalBalance = (double)datarow["total_balance"];
-            client.TotalPayment = (double)datarow["total_payment"];
+            client.TotalBalance = Convert.ToDouble(datarow["total_balance"]);
+            client.TotalPayment = Convert.ToDouble(datarow["total_payment"]);
 
 
             client.Weight = datarow["weight"] is DBNull ? null : (string)datarow["weight"];
@@ -1163,7 +1175,7 @@ namespace MKproject.Management
 
 
 
-            client.SessionPerWeek = datarow["sessions_per_week"] is DBNull ? (int?)null : (int)datarow["sessions_per_week"];
+            client.SessionPerWeek = datarow["sessions_per_week"] is DBNull ? null : Convert.ToInt32(datarow["sessions_per_week"]);
             client.Hand = datarow["hand"] is DBNull ? null : (string)datarow["hand"];
 
             client.Note = datarow["special_note"] is DBNull ? null : (string)datarow["special_note"];
@@ -1184,7 +1196,7 @@ namespace MKproject.Management
             var groupedData = from row in AttendDtt.AsEnumerable()
                               group row by new
                               {
-                                  ClientId = row.Field<int>("client_id"),
+                                  ClientId = row.Field<Int64>("client_id"),
 
                               } into grp
                               select new

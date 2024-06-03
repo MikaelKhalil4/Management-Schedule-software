@@ -137,7 +137,7 @@ namespace MKproject.Management
             {
                 if (ClientManagementProfileForm == null)//jeyin men new register
                 {
-                    RegisterForm.SaveOrUpdate(albumName);
+                    RegisterForm.SaveOrUpdate(albumName,false);
                 }
                 else//jeyin men clientProfile
                 {
@@ -174,7 +174,7 @@ namespace MKproject.Management
                     }
                     else
                     {
-                        CustomMessageBox.Show("Album already exist", CustomMessageBox.Type.Ok);
+                        CustomMessageBox.Show("Album name already exist", CustomMessageBox.Type.Error);
                     }
                 }
                 else
@@ -198,7 +198,7 @@ namespace MKproject.Management
                     }
                     else
                     {
-                        CustomMessageBox.Show("Album name already exist", CustomMessageBox.Type.Ok);
+                        CustomMessageBox.Show("Album name already exist", CustomMessageBox.Type.Error);
                     }
                 }
             }
@@ -249,7 +249,7 @@ namespace MKproject.Management
         {
             if (ClientManagementProfileForm == null)
             {
-                RegisterForm.SaveOrUpdate(null);
+                RegisterForm.SaveOrUpdate(null,false);
             }
             else
             {

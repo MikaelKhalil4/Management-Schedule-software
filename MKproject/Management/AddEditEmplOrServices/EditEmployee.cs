@@ -328,7 +328,7 @@ namespace MKproject.Management
             {
                 if (CheckPhoneNumber())
                 {
-                    CustomMessageBox.Show("This Phone Number is already taken", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("This Phone Number is already taken", CustomMessageBox.Type.Error);
                     a = false;
                 }
             }
@@ -339,7 +339,7 @@ namespace MKproject.Management
             string PhoneNumber = ucTextboxPhoneNumber.myTextBox1.Text;
             if (DesiredRow != null)//edit mode not add
             {
-                return ClassEmployee.SearchEmployeePhoneNumber((int)DesiredRow["employee_id"], PhoneNumber);
+                return ClassEmployee.SearchEmployeePhoneNumber(Convert.ToInt32(DesiredRow["employee_id"]), PhoneNumber);
             }
             else
             {
@@ -393,7 +393,7 @@ namespace MKproject.Management
 
             if (employee.CheckIfPAsswordExist(null))
             {
-                CustomMessageBox.Show("Password already exists , choose another one", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("Password already exists , choose another one", CustomMessageBox.Type.Error);
             }
             else
             {
@@ -430,23 +430,23 @@ namespace MKproject.Management
             employee.Status = checkBoxStatus.Checked;
             employee.IsScheduleMember = checkBoxScheduleMember.Checked;
             //
-            employee.EmployeeId = (int)DesiredRow["employee_id"];
+            employee.EmployeeId = Convert.ToInt32(DesiredRow["employee_id"]);
          
-            employee.Rank = DesiredRow["rank"] is DBNull ? null : (int)DesiredRow["rank"];
+            employee.Rank = DesiredRow["rank"] is DBNull ? null : Convert.ToInt32(DesiredRow["rank"]);
             employee.Availability= DesiredRow["availability"] is DBNull? null : (string)DesiredRow["availability"];
 
-            bool OldIsScheduleMember = (bool)DesiredRow["is_schedule_member"];
+            bool OldIsScheduleMember = Convert.ToBoolean(DesiredRow["is_schedule_member"]);  
             bool NewIsScheduleMember = checkBoxScheduleMember.Checked;
 
 
 
             if (employee.CheckIfPAsswordExist(DesiredRow["password"].ToString()))
             {
-                CustomMessageBox.Show("Password already exists , choose another one.", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("Password already exists , choose another one.", CustomMessageBox.Type.Error);
             }
             else if (OldIsScheduleMember == true && NewIsScheduleMember == false && employee.CheckIfEmployeeHasAppointments())//in case aam notfe el employee as schedule member
             {
-                CustomMessageBox.Show("To deactivate the employee's schedule, cancel all their present And future appointments.", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("To deactivate the employee's schedule, cancel all their present And future appointments.", CustomMessageBox.Type.OkInfo);
             }
             else
             {
@@ -494,11 +494,11 @@ namespace MKproject.Management
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            ClassEmployee employee = ClassEmployee.CreateEmployeeObject((int)DesiredRow["employee_id"]);
+            ClassEmployee employee = ClassEmployee.CreateEmployeeObject(Convert.ToInt32(DesiredRow["employee_id"]));
           
             if (employee.CheckIfEmployeeHasReferences())
             {
-                CustomMessageBox.Show("Cannot delete this employee as there is some data attached to them.", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("Cannot delete this employee as there is some data attached to them.", CustomMessageBox.Type.Error);
             }
             else
             {

@@ -673,8 +673,8 @@ namespace MKproject.Management
         void CreateUCPureNumber(UCNumberButt uCPureNumber, int DesiredIndex, string initialNumber)
         {
 
-            uCPureNumber.Minimum_number = Convert.ToInt16(initialNumber);
-            uCPureNumber.Number = Convert.ToInt16(initialNumber);
+            uCPureNumber.Minimum_number = Convert.ToInt32(initialNumber);
+            uCPureNumber.Number = Convert.ToInt32(initialNumber);
             uCPureNumber.Visible = false;
 
             uCPureNumber.Size = new Size(90, 28);

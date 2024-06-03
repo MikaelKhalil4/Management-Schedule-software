@@ -506,7 +506,7 @@ namespace MKproject.Management
         }
         public void FillSessionDoneColumn()//will be called in comboxboxchangedindex
         {
-
+            Cursor.Current = Cursors.WaitCursor;
             //client struct
             OriginalAttendDtt = SQLToProject.GetAllClientAttendance(null);//always, lieanno eza fetna profile w ghayrna w jina hattayna column check banda yeha taamil refresh, so ma tfakkir tshila
 
@@ -515,16 +515,16 @@ namespace MKproject.Management
             foreach (DataRow row in ParentFormSearch.Filtereddt.Rows)
             {
                 int SessionDone;
-                GroupedAndFilteredDictionary.TryGetValue((int)row["client_id"], out SessionDone);
+                GroupedAndFilteredDictionary.TryGetValue(Convert.ToInt32(row["client_id"]), out SessionDone);
                 row["Total Attendance"] = SessionDone;
             }
             foreach (DataRow row in ParentFormSearch.Originaldt.Rows)
             {
                 int SessionDone;
-                GroupedAndFilteredDictionary.TryGetValue((int)row["client_id"], out SessionDone);
+                GroupedAndFilteredDictionary.TryGetValue((Convert.ToInt32(row["client_id"])), out SessionDone);
                 row["Total Attendance"] = SessionDone;
             }
-
+            Cursor.Current = Cursors.Default;
         }
         void FilterDatatableByDate(string date)
         {
@@ -558,7 +558,7 @@ namespace MKproject.Management
             var groupedData = from row in FilteredStructdt.AsEnumerable()
                               group row by new
                               {
-                                  ClientId = row.Field<int>("client_id"),
+                                  ClientId = row.Field<Int64>("client_id"),
                               } into grp
                               select new
                               {
@@ -569,7 +569,7 @@ namespace MKproject.Management
             GroupedAndFilteredDictionary.Clear();
             foreach (var group in groupedData)
             {
-                GroupedAndFilteredDictionary.Add(group.ClientId, group.NumberOfSessions);
+                GroupedAndFilteredDictionary.Add(Convert.ToInt32(group.ClientId), group.NumberOfSessions);
             }
 
         }

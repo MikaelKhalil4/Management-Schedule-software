@@ -503,7 +503,7 @@ namespace MKproject.Schedule
                 else
                 {
                     DisableClosingOnDisactivating = true;
-                    CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("This Time is not available,Choose another one ", CustomMessageBox.Type.OkWarning);
                     DisableClosingOnDisactivating = false;
                     return true;
                 }
@@ -676,7 +676,7 @@ namespace MKproject.Schedule
                                 {
                                     DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays--;
                                     DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();//krmel el design
-                                    ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, (int)DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays, DesiredAppointmentAppForm.AppointmentID, DateTime.Now, DesiredAppointmentAppForm.StartTime);
+                                    ClassClientBalance.ReduceSessionFromPackageOfSessions(DesiredAppointmentAppForm.DesiredClient.ClientId, DesiredAppointmentAppForm.DesiredClientBalance.ClientBalanceID, Convert.ToInt32(DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays), DesiredAppointmentAppForm.AppointmentID, DateTime.Now, DesiredAppointmentAppForm.StartTime);
 
                                     //
                                     CompletingOrUndoingCompletionAppointment(true);
@@ -685,14 +685,14 @@ namespace MKproject.Schedule
                                 else
                                 {
                                     DisableClosingOnDisactivating = true;
-                                    CustomMessageBox.Show("Can't complete this appointment because there are no sessions left.\nPlease renew the package or choose another service.", CustomMessageBox.Type.Ok);
+                                    CustomMessageBox.Show("Can't complete this appointment because there are no sessions left.\nPlease renew the package or choose another service.", CustomMessageBox.Type.OkWarning);
                                     DisableClosingOnDisactivating = false;
                                 }
                             }
                             else
                             {
                                 DisableClosingOnDisactivating = true;
-                                CustomMessageBox.Show("Can't complete this appointment because the chosen package is expired", CustomMessageBox.Type.Ok);
+                                CustomMessageBox.Show("Can't complete this appointment because the chosen package is expired", CustomMessageBox.Type.OkWarning);
                                 DisableClosingOnDisactivating = false;
                             }
 
@@ -907,7 +907,7 @@ namespace MKproject.Schedule
                             List<ClassBundles> bundles = new List<ClassBundles>();
                             foreach (DataRow dr in ChosenBundles.Rows)
                             {
-                                bundles.Add(ClassBundles.CreateBundleObject((int)dr["bundle_id"]));
+                                bundles.Add(ClassBundles.CreateBundleObject(Convert.ToInt32(dr["bundle_id"])));
                             }
                             DesiredAppointmentAppForm.ChosenBundlesList = bundles;//ased eemelneha kermel yenkhalae el string ma3a
 
