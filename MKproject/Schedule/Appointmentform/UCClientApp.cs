@@ -36,7 +36,7 @@ namespace MKproject.Schedule
         IconButton IconDeleteService;
         UCSlideButton ucSlideButtonServicerOthers;
         Label labelFullName;
-       
+
         ToolTip toolTip1;
 
         public ClassAppointment DesiredAppointmentUCClientApp;
@@ -87,7 +87,7 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCClientApp.DesiredClient != null)
             {
                 SetLabelbalanceDesign();
-              
+
             }
             else
             {
@@ -114,7 +114,7 @@ namespace MKproject.Schedule
                     TLPglobal.SetColumnSpan(labelFullName, 3);
                 }
                 labelFullName.Text = DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + DesiredAppointmentUCClientApp.DesiredClient.Lname;
-              
+
             }
             else
             {
@@ -129,7 +129,7 @@ namespace MKproject.Schedule
 
             if (DesiredAppointmentUCClientApp.Title != null)
             {
-              
+
                 if (!string.IsNullOrEmpty(DesiredAppointmentUCClientApp.Title))
                 {
                     LabelService.Text = DesiredAppointmentUCClientApp.Title;
@@ -140,7 +140,7 @@ namespace MKproject.Schedule
                     LabelService.Text = "N/A";
                 }
 
-                LabelServiceOutput.Text= "Title:";
+                LabelServiceOutput.Text = "Title:";
             }
             else if (DesiredAppointmentUCClientApp.IsPackageMode)
             {
@@ -148,7 +148,7 @@ namespace MKproject.Schedule
             }
             else
             {
-                LabelServiceOutput.Text = "Service/Title:";               
+                LabelServiceOutput.Text = "Service/Title:";
             }
 
             FunctionsForWinformsTool.AdjustTableLayoutPanelHeight(TLPglobal);
@@ -171,8 +171,8 @@ namespace MKproject.Schedule
             ucSlideButtonServicerOthers.Button2Clicked += UcSlideButtonClientOrOthers_Button2Clicked;
 
 
-           
-           
+
+
 
             ButtonChangeORChooseService = new CustomButton();
             ButtonChangeORChooseService.Size = new Size(220, 30);
@@ -215,7 +215,7 @@ namespace MKproject.Schedule
             LabelNoDataRecorded.TextAlign = ContentAlignment.MiddleCenter;
             LabelNoDataRecorded.AutoSize = false;
             LabelNoDataRecorded.Dock = DockStyle.Fill;
-            LabelNoDataRecorded.Margin = new Padding(5, 0, 5, 0);
+            LabelNoDataRecorded.Margin = new Padding(5, 0, 5, 5);
 
 
             pictureBoxSearch = new PictureBox();
@@ -270,7 +270,7 @@ namespace MKproject.Schedule
             LabelBalance.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             LabelBalance.AutoSize = true;
             LabelBalance.Margin = new Padding(6);
-            LabelBalance.Anchor = AnchorStyles.Right;
+            LabelBalance.Anchor = AnchorStyles.Left;
         }
 
 
@@ -288,7 +288,7 @@ namespace MKproject.Schedule
             if (!TLPglobal.Controls.Contains(IconProfile))
             {
                 TLPglobal.Controls.Add(IconProfile, 0, 1);  //the scd row will be set tahet hasab el conditions    
-                TLPglobal.Controls.Add(LabelBalance, 2, 3);
+                TLPglobal.Controls.Add(LabelBalance, 1, 3);
                 TLPglobal.SetColumnSpan(LabelBalance, 2);
                 TLPglobal.Controls.Add(LabelBalanceOutput, 0, 3);
             }
@@ -325,8 +325,8 @@ namespace MKproject.Schedule
 
             if (!IsReadOrEdit)
             {
-                
-                TLPglobal.Controls.Add(ButtonChangeORChooseService,2,2);
+
+                TLPglobal.Controls.Add(ButtonChangeORChooseService, 2, 2);
                 TLPglobal.Controls.Add(IconDeleteService, 3, 2);
                 ButtonChangeORChooseService.Text = "Change";
             }
@@ -384,7 +384,6 @@ namespace MKproject.Schedule
 
 
         //Edit Mode
-        public event EventHandler OnUpdatingTheChosenClientBalance;//hayde ha ykun fiya event only to excute only eza update mode not add mode
         public void SetLogicAndDesignEditAndServiceMode(bool IsNewServiceOrOneOfMultipleIsSelected, bool IsCallingFromConstruction)//high level design/ w the param, huuwe not null lamma na2e shi men el choose el service
         {
             textBoxSearch.PlaceholderText = "By name or phone";
@@ -541,26 +540,18 @@ namespace MKproject.Schedule
 
                     if (!(bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired)//Package exist and not expired
                     {
-
-                        if (DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)//present
+                        if (DesiredAppointmentUCClientApp.StartTime.Date >= DateTime.Now.Date)//present-future
                         {
                             LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
                             if (DesiredAppointmentUCClientApp.DesiredClientBalance.SessionLeftDays == 0)
                             {
                                 LabelService.ForeColor = Color.Red;
-                            }                          
+                            }
                             else
                             {
                                 LabelService.ForeColor = Color.Black;
                             }
                         }
-                        else if (DesiredAppointmentUCClientApp.StartTime.Date > DateTime.Now.Date)//future 
-                        {
-
-                            LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.BundleName + " Package";
-                        }
-
-
                     }
                     else//Package exist and expired
                     {
@@ -571,7 +562,7 @@ namespace MKproject.Schedule
                 }
                 else if (DesiredAppointmentUCClientApp.StartTime.Date < DateTime.Now.Date)// past
                 {
-                    
+
                     LabelService.Text = DesiredAppointmentUCClientApp.HistoryClientBalance;
 
                 }
@@ -632,7 +623,7 @@ namespace MKproject.Schedule
 
             if (DesiredRow != null)
             {
-                DesiredAppointmentUCClientApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject((int)DesiredRow["client_balance_id"]);
+                DesiredAppointmentUCClientApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject(Convert.ToInt32(DesiredRow["client_balance_id"]));
                 DesiredAppointmentUCClientApp.DesiredClientBalance.SetStringDetailsIfBundle();
                 DesiredAppointmentUCClientApp.IsPackageMode = true;
             }
@@ -765,7 +756,6 @@ namespace MKproject.Schedule
 
 
 
-        public event EventHandler OnClientProfileInfoChanging;
         private void IconProfile_Click(object sender, EventArgs e)
         {
             ParentFormAppointment.DisableClosingOnDisactivating = true;
@@ -822,14 +812,12 @@ namespace MKproject.Schedule
             Program.GreyForm.Show();
 
 
-
             DesiredAppointmentUCClientApp.DesiredClient = Program.clientManagementProfile.Client;//el balance and  Personal Info automatically will be set
 
 
-
-            if (!IsReadOrEdit )
+            if (!IsReadOrEdit)
             {
-                
+
                 if (DesiredAppointmentUCClientApp.IsPackageMode && DesiredAppointmentUCClientApp.DesiredClientBalance != null && (bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired) //Expired Package 
                 {
                     //refresh lal maaloumet el cached  bas ma men ghayyir shi bel design
@@ -841,7 +829,7 @@ namespace MKproject.Schedule
                     //men ghayir, automation is working
                     SetLogicAndDesignEditAndServiceMode(false, false);//only bel present baamil update lal ucclientapp, past eendo static design
                 }
-               
+
             }
             else
             {
@@ -850,27 +838,28 @@ namespace MKproject.Schedule
                 SetReadOnlyDesign();
             }
 
-            if (ParentFormAppointment.UCappointment != null && ParentFormAppointment.UCappointment.DesiredAppointmentUCApp.IsPackageMode)//update mmode
+
+            if (DesiredAppointmentUCClientApp.DesiredClient != null && (DesiredAppointmentUCClientApp.IsPackageMode || DesiredAppointmentUCClientApp.ChosenBundlesList != null))
             {
-                OnUpdatingTheChosenClientBalance?.Invoke(this, EventArgs.Empty);
+                ParentFormAppointment.UcScheduleParentForm.RefreshAllRelatedAppointments(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
             }
-
-
-
-            OnClientProfileInfoChanging?.Invoke(this, EventArgs.Empty);//ejbare tahta
+            else
+            {
+                ParentFormAppointment.UcScheduleParentForm.RefreshDesiredAppointment(ParentFormAppointment.UCappointment);
+            }
 
             if (IsReadOrEdit && !DesiredAppointmentUCClientApp.IsCompleted && DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)
             {// lamma nkun bel present , juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               
-                
+
                 ParentFormAppointment.Close();
                 ParentFormAppointment.UCappointment.Control_MouseClick(null, null);
-          
+
             }
             else
             {
                 ParentFormAppointment.DisableClosingOnDisactivating = false;
                 ParentFormAppointment.Show();
-            }   
+            }
         }
 
 

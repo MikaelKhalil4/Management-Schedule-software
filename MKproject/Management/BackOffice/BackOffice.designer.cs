@@ -197,7 +197,7 @@ namespace MKproject.Management
             dataGridViewBackOffice.IsRowColorChangeonMouseMove = true;
             dataGridViewBackOffice.IsSelectRow = false;
             dataGridViewBackOffice.Location = new System.Drawing.Point(12, 88);
-            dataGridViewBackOffice.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            dataGridViewBackOffice.Margin = new System.Windows.Forms.Padding(12);
             dataGridViewBackOffice.MultiSelect = false;
             dataGridViewBackOffice.Name = "dataGridViewBackOffice";
             dataGridViewBackOffice.ReadOnly = true;
@@ -242,6 +242,7 @@ namespace MKproject.Management
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "BackOffice";
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "BackOffice";
             FormClosing += BackOffice_FormClosing;

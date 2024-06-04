@@ -463,7 +463,7 @@ namespace MKproject.Management
             foreach (DataRow row in dt.Rows)
             {
                 bool isVisible = Convert.ToBoolean(row["Visible"]);
-                int DesignIndex = Convert.ToInt16(row["design_index"]);
+                int DesignIndex = Convert.ToInt32(row["design_index"]);
                 string FieldName = row["Fields"].ToString();
 
 
@@ -768,7 +768,7 @@ namespace MKproject.Management
         {
 
             UCBundlePackage bundlePackage = new UCBundlePackage(false, DesiredRow);
-            bundlePackage.FakeId = Convert.ToInt16(DesiredRow["AutoIncrementColumn"]);
+            bundlePackage.FakeId = Convert.ToInt32(DesiredRow["AutoIncrementColumn"]);
             bundlePackage.ParentFormClientMan = this;
             bundlePackage.Dock = DockStyle.Left;
             panelBundles.Controls.Add(bundlePackage);
@@ -865,7 +865,7 @@ namespace MKproject.Management
         {
             if (e.RowIndex >= 0)
             {
-                int ClientBalanceId = Convert.ToInt16(dataGridViewBalance.Rows[e.RowIndex].Cells["client_balance_id"].Value);
+                int ClientBalanceId = Convert.ToInt32(dataGridViewBalance.Rows[e.RowIndex].Cells["client_balance_id"].Value);
 
                 if (dataGridViewBalance.Columns[e.ColumnIndex].Name == "PayOrEdit" && dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == PayOrEditImagePopUp)
                 {
@@ -891,7 +891,7 @@ namespace MKproject.Management
                     }
                     else
                     {
-                        CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+                        CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Error);
                     }
 
                 }
@@ -946,7 +946,7 @@ namespace MKproject.Management
             }
             else
             {
-                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Error);
             }
 
         }
@@ -1024,7 +1024,7 @@ namespace MKproject.Management
                 else if (Client.IsChild == true)
                 {
                     DataTable dt = ClassClient.GetLinkedPArentsSQL(Client.PhoneNumber);
-                    ParentIdInProfile = (int)dt.Rows[0]["client_id"];
+                    ParentIdInProfile = Convert.ToInt32(dt.Rows[0]["client_id"]);
                     iconViewOrProfile.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "userNude.png");
                     ucLabelAndDetailLinked.Type = "Linked Parent";
                     ucLabelAndDetailLinked.Detail = dt.Rows[0]["Full Name"].ToString();
@@ -1072,7 +1072,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.OkInfo);
                 }
             }
         }
@@ -1141,13 +1141,14 @@ namespace MKproject.Management
         {
 
             //can implement try catch
-            int ClientBalanceID = (int)DesiredClientBlanaceRow["client_balance_id"];
-            bool OldIsExpired = (bool)DesiredClientBlanaceRow["is_expired"];
+            int ClientBalanceID = Convert.ToInt32(DesiredClientBlanaceRow["client_balance_id"]);
+       
+            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);//fiya el old informatiomn
+            bool OldIsExpired = Convert.ToBoolean(rowToEdit["is_expired"]);
 
-          
+
 
             ///datagridgrid profile form
-            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
             rowToEdit["offre"] = DesiredClientBlanaceRow["offre"];
             rowToEdit["balance"] = DesiredClientBlanaceRow["balance"];
             rowToEdit["is_expired"] = DesiredClientBlanaceRow["is_expired"];
@@ -1164,7 +1165,7 @@ namespace MKproject.Management
 
             else//if it is  pakcage, bghayyir el state tabaa el bundle w bsir edir aamello Isexpired=false by clicking remove 
             {
-                if (OldIsExpired == true && (bool)rowToEdit["is_expired"] == false)
+                if (OldIsExpired == true && Convert.ToBoolean(rowToEdit["is_expired"]) == false)
                 {
                     //Add UCbundle
                     CheckAndSetNoBundleLabel();
@@ -1172,11 +1173,11 @@ namespace MKproject.Management
                 }
                 else if (FromBalance != 0 && (double)rowToEdit["balance"] == 0)
                 {
-                    UpdateIsInDebteToUCBundle(Convert.ToInt16(ClientBalanceID), false);
+                    UpdateIsInDebteToUCBundle(Convert.ToInt32(ClientBalanceID), false);
                 }
                 else if (FromBalance == 0 && (double)rowToEdit["balance"] != 0)
                 {
-                    UpdateIsInDebteToUCBundle(Convert.ToInt16(ClientBalanceID), true);
+                    UpdateIsInDebteToUCBundle(Convert.ToInt32(ClientBalanceID), true);
                 }
             }
 
@@ -1189,16 +1190,16 @@ namespace MKproject.Management
          //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel backoffice
         public void UpdateSessionNumber(DataRow DesiredClientBlanaceRow )
         {
-            
             //ready for try catch
+            int ClientBalanceID = Convert.ToInt32(DesiredClientBlanaceRow["client_balance_id"]);
+         
+            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);//fiya el old informatiomn
+            bool OldIsExpired = Convert.ToBoolean(rowToEdit["is_expired"]);
+
+
+
             //datatable update
-            int ClientBalanceID = Convert.ToInt16(DesiredClientBlanaceRow["client_balance_id"]);
-            bool OldIsExpired = (bool)DesiredClientBlanaceRow["is_expired"];
-
-
-           
             //datagrid profile form
-            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);
             rowToEdit["offre"] = DesiredClientBlanaceRow["offre"];
             rowToEdit["session_left_days"] = DesiredClientBlanaceRow["session_left_days"];
             rowToEdit["due_date"] = DesiredClientBlanaceRow["due_date"];
@@ -1209,7 +1210,7 @@ namespace MKproject.Management
             //Update related UC in parent form
             if (DesiredClientBlanaceRow["bundle_id"] != DBNull.Value && DesiredClientBlanaceRow["session_left_days"] != DBNull.Value)//bundle
             {
-                if (OldIsExpired == true && (bool)rowToEdit["is_expired"] == false)
+                if (OldIsExpired == true && Convert.ToBoolean(rowToEdit["is_expired"]) == false)
                 {
                     //Add UCpackage
                     CheckAndSetNoBundleLabel();
@@ -1218,11 +1219,11 @@ namespace MKproject.Management
 
                 if (rowToEdit["due_date"] == DBNull.Value)// package of session
                 {
-                    ResetUCMode(ClientBalanceID, (int)rowToEdit["session_left_days"], null);
+                    ResetUCMode(ClientBalanceID, Convert.ToInt32(rowToEdit["session_left_days"]), null);
                 }
                 else// package of days
                 {
-                    ResetUCMode(ClientBalanceID, (int)rowToEdit["session_left_days"], (DateTime)rowToEdit["due_date"]);
+                    ResetUCMode(ClientBalanceID, Convert.ToInt32(rowToEdit["session_left_days"]), Convert.ToDateTime(rowToEdit["due_date"]));
                 }
             }
 
@@ -1290,11 +1291,11 @@ namespace MKproject.Management
                     DesiredRowF["client_id"] = Client.ClientId;
                     DesiredRowO["client_id"] = Client.ClientId;
 
-                    if (!SearchCurrentClientform.Filtereddt.AsEnumerable().Any(row => row.Field<int>("client_id").Equals(Client.ClientId)))//reaffirmation,
+                    if (!SearchCurrentClientform.Filtereddt.AsEnumerable().Any(row => row.Field<Int64>("client_id").Equals(Client.ClientId)))//reaffirmation,
                     {
                         SearchCurrentClientform.Filtereddt.Rows.InsertAt(DesiredRowF, 0);
                     }
-                    if (!SearchCurrentClientform.Originaldt.AsEnumerable().Any(row => row.Field<int>("client_id").Equals(Client.ClientId)))//reaffirmation,cz sometimes, kenit tfout lahone w teele this clientid already exist which isnt logic,cz mafiya tfout lahone eza client id exists
+                    if (!SearchCurrentClientform.Originaldt.AsEnumerable().Any(row => row.Field<Int64>("client_id").Equals(Client.ClientId)))//reaffirmation,cz sometimes, kenit tfout lahone w teele this clientid already exist which isnt logic,cz mafiya tfout lahone eza client id exists
                     {
                         SearchCurrentClientform.Originaldt.Rows.InsertAt(DesiredRowO, 0);
                     }
@@ -1323,7 +1324,7 @@ namespace MKproject.Management
                     DesiredRowO["Total Attendance"] = Client.TotalAttendance;
 
 
-                    string filterExpression = "session_left_days IS NOT NULL AND is_expired = 'false' AND bundle_id IS NOT NULL";
+                    string filterExpression = "session_left_days IS NOT NULL AND is_expired = '0' AND bundle_id IS NOT NULL";
                     string sortExpression = "is_expired ASC, purchase_date DESC";
                     DataRow[] filteredAndSortedRows = dtClientBalanceOriginal.Select(filterExpression, sortExpression);
                     (Client.PackagesRemaining, Client.PackagesStatus, Client.PackagesHAsStatus) = FilterCheckListSearch.CalculateClientRemainingPackages(filteredAndSortedRows);

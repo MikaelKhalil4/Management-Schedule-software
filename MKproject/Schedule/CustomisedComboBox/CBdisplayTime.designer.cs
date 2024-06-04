@@ -30,7 +30,7 @@
         {
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             textBoxTime = new System.Windows.Forms.TextBox();
-            flowLayoutPanelContainerTime = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutPanelContainerTime = new CustomFlowLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,12 +66,13 @@
             // 
             flowLayoutPanelContainerTime.AutoScroll = true;
             flowLayoutPanelContainerTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanelContainerTime.IsCustomScrolled = true;
+            flowLayoutPanelContainerTime.IsDoubleBuffer = true;
             flowLayoutPanelContainerTime.Location = new System.Drawing.Point(0, 28);
             flowLayoutPanelContainerTime.Margin = new System.Windows.Forms.Padding(0);
             flowLayoutPanelContainerTime.Name = "flowLayoutPanelContainerTime";
             flowLayoutPanelContainerTime.Size = new System.Drawing.Size(118, 134);
             flowLayoutPanelContainerTime.TabIndex = 11;
-            flowLayoutPanelContainerTime.MouseEnter += flowLayoutPanelContainerTime_MouseEnter;
             // 
             // CBdisplayTime
             // 
@@ -95,7 +96,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelContainerTime;
         public System.Windows.Forms.TextBox textBoxTime;
+        public CustomFlowLayoutPanel flowLayoutPanelContainerTime;
     }
 }

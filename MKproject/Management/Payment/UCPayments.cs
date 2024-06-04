@@ -122,7 +122,7 @@ namespace MKproject.Management
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("you can t insert such a large number", CustomMessageBox.Type.Ok);  //cz hayde will only occur eza el raem akbar el double Convert.ToDouble(textBoxValue.Text) 
+                CustomMessageBox.Show("you can t insert such a large number", CustomMessageBox.Type.Error);  //cz hayde will only occur eza el raem akbar el double Convert.ToDouble(textBoxValue.Text) 
                 Amount = 0;
             }
 

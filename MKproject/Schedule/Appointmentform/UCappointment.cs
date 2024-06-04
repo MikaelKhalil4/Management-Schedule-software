@@ -191,14 +191,14 @@ namespace MKproject.Schedule
 
 
         }
-        void FixUCDesign()
+        public void FixUCDesign()
         {
             //initial Design
             TLPGlobal.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, 100f);
 
             if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0 && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-Future           
             {
-                TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 20;
+                TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 10;
 
                 float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
                 if (RemaingBalance >= 0)
@@ -226,7 +226,7 @@ namespace MKproject.Schedule
 
             if (DesiredHeightFortheLabel > cellHeight || CellWidth <= 0)//in case el label ma kenit sey3a
             {
-                int MinimumNameWidth = RandomFunctions.CalculateDesiredWidth(labelFullName, labelFullName.Height);
+                int MinimumNameWidth = RandomFunctions.CalculateDesiredWidth(labelFullName, labelFullName.Height)+10;
                 //Size MinimumNameSize = labelFullName.GetPreferredSize(new Size(0, labelFullName.Height));
                 //int MinimumNameWidth = MinimumNameSize.Width;
                 if (MinimumNameWidth < TLPGlobal.Width)
@@ -276,11 +276,11 @@ namespace MKproject.Schedule
         void CreationOfLabelBalance()
         {
             LabelBalance = new Label();
-            LabelBalance.Font = new Font("Segoe UI Semibold", 9.5F, System.Drawing.FontStyle.Bold);
+            LabelBalance.Font = new Font("Segoe UI Semibold", 8.75F, System.Drawing.FontStyle.Bold);
             LabelBalance.AutoSize = true;
-            LabelBalance.Margin = new Padding(0, 5, 0, 0);
+            LabelBalance.Margin = new Padding(0, 0, 0, 0);
             LabelBalance.ForeColor = Color.Red;
-            LabelBalance.Anchor = AnchorStyles.Top;
+            LabelBalance.Anchor = AnchorStyles.Left;
             LabelBalance.MouseDown += Control_MouseDown;
             LabelBalance.MouseClick += Control_MouseClick;
             LabelBalance.MouseMove += UCappointments_MouseMove;
@@ -298,14 +298,17 @@ namespace MKproject.Schedule
                     {
                         if (!(bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)//Package exist and not expired
                         {
-
-                            if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
+                            if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)
                             {
-                                //SQl
-                                if (DesiredAppointmentUCApp.HistoryClientBalance != DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails)//since eza kenna el future we dont save el history, once sorna bel present we need to save it
+                                if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
                                 {
-                                    DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
-                                    DesiredAppointmentUCApp.UpdateHistoryClientBalance();
+                                    //SQl
+                                    if (DesiredAppointmentUCApp.HistoryClientBalance != DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails)//since eza kenna el future we dont save el history, once sorna bel present we need to save it
+                                    {
+                                        DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
+                                        DesiredAppointmentUCApp.UpdateHistoryClientBalance();
+                                    }
+                                                                                            
                                 }
 
                                 //Design
@@ -319,15 +322,12 @@ namespace MKproject.Schedule
                                     labelService.ForeColor = Color.FromArgb(94, 94, 94);
                                 }
                             }
-                            else if (DesiredAppointmentUCApp.StartTime.Date > DateTime.Now.Date)
-                            {
-                                //Design
-                                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package";
-                            }
                         }
                         else if ((bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)//Package exist and  expired
                         {
                             //Design
+
+                            labelService.ForeColor = Color.FromArgb(94, 94, 94);
                             labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package Expired";
                         }
 
@@ -376,26 +376,7 @@ namespace MKproject.Schedule
 
         //EVENTS:
         ///-Click
-        private void Appointmentupdate_OnAppointmentUndoCompletion(object sender, EventArgs e)
-        {
-            Appointment appointmentupdate = (Appointment)sender;
-            DesiredAppointmentUCApp.IsCompleted = false;
 
-            if (DesiredAppointmentUCApp.DesiredClient != null)
-            {
-                DesiredAppointmentUCApp.DesiredClient.TotalBalance = appointmentupdate.DesiredAppointmentAppForm.DesiredClient.TotalBalance;
-            }
-
-            if (DesiredAppointmentUCApp.DesiredClientBalance != null && DesiredAppointmentUCApp.DesiredClientBalance.DueDate == null && DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays != null)//package of sessions
-            {
-                DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays = appointmentupdate.DesiredAppointmentAppForm.DesiredClientBalance.SessionLeftDays;
-                DesiredAppointmentUCApp.DesiredClientBalance.SetStringDetailsIfBundle();
-            }
-
-            SetUCDesign();
-            FixUCDesign();
-            SetServiceLogicAndDesign();
-        }
         private void Appointmentupdate_OnAppointmentUndoCancelation(object sender, EventArgs e)
         {
             DesiredAppointmentUCApp.IsCanceled = false;
@@ -432,7 +413,7 @@ namespace MKproject.Schedule
             {
                 //package deleted or package not selected In The Past
 
-                CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.OkInfo);
 
             }
             else//present future
@@ -443,7 +424,6 @@ namespace MKproject.Schedule
                 Appointment appointmentupdate = new Appointment(this, UcScheduleParentForm);
                 appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
                 appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
-                appointmentupdate.OnAppointmentUndoCompletion += Appointmentupdate_OnAppointmentUndoCompletion;
                 appointmentupdate.Show();
             }
 

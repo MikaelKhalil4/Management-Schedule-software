@@ -16,7 +16,8 @@ namespace CustomizedTools
             OkCancel,
             YesNoWarning,
             YesNo,
-            Ok,
+            OkInfo,
+            OkWarning,
             Error,
 
         }
@@ -30,7 +31,7 @@ namespace CustomizedTools
             LoadForm();
         }
 
-        Button CreateButton(string text,DialogResult dialogResult)
+        Button CreateButton(string text, DialogResult dialogResult)
         {
             Button button = new Button();
             button.Text = text;
@@ -49,23 +50,23 @@ namespace CustomizedTools
 
         void LoadForm()
         {
-            Image DesiredIcon=null;
+            Image DesiredIcon = null;
 
             labelText.Text = text;
             int LabelDesiredHeight = RandomFunctions.CalculateDesiredHeight(labelText, labelText.Width);
             int desiredHeight;
             if (pictureBox.Height > LabelDesiredHeight)
             {
-                desiredHeight= pictureBox.Height;
+                desiredHeight = pictureBox.Height;
             }
             else
             {
                 desiredHeight = LabelDesiredHeight;
             }
 
-            this.Height=FLPButtons.Height+desiredHeight + 70;
-           
-            Button Activebutton= null;
+            this.Height = FLPButtons.Height + desiredHeight + 70;
+
+            Button Activebutton = null;
             if (type == Type.OkCancel)
             {
                 Activebutton = CreateButton("Cancel", DialogResult.Cancel);
@@ -83,7 +84,7 @@ namespace CustomizedTools
                 DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "YesOrNo.png");
             }
 
-            else if (type == Type.Ok)
+            else if (type == Type.OkInfo)
             {
                 Activebutton = CreateButton("OK", DialogResult.OK);
 
@@ -98,6 +99,11 @@ namespace CustomizedTools
 
                 DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "Warning.png");
             }
+            else if (type == Type.OkWarning)
+            {
+                Activebutton = CreateButton("OK", DialogResult.OK);
+                DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "Warning.png");
+            }
             else if (type == Type.Error)
             {
                 Activebutton = CreateButton("OK", DialogResult.OK);
@@ -105,6 +111,7 @@ namespace CustomizedTools
 
                 DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "Error.png");
             }
+
 
 
 

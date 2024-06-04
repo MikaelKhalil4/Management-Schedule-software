@@ -276,7 +276,7 @@ namespace MKproject.Management
                 //TLPglobal.Controls.Add(labelBalance, 0, 5);
                 //TLPglobal.Controls.Add(labelBalanceDetails, 1, 5);
 
-                this.Width = Convert.ToInt16(TLPglobal.ColumnStyles[0].Width + TLPglobal.ColumnStyles[1].Width);
+                this.Width = Convert.ToInt32(TLPglobal.ColumnStyles[0].Width + TLPglobal.ColumnStyles[1].Width);
                 this.Height = this.Height - 20;
             }
 
@@ -346,8 +346,8 @@ namespace MKproject.Management
         public void CreateUCPackage(DataRow dr)
         {
             DesiredRow = dr;
-            this.BundleId = Convert.ToInt16(dr["bundle_id"]);
-            this.DesiredClientBalanceId = Convert.ToInt16(dr["client_balance_id"]);
+            this.BundleId = Convert.ToInt32(dr["bundle_id"]);
+            this.DesiredClientBalanceId = Convert.ToInt32(dr["client_balance_id"]);
 
             
             this.BundleDescription = dr["Description"].ToString();//Decription = bundle Name
@@ -356,17 +356,17 @@ namespace MKproject.Management
             if (dr["due_date"] != DBNull.Value && dr["is_freezed"] != DBNull.Value)
             {
                 this.BundleType = ClassBundles.enumBundle.Days;
-                this.DueDate = (DateTime)dr["due_date"];
+                this.DueDate = Convert.ToDateTime(dr["due_date"]);
 
-                if ((bool)dr["is_freezed"] == true)
+                if (Convert.ToBoolean(dr["is_freezed"]) == true)
                 {
                     this.IsFreezingMode = true;
-                    this.SessionDaysLeft = Convert.ToInt16(dr["session_left_days"]);
+                    this.SessionDaysLeft = Convert.ToInt32(dr["session_left_days"]);
                 }
                 else
                 {
                     this.IsFreezingMode = false;
-                    this.SessionDaysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)dr["due_date"]);//tene wahde - awwal wahde
+                    this.SessionDaysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, Convert.ToDateTime(dr["due_date"]));//tene wahde - awwal wahde
                 }
                 //hay ejbare tahta cz el desactivate mode eenda priority abel el freezing mode
 
@@ -375,7 +375,7 @@ namespace MKproject.Management
             {
                 this.BundleType = ClassBundles.enumBundle.Sessions;
                 this.DueDate = null;
-                this.SessionDaysLeft = Convert.ToInt16(dr["session_left_days"]);
+                this.SessionDaysLeft = Convert.ToInt32(dr["session_left_days"]);
             }
 
 
@@ -689,10 +689,10 @@ namespace MKproject.Management
             ClassClientBalance.UpdateIsexpiredClientBalanceRemoveUC(DesiredClientBalanceId, true);//true because the bundle has expired
                                                                                                   //backoffice
 
-            ClassAppointment.SwapClientBalanceIdOnRenewPackage(DesiredClientBalanceId, (int)InsertedRow["client_balance_id"]);
+            ClassAppointment.SwapClientBalanceIdOnRenewPackage(DesiredClientBalanceId, Convert.ToInt32(InsertedRow["client_balance_id"]));
 
 
-            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, (int)InsertedRow["client_balance_id"], null, null,null, null, null, DateTime.Now);
+            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null,null, null, null, DateTime.Now);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
@@ -718,13 +718,13 @@ namespace MKproject.Management
 
 
             //Setting the new values of teh uc for the new package
-            DesiredClientBalanceId = Convert.ToInt16(NewRow["client_balance_id"]);
-            FakeId = Convert.ToInt16(NewRow["AutoIncrementColumn"]);//mafina nekhud this info gher men el orgnal table
+            DesiredClientBalanceId = Convert.ToInt32(NewRow["client_balance_id"]);
+            FakeId = Convert.ToInt32(NewRow["AutoIncrementColumn"]);//mafina nekhud this info gher men el orgnal table
             BundleDescription = NewRow["Description"].ToString();
             if (NewRow["due_date"] != DBNull.Value)
             {
                 BundleType = ClassBundles.enumBundle.Days;
-                DueDate = (DateTime)NewRow["due_date"];
+                DueDate = Convert.ToDateTime(NewRow["due_date"]);
                 isFreezingMode = false;
 
             }
@@ -734,7 +734,7 @@ namespace MKproject.Management
                 DueDate = null;
             }
 
-            SessionDaysLeft = Convert.ToInt16(NewRow["session_left_days"]);
+            SessionDaysLeft = Convert.ToInt32(NewRow["session_left_days"]);
             if ((double)NewRow["balance"] != 0)
             {
                 IsInDebt = true;
@@ -746,7 +746,7 @@ namespace MKproject.Management
 
             if (BundleId != null)
             {
-                ParentFormClientMan.UCTokenServices.Detail = Convert.ToString(Convert.ToInt16(ParentFormClientMan.UCTokenServices.Detail) + 1);
+                ParentFormClientMan.UCTokenServices.Detail = Convert.ToString(Convert.ToInt32(ParentFormClientMan.UCTokenServices.Detail) + 1);
             }
 
         }//try catch

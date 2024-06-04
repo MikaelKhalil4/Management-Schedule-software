@@ -10,15 +10,15 @@ namespace MKproject.Schedule
         {
             AutoScroll = true;
         }
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        CreateParams cp = base.CreateParams;
-        //        cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-        //        return cp;
-        //    }
-        //}
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
 
 
 
@@ -29,25 +29,25 @@ namespace MKproject.Schedule
         protected override void OnMouseWheel(MouseEventArgs e)//ma testaamela am taamil ktir mashekil
         {
             base.OnMouseWheel(e);
-            //rowHeight = this.GetRowHeights()[0]; // Assuming a static row height for simplicity
+            rowHeight = this.GetRowHeights()[0]; // Assuming a static row height for simplicity
 
-            //// Determine if we're scrolling up or down
-            //if (e.Delta > 0)
-            //{
-            //    // Scrolling up
-            //    currentRow = Math.Max(0, currentRow - 4);
-            //}
-            //else
-            //{
-            //    // Scrolling down
-            //    currentRow = Math.Min(this.RowCount - GetVisibleRowsCount(), currentRow + 4);
-            //}
+            // Determine if we're scrolling up or down
+            if (e.Delta > 0)
+            {
+                // Scrolling up
+                currentRow = Math.Max(0, currentRow - 4);
+            }
+            else
+            {
+                // Scrolling down
+                currentRow = Math.Min(this.RowCount - GetVisibleRowsCount(), currentRow + 4);
+            }
 
-            //// Ensure we're not exceeding the maximum allowable value
-            //int newValue = currentRow * rowHeight;
+            // Ensure we're not exceeding the maximum allowable value
+            int newValue = currentRow * rowHeight;
 
-            //this.VerticalScroll.Value = Math.Min(newValue, this.VerticalScroll.Maximum);//the maximum value is autotaken when autoscroll is on, if not we need to initialise it awwal shi, that s why ha nestaamil autoscrollw nkhabbiya
-            //CustoemOuseWheelActive?.Invoke(this, EventArgs.Empty);
+            this.VerticalScroll.Value = Math.Min(newValue, this.VerticalScroll.Maximum);//the maximum value is autotaken when autoscroll is on, if not we need to initialise it awwal shi, that s why ha nestaamil autoscrollw nkhabbiya
+            CustoemOuseWheelActive?.Invoke(this, EventArgs.Empty);
         }
 
         public int GetVisibleRowsCount()

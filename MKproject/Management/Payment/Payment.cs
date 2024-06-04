@@ -86,7 +86,7 @@ namespace MKproject.Management
                 {
                     DataGridViewRow SelectedRow = dataGridViewBalance.SelectedRows[0];
                     int clientbalanceId = Convert.ToInt32(SelectedRow.Cells["client_balance_id"].Value);
-                    SelectedClientBalanceRow = OriginalDesiredClientBalanceRowsdt.AsEnumerable().FirstOrDefault(row => row.Field<int>("client_balance_id") == clientbalanceId);
+                    SelectedClientBalanceRow = OriginalDesiredClientBalanceRowsdt.AsEnumerable().FirstOrDefault(row => row.Field<Int64>("client_balance_id") == clientbalanceId);
 
                     CalculatingInitialBalance();//ejbare foe el events
 
@@ -258,20 +258,20 @@ namespace MKproject.Management
 
                 if (DesiredClientBalanceRow["due_date"] == DBNull.Value)//package of sessions
                 {
-                    OldSessionOrDaysNumber = Convert.ToInt16(DesiredClientBalanceRow["session_left_days"]);
+                    OldSessionOrDaysNumber = Convert.ToInt32(DesiredClientBalanceRow["session_left_days"]);
 
                 }
                 else//package of days
                 {
                     labelPaymentSession.Text = "Days Left";
 
-                    if ((bool)DesiredClientBalanceRow["is_freezed"])
+                    if (Convert.ToBoolean(DesiredClientBalanceRow["is_freezed"]))
                     {
-                        OldSessionOrDaysNumber = Convert.ToInt16(DesiredClientBalanceRow["session_left_days"]);
+                        OldSessionOrDaysNumber = Convert.ToInt32(DesiredClientBalanceRow["session_left_days"]);
                     }
                     else
                     {
-                        OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DesiredClientBalanceRow["due_date"]);//tene wahde- awwal wahde                
+                        OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DateTime.Now, Convert.ToDateTime(DesiredClientBalanceRow["due_date"]));//tene wahde- awwal wahde                
                     }
                 }
 
@@ -327,13 +327,13 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    CustomMessageBox.Show("Choose only one entity, in order to edit it.", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Choose only one entity, in order to edit it.", CustomMessageBox.Type.OkInfo);
                     ucSlideButtonPayOrEdit.button1_Click(null, EventArgs.Empty);
                 }
             }
             else
             {
-                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.OkInfo);
                 ucSlideButtonPayOrEdit.button1_Click(null, EventArgs.Empty);
             }
         }
@@ -424,7 +424,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    CustomMessageBox.Show("The amount entered exceed the balance of the client", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("The amount entered exceed the balance of the client", CustomMessageBox.Type.Error);
                 }
             }
 
@@ -499,7 +499,7 @@ namespace MKproject.Management
 
 
             TotalBalancePerRow = Math.Abs(Convert.ToDouble(DesiredClientBalanceRow["balance"].ToString()));
-            ClientBalanceId = (int)DesiredClientBalanceRow["client_balance_id"];
+            ClientBalanceId = Convert.ToInt32(DesiredClientBalanceRow["client_balance_id"]);
 
 
             if (TotalAmountPaid >= TotalBalancePerRow)
@@ -521,7 +521,7 @@ namespace MKproject.Management
                     {
                         if (ClientManagementProfileParentForm != null)
                         {
-                            ClientManagementProfileParentForm.UpdateIsInDebteToUCBundle(Convert.ToInt16(DesiredClientBalanceRow["client_balance_id"]), false);
+                            ClientManagementProfileParentForm.UpdateIsInDebteToUCBundle(Convert.ToInt32(DesiredClientBalanceRow["client_balance_id"]), false);
                         }
                     }
                     else//solo

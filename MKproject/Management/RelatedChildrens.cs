@@ -82,7 +82,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Can't Navigate unless it was from the Home Page ", CustomMessageBox.Type.OkInfo);
                 }
             }
         }

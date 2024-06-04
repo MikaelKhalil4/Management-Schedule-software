@@ -8,13 +8,11 @@ namespace MKproject.Schedule
 {
     public partial class ScheduleForm : Form
     {
-        //Properties:
-        public TouchScroll TouchscrollPanelreminder { get; set; }
 
         //VARIABLES:
         public CalanderForm calanderForm;
         public UCSchedule ucSchedule;
-        public Employee employee;
+        public EmployeeSchedule employee;
 
 
 
@@ -24,12 +22,20 @@ namespace MKproject.Schedule
             InitializeComponent();
 
             ucSchedule = new UCSchedule(this);
+
+            Cursor.Current = Cursors.WaitCursor;//lieanno men wara el combobox aam yentezii el cursor!
+
             ucSchedule.Dock = DockStyle.Fill;
             ucSchedule.Margin = new Padding(10, 10, 0, 0);
 
+            ucSchedule.TLPSchedule.SuspendLayout();
             tableLayoutPanelForm.Controls.Add(ucSchedule, 1, 0);
+            ucSchedule.TLPSchedule.ResumeLayout();
+
             ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+
             //ejare tahet ucSchedule
+
             calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
             calanderForm.SelectedDateChangedUCSchedule += ucSchedule.SelectedDateUCSchedule_Changed;
             calanderForm.Dock = DockStyle.Fill;
@@ -41,7 +47,9 @@ namespace MKproject.Schedule
             //
             checkBoxOnPending.Click += CloseNotfBanner_Click;
             checkBoxComplete.Click += CloseNotfBanner_Click;
-            checkBoxCancel.Click += CloseNotfBanner_Click;           
+            checkBoxCancel.Click += CloseNotfBanner_Click;
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void CloseNotfBanner_Click(object sender, EventArgs e)

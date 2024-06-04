@@ -248,7 +248,7 @@ namespace MKproject.Management
 
                     if (ms1.Length > 2000000)//Max 1MB el pic,yaane mafrud add el 4k
                     {
-                        CustomMessageBox.Show("please choose another picture with lower capacity(less than 2MB)", CustomMessageBox.Type.Ok);
+                        CustomMessageBox.Show("please choose another picture with lower capacity(less than 2MB)", CustomMessageBox.Type.OkInfo);
                         ValueImage = null;
                     }
                     else

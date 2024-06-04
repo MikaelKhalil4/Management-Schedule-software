@@ -56,7 +56,7 @@ namespace GlobalFunctions
         {
 
             var filteredData = Originaldt.AsEnumerable();
-            filteredData = filteredData.Where(row => row.Field<int>(DesiredColumnName) == DesiredTarget);
+            filteredData = filteredData.Where(row => Convert.ToInt16(row.Field<Int64>(DesiredColumnName)) == DesiredTarget);
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : Originaldt.Clone();
             return filteredDataTable;
         }
@@ -64,7 +64,7 @@ namespace GlobalFunctions
         {
 
             var filteredData = DesiredDataTable.AsEnumerable();
-            filteredData = filteredData.Where(row => row.Field<DateTime?>(DesiredColumnName) != null && row.Field<DateTime>(DesiredColumnName).Month == DateTime.Now.Month && row.Field<DateTime>(DesiredColumnName).Year == DateTime.Now.Year);            
+            filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName) != null && Convert.ToDateTime(row.Field<string>(DesiredColumnName)).Month == DateTime.Now.Month && Convert.ToDateTime(row.Field<string>(DesiredColumnName)).Year == DateTime.Now.Year);            
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : DesiredDataTable.Clone();
             return filteredDataTable;
         }
@@ -72,7 +72,7 @@ namespace GlobalFunctions
         {
 
             var filteredData = DesiredDataTable.AsEnumerable();
-            filteredData = filteredData.Where(row => row.Field<DateTime?>(DesiredColumnName) != null && row.Field<DateTime>(DesiredColumnName).Month == DateTime.Now.AddMonths(-1).Month && row.Field<DateTime>(DesiredColumnName).Year == DateTime.Now.Year);          
+            filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName) != null && Convert.ToDateTime(row.Field<string>(DesiredColumnName)).Month == DateTime.Now.AddMonths(-1).Month && Convert.ToDateTime(row.Field<string>(DesiredColumnName)).Year == DateTime.Now.Year);          
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : DesiredDataTable.Clone();
             return filteredDataTable;
         }
@@ -80,7 +80,7 @@ namespace GlobalFunctions
         {
 
             var filteredData = DesiredDataTable.AsEnumerable();
-            filteredData = filteredData.Where(row => row.Field<DateTime?>(DesiredColumnName) != null && row.Field<DateTime>(DesiredColumnName).Year == DateTime.Now.Year);           
+            filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName) != null && Convert.ToDateTime(row.Field<string>(DesiredColumnName)).Year == DateTime.Now.Year);           
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : DesiredDataTable.Clone();
             return filteredDataTable;
         }
@@ -88,7 +88,7 @@ namespace GlobalFunctions
         {
 
             var filteredData = DesiredDataTable.AsEnumerable();
-            filteredData = filteredData.Where(row => row.Field<DateTime?>(DesiredColumnName) != null && row.Field<DateTime>(DesiredColumnName).Year == DateTime.Now.AddYears(-1).Year);         
+            filteredData = filteredData.Where(row => row.Field<string>(DesiredColumnName) != null && Convert.ToDateTime(row.Field<string>(DesiredColumnName)).Year == DateTime.Now.AddYears(-1).Year);         
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : DesiredDataTable.Clone();
             return filteredDataTable;
         }
@@ -96,7 +96,7 @@ namespace GlobalFunctions
         {
 
             var filteredData = DesiredDataTable.AsEnumerable();
-            filteredData = filteredData.Where(row => row.Field<DateTime?>(DesiredColumnName) >= startDate && row.Field<DateTime?>(DesiredColumnName) <= endDate);
+            filteredData = filteredData.Where(row => Convert.ToDateTime(row.Field<string>(DesiredColumnName)) >= startDate && Convert.ToDateTime(row.Field<string>(DesiredColumnName)) <= endDate);
             DataTable filteredDataTable = filteredData.Any() ? filteredData.CopyToDataTable() : DesiredDataTable.Clone();
             return filteredDataTable;
 

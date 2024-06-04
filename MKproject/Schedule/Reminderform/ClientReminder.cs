@@ -22,7 +22,6 @@ namespace MKproject.Schedule
         }
 
         public DataTable tablereminder { get; set; }
-        public TouchScroll TouchscrollPanelclientreminder { get; set; }
 
         ScheduleForm schedule;
         UCSchedule ucday;
@@ -107,11 +106,11 @@ namespace MKproject.Schedule
             foreach (DataRow dr in tablereminder.Rows)
             {
                 ClassReminder DesiredReminder = new ClassReminder();
-                DesiredReminder.Idreminder = (int)dr["reminder_id"];
+                DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
                 if (desiredclient == null && dr["client_id"] != DBNull.Value)
                 {
                     DesiredReminder.DesiredClient = new ClassClient();
-                    DesiredReminder.DesiredClient.ClientId = (int)dr["client_id"];
+                    DesiredReminder.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
                     DesiredReminder.DesiredClient.Fname = (string)dr["name"];
                     DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
                     DesiredReminder.DesiredClient.PhoneNumber = (string)dr["phone_number"];
@@ -122,8 +121,8 @@ namespace MKproject.Schedule
                 }
                 DesiredReminder.Reminder = (string)dr["reminder"];
                 DesiredReminder.Repeat = (string)dr["repeat"];
-                DesiredReminder.StartTime = (DateTime)dr["starttime"];
-                DesiredReminder.IsChecked = (bool)dr["is_checked"];
+                DesiredReminder.StartTime = Convert.ToDateTime(dr["starttime"]);
+                DesiredReminder.IsChecked = Convert.ToBoolean(dr["is_checked"]);
 
 
                 UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, this);//zedna true kermel naeemela construction khas la ela
@@ -135,10 +134,7 @@ namespace MKproject.Schedule
                 LabelNoReminder = GetNoReminderLable("N/A");
                 panelreminder.Controls.Add(LabelNoReminder);
             }
-            else
-            {
-                TouchscrollPanelclientreminder = new TouchScroll(panelreminder, this);
-            }
+          
             Cursor = Cursors.Default;
             panelreminder.VerticalScroll.Value = 0;
             panelreminder.AutoScroll = false;

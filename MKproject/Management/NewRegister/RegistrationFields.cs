@@ -38,8 +38,8 @@ namespace MKproject.Management
         {
             foreach (DataGridViewRow row in dataGridViewFieldsNew.Rows)
             {
-                DataGridViewCell cell = (DataGridViewCell)row.Cells["Visible"];
-                DataGridViewCell CellToModifie = (DataGridViewCell)row.Cells["Required"];
+                DataGridViewCell cell = (DataGridViewCell)row.Cells["FakeVisible"];
+                DataGridViewCell CellToModifie = (DataGridViewCell)row.Cells["FakeRequired"];
                 if (!Convert.ToBoolean(cell.Value))
                 {
                     CellToModifie.ReadOnly = true;
@@ -60,9 +60,9 @@ namespace MKproject.Management
             {
                 cell.Style.SelectionBackColor = cell.Style.BackColor;
 
-                if (e.ColumnIndex == dataGridViewFieldsNew.Columns["Visible"].Index)
+                if (e.ColumnIndex == dataGridViewFieldsNew.Columns["FakeVisible"].Index)
                 {
-                    DataGridViewCell CellToModifie = dataGridViewFieldsNew.Rows[e.RowIndex].Cells["Required"];
+                    DataGridViewCell CellToModifie = dataGridViewFieldsNew.Rows[e.RowIndex].Cells["FakeRequired"];
                     if (!Convert.ToBoolean(cell.Value))
                     {
 
@@ -83,10 +83,15 @@ namespace MKproject.Management
         void FormatOriginalDt()
         {
             dtRegistrationFields.Columns.Add("FakeFields", typeof(string));
-
+            dtRegistrationFields.Columns.Add("FakeVisible", typeof(Boolean));
+            dtRegistrationFields.Columns.Add("FakeRequired", typeof(Boolean));
             foreach (DataRow row in dtRegistrationFields.Rows)
             {
-                string FieldName = row["Fields"].ToString();
+
+                row["FakeVisible"] = Convert.ToBoolean(row["Visible"]);
+                row["FakeRequired"] = Convert.ToBoolean(row["Required"]);
+
+               string FieldName = row["Fields"].ToString();
                 if (FieldName == ClassClient.enumType.FullName.ToString())
                 {
                     row["FakeFields"] = ClassClient.enumType.FullName.GetStringValue();
@@ -205,16 +210,19 @@ namespace MKproject.Management
 
 
 
-            columnIndexToMove = dtRegistrationFields.Columns.IndexOf("Visible"); // Replace with the actual column name
+            columnIndexToMove = dtRegistrationFields.Columns.IndexOf("FakeVisible"); // Replace with the actual column name
             newIndex = 1; // The new desired index
             dtRegistrationFields.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
 
-            columnIndexToMove = dtRegistrationFields.Columns.IndexOf("Required"); // Replace with the actual column name
+            columnIndexToMove = dtRegistrationFields.Columns.IndexOf("FakeRequired"); // Replace with the actual column name
             newIndex = 2; // The new desired index
             dtRegistrationFields.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
+
+            dtRegistrationFields.Columns.Remove("Visible");
+            dtRegistrationFields.Columns.Remove("Required");
         }
         void LoadData()
         {
@@ -258,9 +266,14 @@ namespace MKproject.Management
             dataGridViewFieldsNew.Columns["design_index"].Visible = false;
             dataGridViewFieldsNew.Columns["fields_id"].Visible = false;
             dataGridViewFieldsNew.Columns["Fields"].Visible = false;
-            dataGridViewFieldsNew.Columns["Required"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewFieldsNew.Columns["Visible"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+            dataGridViewFieldsNew.Columns["FakeRequired"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewFieldsNew.Columns["FakeVisible"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             dataGridViewFieldsNew.Columns["FakeFields"].HeaderText = "Fields";
+            dataGridViewFieldsNew.Columns["FakeRequired"].HeaderText = "Required";
+            dataGridViewFieldsNew.Columns["FakeVisible"].HeaderText = "Visible";
         }
 
 
@@ -271,7 +284,7 @@ namespace MKproject.Management
 
             foreach (DataGridViewRow row in dataGridViewFieldsNew.Rows)
             {
-                ProjectToSQL.UpdateField((bool)row.Cells["Visible"].Value, (bool)row.Cells["Required"].Value, (int)row.Cells["fields_id"].Value);
+                ProjectToSQL.UpdateField(Convert.ToBoolean(row.Cells["FakeVisible"].Value), Convert.ToBoolean(row.Cells["FakeRequired"].Value), Convert.ToInt32(row.Cells["fields_id"].Value));
             }
 
 
@@ -282,6 +295,11 @@ namespace MKproject.Management
             }
 
             NewRegisterForm.UpdateOrCreateFields(true);
+
+            if (NewRegisterForm.Client != null)//update mode
+            {
+                NewRegisterForm.SaveOrUpdate(null, true);
+            }
             this.Close();
         }
 
@@ -299,7 +317,7 @@ namespace MKproject.Management
                 if ((clickedCell is DataGridViewCheckBoxCell checkBoxCell) && (clickedCell.Style.BackColor != Color.LightGray))//kermel ma ne2dir n3adil eza readonly
                 {
                     // Toggle the checkbox state when the cell is clicked.
-                    bool currentState = (bool)checkBoxCell.Value;
+                    bool currentState = Convert.ToBoolean(checkBoxCell.Value);
                     checkBoxCell.Value = !currentState;
 
                     // Commit the change to the underlying data source if required.
@@ -339,9 +357,6 @@ namespace MKproject.Management
             }         
         }
 
-        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
     }
 }

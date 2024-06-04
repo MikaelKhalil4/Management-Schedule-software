@@ -82,7 +82,7 @@ namespace MKproject.Management
 
         private void dataGridViewProducts_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            int ProductID = Convert.ToInt16(dataGridViewProducts.Rows[e.RowIndex].Cells["product_id"].Value);
+            int ProductID = Convert.ToInt32(dataGridViewProducts.Rows[e.RowIndex].Cells["product_id"].Value);
             string ProductName = dataGridViewProducts.Rows[e.RowIndex].Cells["product_name"].Value.ToString();
             double price = Convert.ToDouble(RandomFunctions.ExtractDigits(Convert.ToString(dataGridViewProducts.Rows[e.RowIndex].Cells["product_price"].Value)));
 

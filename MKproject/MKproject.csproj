@@ -106,14 +106,8 @@
     <Compile Update="Schedule\Appointmentform\UCClientApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Availabilityform\UCTimeavailability.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Schedule\CustomisedComboBox\LabelTime.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Schedule\Dayform\UCTime.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\Calanderform\LabelMonth.cs">
       <SubType>Component</SubType>
@@ -137,7 +131,7 @@
     <Compile Update="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Schedule\UCData\UCEmployee.cs">
+    <Compile Update="Schedule\Availabilityform\UCEmployee.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\UCData\UCreminder.cs">
@@ -230,6 +224,12 @@
     <None Update="images\down-arrow-BoldColor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="images\down-arrow-GreenColor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="images\down-arrow-LighterGreenColor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="images\eraser.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -265,6 +265,7 @@
     <PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>

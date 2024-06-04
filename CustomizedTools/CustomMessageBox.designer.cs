@@ -113,6 +113,7 @@
             MinimizeBox = false;
             Name = "CustomMessageBox";
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();

@@ -48,7 +48,7 @@ namespace MKproject.Management
             }
             else
             {
-                CustomMessageBox.Show("wrong password or phone number, please try again", CustomMessageBox.Type.Ok);
+                CustomMessageBox.Show("wrong password or phone number, please try again", CustomMessageBox.Type.Error);
                 textBoxPassword.Select();
             }
         }

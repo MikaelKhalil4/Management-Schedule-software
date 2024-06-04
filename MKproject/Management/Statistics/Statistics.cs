@@ -657,7 +657,7 @@ namespace MKproject.Management
             OriginalAllServicesIncomeDt.Columns.Add("Category Id", typeof(int));
             OriginalAllServicesIncomeDt.Columns.Add("ClientBalance Id", typeof(int));
             OriginalAllServicesIncomeDt.Columns.Add("Amount Paid", typeof(double));
-            OriginalAllServicesIncomeDt.Columns.Add("Payment Date", typeof(DateTime));
+            OriginalAllServicesIncomeDt.Columns.Add("Payment Date", typeof(String));
 
 
             // Retrieve and merge the desired columns from FilteredbundleDt
@@ -666,25 +666,25 @@ namespace MKproject.Management
 
 
                 double AmountPaid = (double)row["amount_paid"];
-                DateTime Date = (DateTime)row["payment_date"]; // Replace with the actual column name
+                DateTime Date = Convert.ToDateTime(row["payment_date"]); // Replace with the actual column name
 
                 int CategoryId;
                 string Item;
                 if (row["bundle_id"] != DBNull.Value)
                 {
-                    CategoryId = (int)row["bundle_id"];
+                    CategoryId = Convert.ToInt32(row["bundle_id"]);
                     Item = UCComboFilterStat.Services;
                 }
                 else
                 {
-                    CategoryId = (int)row["product_id"];
+                    CategoryId = Convert.ToInt32(row["product_id"]);
                     Item = UCComboFilterStat.Products;
                 }
 
 
 
 
-                int ClientBalanceId = (int)row["client_balance_id"];
+                int ClientBalanceId = Convert.ToInt32(row["client_balance_id"]);
                 OriginalAllServicesIncomeDt.Rows.Add(Item, CategoryId, ClientBalanceId, AmountPaid, Date);
 
 
@@ -762,7 +762,7 @@ namespace MKproject.Management
                     {
                         string CategoryType = group.CategoryType;
                         double totalAmountPaid = group.TotalAmountPaid;
-                        int CategoryQty = group.ClientBalanceIdReps;
+                        int CategoryQty = Convert.ToInt32(group.ClientBalanceIdReps);
 
 
                         chartIncomePerService.Series["SeriesIncome"].Points.AddXY(i, totalAmountPaid);
@@ -821,9 +821,9 @@ namespace MKproject.Management
                     int i = 1;
                     foreach (var group in groupedByCategoryId)
                     {
-                        int serviceId = group.CategoryId;
+                        int serviceId = Convert.ToInt32(group.CategoryId);
                         double totalAmountPaid = group.TotalAmountPaid;
-                        int CategoryQty = group.ClientBalanceIdReps;
+                        int CategoryQty = Convert.ToInt32(group.ClientBalanceIdReps);
                         string BundleName = ClassBundles.FindBundleName(serviceId);
 
                         chartIncomePerService.Series["SeriesIncome"].Points.AddXY(i, totalAmountPaid);
@@ -880,10 +880,10 @@ namespace MKproject.Management
                     int i = 1;
                     foreach (var group in groupedByCategoryId)
                     {
-                        int serviceId = group.CategoryId;
+                        int serviceId = Convert.ToInt32(group.CategoryId);
                         double totalAmountPaid = group.TotalAmountPaid;
                         string ProductName = ClassProduct.FindProductName(serviceId);
-                        int CategoryQty = group.ClientBalanceIdReps;
+                        int CategoryQty = Convert.ToInt32(group.ClientBalanceIdReps);
 
                         chartIncomePerService.Series["SeriesIncome"].Points.AddXY(i, totalAmountPaid);
                         chartIncomePerService.Series["SeriesQty"].Points.AddXY(i, CategoryQty);
@@ -927,9 +927,9 @@ namespace MKproject.Management
 
             // Group and aggregate the data from AllServicesDt by day of the last month
             var groupedData = from row in FilteredAllServicesIncomeDt.AsEnumerable()
-                              where row.Field<DateTime>("Payment Date").Year == DesiredDate.Year &&
-                                    row.Field<DateTime>("Payment Date").Month == DesiredDate.Month
-                              group row by row.Field<DateTime>("Payment Date").Day into g
+                              where Convert.ToDateTime(row.Field<string>("Payment Date")).Year == DesiredDate.Year &&
+                                    Convert.ToDateTime(row.Field<string>("Payment Date")).Month == DesiredDate.Month
+                              group row by Convert.ToDateTime(row.Field<string>("Payment Date")).Day into g
                               orderby g.Key
                               select new
                               {
@@ -1012,8 +1012,8 @@ namespace MKproject.Management
 
             // Group and aggregate the data from FilteredAllServicesIncomeDt by month of the current year
             var groupedData = from row in FilteredAllServicesIncomeDt.AsEnumerable()
-                              where row.Field<DateTime>("Payment Date").Year == DesiredDate.Year
-                              group row by row.Field<DateTime>("Payment Date").Month into g
+                              where Convert.ToDateTime(row.Field<string>("Payment Date")).Year == DesiredDate.Year
+                              group row by Convert.ToDateTime(row.Field<string>("Payment Date")).Month into g
                               orderby g.Key
                               select new
                               {
@@ -1069,12 +1069,12 @@ namespace MKproject.Management
             DateOfFilterIncome = DateTime.Now;
             // Get distinct years from your DataTable
             var distinctYears = FilteredAllServicesIncomeDt.AsEnumerable()
-                                 .Select(row => row.Field<DateTime>("Payment Date").Year)
+                                 .Select(row => Convert.ToDateTime(row.Field<string>("Payment Date")).Year)
                                  .Distinct();
 
             // Group and aggregate the data from FilteredAllServicesIncomeDt by year
             var groupedData = from row in FilteredAllServicesIncomeDt.AsEnumerable()
-                              group row by row.Field<DateTime>("Payment Date").Year into g
+                              group row by Convert.ToDateTime(row.Field<string>("Payment Date")).Year into g
                               orderby g.Key
                               select new
                               {
@@ -1134,9 +1134,9 @@ namespace MKproject.Management
 
 
             var groupedData = from row in FilteredSessionsDt.AsEnumerable()
-                              where row.Field<DateTime>("execute_date").Year == DesiredDate.Year &&
-                                    row.Field<DateTime>("execute_date").Month == DesiredDate.Month
-                              group row by row.Field<DateTime>("execute_date").Day into g
+                              where Convert.ToDateTime(row.Field<string>("execute_date")).Year == DesiredDate.Year &&
+                                   Convert.ToDateTime(row.Field<string>("execute_date")).Month == DesiredDate.Month
+                              group row by Convert.ToDateTime(row.Field<string>("execute_date")).Day into g
                               orderby g.Key
                               select new
                               {
@@ -1218,8 +1218,8 @@ namespace MKproject.Management
             }
 
             var groupedData = from row in FilteredSessionsDt.AsEnumerable()
-                              where row.Field<DateTime>("execute_date").Year == DesiredDate.Year
-                              group row by row.Field<DateTime>("execute_date").Month into g
+                              where Convert.ToDateTime(row.Field<string>("execute_date")).Year == DesiredDate.Year
+                              group row by Convert.ToDateTime(row.Field<string>("execute_date")).Month into g
                               orderby g.Key
                               select new
                               {
@@ -1277,7 +1277,7 @@ namespace MKproject.Management
             DateOfFilterSessions = DateTime.Now;
             //
             var groupedData = from row in FilteredSessionsDt.AsEnumerable()
-                              group row by row.Field<DateTime>("execute_date").Year into g
+                              group row by Convert.ToDateTime(row.Field<string>("execute_date")).Year into g
                               orderby g.Key
                               select new
                               {

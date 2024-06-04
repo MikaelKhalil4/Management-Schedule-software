@@ -3,13 +3,14 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using MKproject.Schedule.UCData;
+using System.Data.SQLite;
 
 namespace MKproject.Schedule
 {
     public partial class UCreminder : UserControl
     {
         //SQL
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         //PROPERTY:
         private ClassReminder desiredreminder;

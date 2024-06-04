@@ -112,8 +112,8 @@ namespace MKproject.Management
                 int controlsWidth = FLPAddParent.Width - 10;
                 foreach (DataRow row in dt.Rows)
                 {
-                    bool isRequired = (bool)row["Required"];
-                    bool isVisible = (bool)row["Visible"];
+                    bool isRequired = Convert.ToBoolean(row["Required"]);
+                    bool isVisible = Convert.ToBoolean(row["Visible"]);
 
                     if (row["Fields"].ToString() == ClassClient.enumType.FullName.ToString())
                     {
@@ -215,7 +215,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    CustomMessageBox.Show("Phone Number already exist", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Phone Number already exist", CustomMessageBox.Type.Error);
 
                     //design
                     ucSlideButton.button1_Click(null, EventArgs.Empty);
@@ -317,7 +317,7 @@ namespace MKproject.Management
             {
                 DataGridViewRow selectedRow = dataGridViewSelectParent.Rows[e.RowIndex];
 
-                int parenId = Convert.ToInt16(selectedRow.Cells["client_id"].Value);
+                int parenId = Convert.ToInt32(selectedRow.Cells["client_id"].Value);
                 string phoneNumber = selectedRow.Cells["Phone Number"].Value.ToString(); // Replace "PhoneNumber" with the actual column name
                 string familyName = selectedRow.Cells["family_name"].Value.ToString();
 
@@ -377,11 +377,18 @@ namespace MKproject.Management
             {
                 ParentFormNewRegist.radioButtonAdult.Checked = true;
             }
-            if (Program.GreyFormJunior != null)
+            //ejbare hek
+            if (Program.GreyFormJuniorJunior != null)
+            {
+                Program.GreyFormJuniorJunior.Close();
+                Program.GreyFormJuniorJunior = null;
+            }
+            else if (Program.GreyFormJunior != null)
             {
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;
             }
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)

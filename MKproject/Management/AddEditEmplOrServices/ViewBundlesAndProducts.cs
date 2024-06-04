@@ -58,7 +58,7 @@ namespace MKproject.Management
                 string bundle = row["sessions_numb"].ToString() + " " + row["bundle_type"].ToString();
                 row["Bundle"] = bundle;
                 //
-                if ((bool)row["is_member_ship"] == true)
+                if (Convert.ToBoolean(row["is_member_ship"]) == true)
                 {
                     row["FakeMemberShip"] = "True";
                 }
@@ -67,7 +67,7 @@ namespace MKproject.Management
                     row["FakeMemberShip"] = "False";
                 }
 
-                if ((bool)row["status"] == true)
+                if (Convert.ToBoolean(row["status"]) == true)
                 {
                     row["FakeStatus"] = "True";
                 }
@@ -165,7 +165,7 @@ namespace MKproject.Management
 
             foreach (DataRow row in dt.Rows)
             {
-                if ((bool)row["status"] == true)
+                if (Convert.ToBoolean(row["status"]) == true)
                 {
                     row["FakeStatus"] = "True";
                 }

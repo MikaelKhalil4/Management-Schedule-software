@@ -253,7 +253,7 @@ namespace MKproject.Schedule
                             if (StartTime >= new TimeSpan(23, 15, 0))
                             {
                                 labeltime1.Size = new Size(118, 30);
-                               
+
                             }
                             //there's scroll
                             else
@@ -281,7 +281,7 @@ namespace MKproject.Schedule
                         if (StartTime >= new TimeSpan(23, 0, 0))
                         {
                             labeltime1.Size = new Size(118, 30);
-                           
+
                         }
                         //there's scroll
                         else
@@ -306,7 +306,7 @@ namespace MKproject.Schedule
 
                 else if (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true)
                 {
-                    this.Size = new Size(this.Size.Width, ((labeltime.Size.Height) * (i+1)) + 29);//+1 because of the CustomedLabel
+                    this.Size = new Size(this.Size.Width, ((labeltime.Size.Height) * (i + 1)) + 29);//+1 because of the CustomedLabel
                     RandomFunctionSchedule.HighlightUserControl(targetlabeltimeHighlight);//hone mafi scroll
                 }
                 //Highlighting targetlabeltimeHighlight and scrolling into targetlabeltimeScroll
@@ -322,7 +322,6 @@ namespace MKproject.Schedule
                     RandomFunctionSchedule.HighlightUserControl(targetlabeltimeHighlight);
                 }
             }
-            new TouchScroll(flowLayoutPanelContainerTime, this);//li2anno bas lendtime fiyo scroll
         }
 
 
@@ -337,20 +336,22 @@ namespace MKproject.Schedule
         /// </summary>
         private async void DisplayTime_Deactivate(object sender, EventArgs e)
         {
-            //StartTime
-            if (Isstarttime)
+            try
             {
-                //The Type of the text that we need is 7:00PM
-                string pattern = @"^(1[012]|[1-9]):[0-5][0-9] (AM|PM)$";//7:00PM
-                bool isMatch = Regex.IsMatch(textBoxTime.Text, pattern, RegexOptions.IgnoreCase);
-
-                DateTime dateTime = DateTime.ParseExact(textBoxTime.Text, "h:mm tt", null);
-                TimeSpan starttime = dateTime.TimeOfDay;
-
-                //Checking the type of the text
-                if (isMatch && starttime <= new TimeSpan(23, 45, 0))
+                //StartTime
+                if (Isstarttime)
                 {
-                   
+                    //The Type of the text that we need is 7:00PM
+                    string pattern = @"^(1[012]|[1-9]):[0-5][0-9] (AM|PM)$";//7:00PM
+                    bool isMatch = Regex.IsMatch(textBoxTime.Text, pattern, RegexOptions.IgnoreCase);
+
+                    DateTime dateTime = DateTime.ParseExact(textBoxTime.Text, "h:mm tt", null);
+                    TimeSpan starttime = dateTime.TimeOfDay;
+
+                    //Checking the type of the text
+                    if (isMatch && starttime <= new TimeSpan(23, 45, 0))
+                    {
+
                         TimeSpan endTime = starttime + AppointmentForm.DifferenceTime;
                         if (endTime > new TimeSpan(23, 45, 0))
                         {
@@ -367,32 +368,38 @@ namespace MKproject.Schedule
                         AppointmentForm.textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
 
                         AppointmentForm.textBoxStartTime.TextChanged += AppointmentForm.textBoxStartTime_TextChanged;
+                    }
+                }
+
+                //EndTime
+                else
+                {
+
+                    string pattern1 = @"^(1[012]|[1-9]):[0-5][0-9] (AM|PM)$";//7:00 PM
+                    bool isMatch = Regex.IsMatch(textBoxTime.Text, pattern1, RegexOptions.IgnoreCase);
+
+                    DateTime dateTime = DateTime.ParseExact(textBoxTime.Text, "h:mm tt", null);
+                    TimeSpan endtime = dateTime.TimeOfDay;
+
+                    //Checking the type of the text
+                    if (isMatch && endtime <= new TimeSpan(23, 45, 0))
+                    {
+                        //Checking the condition between starttime and endtime
+                        if (endtime >= StartTime)
+                        {
+                            DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.EndTime.Date + endtime;
+                            AppointmentForm.textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
+                        }
+                        else
+                        {
+                            MessageBox.Show("endtime smaller then starttime");
+                        }
+                    }
+
                 }
             }
-
-            //EndTime
-            else
+            catch
             {
-                string pattern = @"^(1[012]|[1-9]):[0-5][0-9] (AM|PM)$";//7:00PM
-                bool isMatch = Regex.IsMatch(textBoxTime.Text, pattern, RegexOptions.IgnoreCase);
-
-                DateTime dateTime = DateTime.ParseExact(textBoxTime.Text, "h:mm tt", null);
-                TimeSpan endtime = dateTime.TimeOfDay;
-
-                //Checking the type of the text
-                if (isMatch && endtime <= new TimeSpan(23, 45, 0))
-                {
-                    //Checking the condition between starttime and endtime
-                    if (endtime >= StartTime)
-                    {
-                        DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.EndTime.Date + endtime;
-                        AppointmentForm.textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
-                    }
-                    else
-                    {
-                        MessageBox.Show("endtime smaller then starttime");
-                    }
-                }
 
             }
 
@@ -408,7 +415,10 @@ namespace MKproject.Schedule
             if (targetlabeltime != null && flowLayoutPanelContainerTime.Controls.Contains(targetlabeltime))
             {
                 flowLayoutPanelContainerTime.ScrollControlIntoView(targetlabeltime);
+                flowLayoutPanelContainerTime.currentRowIndex = flowLayoutPanelContainerTime.Controls.GetChildIndex(targetlabeltime) - flowLayoutPanelContainerTime.GetVisibleRowsCount();
+
             }
+
         }
 
 

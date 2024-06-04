@@ -331,7 +331,6 @@ namespace MKproject.Schedule
             UCreminder ucreminderClientReminder = new UCreminder(DesiredReminder, ucSchedule, ParentFormSchedule, clientReminder);
             clientReminder.panelreminder.Controls.Add(ucreminderClientReminder);
             ucreminderClientReminder.Dock = DockStyle.Top;
-            clientReminder.TouchscrollPanelclientreminder.ReAssignEventPanelclientreminder(clientReminder.panelreminder);
         }
         private void flowLayoutPanelRepeat_Click(object sender, EventArgs e)
         {

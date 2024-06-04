@@ -77,7 +77,7 @@ namespace CustomizedTools
 
             }
         }
-    
+
         double TransparentTime = .5;
         private void timer2_Tick(object sender, EventArgs e)
         {
@@ -122,6 +122,11 @@ namespace CustomizedTools
                     timer2.Start();
                 }
             }
+        }
+
+        private void GreyColor_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

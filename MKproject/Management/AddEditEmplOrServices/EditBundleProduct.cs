@@ -19,8 +19,7 @@ namespace MKproject.Management
         public DataRow DesiredRow;
         public UCTextbox1 UCDescription;
         private UCTextbox1 UCBundleName;
-        public bool ButtonSaveClicked = false;//kermel l ucpayment la n8ayir lawna 
-        SqlConnection con = new SqlConnection(Program.DataLocation);
+        public bool ButtonSaveClicked = false;//kermel l ucpayment la n8ayir lawna   
         Color ColorBackTExtbOxEditMode = Color.White;
 
 
@@ -46,8 +45,7 @@ namespace MKproject.Management
             if (!Edit)//for packages and products
             {
                 UCBundleName.myTextBox1.Select();
-                checkBoxStatus.Visible = false;
-                this.Height = this.Height - (checkBoxStatus.Height + checkBoxMemberShip.Height);
+                //this.Height = this.Height - (checkBoxStatus.Height + checkBoxMemberShip.Height);
             }
 
 
@@ -98,7 +96,7 @@ namespace MKproject.Management
             UCNOSessionsOrDay.Maximum_number = 9999;
             UCNOSessionsOrDay.Number = 1;
             UCNOSessionsOrDay.textBoxValue.BackColor = ColorBackTExtbOxEditMode;
-            UCNOSessionsOrDay.BackColor= this.BackColor; 
+            UCNOSessionsOrDay.BackColor = this.BackColor;
             UCNOSessionsOrDay.buttonValueMinus.BackColor = this.BackColor;
             UCNOSessionsOrDay.buttonValuePlus.BackColor = this.BackColor;
 
@@ -106,6 +104,9 @@ namespace MKproject.Management
             UCDescription.NextControl = ucPaymentsPrice.textBoxPayment;
 
             checkBoxMemberShip.Visible = true;
+
+            checkBoxStatus.Visible = true;
+            checkBoxStatus.Checked = true;
         }
         void FillBundlesFields()
         {
@@ -181,7 +182,7 @@ namespace MKproject.Management
             }
 
             bundle.IsMemberShip = checkBoxMemberShip.Checked;
-
+            bundle.Status = checkBoxStatus.Checked;
             bundle.InsertBundle();
 
             DataTable dtinserteditem = ClassBundles.GetLastInsertBundle();
@@ -198,7 +199,7 @@ namespace MKproject.Management
         {
             ClassBundles bundle = new ClassBundles();
 
-            bundle.BundleID = (int)DesiredRow["bundle_id"];
+            bundle.BundleID = Convert.ToInt32(DesiredRow["bundle_id"]);
             bundle.BundleName = UCBundleName.Value;
             bundle.Description = UCDescription.Value;
             bundle.Price = ucPaymentsPrice.Amount;
@@ -250,9 +251,9 @@ namespace MKproject.Management
             }
 
         }
-        public bool BundleNameExists(string BundleName)
+        public bool BundleNameExists(string BundleName, string BundleType)
         {
-            if (DesiredRow != null && BundleName == DesiredRow["bundle_name"].ToString())
+            if (DesiredRow != null && BundleName == DesiredRow["bundle_name"].ToString() && BundleType == DesiredRow["bundle_type"].ToString())//in case ken same name as before
             {
                 return false;
             }
@@ -261,12 +262,11 @@ namespace MKproject.Management
                 DataTable dt = ParentFormViewBundle.dtBundles;
                 BundleName = BundleName.Trim();
 
-                bool bundleExists = dt.AsEnumerable().Any(row => row.Field<string>("bundle_name") == BundleName);
+                bool bundleExists = dt.AsEnumerable().Any(row => row.Field<string>("bundle_name") == BundleName && row.Field<string>("bundle_type") == BundleType);
 
                 if (bundleExists)
                 {
-
-                    CustomMessageBox.Show("Bundle Name is already taken", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Bundle Name is already taken", CustomMessageBox.Type.Error);
                     return true;
                 }
                 else
@@ -327,7 +327,7 @@ namespace MKproject.Management
                 this.Text = "Edit Product";
                 FillProductFields();
             }
- 
+
         }
         void CreateProductFields()
         {
@@ -335,7 +335,7 @@ namespace MKproject.Management
             UCBundleName = new UCTextbox1();
             FLPTop.Controls.Add(UCBundleName);
             FLPTop.Controls.SetChildIndex(UCBundleName, 0);
- 
+
             // Check if the "Required" value is true or false
             UCBundleName.IsRequired = true;
             UCBundleName.StringType = "Product Name";
@@ -350,6 +350,9 @@ namespace MKproject.Management
             UCBundleName.NextControl = ucPaymentsPrice.textBoxPayment;
 
             checkBoxMemberShip.Visible = false;
+          
+            checkBoxStatus.Visible = true;
+            checkBoxStatus.Checked = true;
         }
         void FillProductFields()
         {
@@ -368,7 +371,7 @@ namespace MKproject.Management
 
             product.Name = UCBundleName.Value;
             product.Price = ucPaymentsPrice.Amount;
-
+            product.Status = checkBoxStatus.Checked;
             product.InsertProduct();
 
             DataTable dtinserteditem = ClassProduct.GetLastInsertProduct();
@@ -388,7 +391,7 @@ namespace MKproject.Management
             product.Name = UCBundleName.Value;
             product.Price = ucPaymentsPrice.Amount;
             product.Status = checkBoxStatus.Checked;
-            product.ID = (int)DesiredRow["product_id"];
+            product.ID = Convert.ToInt32(DesiredRow["product_id"]);
             product.UpdateProduct();
 
             //design
@@ -412,7 +415,7 @@ namespace MKproject.Management
 
                 if (productExists)
                 {
-                    CustomMessageBox.Show("Product Name is already taken", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Product Name is already taken", CustomMessageBox.Type.Error);
                     return true;
                 }
                 else
@@ -445,17 +448,14 @@ namespace MKproject.Management
             {
                 if (CheckRequiredBundles())
                 {
-                    if (Edit)
+                    if (!BundleNameExists(UCBundleName.myTextBox1.Text, comboBoxBundle.SelectedItem.ToString()))
                     {
-                        if (!BundleNameExists(UCBundleName.myTextBox1.Text))
+                        if (Edit)
                         {
                             UpdateBundle();
                             this.Close();
                         }
-                    }
-                    else
-                    {
-                        if (!BundleNameExists(UCBundleName.myTextBox1.Text))
+                        else
                         {
                             AddBundle();
                             this.Close();
@@ -467,17 +467,14 @@ namespace MKproject.Management
             {
                 if (CheckRequiredProduct())
                 {
-                    if (Edit)
+                    if (!ProductNameExists(UCBundleName.myTextBox1.Text))
                     {
-                        if (!ProductNameExists(UCBundleName.myTextBox1.Text))
+                        if (Edit)
                         {
                             UpdateProduct();
                             this.Close();
                         }
-                    }
-                    else
-                    {
-                        if (!ProductNameExists(UCBundleName.myTextBox1.Text))
+                        else
                         {
                             AddProduct();
                             this.Close();
@@ -485,7 +482,7 @@ namespace MKproject.Management
                     }
                 }
             }
-          
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -516,10 +513,10 @@ namespace MKproject.Management
             if (BundleOrProduct)
             {
                 ClassBundles bundle = new ClassBundles();
-                bundle.BundleID = (int)DesiredRow["bundle_id"];
+                bundle.BundleID = Convert.ToInt32(DesiredRow["bundle_id"]);
                 if (bundle.CheckIBundletHasReferences())
                 {
-                    CustomMessageBox.Show("Cannot delete this Bundle as there is some data attached to them.", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Cannot delete this Bundle as there is some data attached to them.", CustomMessageBox.Type.Error);
                 }
                 else
                 {
@@ -532,10 +529,10 @@ namespace MKproject.Management
             else
             {
                 ClassProduct product = new ClassProduct();
-                product.ID = (int)DesiredRow["product_id"];
+                product.ID = Convert.ToInt32(DesiredRow["product_id"]);
                 if (product.CheckIProductHasReferences())
                 {
-                    CustomMessageBox.Show("Cannot delete this Product as there is some data attached to them.", CustomMessageBox.Type.Ok);
+                    CustomMessageBox.Show("Cannot delete this Product as there is some data attached to them.", CustomMessageBox.Type.Error);
                 }
                 else
                 {

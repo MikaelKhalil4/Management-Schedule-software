@@ -173,7 +173,7 @@ namespace MKproject
                 DataGridViewRow row = dataGridViewMembers.Rows[e.RowIndex];
                 string FName = row.Cells["name"].Value.ToString();
                 string LName = row.Cells["family_name"].Value.ToString();
-                int Id = Convert.ToInt16(row.Cells["client_id"].Value);
+                int Id = Convert.ToInt32(row.Cells["client_id"].Value);
                 double totaBalance = Convert.ToDouble(row.Cells["total_balance"].Value);
 
                 NewDesiredClient = new ClassClient();

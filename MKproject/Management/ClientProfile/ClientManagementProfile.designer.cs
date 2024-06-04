@@ -658,10 +658,10 @@ namespace MKproject.Management
             UCAlbum.Detail = "";
             UCAlbum.Dock = System.Windows.Forms.DockStyle.Fill;
             UCAlbum.Index = 0;
-            UCAlbum.Location = new System.Drawing.Point(5, 5);
-            UCAlbum.Margin = new System.Windows.Forms.Padding(5);
+            UCAlbum.Location = new System.Drawing.Point(0, 0);
+            UCAlbum.Margin = new System.Windows.Forms.Padding(0);
             UCAlbum.Name = "UCAlbum";
-            UCAlbum.Size = new System.Drawing.Size(230, 37);
+            UCAlbum.Size = new System.Drawing.Size(240, 47);
             UCAlbum.TabIndex = 2;
             UCAlbum.Tag = "";
             UCAlbum.Type = "Album";

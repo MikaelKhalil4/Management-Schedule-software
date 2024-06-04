@@ -48,7 +48,7 @@ namespace MKproject.Management
             foreach (DataRow row in dt.Rows)
             {
               
-                if ((bool)row["is_member_ship"] == true)
+                if (Convert.ToBoolean(row["is_member_ship"]) == true)
                 {
                     row["Membership"] = "MemberShip";
                 }
@@ -152,7 +152,7 @@ namespace MKproject.Management
             {
                 foreach (ClassBundles bundle in ParentFormChooseService.ParentFormucClientApp.DesiredAppointmentUCClientApp.ChosenBundlesList)
                 {
-                    if (bundle.BundleID == (int)row.Cells["bundle_id"].Value)
+                    if (bundle.BundleID == Convert.ToInt32(row.Cells["bundle_id"].Value))
                     {
                         row.DefaultCellStyle.BackColor = Color.FromArgb(229, 226, 244);
                         row.Cells["ColumnCheck"].Value = true;
@@ -213,13 +213,13 @@ namespace MKproject.Management
 
         void FillingBundleDetails(DataGridViewRow DesiredRow, ClassBundles Bundle)
         {
-            Bundle.BundleID = Convert.ToInt16(DesiredRow.Cells["bundle_id"].Value);
+            Bundle.BundleID = Convert.ToInt32(DesiredRow.Cells["bundle_id"].Value);
             Bundle.BundleName = DesiredRow.Cells["bundle_name"].Value.ToString();
             Bundle.Description = DesiredRow.Cells["description"].Value.ToString();
 
             if (DesiredRow.Cells["bundle_type"].Value.ToString() != ClassBundles.enumBundle.Solo.ToString())
             {
-                Bundle.SessionDaysNumber = Convert.ToInt16(RandomFunctions.ExtractDigits(Convert.ToString(DesiredRow.Cells["sessions_numb"].Value)));
+                Bundle.SessionDaysNumber = Convert.ToInt32(RandomFunctions.ExtractDigits(Convert.ToString(DesiredRow.Cells["sessions_numb"].Value)));
             }
             else//eza kenit solo
             {
@@ -229,7 +229,7 @@ namespace MKproject.Management
 
             Bundle.Price = Convert.ToDouble(RandomFunctions.ExtractDigits(Convert.ToString(DesiredRow.Cells["price"].Value)));
 
-            if ((bool)DesiredRow.Cells["is_member_ship"].Value)
+            if (Convert.ToBoolean(DesiredRow.Cells["is_member_ship"].Value))
             {
                 Bundle.IsMemberShip = true;
             }

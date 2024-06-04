@@ -46,7 +46,7 @@ namespace MKproject.Management
             foreach (DataRow row in Desireddt.Rows)
             {
 
-                if ((bool)row["status"] == true)
+                if (Convert.ToBoolean(row["status"]) == true)
                 {
                     row["FakeStatus"] = "True";
                 }
@@ -55,7 +55,7 @@ namespace MKproject.Management
                     row["FakeStatus"] = "False";
                 }
 
-                if ((bool)row["is_schedule_member"] == true)
+                if (Convert.ToBoolean(row["is_schedule_member"]) == true)
                 {
                     row["FakeIsScheduleMember"] = "True";
                 }
@@ -122,7 +122,6 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["is_schedule_member"].Visible = false;
             dataGridViewEdit.Columns["rank"].Visible = false;
             dataGridViewEdit.Columns["availability"].Visible = false;
-            dataGridViewEdit.Columns["is_checked"].Visible = false;
 
 
             dataGridViewEdit.Columns["first_name"].HeaderCell.Value = "First Name";

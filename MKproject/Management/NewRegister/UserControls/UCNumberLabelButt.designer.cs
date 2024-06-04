@@ -33,118 +33,120 @@ namespace MKproject.Management
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCNumberLabelButt));
-            this.labelUnit = new System.Windows.Forms.Label();
-            this.buttonValuePlus = new IconButton();
-            this.textBoxValue = new System.Windows.Forms.TextBox();
-            this.buttonValueMinus = new IconButton();
-            this.TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
-            this.TLPGlobal.SuspendLayout();
-            this.SuspendLayout();
+            labelUnit = new System.Windows.Forms.Label();
+            buttonValuePlus = new IconButton();
+            textBoxValue = new System.Windows.Forms.TextBox();
+            buttonValueMinus = new IconButton();
+            TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
+            TLPGlobal.SuspendLayout();
+            SuspendLayout();
             // 
             // labelUnit
             // 
-            this.labelUnit.AutoSize = true;
-            this.labelUnit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelUnit.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUnit.Location = new System.Drawing.Point(83, 0);
-            this.labelUnit.Name = "labelUnit";
-            this.labelUnit.Size = new System.Drawing.Size(32, 37);
-            this.labelUnit.TabIndex = 14;
-            this.labelUnit.Text = "hrs";
-            this.labelUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            labelUnit.AutoSize = true;
+            labelUnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelUnit.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelUnit.Location = new System.Drawing.Point(99, 0);
+            labelUnit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelUnit.Name = "labelUnit";
+            labelUnit.Size = new System.Drawing.Size(34, 43);
+            labelUnit.TabIndex = 14;
+            labelUnit.Text = "hrs";
+            labelUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttonValuePlus
             // 
-            this.buttonValuePlus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonValuePlus.BackColor = System.Drawing.Color.Transparent;
-            this.buttonValuePlus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonValuePlus.BackgroundImage")));
-            this.buttonValuePlus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonValuePlus.FlatAppearance.BorderSize = 0;
-            this.buttonValuePlus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonValuePlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonValuePlus.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonValuePlus.ForeColor = System.Drawing.Color.White;
-            this.buttonValuePlus.Location = new System.Drawing.Point(120, 3);
-            this.buttonValuePlus.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonValuePlus.MotionHeight = true;
-            this.buttonValuePlus.MotionWidth = true;
-            this.buttonValuePlus.Name = "buttonValuePlus";
-            this.buttonValuePlus.Size = new System.Drawing.Size(27, 30);
-            this.buttonValuePlus.TabIndex = 15;
-            this.buttonValuePlus.UseVisualStyleBackColor = false;
-            this.buttonValuePlus.Click += new System.EventHandler(this.buttonValuePlus_Click);
+            buttonValuePlus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonValuePlus.BackColor = System.Drawing.Color.Transparent;
+            buttonValuePlus.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonValuePlus.BackgroundImage");
+            buttonValuePlus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonValuePlus.FlatAppearance.BorderSize = 0;
+            buttonValuePlus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            buttonValuePlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonValuePlus.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonValuePlus.ForeColor = System.Drawing.Color.White;
+            buttonValuePlus.Location = new System.Drawing.Point(140, 4);
+            buttonValuePlus.Margin = new System.Windows.Forms.Padding(0);
+            buttonValuePlus.MotionHeight = true;
+            buttonValuePlus.MotionWidth = true;
+            buttonValuePlus.Name = "buttonValuePlus";
+            buttonValuePlus.Size = new System.Drawing.Size(31, 35);
+            buttonValuePlus.TabIndex = 15;
+            buttonValuePlus.UseVisualStyleBackColor = false;
+            buttonValuePlus.Click += buttonValuePlus_Click;
             // 
             // textBoxValue
             // 
-            this.textBoxValue.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBoxValue.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxValue.Font = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxValue.ForeColor = System.Drawing.Color.Black;
-            this.textBoxValue.Location = new System.Drawing.Point(29, 0);
-            this.textBoxValue.Margin = new System.Windows.Forms.Padding(0);
-            this.textBoxValue.Name = "textBoxValue";
-            this.textBoxValue.Size = new System.Drawing.Size(51, 36);
-            this.textBoxValue.TabIndex = 13;
-            this.textBoxValue.Text = "0";
-            this.textBoxValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxValue.TextChanged += new System.EventHandler(this.textBoxValue_TextChanged);
-            this.textBoxValue.Enter += new System.EventHandler(this.textBoxValue_Enter);
-            this.textBoxValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxValue_KeyPress);
-            this.textBoxValue.Leave += new System.EventHandler(this.textBoxValue_Leave);
+            textBoxValue.Anchor = System.Windows.Forms.AnchorStyles.None;
+            textBoxValue.BackColor = System.Drawing.SystemColors.Window;
+            textBoxValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            textBoxValue.Font = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            textBoxValue.ForeColor = System.Drawing.Color.Black;
+            textBoxValue.Location = new System.Drawing.Point(35, 3);
+            textBoxValue.Margin = new System.Windows.Forms.Padding(0);
+            textBoxValue.Name = "textBoxValue";
+            textBoxValue.Size = new System.Drawing.Size(59, 36);
+            textBoxValue.TabIndex = 13;
+            textBoxValue.Text = "0";
+            textBoxValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            textBoxValue.TextChanged += textBoxValue_TextChanged;
+            textBoxValue.Enter += textBoxValue_Enter;
+            textBoxValue.KeyPress += textBoxValue_KeyPress;
+            textBoxValue.Leave += textBoxValue_Leave;
             // 
             // buttonValueMinus
             // 
-            this.buttonValueMinus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonValueMinus.BackColor = System.Drawing.Color.Transparent;
-            this.buttonValueMinus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonValueMinus.BackgroundImage")));
-            this.buttonValueMinus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonValueMinus.FlatAppearance.BorderSize = 0;
-            this.buttonValueMinus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonValueMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonValueMinus.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonValueMinus.ForeColor = System.Drawing.Color.White;
-            this.buttonValueMinus.Location = new System.Drawing.Point(1, 3);
-            this.buttonValueMinus.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonValueMinus.MotionHeight = true;
-            this.buttonValueMinus.MotionWidth = true;
-            this.buttonValueMinus.Name = "buttonValueMinus";
-            this.buttonValueMinus.Size = new System.Drawing.Size(27, 30);
-            this.buttonValueMinus.TabIndex = 16;
-            this.buttonValueMinus.UseVisualStyleBackColor = false;
-            this.buttonValueMinus.Click += new System.EventHandler(this.buttonValueMinus_Click);
+            buttonValueMinus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonValueMinus.BackColor = System.Drawing.Color.Transparent;
+            buttonValueMinus.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonValueMinus.BackgroundImage");
+            buttonValueMinus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonValueMinus.FlatAppearance.BorderSize = 0;
+            buttonValueMinus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            buttonValueMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonValueMinus.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonValueMinus.ForeColor = System.Drawing.Color.White;
+            buttonValueMinus.Location = new System.Drawing.Point(2, 4);
+            buttonValueMinus.Margin = new System.Windows.Forms.Padding(0);
+            buttonValueMinus.MotionHeight = true;
+            buttonValueMinus.MotionWidth = true;
+            buttonValueMinus.Name = "buttonValueMinus";
+            buttonValueMinus.Size = new System.Drawing.Size(31, 35);
+            buttonValueMinus.TabIndex = 16;
+            buttonValueMinus.UseVisualStyleBackColor = false;
+            buttonValueMinus.Click += buttonValueMinus_Click;
             // 
             // TLPGlobal
             // 
-            this.TLPGlobal.BackColor = System.Drawing.Color.White;
-            this.TLPGlobal.ColumnCount = 4;
-            this.TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.22819F));
-            this.TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.50336F));
-            this.TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.TLPGlobal.Controls.Add(this.labelUnit, 2, 0);
-            this.TLPGlobal.Controls.Add(this.buttonValuePlus, 3, 0);
-            this.TLPGlobal.Controls.Add(this.textBoxValue, 1, 0);
-            this.TLPGlobal.Controls.Add(this.buttonValueMinus, 0, 0);
-            this.TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TLPGlobal.Location = new System.Drawing.Point(0, 0);
-            this.TLPGlobal.Name = "TLPGlobal";
-            this.TLPGlobal.RowCount = 1;
-            this.TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPGlobal.Size = new System.Drawing.Size(149, 37);
-            this.TLPGlobal.TabIndex = 1;
+            TLPGlobal.BackColor = System.Drawing.Color.White;
+            TLPGlobal.ColumnCount = 4;
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.94394F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.112114F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.94394F));
+            TLPGlobal.Controls.Add(labelUnit, 2, 0);
+            TLPGlobal.Controls.Add(buttonValuePlus, 3, 0);
+            TLPGlobal.Controls.Add(textBoxValue, 1, 0);
+            TLPGlobal.Controls.Add(buttonValueMinus, 0, 0);
+            TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPGlobal.Location = new System.Drawing.Point(0, 0);
+            TLPGlobal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TLPGlobal.Name = "TLPGlobal";
+            TLPGlobal.RowCount = 1;
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPGlobal.Size = new System.Drawing.Size(174, 43);
+            TLPGlobal.TabIndex = 1;
             // 
             // UCNumberLabelButt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.TLPGlobal);
-            this.Name = "UCNumberLabelButt";
-            this.Size = new System.Drawing.Size(149, 37);
-            this.TLPGlobal.ResumeLayout(false);
-            this.TLPGlobal.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(TLPGlobal);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "UCNumberLabelButt";
+            Size = new System.Drawing.Size(174, 43);
+            TLPGlobal.ResumeLayout(false);
+            TLPGlobal.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Markup;
 using static MKproject.Management.ClassBundles;
-
+using System.Data.SQLite;
 
 
 namespace MKproject.Management
@@ -34,7 +34,7 @@ namespace MKproject.Management
 
     public class ClassBackOffice
     {
-        static SqlConnection con = new SqlConnection(Program.DataLocation);
+        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         public int ClientID { get; set; }
         public string ActionDetails { get; set; }
@@ -70,7 +70,7 @@ namespace MKproject.Management
                                                                 VALUES
                                                 (@client_id,@action,@action_type,@employee_id,@date,@attendance_id,@appointment_id,@client_balance_id,@amount_paid,@is_moneyOrsession_offre,@previousBalanceOrSession_Offre,@Currency_Name)";
 
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
             cmd.Parameters.AddWithValue("@action", ActionDetails);
             cmd.Parameters.AddWithValue("@action_type", ActionType.ToString());
@@ -132,7 +132,7 @@ namespace MKproject.Management
 
         public static DataTable GetBackOffice(bool IsOneYearORAll, int? ClientBalanceId, int? ClientID)
         {
-            SqlCommand cmd;
+            SQLiteCommand cmd;
             string query = @"SELECT ar.archive_id,ar.client_id ,ar.action as [Activity History], ar.action_type,ar.employee_id ,ar.date ,
                            ar.attendance_id,ar.client_balance_id, ar.appointment_id,ar.amount_paid,ar.is_moneyOrsession_offre,ar.previousBalanceOrSession_Offre , 
                            emp.first_name as EmployeeFN,emp.last_name as EmpoyeeLN,cl.name as ClientFN,family_name as ClientLN,cl.phone_number as ClientPhoneNumber
@@ -156,7 +156,7 @@ namespace MKproject.Management
             }
             query += " ORDER by ar.date DESC , ar.archive_id DESC ";//ejbare both
 
-            cmd = new SqlCommand(query, con);
+            cmd = new SQLiteCommand(query, con);
 
             if ((bool)IsOneYearORAll)
             {
@@ -172,7 +172,7 @@ namespace MKproject.Management
                 cmd.Parameters.AddWithValue("@client_id", ClientID);
             }
 
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -181,11 +181,11 @@ namespace MKproject.Management
         public static bool CheckIfDesiredArchiveHasRefrencesInTableArchive(int ClientBalanceId,int archiveID)
         {
             string query = "Select Count(*) from archive where client_balance_id=@client_balance_id and archive_id!=@archive_id ";
-            SqlCommand cmd = new SqlCommand(query, con);
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             cmd.Parameters.AddWithValue("@archive_id", archiveID);
             con.Open();
-            int nb = (int)cmd.ExecuteScalar();
+            int nb = Convert.ToInt32(cmd.ExecuteScalar());
             con.Close();
             if (nb > 0)
             {
@@ -215,8 +215,8 @@ namespace MKproject.Management
 
 
             //ejbare tkun tahet delete el archive kermel el fk 
-            string queryDeleteStruct = "DELETE client_services_attendance WHERE attendance_id=@attendance_id";
-            SqlCommand cmdDeleteStruct = new SqlCommand(queryDeleteStruct, con);
+            string queryDeleteStruct = "Delete FROM  client_services_attendance WHERE attendance_id=@attendance_id";
+            SQLiteCommand cmdDeleteStruct = new SQLiteCommand(queryDeleteStruct, con);
             cmdDeleteStruct.Parameters.AddWithValue("@attendance_id", AttendanceID);
             cmdDeleteStruct.ExecuteNonQuery();
             con.Close();
@@ -226,9 +226,9 @@ namespace MKproject.Management
 
             //Sql Purchase Part
             string querySelect1 = "Select client_balance_id,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
-            SqlCommand cmdSelect1 = new SqlCommand(querySelect1, con);
+            SQLiteCommand cmdSelect1 = new SQLiteCommand(querySelect1, con);
             cmdSelect1.Parameters.AddWithValue("@client_id", ClientId);
-            SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect1);
+            SQLiteDataAdapter sda1 = new SQLiteDataAdapter(cmdSelect1);
             DataTable dtClientBalanceOriginal = new DataTable();
             sda1.Fill(dtClientBalanceOriginal);
 
@@ -246,10 +246,10 @@ namespace MKproject.Management
             double TotalPayment = 0;
             foreach (DataRow row in dtClientBalanceOriginal.Rows)
             {
-                if ((int)row["client_balance_id"] != DesiredClientBalanceId)
+                if (Convert.ToInt32(row["client_balance_id"]) != DesiredClientBalanceId)
                 {
                     TotalBalanceAmount += Convert.ToDouble(row["balance"]);
-                    TotalPayment += (double)row["amount_paid"];
+                    TotalPayment += Convert.ToDouble(row["amount_paid"]);
                 }
 
             }
@@ -291,9 +291,9 @@ namespace MKproject.Management
         {
 
             string querySelect1 = "Select client_balance_id,client_id,bundle_id,purchase_date,session_left_days,isbundle_membership,due_date,balance,amount_paid from client_balance WHERE client_id=@client_id";
-            SqlCommand cmdSelect1 = new SqlCommand(querySelect1, con);
+            SQLiteCommand cmdSelect1 = new SQLiteCommand(querySelect1, con);
             cmdSelect1.Parameters.AddWithValue("@client_id", ClientId);
-            SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect1);
+            SQLiteDataAdapter sda1 = new SQLiteDataAdapter(cmdSelect1);
             DataTable dtClientBalanceOriginal = new DataTable();
             sda1.Fill(dtClientBalanceOriginal);
 
@@ -325,14 +325,14 @@ namespace MKproject.Management
             int totalsessionLeft = 0;
             foreach (DataRow row in dtClientBalanceOriginal.Rows)
             {
-                if ((int)row["client_balance_id"] != DesiredClientBalanceId)
+                if (Convert.ToInt32(row["client_balance_id"]) != DesiredClientBalanceId)
                 {
                     TotalBalanceAmount += Convert.ToDouble(row["balance"]);
-                    TotalPayment += (double)row["amount_paid"];
+                    TotalPayment += Convert.ToDouble(row["amount_paid"]);
 
                     if (IsBundleOrProduct && row["session_left_days"] != DBNull.Value && row["due_date"] == DBNull.Value)//sessions only, w eza ken el el click row now huwwe bundle
                     {
-                        totalsessionLeft += (int)row["session_left_days"];
+                        totalsessionLeft += Convert.ToInt32(row["session_left_days"]);
                     }
                 }
 
@@ -359,27 +359,27 @@ namespace MKproject.Management
 
             con.Open();
 
-            string queryUpdateBalance = "UPDATE client_balance SET amount_paid=@amount_paid,balance=@balance,is_expired='false' WHERE  client_balance_id=@client_balance_id";
-            SqlCommand cmdUpdateBalance = new SqlCommand(queryUpdateBalance, con);
+            string queryUpdateBalance = "UPDATE client_balance SET amount_paid=@amount_paid,balance=@balance,is_expired='0' WHERE  client_balance_id=@client_balance_id";
+            SQLiteCommand cmdUpdateBalance = new SQLiteCommand(queryUpdateBalance, con);
             cmdUpdateBalance.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             cmdUpdateBalance.Parameters.AddWithValue("@amount_paid", NewAmountPaid);
             cmdUpdateBalance.Parameters.AddWithValue("@balance", NewBalance);
             cmdUpdateBalance.ExecuteNonQuery();
 
-            string queryDeleteIncome = "DELETE finance WHERE client_balance_id=@client_balance_id AND payment_date=@payment_date";
-            SqlCommand cmdDeleteIncome = new SqlCommand(queryDeleteIncome, con);
+            string queryDeleteIncome = "Delete FROM  finance WHERE client_balance_id=@client_balance_id AND payment_date=@payment_date";
+            SQLiteCommand cmdDeleteIncome = new SQLiteCommand(queryDeleteIncome, con);
             cmdDeleteIncome.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
             cmdDeleteIncome.Parameters.AddWithValue("@payment_date", ArchiveDate);//we can do this, lieanno ana bel code eemela enno both yekhdome same datetime
             cmdDeleteIncome.ExecuteNonQuery();
 
-            string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
-            SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
+            string queryDeleteArchive = "Delete FROM  archive WHERE archive_id=@archive_id";
+            SQLiteCommand cmdDeleteArchive = new SQLiteCommand(queryDeleteArchive, con);
             cmdDeleteArchive.Parameters.AddWithValue("@archive_id", ArchiveId);
             cmdDeleteArchive.ExecuteNonQuery();
 
 
-            string queryUpdateClient = "UPDATE client SET total_payment-=@total_payment,total_balance-=@total_balance WHERE client_id=@client_id";
-            SqlCommand cmdUpdateClient = new SqlCommand(queryUpdateClient, con);
+            string queryUpdateClient = "UPDATE client SET total_payment=total_payment-@total_payment,total_balance=total_balance-@total_balance WHERE client_id=@client_id";
+            SQLiteCommand cmdUpdateClient = new SQLiteCommand(queryUpdateClient, con);
             cmdUpdateClient.Parameters.AddWithValue("@client_id", ClientID);
             cmdUpdateClient.Parameters.AddWithValue("@total_payment", AmountPaid);
             cmdUpdateClient.Parameters.AddWithValue("@total_balance", AmountPaid);
@@ -400,16 +400,16 @@ namespace MKproject.Management
 
             if (!IsDeletingTheBundle)//cz ha aam naayetla marten yaa nehna w aam nmahe bundle ya aade, so to optimise
             {
-                string queryUpdateSession = "UPDATE client_balance SET session_left_days+=@session_left_days,is_expired='false' WHERE  client_balance_id=@client_balance_id";
-                SqlCommand cmdUpdateSession = new SqlCommand(queryUpdateSession, con);
+                string queryUpdateSession = "UPDATE client_balance SET session_left_days=session_left_days+@session_left_days,is_expired='0' WHERE  client_balance_id=@client_balance_id";
+                SQLiteCommand cmdUpdateSession = new SQLiteCommand(queryUpdateSession, con);
                 cmdUpdateSession.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
                 cmdUpdateSession.Parameters.AddWithValue("session_left_days", 1);
                 cmdUpdateSession.ExecuteNonQuery();//ejbare hone, cz badna el expiry date abel ma tenaamalla update
             }
 
 
-            string queryDeleteStruct = "DELETE client_services_attendance WHERE attendance_id=@attendance_id";
-            SqlCommand cmdDeleteStruct = new SqlCommand(queryDeleteStruct, con);
+            string queryDeleteStruct = "Delete FROM  client_services_attendance WHERE attendance_id=@attendance_id";
+            SQLiteCommand cmdDeleteStruct = new SQLiteCommand(queryDeleteStruct, con);
             cmdDeleteStruct.Parameters.AddWithValue("@attendance_id", AttendanceID);
             cmdDeleteStruct.ExecuteNonQuery(); //ejbare tkun tahet delete el archive kermel el fk
 
@@ -428,21 +428,21 @@ namespace MKproject.Management
 
         }
 
-        public static bool UndoOffresSQL(int ClientID, int ArchiveId, int ClientBalanceId)
+        public static bool CanUndoOffresSQL(int ClientID, int ArchiveId, int ClientBalanceId)
         {
 
             string QuerySelect = "Select archive_id from archive Where client_id=@client_id and client_balance_id=@client_balance_id and date = (Select Max(date) from archive where client_balance_id=@client_balance_id)";
-            SqlCommand cmdSelect = new SqlCommand(QuerySelect, con);
+            SQLiteCommand cmdSelect = new SQLiteCommand(QuerySelect, con);
             cmdSelect.Parameters.AddWithValue("@client_id", ClientID);
             cmdSelect.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
-            SqlDataAdapter sda1 = new SqlDataAdapter(cmdSelect);
+            SQLiteDataAdapter sda1 = new SQLiteDataAdapter(cmdSelect);
             DataTable dt1 = new DataTable();
             sda1.Fill(dt1);
 
             bool IsTheLastAction = false;
             foreach (DataRow dr in dt1.Rows)//since ma3wol ykun eena two rows at the same time , eza eemele edit lal balance w session at the same time byenzalo bzeit el waet
             {
-                if ((int)dr["archive_id"] == ArchiveId)
+                if (Convert.ToInt32(dr["archive_id"]) == ArchiveId)
                 {
                     IsTheLastAction = true;
                     break;
@@ -450,28 +450,18 @@ namespace MKproject.Management
                 IsTheLastAction = false;
             }
 
+            return IsTheLastAction;
 
-            if (IsTheLastAction)//yaane it s the last Action made bi this client list,w tdarayna naamil this restriction , lieanno some ways could lead us to positive balances!
-            {
+        }
+        public static void UndoOffresSQL(int ArchiveId)
+        {
 
-                string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
-                SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
-                cmdDeleteArchive.Parameters.AddWithValue("@archive_id", ArchiveId);
-                con.Open();
-                cmdDeleteArchive.ExecuteNonQuery();
-                con.Close();
-
-
-                return true;
-            }
-
-            else
-            {
-
-                return false;
-            }
-
-
+            string queryDeleteArchive = "Delete FROM  archive WHERE archive_id=@archive_id";
+            SQLiteCommand cmdDeleteArchive = new SQLiteCommand(queryDeleteArchive, con);
+            cmdDeleteArchive.Parameters.AddWithValue("@archive_id", ArchiveId);
+            con.Open();
+            cmdDeleteArchive.ExecuteNonQuery();
+            con.Close();
 
         }
 
@@ -486,20 +476,20 @@ namespace MKproject.Management
                              WHERE a.client_id = @client_id AND a.archive_id != @archive_id";
 
 
-            SqlCommand cmdSelect = new SqlCommand(querySelect, con);
+            SQLiteCommand cmdSelect = new SQLiteCommand(querySelect, con);
             cmdSelect.Parameters.AddWithValue("@client_id", ClientId);
             cmdSelect.Parameters.AddWithValue("@archive_id", ArchiveId);
-            SqlDataAdapter sda2 = new SqlDataAdapter(cmdSelect);
+            SQLiteDataAdapter sda2 = new SQLiteDataAdapter(cmdSelect);
             DataTable dt2 = new DataTable();
             sda2.Fill(dt2);
      
             
 
-            DateTime? NewLastVistDate=cmdSelect.ExecuteScalar() as DateTime?; 
+            DateTime? NewLastVistDate= cmdSelect.ExecuteScalar() is DBNull ? null : Convert.ToDateTime(cmdSelect.ExecuteScalar()) ; 
           
 
             string queryUpdateClient = "UPDATE client SET check_in=@check_in WHERE client_id=@client_id";
-            SqlCommand cmdUpdateClient = new SqlCommand(queryUpdateClient, con);
+            SQLiteCommand cmdUpdateClient = new SQLiteCommand(queryUpdateClient, con);
             cmdUpdateClient.Parameters.AddWithValue("@client_id", ClientId);
             if (NewLastVistDate != null)
             {
@@ -514,8 +504,8 @@ namespace MKproject.Management
 
 
             //ejabre hone, cz foe aam nestamail hayda el archive id
-            string queryDeleteArchive = "DELETE archive WHERE archive_id=@archive_id";
-            SqlCommand cmdDeleteArchive = new SqlCommand(queryDeleteArchive, con);
+            string queryDeleteArchive = "Delete FROM  archive WHERE archive_id=@archive_id";
+            SQLiteCommand cmdDeleteArchive = new SQLiteCommand(queryDeleteArchive, con);
             cmdDeleteArchive.Parameters.AddWithValue("@archive_id", ArchiveId);
             cmdDeleteArchive.ExecuteNonQuery();
            
@@ -527,7 +517,7 @@ namespace MKproject.Management
             bool IsMembershipDateChanged=false;
             DateTime? MembershipDate=null;
             //updating client Membership
-            if ((bool)DesiredRow["isbundle_membership"] == true)//lieanno eza ma kenit member ship, membershipdate makhasso fiya men el ases
+            if (Convert.ToBoolean(DesiredRow["isbundle_membership"]) == true)//lieanno eza ma kenit member ship, membershipdate makhasso fiya men el ases
             {
                 IsMembershipDateChanged = true;
 
@@ -539,11 +529,11 @@ namespace MKproject.Management
                     MembershipDate = DateTime.MaxValue;
                     foreach (DataRow row in dt2.Rows)
                     {
-                        if ((bool)row["isbundle_membership"] == true)
+                        if (Convert.ToBoolean(row["isbundle_membership"]) == true)
                         {
-                            if (row["purchase_date"] != DBNull.Value && (DateTime)row["purchase_date"] < MembershipDate)
+                            if (row["purchase_date"] != DBNull.Value && Convert.ToDateTime(row["purchase_date"]) < MembershipDate)
                             {
-                                MembershipDate = (DateTime)row["purchase_date"];
+                                MembershipDate = Convert.ToDateTime(row["purchase_date"]);
                             }
                         }
 
@@ -555,7 +545,7 @@ namespace MKproject.Management
                 }
 
                 string queryUpdate = "UPDATE client SET Registration_Date=@Registration_Date WHERE client_id=@client_id";
-                SqlCommand cmdUpdate = new SqlCommand(queryUpdate, con);
+                SQLiteCommand cmdUpdate = new SQLiteCommand(queryUpdate, con);
                 cmdUpdate.Parameters.AddWithValue("@client_id", ClientId);
                 if (MembershipDate != null)
                 {
@@ -581,10 +571,10 @@ namespace MKproject.Management
             {
                 //!!!el maaloumet li bi hemmun men el clientBalanceId aam nnjibun mannun latest update since after this opearion bel mother form aam yenaamal new update
                 // bas nehna ma bi hemna gher maaloumet ma byetghayaro bhayetun aa wala update w ma aam notalaa aal values as null or not null ta naari type of package
-                int? bundleId = DesiredClientBalanceRow["bundle_id"] is DBNull ? null : (int)DesiredClientBalanceRow["bundle_id"];
-                int? productId = DesiredClientBalanceRow["product_id"] is DBNull ? null : (int)DesiredClientBalanceRow["product_id"];
-                DateTime? DueDate = DesiredClientBalanceRow["due_date"] is DBNull ? null : (DateTime)DesiredClientBalanceRow["due_date"];
-                int? SessionLeftDays = DesiredClientBalanceRow["session_left_days"] is DBNull ? null : (int)DesiredClientBalanceRow["session_left_days"];
+                int? bundleId = DesiredClientBalanceRow["bundle_id"] is DBNull ? null : Convert.ToInt32(DesiredClientBalanceRow["bundle_id"]);
+                int? productId = DesiredClientBalanceRow["product_id"] is DBNull ? null : Convert.ToInt32(DesiredClientBalanceRow["product_id"]);
+                DateTime? DueDate = DesiredClientBalanceRow["due_date"] is DBNull ? null : Convert.ToDateTime(DesiredClientBalanceRow["due_date"]);
+                int? SessionLeftDays = DesiredClientBalanceRow["session_left_days"] is DBNull ? null : Convert.ToInt32(DesiredClientBalanceRow["session_left_days"]);
 
 
                 string BundleName = "";

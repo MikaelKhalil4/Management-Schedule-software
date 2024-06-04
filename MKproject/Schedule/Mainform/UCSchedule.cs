@@ -29,23 +29,30 @@ namespace MKproject.Schedule
 
         List<DateTime> PresentWeek { get; set; }
         public List<DateTime> ListDaysOfDesiredWeek { get; set; }//used if week mode on
-        public List<ClassEmployee> EmployeeScheduleList { get; set; }//used if days mode on
-        public List<ClassAppointment> AppointmentsListWorkingOn { get; set; }
-        public List<ClassAppointment> TotalAppointmentsList { get; set; }
 
-        public TableLayoutPanelDoubleBufferedNoscroll TLPEmployees;
-        public TableLayoutPanelBuffered TLPSchedule;
+        public bool IsEmployeeFilterModeOn;
+        public List<ClassEmployee> EmployeeScheduleListWorkingOn { get; set; }//used if days mode on
+        public List<ClassEmployee> TotalEmployeeScheduleList { get; set; }//used to store the check state of the members during run mode, lamma ngahhyir shi checkbox, ha naayit deyman lal load w hone hasab eza past aw present aw future bi sir fi 
+        //shi algo bel fill EmployeeList ben TotalEmployeeScheduleList and EmployeeScheduleListWorkingOn
+
+
+        public List<ClassAppointment> AppointmentsListWorkingOn { get; set; }//this one you should use it every where
+
+        public TableLayoutPanel TLPEmployees;
+        public TableLayoutPanel TLPSchedule;
         List<(ClassEmployee, DateTime?, List<int>)> ListOfAllColumnIndexesGroups = new List<(ClassEmployee, DateTime?, List<int>)>();
         (ClassEmployee, DateTime?, List<int>) FocusOnColumnIndexGroup;
         int FocusOnMaxWidth;
         bool IsHistory;
         public bool IsCursorBlocked;
-
+        bool IsLoadingTheForm;
 
         public bool IsDayOrWeek;
         public ClassEmployee TheOnlyEmployee;//eza fi aktar menn wahad bi null, used in 7 days, ta naarif if we can editt bel 7 days mode
 
-       
+
+
+
         //Reminder
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
@@ -69,34 +76,47 @@ namespace MKproject.Schedule
             scrollTimer.Interval = 100; // Adjust as needed
             scrollTimer.Tick += ScrollTimer_Tick; ;
 
-            LoadForm(DateTime.Now, true);
+            TotalEmployeeScheduleList = ClassEmployee.GetEmployeeScheduleMemberASC();
+            foreach (ClassEmployee emp in TotalEmployeeScheduleList)
+            {
+                emp.IsChecked = true;//by default bdawwe kell el existing employees
+            }
+
+            LoadForm(DateTime.Now, true, true, true);
             InsertHistroyToSqlIfNecessary();
 
 
         }
 
-     
 
-        public void LoadForm(DateTime selectedDate, bool isDayOrWeek)
+
+        public void LoadForm(DateTime selectedDate, bool isDayOrWeek, bool IsScrollToNowHour, bool DateHasChanged)
         {
 
-
+            IsLoadingTheForm = true;
             FocusOnColumnIndexGroup = (null, null, null);
 
-            if (EmployeeScheduleList != null)
-                EmployeeScheduleList.Clear();
+            if (EmployeeScheduleListWorkingOn != null)
+                EmployeeScheduleListWorkingOn.Clear();
 
             if (AppointmentsListWorkingOn != null)
                 AppointmentsListWorkingOn.Clear();
 
+
+
             if (ListOfAllColumnIndexesGroups != null)
                 ListOfAllColumnIndexesGroups.Clear();
+
+            //only TotalEmployeeScheduleList ma mnaamela clear,
 
 
             IsDayOrWeek = isDayOrWeek;
             SelectedDate = selectedDate;
 
+
             CreateTLPDesign();
+
+
             FillEmployeLists();
 
             if (isDayOrWeek)
@@ -114,18 +134,21 @@ namespace MKproject.Schedule
                     IsHistory = false;
 
                 }
-                if (AppointmentsListWorkingOn.Count == 0 && SelectedDate.Date < DateTime.Now.Date && CheckIfEmployeeAvailable())
+                if (AppointmentsListWorkingOn.Count == 0 && SelectedDate.Date < DateTime.Now.Date)
                 {
                     IsDesignBlocked = true;
 
                     BlockedModeDesign("No Appointments Available");
 
                 }
-                else if (!CheckIfEmployeeAvailable())
+                else if (!CheckIfAnyEmployeeAvailable())
                 {
                     IsDesignBlocked = true;
+                    if (SelectedDate.Date >= DateTime.Now.Date)
+                    {
+                        BlockedModeDesign("No Employees Available");
+                    }
 
-                    BlockedModeDesign("No Employees Available");
                 }
                 else
                 {
@@ -135,10 +158,10 @@ namespace MKproject.Schedule
 
                     //Colmns Groups, ha ykun percentage
                     SetTLPEmployeesColumn();
-                    SetTLPSchGroupColumn();//el resizing bi sir juwweta lal tnen Employees and TlpAppointmnet
+                    SetTLPSchGroupColumn();
 
                     IsCursorBlocked = true;
-                    AddAppointmentsToTlpSchedule();
+                    AddAppointmentsToTlpSchedule();//takes time
                     PercentageResizeTLPScheduleAndTlpEmp();
 
                     if (TLPSchedule.HorizontalScroll.Visible)//ejbariye , lieannommarrat aam tofsul
@@ -163,7 +186,7 @@ namespace MKproject.Schedule
 
 
                 IsCursorBlocked = true;
-                AddAppointmentsToTlpSchedule();
+                AddAppointmentsToTlpSchedule();//takes time
                 PercentageResizeTLPScheduleAndTlpEmp();
 
 
@@ -189,26 +212,21 @@ namespace MKproject.Schedule
                 labelDate.Text = GetLabelDateifWeek();
             }
 
-
-
             //Reminder
-            DisplayUCReminderForTheSelectedDate();
+            if (DateHasChanged)
+            {
+                DisplayUCReminderForTheSelectedDate();
+            }
 
 
 
 
             //Scrol
-            if (isDayOrWeek)
-            {
-                if (SelectedDate.Date == DateTime.Now.Date)
-                {
-                    ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
-                }
-            }
-            else
+            if (IsScrollToNowHour)
             {
                 ScrollToRow(GetRowFromTime(DateTime.Now.TimeOfDay, false));
             }
+
 
             if (timeIndicatorLine != null)
             {
@@ -233,6 +251,19 @@ namespace MKproject.Schedule
                 }
 
             }
+
+
+            if (IsEmployeeFilterModeOn)
+            {
+                labelMember.ForeColor = Color.Green;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-GreenColor.png");
+            }
+            else
+            {
+                labelMember.ForeColor = Color.Black;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-Black.png");
+            }
+
             if (IsDayOrWeek)//Treka bel ekhir lieanno,amm tghayir el curso to default
             {
                 comboBoxDaysOrWeek.SelectedIndex = 0;
@@ -242,8 +273,45 @@ namespace MKproject.Schedule
             {
                 comboBoxDaysOrWeek.SelectedIndex = 1;
             }
+            IsLoadingTheForm = false;
         }
 
+
+        public void RefreshAllRelatedAppointments(int TargetClientId)
+        {
+            List<ClassAppointment> appointmentsWithClientId = AppointmentsListWorkingOn.Where(appointment => appointment.DesiredClient != null && appointment.DesiredClient.ClientId == TargetClientId).ToList();
+            List<ClassAppointment> ListAppointmentsToUpdate = new List<ClassAppointment>();
+            foreach (ClassAppointment desiredApointment in appointmentsWithClientId)
+            {
+                ListAppointmentsToUpdate.Add(ClassAppointment.CreateObjectClassAppointment(desiredApointment.AppointmentID));
+            }
+
+            //Update the list
+            foreach (ClassAppointment UpdatedAppointment in ListAppointmentsToUpdate)
+            {
+                ClassAppointment DesiredAppToUpdate = AppointmentsListWorkingOn.FirstOrDefault(appointment => appointment.DesiredClient != null && appointment.AppointmentID == UpdatedAppointment.AppointmentID);
+                DesiredAppToUpdate = UpdatedAppointment;
+            }
+            //Update the design
+            foreach (Control ucapp in TLPSchedule.Controls)
+            {
+                if (ucapp is UCappointment && ((UCappointment)ucapp).DesiredAppointmentUCApp.DesiredClient != null && ((UCappointment)ucapp).DesiredAppointmentUCApp.DesiredClient.ClientId == TargetClientId)
+                {
+                    ((UCappointment)ucapp).DesiredAppointmentUCApp = ListAppointmentsToUpdate.FirstOrDefault(appointment => appointment.DesiredClient != null && appointment.AppointmentID == ((UCappointment)ucapp).DesiredAppointmentUCApp.AppointmentID);
+                    ((UCappointment)ucapp).SetUCDesign();
+                    ((UCappointment)ucapp).SetServiceLogicAndDesign();
+                    ((UCappointment)ucapp).FixUCDesign();
+                }
+            }
+        }
+        public void RefreshDesiredAppointment(UCappointment DesiredUcApp)
+        {
+            DesiredUcApp.DesiredAppointmentUCApp = ClassAppointment.CreateObjectClassAppointment(DesiredUcApp.DesiredAppointmentUCApp.AppointmentID);
+            DesiredUcApp.SetUCDesign();
+            DesiredUcApp.SetServiceLogicAndDesign();
+            DesiredUcApp.FixUCDesign();
+
+        }
 
 
 
@@ -325,7 +393,7 @@ namespace MKproject.Schedule
             int visibleHeight = TLPSchedule.ClientSize.Height;
 
             // Calculate the position to scroll so the row is in the middle
-            int targetScrollPosition = rowYPosition - (visibleHeight / 2) + (rowHeight / 2);
+            int targetScrollPosition = rowYPosition - rowHeight * 4;
 
             // Set the AutoScrollPosition to the target position
             TLPSchedule.AutoScrollPosition = new Point(0, targetScrollPosition);
@@ -336,24 +404,28 @@ namespace MKproject.Schedule
 
         void FillAppointmentList(bool isDayOrWeek)
         {
+            List<ClassAppointment> TotalAppointmentsList;
+
             if (isDayOrWeek)
             {
-                TotalAppointmentsList = ClassAppointment.GetAppointmentOfSpecificEmployees(SelectedDate, EmployeeScheduleList);
+                TotalAppointmentsList = ClassAppointment.GetAppointmentOfSpecificEmployees(SelectedDate, EmployeeScheduleListWorkingOn);
             }
             else
             {
                 TotalAppointmentsList = ClassAppointment.GetAppointmentOfSpecificDays(ListDaysOfDesiredWeek);
             }
+
             AppointmentsListWorkingOn = new List<ClassAppointment>();
             foreach (ClassAppointment Desiredapp in TotalAppointmentsList)
             {
-                ClassEmployee DesiredEmp = Desiredapp.DesiredEmployee;
-                if ((bool)DesiredEmp.IsChecked)
+                ClassEmployee DesiredEmp = EmployeeScheduleListWorkingOn.FirstOrDefault(e => e.EmployeeId == Desiredapp.DesiredEmployee.EmployeeId);
+                if (DesiredEmp != null && DesiredEmp.IsChecked)//ma lezim tkun different then null, lieanno mafina nemhe employee eendo appointment in the past, bas lieanno eena old wrong data hattayneha w for rahit el ras
                 {
                     AppointmentsListWorkingOn.Add(Desiredapp);
                 }
             }
         }
+
         public string GetLabelDateifWeek()
         {
             var distinctMonths = ListDaysOfDesiredWeek.Select(d => new { d.Month, d.Year }).Distinct().ToList();
@@ -463,9 +535,9 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        LoadForm(((DateTime)clickedLabel.DesiredDate), true);
+                        LoadForm(((DateTime)clickedLabel.DesiredDate), true, false, true);
                     }
-                   
+
 
                 }
 
@@ -554,18 +626,17 @@ namespace MKproject.Schedule
                 ClassReminder DesiredReminder = new ClassReminder();
 
                 //Fill DesiredReminder
-                DesiredReminder.Idreminder = (int)dr["reminder_id"];
+                DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
                 if (dr["client_id"] != DBNull.Value)
                 {
                     DesiredReminder.DesiredClient = new ClassClient();
-                    DesiredReminder.DesiredClient.ClientId = (int)dr["client_id"];
+                    DesiredReminder.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
                     DesiredReminder.DesiredClient.Fname = (string)dr["name"];
                     DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
                 }
                 DesiredReminder.Reminder = (string)dr["reminder"];
                 DesiredReminder.Repeat = (string)dr["repeat"];
-                DesiredReminder.StartTime = (DateTime)dr["starttime"];
-                DesiredReminder.IsChecked = (bool)dr["is_checked"];
+                DesiredReminder.StartTime = Convert.ToDateTime(dr["starttime"]);
                 UCreminder ucreminder = new UCreminder(DesiredReminder, this, ParentFormSchedule);//li2anno manna bi client reminder
 
                 ListUCreminderForTheSelectedDate.Add(ucreminder);
@@ -590,7 +661,7 @@ namespace MKproject.Schedule
 
             if ((IsDayOrWeek && !IsHistory && !IsDesignBlocked) || (!IsDayOrWeek && TheOnlyEmployee != null && GetWhichEmployeeOrDateForSpecifieColumn(column, false).Item2 >= DateTime.Now.Date))
             {
-            
+
                 if (column > 0)
                 {
                     DateTime? StartTime = null;
@@ -635,9 +706,9 @@ namespace MKproject.Schedule
             int StartintColumnIndex = 1; // Initial column index, assuming 0 is reserved for the time
             if (IsDayOrWeek)
             {
-                foreach (ClassEmployee employee in EmployeeScheduleList)
+                foreach (ClassEmployee employee in EmployeeScheduleListWorkingOn)
                 {
-                    if ((bool)employee.IsChecked)
+                    if (employee.IsChecked)
                     {
                         var indices = new List<int>();
                         indices.Add(StartintColumnIndex++);
@@ -660,16 +731,16 @@ namespace MKproject.Schedule
         {
             if (!SQLToProject.CheckIfHistoryExistsToday(DateTime.Now))//eza exists update 
             {
-                for (int i = 0; i < EmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
+                for (int i = 0; i < TotalEmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
                 {
                     //getting availibility for this day of every employee
                     int dayOfWeekInt = ((int)DateTime.Today.DayOfWeek + 6) % 7;
 
                     string availability = "";
-                    string[] HoursOfThedays = EmployeeScheduleList[i].Availability.Split('/');
+                    string[] HoursOfThedays = EmployeeScheduleListWorkingOn[i].Availability.Split('/');
                     availability += HoursOfThedays[dayOfWeekInt];
 
-                    ProjectToSql.InsertHistoryEmployeeavailibility(DateTime.Now, EmployeeScheduleList[i].EmployeeId, (int)EmployeeScheduleList[i].Rank, availability);
+                    ProjectToSql.InsertHistoryEmployeeavailibility(DateTime.Now, EmployeeScheduleListWorkingOn[i].EmployeeId, (int)EmployeeScheduleListWorkingOn[i].Rank, availability);
                 }
             }
         }
@@ -678,7 +749,11 @@ namespace MKproject.Schedule
 
             foreach (ClassAppointment DesiredAppointment in AppointmentsListWorkingOn)
             {
-                AddUCappointmentsInTLP(DesiredAppointment);
+                if ((DesiredAppointment.IsCompleted && ParentFormSchedule.checkBoxComplete.Checked) || (DesiredAppointment.IsCanceled && ParentFormSchedule.checkBoxCancel.Checked) || (!DesiredAppointment.IsCompleted && !DesiredAppointment.IsCanceled && ParentFormSchedule.checkBoxOnPending.Checked))
+                {
+                    AddUCappointmentsInTLP(DesiredAppointment);
+                }
+
             }
 
 
@@ -706,16 +781,19 @@ namespace MKproject.Schedule
         {
             if (SelectedDate.Date >= DateTime.Now.Date)//present-future
             {
-                EmployeeScheduleList = ClassEmployee.GetEmployeeScheduleMemberASC();
+                EmployeeScheduleListWorkingOn = ClassEmployee.GetEmployeeScheduleMemberASC();
 
                 int NoEmployeeChecked = 0;
-                for (int i = 0; i < EmployeeScheduleList.Count; i++)
+                for (int i = 0; i < EmployeeScheduleListWorkingOn.Count; i++)
                 {
-                    if ((bool)EmployeeScheduleList[i].IsChecked)
+                    ClassEmployee DesiredEmp = TotalEmployeeScheduleList.FirstOrDefault(e => e.EmployeeId == EmployeeScheduleListWorkingOn[i].EmployeeId);
+                    if (DesiredEmp.IsChecked)
                     {
+                        EmployeeScheduleListWorkingOn[i].IsChecked = true;
                         NoEmployeeChecked++;
-                        TheOnlyEmployee = EmployeeScheduleList[i];
+                        TheOnlyEmployee = EmployeeScheduleListWorkingOn[i];
                     }
+
                 }
                 if (NoEmployeeChecked != 1)
                 {
@@ -724,7 +802,7 @@ namespace MKproject.Schedule
             }
             else  //History
             {
-                EmployeeScheduleList = new List<ClassEmployee>();
+                EmployeeScheduleListWorkingOn = new List<ClassEmployee>();
 
                 DataTable RankNAvailabilityEmployeesASC = SQLToProject.DisplayRankEmployeesNAvailabilityASC(SelectedDate);
 
@@ -735,13 +813,34 @@ namespace MKproject.Schedule
                     {
                         //this is like a View Model object
                         ClassEmployee employee = new ClassEmployee();
-                        employee.EmployeeId = (int)datarow["employee_id"];
+                        employee.EmployeeId = Convert.ToInt32(datarow["employee_id"]);
                         employee.Fname = datarow["first_name"] is DBNull ? null : (string)datarow["first_name"];
                         employee.Lname = datarow["last_name"] is DBNull ? null : (string)datarow["last_name"];
-                        employee.Rank = datarow["rank"] is DBNull ? null : (int)datarow["rank"];
+                        employee.Rank = datarow["rank"] is DBNull ? null : Convert.ToInt32(datarow["rank"]);
                         employee.Availability = datarow["availability"] is DBNull ? null : (string)datarow["availability"];
-                        employee.IsChecked = true;//since he is from the past
-                        EmployeeScheduleList.Add(employee);
+
+                        //IsChecked Property
+                        ClassEmployee DesiredEmp = TotalEmployeeScheduleList.FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
+                        //so in the past, by default men bayno , even la shelne men el management, since eendo history, bas men bayno in case no fliter mode is available, yaane all the coaches mdawayin
+                        if (DesiredEmp != null && DesiredEmp.IsChecked)
+                        {
+                            employee.IsChecked = true;//since he is from the past
+                        }
+                        else
+                        {
+                            if (IsEmployeeFilterModeOn)
+                            {
+                                employee.IsChecked = false;
+                            }
+                            else
+                            {
+                                employee.IsChecked = true;
+                            }
+                        }
+
+
+
+                        EmployeeScheduleListWorkingOn.Add(employee);
                     }
                 }
             }
@@ -750,10 +849,10 @@ namespace MKproject.Schedule
 
 
         }//Display the title and the ucappointments
-        bool CheckIfEmployeeAvailable()
+        bool CheckIfAnyEmployeeAvailable()
         {
 
-            foreach (ClassEmployee emp in EmployeeScheduleList)
+            foreach (ClassEmployee emp in EmployeeScheduleListWorkingOn)
             {
                 if (emp.IsChecked == true)
                 {
@@ -855,6 +954,12 @@ namespace MKproject.Schedule
 
         private void labelMember_Click(object sender, EventArgs e)
         {
+            EmployeeSchedule empSch = new EmployeeSchedule(this);
+            empSch.ParentucSchedule = this;
+            Point locationRelativeToScreen = labelMember.PointToScreen(Point.Empty);
+            locationRelativeToScreen.Offset(FLPMembers.Width - empSch.Width, 25);
+            empSch.Location = locationRelativeToScreen;
+            empSch.Show();
             //
             ParentFormSchedule.CloseNotfBanner();
         }
@@ -863,12 +968,12 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.WaitCursor;
             if (IsDayOrWeek)
             {
-                LoadForm(SelectedDate.AddDays(+1), IsDayOrWeek);
+                LoadForm(SelectedDate.AddDays(+1), IsDayOrWeek, false, true);
             }
             else
             {
                 DateTime TargetedDate = SelectedDate.AddDays(+7);
-                LoadForm(TargetedDate, IsDayOrWeek);
+                LoadForm(TargetedDate, IsDayOrWeek, false, true);
             }
             Cursor.Current = Cursors.Default;
 
@@ -880,12 +985,12 @@ namespace MKproject.Schedule
             Cursor.Current = Cursors.WaitCursor;
             if (IsDayOrWeek)
             {
-                LoadForm(SelectedDate.AddDays(-1), IsDayOrWeek);
+                LoadForm(SelectedDate.AddDays(-1), IsDayOrWeek, false, true);
             }
             else
             {
                 DateTime TargetedDate = SelectedDate.AddDays(-7);
-                LoadForm(TargetedDate, IsDayOrWeek);
+                LoadForm(TargetedDate, IsDayOrWeek, false, true);
             }
             Cursor.Current = Cursors.Default;
 
@@ -901,14 +1006,14 @@ namespace MKproject.Schedule
             {
                 if (DateTime.Now.Date != SelectedDate.Date)
                 {
-                    LoadForm(DateTime.Now, IsDayOrWeek);
+                    LoadForm(DateTime.Now, IsDayOrWeek, true, true);
                 }
             }
             else
             {
                 if (!PresentWeek.Any(d => d.Date == SelectedDate.Date))
                 {
-                    LoadForm(DateTime.Now, IsDayOrWeek);
+                    LoadForm(DateTime.Now, IsDayOrWeek, true, true);
                 }
             }
 
@@ -980,13 +1085,13 @@ namespace MKproject.Schedule
                 SelectedDate = ParentFormSchedule.calanderForm.DateCalander.Date;
                 if (IsDayOrWeek)
                 {
-                    LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek);
+                    LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek, false, true);
                 }
                 else
                 {
                     if (!ListDaysOfDesiredWeek.Any(d => d.Date == SelectedDate.Date))
                     {
-                        LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek);
+                        LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek, false, true);
                     }
                 }
 
@@ -1014,13 +1119,29 @@ namespace MKproject.Schedule
         }
         private void labelMember_MouseMove(object sender, MouseEventArgs e)
         {
-            labelMember.ForeColor = Program.BoldColor;
-            pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-BoldColor.png");
+            if (IsEmployeeFilterModeOn)
+            {
+                labelMember.ForeColor = Color.FromArgb(0, 160, 0);
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-LighterGreenColor.png");
+            }
+            else
+            {
+                labelMember.ForeColor = Program.BoldColor;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-BoldColor.png");
+            }
         }
         private void labelMember_MouseLeave(object sender, EventArgs e)
         {
-            labelMember.ForeColor = Color.Black;
-            pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-Black.png");
+            if (IsEmployeeFilterModeOn)
+            {
+                labelMember.ForeColor = Color.Green;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-GreenColor.png");
+            }
+            else
+            {
+                labelMember.ForeColor = Color.Black;
+                pictureBoxMember.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "down-arrow-Black.png");
+            }
         }
         private void comboBoxDaysOrWeek_MouseMove(object sender, MouseEventArgs e)
         {
@@ -1034,11 +1155,11 @@ namespace MKproject.Schedule
 
             if (!IsDayOrWeek && comboBoxDaysOrWeek.SelectedItem.ToString() == EnumDaysOrWeek.Day.ToString())
             {
-                LoadForm(SelectedDate, true);
+                LoadForm(SelectedDate, true, false, true);
             }
             else if (IsDayOrWeek && comboBoxDaysOrWeek.SelectedItem.ToString() == EnumDaysOrWeek.Week.ToString())
             {
-                LoadForm(SelectedDate, false);
+                LoadForm(SelectedDate, false, false, true);
             }
 
             Cursor.Current = Cursors.Default;
@@ -1082,12 +1203,11 @@ namespace MKproject.Schedule
 
             //uc1.UCAppIsDroped += Uc1_UCAppIsDroped;
 
-
-            //
+            //         
             if (TLPSchedule == null && TLPEmployees == null)
             {
                 //TLPSchedule
-                TLPSchedule = new TableLayoutPanelBuffered();
+                TLPSchedule = new TableLayoutPanel();
                 TLPSchedule.AllowDrop = true;
                 TLPSchedule.Dock = DockStyle.Fill;
                 TLPSchedule.AutoScroll = true;
@@ -1098,12 +1218,12 @@ namespace MKproject.Schedule
                 TLPSchedule.RowCount = 96;
                 for (int i = 0; i < TLPSchedule.RowCount; i++)
                 {
-                    TLPSchedule.RowStyles.Add(new RowStyle(SizeType.Absolute, 22f));
+                    TLPSchedule.RowStyles.Add(new RowStyle(SizeType.Absolute, 19));
                 }
 
 
                 //TLPEmployee
-                TLPEmployees = new TableLayoutPanelDoubleBufferedNoscroll();
+                TLPEmployees = new TableLayoutPanel();
                 TLPEmployees.Dock = DockStyle.Fill;
                 TLPEmployees.RowCount = 1;
                 TLPEmployees.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
@@ -1165,9 +1285,9 @@ namespace MKproject.Schedule
                 this.TLPGlobal.Controls.Add(TLPEmployees, 0, 1);
                 this.TLPGlobal.Controls.Add(TLPSchedule, 0, 2);
 
+
+
             }
-
-
 
         }
 
@@ -1175,10 +1295,9 @@ namespace MKproject.Schedule
 
         void SetTLPSchGroupColumn()
         {
-
-
             ResetTLPScheduleToInitialState();
 
+            TLPSchedule.SuspendLayout();
 
             if (ListOfAllColumnIndexesGroups.Count > 0)
             {
@@ -1199,11 +1318,14 @@ namespace MKproject.Schedule
                 TLPSchedule.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
                 TLPSchedule.ColumnCount++;
             }
+
+            TLPSchedule.ResumeLayout();
         }
         void SetTLPEmployeesColumn()//always called after SetTLPSchGroupColumn 
         {
             ResetTLPEmployeeToInitialState();
 
+            TLPSchedule.SuspendLayout();
             for (int i = 0; i < ListOfAllColumnIndexesGroups.Count; i++)
             {
                 TLPEmployees.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
@@ -1216,7 +1338,7 @@ namespace MKproject.Schedule
                 if (IsDayOrWeek)
                 {
                     buttonEmployeeOrDay.DesiredEmployee = ListOfAllColumnIndexesGroups[i].Item1;
-                    buttonEmployeeOrDay.Text = ListOfAllColumnIndexesGroups[i].Item1.Fname + " " + ListOfAllColumnIndexesGroups[i].Item1.Lname;               
+                    buttonEmployeeOrDay.Text = ListOfAllColumnIndexesGroups[i].Item1.Fname + " " + ListOfAllColumnIndexesGroups[i].Item1.Lname;
                 }
                 else
                 {
@@ -1228,6 +1350,7 @@ namespace MKproject.Schedule
 
                 TLPEmployees.Controls.Add(buttonEmployeeOrDay, i + 1, 0);//i+1, lieanno first column kermel el time
             }
+            TLPSchedule.ResumeLayout();
         }
         void ResetTLPScheduleToInitialState()
         {
@@ -1265,15 +1388,12 @@ namespace MKproject.Schedule
                 TLPEmployees.ColumnStyles.RemoveAt(1);
             }
             TLPEmployees.ResumeLayout();
-
         }
-
         bool IsDesignBlocked;
         void BlockedModeDesign(string OutputText)
         {
-
-            ResetTLPScheduleToInitialState();
             ResetTLPEmployeeToInitialState();
+            ResetTLPScheduleToInitialState();
 
             //we add only one column in the block design
             TLPEmployees.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
@@ -1282,7 +1402,7 @@ namespace MKproject.Schedule
             TLPSchedule.ColumnCount++;
 
             ButtonEmployeeOrDay buttonEmployee = CreateLabelEmployee();
-            buttonEmployee.Text = OutputText;        
+            buttonEmployee.Text = OutputText;
             buttonEmployee.SetButtonDesignBehavor(IsDayOrWeek, true);//ejbare tahet el Set fow
 
             TLPEmployees.Controls.Add(buttonEmployee, 1, 0);//1, lieanno first column kermel el time
@@ -1294,44 +1414,51 @@ namespace MKproject.Schedule
 
         public void ExpandTableLayoutPanelColumn(int? empId)
         {
-           
-                FocusOnMaxWidth = (int)((TLPSchedule.Width - TLPSchedule.GetColumnWidths()[0]) * 0.85);//so he will be 90 % of the columns without the first column
+            TLPSchedule.SuspendLayout();
 
 
-                if (empId != null)//eza kenit null,yaane i  m using same FocusOnColumnIndexGroup, usd in remove or insert column
+            FocusOnMaxWidth = (int)((TLPSchedule.Width - TLPSchedule.GetColumnWidths()[0]) * 0.85);//so he will be 90 % of the columns without the first column
+
+
+            if (empId != null)//eza kenit null,yaane i  m using same FocusOnColumnIndexGroup, usd in remove or insert column
+            {
+                FocusOnColumnIndexGroup = GetWhichDesiredGroup((int)empId, null);
+            }
+
+
+            int DesiredWidthOfTheGroup = FocusOnMaxWidth;
+            //TLPAppointment 
+
+            int DesiredWidthPerColumn = DesiredWidthOfTheGroup / FocusOnColumnIndexGroup.Item3.Count;
+            foreach (int ColumnIndex in FocusOnColumnIndexGroup.Item3)
+            {
+                TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Absolute, DesiredWidthPerColumn);
+            }
+
+
+            //Employee tlp
+            int i = 1;//i=0 lal time
+            foreach ((ClassEmployee, DateTime?, List<int>) Group in ListOfAllColumnIndexesGroups)
+            {
+                if (FocusOnColumnIndexGroup.Item1.EmployeeId == Group.Item1.EmployeeId)
                 {
-                    FocusOnColumnIndexGroup = GetWhichDesiredGroup((int)empId, null);
+                    TLPEmployees.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, DesiredWidthOfTheGroup);
+                    break;
                 }
-
-
-                int DesiredWidthOfTheGroup = FocusOnMaxWidth;
-                //TLPAppointment 
-
-                int DesiredWidthPerColumn = DesiredWidthOfTheGroup / FocusOnColumnIndexGroup.Item3.Count;
-                foreach (int ColumnIndex in FocusOnColumnIndexGroup.Item3)
+                else
                 {
-                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Absolute, DesiredWidthPerColumn);
+                    i++;
                 }
+            }
 
 
-                //Employee tlp
-                int i = 1;//i=0 lal time
-                foreach ((ClassEmployee, DateTime?, List<int>) Group in ListOfAllColumnIndexesGroups)
-                {
-                    if (FocusOnColumnIndexGroup.Item1.EmployeeId == Group.Item1.EmployeeId)
-                    {
-                        TLPEmployees.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, DesiredWidthOfTheGroup);
-                        break;
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-            
+
+            TLPSchedule.ResumeLayout();
         }
         public void PercentageResizeTLPScheduleAndTlpEmp()
         {
+            TLPSchedule.SuspendLayout();  // Suspend layout to improve performance();
+
             FocusOnColumnIndexGroup = (null, null, null);
             //
             if (ListOfAllColumnIndexesGroups.Count > 0)
@@ -1340,6 +1467,8 @@ namespace MKproject.Schedule
 
                 float TotalPercent = 0;
                 int i = 1;
+
+
                 foreach ((ClassEmployee, DateTime?, List<int>) Group in ListOfAllColumnIndexesGroups)
                 {
                     //TLPSchedule
@@ -1354,6 +1483,8 @@ namespace MKproject.Schedule
                     }
                 }
             }
+
+            TLPSchedule.ResumeLayout();  // Suspend layout to improve performance();
 
         }
 
@@ -1613,13 +1744,13 @@ namespace MKproject.Schedule
 
         //Scrolling
         private Timer scrollTimer;
-      
+
         private const int ScrollMarginSmall = 30; // Smaller distance from the edge to start scrolling
         private const int ScrollSpeedFast = 30;   // Faster scrolling speed
-       
+
         private const int ScrollMarginLarge = 60; // Larger distance from the edge to start scrolling
         private const int ScrollSpeedSlow = 10;   // Slower scrolling speed
-      
+
         private void TLPSchedule_DragOver(object sender, DragEventArgs e)
         {
 
@@ -1815,7 +1946,7 @@ namespace MKproject.Schedule
             {
                 return false;
             }
-           
+
         }
         void DragDropBusinessLogic(int NewColumnIndex, int NewRowIndexStart)//Test
         {
@@ -1872,7 +2003,7 @@ namespace MKproject.Schedule
 
 
                         //EndTime
-                        TimeSpan NewEndTime = GetTimeFromRow(NewRowIndexEnd, true); ;
+                        TimeSpan NewEndTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay+(UCApointmentDraged.OldDesiredAppointmentUCApp.EndTime.TimeOfDay - UCApointmentDraged.OldDesiredAppointmentUCApp.StartTime.TimeOfDay);
                         UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
 
 
@@ -2053,7 +2184,9 @@ namespace MKproject.Schedule
                 }
                 if (!CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents))
                 {
-                    CustomMessageBox.Show("Design so Complicated!\nDesign will be reseted", CustomMessageBox.Type.Error);
+                    string FUllNAme = DesiredUCApp.DesiredAppointmentUCApp.DesiredClient.Fname + DesiredUCApp.DesiredAppointmentUCApp.DesiredClient.Lname;
+                    TimeSpan time = DesiredUCApp.DesiredAppointmentUCApp.StartTime.TimeOfDay;
+                    CustomMessageBox.Show("Error in:\n" + FUllNAme + " at " + time, CustomMessageBox.Type.Error);
                     //LoadForm(SelectedDate);
                 }
             }
@@ -2222,6 +2355,9 @@ namespace MKproject.Schedule
         float PricisionError = 0f;//ma aa eedir le2e the error value
         private void InsertColumn(int columnIndex)
         {
+            TLPSchedule.SuspendLayout();
+
+
             TLPSchedule.ColumnCount++;
 
             //finding the desiredIndexesgroup
@@ -2238,9 +2374,8 @@ namespace MKproject.Schedule
 
             }
 
+
             ////fixing the size
-
-
             if (FocusOnColumnIndexGroup != (null, null, null))
             {
                 TLPSchedule.ColumnStyles.Insert(columnIndex, new ColumnStyle(SizeType.Percent, 0F));
@@ -2249,17 +2384,18 @@ namespace MKproject.Schedule
             else
             {
 
+                TLPSchedule.ColumnStyles.Insert(columnIndex, new ColumnStyle(SizeType.Percent, 100f));
 
-                (ClassEmployee, DateTime?, List<int>) TargetedIndexesGroup = ListOfAllColumnIndexesGroups[i - 1];
-                float PercentageOfEachGroup = 100f / ListOfAllColumnIndexesGroups.Count + PricisionError;
-                float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item3.Count;
-
-                TLPSchedule.ColumnStyles.Insert(columnIndex, new ColumnStyle(SizeType.Percent, PercentageOfEachColumn));
-
-
-                foreach (int ColumnIndex in TargetedIndexesGroup.Item3)
+                if (!IsLoadingTheForm)
                 {
-                    TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                    (ClassEmployee, DateTime?, List<int>) TargetedIndexesGroup = ListOfAllColumnIndexesGroups[i - 1];
+                    float PercentageOfEachGroup = 100f / ListOfAllColumnIndexesGroups.Count + PricisionError;
+                    float PercentageOfEachColumn = PercentageOfEachGroup / TargetedIndexesGroup.Item3.Count;
+
+                    foreach (int ColumnIndex in TargetedIndexesGroup.Item3)
+                    {
+                        TLPSchedule.ColumnStyles[ColumnIndex] = new ColumnStyle(SizeType.Percent, PercentageOfEachColumn);
+                    }
                 }
             }
 
@@ -2286,9 +2422,16 @@ namespace MKproject.Schedule
                     ((UCappointment)co).ColumnIndex = newIndex;
                 }
             }
+
+
+
+            TLPSchedule.ResumeLayout();
         }
         private void RemoveColumn(int columnIndex)
         {
+            TLPSchedule.SuspendLayout();  // Suspend layout to improve performance();
+
+
             TLPSchedule.ColumnCount--;
             //finding the desiredIndexesgroup
             int i;
@@ -2344,6 +2487,10 @@ namespace MKproject.Schedule
                     ((UCappointment)co).ColumnIndex = newIndex;
                 }
             }
+
+
+
+            TLPSchedule.ResumeLayout();
         }
 
 
@@ -2534,21 +2681,22 @@ namespace MKproject.Schedule
             {
                 if (i < ListucAppointments.Count)//Existing UCappointment
                 {
-
-                    for (int k = ListucAppointments[i].RowIndexStart; k <= ListucAppointments[i].RowIndexEnd; k++)
+                    for (int j = 0; j < spans[0]; j++)
                     {
-                        UCappointment Ucapp = (UCappointment)TLPSchedule.GetControlFromPosition(ColumnIndexToStartWithTest, k);
-
-                        if (Ucapp != null)//we can t put this control at this index
+                        for (int k = ListucAppointments[i].RowIndexStart; k <= ListucAppointments[i].RowIndexEnd; k++)
                         {
-                            bool IntersectsWithKnownControls = ListucAppointments.Any(ucapp => Ucapp.DesiredAppointmentUCApp.AppointmentID == ucapp.DesiredAppointmentUCApp.AppointmentID);
-                            if (!IntersectsWithKnownControls)
-                            {//eza fetna yaane intersects with unkonwo uc mesh sheyfino
-                                return false;
+                            UCappointment Ucapp = (UCappointment)TLPSchedule.GetControlFromPosition(ColumnIndexToStartWithTest + j, k);
+
+                            if (Ucapp != null)//we can t put this control at this index
+                            {
+                                bool IntersectsWithKnownControls = ListucAppointments.Any(ucapp => Ucapp.DesiredAppointmentUCApp.AppointmentID == ucapp.DesiredAppointmentUCApp.AppointmentID);
+                                if (!IntersectsWithKnownControls)
+                                {//eza fetna yaane intersects with unkonwo uc mesh sheyfino
+                                    return false;
+                                }
                             }
                         }
                     }
-
                     ColumnIndexToStartWithTest += spans[i];
                 }
             }
@@ -2738,7 +2886,7 @@ namespace MKproject.Schedule
 
 
 
-                if (NbrRowShouldPass == -1 && (IsDayOrWeek || !IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(e.Column,false).Item2 >= DateTime.Now.Date))//while hovering normally
+                if (NbrRowShouldPass == -1 && (IsDayOrWeek || !IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(e.Column, false).Item2 >= DateTime.Now.Date))//while hovering normally
                 {
                     // Check if this cell's row belongs to the same group as the hovered cell
                     if (currentGroup == hoveredGroup && (ColumnIndexGroupOfDraggingUC != (null, null, null) && ColumnIndexGroupOfDraggingUC.Item3.Contains(e.Column)))
