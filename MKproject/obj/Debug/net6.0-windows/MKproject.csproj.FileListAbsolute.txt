@@ -299,3 +299,6 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\bin\Debug\net6.0-windows\images\oval-Small.png
+C:\MKProject code\MKproject\MKproject\bin\Debug\net6.0-windows\images\down-arrow-Black.png
+C:\MKProject code\MKproject\MKproject\bin\Debug\net6.0-windows\images\down-arrow-BoldColor.png
+C:\MKProject code\MKproject\MKproject\bin\Debug\net6.0-windows\images\oval-Small.png

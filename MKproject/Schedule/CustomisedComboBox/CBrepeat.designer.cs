@@ -44,7 +44,7 @@
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(140, 94);
+            panel1.Size = new System.Drawing.Size(169, 94);
             panel1.TabIndex = 0;
             // 
             // labelWeek
@@ -56,7 +56,7 @@
             labelWeek.Location = new System.Drawing.Point(0, 64);
             labelWeek.Margin = new System.Windows.Forms.Padding(0);
             labelWeek.Name = "labelWeek";
-            labelWeek.Size = new System.Drawing.Size(140, 32);
+            labelWeek.Size = new System.Drawing.Size(169, 32);
             labelWeek.TabIndex = 2;
             labelWeek.Text = "Every week";
             labelWeek.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -73,7 +73,7 @@
             labelDay.Location = new System.Drawing.Point(0, 32);
             labelDay.Margin = new System.Windows.Forms.Padding(0);
             labelDay.Name = "labelDay";
-            labelDay.Size = new System.Drawing.Size(140, 32);
+            labelDay.Size = new System.Drawing.Size(169, 32);
             labelDay.TabIndex = 1;
             labelDay.Text = "Every day";
             labelDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -90,7 +90,7 @@
             labelNoRepeat.Location = new System.Drawing.Point(0, 0);
             labelNoRepeat.Margin = new System.Windows.Forms.Padding(0);
             labelNoRepeat.Name = "labelNoRepeat";
-            labelNoRepeat.Size = new System.Drawing.Size(140, 32);
+            labelNoRepeat.Size = new System.Drawing.Size(169, 32);
             labelNoRepeat.TabIndex = 0;
             labelNoRepeat.Text = "Does not repeat";
             labelNoRepeat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -103,12 +103,12 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.SystemColors.Control;
-            ClientSize = new System.Drawing.Size(140, 94);
+            ClientSize = new System.Drawing.Size(169, 94);
             ControlBox = false;
             Controls.Add(panel1);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            MaximumSize = new System.Drawing.Size(156, 110);
-            MinimumSize = new System.Drawing.Size(156, 110);
+            MaximumSize = new System.Drawing.Size(185, 110);
+            MinimumSize = new System.Drawing.Size(185, 110);
             Name = "CBrepeat";
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;

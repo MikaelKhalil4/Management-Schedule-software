@@ -121,9 +121,7 @@
     <Compile Update="Schedule\Calanderform\LabelYearcs.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Schedule\Calanderform\UCCalanderday.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Schedule\Calanderform\UCCalanderday.cs" />
     <Compile Update="Schedule\Calanderform\UCCalandermonth.cs">
       <SubType>UserControl</SubType>
     </Compile>

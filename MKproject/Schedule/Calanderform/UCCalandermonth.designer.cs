@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanelMonth = new System.Windows.Forms.TableLayoutPanel();
             labelMonth12 = new LabelMonth();
             labelMonth11 = new LabelMonth();
             labelMonth10 = new LabelMonth();
@@ -41,39 +41,39 @@
             labelMonth3 = new LabelMonth();
             labelMonth2 = new LabelMonth();
             labelMonth1 = new LabelMonth();
-            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanelMonth.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelMonth
             // 
-            tableLayoutPanel1.BackColor = System.Drawing.Color.White;
-            tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel1.Controls.Add(labelMonth12, 3, 2);
-            tableLayoutPanel1.Controls.Add(labelMonth11, 2, 2);
-            tableLayoutPanel1.Controls.Add(labelMonth10, 1, 2);
-            tableLayoutPanel1.Controls.Add(labelMonth9, 0, 2);
-            tableLayoutPanel1.Controls.Add(labelMonth8, 3, 1);
-            tableLayoutPanel1.Controls.Add(labelMonth7, 2, 1);
-            tableLayoutPanel1.Controls.Add(labelMonth6, 1, 1);
-            tableLayoutPanel1.Controls.Add(labelMonth5, 0, 1);
-            tableLayoutPanel1.Controls.Add(labelMonth4, 3, 0);
-            tableLayoutPanel1.Controls.Add(labelMonth3, 2, 0);
-            tableLayoutPanel1.Controls.Add(labelMonth2, 1, 0);
-            tableLayoutPanel1.Controls.Add(labelMonth1, 0, 0);
-            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(23, 0);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(328, 342);
-            tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanelMonth.BackColor = System.Drawing.Color.White;
+            tableLayoutPanelMonth.ColumnCount = 4;
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanelMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanelMonth.Controls.Add(labelMonth12, 3, 2);
+            tableLayoutPanelMonth.Controls.Add(labelMonth11, 2, 2);
+            tableLayoutPanelMonth.Controls.Add(labelMonth10, 1, 2);
+            tableLayoutPanelMonth.Controls.Add(labelMonth9, 0, 2);
+            tableLayoutPanelMonth.Controls.Add(labelMonth8, 3, 1);
+            tableLayoutPanelMonth.Controls.Add(labelMonth7, 2, 1);
+            tableLayoutPanelMonth.Controls.Add(labelMonth6, 1, 1);
+            tableLayoutPanelMonth.Controls.Add(labelMonth5, 0, 1);
+            tableLayoutPanelMonth.Controls.Add(labelMonth4, 3, 0);
+            tableLayoutPanelMonth.Controls.Add(labelMonth3, 2, 0);
+            tableLayoutPanelMonth.Controls.Add(labelMonth2, 1, 0);
+            tableLayoutPanelMonth.Controls.Add(labelMonth1, 0, 0);
+            tableLayoutPanelMonth.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanelMonth.Location = new System.Drawing.Point(23, 0);
+            tableLayoutPanelMonth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanelMonth.Name = "tableLayoutPanelMonth";
+            tableLayoutPanelMonth.RowCount = 3;
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            tableLayoutPanelMonth.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            tableLayoutPanelMonth.Size = new System.Drawing.Size(328, 342);
+            tableLayoutPanelMonth.TabIndex = 0;
             // 
             // labelMonth12
             // 
@@ -88,7 +88,7 @@
             labelMonth12.Name = "labelMonth12";
             labelMonth12.Size = new System.Drawing.Size(82, 114);
             labelMonth12.TabIndex = 23;
-            labelMonth12.Text = "December";
+            labelMonth12.Text = "Dec";
             labelMonth12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth11
@@ -104,7 +104,7 @@
             labelMonth11.Name = "labelMonth11";
             labelMonth11.Size = new System.Drawing.Size(82, 114);
             labelMonth11.TabIndex = 22;
-            labelMonth11.Text = "November";
+            labelMonth11.Text = "Nov";
             labelMonth11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth10
@@ -120,7 +120,7 @@
             labelMonth10.Name = "labelMonth10";
             labelMonth10.Size = new System.Drawing.Size(82, 114);
             labelMonth10.TabIndex = 21;
-            labelMonth10.Text = "October";
+            labelMonth10.Text = "Oct";
             labelMonth10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth9
@@ -136,7 +136,7 @@
             labelMonth9.Name = "labelMonth9";
             labelMonth9.Size = new System.Drawing.Size(82, 114);
             labelMonth9.TabIndex = 20;
-            labelMonth9.Text = "September";
+            labelMonth9.Text = "Sep";
             labelMonth9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth8
@@ -152,7 +152,7 @@
             labelMonth8.Name = "labelMonth8";
             labelMonth8.Size = new System.Drawing.Size(82, 114);
             labelMonth8.TabIndex = 19;
-            labelMonth8.Text = "August";
+            labelMonth8.Text = "Aug";
             labelMonth8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth7
@@ -168,7 +168,7 @@
             labelMonth7.Name = "labelMonth7";
             labelMonth7.Size = new System.Drawing.Size(82, 114);
             labelMonth7.TabIndex = 18;
-            labelMonth7.Text = "July";
+            labelMonth7.Text = "Jul";
             labelMonth7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth6
@@ -184,7 +184,7 @@
             labelMonth6.Name = "labelMonth6";
             labelMonth6.Size = new System.Drawing.Size(82, 114);
             labelMonth6.TabIndex = 17;
-            labelMonth6.Text = "June";
+            labelMonth6.Text = "Jun";
             labelMonth6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth5
@@ -216,7 +216,7 @@
             labelMonth4.Name = "labelMonth4";
             labelMonth4.Size = new System.Drawing.Size(82, 114);
             labelMonth4.TabIndex = 15;
-            labelMonth4.Text = "April";
+            labelMonth4.Text = "Apr";
             labelMonth4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth3
@@ -232,7 +232,7 @@
             labelMonth3.Name = "labelMonth3";
             labelMonth3.Size = new System.Drawing.Size(82, 114);
             labelMonth3.TabIndex = 14;
-            labelMonth3.Text = "March";
+            labelMonth3.Text = "Mar";
             labelMonth3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth2
@@ -248,7 +248,7 @@
             labelMonth2.Name = "labelMonth2";
             labelMonth2.Size = new System.Drawing.Size(82, 114);
             labelMonth2.TabIndex = 13;
-            labelMonth2.Text = "February";
+            labelMonth2.Text = "Feb";
             labelMonth2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMonth1
@@ -264,36 +264,36 @@
             labelMonth1.Name = "labelMonth1";
             labelMonth1.Size = new System.Drawing.Size(82, 114);
             labelMonth1.TabIndex = 12;
-            labelMonth1.Text = "January";
+            labelMonth1.Text = "Jan";
             labelMonth1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UCCalandermonth
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tableLayoutPanelMonth);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "UCCalandermonth";
             Padding = new System.Windows.Forms.Padding(23, 0, 0, 0);
             Size = new System.Drawing.Size(351, 342);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            tableLayoutPanelMonth.ResumeLayout(false);
+            tableLayoutPanelMonth.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-        private LabelMonth labelMonth12;
-        private LabelMonth labelMonth11;
-        private LabelMonth labelMonth10;
-        private LabelMonth labelMonth9;
-        private LabelMonth labelMonth8;
-        private LabelMonth labelMonth7;
-        private LabelMonth labelMonth6;
-        private LabelMonth labelMonth5;
-        private LabelMonth labelMonth4;
-        private LabelMonth labelMonth3;
-        private LabelMonth labelMonth2;
-        private LabelMonth labelMonth1;
-        public System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        public System.Windows.Forms.TableLayoutPanel tableLayoutPanelMonth;
+        public LabelMonth labelMonth12;
+        public LabelMonth labelMonth11;
+        public LabelMonth labelMonth10;
+        public LabelMonth labelMonth9;
+        public LabelMonth labelMonth8;
+        public LabelMonth labelMonth7;
+        public LabelMonth labelMonth6;
+        public LabelMonth labelMonth5;
+        public LabelMonth labelMonth4;
+        public LabelMonth labelMonth3;
+        public LabelMonth labelMonth2;
+        public LabelMonth labelMonth1;
     }
 }

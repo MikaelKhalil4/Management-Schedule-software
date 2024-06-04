@@ -12,10 +12,15 @@ namespace MKproject.Schedule
     {
         //PROPERTIES:
         public DateTime DateCalander { get; set; }// kel shi get,te3dil ha2i2e mnstaeemil DateUCMonth, hayda bi dallo yetghayar kel ma ghayir bel calander
-        public event EventHandler SelectedDateChanged;//hayda bas byetghayar lamma na2e value
+
+        public event EventHandler SelectedDateChangedUCSchedule;//hayda bas byetghayar lamma na2e value
+        public event EventHandler SelectedDateChangedReminder;//hayda bas byetghayar lamma na2e value
+
         public void ActivateSelectedDateChanged()
         {
-            SelectedDateChanged?.Invoke(this, EventArgs.Empty);
+            SelectedDateChangedUCSchedule?.Invoke(this, EventArgs.Empty);
+            SelectedDateChangedReminder?.Invoke(this, EventArgs.Empty);
+
         }
 
         public DateTime SelectedDate;//Bi Masil Date li na2a
@@ -60,7 +65,7 @@ namespace MKproject.Schedule
             EditLabelUCdays();
         }//moujarad ma eftah lschedule
 
-
+     
 
         //EVENTS:
         private void buttonNext_Click_1(object sender, EventArgs e)
@@ -83,7 +88,7 @@ namespace MKproject.Schedule
             else if (wichuccalander == 2)
             {
                 DateCalander = new DateTime(DateCalander.Year + 1, 1, 1);
-                labelTitleDay.Text = DateCalander.Year.ToString();
+                labelTitleDay.Text = DateCalander.Year.ToString();          
                 HighlightSelectedMonth();
             }
             else
@@ -134,6 +139,8 @@ namespace MKproject.Schedule
                 tableLayoutPanelMonth.Controls.Add(uccalandermonth, 0, 1);
                 tableLayoutPanelMonth.SetColumnSpan(uccalandermonth, 4);
                 labelTitleDay.Text = DateCalander.Year.ToString();
+            
+
                 HighlightSelectedMonth();
 
             }
@@ -157,15 +164,15 @@ namespace MKproject.Schedule
                 {
                     EditLabelUCdays();
                 }
-                else if (wichuccalander == 2)
+                else 
                 {
-                    labelTitleDay.Text = DateCalander.Year.ToString();
-                    HighlightSelectedMonth();
-                }
-                else
-                {
-                    labelTitleDay.Text = DateCalander.Year + "-" + (DateCalander.Year + NODifferenceYears);
-                    HighlightNDisplaySelectedYear();
+                    wichuccalander = 1;
+                    DateCalander = DateTime.Today;
+
+                    tableLayoutPanelMonth.Controls.Remove(uccalandermonth);
+                    tableLayoutPanelMonth.Controls.Add(uccalanderday);
+
+                    EditLabelUCdays();
                 }
             }
 
@@ -194,8 +201,9 @@ namespace MKproject.Schedule
             //part 2
             monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
             labelTitleDay.Text = monthname + " " + year;
+          
             //part 4
-            UCDays[] ucdaysArray = uccalanderday.tableLayoutPanel1.Controls.OfType<UCDays>().ToArray();// jebna indez taba3 42 ucdays,exenple ucdaysArray[0] houwe awa ucdays
+            UCDays[] ucdaysArray = uccalanderday.tableLayoutPanelDays.Controls.OfType<UCDays>().ToArray();// jebna indez taba3 42 ucdays,exenple ucdaysArray[0] houwe awa ucdays
             DateTime previousMonth = date.AddMonths(-1);
             DateTime nextMonth = date.AddMonths(+1);
             DateTime startofthemonth = new DateTime(year, month, 1);
@@ -285,7 +293,7 @@ namespace MKproject.Schedule
             bool ucdayOfDateUCDayexist = false;
             bool ucdayOfTodayexist = false;
 
-            foreach (UCDays ucdays in uccalanderday.tableLayoutPanel1.Controls.OfType<UCDays>())
+            foreach (UCDays ucdays in uccalanderday.tableLayoutPanelDays.Controls.OfType<UCDays>())
             {
                 ucdays.labelDay.BackColor = Color.Transparent;
                 //Hayda lucday eza zabat w akhad today w se2abit 3endo kamen DateUCDay byekoud today bass
@@ -340,7 +348,7 @@ namespace MKproject.Schedule
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    Control control = uccalandermonth.tableLayoutPanel1.GetControlFromPosition(j, i);//to get the labels by order
+                    Control control = uccalandermonth.tableLayoutPanelMonth.GetControlFromPosition(j, i);//to get the labels by order
                     if (control is LabelMonth m)
                     {
                         if (m.Month == SelectedDate.Month && DateCalander.Year == SelectedDate.Year)

@@ -915,7 +915,7 @@ namespace MKproject.Schedule
 
 
             Cursor.Current = Cursors.Default;
-
+          
             //
             ParentFormSchedule.CloseNotfBanner();
         }
@@ -930,7 +930,7 @@ namespace MKproject.Schedule
             ParentFormSchedule.calanderForm.Size = new Size(365, 307);
             ParentFormSchedule.calanderForm.Show();
 
-            ParentFormSchedule.calanderForm.SelectedDateChanged += SelectedDate_Changed;
+
 
             //Showing the ucmonth from the calanderday in the date that we are
             ParentFormSchedule.calanderForm.DateCalander = SelectedDate;
@@ -951,11 +951,25 @@ namespace MKproject.Schedule
 
             ParentFormSchedule.calanderForm.EditLabelUCdays();
 
-
+            EditingTheSizeOfTheCalander();
             //
             ParentFormSchedule.CloseNotfBanner();
         }
-        public void SelectedDate_Changed(object sender, EventArgs e)
+        private void EditingTheSizeOfTheCalander()
+        {
+            ParentFormSchedule.calanderForm.labelTitleDay.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            ParentFormSchedule.calanderForm.buttonToday.Font = new Font("Segoe UI", 8F);
+
+            for (int col = 0; col < ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.ColumnCount; col++)
+            {
+                Control LabelDaysName = ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.GetControlFromPosition(col, 0);
+                LabelDaysName.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            }
+
+            ParentFormSchedule.calanderForm.MaximumSize = new Size(365, 307);
+            ParentFormSchedule.calanderForm.MinimumSize = new Size(365, 307);
+        }
+        public void SelectedDateUCSchedule_Changed(object sender, EventArgs e)
         {
             if (SelectedDate.Date != ParentFormSchedule.calanderForm.DateCalander.Date)
             {

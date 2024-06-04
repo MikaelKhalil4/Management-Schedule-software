@@ -82,7 +82,7 @@
             labelYear2.AutoSize = true;
             labelYear2.BackColor = System.Drawing.Color.White;
             labelYear2.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear2.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear2.Location = new System.Drawing.Point(171, 234);
             labelYear2.Margin = new System.Windows.Forms.Padding(0);
@@ -98,7 +98,7 @@
             labelYear3.AutoSize = true;
             labelYear3.BackColor = System.Drawing.Color.White;
             labelYear3.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear3.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear3.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear3.Location = new System.Drawing.Point(97, 234);
             labelYear3.Margin = new System.Windows.Forms.Padding(0);
@@ -114,7 +114,7 @@
             labelYear1.AutoSize = true;
             labelYear1.BackColor = System.Drawing.Color.White;
             labelYear1.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear1.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear1.Location = new System.Drawing.Point(245, 234);
             labelYear1.Margin = new System.Windows.Forms.Padding(0);
@@ -130,7 +130,7 @@
             labelYear4.AutoSize = true;
             labelYear4.BackColor = System.Drawing.Color.White;
             labelYear4.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear4.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear4.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear4.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear4.Location = new System.Drawing.Point(23, 0);
             labelYear4.Margin = new System.Windows.Forms.Padding(0);
@@ -146,7 +146,7 @@
             labelYear5.AutoSize = true;
             labelYear5.BackColor = System.Drawing.Color.White;
             labelYear5.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear5.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear5.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear5.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear5.Location = new System.Drawing.Point(97, 0);
             labelYear5.Margin = new System.Windows.Forms.Padding(0);
@@ -162,7 +162,7 @@
             labelYear6.AutoSize = true;
             labelYear6.BackColor = System.Drawing.Color.White;
             labelYear6.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear6.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear6.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear6.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear6.Location = new System.Drawing.Point(171, 0);
             labelYear6.Margin = new System.Windows.Forms.Padding(0);
@@ -178,7 +178,7 @@
             labelYear7.AutoSize = true;
             labelYear7.BackColor = System.Drawing.Color.White;
             labelYear7.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear7.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear7.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear7.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear7.Location = new System.Drawing.Point(245, 0);
             labelYear7.Margin = new System.Windows.Forms.Padding(0);
@@ -194,7 +194,7 @@
             labelYear8.AutoSize = true;
             labelYear8.BackColor = System.Drawing.Color.White;
             labelYear8.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear8.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear8.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear8.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear8.Location = new System.Drawing.Point(23, 117);
             labelYear8.Margin = new System.Windows.Forms.Padding(0);
@@ -210,7 +210,7 @@
             labelYear9.AutoSize = true;
             labelYear9.BackColor = System.Drawing.Color.White;
             labelYear9.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear9.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear9.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear9.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear9.Location = new System.Drawing.Point(97, 117);
             labelYear9.Margin = new System.Windows.Forms.Padding(0);
@@ -226,7 +226,7 @@
             labelYear10.AutoSize = true;
             labelYear10.BackColor = System.Drawing.Color.White;
             labelYear10.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear10.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear10.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear10.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear10.Location = new System.Drawing.Point(171, 117);
             labelYear10.Margin = new System.Windows.Forms.Padding(0);
@@ -242,7 +242,7 @@
             labelYear12.AutoSize = true;
             labelYear12.BackColor = System.Drawing.Color.White;
             labelYear12.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear12.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear12.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear12.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear12.Location = new System.Drawing.Point(23, 234);
             labelYear12.Margin = new System.Windows.Forms.Padding(0);
@@ -258,7 +258,7 @@
             labelYear11.AutoSize = true;
             labelYear11.BackColor = System.Drawing.Color.White;
             labelYear11.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelYear11.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelYear11.Font = new System.Drawing.Font("Segoe UI Semibold", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelYear11.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
             labelYear11.Location = new System.Drawing.Point(245, 117);
             labelYear11.Margin = new System.Windows.Forms.Padding(0);

@@ -3,7 +3,7 @@
   <assemblyIdentity name="MKproject.application" version="1.0.0.20" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <description asmv2:publisher="MKproject" asmv2:product="MKproject" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true">
-    <deploymentProvider codebase="http://mkpc/MKproject/MKproject.application" />
+    <deploymentProvider codebase="http://desktop-mmi74fe/MKproject/MKproject.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
@@ -16,7 +16,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UZrxB3rdfUiwGWwdaYLKJxGgAWcHfHEi/wSlC8KUqgk=</dsig:DigestValue>
+        <dsig:DigestValue>w/CK/ZgczVmTH1r5bCM2EVOc7Ed3TBzvBkOwgcDqrSA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

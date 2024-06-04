@@ -15,6 +15,7 @@ namespace MKproject.Management
         public  UCCalanderMonth uccalandermonth { get; set; }
         public UCCalanderYear uccalanderyear { get; set; }
       
+
         public Calander(UCLabelFilterOriginal ucCustomeDate,DateTime desiredDate)
         {
             InitializeComponent();
@@ -46,6 +47,7 @@ namespace MKproject.Management
                 return cp;
             }
         }
+
 
         private void Calander_FormClosing(object sender, FormClosingEventArgs e)
         {

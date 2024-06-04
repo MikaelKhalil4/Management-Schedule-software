@@ -1,4 +1,5 @@
 ﻿using CustomizedTools;
+using GlobalFunctions;
 using MKproject.Management;
 using MKproject.Schedule.UCData;
 using System;
@@ -132,10 +133,14 @@ namespace MKproject.Schedule
             DesiredReminder.StartTime = ucSchedule.SelectedDate.Date;
             DesiredReminder.Repeat = Reminder.NoRepeat;
 
-            labelDate.Text = DesiredReminder.StartTime.ToString("dddd,MMMM dd,yyyy");
+            labelDate.Text = DesiredReminder.StartTime.ToString("ddd, MMM dd, yyyy");
+            labelDate.Font = new Font("Segoe UI Semibold", 9, FontStyle.Bold);
+            RandomFunctions.FixedFont(labelDate, FontStyle.Bold);
             GetQuoteWhenReminderOpens();
-            ParentFormSchedule.calanderForm.SelectedDateChanged -= ucSchedule.SelectedDate_Changed;
+            ParentFormSchedule.calanderForm.SelectedDateChangedReminder += SelectedDateReminder_Changed;
 
+            ParentFormSchedule.calanderForm.SelectedDateChangedUCSchedule -= ucSchedule.SelectedDateUCSchedule_Changed;
+            labelQuote.Select();
         }
         void LoadUpdateForm()
         {
@@ -180,11 +185,16 @@ namespace MKproject.Schedule
                 Height = Reminder.HeightWithchekBoxes;
             }
 
-            labelDate.Text = DesiredReminder.StartTime.ToString("dddd,MMMM dd,yyyy");
+            labelDate.Text = DesiredReminder.StartTime.ToString("ddd, MMM dd, yyyy");
+            labelDate.Font = new Font("Segoe UI Semibold", 9, FontStyle.Bold);
+            RandomFunctions.FixedFont(labelDate, FontStyle.Bold);
             GetQuoteWhenReminderOpens();
 
-            ParentFormSchedule.calanderForm.SelectedDateChanged -= ucSchedule.SelectedDate_Changed;
+            ParentFormSchedule.calanderForm.SelectedDateChangedReminder += SelectedDateReminder_Changed;
+
+            ParentFormSchedule.calanderForm.SelectedDateChangedUCSchedule -= ucSchedule.SelectedDateUCSchedule_Changed;
             isLoadUpdate = false;
+            labelQuote.Select();
         }
 
 
@@ -367,19 +377,18 @@ namespace MKproject.Schedule
         {
             this.Close();
         }
-        private void labelDate_Click(object sender, EventArgs e)
+        private void TLPDate_Click(object sender, EventArgs e)
         {
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, Color.Transparent);
             Program.GreyForm.Show();
+
             //UCmonth show
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
-            locationRelativeToScreen.Offset(-6, 25);
+            locationRelativeToScreen.Offset(-45, 25);
 
             ParentFormSchedule.calanderForm.Location = locationRelativeToScreen;
-            ParentFormSchedule.calanderForm.Size = new Size(200, 169);
             ParentFormSchedule.calanderForm.Show();
 
-            ParentFormSchedule.calanderForm.SelectedDateChanged += SelectedDate_Changed;
 
             //Showing the ucmonth from the calanderday in the date that we are
             ParentFormSchedule.calanderForm.DateCalander = DesiredReminder.StartTime;
@@ -399,15 +408,31 @@ namespace MKproject.Schedule
             }
 
             ParentFormSchedule.calanderForm.EditLabelUCdays();
+            EditingTheSizeOfTheCalander();
         }
-        private void SelectedDate_Changed(object sender, EventArgs e)
+        private void EditingTheSizeOfTheCalander()
+        {
+            ParentFormSchedule.calanderForm.labelTitleDay.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+            ParentFormSchedule.calanderForm.buttonToday.Font = new Font("Segoe UI", 7F);
+
+            for (int col = 0; col < ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.ColumnCount; col++)
+            {
+                Control LabelDaysName = ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.GetControlFromPosition(col, 0);
+                LabelDaysName.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            }
+
+            ParentFormSchedule.calanderForm.MaximumSize = new Size(260, 240);
+            ParentFormSchedule.calanderForm.MinimumSize = new Size(260, 240);
+        }
+        public void SelectedDateReminder_Changed(object sender, EventArgs e)
         {
             //edit DateUCDay
             DesiredReminder.StartTime = ParentFormSchedule.calanderForm.DateCalander.Date;
 
             ChangingTheDateOfLabelQuote();
-            labelDate.Text = DesiredReminder.StartTime.ToString("dddd,MMMM dd,yyyy");
-
+            labelDate.Text = DesiredReminder.StartTime.ToString("ddd, MMM dd, yyyy");
+            labelDate.Font = new Font("Segoe UI Semibold", 9, FontStyle.Bold);
+            RandomFunctions.FixedFont(labelDate, FontStyle.Bold);
             ParentFormSchedule.calanderForm.Hide();
         }
         private void ChangingTheDateOfLabelQuote()
@@ -533,6 +558,11 @@ namespace MKproject.Schedule
         private void labelDate_MouseLeave(object sender, EventArgs e)
         {
             labelDate.ForeColor = Color.Black;
+        }
+
+        private void Reminder_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ucSchedule.ParentFormSchedule.calanderForm.SelectedDateChangedUCSchedule += ucSchedule.SelectedDateUCSchedule_Changed;
         }
     }
 }

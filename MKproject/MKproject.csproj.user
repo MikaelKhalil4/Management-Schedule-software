@@ -108,6 +108,9 @@
     <Compile Update="Schedule\Availabilityform\Employee.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Schedule\Calanderform\UCCalanderday.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Schedule\CustomisedComboBox\CBdisplayTime.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -8,11 +8,10 @@ namespace MKproject.Schedule
         public UCCalandermonth(CalanderForm ucmonths)
         {
             InitializeComponent();
-            foreach (LabelMonth m in tableLayoutPanel1.Controls.OfType<LabelMonth>())
+            foreach (LabelMonth m in tableLayoutPanelMonth.Controls.OfType<LabelMonth>())
             {
                 m.ucmonths = ucmonths;
             }
         }
-
     }
 }
