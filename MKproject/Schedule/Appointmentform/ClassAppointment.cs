@@ -176,7 +176,7 @@ namespace MKproject.Schedule
         }
         public static void DeleteRelatedSoloBundle(int appointmentId, int bundleId)
         {
-            SQLiteCommand cmdDeleteOldBundlesToApp = new SQLiteCommand(@"Delete FROM  from appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
+            SQLiteCommand cmdDeleteOldBundlesToApp = new SQLiteCommand(@"Delete FROM  appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
             cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", appointmentId);
             cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@bundle_id", bundleId);
             con.Open();

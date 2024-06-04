@@ -80,7 +80,7 @@ namespace MKproject
                 currentButton = desiredbtn;
             }
         }
-        public  void OpenChildForm(Form DesiredFormToOpen, Button desiredbtn, bool IsOpeningASousChild)
+        public void OpenChildForm(Form DesiredFormToOpen, Button desiredbtn, bool IsOpeningASousChild)
         {
             if (ParentFormHome.panelContainer.Controls.Count > 0)//specially made kermel el back ma nekhsar el data bel form li fetna menna
             {
@@ -92,13 +92,19 @@ namespace MKproject
             ParentFormHome.buttonBackHome.Visible = false;//ejbare, in case tloona men el form, men el menu, mesh men el backhome btn
 
 
-            bool IsFromSousChildToChild = false ;
+            bool IsFromSousChildToChild = false;
             if (!IsOpeningASousChild)//so we can return to it on back click
             {
                 if (ActivatedForm != DesiredFormToOpen)//kermel eza aam naamil back,ma men fout bel condition kermel ma ysir fi error bel show tahet, bcz: DesiredFormToOpen and ActivatedForm will refer to the same form
                 {
                     if (ActivatedForm != null)
-                        ActivatedForm.Close();
+                    {
+                        if (!( ActivatedForm is ScheduleForm))//since it s cashed
+                        {
+                            ActivatedForm.Close();
+                        }
+
+                    }
 
                     ActivatedForm = DesiredFormToOpen;
                     ActivateButton(desiredbtn);
@@ -128,7 +134,7 @@ namespace MKproject
             {
                 GoingFromChildToChild?.Invoke(this, EventArgs.Empty);
             }
-           
+
         }
 
 
@@ -142,10 +148,11 @@ namespace MKproject
         }
         private void buttonSchedule_Click(object sender, EventArgs e)
         {
-            Cursor= Cursors.WaitCursor;
+            Cursor = Cursors.WaitCursor;
             SousActivatedForm = null;
-            OpenChildForm(new ScheduleForm(), buttonSchedule, false);
             HideMenu();
+            OpenChildForm(Program.ScheduleFormGlobal, buttonSchedule, false);
+            Program.ScheduleFormGlobal.LoadScheduleForm();
             Cursor = Cursors.Default;
         }
         private void buttonTransaction_Click(object sender, EventArgs e)
@@ -206,7 +213,7 @@ namespace MKproject
                 {
                     Program.GreyForm.Close();
                     Program.GreyForm = null;
-                   
+
                 }
             }
         }
@@ -263,6 +270,6 @@ namespace MKproject
             //app.ShowDialog();
         }
 
-       
+
     }
 }

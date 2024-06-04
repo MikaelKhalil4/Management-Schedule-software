@@ -409,15 +409,7 @@ namespace MKproject.Schedule
                 return;
             }
 
-            if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date && DesiredAppointmentUCApp.IsPackageMode && ((DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null) || (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance == null)))//past
-            {
-                //package deleted or package not selected In The Past
-
-                CustomMessageBox.Show(this.labelService.Text + "\nCan't open it", CustomMessageBox.Type.OkInfo);
-
-            }
-            else//present future
-            {
+           
                 ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
                 Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();
@@ -425,7 +417,7 @@ namespace MKproject.Schedule
                 appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
                 appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
                 appointmentupdate.Show();
-            }
+        
 
 
         }

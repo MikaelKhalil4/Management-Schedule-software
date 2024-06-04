@@ -66,6 +66,8 @@ namespace MKproject.Schedule
 
         private void ButtonDone_Click(object sender, EventArgs e)
         {
+            this.Close();
+
             foreach (UCEmployee uc in panelGlobal.Controls)
             {
                 //UPDATE The references of TotalEmployeeScheduleList
@@ -99,7 +101,6 @@ namespace MKproject.Schedule
             ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false,false);
             Cursor.Current = Cursors.Default;
 
-            this.Close();
         }
     }
 

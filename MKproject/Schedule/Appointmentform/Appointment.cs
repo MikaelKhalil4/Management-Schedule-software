@@ -118,7 +118,7 @@ namespace MKproject.Schedule
 
 
             ucClientApp = new UCClientApp(this);
-      
+
             BackOffice.UndoHappened += BackOffice_UndoHappened;//khotra a static event lieanno baddak tentebih tnaesa kell marra bet sakkir el  form as we did tahet bel event on closed
 
 
@@ -590,7 +590,7 @@ namespace MKproject.Schedule
             else
             {
                 DesiredAppointmentAppForm.IsCompleted = false;
-                DesiredAppointmentAppForm.UndoCompletionAppointmentSQL();             
+                DesiredAppointmentAppForm.UndoCompletionAppointmentSQL();
             }
             //Design of the ucappointment
             if (DesiredAppointmentAppForm.DesiredClient != null && (DesiredAppointmentAppForm.IsPackageMode || DesiredAppointmentAppForm.ChosenBundlesList != null))
@@ -785,7 +785,7 @@ namespace MKproject.Schedule
                     NotfBanner.UndoNotficationBanner += Notf_UndoComplitionNotficationBanner;
                 }
             }
-            Cursor.Current=Cursors.Default;
+            Cursor.Current = Cursors.Default;
         }
         private void buttonCanceled_Click(object sender, EventArgs e)
         {
@@ -877,7 +877,7 @@ namespace MKproject.Schedule
 
         //hole el 3 event bi asro bel state tb3 el UCAppointment w tb3 Appointment Form
         //And they appear lamma eftah el profile tb3 el customer and modify the information(PErsonal/Clientbalance)
-     
+
         private void BackOffice_UndoHappened(object sender, EventArgs e)//this is only design wise cz kell shi backend happened aal undo action
         {
 

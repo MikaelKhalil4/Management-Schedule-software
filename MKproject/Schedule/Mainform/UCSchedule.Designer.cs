@@ -31,20 +31,21 @@ namespace MKproject.Schedule
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCSchedule));
-            TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
-            tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanel();
-            FLPMembers = new System.Windows.Forms.FlowLayoutPanel();
-            labelMember = new System.Windows.Forms.Label();
-            pictureBoxMember = new System.Windows.Forms.PictureBox();
-            comboBoxDaysOrWeek = new System.Windows.Forms.ComboBox();
-            buttonToday = new System.Windows.Forms.Button();
-            flowLayoutPanelDoubleBufferedcs1 = new System.Windows.Forms.FlowLayoutPanel();
-            labelDate = new System.Windows.Forms.Label();
-            DownArrow = new System.Windows.Forms.PictureBox();
-            buttonPrevious = new System.Windows.Forms.Button();
-            buttonNext = new System.Windows.Forms.Button();
+            TLPGlobal = new TableLayoutPanel();
+            TLPUp = new TableLayoutPanel();
+            FLPMembers = new FlowLayoutPanel();
+            labelMember = new Label();
+            pictureBoxMember = new PictureBox();
+            comboBoxDaysOrWeek = new ComboBox();
+            buttonToday = new Button();
+            flowLayoutPanelDoubleBufferedcs1 = new FlowLayoutPanel();
+            labelDate = new Label();
+            DownArrow = new PictureBox();
+            buttonPrevious = new Button();
+            buttonNext = new Button();
+            progressBar1 = new ProgressBar();
             TLPGlobal.SuspendLayout();
-            tableLayoutPanelDoubleBufferedNoscroll1.SuspendLayout();
+            TLPUp.SuspendLayout();
             FLPMembers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMember).BeginInit();
             flowLayoutPanelDoubleBufferedcs1.SuspendLayout();
@@ -55,54 +56,56 @@ namespace MKproject.Schedule
             // 
             TLPGlobal.BackColor = System.Drawing.Color.White;
             TLPGlobal.ColumnCount = 1;
-            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPGlobal.Controls.Add(tableLayoutPanelDoubleBufferedNoscroll1, 0, 0);
-            TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPGlobal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TLPGlobal.Controls.Add(TLPUp, 0, 0);
+            TLPGlobal.Dock = DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
-            TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
+            TLPGlobal.Margin = new Padding(0);
             TLPGlobal.Name = "TLPGlobal";
             TLPGlobal.RowCount = 3;
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPGlobal.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            TLPGlobal.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            TLPGlobal.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             TLPGlobal.Size = new System.Drawing.Size(1152, 668);
             TLPGlobal.TabIndex = 1;
             // 
-            // tableLayoutPanelDoubleBufferedNoscroll1
+            // TLPUp
             // 
-            tableLayoutPanelDoubleBufferedNoscroll1.BackColor = System.Drawing.Color.White;
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnCount = 7;
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 221F));
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            tableLayoutPanelDoubleBufferedNoscroll1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(FLPMembers, 6, 0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(comboBoxDaysOrWeek, 5, 0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(buttonToday, 0, 0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(flowLayoutPanelDoubleBufferedcs1, 3, 0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(buttonPrevious, 1, 0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Controls.Add(buttonNext, 2, 0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanelDoubleBufferedNoscroll1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Margin = new System.Windows.Forms.Padding(0);
-            tableLayoutPanelDoubleBufferedNoscroll1.Name = "tableLayoutPanelDoubleBufferedNoscroll1";
-            tableLayoutPanelDoubleBufferedNoscroll1.RowCount = 1;
-            tableLayoutPanelDoubleBufferedNoscroll1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanelDoubleBufferedNoscroll1.Size = new System.Drawing.Size(1152, 40);
-            tableLayoutPanelDoubleBufferedNoscroll1.TabIndex = 62;
+            TLPUp.BackColor = System.Drawing.Color.White;
+            TLPUp.ColumnCount = 7;
+            TLPUp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 117F));
+            TLPUp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 35F));
+            TLPUp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 35F));
+            TLPUp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 221F));
+            TLPUp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TLPUp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+            TLPUp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            TLPUp.Controls.Add(FLPMembers, 6, 0);
+            TLPUp.Controls.Add(comboBoxDaysOrWeek, 5, 0);
+            TLPUp.Controls.Add(buttonToday, 0, 0);
+            TLPUp.Controls.Add(flowLayoutPanelDoubleBufferedcs1, 3, 0);
+            TLPUp.Controls.Add(buttonPrevious, 1, 0);
+            TLPUp.Controls.Add(buttonNext, 2, 0);
+            TLPUp.Controls.Add(progressBar1, 0, 1);
+            TLPUp.Dock = DockStyle.Fill;
+            TLPUp.Location = new System.Drawing.Point(0, 0);
+            TLPUp.Margin = new Padding(0);
+            TLPUp.Name = "TLPUp";
+            TLPUp.RowCount = 2;
+            TLPUp.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TLPUp.RowStyles.Add(new RowStyle(SizeType.Absolute, 2F));
+            TLPUp.Size = new System.Drawing.Size(1152, 42);
+            TLPUp.TabIndex = 62;
             // 
             // FLPMembers
             // 
-            FLPMembers.Anchor = System.Windows.Forms.AnchorStyles.None;
+            FLPMembers.Anchor = AnchorStyles.None;
             FLPMembers.BackColor = System.Drawing.Color.White;
             FLPMembers.Controls.Add(labelMember);
             FLPMembers.Controls.Add(pictureBoxMember);
             FLPMembers.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
             FLPMembers.Location = new System.Drawing.Point(1056, 9);
-            FLPMembers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            FLPMembers.Margin = new Padding(4, 3, 4, 3);
             FLPMembers.Name = "FLPMembers";
             FLPMembers.Size = new System.Drawing.Size(92, 21);
             FLPMembers.TabIndex = 71;
@@ -110,11 +113,11 @@ namespace MKproject.Schedule
             // labelMember
             // 
             labelMember.AutoSize = true;
-            labelMember.Cursor = System.Windows.Forms.Cursors.Hand;
+            labelMember.Cursor = Cursors.Hand;
             labelMember.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelMember.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
             labelMember.Location = new System.Drawing.Point(0, 2);
-            labelMember.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            labelMember.Margin = new Padding(0, 2, 0, 0);
             labelMember.Name = "labelMember";
             labelMember.Size = new System.Drawing.Size(59, 17);
             labelMember.TabIndex = 60;
@@ -127,10 +130,10 @@ namespace MKproject.Schedule
             // pictureBoxMember
             // 
             pictureBoxMember.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBoxMember.BackgroundImage");
-            pictureBoxMember.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pictureBoxMember.Cursor = System.Windows.Forms.Cursors.Hand;
+            pictureBoxMember.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxMember.Cursor = Cursors.Hand;
             pictureBoxMember.Location = new System.Drawing.Point(59, 0);
-            pictureBoxMember.Margin = new System.Windows.Forms.Padding(0);
+            pictureBoxMember.Margin = new Padding(0);
             pictureBoxMember.Name = "pictureBoxMember";
             pictureBoxMember.Size = new System.Drawing.Size(27, 20);
             pictureBoxMember.TabIndex = 61;
@@ -141,15 +144,15 @@ namespace MKproject.Schedule
             // 
             // comboBoxDaysOrWeek
             // 
-            comboBoxDaysOrWeek.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            comboBoxDaysOrWeek.Anchor = AnchorStyles.Right;
             comboBoxDaysOrWeek.BackColor = System.Drawing.Color.WhiteSmoke;
-            comboBoxDaysOrWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            comboBoxDaysOrWeek.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            comboBoxDaysOrWeek.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxDaysOrWeek.FlatStyle = FlatStyle.Flat;
             comboBoxDaysOrWeek.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             comboBoxDaysOrWeek.ForeColor = System.Drawing.Color.Black;
             comboBoxDaysOrWeek.FormattingEnabled = true;
             comboBoxDaysOrWeek.Location = new System.Drawing.Point(983, 6);
-            comboBoxDaysOrWeek.Margin = new System.Windows.Forms.Padding(6);
+            comboBoxDaysOrWeek.Margin = new Padding(6);
             comboBoxDaysOrWeek.Name = "comboBoxDaysOrWeek";
             comboBoxDaysOrWeek.Size = new System.Drawing.Size(63, 27);
             comboBoxDaysOrWeek.TabIndex = 750;
@@ -160,16 +163,16 @@ namespace MKproject.Schedule
             // 
             // buttonToday
             // 
-            buttonToday.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonToday.Anchor = AnchorStyles.None;
             buttonToday.BackColor = System.Drawing.Color.WhiteSmoke;
-            buttonToday.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonToday.Cursor = Cursors.Hand;
             buttonToday.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
             buttonToday.FlatAppearance.BorderSize = 0;
-            buttonToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonToday.FlatStyle = FlatStyle.Flat;
             buttonToday.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonToday.ForeColor = System.Drawing.Color.Black;
             buttonToday.Location = new System.Drawing.Point(15, 7);
-            buttonToday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonToday.Margin = new Padding(4, 3, 4, 3);
             buttonToday.Name = "buttonToday";
             buttonToday.Size = new System.Drawing.Size(86, 25);
             buttonToday.TabIndex = 69;
@@ -179,13 +182,13 @@ namespace MKproject.Schedule
             // 
             // flowLayoutPanelDoubleBufferedcs1
             // 
-            flowLayoutPanelDoubleBufferedcs1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            flowLayoutPanelDoubleBufferedcs1.Anchor = AnchorStyles.None;
             flowLayoutPanelDoubleBufferedcs1.BackColor = System.Drawing.Color.White;
             flowLayoutPanelDoubleBufferedcs1.Controls.Add(labelDate);
             flowLayoutPanelDoubleBufferedcs1.Controls.Add(DownArrow);
             flowLayoutPanelDoubleBufferedcs1.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
             flowLayoutPanelDoubleBufferedcs1.Location = new System.Drawing.Point(195, 7);
-            flowLayoutPanelDoubleBufferedcs1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanelDoubleBufferedcs1.Margin = new Padding(4, 3, 4, 3);
             flowLayoutPanelDoubleBufferedcs1.Name = "flowLayoutPanelDoubleBufferedcs1";
             flowLayoutPanelDoubleBufferedcs1.Size = new System.Drawing.Size(204, 26);
             flowLayoutPanelDoubleBufferedcs1.TabIndex = 0;
@@ -193,11 +196,11 @@ namespace MKproject.Schedule
             // labelDate
             // 
             labelDate.AutoSize = true;
-            labelDate.Cursor = System.Windows.Forms.Cursors.Hand;
+            labelDate.Cursor = Cursors.Hand;
             labelDate.Font = new System.Drawing.Font("Segoe UI", 10.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelDate.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
             labelDate.Location = new System.Drawing.Point(0, 3);
-            labelDate.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            labelDate.Margin = new Padding(0, 3, 0, 0);
             labelDate.Name = "labelDate";
             labelDate.Size = new System.Drawing.Size(135, 20);
             labelDate.TabIndex = 60;
@@ -210,10 +213,10 @@ namespace MKproject.Schedule
             // DownArrow
             // 
             DownArrow.BackgroundImage = (System.Drawing.Image)resources.GetObject("DownArrow.BackgroundImage");
-            DownArrow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            DownArrow.Cursor = System.Windows.Forms.Cursors.Hand;
+            DownArrow.BackgroundImageLayout = ImageLayout.Zoom;
+            DownArrow.Cursor = Cursors.Hand;
             DownArrow.Location = new System.Drawing.Point(135, 2);
-            DownArrow.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            DownArrow.Margin = new Padding(0, 2, 0, 0);
             DownArrow.Name = "DownArrow";
             DownArrow.Size = new System.Drawing.Size(27, 20);
             DownArrow.TabIndex = 61;
@@ -224,18 +227,18 @@ namespace MKproject.Schedule
             // 
             // buttonPrevious
             // 
-            buttonPrevious.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonPrevious.Anchor = AnchorStyles.None;
             buttonPrevious.BackColor = System.Drawing.Color.Transparent;
             buttonPrevious.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonPrevious.BackgroundImage");
-            buttonPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            buttonPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonPrevious.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonPrevious.Cursor = Cursors.Hand;
             buttonPrevious.FlatAppearance.BorderColor = System.Drawing.Color.White;
             buttonPrevious.FlatAppearance.BorderSize = 0;
             buttonPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
-            buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonPrevious.FlatStyle = FlatStyle.Flat;
             buttonPrevious.ForeColor = System.Drawing.Color.Transparent;
             buttonPrevious.Location = new System.Drawing.Point(121, 4);
-            buttonPrevious.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonPrevious.Margin = new Padding(4, 3, 4, 3);
             buttonPrevious.Name = "buttonPrevious";
             buttonPrevious.Size = new System.Drawing.Size(27, 31);
             buttonPrevious.TabIndex = 57;
@@ -244,33 +247,43 @@ namespace MKproject.Schedule
             // 
             // buttonNext
             // 
-            buttonNext.Anchor = System.Windows.Forms.AnchorStyles.None;
+            buttonNext.Anchor = AnchorStyles.None;
             buttonNext.BackColor = System.Drawing.Color.Transparent;
             buttonNext.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonNext.BackgroundImage");
-            buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            buttonNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonNext.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonNext.Cursor = Cursors.Hand;
             buttonNext.FlatAppearance.BorderColor = System.Drawing.Color.White;
             buttonNext.FlatAppearance.BorderSize = 0;
             buttonNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(229, 226, 244);
-            buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonNext.FlatStyle = FlatStyle.Flat;
             buttonNext.ForeColor = System.Drawing.Color.Transparent;
             buttonNext.Location = new System.Drawing.Point(156, 4);
-            buttonNext.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonNext.Margin = new Padding(4, 3, 4, 3);
             buttonNext.Name = "buttonNext";
             buttonNext.Size = new System.Drawing.Size(27, 31);
             buttonNext.TabIndex = 58;
             buttonNext.UseVisualStyleBackColor = false;
             buttonNext.Click += buttonNext_Click;
             // 
+            // progressBar1
+            // 
+            TLPUp.SetColumnSpan(progressBar1, 7);
+            progressBar1.Dock = DockStyle.Fill;
+            progressBar1.Location = new System.Drawing.Point(0, 40);
+            progressBar1.Margin = new Padding(0);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new System.Drawing.Size(1152, 2);
+            progressBar1.TabIndex = 751;
+            // 
             // UCSchedule
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(TLPGlobal);
             Name = "UCSchedule";
             Size = new System.Drawing.Size(1152, 668);
             TLPGlobal.ResumeLayout(false);
-            tableLayoutPanelDoubleBufferedNoscroll1.ResumeLayout(false);
+            TLPUp.ResumeLayout(false);
             FLPMembers.ResumeLayout(false);
             FLPMembers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMember).EndInit();
@@ -289,10 +302,11 @@ namespace MKproject.Schedule
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.PictureBox DownArrow;
         private System.Windows.Forms.Button buttonPrevious;
-        private TableLayoutPanel tableLayoutPanelDoubleBufferedNoscroll1;
+        private TableLayoutPanel TLPUp;
         private System.Windows.Forms.FlowLayoutPanel FLPMembers;
         private System.Windows.Forms.Label labelMember;
         private System.Windows.Forms.PictureBox pictureBoxMember;
         private System.Windows.Forms.ComboBox comboBoxDaysOrWeek;
+        private ProgressBar progressBar1;
     }
 }

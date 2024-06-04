@@ -23,7 +23,6 @@ namespace MKproject.Schedule
 
             ucSchedule = new UCSchedule(this);
 
-            Cursor.Current = Cursors.WaitCursor;//lieanno men wara el combobox aam yentezii el cursor!
 
             ucSchedule.Dock = DockStyle.Fill;
             ucSchedule.Margin = new Padding(10, 10, 0, 0);
@@ -32,7 +31,6 @@ namespace MKproject.Schedule
             tableLayoutPanelForm.Controls.Add(ucSchedule, 1, 0);
             ucSchedule.TLPSchedule.ResumeLayout();
 
-            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
 
             //ejare tahet ucSchedule
 
@@ -49,7 +47,18 @@ namespace MKproject.Schedule
             checkBoxComplete.Click += CloseNotfBanner_Click;
             checkBoxCancel.Click += CloseNotfBanner_Click;
 
-            Cursor.Current = Cursors.Default;
+       
+        }
+
+       public void LoadScheduleForm()
+        {
+            checkBoxOnPending.Checked = true;
+            checkBoxComplete.Checked = true;
+            checkBoxCancel.Checked = true;
+
+            ucSchedule.LoadGlobalyTheForm();
+            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+        
         }
 
         private void CloseNotfBanner_Click(object sender, EventArgs e)

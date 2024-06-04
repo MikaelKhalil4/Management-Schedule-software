@@ -87,7 +87,7 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCClientApp.DesiredClient != null)
             {
                 SetLabelbalanceDesign();
-
+               
             }
             else
             {
@@ -126,6 +126,8 @@ namespace MKproject.Schedule
             TLPglobal.SetColumnSpan(LabelService, 3);
             LabelService.Anchor = AnchorStyles.Right;
 
+            TLPglobal.SetColumnSpan(LabelBalance, 3);
+            LabelBalance.Anchor = AnchorStyles.Right;
 
             if (DesiredAppointmentUCClientApp.Title != null)
             {

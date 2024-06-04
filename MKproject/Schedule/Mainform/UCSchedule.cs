@@ -42,15 +42,19 @@ namespace MKproject.Schedule
         public TableLayoutPanel TLPSchedule;
         List<(ClassEmployee, DateTime?, List<int>)> ListOfAllColumnIndexesGroups = new List<(ClassEmployee, DateTime?, List<int>)>();
         (ClassEmployee, DateTime?, List<int>) FocusOnColumnIndexGroup;
+
+
         int FocusOnMaxWidth;
         bool IsHistory;
         public bool IsCursorBlocked;
         bool IsLoadingTheForm;
 
+
         public bool IsDayOrWeek;
         public ClassEmployee TheOnlyEmployee;//eza fi aktar menn wahad bi null, used in 7 days, ta naarif if we can editt bel 7 days mode
 
 
+        bool IsProgressBarActive;
 
 
         //Reminder
@@ -65,6 +69,7 @@ namespace MKproject.Schedule
         public UCSchedule(ScheduleForm parentform)
         {
             InitializeComponent();
+           
 
             ParentFormSchedule = parentform;
             ParentFormSchedule.ScheduleFormResize += ParentFormSchedule_ScheduleFormResize;
@@ -76,6 +81,14 @@ namespace MKproject.Schedule
             scrollTimer.Interval = 100; // Adjust as needed
             scrollTimer.Tick += ScrollTimer_Tick; ;
 
+            LoadGlobalyTheForm();
+
+        }
+        public void  LoadGlobalyTheForm()
+        {
+            IsEmployeeFilterModeOn = false;//reset the value
+           
+
             TotalEmployeeScheduleList = ClassEmployee.GetEmployeeScheduleMemberASC();
             foreach (ClassEmployee emp in TotalEmployeeScheduleList)
             {
@@ -84,16 +97,20 @@ namespace MKproject.Schedule
 
             LoadForm(DateTime.Now, true, true, true);
             InsertHistroyToSqlIfNecessary();
-
-
         }
-
 
 
         public void LoadForm(DateTime selectedDate, bool isDayOrWeek, bool IsScrollToNowHour, bool DateHasChanged)
         {
+            if (timeIndicatorLine != null)
+            {
+                timeIndicatorLine.Dispose();
+
+            }
 
             IsLoadingTheForm = true;
+           
+
             FocusOnColumnIndexGroup = (null, null, null);
 
             if (EmployeeScheduleListWorkingOn != null)
@@ -102,10 +119,14 @@ namespace MKproject.Schedule
             if (AppointmentsListWorkingOn != null)
                 AppointmentsListWorkingOn.Clear();
 
-
-
             if (ListOfAllColumnIndexesGroups != null)
                 ListOfAllColumnIndexesGroups.Clear();
+
+            if (PresentWeek != null)
+                PresentWeek.Clear();
+
+            if (ListDaysOfDesiredWeek != null)
+                ListDaysOfDesiredWeek.Clear();
 
             //only TotalEmployeeScheduleList ma mnaamela clear,
 
@@ -119,11 +140,17 @@ namespace MKproject.Schedule
 
             FillEmployeLists();
 
+            TLPSchedule.Hide();
+            TLPEmployees.Hide();
+          
+
             if (isDayOrWeek)
             {
 
                 //flling the appointmetn list
                 FillAppointmentList(isDayOrWeek);
+                ActiveProgressbarIfNecessar(AppointmentsListWorkingOn.Count);// ejbare tahet FillAppointmentList
+
 
                 if (SelectedDate.Date < DateTime.Now.Date)
                 {
@@ -178,8 +205,10 @@ namespace MKproject.Schedule
             else
             {
                 ListDaysOfDesiredWeek = FillWeekLists(SelectedDate);
-                PresentWeek = FillWeekLists(DateTime.Now);
+                PresentWeek = FillWeekLists(DateTime.Now);       
                 FillAppointmentList(isDayOrWeek);
+                ActiveProgressbarIfNecessar(AppointmentsListWorkingOn.Count);//ejbare tahet FillAppointmentList
+
                 SetListOfAllColumnIndexesGroups();
                 SetTLPEmployeesColumn();
                 SetTLPSchGroupColumn();
@@ -187,6 +216,7 @@ namespace MKproject.Schedule
 
                 IsCursorBlocked = true;
                 AddAppointmentsToTlpSchedule();//takes time
+                progressBar1.Value = 100;
                 PercentageResizeTLPScheduleAndTlpEmp();
 
 
@@ -274,7 +304,30 @@ namespace MKproject.Schedule
                 comboBoxDaysOrWeek.SelectedIndex = 1;
             }
             IsLoadingTheForm = false;
+         
+            if (IsProgressBarActive)
+            {
+                progressBar1.Hide();
+                TLPSchedule.Show();
+                TLPEmployees.Show();
+                progressBar1.Value = 0;
+            }         
         }
+        void ActiveProgressbarIfNecessar(int AppointmentmentsCount)
+        {
+             IsProgressBarActive = true;
+            if (AppointmentmentsCount > 50)
+            {
+                progressBar1.Show();
+                TLPSchedule.Hide();
+                TLPEmployees.Hide();
+            }
+            else
+            {
+                progressBar1.Hide();
+            }
+        }
+     
 
 
         public void RefreshAllRelatedAppointments(int TargetClientId)
@@ -746,17 +799,23 @@ namespace MKproject.Schedule
         }
         void AddAppointmentsToTlpSchedule()
         {
+            int totalAppointments = AppointmentsListWorkingOn.Count;
+            int processedAppointments = 0;
 
             foreach (ClassAppointment DesiredAppointment in AppointmentsListWorkingOn)
             {
-                if ((DesiredAppointment.IsCompleted && ParentFormSchedule.checkBoxComplete.Checked) || (DesiredAppointment.IsCanceled && ParentFormSchedule.checkBoxCancel.Checked) || (!DesiredAppointment.IsCompleted && !DesiredAppointment.IsCanceled && ParentFormSchedule.checkBoxOnPending.Checked))
+                if ((DesiredAppointment.IsCompleted && ParentFormSchedule.checkBoxComplete.Checked) ||
+                    (DesiredAppointment.IsCanceled && ParentFormSchedule.checkBoxCancel.Checked) ||
+                    (!DesiredAppointment.IsCompleted && !DesiredAppointment.IsCanceled && ParentFormSchedule.checkBoxOnPending.Checked))
                 {
                     AddUCappointmentsInTLP(DesiredAppointment);
+                    processedAppointments++;
+
+                    int progressPercentage = (int)((float)processedAppointments / totalAppointments * 100);
+                    progressBar1.Value = progressPercentage;
                 }
-
             }
-
-
+           
         }
 
 
@@ -1078,7 +1137,7 @@ namespace MKproject.Schedule
         {
             if (SelectedDate.Date != ParentFormSchedule.calanderForm.DateCalander.Date)
             {
-
+                ParentFormSchedule.calanderForm.Hide();
 
                 //edit DateUCDay
 
@@ -1095,7 +1154,7 @@ namespace MKproject.Schedule
                     }
                 }
 
-                ParentFormSchedule.calanderForm.Hide();
+              
 
                 //
                 ParentFormSchedule.CloseNotfBanner();
@@ -1156,10 +1215,12 @@ namespace MKproject.Schedule
             if (!IsDayOrWeek && comboBoxDaysOrWeek.SelectedItem.ToString() == EnumDaysOrWeek.Day.ToString())
             {
                 LoadForm(SelectedDate, true, false, true);
+                buttonToday.Text = "Today";
             }
             else if (IsDayOrWeek && comboBoxDaysOrWeek.SelectedItem.ToString() == EnumDaysOrWeek.Week.ToString())
             {
                 LoadForm(SelectedDate, false, false, true);
+                buttonToday.Text = "This Week";
             }
 
             Cursor.Current = Cursors.Default;
@@ -1417,7 +1478,7 @@ namespace MKproject.Schedule
             TLPSchedule.SuspendLayout();
 
 
-            FocusOnMaxWidth = (int)((TLPSchedule.Width - TLPSchedule.GetColumnWidths()[0]) * 0.85);//so he will be 90 % of the columns without the first column
+            FocusOnMaxWidth = (int)((TLPSchedule.Width - TLPSchedule.GetColumnWidths()[0]) * 0.93);//so he will be 90 % of the columns without the first column
 
 
             if (empId != null)//eza kenit null,yaane i  m using same FocusOnColumnIndexGroup, usd in remove or insert column

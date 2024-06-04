@@ -26,6 +26,7 @@ namespace MKproject
         public static NewRegister NewRegisterForm;
         public static LOGIN LoginForm;  
         public static Home HomeForm;
+        public static ScheduleForm ScheduleFormGlobal;
         //
 
 
@@ -53,6 +54,8 @@ namespace MKproject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new LOGIN();
+            ScheduleFormGlobal = new ScheduleForm();
+
             Application.Run(LoginForm);       
         }
 
