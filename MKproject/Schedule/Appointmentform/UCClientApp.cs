@@ -36,7 +36,7 @@ namespace MKproject.Schedule
         IconButton IconDeleteService;
         UCSlideButton ucSlideButtonServicerOthers;
         Label labelFullName;
-       
+
         ToolTip toolTip1;
 
         public ClassAppointment DesiredAppointmentUCClientApp;
@@ -87,7 +87,7 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCClientApp.DesiredClient != null)
             {
                 SetLabelbalanceDesign();
-              
+
             }
             else
             {
@@ -114,7 +114,7 @@ namespace MKproject.Schedule
                     TLPglobal.SetColumnSpan(labelFullName, 3);
                 }
                 labelFullName.Text = DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + DesiredAppointmentUCClientApp.DesiredClient.Lname;
-              
+
             }
             else
             {
@@ -129,7 +129,7 @@ namespace MKproject.Schedule
 
             if (DesiredAppointmentUCClientApp.Title != null)
             {
-              
+
                 if (!string.IsNullOrEmpty(DesiredAppointmentUCClientApp.Title))
                 {
                     LabelService.Text = DesiredAppointmentUCClientApp.Title;
@@ -140,7 +140,7 @@ namespace MKproject.Schedule
                     LabelService.Text = "N/A";
                 }
 
-                LabelServiceOutput.Text= "Title:";
+                LabelServiceOutput.Text = "Title:";
             }
             else if (DesiredAppointmentUCClientApp.IsPackageMode)
             {
@@ -148,7 +148,7 @@ namespace MKproject.Schedule
             }
             else
             {
-                LabelServiceOutput.Text = "Service/Title:";               
+                LabelServiceOutput.Text = "Service/Title:";
             }
 
             FunctionsForWinformsTool.AdjustTableLayoutPanelHeight(TLPglobal);
@@ -171,8 +171,8 @@ namespace MKproject.Schedule
             ucSlideButtonServicerOthers.Button2Clicked += UcSlideButtonClientOrOthers_Button2Clicked;
 
 
-           
-           
+
+
 
             ButtonChangeORChooseService = new CustomButton();
             ButtonChangeORChooseService.Size = new Size(220, 30);
@@ -325,8 +325,8 @@ namespace MKproject.Schedule
 
             if (!IsReadOrEdit)
             {
-                
-                TLPglobal.Controls.Add(ButtonChangeORChooseService,2,2);
+
+                TLPglobal.Controls.Add(ButtonChangeORChooseService, 2, 2);
                 TLPglobal.Controls.Add(IconDeleteService, 3, 2);
                 ButtonChangeORChooseService.Text = "Change";
             }
@@ -546,12 +546,12 @@ namespace MKproject.Schedule
                             if (DesiredAppointmentUCClientApp.DesiredClientBalance.SessionLeftDays == 0)
                             {
                                 LabelService.ForeColor = Color.Red;
-                            }                          
+                            }
                             else
                             {
                                 LabelService.ForeColor = Color.Black;
                             }
-                        }                     
+                        }
                     }
                     else//Package exist and expired
                     {
@@ -562,7 +562,7 @@ namespace MKproject.Schedule
                 }
                 else if (DesiredAppointmentUCClientApp.StartTime.Date < DateTime.Now.Date)// past
                 {
-                    
+
                     LabelService.Text = DesiredAppointmentUCClientApp.HistoryClientBalance;
 
                 }
@@ -815,9 +815,9 @@ namespace MKproject.Schedule
             DesiredAppointmentUCClientApp.DesiredClient = Program.clientManagementProfile.Client;//el balance and  Personal Info automatically will be set
 
 
-            if (!IsReadOrEdit )
+            if (!IsReadOrEdit)
             {
-                
+
                 if (DesiredAppointmentUCClientApp.IsPackageMode && DesiredAppointmentUCClientApp.DesiredClientBalance != null && (bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired) //Expired Package 
                 {
                     //refresh lal maaloumet el cached  bas ma men ghayyir shi bel design
@@ -829,7 +829,7 @@ namespace MKproject.Schedule
                     //men ghayir, automation is working
                     SetLogicAndDesignEditAndServiceMode(false, false);//only bel present baamil update lal ucclientapp, past eendo static design
                 }
-               
+
             }
             else
             {
@@ -838,22 +838,28 @@ namespace MKproject.Schedule
                 SetReadOnlyDesign();
             }
 
-         
 
-            ParentFormAppointment.UcScheduleParentForm.RefreshAllRelatedAppointments(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+            if (DesiredAppointmentUCClientApp.DesiredClient != null && (DesiredAppointmentUCClientApp.IsPackageMode || DesiredAppointmentUCClientApp.ChosenBundlesList != null))
+            {
+                ParentFormAppointment.UcScheduleParentForm.RefreshAllRelatedAppointments(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+            }
+            else
+            {
+                ParentFormAppointment.UcScheduleParentForm.RefreshDesiredAppointment(ParentFormAppointment.UCappointment);
+            }
 
             if (IsReadOrEdit && !DesiredAppointmentUCClientApp.IsCompleted && DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)
             {// lamma nkun bel present , juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               
-                
+
                 ParentFormAppointment.Close();
                 ParentFormAppointment.UCappointment.Control_MouseClick(null, null);
-          
+
             }
             else
             {
                 ParentFormAppointment.DisableClosingOnDisactivating = false;
                 ParentFormAppointment.Show();
-            }   
+            }
         }
 
 

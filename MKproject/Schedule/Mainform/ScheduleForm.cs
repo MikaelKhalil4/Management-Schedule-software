@@ -22,14 +22,19 @@ namespace MKproject.Schedule
             InitializeComponent();
 
             ucSchedule = new UCSchedule(this);
+
+            Cursor.Current = Cursors.WaitCursor;//lieanno men wara el combobox aam yentezii el cursor!
+
             ucSchedule.Dock = DockStyle.Fill;
             ucSchedule.Margin = new Padding(10, 10, 0, 0);
 
+            ucSchedule.TLPSchedule.SuspendLayout();
             tableLayoutPanelForm.Controls.Add(ucSchedule, 1, 0);
+            ucSchedule.TLPSchedule.ResumeLayout();
+
             ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
 
             //ejare tahet ucSchedule
-            Cursor.Current = Cursors.WaitCursor;
 
             calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
             calanderForm.Dock = DockStyle.Fill;

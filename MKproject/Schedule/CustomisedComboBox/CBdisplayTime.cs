@@ -407,7 +407,10 @@ namespace MKproject.Schedule
             if (targetlabeltime != null && flowLayoutPanelContainerTime.Controls.Contains(targetlabeltime))
             {
                 flowLayoutPanelContainerTime.ScrollControlIntoView(targetlabeltime);
+                flowLayoutPanelContainerTime.currentRowIndex = flowLayoutPanelContainerTime.Controls.GetChildIndex(targetlabeltime) - flowLayoutPanelContainerTime.GetVisibleRowsCount();
+
             }
+
         }
 
 

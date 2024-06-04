@@ -39,7 +39,7 @@ namespace MKproject.Schedule
             SQLiteCommand command = new SQLiteCommand(@"INSERT INTO history_employee_availability (history_date,employee_id, rank, availability) 
                                                                   VALUES (@history_date,@employee_id,@rank,@availability) ", con);
 
-            command.Parameters.AddWithValue("@history_date", history_date);
+            command.Parameters.AddWithValue("@history_date", history_date.Date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@employee_id", employee_id);
             command.Parameters.AddWithValue("@rank", rank);
             if (!String.IsNullOrEmpty(availability))

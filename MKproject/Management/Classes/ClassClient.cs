@@ -643,7 +643,7 @@ namespace MKproject.Management
             if (BirthDate == null)
                 command.Parameters.AddWithValue("@DateOfBirth", DBNull.Value);
             else
-                command.Parameters.AddWithValue("@DateOfBirth", BirthDate);
+                command.Parameters.AddWithValue("@DateOfBirth", ((DateTime)BirthDate).ToString("yyyy-MM-dd"));
 
 
             if (MuscleFocusOn == null)
@@ -893,7 +893,7 @@ namespace MKproject.Management
             if (BirthDate == null)
                 command.Parameters.AddWithValue("@DateOfBirth", DBNull.Value);
             else
-                command.Parameters.AddWithValue("@DateOfBirth", BirthDate);
+                command.Parameters.AddWithValue("@DateOfBirth", ((DateTime)BirthDate).ToString("yyyy-MM-dd"));
 
 
             if (MuscleFocusOn == null)

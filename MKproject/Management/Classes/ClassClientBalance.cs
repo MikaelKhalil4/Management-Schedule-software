@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace MKproject.Management
 {
@@ -190,7 +191,7 @@ namespace MKproject.Management
                     cmd.Parameters.AddWithValue("@is_freezed", false);
 
                     DateTime duedate = DateTime.Now.AddDays((int)NOSessionOrDays);
-                    cmd.Parameters.AddWithValue("@due_date", duedate);
+                    cmd.Parameters.AddWithValue("@due_date", duedate.ToString("yyyy-MM-dd"));
 
                     BundleType = ClassBundles.Days;
                     OriginalOffre = originalprice + "/" + Convert.ToInt32(NOSessionOrDays) + " " + BundleType;
@@ -514,7 +515,7 @@ namespace MKproject.Management
                     cmdUpdate = new SQLiteCommand(query, con);
                     cmdUpdate.Parameters.AddWithValue("@offre", newoffre);
                     //               
-                    cmdUpdate.Parameters.AddWithValue("@due_date", NewDueDate);
+                    cmdUpdate.Parameters.AddWithValue("@due_date", ((DateTime)NewDueDate).ToString("yyyy-MM-dd"));
 
                 }
 

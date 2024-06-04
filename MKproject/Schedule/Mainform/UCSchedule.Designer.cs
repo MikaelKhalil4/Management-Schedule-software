@@ -1,4 +1,6 @@
-﻿namespace MKproject.Schedule
+﻿using System.Windows.Forms;
+
+namespace MKproject.Schedule
 {
     partial class UCSchedule
     {
@@ -30,7 +32,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCSchedule));
             TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
-            tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanelDoubleBufferedNoscroll();
+            tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanel();
             FLPMembers = new System.Windows.Forms.FlowLayoutPanel();
             labelMember = new System.Windows.Forms.Label();
             pictureBoxMember = new System.Windows.Forms.PictureBox();
@@ -287,7 +289,7 @@
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.PictureBox DownArrow;
         private System.Windows.Forms.Button buttonPrevious;
-        private TableLayoutPanelDoubleBufferedNoscroll tableLayoutPanelDoubleBufferedNoscroll1;
+        private TableLayoutPanel tableLayoutPanelDoubleBufferedNoscroll1;
         private System.Windows.Forms.FlowLayoutPanel FLPMembers;
         private System.Windows.Forms.Label labelMember;
         private System.Windows.Forms.PictureBox pictureBoxMember;

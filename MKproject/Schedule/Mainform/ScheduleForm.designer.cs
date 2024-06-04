@@ -1,4 +1,6 @@
-﻿namespace MKproject.Schedule
+﻿using System.Windows.Forms;
+
+namespace MKproject.Schedule
 {
     partial class ScheduleForm
     {
@@ -40,12 +42,12 @@
             buttonAllReminder = new System.Windows.Forms.Button();
             AddButton = new System.Windows.Forms.PictureBox();
             panelreminder = new System.Windows.Forms.Panel();
-            tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanelDoubleBufferedNoscroll();
+            tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanel();
             buttonToday = new System.Windows.Forms.Button();
             flowLayoutPanelDoubleBufferedcs1 = new System.Windows.Forms.FlowLayoutPanel();
             labelDate = new System.Windows.Forms.Label();
             DownArrow = new System.Windows.Forms.PictureBox();
-            tableLayoutPanelDoubleBufferedNoscroll2 = new TableLayoutPanelDoubleBufferedNoscroll();
+            tableLayoutPanelDoubleBufferedNoscroll2 = new TableLayoutPanel();
             button1 = new System.Windows.Forms.Button();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             label2 = new System.Windows.Forms.Label();
@@ -449,12 +451,12 @@
         private System.Windows.Forms.Button buttonAllReminder;
         private System.Windows.Forms.PictureBox AddButton;
         public System.Windows.Forms.Panel panelreminder;
-        private TableLayoutPanelDoubleBufferedNoscroll tableLayoutPanelDoubleBufferedNoscroll1;
+        private TableLayoutPanel tableLayoutPanelDoubleBufferedNoscroll1;
         private System.Windows.Forms.Button buttonToday;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelDoubleBufferedcs1;
         private System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.PictureBox DownArrow;
-        private TableLayoutPanelDoubleBufferedNoscroll tableLayoutPanelDoubleBufferedNoscroll2;
+        private TableLayoutPanel tableLayoutPanelDoubleBufferedNoscroll2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label2;

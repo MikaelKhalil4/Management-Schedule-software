@@ -21,8 +21,8 @@ namespace MKproject.Schedule
     public partial class UCEmployeeAvailabilty : UserControl
     {
 
-        public TableLayoutPanelDoubleBufferedNoscroll TLPScheduleAv;
-        public TableLayoutPanelDoubleBufferedNoscroll TLPDays;
+        public TableLayoutPanel TLPScheduleAv;
+        public TableLayoutPanel TLPDays;
 
 
         List<string> ListdaysOfWeek = new List<string>()
@@ -75,7 +75,7 @@ namespace MKproject.Schedule
             if (TLPScheduleAv == null && TLPDays == null)
             {
                 //TLPSchedule
-                TLPScheduleAv = new TableLayoutPanelDoubleBufferedNoscroll();
+                TLPScheduleAv = new TableLayoutPanel();
                 TLPScheduleAv.AllowDrop = true;
                 TLPScheduleAv.Dock = DockStyle.Fill;
                 TLPScheduleAv.AutoScroll = true;
@@ -91,7 +91,7 @@ namespace MKproject.Schedule
 
 
                 //TLPEmployee
-                TLPDays = new TableLayoutPanelDoubleBufferedNoscroll();
+                TLPDays = new TableLayoutPanel();
                 TLPDays.Dock = DockStyle.Fill;
                 TLPDays.RowCount = 1;
                 TLPDays.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));

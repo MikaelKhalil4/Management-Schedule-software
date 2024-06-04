@@ -585,19 +585,23 @@ namespace MKproject.Schedule
             if (IsCompleting)
             {
                 DesiredAppointmentAppForm.IsCompleted = true;
-                AddOrUpdateSQL();//ejbare tahet el completed, w hone mafi ISRequiredFieldsExists, since we used it abel ma naayit CompletingOrUndoingCompletionAppointment
-                             
-
-                UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
+                AddOrUpdateSQL();//ejbare tahet el completed, w hone mafi ISRequiredFieldsExists, since we used it abel ma naayit CompletingOrUndoingCompletionAppointment         
             }
             else
             {
                 DesiredAppointmentAppForm.IsCompleted = false;
-                DesiredAppointmentAppForm.UndoCompletionAppointmentSQL();
-
-                UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
-
+                DesiredAppointmentAppForm.UndoCompletionAppointmentSQL();             
             }
+            //Design of the ucappointment
+            if (DesiredAppointmentAppForm.DesiredClient != null && (DesiredAppointmentAppForm.IsPackageMode || DesiredAppointmentAppForm.ChosenBundlesList != null))
+            {
+                UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
+            }
+            else
+            {
+                UcScheduleParentForm.RefreshDesiredAppointment(UCappointment);
+            }
+
             this.Close();
         }
         (double, DataTable) PurchaseNewSoloServices()
@@ -654,6 +658,7 @@ namespace MKproject.Schedule
         }
         private void buttonCompleted_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (!DesiredAppointmentAppForm.IsCompleted)
             {
                 FillDesiredClientObject();//ejabre foe ISRequiredFieldsExists
@@ -780,7 +785,7 @@ namespace MKproject.Schedule
                     NotfBanner.UndoNotficationBanner += Notf_UndoComplitionNotficationBanner;
                 }
             }
-
+            Cursor.Current=Cursors.Default;
         }
         private void buttonCanceled_Click(object sender, EventArgs e)
         {
@@ -919,8 +924,14 @@ namespace MKproject.Schedule
                 }
 
                 ////uc app design
-                UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
-
+                if (DesiredAppointmentAppForm.DesiredClient != null && (DesiredAppointmentAppForm.IsPackageMode || DesiredAppointmentAppForm.ChosenBundlesList != null))
+                {
+                    UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
+                }
+                else
+                {
+                    UcScheduleParentForm.RefreshDesiredAppointment(UCappointment);
+                }
             }
         }
         private void Appointment_FormClosed(object sender, FormClosedEventArgs e)
