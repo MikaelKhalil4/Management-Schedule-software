@@ -215,7 +215,7 @@ namespace MKproject.Schedule
             LabelNoDataRecorded.TextAlign = ContentAlignment.MiddleCenter;
             LabelNoDataRecorded.AutoSize = false;
             LabelNoDataRecorded.Dock = DockStyle.Fill;
-            LabelNoDataRecorded.Margin = new Padding(5, 0, 5, 0);
+            LabelNoDataRecorded.Margin = new Padding(5, 0, 5, 5);
 
 
             pictureBoxSearch = new PictureBox();
@@ -270,7 +270,7 @@ namespace MKproject.Schedule
             LabelBalance.Font = new Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             LabelBalance.AutoSize = true;
             LabelBalance.Margin = new Padding(6);
-            LabelBalance.Anchor = AnchorStyles.Right;
+            LabelBalance.Anchor = AnchorStyles.Left;
         }
 
 
@@ -288,7 +288,7 @@ namespace MKproject.Schedule
             if (!TLPglobal.Controls.Contains(IconProfile))
             {
                 TLPglobal.Controls.Add(IconProfile, 0, 1);  //the scd row will be set tahet hasab el conditions    
-                TLPglobal.Controls.Add(LabelBalance, 2, 3);
+                TLPglobal.Controls.Add(LabelBalance, 1, 3);
                 TLPglobal.SetColumnSpan(LabelBalance, 2);
                 TLPglobal.Controls.Add(LabelBalanceOutput, 0, 3);
             }

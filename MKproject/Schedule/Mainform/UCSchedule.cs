@@ -1989,7 +1989,7 @@ namespace MKproject.Schedule
 
 
                         //EndTime
-                        TimeSpan NewEndTime = GetTimeFromRow(NewRowIndexEnd, true); ;
+                        TimeSpan NewEndTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay+(UCApointmentDraged.OldDesiredAppointmentUCApp.EndTime.TimeOfDay - UCApointmentDraged.OldDesiredAppointmentUCApp.StartTime.TimeOfDay);
                         UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
 
 
