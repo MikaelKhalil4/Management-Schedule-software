@@ -151,6 +151,11 @@ namespace MKproject
             Cursor = Cursors.WaitCursor;
             SousActivatedForm = null;
             HideMenu();
+            if (Program.ScheduleFormGlobal == null)
+            {
+                Program.ScheduleFormGlobal = new ScheduleForm();
+            }
+
             OpenChildForm(Program.ScheduleFormGlobal, buttonSchedule, false);
             Program.ScheduleFormGlobal.LoadScheduleForm();
             Cursor = Cursors.Default;

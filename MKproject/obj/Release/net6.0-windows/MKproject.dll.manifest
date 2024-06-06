@@ -77,7 +77,25 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>3FbbtKtH03rVezr+oHYWhiPg6GaHzJWZyu9fpKcv6jA=</dsig:DigestValue>
+      <dsig:DigestValue>f2URLlJ4l/0ld2yNcW0mO/Xe0V48GdS6dyC4NBk0L+I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="EntityFramework.dll" size="4977744">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>6tusYE7+HqAnLRKF9I41hUGXiqHRmO8EILDlIseTuLQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="EntityFramework.SqlServer.dll" size="591440">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>vivNycD/SihlyOUpb2o8h8IkEf8mjl7/MP3PX4slYeI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="GlobalFunctions.dll" size="16384">
@@ -86,7 +104,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>mxQDEvZdniSFHeec9vshJIqx6TZ9i8IaDbCJ3C7xkkc=</dsig:DigestValue>
+      <dsig:DigestValue>T6OJ9KPQ2HTY4BmjmrH2hLZkcwGUgOY046zq00fydVU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="images\BackOfficeBig.png" size="7411">
@@ -386,13 +404,13 @@
       <dsig:DigestValue>l8Q0l/8slBAOheR+UlZIGag2yey6yRvOrZhyUqTwnpI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MKproject.dll" size="1986048">
+  <file name="MKproject.dll" size="1965568">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>wpYVLR9IAs3H8x9G+PvOqHymd7i7D0oQqB5TiHIxaU4=</dsig:DigestValue>
+      <dsig:DigestValue>AU7Q4IyCqpuuFXbgU5hEBPvxVOulh4YrfecYJq/g54I=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">
@@ -420,6 +438,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>e+l7JIeJ6clq+oXOio6GTpja8ObNgaTWwA6X+xfvfzc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="runtimes\linux-x64\native\SQLite.Interop.dll" size="2982112">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>qhfsYWLhqfALSUyb5bdLMrmtfrwzvHQxzKqobLd1WTE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="runtimes\osx-x64\native\SQLite.Interop.dll" size="2150084">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>2xEOqGKhZGINnPhpzXTPdGUuJvZQVIjLR03AaUVsJ9g=</dsig:DigestValue>
     </hash>
   </file>
   <file name="runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll" size="957472">
@@ -575,6 +611,15 @@
       <dsig:DigestValue>aHBcTvmrgY8pVqeOBfP+/OUBoUSHk7BztGEQvrSbR9Y=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="runtimes\win-x64\native\SQLite.Interop.dll" size="1829040">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>q6Z8fmwBhWg4uLxrC6lehk4f3LN1CqfNwbxzURzqb+Q=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll" size="432528">
     <hash>
       <dsig:Transforms>
@@ -591,6 +636,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>FEbWsm2kmlqfNmly+J9OI2+RaVXzHdw467liF8HKzpw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="runtimes\win-x86\native\SQLite.Interop.dll" size="1447600">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>cOSO9cFHZvNgHJdFG0eFn93L5/I34cUgDOqOenYJ2Ak=</dsig:DigestValue>
     </hash>
   </file>
   <file name="System.ComponentModel.Composition.dll" size="295696">
@@ -618,6 +672,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>60wBIH+1iCy7KdKFyL5VE0uR00fUIh1SJjjTg+BGwGo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="System.Data.SQLite.dll" size="427696">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>6aNlAuZJaT4pAmNoLfs/Aj9ZNEVHNhhFDQzOLOUF3C4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="System.Data.SQLite.EF6.dll" size="206512">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Fl+Z6WpDYFeUmOqshoJUMQG96OrCcXdPwDmKOMhS080=</dsig:DigestValue>
     </hash>
   </file>
   <file name="System.IdentityModel.Tokens.Jwt.dll" size="81784">

@@ -30,7 +30,8 @@ namespace CustomizedTools
             ConfirmationMode,//Green
             CanceledMode,//orange color
             UndoMode,//metel lamma ekbus undii cancelation or undo comletion
-            DeletedMode//red color
+            DeletedMode,//red color
+            InformativeMode
 
         }
         private NotificationBanner(string text, EnumType type,bool withOrWithoutButtonDone , Form parentFormHome,bool undoFromNotficationBannerModeOn)
@@ -107,6 +108,11 @@ namespace CustomizedTools
                 {
                     DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "xCircle.png");
                     this.TLPglobal.BackColor = Color.Red;
+                }
+                else if (type == EnumType.InformativeMode)
+                {
+                    DesiredIcon= ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "info.png");
+                    this.TLPglobal.BackColor = Color.FromArgb(109, 122, 224);
                 }
             }
             else

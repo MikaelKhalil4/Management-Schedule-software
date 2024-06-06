@@ -193,8 +193,14 @@ namespace MKproject.Schedule
         }
         public void FixUCDesign()
         {
-            //initial Design
+            //initial Design, hattaynehun lieanno aam nghayerun tahet
             TLPGlobal.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, 100f);
+            TLPGlobal.RowStyles[0] = new RowStyle(SizeType.Percent, 40);
+            labelFullName.Font = new Font(labelTime.Font.FontFamily, labelTime.Font.Size + 0.5f, labelTime.Font.Style);
+            labelTime.TextAlign = ContentAlignment.MiddleLeft;
+            labelFullName.Margin = new Padding(1, 5, 1, 0);
+            labelTime.Margin = new Padding(0, 5, 0, 0);
+
 
             if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0 && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-Future           
             {
@@ -221,12 +227,13 @@ namespace MKproject.Schedule
             int CellWidth = TLPGlobal.GetColumnWidths()[0];
             int cellHeight = TLPGlobal.GetRowHeights()[1];
 
-            int DesiredHeightFortheLabel = RandomFunctions.CalculateDesiredHeight(labelFullName, labelFullName.Width - 8);
+            int DesiredHeightFortheLabelFullName = RandomFunctions.CalculateDesiredHeight(labelFullName, labelFullName.Width - 8);
 
 
-            if (DesiredHeightFortheLabel > cellHeight || CellWidth <= 0)//in case el label ma kenit sey3a
+
+            if (DesiredHeightFortheLabelFullName > cellHeight - 2 || CellWidth <= 0)//in case el label ma kenit sey3a
             {
-                int MinimumNameWidth = RandomFunctions.CalculateDesiredWidth(labelFullName, labelFullName.Height)+10;
+                int MinimumNameWidth = RandomFunctions.CalculateDesiredWidth(labelFullName, labelFullName.Height) + 10;
                 //Size MinimumNameSize = labelFullName.GetPreferredSize(new Size(0, labelFullName.Height));
                 //int MinimumNameWidth = MinimumNameSize.Width;
                 if (MinimumNameWidth < TLPGlobal.Width)
@@ -268,6 +275,35 @@ namespace MKproject.Schedule
 
             }
 
+            //this approah azbat lieanno bteetkil purely aal designn, bas be2e eendak ghalta, eza label service.text fadye w 15min duration
+            //int cellHeightLabelService = TLPGlobal.GetRowHeights()[0];
+            //int DesiredHeightFortheLabelService = RandomFunctions.CalculateDesiredHeight(labelService, 100000);//using raem khayele kermel odman enno one line,since i care only eza ken 15 min
+            //if (DesiredHeightFortheLabelService - 5 > cellHeightLabelService)
+            //{
+            TimeSpan timeDifference = DesiredAppointmentUCApp.EndTime - DesiredAppointmentUCApp.StartTime;
+
+            if (timeDifference <= TimeSpan.FromMinutes(15))
+            {
+                TLPGlobal.Controls.Remove(labelService);
+                if (LabelBalance != null)
+                {
+                    TLPGlobal.Controls.Remove(LabelBalance);
+                }
+                TLPGlobal.RowStyles[0].Height = 0;
+                labelFullName.Margin = new Padding(0);
+                labelTime.Margin = new Padding(0);
+                labelTime.TextAlign = ContentAlignment.MiddleRight;
+                labelFullName.Font = new Font(labelTime.Font.FontFamily, labelTime.Font.Size, labelTime.Font.Style);
+            }
+            else
+            {   
+                TLPGlobal.Controls.Add(labelService, 0, 0);
+                if (LabelBalance != null)
+                {
+                    TLPGlobal.Controls.Add(LabelBalance, 1, 0);
+
+                }
+            }
 
 
         }
@@ -308,7 +344,7 @@ namespace MKproject.Schedule
                                         DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
                                         DesiredAppointmentUCApp.UpdateHistoryClientBalance();
                                     }
-                                                                                            
+
                                 }
 
                                 //Design
@@ -409,15 +445,15 @@ namespace MKproject.Schedule
                 return;
             }
 
-           
-                ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
-                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
-                Program.GreyForm.Show();
-                Appointment appointmentupdate = new Appointment(this, UcScheduleParentForm);
-                appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
-                appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
-                appointmentupdate.Show();
-        
+
+            ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+            Program.GreyForm.Show();
+            Appointment appointmentupdate = new Appointment(this, UcScheduleParentForm);
+            appointmentupdate.OnAppointmentUpdate += Appointmentupdate_OnAppUpdate;
+            appointmentupdate.OnAppointmentUndoCancelation += Appointmentupdate_OnAppointmentUndoCancelation;//ased zednehun ta eza aam naamil undo w ghayarna shi bel object ma yenzalo hone
+            appointmentupdate.Show();
+
 
 
         }

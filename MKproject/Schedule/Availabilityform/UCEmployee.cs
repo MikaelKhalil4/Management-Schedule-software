@@ -68,8 +68,6 @@ namespace MKproject.Schedule
         private void CheckBoxAppearance_CheckStateChanged(object sender, EventArgs e)
         {
             DesiredEmployee.IsChecked = CheckBoxAppearance.Checked;
-
-
         }
 
 
@@ -91,15 +89,8 @@ namespace MKproject.Schedule
                 //Getting The ucemployee that's after him to do the swap
                 if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank + 1)
                 {
-                    //UPDATE ListEmployeeSchedule
-
-                    ClassEmployee EmployeeSelectedOfTheOtherUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
-                    EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
-
-                    ClassEmployee EmployeeSelectedOfThisUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
-                    EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank + 1;
-
-
+                    ucemployee.DesiredEmployee.Rank = this.DesiredEmployee.Rank;
+                    this.DesiredEmployee.Rank += 1;
                     //Design doing the swap of the 2 ucemployee
                     Swapucemployee(ucemployee);
                     break;
@@ -113,16 +104,8 @@ namespace MKproject.Schedule
                 //Getting The ucemployee that's before him to do the swap
                 if (ucemployee.DesiredEmployee.Rank == this.DesiredEmployee.Rank - 1)//yaeene faw2o
                 {
-                    //UPDATE ListEmployeeSchedule
-
-                    ClassEmployee EmployeeSelectedOfTheOtherUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == ucemployee.DesiredEmployee.EmployeeId);
-                    EmployeeSelectedOfTheOtherUC.Rank = this.DesiredEmployee.Rank;
-
-                    ClassEmployee EmployeeSelectedOfThisUC = ParentFormEmployee.ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == this.DesiredEmployee.EmployeeId);
-                    EmployeeSelectedOfThisUC.Rank = this.DesiredEmployee.Rank - 1;
-
-
-
+                    ucemployee.DesiredEmployee.Rank = this.DesiredEmployee.Rank;
+                    this.DesiredEmployee.Rank -= 1;
                     //Design doing the swap of the 2 ucemployee 
                     Swapucemployee(ucemployee);
                     break;
@@ -132,14 +115,13 @@ namespace MKproject.Schedule
         private void Swapucemployee(UCEmployee ucemployee)//ntebih hone byekhdo kel shi ella rank
         {
             //temp=a
-            UCEmployee TempUCEmployee = new UCEmployee(this.DesiredEmployee, this.ParentFormEmployee);
-
+            ClassEmployee TempEmployee = this.DesiredEmployee;
+         
             //a=b
             this.DesiredEmployee = ucemployee.DesiredEmployee;
 
             //b=temp
-            ucemployee.DesiredEmployee = TempUCEmployee.DesiredEmployee;
-            TempUCEmployee.Dispose();
+            ucemployee.DesiredEmployee = TempEmployee;
         }
 
         //PERFORMANCE:

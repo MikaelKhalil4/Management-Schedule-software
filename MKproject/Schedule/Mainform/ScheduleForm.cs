@@ -22,6 +22,7 @@ namespace MKproject.Schedule
             InitializeComponent();
 
             ucSchedule = new UCSchedule(this);
+            Cursor.Current = Cursors.WaitCursor;
 
 
             ucSchedule.Dock = DockStyle.Fill;
@@ -33,14 +34,12 @@ namespace MKproject.Schedule
 
 
             //ejare tahet ucSchedule
-
             calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
             calanderForm.SelectedDateChangedUCSchedule += ucSchedule.SelectedDateUCSchedule_Changed;
             calanderForm.Dock = DockStyle.Fill;
             calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
-
             TLPSide.Margin = new Padding(0, 0, 0, 0);
-
+            Cursor.Current = Cursors.Default;
 
             //
             checkBoxOnPending.Click += CloseNotfBanner_Click;

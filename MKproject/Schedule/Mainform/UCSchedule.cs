@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -57,6 +58,8 @@ namespace MKproject.Schedule
         bool IsProgressBarActive;
 
 
+        List<UCappointment> ListOfUcTest = new List<UCappointment>();
+
         //Reminder
         public List<UCreminder> ListUCreminderForTheSelectedDate { get; set; } = new List<UCreminder>();//we get it once we open the schedule then if something happened to a ucreminder add,update,delete dureing the runtime it will hapen to the List
 
@@ -69,7 +72,7 @@ namespace MKproject.Schedule
         public UCSchedule(ScheduleForm parentform)
         {
             InitializeComponent();
-           
+
 
             ParentFormSchedule = parentform;
             ParentFormSchedule.ScheduleFormResize += ParentFormSchedule_ScheduleFormResize;
@@ -84,10 +87,10 @@ namespace MKproject.Schedule
             LoadGlobalyTheForm();
 
         }
-        public void  LoadGlobalyTheForm()
+        public void LoadGlobalyTheForm()
         {
             IsEmployeeFilterModeOn = false;//reset the value
-           
+
 
             TotalEmployeeScheduleList = ClassEmployee.GetEmployeeScheduleMemberASC();
             foreach (ClassEmployee emp in TotalEmployeeScheduleList)
@@ -109,7 +112,6 @@ namespace MKproject.Schedule
             }
 
             IsLoadingTheForm = true;
-           
 
             FocusOnColumnIndexGroup = (null, null, null);
 
@@ -128,6 +130,9 @@ namespace MKproject.Schedule
             if (ListDaysOfDesiredWeek != null)
                 ListDaysOfDesiredWeek.Clear();
 
+            if (ListOfUcTest != null)
+                ListOfUcTest.Clear();
+
             //only TotalEmployeeScheduleList ma mnaamela clear,
 
 
@@ -142,7 +147,7 @@ namespace MKproject.Schedule
 
             TLPSchedule.Hide();
             TLPEmployees.Hide();
-          
+
 
             if (isDayOrWeek)
             {
@@ -205,7 +210,7 @@ namespace MKproject.Schedule
             else
             {
                 ListDaysOfDesiredWeek = FillWeekLists(SelectedDate);
-                PresentWeek = FillWeekLists(DateTime.Now);       
+                PresentWeek = FillWeekLists(DateTime.Now);
                 FillAppointmentList(isDayOrWeek);
                 ActiveProgressbarIfNecessar(AppointmentsListWorkingOn.Count);//ejbare tahet FillAppointmentList
 
@@ -304,18 +309,18 @@ namespace MKproject.Schedule
                 comboBoxDaysOrWeek.SelectedIndex = 1;
             }
             IsLoadingTheForm = false;
-         
+
             if (IsProgressBarActive)
             {
                 progressBar1.Hide();
                 TLPSchedule.Show();
                 TLPEmployees.Show();
                 progressBar1.Value = 0;
-            }         
+            }
         }
         void ActiveProgressbarIfNecessar(int AppointmentmentsCount)
         {
-             IsProgressBarActive = true;
+            IsProgressBarActive = true;
             if (AppointmentmentsCount > 50)
             {
                 progressBar1.Show();
@@ -327,7 +332,7 @@ namespace MKproject.Schedule
                 progressBar1.Hide();
             }
         }
-     
+
 
 
         public void RefreshAllRelatedAppointments(int TargetClientId)
@@ -365,7 +370,6 @@ namespace MKproject.Schedule
             DesiredUcApp.FixUCDesign();
 
         }
-
 
 
 
@@ -478,7 +482,6 @@ namespace MKproject.Schedule
                 }
             }
         }
-
         public string GetLabelDateifWeek()
         {
             var distinctMonths = ListDaysOfDesiredWeek.Select(d => new { d.Month, d.Year }).Distinct().ToList();
@@ -589,9 +592,8 @@ namespace MKproject.Schedule
                     else
                     {
                         LoadForm(((DateTime)clickedLabel.DesiredDate), true, false, true);
+                        buttonToday.Text = "Today";
                     }
-
-
                 }
 
                 Cursor.Current = Cursors.Default;
@@ -706,46 +708,85 @@ namespace MKproject.Schedule
 
 
 
+        bool IsMouseUpAndMouseDownSameLoco(int MouseUpColumn, int MouseUpRow)
+        {
+            if (MouseDownPosition.Item2 != MouseUpRow)
+            {
+                return false;
+            }
+            else
+            {
+                DateTime? DateOnMouseDown = null;
+                ClassEmployee SelectedEmployeeOnMouseDown = null;
 
+                DateTime? DateOnMouseUp = null;
+                ClassEmployee SelectedEmployeeOnMouseUp = null;
+
+                if (IsDayOrWeek)
+                {
+                    (SelectedEmployeeOnMouseDown, _) = GetWhichEmployeeOrDateForSpecifieColumn(MouseDownPosition.Item1, IsDayOrWeek);
+                    (SelectedEmployeeOnMouseUp, _) = GetWhichEmployeeOrDateForSpecifieColumn(MouseUpColumn, IsDayOrWeek);
+
+                    if (SelectedEmployeeOnMouseDown != SelectedEmployeeOnMouseUp)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    (_, DateOnMouseDown) = GetWhichEmployeeOrDateForSpecifieColumn(MouseDownPosition.Item1, IsDayOrWeek);
+                    (_, DateOnMouseUp) = GetWhichEmployeeOrDateForSpecifieColumn(MouseUpColumn, IsDayOrWeek);
+
+                    if (DateOnMouseUp != DateOnMouseDown)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         private void TLPSchedule_MouseClick(object sender, MouseEventArgs e)
         {
             (int column, int row) = GetCellPosition(TLPSchedule, e.Location);
-
-            if ((IsDayOrWeek && !IsHistory && !IsDesignBlocked) || (!IsDayOrWeek && TheOnlyEmployee != null && GetWhichEmployeeOrDateForSpecifieColumn(column, false).Item2 >= DateTime.Now.Date))
+            if (IsMouseUpAndMouseDownSameLoco(column, row))
             {
 
-                if (column > 0)
+                if ((IsDayOrWeek && !IsHistory && !IsDesignBlocked) || (!IsDayOrWeek && TheOnlyEmployee != null && GetWhichEmployeeOrDateForSpecifieColumn(column, false).Item2 >= DateTime.Now.Date))
                 {
-                    DateTime? StartTime = null;
-                    ClassEmployee SelectedEmployee = null;
-                    if (IsDayOrWeek)
+
+                    if (column > 0)
                     {
-                        StartTime = SelectedDate.Date + GetTimeFromRow(row, false);
-                        (SelectedEmployee, _) = GetWhichEmployeeOrDateForSpecifieColumn(column, IsDayOrWeek);
-                    }
-                    else
-                    {
-                        (_, StartTime) = GetWhichEmployeeOrDateForSpecifieColumn(column, IsDayOrWeek);
-                        StartTime += GetTimeFromRow(row, false);
-                        if (TheOnlyEmployee != null)
+                        DateTime? StartTime = null;
+                        ClassEmployee SelectedEmployee = null;
+                        if (IsDayOrWeek)
                         {
-                            SelectedEmployee = TheOnlyEmployee;
+                            StartTime = SelectedDate.Date + GetTimeFromRow(row, false);
+                            (SelectedEmployee, _) = GetWhichEmployeeOrDateForSpecifieColumn(column, IsDayOrWeek);
                         }
                         else
                         {
-                            //it should be restrictd to dragand drop
+                            (_, StartTime) = GetWhichEmployeeOrDateForSpecifieColumn(column, IsDayOrWeek);
+                            StartTime += GetTimeFromRow(row, false);
+                            if (TheOnlyEmployee != null)
+                            {
+                                SelectedEmployee = TheOnlyEmployee;
+                            }
+                            else
+                            {
+                                //it should be restrictd to dragand drop
+                            }
+
                         }
 
+                        ScheduleForm schedule = this.ParentFormSchedule;
+                        Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+                        Program.GreyForm.Show();
+                        Appointment appointment = new Appointment(this, SelectedEmployee, (DateTime)StartTime);
+                        appointment.Show();
+                        //
+
                     }
-
-                    ScheduleForm schedule = this.ParentFormSchedule;
-                    Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
-                    Program.GreyForm.Show();
-                    Appointment appointment = new Appointment(this, SelectedEmployee, (DateTime)StartTime);
-                    appointment.Show();
-                    //
-
                 }
             }
         }
@@ -815,7 +856,6 @@ namespace MKproject.Schedule
                     progressBar1.Value = progressPercentage;
                 }
             }
-           
         }
 
 
@@ -1079,7 +1119,7 @@ namespace MKproject.Schedule
 
 
             Cursor.Current = Cursors.Default;
-          
+
             //
             ParentFormSchedule.CloseNotfBanner();
         }
@@ -1154,7 +1194,7 @@ namespace MKproject.Schedule
                     }
                 }
 
-              
+
 
                 //
                 ParentFormSchedule.CloseNotfBanner();
@@ -1219,8 +1259,14 @@ namespace MKproject.Schedule
             }
             else if (IsDayOrWeek && comboBoxDaysOrWeek.SelectedItem.ToString() == EnumDaysOrWeek.Week.ToString())
             {
+               
                 LoadForm(SelectedDate, false, false, true);
                 buttonToday.Text = "This Week";
+
+                if (TheOnlyEmployee == null)
+                {
+                    NotificationBanner.Show("Editing is disabled due to multiple members in the weekly schedule. To gain full access, filter by a single member.", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false);
+                }
             }
 
             Cursor.Current = Cursors.Default;
@@ -1249,8 +1295,11 @@ namespace MKproject.Schedule
 
 
         UCappointment UCApointmentDraged;
-        (ClassEmployee, DateTime?, List<int>) ColumnIndexGroupOfDraggingUC = (null, null, null);//stores the index columns Related To employee , when we re dragging a uc
+        (ClassEmployee, DateTime?, List<int>) ColumnIndexGroupHoveringIn = (null, null, null);//stores the index columns Related To employee , when we re dragging a uc, or when we r hovering
+        (ClassEmployee, DateTime?, List<int>) ColumnIndexGroupOnMouseDown = (null, null, null);//used only for ux, in case kabas matrah w rejii harrak el cursor
+
         private (int, int) hoveredCellColmnRow = (-1, -1);  // Stores the  (column,row) of the hovered cell
+        private (int, int) MouseDownPosition = (-1, -1);//used only for ux, in case kabas matrah w rejii harrak el cursor
 
 
         int NbreofRowsHighlighted = -1;//how many rows we need to highlight while mouse hover or dragging
@@ -1342,6 +1391,7 @@ namespace MKproject.Schedule
                 TLPSchedule.DragOver += TLPSchedule_DragOver;
 
                 TLPSchedule.MouseClick += TLPSchedule_MouseClick;
+                TLPSchedule.MouseDown += TLPSchedule_MouseDown;
                 //
                 this.TLPGlobal.Controls.Add(TLPEmployees, 0, 1);
                 this.TLPGlobal.Controls.Add(TLPSchedule, 0, 2);
@@ -1351,8 +1401,6 @@ namespace MKproject.Schedule
             }
 
         }
-
-
 
         void SetTLPSchGroupColumn()
         {
@@ -1647,7 +1695,7 @@ namespace MKproject.Schedule
                 DesiredGroup = GetWhichDesiredGroup(null, (DateTime)DesiredDate);
             }
 
-
+            ListOfUcTest.Add(DesiredUCApp);
             AddUc(DesiredGroup, NewRow, DesiredUCApp);
 
 
@@ -1893,8 +1941,6 @@ namespace MKproject.Schedule
         }
 
 
-
-
         bool DragDropIsEntered;
         private void Uc_UCAppIsDroped(object sender, EventArgs e)//kermel eza kabbayneha outside the bounds what to return it mahalla
         {
@@ -1915,7 +1961,7 @@ namespace MKproject.Schedule
             (int ColumnIndex, int RowIndexStart) = GetCellPosition(TLPSchedule, clientPoint);
 
 
-            if (ColumnIndexGroupOfDraggingUC != (null, null, null))//ejbariyye
+            if (ColumnIndexGroupHoveringIn != (null, null, null))//ejbariyye
             {
                 if (RowIndexStart > 0)
                 {
@@ -1926,7 +1972,7 @@ namespace MKproject.Schedule
                 //adding
                 if (UCApointmentDraged != null && ColumnIndex >= 1 && RowIndexStart >= 0)//first column for the timer
                 {
-                    (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(RowIndexStart, ColumnIndexGroupOfDraggingUC, UCApointmentDraged);
+                    (int StartingColumn, int EndingColumn, int StartingRow, int EndingRow) = GetRectangle4Points(RowIndexStart, ColumnIndexGroupHoveringIn, UCApointmentDraged);
 
 
                     if (CheckIfPositionAvailable(StartingColumn, StartingRow))
@@ -1950,7 +1996,7 @@ namespace MKproject.Schedule
                                                                                                                                                  //so when we call el remove, we need to make ykun sure enno el appointment baaed ma nhatt, yaane ma aayetna baeed lal AddUc
 
 
-                        AddUc(ColumnIndexGroupOfDraggingUC, RowIndexStart, UCApointmentDraged);
+                        AddUc(ColumnIndexGroupHoveringIn, RowIndexStart, UCApointmentDraged);
 
                         if (IsDesignFixed) //ejbare men baeed el add in drag drop cases, Read why 
                         {
@@ -1971,7 +2017,6 @@ namespace MKproject.Schedule
                     else
                     {
 
-                        NotificationBanner.Show("Cannot schedule here!", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
                         TLPSchedule.Controls.Add(UCApointmentDraged, OldColumnofDraggedUC, OldRowOfDraggedUC);
                         ResetSelection();
                     }
@@ -1999,15 +2044,35 @@ namespace MKproject.Schedule
 
         bool CheckIfPositionAvailable(int StartingColumn, int StartingRow)
         {
-            if (IsDayOrWeek || (!IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(StartingColumn, false).Item2 >= DateTime.Now.Date))
+
+            if (IsDayOrWeek)
             {
-                return true;
+                return true;//later one badna nhatt elc onditions tb3 el availab
             }
             else
             {
-                return false;
+                if (GetWhichEmployeeOrDateForSpecifieColumn(StartingColumn, false).Item2 < DateTime.Now.Date)
+                {
+                    NotificationBanner.Show("Cannot schedule in the past!", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                    return false;
+                }
+                if (GetWhichEmployeeOrDateForSpecifieColumn(StartingColumn, false).Item2 > DateTime.Now.Date )
+                {
+                    if (UCApointmentDraged.DesiredAppointmentUCApp.IsCompleted)
+                    {
+                        NotificationBanner.Show("Cannot schedule here! To reschedule in the future, undo its completion", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                        return false;
+                    }
+                    else if (UCApointmentDraged.DesiredAppointmentUCApp.IsCanceled)
+                    {
+                        NotificationBanner.Show("Cannot schedule here! To reschedule in the future, undo its cancelation", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                        return false;
+                    }           
+                }
+              
             }
 
+            return true;
         }
         void DragDropBusinessLogic(int NewColumnIndex, int NewRowIndexStart)//Test
         {
@@ -2064,7 +2129,7 @@ namespace MKproject.Schedule
 
 
                         //EndTime
-                        TimeSpan NewEndTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay+(UCApointmentDraged.OldDesiredAppointmentUCApp.EndTime.TimeOfDay - UCApointmentDraged.OldDesiredAppointmentUCApp.StartTime.TimeOfDay);
+                        TimeSpan NewEndTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.TimeOfDay + (UCApointmentDraged.OldDesiredAppointmentUCApp.EndTime.TimeOfDay - UCApointmentDraged.OldDesiredAppointmentUCApp.StartTime.TimeOfDay);
                         UCApointmentDraged.DesiredAppointmentUCApp.EndTime = UCApointmentDraged.DesiredAppointmentUCApp.EndTime.Date + NewEndTime;
 
 
@@ -2180,11 +2245,10 @@ namespace MKproject.Schedule
 
                 //resetting to oginal spans, eza ma le2a mahal yoeuud fi el appointment
                 //first condition eza ken fi groups w zabtna el span tb3un bas ma elo mahal, secd condition eza sar fi error bel design
-                if (!IsUCAppScheduled && NewgroupedUCsCoverredByTheArea.Count > 0 || (IsUCAppScheduled && !CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents)))
+                if (!IsUCAppScheduled && NewgroupedUCsCoverredByTheArea.Count > 0 || (IsUCAppScheduled && !CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents, false)))
                 {
                     IsUCAppScheduled = false;
                     TLPSchedule.SetColumnSpan(DesiredUCApp, 1);//reseting its value, since ma32oul tetghayar bel FittingUCIfPlaceExist
-
 
 
 
@@ -2238,29 +2302,20 @@ namespace MKproject.Schedule
                                         SetNewColumnSpanAndIndex(DesiredColumnIndexesGroup, ListSerpentConnectedUCs, false);
                                     }
                                 }
-
                             }
                         }
                     }
                 }
-                if (!CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents))
-                {
-                    string FUllNAme = DesiredUCApp.DesiredAppointmentUCApp.DesiredClient.Fname + DesiredUCApp.DesiredAppointmentUCApp.DesiredClient.Lname;
-                    TimeSpan time = DesiredUCApp.DesiredAppointmentUCApp.StartTime.TimeOfDay;
-                    CustomMessageBox.Show("Error in:\n" + FUllNAme + " at " + time, CustomMessageBox.Type.Error);
-                    //LoadForm(SelectedDate);
-                }
+
+                CheckIfUCIsIntheRightColumn(EachGroupWithItsSerpents, true);
+
             }
 
 
-
-
-
             ClassucAppointmentGrouping grouper3 = new ClassucAppointmentGrouping(TLPSchedule, null, DesiredColumnIndexesGroup.Item3);//it will give all the uc , including the one we added
+
+
             UpdateItsMargins(DesiredColumnIndexesGroup, grouper3.GetConnectedComponent(DesiredUCApp));
-
-
-
 
 
         }
@@ -2557,9 +2612,9 @@ namespace MKproject.Schedule
 
 
 
-        bool CheckIfUCIsIntheRightColumn(Dictionary<int, List<UCappointment>> EachGroupWithItsSerpents)//usually used after performing an add operation, bel adding el index li byonhatt logic, bas sometimes, bcz of bad serpent, the control bel design byekab matrah ghalat, yaae lets ucapp index3, byenkab aal design index 4, bas bi hafiz aal index 3 , ma byetghayar
+        bool CheckIfUCIsIntheRightColumn(Dictionary<int, List<UCappointment>> EachGroupWithItsSerpents, bool RemoveMode)//usually used after performing an add operation, bel adding el index li byonhatt logic, bas sometimes, bcz of bad serpent, the control bel design byekab matrah ghalat, yaae lets ucapp index3, byenkab aal design index 4, bas bi hafiz aal index 3 , ma byetghayar
         {
-
+            bool IsAppointmnetInTheRightPlace = true;
 
             foreach (KeyValuePair<int, List<UCappointment>> entry in EachGroupWithItsSerpents)
             {
@@ -2570,14 +2625,34 @@ namespace MKproject.Schedule
 
                     if (DesignPos.Column != TaregetedUCApp.ColumnIndex)
                     {
-                        return false;
+                        if (RemoveMode)
+                        {
+                            TLPSchedule.Controls.Remove(TaregetedUCApp);
+                            TaregetedUCApp.Dispose();
+                            IsAppointmnetInTheRightPlace = false;
+
+
+                            string FUllNAme = TaregetedUCApp.DesiredAppointmentUCApp.DesiredClient.Fname + TaregetedUCApp.DesiredAppointmentUCApp.DesiredClient.Lname;
+                            TimeSpan time = TaregetedUCApp.DesiredAppointmentUCApp.StartTime.TimeOfDay;
+                            CustomMessageBox.Show("Error in:\n" + FUllNAme + " at " + time, CustomMessageBox.Type.Error);
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 }
             }
 
-
-            return true;
-
+            if (RemoveMode)
+            {
+                return IsAppointmnetInTheRightPlace;
+            }
+            else
+            {
+                return true;
+            }
         }
 
 
@@ -2692,8 +2767,8 @@ namespace MKproject.Schedule
 
 
 
-
-        bool SetNewColumnSpanAndIndex((ClassEmployee, DateTime?, List<int>) DesiredIndexesGroup, List<UCappointment> ListucAppointments, bool IsAddingMode)//using this method make sure  to be sorted Column Asc, Row Asc                                                                                                                                                //based ayya employee w nehna w el targeted controls baddun tozbit Span and index
+        //using this method make sure  to be sorted Column Asc, Row As //based ayya employee w nehna w el targeted controls baddun tozbit Span and index
+        bool SetNewColumnSpanAndIndex((ClassEmployee, DateTime?, List<int>) DesiredIndexesGroup, List<UCappointment> ListucAppointments, bool IsAddingMode)
         {
             int totalSpan = DesiredIndexesGroup.Item3.Count;
             int NewNumOfUCs = ListucAppointments.Count;
@@ -2742,9 +2817,9 @@ namespace MKproject.Schedule
             {
                 if (i < ListucAppointments.Count)//Existing UCappointment
                 {
-                    for (int j = 0; j < spans[0]; j++)
+                    for (int j = 0; j < spans[0]; j++)//column by column
                     {
-                        for (int k = ListucAppointments[i].RowIndexStart; k <= ListucAppointments[i].RowIndexEnd; k++)
+                        for (int k = ListucAppointments[i].RowIndexStart; k <= ListucAppointments[i].RowIndexEnd; k++)//row by row
                         {
                             UCappointment Ucapp = (UCappointment)TLPSchedule.GetControlFromPosition(ColumnIndexToStartWithTest + j, k);
 
@@ -2784,7 +2859,8 @@ namespace MKproject.Schedule
             }
             return true;
         }
-        public bool CheckColumnOverlappingUcApp(List<UCappointment> UcAppListOrig)//kermel naarif eza controls inside  listofserpent, eemlin column overlapp => bad serpent, we handle it in a specific way 
+        //kermel naarif eza controls inside  listofserpent, eemlin column overlapp => bad serpent, we handle it in a specific way
+        public bool CheckColumnOverlappingUcApp(List<UCappointment> UcAppListOrig)
         {
             // Sort appointments by start column to make overlap detection easier
             List<UCappointment> ucAppList = new List<UCappointment>(UcAppListOrig);
@@ -2950,17 +3026,17 @@ namespace MKproject.Schedule
                 if (NbrRowShouldPass == -1 && (IsDayOrWeek || !IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(e.Column, false).Item2 >= DateTime.Now.Date))//while hovering normally
                 {
                     // Check if this cell's row belongs to the same group as the hovered cell
-                    if (currentGroup == hoveredGroup && (ColumnIndexGroupOfDraggingUC != (null, null, null) && ColumnIndexGroupOfDraggingUC.Item3.Contains(e.Column)))
+                    if (currentGroup == hoveredGroup && (ColumnIndexGroupHoveringIn != (null, null, null) && ColumnIndexGroupHoveringIn.Item3.Contains(e.Column)))
                     {
 
                         g.FillRectangle(hoverBrush, r);
 
 
                         //drwaing the text only
-                        if (e.Row == hoveredCellColmnRow.Item2 && e.Column == ColumnIndexGroupOfDraggingUC.Item3[0])
+                        if (e.Row == hoveredCellColmnRow.Item2 && e.Column == ColumnIndexGroupHoveringIn.Item3[0])
                         {
                             // Get the bounds for the spanned cells
-                            Rectangle spanBounds = GetSpannedCellBounds(e, ColumnIndexGroupOfDraggingUC.Item3.Count);
+                            Rectangle spanBounds = GetSpannedCellBounds(e, ColumnIndexGroupHoveringIn.Item3.Count);
 
 
                             // Draw text on the specified cell
@@ -2970,16 +3046,16 @@ namespace MKproject.Schedule
                         }
                     }
                 }
-                else if (IsDayOrWeek || (!IsDayOrWeek && ColumnIndexGroupOfDraggingUC.Item2 >= DateTime.Now.Date))//While dragging a uc
+                else if (IsDayOrWeek || (!IsDayOrWeek && ColumnIndexGroupHoveringIn.Item2 >= DateTime.Now.Date))//While dragging a uc
                 {
-                    if ((e.Row >= hoveredCellColmnRow.Item2 - 1 && e.Row <= (hoveredCellColmnRow.Item2 + NbrRowShouldPass - 1)) && (ColumnIndexGroupOfDraggingUC != (null, null, null) && ColumnIndexGroupOfDraggingUC.Item3.Contains(e.Column)))
+                    if ((e.Row >= hoveredCellColmnRow.Item2 - 1 && e.Row <= (hoveredCellColmnRow.Item2 + NbrRowShouldPass - 1)) && (ColumnIndexGroupHoveringIn != (null, null, null) && ColumnIndexGroupHoveringIn.Item3.Contains(e.Column)))
                     {
 
                         g.FillRectangle(hoverBrush, r);
 
-                        if (e.Row == hoveredCellColmnRow.Item2 - 1 && e.Column == ColumnIndexGroupOfDraggingUC.Item3[0])
+                        if (e.Row == hoveredCellColmnRow.Item2 - 1 && e.Column == ColumnIndexGroupHoveringIn.Item3[0])
                         {
-                            Rectangle spanBounds = GetSpannedCellBounds(e, ColumnIndexGroupOfDraggingUC.Item3.Count);
+                            Rectangle spanBounds = GetSpannedCellBounds(e, ColumnIndexGroupHoveringIn.Item3.Count);
 
                             // Draw text on the specified cell
                             DrawTextOnCell(g, spanBounds, e.Row);
@@ -3037,6 +3113,10 @@ namespace MKproject.Schedule
             ResetSelection();
         }
 
+        private void TLPSchedule_MouseDown(object sender, MouseEventArgs e)
+        {
+            MouseDownPosition = GetCellPosition(TLPSchedule, e.Location);
+        }
 
 
         void SetValuesthatWillAffectselection(Point Loaction)
@@ -3053,7 +3133,7 @@ namespace MKproject.Schedule
                 {
                     if (Group.Item3.Contains(hoveredCellColmnRow.Item1))
                     {
-                        ColumnIndexGroupOfDraggingUC = ListOfAllColumnIndexesGroups[WhichEmployee];
+                        ColumnIndexGroupHoveringIn = ListOfAllColumnIndexesGroups[WhichEmployee];
                         break;
                     }
                     WhichEmployee++;
@@ -3104,7 +3184,7 @@ namespace MKproject.Schedule
         void ResetSelection()
         {
             hoveredCellColmnRow = (-1, -1);
-            ColumnIndexGroupOfDraggingUC = (null, null, null);
+            ColumnIndexGroupHoveringIn = (null, null, null);
             UCApointmentDraged = null;
             Cursor.Current = Cursors.Default; // Reset the cursor to the default
             TLPSchedule.Invalidate();

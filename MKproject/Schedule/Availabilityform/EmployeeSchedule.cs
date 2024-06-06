@@ -33,7 +33,7 @@ namespace MKproject.Schedule
             {
 
                 //Add UCEmployee
-                UCEmployee employee = new UCEmployee(ParentucSchedule.TotalEmployeeScheduleList[i], this);
+                UCEmployee employee = new UCEmployee(ParentucSchedule.TotalEmployeeScheduleList[i].Copy(), this);
                 panelGlobal.Controls.Add(employee);
                 employee.Dock = DockStyle.Top;
 
@@ -66,14 +66,15 @@ namespace MKproject.Schedule
 
         private void ButtonDone_Click(object sender, EventArgs e)
         {
-            this.Close();
 
             foreach (UCEmployee uc in panelGlobal.Controls)
             {
                 //UPDATE The references of TotalEmployeeScheduleList
                 ClassEmployee EmployeeSelectedOfThisUC = ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == uc.DesiredEmployee.EmployeeId);
                 EmployeeSelectedOfThisUC.IsChecked = uc.DesiredEmployee.IsChecked;
+                EmployeeSelectedOfThisUC.Rank=uc.DesiredEmployee.Rank;
             }
+
             foreach (ClassEmployee emp in ParentucSchedule.TotalEmployeeScheduleList)
             {
                 if (!emp.IsChecked)
@@ -98,6 +99,7 @@ namespace MKproject.Schedule
             }
 
             Cursor.Current = Cursors.WaitCursor;
+            this.Close();
             ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false,false);
             Cursor.Current = Cursors.Default;
 

@@ -492,7 +492,7 @@ namespace MKproject.Management
         {
             string query = @"
             Select Count(*) from employee as b
-            where employee_id='" + EmployeeId + "' And Exists(Select* from appointments as a where a.employee_id = b.employee_id AND DATE(a.start_time) >= DATE('now') ";
+            where employee_id='" + EmployeeId + "' And Exists(Select * from appointments as a where a.employee_id = b.employee_id AND DATE(a.start_time) >= DATE('now')) ";
             SQLiteCommand cmd = new SQLiteCommand(query, con);
             SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -613,6 +613,11 @@ namespace MKproject.Management
                 command.ExecuteNonQuery();
                 con.Close();
             
+        }
+
+        public ClassEmployee Copy()//This Copy wont work fi Property eza fi  reference-type Properties (classes or list)/ eenda it s own methode, check ClassAppointment
+        {
+            return (ClassEmployee)this.MemberwiseClone();
         }
     }
 }
