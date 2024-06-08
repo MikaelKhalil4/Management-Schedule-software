@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
@@ -478,8 +480,6 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.DesiredEmployee = (ClassEmployee)selectedItem.Value;
 
 
-
-
             }
         }
         bool ISRequiredFieldsExists(bool IsCallingFromComplete)
@@ -524,19 +524,29 @@ namespace MKproject.Schedule
             {
                 UcScheduleParentForm.ChangePositionUCappointments(UCappointment, UCappointment.DesiredAppointmentUCApp, DesiredAppointmentAppForm);
             }
-
         }
-        bool CheckIfTimeAvailable()
-        {
-            //if (SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.StartTime.ToString("hh")) && SelectedEmployee.Availability.Contains(DesiredAppointmentAppForm.EndTime.ToString("hh")))
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-            return true;
+
+        bool CheckIfTimeAvailable()//it will work for both day an week, since bel week we can t shift days, but we can only shift hours
+        {//you need to set the limit condition also
+
+            int EmployeeIndex = UcScheduleParentForm.SelectedRowsAvailabilityForEachEmployeWorkingOn.FindIndex(item => item.Item1.EmployeeId == DesiredAppointmentAppForm.DesiredEmployee.EmployeeId);
+         
+
+            TimeSpan EndTime = DesiredAppointmentAppForm.EndTime.TimeOfDay;//let s say end time was 9:00, bel availabilty ha tkun 8:45, so that s why eemelna thismethd tahet
+            int desiredRow = ClassEmployee.GetRowFromTime(EndTime, true, UcScheduleParentForm.TLPSchedule);
+            EndTime=ClassEmployee.GetTimeFromRow(desiredRow,false, UcScheduleParentForm.TLPSchedule);
+
+
+            if ( UcScheduleParentForm.SelectedDateTimeAvailabilityForEachEmployeWorkingOn[EmployeeIndex].Item2.Contains(DesiredAppointmentAppForm.StartTime.TimeOfDay)
+                && UcScheduleParentForm.SelectedDateTimeAvailabilityForEachEmployeWorkingOn[EmployeeIndex].Item2.Contains(EndTime))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
 

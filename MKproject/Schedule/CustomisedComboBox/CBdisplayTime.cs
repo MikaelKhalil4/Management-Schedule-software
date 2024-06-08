@@ -209,6 +209,10 @@ namespace MKproject.Schedule
                 //Adding The Other labels
                 int i = 1;
                 TimeSpan timeSpanBreak = new TimeSpan(23, 45, 0);//12:00 AM
+                if (EndTime > timeSpanBreak)
+                {
+                    timeSpanBreak = EndTime;
+                }
                 TimeSpan[] displaytime = new TimeSpan[97];
 
                 displaytime[0] = StartTime.Subtract(new TimeSpan(0, DifferenceCustomStartTime, 0));
@@ -296,6 +300,36 @@ namespace MKproject.Schedule
 
                     i++;
                 }
+                if (EndTime != new TimeSpan(23, 59, 0))
+                {
+                    //aDDING THE LAST LABEL 11:49
+                    LabelTime labeltimeEnd = new LabelTime(new TimeSpan(23, 59, 0), this);
+                    ListLabelTime.Add(labeltimeEnd);
+
+                    //Getting targetlabeltimeHighlight and targetlabeltimeScroll to doing it for the first label
+                    if ((StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false) || (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true))
+                    {
+                        labeltimeEnd.Size = new Size(118, 30);
+                        flowLayoutPanelContainerTime.Controls.Add(labeltimeEnd);
+                        if (labeltimeEnd.Time == EndTime)//l2ina taba3 lhighlight
+                        {
+                            targetlabeltimeHighlight = labeltimeEnd;
+                        }
+                    }
+                    else
+                    {
+                        flowLayoutPanelContainerTime.Controls.Add(labeltimeEnd);
+                        if (labeltimeEnd.Time.Subtract(new TimeSpan(0, 30, 0)) == EndTime)//l2ina taba3 lscroll
+                        {
+                            targetlabeltimeScroll = labeltimeEnd;
+                        }
+                        if (labeltimeEnd.Time == EndTime)//l2ina taba3 lhighlight
+                        {
+                            targetlabeltimeHighlight = labeltimeEnd;
+                        }
+                    }
+                }
+               
 
                 //if there's no scroll, we just Highlighting targetlabeltimeHighlight
                 if (StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false)//aa aal hale mafi scroll ba2a
@@ -382,7 +416,7 @@ namespace MKproject.Schedule
                     TimeSpan endtime = dateTime.TimeOfDay;
 
                     //Checking the type of the text
-                    if (isMatch && endtime <= new TimeSpan(23, 45, 0))
+                    if (isMatch && endtime <= new TimeSpan(23, 59, 0))
                     {
                         //Checking the condition between starttime and endtime
                         if (endtime >= StartTime)

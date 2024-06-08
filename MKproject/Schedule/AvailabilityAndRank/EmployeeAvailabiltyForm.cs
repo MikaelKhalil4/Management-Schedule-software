@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MKproject.Management;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,15 +13,20 @@ namespace MKproject.Schedule.Availabilityform
 {
     public partial class EmployeeAvailabiltyForm : Form
     {
-        public EmployeeAvailabiltyForm()//kermel el flickering, fuck winforms
+        public UCEmployee ParentUCEmployee { get; set; }
+        public UCSchedule ParentUCSchedule { get; set; }
+        UCEmployeeAvailabilty ucEmployeeAv { get; set; }
+        public EmployeeAvailabiltyForm(ClassEmployee DesiredEmployee, UCEmployee ucemployee)//kermel el flickering, fuck winforms
         {
             InitializeComponent();
             this.Width = Program.HomeForm.Width - 100;
             this.Height = Program.HomeForm.Height - 80;
 
-            UCEmployeeAvailabilty uc = new UCEmployeeAvailabilty();
-            this.Controls.Add(uc);
-            uc.Dock = DockStyle.Fill;
+            ParentUCEmployee = ucemployee;
+            ParentUCSchedule = ucemployee.ParentFormEmployee.ParentucSchedule;
+             ucEmployeeAv = new UCEmployeeAvailabilty(DesiredEmployee, this);
+            this.Controls.Add(ucEmployeeAv);
+            ucEmployeeAv.Dock = DockStyle.Fill;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -39,6 +45,11 @@ namespace MKproject.Schedule.Availabilityform
                 Program.GreyForm.Close();
                 Program.GreyForm = null;
             }
+        }
+
+        private void EmployeeAvailabiltyForm_Load(object sender, EventArgs e)
+        {
+            ParentUCSchedule.ScrollToRow(34, ucEmployeeAv.TLPScheduleAv);//34 stands for a time arround 8AM
         }
     }
 

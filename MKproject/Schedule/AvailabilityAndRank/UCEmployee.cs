@@ -53,15 +53,19 @@ namespace MKproject.Schedule
 
         private void buttonAvailability_Click(object sender, EventArgs e)
         {
-            ParentFormEmployee.Close();
+            ParentFormEmployee.IsFormShouldClose = false;
+            ParentFormEmployee.Hide();
+
 
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
 
-            EmployeeAvailabiltyForm empAv = new EmployeeAvailabiltyForm();
-            empAv.ShowDialog(); 
-          
+            EmployeeAvailabiltyForm empAv = new EmployeeAvailabiltyForm(DesiredEmployee, this);//ejabre badde yeha reference
+            empAv.ShowDialog();
 
+            //eemelna hek in order the OnOnDoneClick() method works well li mawjude bel EmployeeSchedule!
+            ParentFormEmployee.IsFormShouldClose = true;
+            ParentFormEmployee.Close();
         }
 
         ///-CHECKBOX

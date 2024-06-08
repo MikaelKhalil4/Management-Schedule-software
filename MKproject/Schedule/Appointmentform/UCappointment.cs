@@ -38,6 +38,9 @@ namespace MKproject.Schedule
 
         //
         Label LabelBalance;
+        static public Color WariningColor = Color.FromArgb(255, 234, 234);
+        static public Color HoverColor= Color.WhiteSmoke;
+        static public Color DefaultColor = Color.White;
 
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
         public UCappointment(ClassAppointment desiredappointment, UCSchedule uCSchedule)
@@ -95,9 +98,8 @@ namespace MKproject.Schedule
 
                     TLPGlobal.SetRow(labelTime, 1);
                     TLPGlobal.SetRowSpan(labelTime, 1);
-                    labelTime.Anchor = AnchorStyles.Top;
                     labelTime.Margin = new Padding(0, 5, 0, 0);
-
+                    labelTime.Dock = DockStyle.Fill;
                 }
 
                 labelFullName.Text = DesiredAppointmentUCApp.DesiredClient.Fname + " " + DesiredAppointmentUCApp.DesiredClient.Lname;
@@ -112,8 +114,9 @@ namespace MKproject.Schedule
 
                 TLPGlobal.SetRow(labelTime, 0);
                 TLPGlobal.SetRowSpan(labelTime, 2);
-                labelTime.Anchor = AnchorStyles.None;
                 labelTime.Margin = new Padding(0, 0, 0, 0);
+                labelTime.Dock=DockStyle.None;
+                labelTime.Anchor = AnchorStyles.None;
             }
 
 
@@ -197,7 +200,7 @@ namespace MKproject.Schedule
             TLPGlobal.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, 100f);
             TLPGlobal.RowStyles[0] = new RowStyle(SizeType.Percent, 40);
             labelFullName.Font = new Font(labelTime.Font.FontFamily, labelTime.Font.Size + 0.5f, labelTime.Font.Style);
-            labelTime.TextAlign = ContentAlignment.MiddleLeft;
+            labelTime.TextAlign = ContentAlignment.TopLeft;
             labelFullName.Margin = new Padding(1, 5, 1, 0);
             labelTime.Margin = new Padding(0, 5, 0, 0);
 
@@ -292,7 +295,7 @@ namespace MKproject.Schedule
                 TLPGlobal.RowStyles[0].Height = 0;
                 labelFullName.Margin = new Padding(0);
                 labelTime.Margin = new Padding(0);
-                labelTime.TextAlign = ContentAlignment.MiddleRight;
+                labelTime.TextAlign = ContentAlignment.TopRight;
                 labelFullName.Font = new Font(labelTime.Font.FontFamily, labelTime.Font.Size, labelTime.Font.Style);
             }
             else
@@ -493,8 +496,8 @@ namespace MKproject.Schedule
         Cursor customCursor;
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
-
-            TLPGlobal.BackColor = Color.WhiteSmoke;
+          
+            TLPGlobal.BackColor = HoverColor;
 
             if ((UcScheduleParentForm.IsDayOrWeek && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date) || (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date && !UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee != null))//onlty present or future
             {
@@ -519,7 +522,7 @@ namespace MKproject.Schedule
         private void UCappointments_MouseLeave(object sender, EventArgs e)
         {
 
-            TLPGlobal.BackColor = Color.White;
+            TLPGlobal.BackColor = DefaultColor;
 
         }
         private void Control_MouseDown(object sender, MouseEventArgs e)

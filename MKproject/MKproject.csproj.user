@@ -102,13 +102,13 @@
     <Compile Update="Schedule\Appointmentform\UCappointment.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Availabilityform\EmployeeAvailabilty.cs">
+    <Compile Update="Schedule\AvailabilityAndRank\UCEmployeeAvailabilty.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\Availabilityform\EmployeeAvailabiltyForm.cs">
+    <Compile Update="Schedule\AvailabilityAndRank\EmployeeAvailabiltyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Schedule\Availabilityform\EmployeeSchedule.cs">
+    <Compile Update="Schedule\AvailabilityAndRank\EmployeeSchedule.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Schedule\Calanderform\UCCalanderday.cs">

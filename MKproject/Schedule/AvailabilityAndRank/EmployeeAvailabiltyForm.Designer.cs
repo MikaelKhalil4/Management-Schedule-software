@@ -42,17 +42,21 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 450);
+            ClientSize = new System.Drawing.Size(825, 460);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "EmployeeAvailabiltyForm";
             Opacity = 0D;
+            ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "EmployeeAvailabiltyForm";
             FormClosing += EmployeeAvailabiltyForm_FormClosing;
+            Load += EmployeeAvailabiltyForm_Load;
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Timer timer1;
     }
 }

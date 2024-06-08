@@ -35,6 +35,7 @@ namespace MKproject.Schedule
             flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             ButtonUpdate = new CustomizedTools.CustomButton();
             buttonCancel = new CustomizedTools.CustomButton();
+            labelEmployeeName = new System.Windows.Forms.Label();
             TLPGlobal.SuspendLayout();
             flowLayoutPanel3.SuspendLayout();
             SuspendLayout();
@@ -45,6 +46,7 @@ namespace MKproject.Schedule
             TLPGlobal.ColumnCount = 1;
             TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPGlobal.Controls.Add(flowLayoutPanel3, 0, 3);
+            TLPGlobal.Controls.Add(labelEmployeeName, 0, 0);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
             TLPGlobal.Name = "TLPGlobal";
@@ -53,6 +55,7 @@ namespace MKproject.Schedule
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             TLPGlobal.Size = new System.Drawing.Size(1123, 654);
             TLPGlobal.TabIndex = 1;
             // 
@@ -85,6 +88,7 @@ namespace MKproject.Schedule
             ButtonUpdate.TabIndex = 0;
             ButtonUpdate.Text = "Update";
             ButtonUpdate.UseVisualStyleBackColor = false;
+            ButtonUpdate.Click += ButtonUpdate_Click;
             // 
             // buttonCancel
             // 
@@ -104,17 +108,29 @@ namespace MKproject.Schedule
             buttonCancel.TabIndex = 742;
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = false;
+            buttonCancel.Click += buttonCancel_Click;
             // 
-            // TransferData
+            // labelEmployeeName
+            // 
+            labelEmployeeName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            labelEmployeeName.AutoSize = true;
+            labelEmployeeName.Font = new System.Drawing.Font("Segoe UI Semibold", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelEmployeeName.Location = new System.Drawing.Point(500, 2);
+            labelEmployeeName.Name = "labelEmployeeName";
+            labelEmployeeName.Size = new System.Drawing.Size(123, 25);
+            labelEmployeeName.TabIndex = 749;
+            labelEmployeeName.Text = "Mikael Khalil";
+            // 
+            // UCEmployeeAvailabilty
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1123, 654);
             Controls.Add(TLPGlobal);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "TransferData";
-            Text = "TransferData";
+            Name = "UCEmployeeAvailabilty";
+            Size = new System.Drawing.Size(1123, 654);
             TLPGlobal.ResumeLayout(false);
+            TLPGlobal.PerformLayout();
             flowLayoutPanel3.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -125,5 +141,6 @@ namespace MKproject.Schedule
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         public CustomizedTools.CustomButton ButtonUpdate;
         public CustomizedTools.CustomButton buttonCancel;
+        private System.Windows.Forms.Label labelEmployeeName;
     }
 }

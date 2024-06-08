@@ -10,30 +10,18 @@ namespace MKproject.Schedule
         static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         //HistoryEmployeeavailibility
-        public static void UpdateRank_HistoryEmployeeavailibility(DateTime history_date, int employee_id, int rank)
+        public static void UpdateRank_HistoryEmployeeavailibility(DateTime history_date, int employee_id, int rank,string availability)
         {
-            SQLiteCommand command = new SQLiteCommand("UPDATE history_employee_availability SET rank= @rank WHERE history_date = @history_date and employee_id = @employee_id", con);
+            SQLiteCommand command = new SQLiteCommand("UPDATE history_employee_availability SET rank= @rank,availability=@availability WHERE history_date = @history_date and employee_id = @employee_id", con);
 
             command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@employee_id", employee_id);
             command.Parameters.AddWithValue("@rank", rank);
-
-            con.Open();
-            command.ExecuteNonQuery();
-            con.Close();
-        }
-        public static void UpdateAvailability_HistoryEmployeeavailibity(DateTime history_date, int employee_id, string availability)
-        {
-            SQLiteCommand command = new SQLiteCommand("UPDATE history_employee_availability SET availability=@availability WHERE history_date = @history_date and employee_id = @employee_id", con);
-
-            command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@employee_id", employee_id);
             command.Parameters.AddWithValue("@availability", availability);
-
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
-        }
+        }    
         public static void InsertHistoryEmployeeavailibility(DateTime history_date, int employee_id, int rank, string availability)
         {
             SQLiteCommand command = new SQLiteCommand(@"INSERT INTO history_employee_availability (history_date,employee_id, rank, availability) 
@@ -55,7 +43,6 @@ namespace MKproject.Schedule
             command.ExecuteNonQuery();//first command
             con.Close();
         }
-
         public static void DeleteHistoryEmployee(DateTime history_date, int employee_id)
         {
             SQLiteCommand command = new SQLiteCommand("DELETE from history_employee_availability  WHERE history_date = @history_date and employee_id = @employee_id", con);

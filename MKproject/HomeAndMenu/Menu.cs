@@ -155,9 +155,11 @@ namespace MKproject
             {
                 Program.ScheduleFormGlobal = new ScheduleForm();
             }
-
+            else
+            {
+                Program.ScheduleFormGlobal.LoadScheduleForm();
+            }
             OpenChildForm(Program.ScheduleFormGlobal, buttonSchedule, false);
-            Program.ScheduleFormGlobal.LoadScheduleForm();
             Cursor = Cursors.Default;
         }
         private void buttonTransaction_Click(object sender, EventArgs e)

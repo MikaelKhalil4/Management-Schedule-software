@@ -15,12 +15,11 @@ namespace MKproject.Schedule
         public EmployeeSchedule employee;
 
 
-
         //INITIALISE:
         public ScheduleForm()
         {
             InitializeComponent();
-
+     
             ucSchedule = new UCSchedule(this);
             Cursor.Current = Cursors.WaitCursor;
 
@@ -46,18 +45,19 @@ namespace MKproject.Schedule
             checkBoxComplete.Click += CloseNotfBanner_Click;
             checkBoxCancel.Click += CloseNotfBanner_Click;
 
-       
+   
         }
 
-       public void LoadScheduleForm()
+        public void LoadScheduleForm()
         {
             checkBoxOnPending.Checked = true;
             checkBoxComplete.Checked = true;
             checkBoxCancel.Checked = true;
 
+
             ucSchedule.LoadGlobalyTheForm();
-            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
-        
+            ucSchedule.ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, ucSchedule.TLPSchedule), ucSchedule.TLPSchedule);//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+
         }
 
         private void CloseNotfBanner_Click(object sender, EventArgs e)
@@ -210,7 +210,7 @@ namespace MKproject.Schedule
 
         private void ScheduleForm_Load(object sender, EventArgs e)
         {
-            ucSchedule.ScrollToRow(ucSchedule.GetRowFromTime(DateTime.Now.TimeOfDay, false));//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+            ucSchedule.ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, ucSchedule.TLPSchedule), ucSchedule.TLPSchedule);//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
         }
         public event EventHandler ScheduleFormResize;
         private void ScheduleForm_Resize(object sender, EventArgs e)

@@ -131,7 +131,7 @@
     <Compile Update="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Schedule\Availabilityform\UCEmployee.cs">
+    <Compile Update="Schedule\AvailabilityAndRank\UCEmployee.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\UCData\UCreminder.cs">

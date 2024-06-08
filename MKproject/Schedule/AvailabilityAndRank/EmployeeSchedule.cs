@@ -17,7 +17,7 @@ namespace MKproject.Schedule
         //Variable:
         public UCSchedule ParentucSchedule;
         public bool IsButtonAvailabilitylClicked = false;//Kermel watta yeftah lavailability form ma ysakir lemployee form
-
+        public bool IsFormShouldClose = true;
         //Initialise:
         public EmployeeSchedule(UCSchedule parentucSchedule)
         {
@@ -52,7 +52,10 @@ namespace MKproject.Schedule
 
         private void Employee_Deactivate(object sender, EventArgs e)
         {
-            this.Close();
+            if (IsFormShouldClose)
+            {
+                this.Close();
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -66,13 +69,20 @@ namespace MKproject.Schedule
 
         private void ButtonDone_Click(object sender, EventArgs e)
         {
+            OnDoneClick();      
+        }
+
+
+        public void OnDoneClick()
+        {
 
             foreach (UCEmployee uc in panelGlobal.Controls)
             {
                 //UPDATE The references of TotalEmployeeScheduleList
                 ClassEmployee EmployeeSelectedOfThisUC = ParentucSchedule.TotalEmployeeScheduleList.FirstOrDefault(emp => emp.EmployeeId == uc.DesiredEmployee.EmployeeId);
                 EmployeeSelectedOfThisUC.IsChecked = uc.DesiredEmployee.IsChecked;
-                EmployeeSelectedOfThisUC.Rank=uc.DesiredEmployee.Rank;
+                EmployeeSelectedOfThisUC.Rank = uc.DesiredEmployee.Rank;
+                EmployeeSelectedOfThisUC.Availability = uc.DesiredEmployee.Availability;
             }
 
             foreach (ClassEmployee emp in ParentucSchedule.TotalEmployeeScheduleList)
@@ -87,22 +97,26 @@ namespace MKproject.Schedule
 
             ParentucSchedule.TotalEmployeeScheduleList = ParentucSchedule.TotalEmployeeScheduleList.OrderBy(s => s.Rank).ToList();
 
-            for (int i = 0; i < ParentucSchedule.TotalEmployeeScheduleList.Count; i++)
+            for (int i = 0; i < ParentucSchedule.TotalEmployeeScheduleList.Count; i++)//updating the employee table
             {
-                ClassEmployee.UpdateRankEmployeeScheduleMemberSQL(ParentucSchedule.TotalEmployeeScheduleList[i]);
+                ParentucSchedule.TotalEmployeeScheduleList[i].UpdateEmployee();
             }
 
-            for (int i = 0; i < ParentucSchedule.TotalEmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
+            for (int i = 0; i < ParentucSchedule.TotalEmployeeScheduleList.Count; i++)//Updating the history table
             {
-                int rank = i + 1;
-                ProjectToSql.UpdateRank_HistoryEmployeeavailibility(DateTime.Now, ParentucSchedule.TotalEmployeeScheduleList[i].EmployeeId, rank);
+                int rank = (int)ParentucSchedule.TotalEmployeeScheduleList[i].Rank;
+             
+                string DesiredAvailabiltyOfSpecificDay = ClassEmployee.GetAvailabiltyAsAstringFromWeekAvailability(DateTime.Now, ParentucSchedule.TotalEmployeeScheduleList[i].Availability);
+
+
+                ProjectToSql.UpdateRank_HistoryEmployeeavailibility(DateTime.Now, ParentucSchedule.TotalEmployeeScheduleList[i].EmployeeId, rank, DesiredAvailabiltyOfSpecificDay);
             }
+
 
             Cursor.Current = Cursors.WaitCursor;
             this.Close();
-            ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false,false);
+            ParentucSchedule.LoadForm(ParentucSchedule.SelectedDate, ParentucSchedule.IsDayOrWeek, false, false);
             Cursor.Current = Cursors.Default;
-
         }
     }
 
