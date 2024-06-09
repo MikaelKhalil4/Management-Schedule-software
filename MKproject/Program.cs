@@ -38,8 +38,11 @@ namespace MKproject
         //Mikas: Data Source=MKpc;Initial Catalog=MKproject;User ID=sa;Password=1234
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
 
-        public static string DataLocation = "Data Source=C:\\Users\\USER\\Documents\\DB Browser for SQLite\\MKproject.db;";
-        public static string FolderProfileImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProfileImages");
+
+        public static string DataLocation = "Data Source=C:\\Users\\USER\\Documents\\ELKdb\\ELK.db";
+        public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\ELKdb\\ProfileImages";
+
+
         public static string ExecptionString = "Unexpected error:\n";
 
         /// <summary>
@@ -48,7 +51,7 @@ namespace MKproject
         [STAThread]
         static void Main()
         {
-          Currency.GetCurrency();
+            Currency.GetCurrency();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

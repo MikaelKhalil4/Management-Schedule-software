@@ -28,7 +28,14 @@ namespace MKproject
             LoadImages();
             menu = new Menu();
             menu.ParentFormHome = this;
-            menu.OpenChildForm(new ScheduleForm(), menu.buttonSchedule, false);
+            if (LOGIN.Employee.IsScheduleMember)
+            {
+                menu.OpenChildForm(new ScheduleForm(), menu.buttonSchedule, false);
+            }
+            else
+            {
+                menu.OpenChildForm(new SearchCurrentClient(), menu.buttonSearchClient, false);
+            }
             buttonMaximize.Select();
         }
         void LoadImages()

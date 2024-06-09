@@ -39,7 +39,7 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(ButtonDone, 0, 1);
             tableLayoutPanel1.Controls.Add(panelGlobal, 0, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -47,8 +47,8 @@
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.3333359F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.666666F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 99.99999F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
             tableLayoutPanel1.Size = new System.Drawing.Size(323, 342);
             tableLayoutPanel1.TabIndex = 2;
             // 
@@ -64,7 +64,7 @@
             ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonDone.ForeColor = System.Drawing.Color.White;
-            ButtonDone.Location = new System.Drawing.Point(117, 299);
+            ButtonDone.Location = new System.Drawing.Point(117, 309);
             ButtonDone.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
             ButtonDone.Name = "ButtonDone";
             ButtonDone.Size = new System.Drawing.Size(87, 29);
@@ -78,7 +78,7 @@
             panelGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             panelGlobal.Location = new System.Drawing.Point(3, 3);
             panelGlobal.Name = "panelGlobal";
-            panelGlobal.Size = new System.Drawing.Size(317, 279);
+            panelGlobal.Size = new System.Drawing.Size(317, 299);
             panelGlobal.TabIndex = 2;
             // 
             // timer1
