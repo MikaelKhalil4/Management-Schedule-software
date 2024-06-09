@@ -2,8 +2,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using MKproject.Schedule.UCData;
 using System.Data.SQLite;
+using MKproject.Schedule.Reminderform;
+using CustomizedTools;
+using GlobalFunctions;
 
 namespace MKproject.Schedule
 {
@@ -11,7 +13,7 @@ namespace MKproject.Schedule
     {
         //SQL
         static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
-
+        Color ColorCompletedReminedr = Color.FromArgb(124, 218, 124);
         //PROPERTY:
         private ClassReminder desiredreminder;
         public ClassReminder DesiredReminder
@@ -24,6 +26,10 @@ namespace MKproject.Schedule
             {
                 desiredreminder = value;
                 checkBoxReminder.Checked = desiredreminder.IsChecked;
+                if (checkBoxReminder.Checked)
+                {
+                    this.panelColoredReminder.BackColor = ColorCompletedReminedr;
+                }
                 checkBoxReminder.Text = desiredreminder.Reminder;
                 if (desiredreminder.DesiredClient == null)
                 {
@@ -77,6 +83,8 @@ namespace MKproject.Schedule
             schedule = scheduleform;
 
             this.BackColor = scheduleform.panelreminder.BackColor;
+            
+            FixDesign();
         }
 
         //In ClientReminder(from select SQL once we open ClientReminder or when we ADD in ClientReminder)
@@ -94,12 +102,14 @@ namespace MKproject.Schedule
 
             if (DesiredReminder.IsChecked)
             {
-                this.panelColoredReminder.BackColor = Color.Lime;
+                this.panelColoredReminder.BackColor = ColorCompletedReminedr;
             }
             else
             {
                 this.panelColoredReminder.BackColor = Color.FromArgb(109, 122, 224);
             }
+
+            FixDesign();
         }
 
 
@@ -110,47 +120,64 @@ namespace MKproject.Schedule
             Reminder reminder;
             if (Isclientreminder)
             {
+                Program.GreyFormJunior = new GreyColor(this.clientReminder, true, true, null);
+                Program.GreyFormJunior.Show();
                 reminder = new Reminder(this, ucday, schedule, Isclientreminder, clientReminder);
             }
             else
             {
+                Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+                Program.GreyForm.Show();
                 reminder = new Reminder(this, ucday, schedule, Isclientreminder);
             }
-            reminder.ShowDialog();
+            reminder.Show();
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            //SQL:
-            DesiredReminder.DeleteReminderSQL();
-
-            //Design:
             if (Isclientreminder)
             {
-                UCreminder foundUcReminder = ucday.ListUCreminderForTheSelectedDate.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
-
-                if(foundUcReminder != null)
-                {
-                    ucday.ListUCreminderForTheSelectedDate.Remove(foundUcReminder);
-                    schedule.panelreminder.Controls.Remove(foundUcReminder);
-                    foundUcReminder.Dispose();
-                }
-
-                clientReminder.panelreminder.Controls.Remove(this);
-                this.Dispose();
+                clientReminder.DisableClosingOnDisactivating = true;
             }
-            else
-            {
-                ucday.ListUCreminderForTheSelectedDate.Remove(this);
-                schedule.panelreminder.Controls.Remove(this);
 
-                this.Dispose();
+            DialogResult dialogResult = CustomMessageBox.Show("Are You sure Do you want to the delete the reminder?", CustomMessageBox.Type.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //SQL:
+                DesiredReminder.DeleteReminderSQL();
+
+                //Design:
+                if (Isclientreminder)
+                {
+              
+                    UCreminder foundUcReminder = ucday.ListUCreminderForTheSelectedDate.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
+
+                    if (foundUcReminder != null)
+                    {
+                        ucday.ListUCreminderForTheSelectedDate.Remove(foundUcReminder);
+                        schedule.panelreminder.Controls.Remove(foundUcReminder);
+                        foundUcReminder.Dispose();
+                    }
+
+                    clientReminder.panelreminder.Controls.Remove(this);
+                    this.Dispose();
+                    clientReminder.DisableClosingOnDisactivating = false;
+                }
+                else
+                {
+                    ucday.ListUCreminderForTheSelectedDate.Remove(this);
+                    schedule.panelreminder.Controls.Remove(this);
+
+                    this.Dispose();
+                }
             }
 
         }
         private void linkLabelName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+            Program.GreyForm.Show();
             ClientReminder clientreminder = new ClientReminder(DesiredReminder.DesiredClient, schedule, ucday);
-            clientreminder.ShowDialog();
+            clientreminder.Show();
         }
         private void checkBoxReminder_Click(object sender, EventArgs e)
         {
@@ -167,15 +194,15 @@ namespace MKproject.Schedule
                 if (DesiredReminder.IsChecked)//hone lezim nzido
                 {
                     UCreminder foundUcReminder = ucday.ListUCreminderForTheSelectedDate.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);//KERMEL NSHIL LI BEL panelreminderschedule
-                    if(foundUcReminder != null)
+                    if (foundUcReminder != null)
                     {
                         foundUcReminder.DesiredReminder.IsChecked = true;
                         foundUcReminder.checkBoxReminder.Checked = true;
-                        schedule.panelreminder.Controls.Remove(foundUcReminder);
+                        foundUcReminder.panelColoredReminder.BackColor = ColorCompletedReminedr;
                     }
-                  
 
-                    this.panelColoredReminder.BackColor = Color.Lime;
+
+                    this.panelColoredReminder.BackColor = ColorCompletedReminedr;
                 }
                 else
                 {
@@ -186,7 +213,7 @@ namespace MKproject.Schedule
                         foundUcReminder.checkBoxReminder.Checked = false;
                         foundUcReminder.panelColoredReminder.BackColor = Color.FromArgb(109, 122, 224);
 
-                        if (ucday.isThedayofUCreminder(DesiredReminder, ucday.SelectedDate))
+                        if (ucday.isThedayofUCreminder(DesiredReminder))
                         {
                             foundUcReminder.Dock = DockStyle.Top;
                             schedule.panelreminder.Controls.Add(foundUcReminder);
@@ -200,8 +227,7 @@ namespace MKproject.Schedule
             {
                 if (DesiredReminder.IsChecked)//hone lezim nzido
                 {
-                    this.panelColoredReminder.BackColor = Color.Lime;
-                    TimerReminderDispose.Start();
+                    this.panelColoredReminder.BackColor = ColorCompletedReminedr;
                 }
                 else
                 {
@@ -214,32 +240,26 @@ namespace MKproject.Schedule
 
 
         //DESIGN
-        ///-The time to hold the reminder from Hiding
-        int i = 0;
-        private void TimerReminderDispose_Tick(object sender, EventArgs e)
-        {
-
-            i++;
-            if (i == 1)
-            {
-                TimerReminderDispose.Stop();
-                schedule.panelreminder.Controls.Remove(this);
-                i = 0;
-
-
-                //if they put the check and try to remove it it will be always checked
-                DesiredReminder.IsChecked = true;
-
-            }
-        }
 
         private void checkBoxReminder_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxReminder.Checked == false)
             {
-                TimerReminderDispose.Stop();
                 this.panelColoredReminder.BackColor = Color.FromArgb(109, 122, 224);
             }
+        }
+
+        private void checkBoxReminder_TextChanged(object sender, EventArgs e)
+        {
+            FixDesign();
+        }
+
+        void FixDesign()
+        {
+            int DesiredHeight = RandomFunctions.CalculateDesiredHeight(checkBoxReminder, checkBoxReminder.Width-10);
+            TLPGlobal.RowStyles[1].Height = DesiredHeight;
+
+            this.Height = Convert.ToInt16(TLPGlobal.RowStyles[0].Height + TLPGlobal.RowStyles[1].Height) + this.Padding.Bottom + 15;
         }
     }
 }

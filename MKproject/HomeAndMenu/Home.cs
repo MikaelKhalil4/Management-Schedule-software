@@ -29,6 +29,7 @@ namespace MKproject
             menu = new Menu();
             menu.ParentFormHome = this;
             menu.OpenChildForm(new SearchCurrentClient(), menu.buttonSearchClient, false);
+            buttonMaximize.Select();
         }
         void LoadImages()
         {

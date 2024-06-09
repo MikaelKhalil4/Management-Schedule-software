@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Windows.Controls;
 
-namespace MKproject.Schedule.UCData
+namespace MKproject.Schedule.Reminderform
 {
     public class ClassReminder
     {
@@ -16,15 +17,16 @@ namespace MKproject.Schedule.UCData
         public int Idreminder { get; set; }
         public string Reminder { get; set; }
         public ClassClient DesiredClient { get; set; }
-      
+
         public string[] PartsRepeat { get; set; }
         private string repeat;
         public string Repeat
         {
             get { return repeat; }
-            set { 
+            set
+            {
                 repeat = value;
-                PartsRepeat =Repeat.Split('/');
+                PartsRepeat = Repeat.Split('/');
             }
         }
 
@@ -65,31 +67,50 @@ namespace MKproject.Schedule.UCData
             con.Close();
             return dt1;
         }
-        public static DataTable DisplayReminderInASpecificDate(DateTime SelectedDate)
+        public static DataTable DisplayReminderInASpecificDate(DateTime SelectedOrStartDate, DateTime? EndDate)
         {
-            SQLiteCommand command1 = new SQLiteCommand(@"
-                    SELECT reminder.*, client.name, client.family_name, client.phone_number
-                    FROM reminder
-                    LEFT JOIN client ON reminder.client_id = client.client_id
-                    WHERE
-                    (
-                        -- No Repeat: Reminder should occur only once on the exact date.
-                        (reminder.repeat = 'Does not repeat' AND DATE(reminder.starttime) = DATE(@SELECTED_DATE))
+            string query = @"WITH DayName AS (
+        SELECT CASE strftime('%w', '2024-06-09')
+        WHEN '0' THEN 'Sunday'
+        WHEN '1' THEN 'Monday'
+        WHEN '2' THEN 'Tuesday'
+        WHEN '3' THEN 'Wednesday'
+        WHEN '4' THEN 'Thursday'
+        WHEN '5' THEN 'Friday'
+        WHEN '6' THEN 'Saturday'
+         END AS day_name)
+            SELECT reminder.*, client.name, client.family_name, client.phone_number
+            FROM reminder
+            LEFT JOIN client ON reminder.client_id = client.client_id
+            LEFT JOIN DayName ON INSTR(reminder.repeat, DayName.day_name) > 0
+            WHERE  (   
+        (reminder.repeat = 'Does not repeat')
+        OR
+        (reminder.repeat = 'Every day')
+        OR
+        (reminder.repeat LIKE 'Every week%'AND INSTR(reminder.repeat, DayName.day_name) > 0)) ";
 
-                        OR
 
-                        -- Everyday: Reminder repeats daily starting from the starttime onward.
-                        (reminder.repeat = 'Every day' AND DATE(reminder.starttime) <= DATE(@SELECTED_DATE))
+            if (EndDate == null)
+            {
+                query += " AND DATE(reminder.starttime) = DATE(@SelectedOrStartDate)";
+            }
+            else
+            {
+                query += " AND DATE(reminder.starttime) >= DATE(@SelectedOrStartDate) AND DATE(reminder.starttime) <= DATE(@EndDate)  ";
+            }
 
-                        OR
+            query += "ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC";
 
-                        -- Every Week: Checks if the current day is one of the specified weekdays in the repeat pattern.
-                        (reminder.repeat LIKE 'Every week%' AND DATE(reminder.starttime) <= DATE(@SELECTED_DATE)
-                        AND INSTR(reminder.repeat, strftime('%w', @SELECTED_DATE)) > 0)
-                    )
-                    ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
 
-            command1.Parameters.AddWithValue("@SELECTED_DATE", SelectedDate.ToString("yyyy-MM-dd"));
+
+            SQLiteCommand command1 = new SQLiteCommand(query, con);
+
+            command1.Parameters.AddWithValue("@SelectedOrStartDate", SelectedOrStartDate.ToString("yyyy-MM-dd"));
+            if (EndDate != null)
+            {
+                command1.Parameters.AddWithValue("@EndDate", ((DateTime)EndDate).ToString("yyyy-MM-dd"));
+            }
             SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
@@ -117,26 +138,26 @@ namespace MKproject.Schedule.UCData
         }
 
 
-        public  void AddRemindertoSQL()
+        public void AddRemindertoSQL()
         {
             int idreminder;
             IsChecked = false;
 
             SQLiteCommand command = new SQLiteCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked) ", con);
             SQLiteCommand cmd = new SQLiteCommand("SELECT Max(reminder_id) FROM reminder", con);
-          
+
 
             command.Parameters.AddWithValue("@reminder", Reminder);
-            if(DesiredClient != null)
+            if (DesiredClient != null)
             {
                 command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
             }
             else
             {
-                command.Parameters.AddWithValue("@client_id",DBNull.Value);
+                command.Parameters.AddWithValue("@client_id", DBNull.Value);
             }
             command.Parameters.AddWithValue("@repeat", Repeat);
-            command.Parameters.AddWithValue("@starttime", StartTime);
+            command.Parameters.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@is_checked", IsChecked);
 
             con.Open();
@@ -144,7 +165,7 @@ namespace MKproject.Schedule.UCData
             Idreminder = Convert.ToInt32(cmd.ExecuteScalar());
             con.Close();
         }
-        public  void UpdateFromRemindertoSQL()
+        public void UpdateFromRemindertoSQL()
         {
             SQLiteCommand command = new SQLiteCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime WHERE reminder_id =@reminder_id", con);
 
@@ -159,7 +180,7 @@ namespace MKproject.Schedule.UCData
                 command.Parameters.AddWithValue("@client_id", DBNull.Value);
             }
             command.Parameters.AddWithValue("@repeat", Repeat);
-            command.Parameters.AddWithValue("@starttime", StartTime);
+            command.Parameters.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@is_checked", IsChecked);
             command.Parameters.AddWithValue("@reminder_id", Idreminder);
 
@@ -167,7 +188,7 @@ namespace MKproject.Schedule.UCData
             command.ExecuteNonQuery();
             con.Close();
         }
-        public  void DeleteReminderSQL()
+        public void DeleteReminderSQL()
         {
             SQLiteCommand command = new SQLiteCommand("DELETE FROM reminder WHERE reminder_id = @value1 ", con);
             command.Parameters.AddWithValue("@value1", Idreminder);
@@ -175,7 +196,7 @@ namespace MKproject.Schedule.UCData
             command.ExecuteNonQuery();
             con.Close();
         }
-        public  void checkBoxReminderChangedToSQL()
+        public void checkBoxReminderChangedToSQL()
         {
             SQLiteCommand command = new SQLiteCommand(@"UPDATE reminder
                                                   SET is_checked=@is_checked

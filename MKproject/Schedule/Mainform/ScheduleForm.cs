@@ -1,4 +1,5 @@
-﻿using MKproject.Management;
+﻿using CustomizedTools;
+using MKproject.Management;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,10 +11,10 @@ namespace MKproject.Schedule
     {
 
         //VARIABLES:
-        public CalanderForm calanderForm;
+        public CalanderForm calanderFormForschedule;
+        public CalanderForm calanderFormForReminder;
         public UCSchedule ucSchedule;
         public EmployeeSchedule employee;
-
 
         //INITIALISE:
         public ScheduleForm()
@@ -32,13 +33,22 @@ namespace MKproject.Schedule
             ucSchedule.TLPSchedule.ResumeLayout();
 
 
-            //ejare tahet ucSchedule
-            calanderForm = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
-            calanderForm.SelectedDateChangedUCSchedule += ucSchedule.SelectedDateUCSchedule_Changed;
-            calanderForm.Dock = DockStyle.Fill;
-            calanderForm.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
+           
+            calanderFormForschedule = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
+            calanderFormForschedule.SelectedDateChanged += ucSchedule.SelectedDateUCSchedule_Changed;
+            calanderFormForschedule.Dock = DockStyle.Fill;
+            calanderFormForschedule.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
             TLPSide.Margin = new Padding(0, 0, 0, 0);
+
+
+       
+            calanderFormForReminder = new CalanderForm(this, ucSchedule.SelectedDate);//nkhala2 men halla2 kermel watta a3mil click deghre yendfatah
+            calanderFormForReminder.Dock = DockStyle.Fill;
+            calanderFormForReminder.Margin = new Padding(10, 15, 10, 10);//(left, top, right, bottom)
+            TLPSide.Margin = new Padding(0, 0, 0, 0);
+
             Cursor.Current = Cursors.Default;
+
 
             //
             checkBoxOnPending.Click += CloseNotfBanner_Click;
@@ -73,22 +83,24 @@ namespace MKproject.Schedule
             }
         }
 
-        ///-CLICK
+        //-CLICK
         private void buttonAllReminder_Click(object sender, EventArgs e)
         {
             CloseNotfBanner();
             //
-
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+            Program.GreyForm.Show();
             ClientReminder clientReminderForm = new ClientReminder(null, this, ucSchedule);
-            clientReminderForm.ShowDialog();
+            clientReminderForm.Show();
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
             CloseNotfBanner();
             //
-
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+            Program.GreyForm.Show();
             Reminder reminder = new Reminder(this, ucSchedule);
-            reminder.ShowDialog();
+            reminder.Show();
         }
 
         ///-CHECK BOX
@@ -211,6 +223,7 @@ namespace MKproject.Schedule
         private void ScheduleForm_Load(object sender, EventArgs e)
         {
             ucSchedule.ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, ucSchedule.TLPSchedule), ucSchedule.TLPSchedule);//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+            ucSchedule.UpdateTimeIndicatorLinePosition();
         }
         public event EventHandler ScheduleFormResize;
         private void ScheduleForm_Resize(object sender, EventArgs e)

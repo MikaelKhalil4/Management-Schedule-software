@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientReminder));
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             panelreminder = new System.Windows.Forms.Panel();
             textBoxSearch = new CustomizedTools.TextBoxWithPlaceHolder();
             ButtonAdd = new System.Windows.Forms.PictureBox();
             pictureBoxSearch = new System.Windows.Forms.PictureBox();
+            timer1 = new System.Windows.Forms.Timer(components);
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ButtonAdd).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSearch).BeginInit();
@@ -116,6 +118,12 @@
             pictureBoxSearch.TabIndex = 31;
             pictureBoxSearch.TabStop = false;
             // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
+            // 
             // ClientReminder
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -124,9 +132,12 @@
             Controls.Add(tableLayoutPanel1);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "ClientReminder";
+            Opacity = 0D;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ClientRemindercs";
+            Deactivate += ClientReminder_Deactivate;
+            FormClosed += ClientReminder_FormClosed;
             Load += ClientReminder_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
@@ -142,5 +153,6 @@
         private System.Windows.Forms.PictureBox ButtonAdd;
         public CustomizedTools.TextBoxWithPlaceHolder textBoxSearch;
         public System.Windows.Forms.PictureBox pictureBoxSearch;
+        private System.Windows.Forms.Timer timer1;
     }
 }

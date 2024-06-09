@@ -409,8 +409,6 @@ namespace MKproject.Schedule
 
 
 
-
-
         //used present-future
         void FillDesiredClientObject()//only used eza aam naamil changes aal appointment w aam nsayevun: Complete/Cancel/Update Or kell shi Undo NoSense, lieanno ha ykuno read only
         {
@@ -971,11 +969,7 @@ namespace MKproject.Schedule
         private void Appointment_Deactivate(object sender, EventArgs e)
         {
             if (!DisableClosingOnDisactivating)
-            {
-                if (IsAddOrUpdateMode == false)//update
-                {
-                    //UcScheduleParentForm.TouchscrollPanelUCDay.AssignEventPanelUCDay(UcScheduleParentForm.TLPAppointment);
-                }
+            {              
                 this.Close();
             }
         }

@@ -30,6 +30,7 @@ namespace MKproject.Schedule
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reminder));
             TLPReminder = new System.Windows.Forms.TableLayoutPanel();
             panelDaysofTheWeek = new System.Windows.Forms.Panel();
@@ -58,6 +59,7 @@ namespace MKproject.Schedule
             labelDate = new System.Windows.Forms.Label();
             pictureBox2 = new System.Windows.Forms.PictureBox();
             label1 = new System.Windows.Forms.Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             TLPReminder.SuspendLayout();
             panelDaysofTheWeek.SuspendLayout();
             panel6.SuspendLayout();
@@ -514,6 +516,12 @@ namespace MKproject.Schedule
             label1.Text = "Start Time:";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
+            // 
             // Reminder
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -524,9 +532,11 @@ namespace MKproject.Schedule
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Reminder";
+            Opacity = 0D;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Reminder";
+            Deactivate += Reminder_Deactivate;
             FormClosed += Reminder_FormClosed;
             TLPReminder.ResumeLayout(false);
             panelDaysofTheWeek.ResumeLayout(false);
@@ -577,5 +587,6 @@ namespace MKproject.Schedule
         public System.Windows.Forms.TableLayoutPanel TLPDate;
         public System.Windows.Forms.Label labelDate;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Timer timer1;
     }
 }

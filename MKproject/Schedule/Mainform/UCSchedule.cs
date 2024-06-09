@@ -1,7 +1,7 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
 using MKproject.Management;
-using MKproject.Schedule.UCData;
+using MKproject.Schedule.Reminderform;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,11 +111,6 @@ namespace MKproject.Schedule
 
         public void LoadForm(DateTime selectedDate, bool isDayOrWeek, bool IsScrollToNowHour, bool DateHasChanged)
         {
-            if (timeIndicatorLine != null)
-            {
-                timeIndicatorLine.Dispose();
-
-            }
 
             IsCursorBlocked = false;
             IsHistory = false;
@@ -148,6 +143,12 @@ namespace MKproject.Schedule
             IsDayOrWeek = isDayOrWeek;
             SelectedDate = selectedDate;
 
+
+            if (timeIndicatorLine != null)//ejbare bel awwal hone
+            {
+                timeIndicatorLine.Dispose();
+                timeIndicatorLine = null;
+            }
 
 
             CreateTLPDesign();
@@ -227,7 +228,10 @@ namespace MKproject.Schedule
             {
                 ListDaysOfDesiredWeek = FillWeekLists(SelectedDate);
                 PresentWeek = FillWeekLists(DateTime.Now);
-                SetWeekRowsAvailabilityForTheOnlyEmployee();
+                if (TheOnlyEmployee != null)
+                {
+                    SetWeekRowsAvailabilityForTheOnlyEmployee();
+                }
 
                 FillAppointmentList(isDayOrWeek);
                 ActiveProgressbarIfNecessar(AppointmentsListWorkingOn.Count);//ejbare tahet FillAppointmentList
@@ -265,6 +269,7 @@ namespace MKproject.Schedule
                 labelDate.Text = GetLabelDateifWeek();
             }
 
+
             //Reminder
             if (DateHasChanged)
             {
@@ -274,18 +279,10 @@ namespace MKproject.Schedule
 
 
 
-            //Scrol
-            if (IsScrollToNowHour)
-            {
-                ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, TLPSchedule), TLPSchedule);
-            }
 
 
-            if (timeIndicatorLine != null)
-            {
-                timeIndicatorLine.Dispose();
-                timeIndicatorLine = null;
-            }
+
+
             if (isDayOrWeek)
             {
                 if (SelectedDate.Date == DateTime.Now.Date)//oly bel present men bayyin real tme 
@@ -305,6 +302,11 @@ namespace MKproject.Schedule
 
             }
 
+            //Scrol
+            if (IsScrollToNowHour)
+            {
+                ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, TLPSchedule), TLPSchedule);
+            }
 
             if (IsEmployeeFilterModeOn)
             {
@@ -405,19 +407,19 @@ namespace MKproject.Schedule
             foreach (var date in ListDaysOfDesiredWeek)
             {
 
-                if (date < DateTime.Now.Date)
+                if (date < DateTime.Now.Date)//PAst, from history table
                 {
-                    var Availabilty = dtAv.AsEnumerable().FirstOrDefault(row => Convert.ToDateTime(row.Field<string>("history_date")).Date == date.Date) ?["availability"];
-                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployee.GetRowsAvailabilityofDesiredDay(Availabilty.ToString(), TLPSchedule));
+                    string Availabilty = dtAv.AsEnumerable().FirstOrDefault(row => Convert.ToDateTime(row.Field<string>("history_date")).Date == date.Date)?["availability"].ToString();
+
+                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployee.GetRowsAvailabilityofDesiredDay(Availabilty, TLPSchedule));
                 }
-                else//PRESENT AND FUTURE
+                else//PRESENT AND FUTURE, from employee table
                 {
                     string DesiredAvailabiltyOfSpecificDay = ClassEmployee.GetAvailabiltyAsAstringFromWeekAvailability(date, TheOnlyEmployee.Availability);
 
                     WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployee.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay.ToString(), TLPSchedule));
                 }
             }
-
         }
 
         public void RefreshAllRelatedAppointments(int TargetClientId)
@@ -485,7 +487,7 @@ namespace MKproject.Schedule
         {
             UpdateTimeIndicatorLinePosition();
         }
-        private void UpdateTimeIndicatorLinePosition()
+        public void UpdateTimeIndicatorLinePosition()
         {
             if (timeIndicatorLine != null)
             {
@@ -539,6 +541,7 @@ namespace MKproject.Schedule
 
             // Set the AutoScrollPosition to the target position
             DesiredTLp.AutoScrollPosition = new Point(0, targetScrollPosition);
+
         }
 
 
@@ -711,54 +714,83 @@ namespace MKproject.Schedule
 
 
         ///-Reminder
-        public bool isThedayofUCreminder(ClassReminder DesiredReminder, DateTime date)
+        public bool isThedayofUCreminder(ClassReminder DesiredReminder)
+        {
+            bool IsUcShouldbeAdded = false;
+            if (IsDayOrWeek)
+            {
+                IsUcShouldbeAdded = CheckIfReminderShouldBeAdded(DesiredReminder, SelectedDate);
+                return IsUcShouldbeAdded;
+            }
+            else
+            {
+                foreach (DateTime desiredDate in ListDaysOfDesiredWeek)
+                {
+                    IsUcShouldbeAdded = CheckIfReminderShouldBeAdded(DesiredReminder, desiredDate);
+                    if (IsUcShouldbeAdded)
+                    {
+                        return IsUcShouldbeAdded;
+                    }
+                }
+            }
+
+            return IsUcShouldbeAdded;
+        }
+        bool CheckIfReminderShouldBeAdded(ClassReminder DesiredReminder, DateTime DesiredDate)
         {
             //For every day, no repeat
             if (DesiredReminder.PartsRepeat.Length == 1)
             {
                 if (DesiredReminder.PartsRepeat[0] == Reminder.NoRepeat)
                 {
-                    if (date.Date == DesiredReminder.StartTime.Date)
+                    if (DesiredDate.Date == DesiredReminder.StartTime.Date)
                     {
                         return true;
                     }
 
                 }
-
                 else if (DesiredReminder.PartsRepeat[0] == Reminder.Everyday)
                 {
-                    if (date.Date >= DesiredReminder.StartTime.Date)
+                    if (DesiredDate.Date >= DesiredReminder.StartTime.Date)
                     {
                         return true;
                     }
                 }
-
             }
-
-
             //For every week
             else
             {
-                if (date.Date >= DesiredReminder.StartTime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
+                if (DesiredDate.Date >= DesiredReminder.StartTime.Date)//metel everyweek bas lfare2 gher starttime w fik enta thadid aya date yaeemil repeat
                 {
                     for (int i = 1; i < DesiredReminder.PartsRepeat.Length; i++)
                     {
-                        if (date.DayOfWeek.ToString() == DesiredReminder.PartsRepeat[i])
+                        if (DesiredDate.DayOfWeek.ToString() == DesiredReminder.PartsRepeat[i])
                         {
                             return true;
                         }
                     }
                 }
             }
-            return false;
 
+            return false;
         }
+
+
         public void DisplayUCReminderForTheSelectedDate()
         {
             ParentFormSchedule.panelreminder.Controls.Clear();
             ListUCreminderForTheSelectedDate.Clear();
-
-            DataTable AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate);
+            DataTable AllReminders;
+            if (IsDayOrWeek)
+            {
+                AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate, null);
+            }
+            else
+            {
+                DateTime StartDate = ListDaysOfDesiredWeek[0];
+                DateTime EndDate = ListDaysOfDesiredWeek[ListDaysOfDesiredWeek.Count - 1];
+                AllReminders = ClassReminder.DisplayReminderInASpecificDate(StartDate, EndDate);
+            }
 
             foreach (DataRow dr in AllReminders.Rows)
             {
@@ -777,16 +809,14 @@ namespace MKproject.Schedule
                 DesiredReminder.Reminder = (string)dr["reminder"];
                 DesiredReminder.Repeat = (string)dr["repeat"];
                 DesiredReminder.StartTime = Convert.ToDateTime(dr["starttime"]);
+                DesiredReminder.IsChecked = Convert.ToBoolean(dr["is_checked"]);
                 UCreminder ucreminder = new UCreminder(DesiredReminder, this, ParentFormSchedule);//li2anno manna bi client reminder
 
                 ListUCreminderForTheSelectedDate.Add(ucreminder);
 
-                //If it's Checked, then it will not appear in schedule.panelreminder
-                if (ucreminder.DesiredReminder.IsChecked == false)
-                {
-                    ucreminder.Dock = DockStyle.Top;
-                    ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
-                }
+                ucreminder.Dock = DockStyle.Top;
+                ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
+
             }
 
         }
@@ -1208,30 +1238,30 @@ namespace MKproject.Schedule
             //UCmonth show
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-6, 25);
-            ParentFormSchedule.calanderForm.Location = locationRelativeToScreen;
-            ParentFormSchedule.calanderForm.Size = new Size(365, 307);
-            ParentFormSchedule.calanderForm.Show();
+            ParentFormSchedule.calanderFormForschedule.Location = locationRelativeToScreen;
+            ParentFormSchedule.calanderFormForschedule.Size = new Size(365, 307);
+            ParentFormSchedule.calanderFormForschedule.Show();
 
 
 
             //Showing the ucmonth from the calanderday in the date that we are
-            ParentFormSchedule.calanderForm.DateCalander = SelectedDate;
-            ParentFormSchedule.calanderForm.SelectedDate = SelectedDate;
-            if (ParentFormSchedule.calanderForm.wichuccalander == 2)
+            ParentFormSchedule.calanderFormForschedule.DateCalander = SelectedDate;
+            ParentFormSchedule.calanderFormForschedule.SelectedDate = SelectedDate;
+            if (ParentFormSchedule.calanderFormForschedule.wichuccalander == 2)
             {
-                ParentFormSchedule.calanderForm.wichuccalander = 1;
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalandermonth);
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
+                ParentFormSchedule.calanderFormForschedule.wichuccalander = 1;
+                ParentFormSchedule.calanderFormForschedule.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderFormForschedule.uccalandermonth);
+                ParentFormSchedule.calanderFormForschedule.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderFormForschedule.uccalanderday);
             }
-            else if (ParentFormSchedule.calanderForm.wichuccalander == 3)
+            else if (ParentFormSchedule.calanderFormForschedule.wichuccalander == 3)
             {
-                ParentFormSchedule.calanderForm.wichuccalander = 1;
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalanderyear);
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
+                ParentFormSchedule.calanderFormForschedule.wichuccalander = 1;
+                ParentFormSchedule.calanderFormForschedule.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderFormForschedule.uccalanderyear);
+                ParentFormSchedule.calanderFormForschedule.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderFormForschedule.uccalanderday);
 
             }
 
-            ParentFormSchedule.calanderForm.EditLabelUCdays();
+            ParentFormSchedule.calanderFormForschedule.EditLabelUCdays();
 
             EditingTheSizeOfTheCalander();
             //
@@ -1239,36 +1269,36 @@ namespace MKproject.Schedule
         }
         private void EditingTheSizeOfTheCalander()
         {
-            ParentFormSchedule.calanderForm.labelTitleDay.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            ParentFormSchedule.calanderForm.buttonToday.Font = new Font("Segoe UI", 8F);
+            ParentFormSchedule.calanderFormForschedule.labelTitleDay.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            ParentFormSchedule.calanderFormForschedule.buttonToday.Font = new Font("Segoe UI", 8F);
 
-            for (int col = 0; col < ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.ColumnCount; col++)
+            for (int col = 0; col < ParentFormSchedule.calanderFormForschedule.uccalanderday.tableLayoutPanelDays.ColumnCount; col++)
             {
-                Control LabelDaysName = ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.GetControlFromPosition(col, 0);
+                Control LabelDaysName = ParentFormSchedule.calanderFormForschedule.uccalanderday.tableLayoutPanelDays.GetControlFromPosition(col, 0);
                 LabelDaysName.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             }
 
-            ParentFormSchedule.calanderForm.MaximumSize = new Size(365, 307);
-            ParentFormSchedule.calanderForm.MinimumSize = new Size(365, 307);
+            ParentFormSchedule.calanderFormForschedule.MaximumSize = new Size(365, 307);
+            ParentFormSchedule.calanderFormForschedule.MinimumSize = new Size(365, 307);
         }
         public void SelectedDateUCSchedule_Changed(object sender, EventArgs e)
         {
-            if (SelectedDate.Date != ParentFormSchedule.calanderForm.DateCalander.Date)
+            if (SelectedDate.Date != ParentFormSchedule.calanderFormForschedule.DateCalander.Date)
             {
-                ParentFormSchedule.calanderForm.Hide();
+                ParentFormSchedule.calanderFormForschedule.Hide();
 
                 //edit DateUCDay
 
-                SelectedDate = ParentFormSchedule.calanderForm.DateCalander.Date;
+                SelectedDate = ParentFormSchedule.calanderFormForschedule.DateCalander.Date;
                 if (IsDayOrWeek)
                 {
-                    LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek, false, true);
+                    LoadForm(ParentFormSchedule.calanderFormForschedule.DateCalander, IsDayOrWeek, false, true);
                 }
                 else
                 {
                     if (!ListDaysOfDesiredWeek.Any(d => d.Date == SelectedDate.Date))
                     {
-                        LoadForm(ParentFormSchedule.calanderForm.DateCalander, IsDayOrWeek, false, true);
+                        LoadForm(ParentFormSchedule.calanderFormForschedule.DateCalander, IsDayOrWeek, false, true);
                     }
                 }
 
@@ -2701,9 +2731,9 @@ namespace MKproject.Schedule
                             IsAppointmnetInTheRightPlace = false;
 
 
-                            string FUllNAme = TaregetedUCApp.DesiredAppointmentUCApp.DesiredClient.Fname + TaregetedUCApp.DesiredAppointmentUCApp.DesiredClient.Lname;
-                            TimeSpan time = TaregetedUCApp.DesiredAppointmentUCApp.StartTime.TimeOfDay;
-                            CustomMessageBox.Show("Error in:\n" + FUllNAme + " at " + time, CustomMessageBox.Type.Error);
+                            //string FUllNAme = TaregetedUCApp.DesiredAppointmentUCApp.DesiredClient.Fname + TaregetedUCApp.DesiredAppointmentUCApp.DesiredClient.Lname;
+                            //TimeSpan time = TaregetedUCApp.DesiredAppointmentUCApp.StartTime.TimeOfDay;
+                            //CustomMessageBox.Show("Error in:\n" + FUllNAme + " at " + time, CustomMessageBox.Type.Error);
 
                         }
                         else
@@ -3084,10 +3114,12 @@ namespace MKproject.Schedule
             }
             else
             {
-                if (TheOnlyEmployee!=null)
+                if (TheOnlyEmployee != null)
                 {
+                    (_, DateTime? DesiredDate) = GetWhichEmployeeOrDateForSpecifieColumn(Column, IsDayOrWeek);
+                    int DateIndex = ((int)((DateTime)DesiredDate).DayOfWeek + 6) % 7;
 
-                    if (WeekRowsAvailabilityForTheOnlyEmployee[Column-1].Contains(Row))//column -1 to take into consideration el time labels, and we know the order in the schedule is the same in the list monday to sunday
+                    if (WeekRowsAvailabilityForTheOnlyEmployee[DateIndex].Contains(Row))//column -1 to take into consideration el time labels, and we know the order in the schedule is the same in the list monday to sunday
                     {
                         return true;
                     }
@@ -3100,7 +3132,7 @@ namespace MKproject.Schedule
                 {
                     return false;
                 }
-             
+
             }
         }
 
@@ -3115,6 +3147,7 @@ namespace MKproject.Schedule
             {
                 if (e.Column > 0)
                 {
+
                     IsCellAvailable = CheckIfRowAvaialable(e.Column, e.Row);
 
                     //we re drawing the avaialabilty blocks Availabilty
@@ -3124,7 +3157,7 @@ namespace MKproject.Schedule
                         UCappointment desiredApp = (UCappointment)TLPSchedule.GetControlFromPosition(e.Column, e.Row);
                         if (desiredApp != null)
                         {
-                            if (desiredApp.TLPGlobal.BackColor != UCappointment.HoverColor)
+                            if (desiredApp.TLPGlobal.BackColor != UCappointment.DefaultHoverColor)
                             {
                                 desiredApp.TLPGlobal.BackColor = UCappointment.WariningColor;
                             }

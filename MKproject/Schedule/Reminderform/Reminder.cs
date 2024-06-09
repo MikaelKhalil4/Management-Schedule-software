@@ -1,7 +1,7 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
 using MKproject.Management;
-using MKproject.Schedule.UCData;
+using MKproject.Schedule.Reminderform;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -30,25 +30,13 @@ namespace MKproject.Schedule
         public ClassReminder DesiredReminder = new ClassReminder();
         //Just to get the check boxes in the order thet we want
         CheckBox[] checkBoxes;
+        public bool DisableClosingOnDisactivating;
 
 
         public static int HeightWithoutchekBoxes = 416, HeightWithchekBoxes = 482;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-                return cp;
-            }
-        }
 
-        //Initialise
-        public Reminder()
-        {
-            InitializeComponent();
-        }
+
 
         ///-From ClientReminder
         ///ADD
@@ -137,9 +125,8 @@ namespace MKproject.Schedule
             labelDate.Font = new Font("Segoe UI Semibold", 9, FontStyle.Bold);
             RandomFunctions.FixedFont(labelDate, FontStyle.Bold);
             GetQuoteWhenReminderOpens();
-            ParentFormSchedule.calanderForm.SelectedDateChangedReminder += SelectedDateReminder_Changed;
+            ParentFormSchedule.calanderFormForReminder.SelectedDateChanged += SelectedDateReminder_Changed;
 
-            ParentFormSchedule.calanderForm.SelectedDateChangedUCSchedule -= ucSchedule.SelectedDateUCSchedule_Changed;
             labelQuote.Select();
         }
         void LoadUpdateForm()
@@ -153,17 +140,16 @@ namespace MKproject.Schedule
 
 
             //if it's every week then we have to make panelDaysofTheWeek visible and check the dates
+
             if (DesiredReminder.PartsRepeat.Length > 1)//baddo yshouf min checked men wara parts repeat
             {
-                int i = 1;
-                foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)
+                for (int i = 1; i < DesiredReminder.PartsRepeat.Length; i++)
                 {
-                    if (i != DesiredReminder.PartsRepeat.Length)
+                    foreach (CheckBox checkbox in panelDaysofTheWeek.Controls)
                     {
                         if (checkbox.Text == DesiredReminder.PartsRepeat[i])
                         {
                             checkbox.Checked = true;
-                            i++;
                         }
                     }
                 }
@@ -190,9 +176,7 @@ namespace MKproject.Schedule
             RandomFunctions.FixedFont(labelDate, FontStyle.Bold);
             GetQuoteWhenReminderOpens();
 
-            ParentFormSchedule.calanderForm.SelectedDateChangedReminder += SelectedDateReminder_Changed;
-
-            ParentFormSchedule.calanderForm.SelectedDateChangedUCSchedule -= ucSchedule.SelectedDateUCSchedule_Changed;
+            ParentFormSchedule.calanderFormForReminder.SelectedDateChanged += SelectedDateReminder_Changed;
             isLoadUpdate = false;
             labelQuote.Select();
         }
@@ -206,7 +190,7 @@ namespace MKproject.Schedule
             //Error Message
             if (textBoxReminder.Text == textBoxReminder.PlaceholderText)
             {
-                MessageBox.Show("Enter the add reminder");
+                textBoxReminder.IsRequiredModeOn = true;
             }
             //The title is here
             else
@@ -234,14 +218,14 @@ namespace MKproject.Schedule
 
                         //Design Schedule
                         //Eza ken mawjoud UcReminderSchedule menshouf men wara DesiredReminder ljdid tab3oulo eza ha nshilo
-                        if (ucSchedule.isThedayofUCreminder(DesiredReminder, ucSchedule.SelectedDate) == false && UcReminderSchedule != null)
+                        if (ucSchedule.isThedayofUCreminder(DesiredReminder) == false && UcReminderSchedule != null)
                         {
                             ParentFormSchedule.panelreminder.Controls.Remove(UcReminderSchedule);
                             ucSchedule.ListUCreminderForTheSelectedDate.Remove(UcReminderSchedule);
                         }
 
                         //Eza ma ken mawjoud UcReminderSchedule menshouf men wara DesiredReminder ljdid tab3oulo eza ha nhato
-                        else if (ucSchedule.isThedayofUCreminder(DesiredReminder, ucSchedule.SelectedDate) == true && UcReminderSchedule == null)
+                        else if (ucSchedule.isThedayofUCreminder(DesiredReminder) == true && UcReminderSchedule == null)
                         {
                             UCreminder NewUcReminderSchedule = new UCreminder(DesiredReminder, ucSchedule, ParentFormSchedule);
                             ucSchedule.ListUCreminderForTheSelectedDate.Add(NewUcReminderSchedule);
@@ -279,7 +263,7 @@ namespace MKproject.Schedule
 
                         //DESIGN Schedule
                         //Howe la ha date mawjoud ha nshouf eza ha ybattil mawjoud
-                        if (ucSchedule.isThedayofUCreminder(DesiredReminder, ucSchedule.SelectedDate) == false)
+                        if (ucSchedule.isThedayofUCreminder(DesiredReminder) == false)
                         {
                             ParentFormSchedule.panelreminder.Controls.Remove(UCReminderSchedule);
                             ucSchedule.ListUCreminderForTheSelectedDate.Remove(UCReminderSchedule);
@@ -298,7 +282,7 @@ namespace MKproject.Schedule
 
 
                     //DESIGN SCHEDULE
-                    if (ucSchedule.isThedayofUCreminder(DesiredReminder, ucSchedule.SelectedDate))//ma daroure chouf eza checked akid ha tkoun la2
+                    if (ucSchedule.isThedayofUCreminder(DesiredReminder))//ma daroure chouf eza checked akid ha tkoun la2
                     {
                         UCreminder ucreminderSchedule = new UCreminder(DesiredReminder, ucSchedule, ParentFormSchedule);//we add it to the SQL in the same time
                         ucSchedule.ListUCreminderForTheSelectedDate.Add(ucreminderSchedule);//li2anno nehna aam men mashe lprogram lezim na3mello add
@@ -334,7 +318,9 @@ namespace MKproject.Schedule
         }
         private void flowLayoutPanelRepeat_Click(object sender, EventArgs e)
         {
+            DisableClosingOnDisactivating = true;
             CBrepeat repeat = new CBrepeat(this);
+            repeat.Deactivate += Repeat_Deactivate;
             //Kermel Color tabaee ComboBoxRepeat ybayin active
             TBLRepeat.BackColor = Color.FromArgb(109, 122, 224);
             TBLRepeat.Select();
@@ -345,17 +331,17 @@ namespace MKproject.Schedule
 
         }
 
+        private void Repeat_Deactivate(object sender, EventArgs e)
+        {
+            DisableClosingOnDisactivating = false;
+        }
 
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
-            //Search searchname = new Search(textBoxSearch, DesiredClient);
-            //searchname.Deactivate += Searchname_Deactivate;
-            //Point locationRelativeToScreen = textBoxSearch.PointToScreen(Point.Empty);
-            //locationRelativeToScreen.Offset(0, 0);
-            //searchname.Location = locationRelativeToScreen;
-            //searchname.Show();
+
 
             //reset
+            DisableClosingOnDisactivating = true;
             Search searchname = new Search(textBoxSearch, DesiredReminder.DesiredClient);
             searchname.Deactivate += Searchname_Deactivate;
             searchname.ChosenClientChanged += Searchname_ChosenClientChanged;
@@ -370,6 +356,11 @@ namespace MKproject.Schedule
             Search searchname = (Search)sender;
             DesiredReminder.DesiredClient = searchname.NewDesiredClient;
         }
+        private void Searchname_Deactivate(object sender, EventArgs e)
+        {
+            this.Select();
+            DisableClosingOnDisactivating = false;
+        }
 
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -378,61 +369,63 @@ namespace MKproject.Schedule
         }
         private void TLPDate_Click(object sender, EventArgs e)
         {
-            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, Color.Transparent);
-            Program.GreyForm.Show();
+            DisableClosingOnDisactivating = true;
 
-            //UCmonth show
+            //UCmonth show         
             Point locationRelativeToScreen = labelDate.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(-45, 25);
 
-            ParentFormSchedule.calanderForm.Location = locationRelativeToScreen;
-            ParentFormSchedule.calanderForm.Show();
+            ParentFormSchedule.calanderFormForReminder.IsFromReminder = true;
+            ParentFormSchedule.calanderFormForReminder.Location = locationRelativeToScreen;
+            ParentFormSchedule.calanderFormForReminder.Show();
 
 
             //Showing the ucmonth from the calanderday in the date that we are
-            ParentFormSchedule.calanderForm.DateCalander = DesiredReminder.StartTime;
-            ParentFormSchedule.calanderForm.SelectedDate = DesiredReminder.StartTime;
-            if (ParentFormSchedule.calanderForm.wichuccalander == 2)
+            ParentFormSchedule.calanderFormForReminder.DateCalander = DesiredReminder.StartTime;
+            ParentFormSchedule.calanderFormForReminder.SelectedDate = DesiredReminder.StartTime;
+            if (ParentFormSchedule.calanderFormForReminder.wichuccalander == 2)
             {
-                ParentFormSchedule.calanderForm.wichuccalander = 1;
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalandermonth);
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
+                ParentFormSchedule.calanderFormForReminder.wichuccalander = 1;
+                ParentFormSchedule.calanderFormForReminder.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderFormForReminder.uccalandermonth);
+                ParentFormSchedule.calanderFormForReminder.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderFormForReminder.uccalanderday);
             }
-            else if (ParentFormSchedule.calanderForm.wichuccalander == 3)
+            else if (ParentFormSchedule.calanderFormForReminder.wichuccalander == 3)
             {
-                ParentFormSchedule.calanderForm.wichuccalander = 1;
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderForm.uccalanderyear);
-                ParentFormSchedule.calanderForm.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderForm.uccalanderday);
+                ParentFormSchedule.calanderFormForReminder.wichuccalander = 1;
+                ParentFormSchedule.calanderFormForReminder.tableLayoutPanelMonth.Controls.Remove(ParentFormSchedule.calanderFormForReminder.uccalanderyear);
+                ParentFormSchedule.calanderFormForReminder.tableLayoutPanelMonth.Controls.Add(ParentFormSchedule.calanderFormForReminder.uccalanderday);
 
             }
 
-            ParentFormSchedule.calanderForm.EditLabelUCdays();
+            ParentFormSchedule.calanderFormForReminder.EditLabelUCdays();
             EditingTheSizeOfTheCalander();
         }
         private void EditingTheSizeOfTheCalander()
         {
-            ParentFormSchedule.calanderForm.labelTitleDay.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
-            ParentFormSchedule.calanderForm.buttonToday.Font = new Font("Segoe UI", 7F);
+            ParentFormSchedule.calanderFormForReminder.labelTitleDay.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+            ParentFormSchedule.calanderFormForReminder.buttonToday.Font = new Font("Segoe UI", 7F);
 
-            for (int col = 0; col < ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.ColumnCount; col++)
+            for (int col = 0; col < ParentFormSchedule.calanderFormForReminder.uccalanderday.tableLayoutPanelDays.ColumnCount; col++)
             {
-                Control LabelDaysName = ParentFormSchedule.calanderForm.uccalanderday.tableLayoutPanelDays.GetControlFromPosition(col, 0);
+                Control LabelDaysName = ParentFormSchedule.calanderFormForReminder.uccalanderday.tableLayoutPanelDays.GetControlFromPosition(col, 0);
                 LabelDaysName.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             }
 
-            ParentFormSchedule.calanderForm.MaximumSize = new Size(260, 240);
-            ParentFormSchedule.calanderForm.MinimumSize = new Size(260, 240);
+            ParentFormSchedule.calanderFormForReminder.MaximumSize = new Size(260, 240);
+            ParentFormSchedule.calanderFormForReminder.MinimumSize = new Size(260, 240);
         }
         public void SelectedDateReminder_Changed(object sender, EventArgs e)
         {
             //edit DateUCDay
-            DesiredReminder.StartTime = ParentFormSchedule.calanderForm.DateCalander.Date;
+            DesiredReminder.StartTime = ParentFormSchedule.calanderFormForReminder.DateCalander.Date;
 
             ChangingTheDateOfLabelQuote();
             labelDate.Text = DesiredReminder.StartTime.ToString("ddd, MMM dd, yyyy");
             labelDate.Font = new Font("Segoe UI Semibold", 9, FontStyle.Bold);
             RandomFunctions.FixedFont(labelDate, FontStyle.Bold);
-            ParentFormSchedule.calanderForm.Hide();
+            ParentFormSchedule.calanderFormForReminder.Hide();
+            ParentFormSchedule.calanderFormForReminder.IsFromReminder = false;
+            DisableClosingOnDisactivating = false;
         }
         private void ChangingTheDateOfLabelQuote()
         {
@@ -450,7 +443,14 @@ namespace MKproject.Schedule
             else
             {
                 string[] PartsSplitByVirgule = labelQuote.Text.Split(new string[] { "," }, StringSplitOptions.None);
-                labelQuote.Text = "Starting " + datestart + "," + PartsSplitByVirgule[1];
+                try//aam yotlaale errors w mannamhemme
+                {
+                    labelQuote.Text = "Starting " + datestart + "," + PartsSplitByVirgule[1];
+                }
+                catch
+                {
+
+                }
             }
         }
 
@@ -478,10 +478,6 @@ namespace MKproject.Schedule
         }
 
         ///-Close
-        private void Searchname_Deactivate(object sender, EventArgs e)
-        {
-            this.Select();
-        }
 
 
 
@@ -561,7 +557,46 @@ namespace MKproject.Schedule
 
         private void Reminder_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ucSchedule.ParentFormSchedule.calanderForm.SelectedDateChangedUCSchedule += ucSchedule.SelectedDateUCSchedule_Changed;
+            ParentFormSchedule.calanderFormForReminder.SelectedDateChanged -= SelectedDateReminder_Changed;
+
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Opacity == 1)
+            {
+                timer1.Stop();
+            }
+            Opacity += .1;
+        }
+
+        private void Reminder_Deactivate(object sender, EventArgs e)
+        {
+            if (!DisableClosingOnDisactivating)
+            {
+                if (Program.GreyFormJunior != null)
+                {
+                    Program.GreyFormJunior.Close();
+                    Program.GreyFormJunior = null;
+                }
+                else if (Program.GreyForm != null)
+                {
+                    Program.GreyForm.Close();
+                    Program.GreyForm = null;
+                }
+                this.Close();
+            }
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
         }
     }
 }

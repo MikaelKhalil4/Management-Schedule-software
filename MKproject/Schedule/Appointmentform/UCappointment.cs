@@ -39,7 +39,8 @@ namespace MKproject.Schedule
         //
         Label LabelBalance;
         static public Color WariningColor = Color.FromArgb(255, 234, 234);
-        static public Color HoverColor= Color.WhiteSmoke;
+
+        static public Color DefaultHoverColor= Color.WhiteSmoke;
         static public Color DefaultColor = Color.White;
 
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
@@ -458,8 +459,9 @@ namespace MKproject.Schedule
             appointmentupdate.Show();
 
 
-
         }
+
+
         public void RemoveAppointmentFromTLP()
         {
             UcScheduleParentForm.RemoveUcAppointmentFromTLP(this);
@@ -497,7 +499,7 @@ namespace MKproject.Schedule
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
           
-            TLPGlobal.BackColor = HoverColor;
+            TLPGlobal.BackColor = DefaultHoverColor;
 
             if ((UcScheduleParentForm.IsDayOrWeek && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date) || (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date && !UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee != null))//onlty present or future
             {

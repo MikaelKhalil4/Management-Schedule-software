@@ -48,7 +48,7 @@ namespace MKproject.Schedule
             }
 
             bool IsEndTimeCustomed = false;
-            if (EndTime.Minutes != 0 && EndTime.Minutes != 15 && EndTime.Minutes != 30 && EndTime.Minutes != 45)//this means that he wrote the time and not pick it
+            if (EndTime.Minutes != 0 && EndTime.Minutes != 15 && EndTime.Minutes != 30 && EndTime.Minutes != 45 && EndTime != new TimeSpan(23, 59, 0))//this means that he wrote the time and not pick it
             {
                 IsEndTimeCustomed = true;
             }
@@ -169,30 +169,11 @@ namespace MKproject.Schedule
                 List<LabelTime> ListLabelTime = new List<LabelTime>();
                 LabelTime labeltime = new LabelTime(StartTime, this);
                 ListLabelTime.Add(labeltime);
+                flowLayoutPanelContainerTime.Controls.Add(labeltime);
+
 
                 //Getting targetlabeltimeHighlight and targetlabeltimeScroll to doing it for the first label
-                if ((StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false) || (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true))
-                {
-                    labeltime.Size = new Size(118, 30);
-                    flowLayoutPanelContainerTime.Controls.Add(labeltime);
-                    if (labeltime.Time == EndTime)//l2ina taba3 lhighlight
-                    {
-                        targetlabeltimeHighlight = labeltime;
-                    }
-                }
-                else
-                {
-                    flowLayoutPanelContainerTime.Controls.Add(labeltime);
-                    if (labeltime.Time.Subtract(new TimeSpan(0, 30, 0)) == EndTime)//l2ina taba3 lscroll
-                    {
-                        targetlabeltimeScroll = labeltime;
-                    }
-                    if (labeltime.Time == EndTime)//l2ina taba3 lhighlight
-                    {
-                        targetlabeltimeHighlight = labeltime;
-                    }
-                }
-
+                GettingTheMainLabel(labeltime, IsEndTimeCustomed);
 
                 int DifferenceCustomStartTime = 0;
                 for (int minute = 0; minute <= 45; minute += 15)
@@ -208,20 +189,14 @@ namespace MKproject.Schedule
 
                 //Adding The Other labels
                 int i = 1;
-                TimeSpan timeSpanBreak = new TimeSpan(23, 45, 0);//12:00 AM
-                if (EndTime > timeSpanBreak)
-                {
-                    timeSpanBreak = EndTime;
-                }
                 TimeSpan[] displaytime = new TimeSpan[97];
 
                 displaytime[0] = StartTime.Subtract(new TimeSpan(0, DifferenceCustomStartTime, 0));
                 int DifferenceCustomEndTime = 0;
 
-                while (displaytime[i - 1] != timeSpanBreak)
+                while (displaytime[i - 1] != new TimeSpan(23, 45, 0))
                 {
                     displaytime[i] = displaytime[i - 1].Add(new TimeSpan(0, 15, 0));
-
                     if (IsEndTimeCustomed)
                     {
                         if (displaytime[i - 1] < EndTime && EndTime < displaytime[i])
@@ -236,7 +211,7 @@ namespace MKproject.Schedule
                             flowLayoutPanelContainerTime.Controls.Add(labeltime1);
 
                             //there's no scroll
-                            if (StartTime >= new TimeSpan(23, 15, 0))
+                            if ((StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false) || (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true))
                             {
                                 labeltimeCustom.Size = new Size(118, 30);
                                 labeltime1.Size = new Size(118, 30);
@@ -254,7 +229,7 @@ namespace MKproject.Schedule
                             flowLayoutPanelContainerTime.Controls.Add(labeltime1);
 
                             //there's no scroll
-                            if (StartTime >= new TimeSpan(23, 15, 0))
+                            if ((StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false) || (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true))
                             {
                                 labeltime1.Size = new Size(118, 30);
 
@@ -282,7 +257,7 @@ namespace MKproject.Schedule
 
 
                         //there's no scroll
-                        if (StartTime >= new TimeSpan(23, 0, 0))
+                        if ((StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false) || (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true))
                         {
                             labeltime1.Size = new Size(118, 30);
 
@@ -300,36 +275,37 @@ namespace MKproject.Schedule
 
                     i++;
                 }
-                if (EndTime != new TimeSpan(23, 59, 0))
-                {
-                    //aDDING THE LAST LABEL 11:49
-                    LabelTime labeltimeEnd = new LabelTime(new TimeSpan(23, 59, 0), this);
-                    ListLabelTime.Add(labeltimeEnd);
 
-                    //Getting targetlabeltimeHighlight and targetlabeltimeScroll to doing it for the first label
+                //CHECKING iF THERE'S CUSTOMED ENDTIME AFTER 11:45
+                if (new TimeSpan(23, 45, 0) < EndTime && EndTime < new TimeSpan(23, 59, 0))
+                {
+                    DifferenceCustomEndTime = EndTime.Minutes - 45;// 7:05-7:00=5
+                    LabelTime labeltimeCustom = new LabelTime(EndTime, this);
+                    ListLabelTime.Add(labeltimeCustom);
+                    flowLayoutPanelContainerTime.Controls.Add(labeltimeCustom);
+
+                    //there's no scroll
                     if ((StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false) || (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true))
                     {
-                        labeltimeEnd.Size = new Size(118, 30);
-                        flowLayoutPanelContainerTime.Controls.Add(labeltimeEnd);
-                        if (labeltimeEnd.Time == EndTime)//l2ina taba3 lhighlight
-                        {
-                            targetlabeltimeHighlight = labeltimeEnd;
-                        }
+                        labeltimeCustom.Size = new Size(118, 30);
                     }
+                    //there's scroll
                     else
                     {
-                        flowLayoutPanelContainerTime.Controls.Add(labeltimeEnd);
-                        if (labeltimeEnd.Time.Subtract(new TimeSpan(0, 30, 0)) == EndTime)//l2ina taba3 lscroll
-                        {
-                            targetlabeltimeScroll = labeltimeEnd;
-                        }
-                        if (labeltimeEnd.Time == EndTime)//l2ina taba3 lhighlight
-                        {
-                            targetlabeltimeHighlight = labeltimeEnd;
-                        }
                     }
+                    targetlabeltimeHighlight = labeltimeCustom;
                 }
-               
+
+                //Adding THE LAST LABEL 11:49
+                LabelTime labeltimeEnd = new LabelTime(new TimeSpan(23, 59, 0), this);
+                ListLabelTime.Add(labeltimeEnd);
+                GettingTheMainLabel(labeltimeEnd, IsEndTimeCustomed);
+                if (new TimeSpan(23, 45, 0) < EndTime && EndTime < new TimeSpan(23, 59, 0))
+                {
+                    targetlabeltimeScroll = labeltimeEnd;
+                }
+                i++;
+
 
                 //if there's no scroll, we just Highlighting targetlabeltimeHighlight
                 if (StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false)//aa aal hale mafi scroll ba2a
@@ -358,6 +334,31 @@ namespace MKproject.Schedule
             }
         }
 
+        public void GettingTheMainLabel(LabelTime labeltime, bool IsEndTimeCustomed)
+        {
+            //Getting targetlabeltimeHighlight and targetlabeltimeScroll to doing it for the first label
+            if ((StartTime >= new TimeSpan(23, 0, 0) && IsEndTimeCustomed == false) || (StartTime >= new TimeSpan(23, 15, 0) && IsEndTimeCustomed == true))
+            {
+                labeltime.Size = new Size(118, 30);
+                flowLayoutPanelContainerTime.Controls.Add(labeltime);
+                if (labeltime.Time == EndTime)//l2ina taba3 lhighlight
+                {
+                    targetlabeltimeHighlight = labeltime;
+                }
+            }
+            else
+            {
+                flowLayoutPanelContainerTime.Controls.Add(labeltime);
+                if (labeltime.Time.Subtract(new TimeSpan(0, 30, 0)) == EndTime)//l2ina taba3 lscroll
+                {
+                    targetlabeltimeScroll = labeltime;
+                }
+                if (labeltime.Time == EndTime)//l2ina taba3 lhighlight
+                {
+                    targetlabeltimeHighlight = labeltime;
+                }
+            }
+        }
 
         //EVENT
         public void flowLayoutPanelContainerTime_MouseEnter(object sender, EventArgs e)
@@ -387,21 +388,29 @@ namespace MKproject.Schedule
                     {
 
                         TimeSpan endTime = starttime + AppointmentForm.DifferenceTime;
-                        if (endTime > new TimeSpan(23, 45, 0))
+                        if (endTime > new TimeSpan(23, 59, 0))
                         {
-                            endTime = new TimeSpan(23, 45, 0);
+                            endTime = new TimeSpan(23, 59, 0);
+                            DesiredAppointmentAppForm.StartTime = DesiredAppointmentAppForm.StartTime.Date + starttime;
+                            AppointmentForm.textBoxStartTime.Text = DesiredAppointmentAppForm.StartTime.ToString("h:mm tt");
+
+                            DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.EndTime.Date + endTime;
+                            AppointmentForm.textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
                         }
+                        else
+                        {
+                            //Byekhoud Fared marra difference time watta tetghayar lendtime kermel hek shelna textchanged lal starttime
+                            AppointmentForm.textBoxStartTime.TextChanged -= AppointmentForm.textBoxStartTime_TextChanged;
 
-                        //Byekhoud Fared marra difference time watta tetghayar lendtime kermel hek shelna textchanged lal starttime
-                        AppointmentForm.textBoxStartTime.TextChanged -= AppointmentForm.textBoxStartTime_TextChanged;
+                            DesiredAppointmentAppForm.StartTime = DesiredAppointmentAppForm.StartTime.Date + starttime;
+                            AppointmentForm.textBoxStartTime.Text = DesiredAppointmentAppForm.StartTime.ToString("h:mm tt");
 
-                        DesiredAppointmentAppForm.StartTime = DesiredAppointmentAppForm.StartTime.Date + starttime;
-                        AppointmentForm.textBoxStartTime.Text = DesiredAppointmentAppForm.StartTime.ToString("h:mm tt");
+                            DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.EndTime.Date + endTime;
+                            AppointmentForm.textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
 
-                        DesiredAppointmentAppForm.EndTime = DesiredAppointmentAppForm.EndTime.Date + endTime;
-                        AppointmentForm.textBoxEndTime.Text = DesiredAppointmentAppForm.EndTime.ToString("h:mm tt");
-
-                        AppointmentForm.textBoxStartTime.TextChanged += AppointmentForm.textBoxStartTime_TextChanged;
+                            AppointmentForm.textBoxStartTime.TextChanged += AppointmentForm.textBoxStartTime_TextChanged;
+                        }
+                     
                     }
                 }
 

@@ -12,14 +12,13 @@ namespace MKproject.Schedule
     {
         //PROPERTIES:
         public DateTime DateCalander { get; set; }// kel shi get,te3dil ha2i2e mnstaeemil DateUCMonth, hayda bi dallo yetghayar kel ma ghayir bel calander
+        public bool IsFromReminder;
 
-        public event EventHandler SelectedDateChangedUCSchedule;//hayda bas byetghayar lamma na2e value
-        public event EventHandler SelectedDateChangedReminder;//hayda bas byetghayar lamma na2e value
+        public event EventHandler SelectedDateChanged;//hayda bas byetghayar lamma na2e value
 
         public void ActivateSelectedDateChanged()
         {
-            SelectedDateChangedUCSchedule?.Invoke(this, EventArgs.Empty);
-            SelectedDateChangedReminder?.Invoke(this, EventArgs.Empty);
+            SelectedDateChanged?.Invoke(this, EventArgs.Empty);
 
         }
 
@@ -179,11 +178,14 @@ namespace MKproject.Schedule
         }
         private void UCMonth_Deactivate(object sender, EventArgs e)
         {
-            if (Program.GreyForm != null)
+            if (!IsFromReminder)
             {
-                Program.GreyForm.Close();
-                Program.GreyForm = null;
-            }
+                if (Program.GreyForm != null)
+                {
+                    Program.GreyForm.Close();
+                    Program.GreyForm = null;
+                }
+            }    
             //Just to setUp the ucmonth again when I deactivate it and we will to set it on UCCalanderday
             this.Hide();
 

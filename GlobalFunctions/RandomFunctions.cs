@@ -191,11 +191,12 @@ namespace GlobalFunctions
         /// and a heightened height measurement.     
         public static int CalculateDesiredHeight(Control DesiredControl, int ControlWidth)
         {
+          
             int desiredHeight;
             using (Graphics g = DesiredControl.CreateGraphics())
             {
                 ControlWidth -= 4;
-                SizeF textSize = g.MeasureString(DesiredControl.Text, DesiredControl.Font, ControlWidth<=0 ? 1 : ControlWidth);//-12 kermel el spaces aa shmel w el yamin
+                SizeF textSize = g.MeasureString(DesiredControl.Text, DesiredControl.Font, ControlWidth <= 0 ? 1 : ControlWidth);//-12 kermel el spaces aa shmel w el yamin
                 desiredHeight = (int)Math.Ceiling(textSize.Height) + DesiredControl.Padding.Top + DesiredControl.Padding.Bottom;
             }
             return desiredHeight;

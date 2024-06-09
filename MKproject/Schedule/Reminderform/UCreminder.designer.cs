@@ -30,40 +30,38 @@ namespace MKproject.Schedule
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCreminder));
-            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             buttonDelete = new IconButton();
             buttonUpdate = new IconButton();
             linkLabelName = new System.Windows.Forms.LinkLabel();
             panelColoredReminder = new System.Windows.Forms.Panel();
             checkBoxReminder = new System.Windows.Forms.CheckBox();
-            TimerReminderDispose = new System.Windows.Forms.Timer(components);
-            tableLayoutPanel1.SuspendLayout();
+            TLPGlobal.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // TLPGlobal
             // 
-            tableLayoutPanel1.BackColor = System.Drawing.Color.White;
-            tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.46885848F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 96.53114F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            tableLayoutPanel1.Controls.Add(buttonDelete, 3, 0);
-            tableLayoutPanel1.Controls.Add(buttonUpdate, 2, 0);
-            tableLayoutPanel1.Controls.Add(linkLabelName, 1, 0);
-            tableLayoutPanel1.Controls.Add(panelColoredReminder, 0, 0);
-            tableLayoutPanel1.Controls.Add(checkBoxReminder, 1, 1);
-            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.7662354F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.2337646F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(223, 77);
-            tableLayoutPanel1.TabIndex = 4;
+            TLPGlobal.BackColor = System.Drawing.Color.White;
+            TLPGlobal.ColumnCount = 4;
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.468858F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 96.53114F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            TLPGlobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            TLPGlobal.Controls.Add(buttonDelete, 3, 0);
+            TLPGlobal.Controls.Add(buttonUpdate, 2, 0);
+            TLPGlobal.Controls.Add(linkLabelName, 1, 0);
+            TLPGlobal.Controls.Add(panelColoredReminder, 0, 0);
+            TLPGlobal.Controls.Add(checkBoxReminder, 1, 1);
+            TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPGlobal.Location = new System.Drawing.Point(0, 0);
+            TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
+            TLPGlobal.Name = "TLPGlobal";
+            TLPGlobal.RowCount = 1;
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
+            TLPGlobal.Size = new System.Drawing.Size(223, 78);
+            TLPGlobal.TabIndex = 4;
             // 
             // buttonDelete
             // 
@@ -128,46 +126,42 @@ namespace MKproject.Schedule
             panelColoredReminder.Location = new System.Drawing.Point(0, 0);
             panelColoredReminder.Margin = new System.Windows.Forms.Padding(0);
             panelColoredReminder.Name = "panelColoredReminder";
-            tableLayoutPanel1.SetRowSpan(panelColoredReminder, 2);
-            panelColoredReminder.Size = new System.Drawing.Size(4, 77);
+            TLPGlobal.SetRowSpan(panelColoredReminder, 2);
+            panelColoredReminder.Size = new System.Drawing.Size(4, 78);
             panelColoredReminder.TabIndex = 5;
             // 
             // checkBoxReminder
             // 
-            checkBoxReminder.AutoSize = true;
             checkBoxReminder.BackColor = System.Drawing.Color.Transparent;
-            tableLayoutPanel1.SetColumnSpan(checkBoxReminder, 3);
+            TLPGlobal.SetColumnSpan(checkBoxReminder, 3);
+            checkBoxReminder.Dock = System.Windows.Forms.DockStyle.Fill;
             checkBoxReminder.FlatAppearance.BorderSize = 0;
             checkBoxReminder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxReminder.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             checkBoxReminder.Location = new System.Drawing.Point(9, 30);
             checkBoxReminder.Margin = new System.Windows.Forms.Padding(4);
             checkBoxReminder.Name = "checkBoxReminder";
-            checkBoxReminder.Size = new System.Drawing.Size(51, 21);
+            checkBoxReminder.Size = new System.Drawing.Size(210, 44);
             checkBoxReminder.TabIndex = 3;
-            checkBoxReminder.Text = "mika";
+            checkBoxReminder.Text = "DDDDDDDDDDDDDDDDDDDDDDDDDDDD";
             checkBoxReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             checkBoxReminder.UseVisualStyleBackColor = false;
             checkBoxReminder.CheckedChanged += checkBoxReminder_CheckedChanged;
+            checkBoxReminder.TextChanged += checkBoxReminder_TextChanged;
             checkBoxReminder.Click += checkBoxReminder_Click;
-            // 
-            // TimerReminderDispose
-            // 
-            TimerReminderDispose.Interval = 1000;
-            TimerReminderDispose.Tick += TimerReminderDispose_Tick;
             // 
             // UCreminder
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(238, 241, 254);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(TLPGlobal);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "UCreminder";
             Padding = new System.Windows.Forms.Padding(0, 0, 0, 7);
-            Size = new System.Drawing.Size(223, 84);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            Size = new System.Drawing.Size(223, 85);
+            TLPGlobal.ResumeLayout(false);
+            TLPGlobal.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -175,9 +169,8 @@ namespace MKproject.Schedule
 
         private IconButton buttonDelete;
         private IconButton buttonUpdate;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel TLPGlobal;
         public System.Windows.Forms.LinkLabel linkLabelName;
-        private System.Windows.Forms.Timer TimerReminderDispose;
         private System.Windows.Forms.CheckBox checkBoxReminder;
         private System.Windows.Forms.Panel panelColoredReminder;
     }

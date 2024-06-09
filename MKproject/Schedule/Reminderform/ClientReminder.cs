@@ -1,5 +1,6 @@
-﻿using MKproject.Management;
-using MKproject.Schedule.UCData;
+﻿using CustomizedTools;
+using MKproject.Management;
+using MKproject.Schedule.Reminderform;
 using System;
 using System.Data;
 using System.Drawing;
@@ -27,15 +28,7 @@ namespace MKproject.Schedule
         UCSchedule ucday;
         Label LabelNoReminder;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-                return cp;
-            }
-        }
+
 
         public ClientReminder()
         {
@@ -61,11 +54,14 @@ namespace MKproject.Schedule
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
+            Program.GreyFormJunior = new GreyColor(this, true, true, null);
+            Program.GreyFormJunior.Show();
             Reminder reminder = new Reminder(schedule, ucday, this);
-            reminder.ShowDialog();
+            reminder.Show();
         }
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
+            DisableClosingOnDisactivating = true;
             Search searchname = new Search(textBoxSearch, this.DesiredClient);
             searchname.Deactivate += Searchname_Deactivate;
             searchname.ChosenClientChanged += Searchname_ChosenClientChanged;
@@ -86,6 +82,7 @@ namespace MKproject.Schedule
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
             this.Select();
+            DisableClosingOnDisactivating = false;
         }
 
 
@@ -134,12 +131,12 @@ namespace MKproject.Schedule
                 LabelNoReminder = GetNoReminderLable("N/A");
                 panelreminder.Controls.Add(LabelNoReminder);
             }
-          
+
             Cursor = Cursors.Default;
             panelreminder.VerticalScroll.Value = 0;
             panelreminder.AutoScroll = false;
             panelreminder.AutoScroll = true;
-            panelreminder.AutoScrollPosition = new Point(0,0);
+            panelreminder.AutoScrollPosition = new Point(0, 0);
         }
 
         public Label GetNoReminderLable(string Text)//in case we had no bundles
@@ -153,6 +150,41 @@ namespace MKproject.Schedule
             labelNoReminder.ForeColor = Color.FromArgb(150, 150, 150);
             labelNoReminder.Text = Text;
             return labelNoReminder;
+        }
+
+        private void ClientReminder_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Program.GreyForm != null)
+            {
+                Program.GreyForm.Close();
+                Program.GreyForm = null;
+            }
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Opacity == 1)
+            {
+                timer1.Stop();
+            }
+            Opacity += .1;
+        }
+
+        private void ClientReminder_Deactivate(object sender, EventArgs e)
+        {
+            if(!DisableClosingOnDisactivating)
+            this.Close();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
         }
     }
 }

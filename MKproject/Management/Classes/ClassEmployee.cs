@@ -723,16 +723,21 @@ namespace MKproject.Management
         }
         static public List<TimeSpan> GetTimeSpanAvailabiltyOfDesiredDay(string DesiredDayAvailabality)
         {
-            List<TimeSpan> dayAvailability = new List<TimeSpan>();
 
-            string[] intervals = DesiredDayAvailabality.Split('-');
-            foreach (var interval in intervals)
+            List<TimeSpan> dayAvailability = new List<TimeSpan>();
+           
+            if (!string.IsNullOrEmpty(DesiredDayAvailabality))
             {
-                if (!string.IsNullOrEmpty(interval))
+                string[] intervals = DesiredDayAvailabality.Split('-');
+                foreach (var interval in intervals)
                 {
-                    dayAvailability.Add(TimeSpan.Parse(interval));
+                    if (!string.IsNullOrEmpty(interval))
+                    {
+                        dayAvailability.Add(TimeSpan.Parse(interval));
+                    }
                 }
             }
+            
 
             return dayAvailability;
         }
