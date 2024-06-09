@@ -20,9 +20,9 @@ namespace MKproject.Management
         public static void InsertToFinance(int ClientBalanceId, Double AmountPaid, DateTime Date, String AlbumType)
         {
 
-            string QueryInsert = @"INSERT INTO finance (client_balance_id,AlbumType,amount_paid,payment_date,Currency_Name) 
+            string QueryInsert = @"INSERT INTO finance (client_balance_id,AlbumType,amount_paid,payment_date) 
                         VALUES
-                        (@client_balance_id,@AlbumType,@amount_paid,@payment_date,@Currency_Name) ";
+                        (@client_balance_id,@AlbumType,@amount_paid,@payment_date) ";
 
             SQLiteCommand cmdInsert = new SQLiteCommand(QueryInsert, con); // Initialize the SQLiteCommand inside the loop
 
@@ -39,7 +39,6 @@ namespace MKproject.Management
             }
             cmdInsert.Parameters.AddWithValue("@amount_paid", AmountPaid);
             cmdInsert.Parameters.AddWithValue("@payment_date", Date);
-            cmdInsert.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
             con.Open();
             cmdInsert.ExecuteNonQuery();
             con.Close();

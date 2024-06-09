@@ -19,7 +19,7 @@ namespace MKproject.Schedule
             string query = @"SELECT emp.employee_id,emp.first_name,emp.last_name,h.rank,h.availability
                             FROM history_employee_availability as h
                             Join employee as emp on emp.employee_id=h.employee_id
-                            WHERE history_date = @history_date ORDER BY h.rank ASC";
+                            WHERE Date(history_date) = @history_date ORDER BY h.rank ASC";
 
 
             SQLiteCommand command = new SQLiteCommand(query, con);

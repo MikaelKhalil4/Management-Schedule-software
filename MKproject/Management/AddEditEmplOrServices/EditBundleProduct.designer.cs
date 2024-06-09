@@ -39,6 +39,9 @@ namespace MKproject.Management
             TLPBundle = new System.Windows.Forms.TableLayoutPanel();
             comboBoxBundle = new System.Windows.Forms.ComboBox();
             UCNOSessionsOrDay = new UCNumberButt();
+            customGroupBoxDuration = new CustomGroupBox();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            comboBoxDuration = new System.Windows.Forms.ComboBox();
             checkBoxMemberShip = new System.Windows.Forms.CheckBox();
             checkBoxStatus = new System.Windows.Forms.CheckBox();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -51,6 +54,8 @@ namespace MKproject.Management
             groupBoxPrice.SuspendLayout();
             groupBoxNumberOfSessions.SuspendLayout();
             TLPBundle.SuspendLayout();
+            customGroupBoxDuration.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -68,7 +73,7 @@ namespace MKproject.Management
             TLPMain.RowCount = 2;
             TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            TLPMain.Size = new System.Drawing.Size(507, 592);
+            TLPMain.Size = new System.Drawing.Size(507, 630);
             TLPMain.TabIndex = 0;
             // 
             // FLPTop
@@ -76,6 +81,7 @@ namespace MKproject.Management
             FLPTop.AutoScroll = true;
             FLPTop.Controls.Add(groupBoxPrice);
             FLPTop.Controls.Add(groupBoxNumberOfSessions);
+            FLPTop.Controls.Add(customGroupBoxDuration);
             FLPTop.Controls.Add(checkBoxMemberShip);
             FLPTop.Controls.Add(checkBoxStatus);
             FLPTop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -83,7 +89,7 @@ namespace MKproject.Management
             FLPTop.Location = new System.Drawing.Point(0, 0);
             FLPTop.Margin = new System.Windows.Forms.Padding(0);
             FLPTop.Name = "FLPTop";
-            FLPTop.Size = new System.Drawing.Size(507, 554);
+            FLPTop.Size = new System.Drawing.Size(507, 592);
             FLPTop.TabIndex = 5;
             // 
             // groupBoxPrice
@@ -92,8 +98,8 @@ namespace MKproject.Management
             groupBoxPrice.BorderSize = 1;
             groupBoxPrice.Controls.Add(ucPaymentsPrice);
             groupBoxPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            groupBoxPrice.Location = new System.Drawing.Point(4, 12);
-            groupBoxPrice.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
+            groupBoxPrice.Location = new System.Drawing.Point(4, 6);
+            groupBoxPrice.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             groupBoxPrice.Name = "groupBoxPrice";
             groupBoxPrice.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBoxPrice.Size = new System.Drawing.Size(490, 90);
@@ -120,11 +126,11 @@ namespace MKproject.Management
             groupBoxNumberOfSessions.BorderSize = 1;
             groupBoxNumberOfSessions.Controls.Add(TLPBundle);
             groupBoxNumberOfSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            groupBoxNumberOfSessions.Location = new System.Drawing.Point(4, 126);
-            groupBoxNumberOfSessions.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
+            groupBoxNumberOfSessions.Location = new System.Drawing.Point(4, 108);
+            groupBoxNumberOfSessions.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             groupBoxNumberOfSessions.Name = "groupBoxNumberOfSessions";
             groupBoxNumberOfSessions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBoxNumberOfSessions.Size = new System.Drawing.Size(490, 115);
+            groupBoxNumberOfSessions.Size = new System.Drawing.Size(490, 90);
             groupBoxNumberOfSessions.TabIndex = 8;
             groupBoxNumberOfSessions.TabStop = false;
             groupBoxNumberOfSessions.Text = "Bundle";
@@ -142,7 +148,7 @@ namespace MKproject.Management
             TLPBundle.Name = "TLPBundle";
             TLPBundle.RowCount = 1;
             TLPBundle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            TLPBundle.Size = new System.Drawing.Size(482, 83);
+            TLPBundle.Size = new System.Drawing.Size(482, 58);
             TLPBundle.TabIndex = 0;
             // 
             // comboBoxBundle
@@ -152,13 +158,13 @@ namespace MKproject.Management
             comboBoxBundle.Cursor = System.Windows.Forms.Cursors.Hand;
             comboBoxBundle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBoxBundle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            comboBoxBundle.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            comboBoxBundle.Font = new System.Drawing.Font("Segoe UI Semibold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             comboBoxBundle.ForeColor = System.Drawing.Color.Black;
             comboBoxBundle.FormattingEnabled = true;
-            comboBoxBundle.Location = new System.Drawing.Point(77, 22);
+            comboBoxBundle.Location = new System.Drawing.Point(103, 13);
             comboBoxBundle.Margin = new System.Windows.Forms.Padding(0, 0, 18, 0);
             comboBoxBundle.Name = "comboBoxBundle";
-            comboBoxBundle.Size = new System.Drawing.Size(146, 38);
+            comboBoxBundle.Size = new System.Drawing.Size(120, 31);
             comboBoxBundle.TabIndex = 13;
             comboBoxBundle.DropDown += comboBoxDetail_DropDown;
             comboBoxBundle.SelectedIndexChanged += comboBoxDetail_SelectedIndexChanged;
@@ -167,26 +173,74 @@ namespace MKproject.Management
             // 
             UCNOSessionsOrDay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             UCNOSessionsOrDay.BackColor = System.Drawing.Color.Transparent;
-            UCNOSessionsOrDay.ButtonSizeMinus = new System.Drawing.Size(43, 48);
-            UCNOSessionsOrDay.ButtonSizePlus = new System.Drawing.Size(44, 48);
+            UCNOSessionsOrDay.ButtonSizeMinus = new System.Drawing.Size(31, 36);
+            UCNOSessionsOrDay.ButtonSizePlus = new System.Drawing.Size(33, 36);
             UCNOSessionsOrDay.IsNegative = false;
-            UCNOSessionsOrDay.Location = new System.Drawing.Point(241, 17);
+            UCNOSessionsOrDay.Location = new System.Drawing.Point(241, 11);
             UCNOSessionsOrDay.Margin = new System.Windows.Forms.Padding(0);
             UCNOSessionsOrDay.Maximum_number = 999;
             UCNOSessionsOrDay.Minimum_number = 0;
             UCNOSessionsOrDay.Name = "UCNOSessionsOrDay";
             UCNOSessionsOrDay.Number = 0;
-            UCNOSessionsOrDay.Size = new System.Drawing.Size(189, 48);
+            UCNOSessionsOrDay.Size = new System.Drawing.Size(139, 36);
             UCNOSessionsOrDay.TabIndex = 14;
             UCNOSessionsOrDay.TextBoxBackColor = System.Drawing.SystemColors.Window;
-            UCNOSessionsOrDay.TextBoxFont = new System.Drawing.Font("Segoe UI Semibold", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            UCNOSessionsOrDay.TextBoxFont = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            // 
+            // customGroupBoxDuration
+            // 
+            customGroupBoxDuration.BorderColor = System.Drawing.Color.White;
+            customGroupBoxDuration.BorderSize = 1;
+            customGroupBoxDuration.Controls.Add(tableLayoutPanel2);
+            customGroupBoxDuration.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            customGroupBoxDuration.Location = new System.Drawing.Point(4, 210);
+            customGroupBoxDuration.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            customGroupBoxDuration.Name = "customGroupBoxDuration";
+            customGroupBoxDuration.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            customGroupBoxDuration.Size = new System.Drawing.Size(490, 90);
+            customGroupBoxDuration.TabIndex = 9;
+            customGroupBoxDuration.TabStop = false;
+            customGroupBoxDuration.Text = "Duration";
+            customGroupBoxDuration.Visible = false;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(comboBoxDuration, 0, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(4, 29);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(482, 58);
+            tableLayoutPanel2.TabIndex = 1;
+            // 
+            // comboBoxDuration
+            // 
+            comboBoxDuration.Anchor = System.Windows.Forms.AnchorStyles.None;
+            comboBoxDuration.BackColor = System.Drawing.Color.White;
+            comboBoxDuration.Cursor = System.Windows.Forms.Cursors.Hand;
+            comboBoxDuration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxDuration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            comboBoxDuration.Font = new System.Drawing.Font("Segoe UI Semibold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            comboBoxDuration.ForeColor = System.Drawing.Color.Black;
+            comboBoxDuration.FormattingEnabled = true;
+            comboBoxDuration.Location = new System.Drawing.Point(172, 13);
+            comboBoxDuration.Margin = new System.Windows.Forms.Padding(0, 0, 18, 0);
+            comboBoxDuration.Name = "comboBoxDuration";
+            comboBoxDuration.Size = new System.Drawing.Size(120, 31);
+            comboBoxDuration.TabIndex = 14;
+            comboBoxDuration.DropDown += comboBoxDuration_DropDown;
+            comboBoxDuration.SelectedIndexChanged += comboBoxDuration_SelectedIndexChanged;
             // 
             // checkBoxMemberShip
             // 
             checkBoxMemberShip.Anchor = System.Windows.Forms.AnchorStyles.None;
             checkBoxMemberShip.AutoSize = true;
             checkBoxMemberShip.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            checkBoxMemberShip.Location = new System.Drawing.Point(187, 265);
+            checkBoxMemberShip.Location = new System.Drawing.Point(187, 318);
             checkBoxMemberShip.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
             checkBoxMemberShip.Name = "checkBoxMemberShip";
             checkBoxMemberShip.Size = new System.Drawing.Size(124, 25);
@@ -199,7 +253,7 @@ namespace MKproject.Management
             checkBoxStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             checkBoxStatus.AutoSize = true;
             checkBoxStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            checkBoxStatus.Location = new System.Drawing.Point(212, 314);
+            checkBoxStatus.Location = new System.Drawing.Point(212, 367);
             checkBoxStatus.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
             checkBoxStatus.Name = "checkBoxStatus";
             checkBoxStatus.Size = new System.Drawing.Size(74, 25);
@@ -217,7 +271,7 @@ namespace MKproject.Management
             tableLayoutPanel1.Controls.Add(buttonCancel, 1, 0);
             tableLayoutPanel1.Controls.Add(buttonDelete, 0, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 554);
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 592);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
@@ -299,7 +353,7 @@ namespace MKproject.Management
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(507, 592);
+            ClientSize = new System.Drawing.Size(507, 630);
             Controls.Add(TLPMain);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -317,6 +371,8 @@ namespace MKproject.Management
             groupBoxPrice.ResumeLayout(false);
             groupBoxNumberOfSessions.ResumeLayout(false);
             TLPBundle.ResumeLayout(false);
+            customGroupBoxDuration.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -338,5 +394,8 @@ namespace MKproject.Management
         private CustomButton buttonCancel;
         private CustomButton buttonDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private CustomGroupBox customGroupBoxDuration;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        public System.Windows.Forms.ComboBox comboBoxDuration;
     }
 }

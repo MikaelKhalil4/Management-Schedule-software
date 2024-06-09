@@ -10,8 +10,7 @@ namespace MKproject.Management
     {
         static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
-        public static bool IsOnline { get; set; }
-
+    
         public enum enumFeatures
         {
 
@@ -31,25 +30,11 @@ namespace MKproject.Management
             Statistics,
             [StringValue("Access Schedule")]
             Schedule,
-          
+            [StringValue("Edit past appointments in the schedule")]
+            EditPastAppSchedule,
 
         }
-    
-
-        public static void GetFeatures()
-        {
-           
-             DataTable dt = new DataTable();
-            string query = "SELECT * FROM Features";
-
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
-            dt = new DataTable();
-            sda.Fill(dt);         
-            IsOnline= Convert.ToBoolean(dt.Rows[0]["online"]);
-          
-        }
-
+     
        
     }
 }

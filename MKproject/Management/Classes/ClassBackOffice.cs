@@ -66,9 +66,9 @@ namespace MKproject.Management
 
         public void InsertToArchiveSQL()
         {
-            string query = @"INSERT INTO archive (client_id,action,action_type,employee_id,date,attendance_id,appointment_id,client_balance_id,amount_paid,is_moneyOrsession_offre,previousBalanceOrSession_Offre,Currency_Name) 
+            string query = @"INSERT INTO archive (client_id,action,action_type,employee_id,date,attendance_id,appointment_id,client_balance_id,amount_paid,is_moneyOrsession_offre,previousBalanceOrSession_Offre) 
                                                                 VALUES
-                                                (@client_id,@action,@action_type,@employee_id,@date,@attendance_id,@appointment_id,@client_balance_id,@amount_paid,@is_moneyOrsession_offre,@previousBalanceOrSession_Offre,@Currency_Name)";
+                                                (@client_id,@action,@action_type,@employee_id,@date,@attendance_id,@appointment_id,@client_balance_id,@amount_paid,@is_moneyOrsession_offre,@previousBalanceOrSession_Offre)";
 
             SQLiteCommand cmd = new SQLiteCommand(query, con);
             cmd.Parameters.AddWithValue("@client_id", ClientID);
@@ -90,12 +90,10 @@ namespace MKproject.Management
             {
 
                 cmd.Parameters.AddWithValue("@amount_paid", AmountPaid);
-                cmd.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
             }
             else
             {
                 cmd.Parameters.AddWithValue("@amount_paid", DBNull.Value);
-                cmd.Parameters.AddWithValue("@Currency_Name", DBNull.Value);
             }
 
 

@@ -39,12 +39,16 @@ namespace MKproject.Management
 
             if (EmpId != -1)
             {
+                Cursor = Cursors.WaitCursor;
+
                 Employee = new ClassEmployee();
                 Employee = ClassEmployee.CreateEmployeeObject(EmpId);
-                Employee.SetEmployeeAccess();
-                this.Hide();
+                Employee.SetEmployeeAccess();      
                 Program.HomeForm = new Home();
                 Program.HomeForm.Show();
+                this.Hide();
+                Cursor = Cursors.Default;
+
             }
             else
             {

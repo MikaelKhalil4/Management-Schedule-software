@@ -25,7 +25,7 @@ namespace MKproject.Management
         private CheckBox CheckBoxRegistrationFields;
 
         private CheckBox CheckBoxSchedule;
-
+        private CheckBox CheckBoxEditPastSchedule;
 
 
 
@@ -95,6 +95,13 @@ namespace MKproject.Management
             CheckBoxSchedule.AutoSize = true;
             FLPFeatures.Controls.Add(CheckBoxSchedule);
             toolTip1.SetToolTip(CheckBoxSchedule, "This feature allows employees to access the schedule");
+
+            CheckBoxEditPastSchedule = new CheckBox();
+            CheckBoxEditPastSchedule.Text = enumFeatures.EditPastAppSchedule.GetStringValue();
+            CheckBoxEditPastSchedule.Font = seguiFont;
+            CheckBoxEditPastSchedule.AutoSize = true;
+            FLPFeatures.Controls.Add(CheckBoxEditPastSchedule);
+            toolTip1.SetToolTip(CheckBoxEditPastSchedule, "This feature allows employees to edit past appointments in the schedule");
 
             CheckBoxEditOffres = new CheckBox();
             CheckBoxEditOffres.Text = enumFeatures.EditOffres.GetStringValue();
@@ -245,6 +252,13 @@ namespace MKproject.Management
                         if (CheckBoxSchedule != null)
                         {
                             CheckBoxSchedule.Checked = true;
+                        }
+                    }
+                    if (word == enumFeatures.EditPastAppSchedule.GetStringValue())
+                    {
+                        if (CheckBoxEditPastSchedule != null)
+                        {
+                            CheckBoxEditPastSchedule.Checked = true;
                         }
                     }
 

@@ -84,14 +84,13 @@ namespace MKproject.Management
 
         public void InsertProduct()
         {
-            string query = "INSERT INTO products (product_name,product_price,Currency_Name,status) " +
-                           "VALUES (@ProductName, @Price,@Currency_Name,@Status)";
+            string query = "INSERT INTO products (product_name,product_price,status) " +
+                           "VALUES (@ProductName, @Price,@Status)";
 
             SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@ProductName", Name);
             command.Parameters.AddWithValue("@Price", Price);
             command.Parameters.AddWithValue("@Status", Status);
-            command.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
             con.Open();
 
             int rowsAffected = command.ExecuteNonQuery();

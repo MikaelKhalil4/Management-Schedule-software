@@ -63,6 +63,7 @@ namespace MKproject.Management
         //additional
         public int? DaysLeft { get; set; }//btenjeb men wara Due Date w DateTime.Now bel Set tb3 El Due Dtae
         public string BundleName { get; set; }
+        public TimeSpan BundleDuration { get; set; }
         //View 
         public string ClientBalanceSessionLeftDetails { get; set; }//additional,  it a string that describe the service,if package: adde baaed eendo session w masare,if solo: service name,
                                                                    //public string ClientBalanceBalanceDetails { get; set; }//additional, null if not package, its a string: currency + Balance
@@ -75,15 +76,13 @@ namespace MKproject.Management
         {
 
             String query = @"SELECT
-                       cl.client_balance_id,  cl.bundle_id,b.bundle_name, cl.product_id, cl.purchase_date, cl.original_offre, cl.offre, cl.amount_paid, cl.balance, cl.session_left_days, cl.due_date,  cl.is_freezed,cl.is_expired,  cu.Currency_Name, cu.Symbol,            
+                       cl.client_balance_id,  cl.bundle_id,b.bundle_name, cl.product_id, cl.purchase_date, cl.original_offre, cl.offre, cl.amount_paid, cl.balance, cl.session_left_days, cl.due_date,  cl.is_freezed,cl.is_expired,            
                       CASE
                        WHEN cl.bundle_id IS NOT NULL THEN b.bundle_name
                           WHEN cl.product_id IS NOT NULL THEN p.product_name
                           ELSE 'Others' 
                          END AS Description  
-                        FROM client_balance cl  
-                        JOIN
-                        Currencies cu ON cl.Currency_Name = cu.Currency_Name
+                        FROM client_balance cl                         
                         LEFT JOIN
                         bundles b ON cl.bundle_id = b.bundle_id
                         LEFT JOIN
@@ -173,9 +172,9 @@ namespace MKproject.Management
             double originalprice;
             bool IsExpired = false;
             string query = @"INSERT into  client_balance
-                  (client_id,bundle_id,product_id,purchase_date,original_offre,offre,amount_paid,balance,Currency_Name,session_left_days,isbundle_membership,due_date,is_freezed,is_expired) 
+                  (client_id,bundle_id,product_id,purchase_date,original_offre,offre,amount_paid,balance,session_left_days,isbundle_membership,due_date,is_freezed,is_expired) 
                                                               VALUES 
-                  (@client_id,@bundle_id,@product_id,@purchase_date,@original_offre,@offre,@amount_paid,@balance,@Currency_Name,@session_left_days,@isbundle_membership,@due_date,@is_freezed,@is_expired)";
+                  (@client_id,@bundle_id,@product_id,@purchase_date,@original_offre,@offre,@amount_paid,@balance,@session_left_days,@isbundle_membership,@due_date,@is_freezed,@is_expired)";
 
             SQLiteCommand cmd = new SQLiteCommand(query, con);
 
@@ -263,7 +262,6 @@ namespace MKproject.Management
             cmd.Parameters.AddWithValue("@client_id", clientid);
             cmd.Parameters.AddWithValue("@purchase_date", DateTime.Now);
             cmd.Parameters.AddWithValue("@amount_paid", 0);
-            cmd.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
 
             if (originalprice == 0)
                 cmd.Parameters.AddWithValue("@balance", originalprice);
@@ -763,7 +761,6 @@ namespace MKproject.Management
             DesiredClientBalance.Offre = DesiredClientBlanaceRow["offre"] is DBNull ? null : (string)DesiredClientBlanaceRow["offre"];
             DesiredClientBalance.AmountPaid = DesiredClientBlanaceRow["amount_paid"] is DBNull ? null : Convert.ToDouble(DesiredClientBlanaceRow["amount_paid"]);
             DesiredClientBalance.Balance = DesiredClientBlanaceRow["balance"] is DBNull ? null : Convert.ToDouble(DesiredClientBlanaceRow["balance"]);
-            DesiredClientBalance.CurrencyName = DesiredClientBlanaceRow["Currency_Name"] is DBNull ? null : (string)DesiredClientBlanaceRow["Currency_Name"];
             DesiredClientBalance.SessionLeftDays = DesiredClientBlanaceRow["session_left_days"] is DBNull ? null : Convert.ToInt32(DesiredClientBlanaceRow["session_left_days"]);
             DesiredClientBalance.IsBundleMembership = DesiredClientBlanaceRow["isbundle_membership"] is DBNull ? null : Convert.ToBoolean(DesiredClientBlanaceRow["isbundle_membership"]);
             DesiredClientBalance.DueDate = DesiredClientBlanaceRow["due_date"] is DBNull ? null : Convert.ToDateTime(DesiredClientBlanaceRow["due_date"]);
@@ -811,6 +808,7 @@ namespace MKproject.Management
             if (BundleId != null)
             {
                 BundleName = ClassBundles.FindBundleName((int)BundleId);
+                BundleDuration = TimeSpan.Parse(ClassBundles.FindBundleDuration((int)BundleId));
 
                 string Details = "";
                 //sessionleft
@@ -964,8 +962,6 @@ namespace MKproject.Management
             DesiredDataGrid.Columns["session_left_days"].Visible = false;
             DesiredDataGrid.Columns["is_freezed"].Visible = false;
             DesiredDataGrid.Columns["is_expired"].Visible = false;
-            DesiredDataGrid.Columns["Currency_Name"].Visible = false;
-            DesiredDataGrid.Columns["Symbol"].Visible = false;
             DesiredDataGrid.Columns["due_date"].Visible = false;
 
             if (IsProfile)

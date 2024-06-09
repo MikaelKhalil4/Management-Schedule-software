@@ -61,6 +61,8 @@ namespace MKproject.Management
             CreateBundlesFields();
 
 
+            FillComboBoxWithServiceDurations();
+
             //
             comboBoxBundle.Items.Add(ClassBundles.enumBundle.Sessions);
             comboBoxBundle.Items.Add(ClassBundles.enumBundle.Days);
@@ -72,6 +74,28 @@ namespace MKproject.Management
             {
                 this.Text = "Edit Bundle";
                 FillBundlesFields();
+            }
+        }
+        private void FillComboBoxWithServiceDurations()
+        {
+            // Clear existing items, if any
+            comboBoxDuration.Items.Clear();
+
+            // Define the start duration (15 minutes) and end duration (2 hours)
+            int startDuration = 15; // in minutes
+            int endDuration = 120;  // in minutes
+            int interval = 15;      // in minutes
+
+            // Populate the ComboBox with service durations
+            for (int duration = startDuration; duration <= endDuration; duration += interval)
+            {
+                comboBoxDuration.Items.Add($"{duration} min");
+            }
+
+            // Optionally, select the first item by default
+            if (comboBoxDuration.Items.Count > 0)
+            {
+                comboBoxDuration.SelectedIndex = 3;
             }
         }
         void CreateBundlesFields()
@@ -102,8 +126,10 @@ namespace MKproject.Management
 
             UCBundleName.NextControl = UCDescription.myTextBox1;
             UCDescription.NextControl = ucPaymentsPrice.textBoxPayment;
+            customGroupBoxDuration.Visible = true;
 
             checkBoxMemberShip.Visible = true;
+            checkBoxMemberShip.Checked = true;
 
             checkBoxStatus.Visible = true;
             checkBoxStatus.Checked = true;
@@ -170,6 +196,7 @@ namespace MKproject.Management
             bundle.BundleName = UCBundleName.Value;
             bundle.Description = UCDescription.Value;
             bundle.Price = ucPaymentsPrice.Amount;
+            bundle.Duration = TimeSpan.FromMinutes(int.Parse(comboBoxDuration.SelectedItem.ToString().Split(' ')[0]));
             bundle.EnumBundletype = (ClassBundles.enumBundle)Enum.Parse(typeof(ClassBundles.enumBundle), comboBoxBundle.SelectedItem.ToString());
 
             if (bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
@@ -203,6 +230,7 @@ namespace MKproject.Management
             bundle.BundleName = UCBundleName.Value;
             bundle.Description = UCDescription.Value;
             bundle.Price = ucPaymentsPrice.Amount;
+            bundle.Duration = TimeSpan.FromMinutes(int.Parse(comboBoxDuration.SelectedItem.ToString().Split(' ')[0]));
             bundle.EnumBundletype = (ClassBundles.enumBundle)Enum.Parse(typeof(ClassBundles.enumBundle), comboBoxBundle.SelectedItem.ToString());
 
             if (bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
@@ -227,6 +255,7 @@ namespace MKproject.Management
             DesiredRow["FakeStatus"] = bundle.Status;
             DesiredRow["is_member_ship"] = bundle.IsMemberShip;
             DesiredRow["FakeMemberShip"] = bundle.IsMemberShip;
+            DesiredRow["duration"] = bundle.Duration;
 
             string bundles;
             if (bundle.EnumBundletype == ClassBundles.enumBundle.Solo)
@@ -350,7 +379,7 @@ namespace MKproject.Management
             UCBundleName.NextControl = ucPaymentsPrice.textBoxPayment;
 
             checkBoxMemberShip.Visible = false;
-          
+
             checkBoxStatus.Visible = true;
             checkBoxStatus.Checked = true;
         }
@@ -541,6 +570,16 @@ namespace MKproject.Management
                     this.Close();
                 }
             }
+        }
+
+        private void comboBoxDuration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tableLayoutPanel1.Select();
+        }
+
+        private void comboBoxDuration_DropDown(object sender, EventArgs e)
+        {
+            tableLayoutPanel1.Select();
         }
     }
 }

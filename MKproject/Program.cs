@@ -49,7 +49,6 @@ namespace MKproject
         static void Main()
         {
           Currency.GetCurrency();
-          Features.GetFeatures();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

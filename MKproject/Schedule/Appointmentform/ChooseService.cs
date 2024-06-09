@@ -30,7 +30,7 @@ namespace MKproject.Schedule
 
             labelFullName.Text = ParentFormucClientApp.DesiredAppointmentUCClientApp.DesiredClient.Fname + " " + ParentFormucClientApp.DesiredAppointmentUCClientApp.DesiredClient.Lname;
             SetUCSlidebutton();
-            if (ParentFormucClientApp.PackageRemainingsDt.Rows.Count == 0 || ParentFormucClientApp.DesiredAppointmentUCClientApp.ChosenBundlesList!=null)
+            if (ParentFormucClientApp.PackageRemainingsDt.Rows.Count == 0 || ParentFormucClientApp.DesiredAppointmentUCClientApp.ChosenBundlesList != null)
             {
                 ucSlideButton.button2_Click(this, new EventArgs());
             }
@@ -151,6 +151,7 @@ namespace MKproject.Schedule
             {
                 ParentFormucClientApp.FillObjectOfNewChosenBundles(new List<ClassBundles>(BundleList));
                 ParentFormucClientApp.SetLogicAndDesignEditAndServiceMode(true, false);
+
                 this.Close();
             }
             else
@@ -186,6 +187,24 @@ namespace MKproject.Schedule
             {
                 Program.GreyFormJunior.Close();
                 Program.GreyFormJunior = null;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Opacity == 1)
+            {
+                timer1.Stop();
+            }
+            Opacity += .2;
+        }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
             }
         }
     }

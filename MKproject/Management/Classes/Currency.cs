@@ -27,17 +27,5 @@ namespace MKproject.Management
         }
         //lezim nes7ab kell el currencies
 
-
-        // Constructor with currencyName argument
-        //public Currency(string currencyName)
-        //{
-        //    CurrencyName = currencyName;
-        //    // You can set the Symbol based on the currencyName or provide default values here
-        //    Symbol = GetSymbolForCurrency(currencyName);
-        //}
-        //private string GetSymbolForCurrency(string currencyName)
-        //{
-        //    //sql job
-        //}
     }
 }

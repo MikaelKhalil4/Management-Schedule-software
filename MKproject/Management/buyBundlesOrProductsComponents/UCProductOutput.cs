@@ -48,7 +48,6 @@ namespace MKproject.Management
             dataGridViewProducts.DataSource = dt;
 
             dataGridViewProducts.Columns["product_id"].Visible = false;
-            dataGridViewProducts.Columns["Currency_Name"].Visible = false;
             dataGridViewProducts.Columns["status"].Visible = false;
 
 

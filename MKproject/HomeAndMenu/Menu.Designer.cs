@@ -48,8 +48,8 @@
             // 
             FLPGlobal.BackColor = System.Drawing.Color.FromArgb(128, 128, 255);
             FLPGlobal.Controls.Add(buttonMenu);
-            FLPGlobal.Controls.Add(buttonSearchClient);
             FLPGlobal.Controls.Add(buttonSchedule);
+            FLPGlobal.Controls.Add(buttonSearchClient);
             FLPGlobal.Controls.Add(buttonTransaction);
             FLPGlobal.Controls.Add(buttonStatistics);
             FLPGlobal.Controls.Add(buttonBundlesAndProducts);
@@ -95,7 +95,7 @@
             buttonSearchClient.ForeColor = System.Drawing.Color.White;
             buttonSearchClient.Image = (System.Drawing.Image)resources.GetObject("buttonSearchClient.Image");
             buttonSearchClient.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonSearchClient.Location = new System.Drawing.Point(0, 43);
+            buttonSearchClient.Location = new System.Drawing.Point(0, 100);
             buttonSearchClient.Margin = new System.Windows.Forms.Padding(0);
             buttonSearchClient.Name = "buttonSearchClient";
             buttonSearchClient.Size = new System.Drawing.Size(288, 57);
@@ -117,7 +117,7 @@
             buttonSchedule.ForeColor = System.Drawing.Color.White;
             buttonSchedule.Image = (System.Drawing.Image)resources.GetObject("buttonSchedule.Image");
             buttonSchedule.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonSchedule.Location = new System.Drawing.Point(0, 100);
+            buttonSchedule.Location = new System.Drawing.Point(0, 43);
             buttonSchedule.Margin = new System.Windows.Forms.Padding(0);
             buttonSchedule.Name = "buttonSchedule";
             buttonSchedule.Size = new System.Drawing.Size(288, 57);

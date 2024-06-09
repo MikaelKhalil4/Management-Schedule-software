@@ -5,6 +5,7 @@ using Azure.Core;
 using System.Globalization;
 using MKproject.Schedule;
 using System.Data.SQLite;
+using System.Windows;
 
 namespace MKproject.Management
 {
@@ -43,10 +44,11 @@ namespace MKproject.Management
 
         public Double Price { get; set; }
 
+        public TimeSpan Duration { get; set; }
+
         public bool IsMemberShip { get; set; }
 
         public bool Status { get; set; }
-        public string CurrencyName { get; set; }
 
 
         public int Qty { get; set; }//only used lamma badde eshtere item 
@@ -81,6 +83,18 @@ namespace MKproject.Management
 
             // Return the results as a tuple
             return (dt.Rows[0]["bundle_name"].ToString());
+        }
+        public static string FindBundleDuration(int categoryId)
+        {
+
+            string query = "Select duration From bundles where bundle_id='" + categoryId + "'";
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            // Return the results as a tuple
+            return (dt.Rows[0]["duration"].ToString());
         }
 
         public static DataTable GetLastInsertBundle()
@@ -127,8 +141,8 @@ namespace MKproject.Management
 
         public void InsertBundle()
         {
-            string query = "INSERT INTO bundles (bundle_name, description, sessions_numb,bundle_type ,price, status,is_member_ship,Currency_Name) " +
-                           "VALUES (@bundle_name, @description, @SessionsNumb,@bundle_type, @Price, @Status,@is_member_ship,@Currency_Name)";
+            string query = "INSERT INTO bundles (bundle_name, description, sessions_numb,bundle_type ,price,duration, status,is_member_ship) " +
+                           "VALUES (@bundle_name, @description, @SessionsNumb,@bundle_type, @Price,@duration, @Status,@is_member_ship)";
 
             SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@bundle_name", BundleName);
@@ -155,7 +169,7 @@ namespace MKproject.Management
             command.Parameters.AddWithValue("@Price", Price);
             command.Parameters.AddWithValue("@Status", Status);
             command.Parameters.AddWithValue("@is_member_ship", IsMemberShip);
-            command.Parameters.AddWithValue("@Currency_Name", Currency.CurrencyName);
+            command.Parameters.AddWithValue("@duration", Duration);
             con.Open();
 
             command.ExecuteNonQuery();
@@ -170,8 +184,9 @@ namespace MKproject.Management
                            sessions_numb = @SessionsNumb, 
                            bundle_type=@bundle_type,
                            price = @Price, 
+                            duration=@duration,
                            status = @Status,
-                           is_member_ship=@is_member_ship
+                           is_member_ship=@is_member_ship                  
                            WHERE bundle_id = @bundle_id";
 
             SQLiteCommand command = new SQLiteCommand(query, con);
@@ -199,6 +214,7 @@ namespace MKproject.Management
             command.Parameters.AddWithValue("@Status", Status);
             command.Parameters.AddWithValue("@bundle_id", BundleID);
             command.Parameters.AddWithValue("@is_member_ship", IsMemberShip);
+            command.Parameters.AddWithValue("@duration", Duration);
             con.Open();
 
             command.ExecuteNonQuery();
@@ -253,8 +269,7 @@ namespace MKproject.Management
             bundle.Price = Convert.ToDouble(dataRow["price"]);
             bundle.IsMemberShip = Convert.ToBoolean(dataRow["is_member_ship"]);
             bundle.Status = Convert.ToBoolean(dataRow["status"]);
-            bundle.CurrencyName = dataRow["Currency_Name"] is DBNull ? null : (string)dataRow["Currency_Name"];
-
+            bundle.Duration= TimeSpan.Parse(dataRow["duration"].ToString());
 
             return bundle;
         }

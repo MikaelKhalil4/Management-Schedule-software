@@ -51,6 +51,7 @@ namespace MKproject.Management
         public bool IsChecked { get; set; }//for the design Frontend used
 
         public bool CanAccesSchedule { get; set; }
+        public bool CanEditPastAppSchedule { get; set; }
         public bool CanEditOffre { get; set; }
         public bool CanAccessStatistics { get; set; }
         public bool CanAccessSevicesProductsEmployees { get; set; }
@@ -288,6 +289,8 @@ namespace MKproject.Management
             {
                 if (Access.ToString().Contains(Features.enumFeatures.Schedule.GetStringValue()))
                     CanAccesSchedule = true;
+                if (Access.ToString().Contains(Features.enumFeatures.EditPastAppSchedule.GetStringValue()))
+                    CanEditPastAppSchedule = true;
                 if (Access.ToString().Contains(Features.enumFeatures.EditOffres.GetStringValue()))
                     CanEditOffre = true;
                 if (Access.ToString().Contains(Features.enumFeatures.Transactions.GetStringValue()))

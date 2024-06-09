@@ -88,9 +88,12 @@ namespace MKproject.Management
             newIndex = 4; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
+            columnIndexToMove = dt.Columns.IndexOf("duration"); // Replace with the actual column name
+            newIndex = 5; // The new desired index
+            dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
             columnIndexToMove = dt.Columns.IndexOf("Membership"); // Replace with the actual column name
-            newIndex = 5; // The new desired index
+            newIndex = 6; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
         }
 
@@ -109,6 +112,12 @@ namespace MKproject.Management
                     {
                         e.Value = Program.SetCashFormat(e.Value.ToString());
                     }
+                    if (dataGridViewBundles.Columns[e.ColumnIndex].Name == "duration")
+                    {
+                        TimeSpan Duration = TimeSpan.Parse(e.Value.ToString());
+                        e.Value = $"{(int)Duration.TotalMinutes} min";
+                        e.FormattingApplied = true;
+                    }
                 }
             }
         }
@@ -119,21 +128,25 @@ namespace MKproject.Management
             dataGridViewBundles.DataSource = dtBundles;
 
             dataGridViewBundles.Columns["is_member_ship"].Visible = false;
-            dataGridViewBundles.Columns["Currency_Name"].Visible = false;
             dataGridViewBundles.Columns["bundle_id"].Visible = false;
             dataGridViewBundles.Columns["sessions_numb"].Visible = false;
             dataGridViewBundles.Columns["status"].Visible = false;
             dataGridViewBundles.Columns["bundle_type"].Visible = false;
+            if(ParentFormChooseService!= null)
+            {
+                dataGridViewBundles.Columns["BundleDetails"].Visible = false;
+            }
 
             dataGridViewBundles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewBundles.RowTemplate.MinimumHeight = 40; // Set minimum row height
 
-            dataGridViewBundles.Columns["Membership"].FillWeight = 20;
-            dataGridViewBundles.Columns["ColumnCheck"].FillWeight = 8;
-            dataGridViewBundles.Columns["bundle_name"].FillWeight = 22;
-            dataGridViewBundles.Columns["BundleDetails"].FillWeight = 22;
+            dataGridViewBundles.Columns["Membership"].FillWeight = 16;
+            dataGridViewBundles.Columns["ColumnCheck"].FillWeight = 7;
+            dataGridViewBundles.Columns["bundle_name"].FillWeight = 20;
+            dataGridViewBundles.Columns["BundleDetails"].FillWeight = 20;
             dataGridViewBundles.Columns["price"].FillWeight = 11;
-            dataGridViewBundles.Columns["description"].FillWeight = 15;
+            dataGridViewBundles.Columns["duration"].FillWeight = 13;
+            dataGridViewBundles.Columns["description"].FillWeight = 12;
 
         }
 
@@ -228,6 +241,7 @@ namespace MKproject.Management
 
 
             Bundle.Price = Convert.ToDouble(RandomFunctions.ExtractDigits(Convert.ToString(DesiredRow.Cells["price"].Value)));
+            Bundle.Duration = TimeSpan.Parse(DesiredRow.Cells["duration"].Value.ToString());
 
             if (Convert.ToBoolean(DesiredRow.Cells["is_member_ship"].Value))
             {

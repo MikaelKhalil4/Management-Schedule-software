@@ -101,13 +101,17 @@ namespace MKproject.Management
             newIndex = 3; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
-            columnIndexToMove = dt.Columns.IndexOf("FakeMemberShip"); // Replace with the actual column name
+            columnIndexToMove = dt.Columns.IndexOf("duration"); // Replace with the actual column name
             newIndex = 4; // The new desired index
+            dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
+
+            columnIndexToMove = dt.Columns.IndexOf("FakeMemberShip"); // Replace with the actual column name
+            newIndex = 5; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
             columnIndexToMove = dt.Columns.IndexOf("FakeStatus"); // Replace with the actual column name
-            newIndex = 5; // The new desired index
+            newIndex = 6; // The new desired index
             dt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
@@ -135,7 +139,6 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["bundle_type"].Visible = false;
             dataGridViewEdit.Columns["sessions_numb"].Visible = false;
             dataGridViewEdit.Columns["bundle_id"].Visible = false;
-            dataGridViewEdit.Columns["Currency_Name"].Visible = false;
             dataGridViewEdit.Columns["is_member_ship"].Visible = false;
             dataGridViewEdit.Columns["status"].Visible = false;
             dataGridViewEdit.Columns["Edit"].DisplayIndex = dtBundles.Columns.Count;
@@ -146,6 +149,7 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["FakeMemberShip"].HeaderCell.Value = "MemberShip";
             dataGridViewEdit.Columns["FakeStatus"].HeaderCell.Value = "Status";
             dataGridViewEdit.Columns["price"].HeaderCell.Value = "Price";
+            dataGridViewEdit.Columns["duration"].HeaderCell.Value = "Duration";
 
             dataGridViewEdit.Columns["FakeMemberShip"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewEdit.Columns["FakeMemberShip"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -214,7 +218,6 @@ namespace MKproject.Management
 
 
             dataGridViewEdit.Columns["product_id"].Visible = false;  
-            dataGridViewEdit.Columns["Currency_Name"].Visible = false;
             dataGridViewEdit.Columns["status"].Visible = false;
             dataGridViewEdit.Columns["Edit"].DisplayIndex = dtProducts.Columns.Count;
 
@@ -247,6 +250,12 @@ namespace MKproject.Management
                     if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "price")
                     {
                         e.Value =Program.SetCashFormat(e.Value.ToString());
+                    }
+                    if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "duration")
+                    {
+                        TimeSpan Duration = TimeSpan.Parse(e.Value.ToString());
+                        e.Value = $"{(int)Duration.TotalMinutes} min";
+                        e.FormattingApplied = true;
                     }
                     if (dataGridViewEdit.Columns[e.ColumnIndex].Name == "product_price")
                     {

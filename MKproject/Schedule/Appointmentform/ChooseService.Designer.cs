@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             TLPglobal = new System.Windows.Forms.TableLayoutPanel();
             labelFullName = new System.Windows.Forms.Label();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             buttonChoose = new System.Windows.Forms.Button();
             buttonCancel = new System.Windows.Forms.Button();
             ucSlideButton = new CustomizedTools.UCSlideButton();
+            timer1 = new System.Windows.Forms.Timer(components);
             TLPglobal.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -125,13 +127,19 @@
             ucSlideButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             ucSlideButton.BackColor = System.Drawing.Color.FromArgb(139, 152, 224);
             ucSlideButton.Button1text = "Available Package";
-            ucSlideButton.Button2text = "Services";
+            ucSlideButton.Button2text = "Solo Services";
             ucSlideButton.ClickedButton = null;
             ucSlideButton.Location = new System.Drawing.Point(67, 45);
             ucSlideButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             ucSlideButton.Name = "ucSlideButton";
             ucSlideButton.Size = new System.Drawing.Size(313, 45);
             ucSlideButton.TabIndex = 0;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
             // 
             // ChooseService
             // 
@@ -144,6 +152,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ChooseService";
+            Opacity = 0D;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ChooseService";
@@ -162,5 +171,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonChoose;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -614,11 +614,21 @@ namespace MKproject.Schedule
                 DesiredAppointmentUCClientApp.ChosenBundlesList = new List<ClassBundles>(BundleList);
                 //and chosenservice string is set automatically by default bel set tb3 ChosenServicesList
 
+                TimeSpan totalduration = TimeSpan.Zero;
+                foreach (ClassBundles bund in DesiredAppointmentUCClientApp.ChosenBundlesList)
+                {
+                    totalduration+=bund.Duration;
+                }
+
+                UpdateDuration(totalduration);
             }
             else
             {
                 DesiredAppointmentUCClientApp.ChosenBundlesList = null;
             }
+
+
+         
         }
         public void FillObjectOfAvailablePackageifPresent(DataRow DesiredRow)//only used if we were selecting an available package ( a specified clientbalance) from table sql clientbalance
         {
@@ -628,6 +638,7 @@ namespace MKproject.Schedule
                 DesiredAppointmentUCClientApp.DesiredClientBalance = ClassClientBalance.CreateClientBalanceObject(Convert.ToInt32(DesiredRow["client_balance_id"]));
                 DesiredAppointmentUCClientApp.DesiredClientBalance.SetStringDetailsIfBundle();
                 DesiredAppointmentUCClientApp.IsPackageMode = true;
+                UpdateDuration(DesiredAppointmentUCClientApp.DesiredClientBalance.BundleDuration);
             }
             else
             {
@@ -635,8 +646,16 @@ namespace MKproject.Schedule
                 DesiredAppointmentUCClientApp.IsPackageMode = false;
             }
 
+
+         
+
         }
 
+        void UpdateDuration(TimeSpan Duration)
+        {
+            DesiredAppointmentUCClientApp.EndTime = DesiredAppointmentUCClientApp.StartTime + Duration;
+            ParentFormAppointment.UpdateTimeDesign();
+        }
 
 
 

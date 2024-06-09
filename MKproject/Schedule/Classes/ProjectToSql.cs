@@ -12,7 +12,7 @@ namespace MKproject.Schedule
         //HistoryEmployeeavailibility
         public static void UpdateRank_HistoryEmployeeavailibility(DateTime history_date, int employee_id, int rank,string availability)
         {
-            SQLiteCommand command = new SQLiteCommand("UPDATE history_employee_availability SET rank= @rank,availability=@availability WHERE history_date = @history_date and employee_id = @employee_id", con);
+            SQLiteCommand command = new SQLiteCommand("UPDATE history_employee_availability SET rank= @rank,availability=@availability WHERE DATE(history_date) = @history_date and employee_id = @employee_id", con);
 
             command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@employee_id", employee_id);
@@ -45,7 +45,7 @@ namespace MKproject.Schedule
         }
         public static void DeleteHistoryEmployee(DateTime history_date, int employee_id)
         {
-            SQLiteCommand command = new SQLiteCommand("DELETE from history_employee_availability  WHERE history_date = @history_date and employee_id = @employee_id", con);
+            SQLiteCommand command = new SQLiteCommand("DELETE from history_employee_availability  WHERE DATE(history_date) = @history_date and employee_id = @employee_id", con);
             command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@employee_id", employee_id);
 
