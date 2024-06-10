@@ -859,16 +859,17 @@ namespace MKproject.Schedule
                 SetReadOnlyDesign();
             }
 
-
-            if (DesiredAppointmentUCClientApp.DesiredClient != null && (DesiredAppointmentUCClientApp.IsPackageMode || DesiredAppointmentUCClientApp.ChosenBundlesList != null))
+            if (ParentFormAppointment.UCappointment != null)
             {
-                ParentFormAppointment.UcScheduleParentForm.RefreshAllRelatedAppointments(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+                if (DesiredAppointmentUCClientApp.DesiredClient != null && (DesiredAppointmentUCClientApp.IsPackageMode || DesiredAppointmentUCClientApp.ChosenBundlesList != null))
+                {
+                    ParentFormAppointment.UcScheduleParentForm.RefreshAllRelatedAppointments(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+                }
+                else
+                {
+                    ParentFormAppointment.UcScheduleParentForm.RefreshDesiredAppointment(ParentFormAppointment.UCappointment);
+                }
             }
-            else
-            {
-                ParentFormAppointment.UcScheduleParentForm.RefreshDesiredAppointment(ParentFormAppointment.UCappointment);
-            }
-
             if (IsReadOrEdit && !DesiredAppointmentUCClientApp.IsCompleted && DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)
             {// lamma nkun bel present , juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               
 

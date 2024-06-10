@@ -1,6 +1,8 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
+using System.Windows;
 
 
 namespace MKproject.Management
@@ -13,17 +15,24 @@ namespace MKproject.Management
 
         public static void GetCurrency()
         {
+            try
+            {
 
-            SQLiteCommand cmd = new SQLiteCommand("select * from Currencies where currency_id=1 ", con);//id=1 for default currency $
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
+                SQLiteCommand cmd = new SQLiteCommand("select * from Currencies where currency_id=1 ", con);//id=1 for default currency $
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
 
-            CurrencyName = dt.Rows[0]["Currency_Name"].ToString();
-            Symbol = dt.Rows[0]["Symbol"].ToString();
+                CurrencyName = dt.Rows[0]["Currency_Name"].ToString();
+                Symbol = dt.Rows[0]["Symbol"].ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(":" + ex);
+            }
         }
         //lezim nes7ab kell el currencies
 

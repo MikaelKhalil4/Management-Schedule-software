@@ -449,7 +449,7 @@ namespace MKproject.Schedule
                 return;
             }
 
-
+            UcScheduleParentForm.ParentFormSchedule.CloseNotfBanner();
             ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();

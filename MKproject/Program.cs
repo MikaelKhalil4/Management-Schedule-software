@@ -39,7 +39,7 @@ namespace MKproject
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
 
 
-        public static string DataLocation = "Data Source=C:\\Users\\USER\\Documents\\ELKdb\\ELK.db";
+        public static string DataLocation = "Data Source= C:\\Users\\USER\\Documents\\ELKdb\\ELK.db";
         public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\ELKdb\\ProfileImages";
 
 

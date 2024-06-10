@@ -34,7 +34,7 @@ namespace MKproject.Management
             {
                 conOld.Open();
                 conNew.Open();
-
+                //UpdateDate(DataLocationNew);
                 // Transfer data
                 //TransferCurrencies(conOld, conNew);
                 //TransferAlbums(conOld, conNew);
@@ -48,11 +48,54 @@ namespace MKproject.Management
                 //TransferArchive(conOld, conNew);
                 //TransferAppointmentHasBundles(conOld, conNew);
                 //TransferReminders(conOld, conNew);
-                TransferRequiredVisibleFields(conOld, conNew);
+                //TransferRequiredVisibleFields(conOld, conNew);
                 //TransferHistoryEmployeeAvailability(conOld, conNew);
-                TransferProducts(conOld, conNew);
+                //TransferProducts(conOld, conNew);
             }
         }
+
+
+        static void UpdateDate(string connectionString)
+        {
+            using (SQLiteConnection conNew = new SQLiteConnection(connectionString))
+            {
+                conNew.Open();
+
+                string selectQuery = "SELECT finance_id, payment_date FROM finance";
+                SQLiteCommand cmd = new SQLiteCommand(selectQuery, conNew);
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DateTime originalDate;
+                    if (DateTime.TryParse(dr["payment_date"].ToString(), out originalDate))
+                    {
+                        // Convert the date to the desired format
+                        string formattedDate = originalDate.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
+
+                        // Update the date in the database
+                        string updateQuery = "UPDATE finance SET payment_date = @newDate WHERE finance_id = @finance_id";
+                        using (SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conNew))
+                        {
+                            updateCmd.Parameters.AddWithValue("@newDate", formattedDate);
+                            updateCmd.Parameters.AddWithValue("@finance_id", dr["finance_id"]);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+
+                conNew.Close();
+            }
+
+
+        }
+
+
+
+
+
         private static void TransferAlbums(SqlConnection conOld, SQLiteConnection conNew)
         {
             string selectQuery = "SELECT Album_id, AlbumType FROM Albums";

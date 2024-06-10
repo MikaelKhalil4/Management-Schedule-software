@@ -449,12 +449,9 @@ namespace MKproject.Management
                 {
                     Availability = GetInitialAvailabilty();
                 }
-                else
-                {
-                    command.Parameters.AddWithValue("@availability", Availability);//means ken eendo old value
-                }
+               
 
-
+                command.Parameters.AddWithValue("@availability", Availability);//means ken eendo old value
 
 
                 if (IsBecomingAScheduleMember)

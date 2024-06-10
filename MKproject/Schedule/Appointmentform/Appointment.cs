@@ -607,13 +607,18 @@ namespace MKproject.Schedule
                 DesiredAppointmentAppForm.UndoCompletionAppointmentSQL();
             }
             //Design of the ucappointment
-            if (DesiredAppointmentAppForm.DesiredClient != null && (DesiredAppointmentAppForm.IsPackageMode || DesiredAppointmentAppForm.ChosenBundlesList != null))
+            if (UCappointment != null)
             {
-                UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
-            }
-            else
-            {
-                UcScheduleParentForm.RefreshDesiredAppointment(UCappointment);
+                if (DesiredAppointmentAppForm.DesiredClient != null && (DesiredAppointmentAppForm.IsPackageMode || DesiredAppointmentAppForm.ChosenBundlesList != null))
+                {
+                    UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
+                }
+                else
+                {
+
+                    UcScheduleParentForm.RefreshDesiredAppointment(UCappointment);
+                }
+
             }
 
             this.Close();
@@ -958,13 +963,16 @@ namespace MKproject.Schedule
                 }
 
                 ////uc app design
-                if (DesiredAppointmentAppForm.DesiredClient != null && (DesiredAppointmentAppForm.IsPackageMode || DesiredAppointmentAppForm.ChosenBundlesList != null))
+                if (UCappointment != null)
                 {
-                    UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
-                }
-                else
-                {
-                    UcScheduleParentForm.RefreshDesiredAppointment(UCappointment);
+                    if (DesiredAppointmentAppForm.DesiredClient != null && (DesiredAppointmentAppForm.IsPackageMode || DesiredAppointmentAppForm.ChosenBundlesList != null))
+                    {
+                        UcScheduleParentForm.RefreshAllRelatedAppointments(this.DesiredAppointmentAppForm.DesiredClient.ClientId);
+                    }
+                    else
+                    {
+                        UcScheduleParentForm.RefreshDesiredAppointment(UCappointment);
+                    }
                 }
             }
         }
@@ -982,7 +990,7 @@ namespace MKproject.Schedule
             {
                 timer1.Stop();
             }
-            Opacity += .1;
+            Opacity += .2;
         }
         private void Appointment_FormClosing(object sender, FormClosingEventArgs e)
         {

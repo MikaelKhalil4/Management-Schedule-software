@@ -70,37 +70,44 @@ namespace MKproject.Schedule.Reminderform
         public static DataTable DisplayReminderInASpecificDate(DateTime SelectedOrStartDate, DateTime? EndDate)
         {
             string query = @"WITH DayName AS (
-        SELECT CASE strftime('%w', '2024-06-09')
-        WHEN '0' THEN 'Sunday'
-        WHEN '1' THEN 'Monday'
-        WHEN '2' THEN 'Tuesday'
-        WHEN '3' THEN 'Wednesday'
-        WHEN '4' THEN 'Thursday'
-        WHEN '5' THEN 'Friday'
-        WHEN '6' THEN 'Saturday'
-         END AS day_name)
-            SELECT reminder.*, client.name, client.family_name, client.phone_number
-            FROM reminder
-            LEFT JOIN client ON reminder.client_id = client.client_id
-            LEFT JOIN DayName ON INSTR(reminder.repeat, DayName.day_name) > 0
-            WHERE  (   
-        (reminder.repeat = 'Does not repeat')
-        OR
-        (reminder.repeat = 'Every day')
-        OR
-        (reminder.repeat LIKE 'Every week%'AND INSTR(reminder.repeat, DayName.day_name) > 0)) ";
-
+            SELECT CASE strftime('%w', DATE(@SelectedOrStartDate))
+            WHEN '0' THEN 'Sunday'
+            WHEN '1' THEN 'Monday'
+             WHEN '2' THEN 'Tuesday'
+             WHEN '3' THEN 'Wednesday'
+            WHEN '4' THEN 'Thursday'
+            WHEN '5' THEN 'Friday'
+            WHEN '6' THEN 'Saturday'
+            END AS day_name)
+     SELECT reminder.*, client.name, client.family_name, client.phone_number
+     FROM reminder
+     LEFT JOIN client ON reminder.client_id = client.client_id
+     LEFT JOIN DayName ON INSTR(reminder.repeat, DayName.day_name) > 0 WHERE 1=1 ";
 
             if (EndDate == null)
             {
-                query += " AND DATE(reminder.starttime) = DATE(@SelectedOrStartDate)";
+                query += @" AND (
+               (reminder.repeat = 'Does not repeat' AND DATE(reminder.starttime) = DATE(@SelectedOrStartDate))
+               OR
+               (reminder.repeat = 'Every day' AND DATE(reminder.starttime) <= DATE(@SelectedOrStartDate))
+               OR
+               (reminder.repeat LIKE 'Every week%' AND INSTR(reminder.repeat, DayName.day_name) > 0 AND DATE(reminder.starttime) <= DATE(@SelectedOrStartDate))
+                )";
             }
             else
             {
-                query += " AND DATE(reminder.starttime) >= DATE(@SelectedOrStartDate) AND DATE(reminder.starttime) <= DATE(@EndDate)  ";
+                query += @" AND (
+               (reminder.repeat = 'Does not repeat')
+               OR
+               (reminder.repeat = 'Every day')
+               OR
+               (reminder.repeat LIKE 'Every week%' AND INSTR(reminder.repeat, DayName.day_name) > 0)
+                 )
+             AND DATE(reminder.starttime) >= DATE(@SelectedOrStartDate)
+             AND DATE(reminder.starttime) <= DATE(@EndDate)";
             }
 
-            query += "ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC";
+            query += " ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC";
 
 
 

@@ -865,12 +865,14 @@ namespace MKproject.Schedule
             if (e.Button == MouseButtons.Left)
             {
                 (int column, int row) = GetCellPosition(TLPSchedule, e.Location);
-                if (CheckIfRowAvaialable(column, row))
-                {
-                    if (IsMouseUpAndMouseDownSameLoco(column, row))
-                    {
 
-                        if ((IsDayOrWeek && !IsHistory && !IsDesignBlocked) || (!IsDayOrWeek && TheOnlyEmployee != null && GetWhichEmployeeOrDateForSpecifieColumn(column, false).Item2 >= DateTime.Now.Date))
+
+                if (IsMouseUpAndMouseDownSameLoco(column, row))
+                {
+
+                    if ((IsDayOrWeek && !IsHistory && !IsDesignBlocked) || (!IsDayOrWeek && TheOnlyEmployee != null && GetWhichEmployeeOrDateForSpecifieColumn(column, false).Item2 >= DateTime.Now.Date))
+                    {
+                        if (CheckIfRowAvaialable(column, row))
                         {
                             if (column > 0)
                             {
@@ -894,6 +896,8 @@ namespace MKproject.Schedule
                                         //it should be restrictd to dragand drop
                                     }
                                 }
+                                ParentFormSchedule.CloseNotfBanner();
+
                                 ScheduleForm schedule = this.ParentFormSchedule;
                                 Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                                 Program.GreyForm.Show();
@@ -3097,6 +3101,7 @@ namespace MKproject.Schedule
 
         public bool CheckIfRowAvaialable(int Column, int Row)
         {
+
             if (IsDayOrWeek)
             {
                 (ClassEmployee DesiredEmployee, _) = GetWhichEmployeeOrDateForSpecifieColumn(Column, IsDayOrWeek);
