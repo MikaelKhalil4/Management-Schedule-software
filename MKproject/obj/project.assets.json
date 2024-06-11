@@ -2234,11 +2234,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\MKproject.csproj",
+      "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\MKproject\\MKproject.csproj",
       "projectName": "MKproject",
-      "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\MKproject.csproj",
+      "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\MKproject\\MKproject.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\obj\\",
+      "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\MKproject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2255,11 +2255,11 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj": {
-              "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj"
+            "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\CustomizedTools.csproj": {
+              "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\CustomizedTools.csproj"
             },
-            "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj": {
-              "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj"
+            "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj": {
+              "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj"
             }
           }
         }

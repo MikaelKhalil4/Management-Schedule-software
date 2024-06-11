@@ -28,3 +28,13 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\Globa
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\refint\GlobalFunctions.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\GlobalFunctions\obj\Debug\net6.0-windows\ref\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.deps.json
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.csproj.CoreCompileInputs.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.sourcelink.json
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\refint\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\ref\GlobalFunctions.dll

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4WSMI1lVpw3oQkZ6AIgSLNKHi4AesiyTFtcKJWfvAeIu8HNYggt0P611ZebFNG+CNuauj9MuU6WnFRai06+1xA==",
+  "dgSpecHash": "aHn8gbmQkRj/JOEX2ZGZmPXPzpd6zOpcdfflK4Qj8MWuNt1eQoip5sgy0jKgHRbXAEcN9tDbzOcwey+ealktKw==",
   "success": true,
-  "projectFilePath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\MKproject\\MKproject.csproj",
+  "projectFilePath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\MKproject\\MKproject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",

@@ -14,6 +14,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CustomizedTools
-build_property.ProjectDir = D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\CustomizedTools\
+build_property.ProjectDir = D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

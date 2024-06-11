@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zRAbGCHaxc7fi9+SU4dpoQcPFAzCi5zEkc5hRLU9tbBk1D6+S6IlqkoMQcixcBew+g40zXjJmWZRmhfTY87+QA==",
+  "dgSpecHash": "4qS9BQPFjvh1fGFJ1qJQ34I8SMTs9THv9A6yo0/O/wPPxaLPYUQWuPyGGWveW8xWiRYjX3eK3sSFkIMlJ82oDA==",
   "success": true,
-  "projectFilePath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj",
+  "projectFilePath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "J9zYVgGUkJEZV1jXHxQ2T+Yrjp8wJOKZUjGFEpFcJ1gwCIyRLn3T0b9fBf26/0D8QWX2Y61FTj4Yd/xuHDHkRA==",
+  "dgSpecHash": "q6Lf9SrSyYUfmq0BUGfjZ89Xh7P4A84aP8QQCvrVhn6YEP6ONvAwi8opaDlemotxDxdA7PQA5ArKsTdEgGslxw==",
   "success": true,
-  "projectFilePath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj",
+  "projectFilePath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\CustomizedTools.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",

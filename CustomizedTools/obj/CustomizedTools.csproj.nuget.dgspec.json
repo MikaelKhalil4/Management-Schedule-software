@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj": {}
+    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\CustomizedTools.csproj": {}
   },
   "projects": {
-    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj": {
+    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\CustomizedTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj",
+        "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\CustomizedTools.csproj",
         "projectName": "CustomizedTools",
-        "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\CustomizedTools.csproj",
+        "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\CustomizedTools.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\CustomizedTools\\obj\\",
+        "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\CustomizedTools\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj": {
-                "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj"
+              "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj": {
+                "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj"
               }
             }
           }
@@ -90,14 +90,14 @@
         }
       }
     },
-    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj": {
+    "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj",
+        "projectUniqueName": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj",
         "projectName": "GlobalFunctions",
-        "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\GlobalFunctions.csproj",
+        "projectPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\GlobalFunctions.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\MKProject .Net6\\GlobalFunctions\\obj\\",
+        "outputPath": "D:\\Work\\ELK projet 1\\ELk-off\\Managing Software(ouaa tmahi)\\Clients\\MKProject Original\\GlobalFunctions\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
