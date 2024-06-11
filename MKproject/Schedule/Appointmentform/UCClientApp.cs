@@ -912,8 +912,8 @@ namespace MKproject.Schedule
             if (newRegister.Visible == false)
             {
                 ParentFormAppointment.DisableClosingOnDisactivating = false;
+                Program.NewRegisterForm.VisibleChanged -= NewRegisterForm_VisibleChanged;
             }
-            Program.NewRegisterForm.VisibleChanged -= NewRegisterForm_VisibleChanged;
         }
         private void NewRegisterForm_ClientSaved(object sender, EventArgs e)
         {

@@ -41,7 +41,7 @@
             TLPglobal.ColumnCount = 4;
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             TLPglobal.Controls.Add(textBoxSearch, 1, 1);
             TLPglobal.Controls.Add(ButtonNewClient, 2, 1);
@@ -64,10 +64,11 @@
             textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             textBoxSearch.ForeColor = System.Drawing.Color.Gray;
             textBoxSearch.IsRequiredModeOn = false;
-            textBoxSearch.Location = new System.Drawing.Point(85, 83);
+            textBoxSearch.Location = new System.Drawing.Point(70, 83);
+            textBoxSearch.Margin = new System.Windows.Forms.Padding(0);
             textBoxSearch.Name = "textBoxSearch";
             textBoxSearch.PlaceholderText = "By name or phone ";
-            textBoxSearch.Size = new System.Drawing.Size(233, 29);
+            textBoxSearch.Size = new System.Drawing.Size(268, 29);
             textBoxSearch.TabIndex = 31;
             textBoxSearch.Text = "By name or phone ";
             textBoxSearch.Click += textBoxSearch_Click;
@@ -85,7 +86,7 @@
             ButtonNewClient.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonNewClient.ForeColor = System.Drawing.Color.White;
             ButtonNewClient.Image = (System.Drawing.Image)resources.GetObject("ButtonNewClient.Image");
-            ButtonNewClient.Location = new System.Drawing.Point(347, 83);
+            ButtonNewClient.Location = new System.Drawing.Point(349, 83);
             ButtonNewClient.Name = "ButtonNewClient";
             ButtonNewClient.Size = new System.Drawing.Size(92, 29);
             ButtonNewClient.TabIndex = 70;

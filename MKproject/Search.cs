@@ -101,6 +101,9 @@ namespace MKproject
             dataGridViewMembers.Columns["name"].Visible = false;
             dataGridViewMembers.Columns["family_name"].Visible = false;
 
+
+            dataGridViewMembers.Columns["Full Name"].FillWeight = 67;
+            dataGridViewMembers.Columns["Phone Number"].FillWeight = 33;
             dataGridViewMembers.ClearSelection();
 
             FixFormSize();
