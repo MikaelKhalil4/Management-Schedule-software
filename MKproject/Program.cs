@@ -37,9 +37,9 @@ namespace MKproject
         //Tablet/Mikas: Data Source=MKpc;Initial Catalog=MKproject;Integrated Security=True;
         //Mikas: Data Source=MKpc;Initial Catalog=MKproject;User ID=sa;Password=1234
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
+        //Elie:C:\\Users\\USER\\Documents\\ELKdb\
 
-
-        public static string DataLocation = "Data Source= C:\\Users\\USER\\Documents\\ELKdb\\ELK.db";
+        public static string DataLocation = "Data Source=  C:\\Users\\USER\\Documents\\ELKdb\\ELK.db";
         public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\ELKdb\\ProfileImages";
 
 
@@ -51,7 +51,8 @@ namespace MKproject
         [STAThread]
         static void Main()
         {
-            Currency.GetCurrency();
+            Currency.Symbol="$";
+            Currency.CurrencyName = "USD";
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -344,7 +344,6 @@ namespace MKproject.Management
             Cursor.Current = Cursors.WaitCursor;
             DataTable dt;
 
-          
             dt = SQLToProject.GetAllVisibleFields();
 
 
@@ -356,7 +355,9 @@ namespace MKproject.Management
                 string FieldName = row["Fields"].ToString();
 
                 // Check if the "Full Name" field exists in the table
-                if (FieldName == ClassClient.enumType.FullName.ToString())
+          
+                //Static
+                if (FieldName == ClassClient.enumStaticFields.FullName.ToString())
                 {
                     if (isVisible)
                     {
@@ -395,94 +396,14 @@ namespace MKproject.Management
                     }
 
                 }
-
-                else if (FieldName == ClassClient.enumType.Height.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCHeight == null)
-                        {
-                            UCHeight = new TLPOtherOptions(ClassClient.enumType.Height.GetStringValue(), isRequired, CreateHeightUCDoubleCombo());
-                            UCHeight.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCHeight);
-                        }
-                        else
-                        {
-                            if (isRequired && !UCHeight.IsRequired)
-                            {
-                                UCHeight.IsRequired = true;
-                            }
-                            else if (!isRequired && UCHeight.IsRequired)
-                            {
-                                UCHeight.IsRequired = false;
-                            }
-                        }
-                        if (Client != null)
-                        {
-                            UCHeight.FillDesignValues(Client.Height);
-                        }
-                        UCHeight.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCHeight != null)
-                        {
-
-                            this.Controls.Remove(UCHeight);
-                            UCHeight.Dispose();
-                            UCHeight = null;
-                        }
-                    }
-                }
-                else if (FieldName == ClassClient.enumType.Weight.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCWeight == null)
-                        {
-                            UCWeight = new TLPOtherOptions(ClassClient.enumType.Weight.GetStringValue(), isRequired, CreateWeightUCDoubleCombo());
-                            UCWeight.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCWeight);
-                        }
-                        else
-                        {
-                            if (isRequired && !UCWeight.IsRequired)
-                            {
-                                UCWeight.IsRequired = true;
-                            }
-                            else if (!isRequired && UCWeight.IsRequired)
-                            {
-                                UCWeight.IsRequired = false;
-                            }
-                        }
-                        if (Client != null)
-                        {
-                            UCWeight.FillDesignValues(Client.Weight);
-                        }
-                        UCWeight.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCWeight != null)
-                        {
-
-                            this.Controls.Remove(UCWeight);
-                            UCWeight.Dispose();
-                            UCWeight = null;
-                        }
-                    }
-                }
-
-
-                else if (FieldName == ClassClient.enumType.Gender.ToString())
+              
+                else if (FieldName == ClassClient.enumStaticFields.Gender.ToString())
                 {
                     if (isVisible)
                     {
                         if (UCGender == null)
                         {
-                            UCGender = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.Gender.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.Gender.Male.GetStringValue(), ClassOptionsInsideFields.Gender.Female.GetStringValue(), true);
+                            UCGender = new TLPCheckboxesAndRadioOptions(ClassClient.enumStaticFields.Gender.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.Gender.Male.GetStringValue(), ClassOptionsInsideFields.Gender.Female.GetStringValue(), true);
                             UCGender.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCGender);
                         }
@@ -516,14 +437,13 @@ namespace MKproject.Management
                     }
                 }
 
-
-                else if (FieldName == ClassClient.enumType.BirthDate.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.BirthDate.ToString())
                 {
                     if (isVisible)
                     {
                         if (UCBirthDate == null)
                         {
-                            UCBirthDate = new TLPOtherOptions(ClassClient.enumType.BirthDate.GetStringValue(), isRequired, CreateDateTimePicker());
+                            UCBirthDate = new TLPOtherOptions(ClassClient.enumStaticFields.BirthDate.GetStringValue(), isRequired, CreateDateTimePicker());
                             UCBirthDate.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCBirthDate);
                         }
@@ -557,263 +477,14 @@ namespace MKproject.Management
                     }
 
                 }
-
-                else if (FieldName == ClassClient.enumType.BodyShapeTarget.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCBodyshapetarget == null)
-                        {
-
-                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
-                            foreach (ClassOptionsInsideFields.enumBodyShapeTarget enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumBodyShapeTarget)))
-                            {
-                                ListOptions.Add((enumValue.GetStringValue(), null, null));
-                            }
-
-
-                            UCBodyshapetarget = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.BodyShapeTarget.GetStringValue(), isRequired, true, ListOptions, null, null, true);
-                            UCBodyshapetarget.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCBodyshapetarget);
-                        }
-                        else
-                        {
-                            if (isRequired && !UCBodyshapetarget.IsRequired)
-                            {
-                                UCBodyshapetarget.IsRequired = true;
-                            }
-                            else if (!isRequired && UCBodyshapetarget.IsRequired)
-                            {
-                                UCBodyshapetarget.IsRequired = false;
-                            }
-                        }
-                        if (Client != null && Client.BodyShapeTarget != null)
-                        {
-                            UCBodyshapetarget.FillDesignValues(Client.BodyShapeTarget);
-                        }
-                        UCBodyshapetarget.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCBodyshapetarget != null)
-                        {
-
-                            this.Controls.Remove(UCBodyshapetarget);
-                            UCBodyshapetarget.Dispose();
-                            UCBodyshapetarget = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.Hand.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCHand == null)
-                        {
-                            UCHand = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.Hand.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.RightLeft.Right.GetStringValue(), ClassOptionsInsideFields.RightLeft.Left.GetStringValue(), true);
-                            UCHand.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCHand);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCHand.IsRequired)
-                            {
-                                UCHand.IsRequired = true;
-                            }
-                            else if (!isRequired && UCHand.IsRequired)
-                            {
-                                UCHand.IsRequired = false;
-                            }
-                        }
-                        if (Client != null && Client.Hand != null)//to fill the info if i am editing a client
-                        {
-                            UCHand.FillDesignValues(Client.Hand);
-                        }
-
-                        UCHand.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCHand != null)
-                        {
-
-                            this.Controls.Remove(UCHand);
-                            UCHand.Dispose();
-                            UCHand = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.Injuries.ToString())
-                {
-                    if (isVisible)
-                    {
-
-                        if (UCinjuries == null)
-                        {
-                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
-
-                            ListOptions.Add((ClassOptionsInsideFields.enumNone.None.GetStringValue(), null, null));
-
-                            foreach (ClassOptionsInsideFields.enumInjuries enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumInjuries)))
-                            {
-
-                                if (enumValue == ClassOptionsInsideFields.enumInjuries.Others)
-                                {
-                                    ListOptions.Add((enumValue.GetStringValue(), new TextBoxWithPlaceHolder(), ""));
-                                }
-                                else
-                                {
-                                    ListOptions.Add((enumValue.GetStringValue(), null, null));
-                                }
-                            }
-
-
-                            UCinjuries = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.Injuries.GetStringValue(), isRequired, true, ListOptions, null, null, true);
-                            UCinjuries.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCinjuries);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCinjuries.IsRequired)
-                            {
-                                UCinjuries.IsRequired = true;
-                            }
-                            else if (!isRequired && UCinjuries.IsRequired)
-                            {
-                                UCinjuries.IsRequired = false;
-                            }
-                        }
-                        if (Client != null && Client.Injuries != null)
-                        {
-                            UCinjuries.FillDesignValues(Client.Injuries);
-                        }
-                        UCinjuries.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCinjuries != null)
-                        {
-
-                            this.Controls.Remove(UCinjuries);
-                            UCinjuries.Dispose();
-                            UCinjuries = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.MuscleFocusOn.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCMusclesfocuson == null)
-                        {
-
-
-
-                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
-
-                            foreach (ClassOptionsInsideFields.enumMuscleFocusOn enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumMuscleFocusOn)))
-                            {
-                                ListOptions.Add((enumValue.GetStringValue(), null, null));
-                            }
-                            UCMusclesfocuson = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.MuscleFocusOn.GetStringValue(), isRequired, true, ListOptions, null, null, true);
-                            UCMusclesfocuson.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCMusclesfocuson);
-
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCMusclesfocuson.IsRequired)
-                            {
-                                UCMusclesfocuson.IsRequired = true;
-                            }
-                            else if (!isRequired && UCMusclesfocuson.IsRequired)
-                            {
-                                UCMusclesfocuson.IsRequired = false;
-                            }
-                        }
-                        if (Client != null && Client.MuscleFocusOn != null)
-                        {
-                            UCMusclesfocuson.FillDesignValues(Client.MuscleFocusOn);
-                        }
-                        UCMusclesfocuson.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCMusclesfocuson != null)
-                        {
-
-                            this.Controls.Remove(UCMusclesfocuson);
-                            UCMusclesfocuson.Dispose();
-                            UCMusclesfocuson = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.SessionPerWeek.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCSessionperweek == null)
-                        {
-
-                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
-                            foreach (ClassOptionsInsideFields.enumSessionPerWeek enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumSessionPerWeek)))
-                            {
-                                ListOptions.Add((enumValue.GetStringValue(), null, null));
-                            }
-                            UCSessionperweek = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.SessionPerWeek.GetStringValue(), isRequired, false, ListOptions, null, null, true);
-                            UCSessionperweek.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCSessionperweek);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCSessionperweek.IsRequired)
-                            {
-                                UCSessionperweek.IsRequired = true;
-                            }
-                            else if (!isRequired && UCSessionperweek.IsRequired)
-                            {
-                                UCSessionperweek.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.SessionPerWeek != null)
-                        {
-                            UCSessionperweek.FillDesignValues(Client.SessionPerWeek.ToString());
-                        }
-                        UCSessionperweek.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCSessionperweek != null)
-                        {
-
-                            this.Controls.Remove(UCSessionperweek);
-                            UCSessionperweek.Dispose();
-                            UCSessionperweek = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.PhoneNumber.ToString())
+       
+                else if (FieldName == ClassClient.enumStaticFields.PhoneNumber.ToString())
                 {
                     if (isVisible)
                     {
                         if (UCPhoneNumber == null)
                         {
-                            UCPhoneNumber = new UCTextbox1(ClassClient.enumType.PhoneNumber.ToString(), isRequired);
+                            UCPhoneNumber = new UCTextbox1(ClassClient.enumStaticFields.PhoneNumber.ToString(), isRequired);
                             UCPhoneNumber.IsPhoneNumber = true;
                             UCPhoneNumber.textboxtextchange += UCPhoneNumber_textboxtextchange;
 
@@ -857,14 +528,14 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == ClassClient.enumType.Job.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Job.ToString())
                 {
                     if (isVisible)
                     {
 
                         if (UCJob == null)
                         {
-                            UCJob = new UCTextbox1(ClassClient.enumType.Job.ToString(), isRequired);
+                            UCJob = new UCTextbox1(ClassClient.enumStaticFields.Job.ToString(), isRequired);
                             UCJob.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCJob);
 
@@ -900,13 +571,13 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == ClassClient.enumType.Adress.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Adress.ToString())
                 {
                     if (isVisible)
                     {
                         if (UCAdress == null)
                         {
-                            UCAdress = new UCTextbox1(ClassClient.enumType.Adress.ToString(), isRequired);
+                            UCAdress = new UCTextbox1(ClassClient.enumStaticFields.Adress.ToString(), isRequired);
                             UCAdress.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCAdress);
                         }
@@ -941,14 +612,14 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == ClassClient.enumType.InstaUserName.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.InstaUserName.ToString())
                 {
 
                     if (isVisible)
                     {
                         if (UCInsta == null)
                         {
-                            UCInsta = new UCTextbox1(ClassClient.enumType.InstaUserName.GetStringValue(), isRequired);
+                            UCInsta = new UCTextbox1(ClassClient.enumStaticFields.InstaUserName.GetStringValue(), isRequired);
                             UCInsta.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCInsta);
 
@@ -984,13 +655,13 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == ClassClient.enumType.Note.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Note.ToString())
                 {
                     if (isVisible)
                     {
                         if (UCNotes == null)
                         {
-                            UCNotes = new UCTextbox1(ClassClient.enumType.Note.ToString(), isRequired);
+                            UCNotes = new UCTextbox1(ClassClient.enumStaticFields.Note.ToString(), isRequired);
                             UCNotes.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCNotes);
                         }
@@ -1024,13 +695,13 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == ClassClient.enumType.Email.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Email.ToString())
                 {
                     if (isVisible)
                     {
                         if (UCEmail == null)
                         {
-                            UCEmail = new UCTextbox1(ClassClient.enumType.Email.ToString(), isRequired);
+                            UCEmail = new UCTextbox1(ClassClient.enumStaticFields.Email.ToString(), isRequired);
                             UCEmail.IsEmail = true;
                             UCEmail.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCEmail);
@@ -1065,8 +736,714 @@ namespace MKproject.Management
                         }
                     }
                 }
+           
+                else if (FieldName == ClassClient.enumStaticFields.FaceImage.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCProfileImage == null)
+                        {
+                            UCProfileImage = new UCCamera("Profile Picture", isRequired);
+                            UCProfileImage.Tag = this;
+                            UCProfileImage.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCProfileImage);
+                        }
+                        else
+                        {
+                            if (isRequired && !UCProfileImage.IsRequired)
+                            {
+                                UCProfileImage.IsRequired = true;
+                            }
+                            else if (!isRequired && UCProfileImage.IsRequired)
+                            {
+                                UCProfileImage.IsRequired = false;
+                            }
+                        }
 
-                else if (FieldName == ClassClient.enumType.MaritalStatus.ToString())
+                        if (Client != null && Client.ProfileImage != null)
+                        {
+                            UCProfileImage.FillDesignValues(Client.ProfileImage);
+                        }
+
+                        UCProfileImage.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCProfileImage != null)
+                        {
+
+                            this.Controls.Remove(UCProfileImage);
+                            UCProfileImage.Dispose();
+                            UCProfileImage = null;
+                        }
+                    }
+                }
+
+
+
+
+
+
+                //Dynamic
+                else if (FieldName == ClassClient.enumDynamicFields.GoalsTimeline.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCTimelinegoals == null)
+                        {
+
+                            UCTimelinegoals = new TLPOtherOptions(ClassClient.enumDynamicFields.GoalsTimeline.GetStringValue(), isRequired, CreateGoalTimeLineUCNumberComboButt());
+                            UCTimelinegoals.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCTimelinegoals);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCTimelinegoals.IsRequired)
+                            {
+                                UCTimelinegoals.IsRequired = true;
+                            }
+                            else if (!isRequired && UCTimelinegoals.IsRequired)
+                            {
+                                UCTimelinegoals.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.GoalsTimeline != null)//to fill the info if i am editing a client
+                        {
+                            UCTimelinegoals.FillDesignValues(Client.GoalsTimeline);
+                        }
+                        UCTimelinegoals.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCTimelinegoals != null)
+                        {
+
+                            this.Controls.Remove(UCTimelinegoals);
+                            UCTimelinegoals.Dispose();
+                            UCTimelinegoals = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.Smoking.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCSmoking == null)
+                        {
+                            UCSmoking = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.Smoking.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.YesNo.Yes.GetStringValue(), ClassOptionsInsideFields.YesNo.No.GetStringValue(), true);
+                            UCSmoking.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCSmoking);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCSmoking.IsRequired)
+                            {
+                                UCSmoking.IsRequired = true;
+                            }
+                            else if (!isRequired && UCSmoking.IsRequired)
+                            {
+                                UCSmoking.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.Smoking != null)//to fill the info if i am editing a client
+                        {
+                            UCSmoking.FillDesignValues(Client.Smoking.ToString());
+                        }
+                        UCSmoking.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCSmoking != null)
+                        {
+
+                            this.Controls.Remove(UCSmoking);
+                            UCSmoking.Dispose();
+                            UCSmoking = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.Alcohol.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCAlcohol == null)
+                        {
+                            UCAlcohol = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.Alcohol.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.YesNo.Yes.GetStringValue(), ClassOptionsInsideFields.YesNo.No.GetStringValue(), true);
+                            UCAlcohol.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCAlcohol);
+
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCAlcohol.IsRequired)
+                            {
+                                UCAlcohol.IsRequired = true;
+                            }
+                            else if (!isRequired && UCAlcohol.IsRequired)
+                            {
+                                UCAlcohol.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.Alcohol != null)//to fill the info if i am editing a client
+                        {
+                            UCAlcohol.FillDesignValues(Client.Alcohol.ToString());
+                        }
+                        UCAlcohol.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCAlcohol != null)
+                        {
+
+                            this.Controls.Remove(UCAlcohol);
+                            UCAlcohol.Dispose();
+                            UCAlcohol = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.ExerciseHistory.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCExercisehistory == null)
+                        {
+
+                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
+                            foreach (ClassOptionsInsideFields.enumExerciseHistory enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumExerciseHistory)))
+                            {
+                                if (enumValue == ClassOptionsInsideFields.enumExerciseHistory.Others)
+                                {
+                                    ListOptions.Add((enumValue.GetStringValue(), new TextBoxWithPlaceHolder(), ""));
+                                }
+                                else
+                                {
+                                    ListOptions.Add((enumValue.GetStringValue(), null, null));
+                                }
+                            }
+                            UCExercisehistory = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.ExerciseHistory.GetStringValue(), isRequired, true, ListOptions, null, null, true);
+                            UCExercisehistory.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCExercisehistory);
+
+
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCExercisehistory.IsRequired)
+                            {
+                                UCExercisehistory.IsRequired = true;
+                            }
+                            else if (!isRequired && UCExercisehistory.IsRequired)
+                            {
+                                UCExercisehistory.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.ExerciseHistory != null)
+                        {
+                            UCExercisehistory.FillDesignValues(Client.ExerciseHistory);
+                        }
+                        UCExercisehistory.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCExercisehistory != null)
+                        {
+
+                            this.Controls.Remove(UCExercisehistory);
+                            UCExercisehistory.Dispose();
+                            UCExercisehistory = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.SleepPattern.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCSleeppattern == null)
+                        {
+                            UCSleeppattern = new TLPOtherOptions(ClassClient.enumDynamicFields.SleepPattern.GetStringValue(), isRequired, CreateSleepPatternUCNumberLabelButt());
+                            UCSleeppattern.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCSleeppattern);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCSleeppattern.IsRequired)
+                            {
+                                UCSleeppattern.IsRequired = true;
+                            }
+                            else if (!isRequired && UCSleeppattern.IsRequired)
+                            {
+                                UCSleeppattern.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.SleepPattern != null)//to fill the info if i am editing a client
+                        {
+                            UCSleeppattern.FillDesignValues(Client.SleepPattern.ToString());
+                        }
+                        UCSleeppattern.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCSleeppattern != null)
+                        {
+
+                            this.Controls.Remove(UCSleeppattern);
+                            UCSleeppattern.Dispose();
+                            UCSleeppattern = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.StressLevel.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCStresslevel == null)
+                        {
+
+                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
+                            foreach (ClassOptionsInsideFields.enumStressLevel enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumStressLevel)))
+                            {
+                                ListOptions.Add((enumValue.GetStringValue(), null, null));
+                            }
+
+
+                            UCStresslevel = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.StressLevel.GetStringValue(), isRequired, false, ListOptions, null, null, true);
+                            UCStresslevel.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCStresslevel);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCStresslevel.IsRequired)
+                            {
+                                UCStresslevel.IsRequired = true;
+                            }
+                            else if (!isRequired && UCStresslevel.IsRequired)
+                            {
+                                UCStresslevel.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.StressLevel != null)
+                        {
+                            UCStresslevel.FillDesignValues(Client.StressLevel);
+                        }
+                        UCStresslevel.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCStresslevel != null)
+                        {
+
+                            this.Controls.Remove(UCStresslevel);
+                            UCStresslevel.Dispose();
+                            UCStresslevel = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.BoxingSkills.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCFightingSkills == null)
+                        {
+
+                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
+
+                            foreach (ClassOptionsInsideFields.enumFightingSkills enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumFightingSkills)))
+                            {
+                                ListOptions.Add((enumValue.GetStringValue(), null, null));
+                            }
+
+                            UCFightingSkills = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.BoxingSkills.GetStringValue(), isRequired, true, ListOptions, ClassOptionsInsideFields.YesNo.Yes.GetStringValue(), ClassOptionsInsideFields.YesNo.No.GetStringValue(), true);
+                            UCFightingSkills.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCFightingSkills);
+
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCFightingSkills.IsRequired)
+                            {
+                                UCFightingSkills.IsRequired = true;
+                            }
+                            else if (!isRequired && UCFightingSkills.IsRequired)
+                            {
+                                UCFightingSkills.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.FightingSkills != null)
+                        {
+                            UCFightingSkills.FillDesignValues(Client.FightingSkills);
+                        }
+                        UCFightingSkills.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCFightingSkills != null)
+                        {
+
+                            this.Controls.Remove(UCFightingSkills);
+                            UCFightingSkills.Dispose();
+                            UCFightingSkills = null;
+                        }
+                    }
+                }
+           
+                else if (FieldName == ClassClient.enumDynamicFields.Height.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCHeight == null)
+                        {
+                            UCHeight = new TLPOtherOptions(ClassClient.enumDynamicFields.Height.GetStringValue(), isRequired, CreateHeightUCDoubleCombo());
+                            UCHeight.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCHeight);
+                        }
+                        else
+                        {
+                            if (isRequired && !UCHeight.IsRequired)
+                            {
+                                UCHeight.IsRequired = true;
+                            }
+                            else if (!isRequired && UCHeight.IsRequired)
+                            {
+                                UCHeight.IsRequired = false;
+                            }
+                        }
+                        if (Client != null)
+                        {
+                            UCHeight.FillDesignValues(Client.Height);
+                        }
+                        UCHeight.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCHeight != null)
+                        {
+
+                            this.Controls.Remove(UCHeight);
+                            UCHeight.Dispose();
+                            UCHeight = null;
+                        }
+                    }
+                }
+           
+                else if (FieldName == ClassClient.enumDynamicFields.Weight.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCWeight == null)
+                        {
+                            UCWeight = new TLPOtherOptions(ClassClient.enumDynamicFields.Weight.GetStringValue(), isRequired, CreateWeightUCDoubleCombo());
+                            UCWeight.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCWeight);
+                        }
+                        else
+                        {
+                            if (isRequired && !UCWeight.IsRequired)
+                            {
+                                UCWeight.IsRequired = true;
+                            }
+                            else if (!isRequired && UCWeight.IsRequired)
+                            {
+                                UCWeight.IsRequired = false;
+                            }
+                        }
+                        if (Client != null)
+                        {
+                            UCWeight.FillDesignValues(Client.Weight);
+                        }
+                        UCWeight.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCWeight != null)
+                        {
+
+                            this.Controls.Remove(UCWeight);
+                            UCWeight.Dispose();
+                            UCWeight = null;
+                        }
+                    }
+                }
+          
+                else if (FieldName == ClassClient.enumDynamicFields.BodyShapeTarget.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCBodyshapetarget == null)
+                        {
+
+                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
+                            foreach (ClassOptionsInsideFields.enumBodyShapeTarget enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumBodyShapeTarget)))
+                            {
+                                ListOptions.Add((enumValue.GetStringValue(), null, null));
+                            }
+
+
+                            UCBodyshapetarget = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.BodyShapeTarget.GetStringValue(), isRequired, true, ListOptions, null, null, true);
+                            UCBodyshapetarget.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCBodyshapetarget);
+                        }
+                        else
+                        {
+                            if (isRequired && !UCBodyshapetarget.IsRequired)
+                            {
+                                UCBodyshapetarget.IsRequired = true;
+                            }
+                            else if (!isRequired && UCBodyshapetarget.IsRequired)
+                            {
+                                UCBodyshapetarget.IsRequired = false;
+                            }
+                        }
+                        if (Client != null && Client.BodyShapeTarget != null)
+                        {
+                            UCBodyshapetarget.FillDesignValues(Client.BodyShapeTarget);
+                        }
+                        UCBodyshapetarget.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCBodyshapetarget != null)
+                        {
+
+                            this.Controls.Remove(UCBodyshapetarget);
+                            UCBodyshapetarget.Dispose();
+                            UCBodyshapetarget = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.MuscleFocusOn.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCMusclesfocuson == null)
+                        {
+
+
+
+                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
+
+                            foreach (ClassOptionsInsideFields.enumMuscleFocusOn enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumMuscleFocusOn)))
+                            {
+                                ListOptions.Add((enumValue.GetStringValue(), null, null));
+                            }
+                            UCMusclesfocuson = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.MuscleFocusOn.GetStringValue(), isRequired, true, ListOptions, null, null, true);
+                            UCMusclesfocuson.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCMusclesfocuson);
+
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCMusclesfocuson.IsRequired)
+                            {
+                                UCMusclesfocuson.IsRequired = true;
+                            }
+                            else if (!isRequired && UCMusclesfocuson.IsRequired)
+                            {
+                                UCMusclesfocuson.IsRequired = false;
+                            }
+                        }
+                        if (Client != null && Client.MuscleFocusOn != null)
+                        {
+                            UCMusclesfocuson.FillDesignValues(Client.MuscleFocusOn);
+                        }
+                        UCMusclesfocuson.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCMusclesfocuson != null)
+                        {
+
+                            this.Controls.Remove(UCMusclesfocuson);
+                            UCMusclesfocuson.Dispose();
+                            UCMusclesfocuson = null;
+                        }
+                    }
+                }
+              
+                else if (FieldName == ClassClient.enumDynamicFields.Injuries.ToString())
+                {
+                    if (isVisible)
+                    {
+
+                        if (UCinjuries == null)
+                        {
+                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
+
+                            ListOptions.Add((ClassOptionsInsideFields.enumNone.None.GetStringValue(), null, null));
+
+                            foreach (ClassOptionsInsideFields.enumInjuries enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumInjuries)))
+                            {
+
+                                if (enumValue == ClassOptionsInsideFields.enumInjuries.Others)
+                                {
+                                    ListOptions.Add((enumValue.GetStringValue(), new TextBoxWithPlaceHolder(), ""));
+                                }
+                                else
+                                {
+                                    ListOptions.Add((enumValue.GetStringValue(), null, null));
+                                }
+                            }
+
+
+                            UCinjuries = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.Injuries.GetStringValue(), isRequired, true, ListOptions, null, null, true);
+                            UCinjuries.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCinjuries);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCinjuries.IsRequired)
+                            {
+                                UCinjuries.IsRequired = true;
+                            }
+                            else if (!isRequired && UCinjuries.IsRequired)
+                            {
+                                UCinjuries.IsRequired = false;
+                            }
+                        }
+                        if (Client != null && Client.Injuries != null)
+                        {
+                            UCinjuries.FillDesignValues(Client.Injuries);
+                        }
+                        UCinjuries.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCinjuries != null)
+                        {
+
+                            this.Controls.Remove(UCinjuries);
+                            UCinjuries.Dispose();
+                            UCinjuries = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.Hand.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCHand == null)
+                        {
+                            UCHand = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.Hand.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.RightLeft.Right.GetStringValue(), ClassOptionsInsideFields.RightLeft.Left.GetStringValue(), true);
+                            UCHand.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCHand);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCHand.IsRequired)
+                            {
+                                UCHand.IsRequired = true;
+                            }
+                            else if (!isRequired && UCHand.IsRequired)
+                            {
+                                UCHand.IsRequired = false;
+                            }
+                        }
+                        if (Client != null && Client.Hand != null)//to fill the info if i am editing a client
+                        {
+                            UCHand.FillDesignValues(Client.Hand);
+                        }
+
+                        UCHand.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCHand != null)
+                        {
+
+                            this.Controls.Remove(UCHand);
+                            UCHand.Dispose();
+                            UCHand = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.SessionPerWeek.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCSessionperweek == null)
+                        {
+
+                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
+                            foreach (ClassOptionsInsideFields.enumSessionPerWeek enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumSessionPerWeek)))
+                            {
+                                ListOptions.Add((enumValue.GetStringValue(), null, null));
+                            }
+                            UCSessionperweek = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.SessionPerWeek.GetStringValue(), isRequired, false, ListOptions, null, null, true);
+                            UCSessionperweek.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCSessionperweek);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCSessionperweek.IsRequired)
+                            {
+                                UCSessionperweek.IsRequired = true;
+                            }
+                            else if (!isRequired && UCSessionperweek.IsRequired)
+                            {
+                                UCSessionperweek.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.SessionPerWeek != null)
+                        {
+                            UCSessionperweek.FillDesignValues(Client.SessionPerWeek.ToString());
+                        }
+                        UCSessionperweek.Index = DesignIndex;
+
+                    }
+                    else
+                    {
+                        if (UCSessionperweek != null)
+                        {
+
+                            this.Controls.Remove(UCSessionperweek);
+                            UCSessionperweek.Dispose();
+                            UCSessionperweek = null;
+                        }
+                    }
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.MaritalStatus.ToString())
                 {
                     if (isVisible)
                     {
@@ -1086,7 +1463,7 @@ namespace MKproject.Management
 
                             }
 
-                            UCMaritalstatus = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.MaritalStatus.GetStringValue(), isRequired, true, ListOptions, null, null, true);
+                            UCMaritalstatus = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.MaritalStatus.GetStringValue(), isRequired, true, ListOptions, null, null, true);
                             UCMaritalstatus.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCMaritalstatus);
 
@@ -1122,7 +1499,7 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == ClassClient.enumType.HowDidYouKnowAboutUs.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.HowDidYouKnowAboutUs.ToString())
                 {
                     if (isVisible)
                     {
@@ -1166,7 +1543,7 @@ namespace MKproject.Management
                                 }
                             }
 
-                            UCKnowaboutus = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.HowDidYouKnowAboutUs.GetStringValue(), isRequired, true, ListOptions, null, null, true);
+                            UCKnowaboutus = new TLPCheckboxesAndRadioOptions(ClassClient.enumDynamicFields.HowDidYouKnowAboutUs.GetStringValue(), isRequired, true, ListOptions, null, null, true);
                             UCKnowaboutus.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCKnowaboutus);
 
@@ -1203,376 +1580,9 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == ClassClient.enumType.GoalsTimeline.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCTimelinegoals == null)
-                        {
-
-                            UCTimelinegoals = new TLPOtherOptions(ClassClient.enumType.GoalsTimeline.GetStringValue(), isRequired, CreateGoalTimeLineUCNumberComboButt());
-                            UCTimelinegoals.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCTimelinegoals);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCTimelinegoals.IsRequired)
-                            {
-                                UCTimelinegoals.IsRequired = true;
-                            }
-                            else if (!isRequired && UCTimelinegoals.IsRequired)
-                            {
-                                UCTimelinegoals.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.GoalsTimeline != null)//to fill the info if i am editing a client
-                        {
-                            UCTimelinegoals.FillDesignValues(Client.GoalsTimeline);
-                        }
-                        UCTimelinegoals.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCTimelinegoals != null)
-                        {
-
-                            this.Controls.Remove(UCTimelinegoals);
-                            UCTimelinegoals.Dispose();
-                            UCTimelinegoals = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.Smoking.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCSmoking == null)
-                        {
-                            UCSmoking = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.Smoking.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.YesNo.Yes.GetStringValue(), ClassOptionsInsideFields.YesNo.No.GetStringValue(), true);
-                            UCSmoking.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCSmoking);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCSmoking.IsRequired)
-                            {
-                                UCSmoking.IsRequired = true;
-                            }
-                            else if (!isRequired && UCSmoking.IsRequired)
-                            {
-                                UCSmoking.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.Smoking != null)//to fill the info if i am editing a client
-                        {
-                            UCSmoking.FillDesignValues(Client.Smoking.ToString());
-                        }
-                        UCSmoking.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCSmoking != null)
-                        {
-
-                            this.Controls.Remove(UCSmoking);
-                            UCSmoking.Dispose();
-                            UCSmoking = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.Alcohol.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCAlcohol == null)
-                        {
-                            UCAlcohol = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.Alcohol.GetStringValue(), isRequired, false, null, ClassOptionsInsideFields.YesNo.Yes.GetStringValue(), ClassOptionsInsideFields.YesNo.No.GetStringValue(), true);
-                            UCAlcohol.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCAlcohol);
-
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCAlcohol.IsRequired)
-                            {
-                                UCAlcohol.IsRequired = true;
-                            }
-                            else if (!isRequired && UCAlcohol.IsRequired)
-                            {
-                                UCAlcohol.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.Alcohol != null)//to fill the info if i am editing a client
-                        {
-                            UCAlcohol.FillDesignValues(Client.Alcohol.ToString());
-                        }
-                        UCAlcohol.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCAlcohol != null)
-                        {
-
-                            this.Controls.Remove(UCAlcohol);
-                            UCAlcohol.Dispose();
-                            UCAlcohol = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.ExerciseHistory.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCExercisehistory == null)
-                        {
-
-                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
-                            foreach (ClassOptionsInsideFields.enumExerciseHistory enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumExerciseHistory)))
-                            {
-                                if (enumValue == ClassOptionsInsideFields.enumExerciseHistory.Others)
-                                {
-                                    ListOptions.Add((enumValue.GetStringValue(), new TextBoxWithPlaceHolder(), ""));
-                                }
-                                else
-                                {
-                                    ListOptions.Add((enumValue.GetStringValue(), null, null));
-                                }
-                            }
-                            UCExercisehistory = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.ExerciseHistory.GetStringValue(), isRequired, true, ListOptions, null, null, true);
-                            UCExercisehistory.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCExercisehistory);
 
 
 
-                        }
-                        else
-                        {
-                            if (isRequired && !UCExercisehistory.IsRequired)
-                            {
-                                UCExercisehistory.IsRequired = true;
-                            }
-                            else if (!isRequired && UCExercisehistory.IsRequired)
-                            {
-                                UCExercisehistory.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.ExerciseHistory != null)
-                        {
-                            UCExercisehistory.FillDesignValues(Client.ExerciseHistory);
-                        }
-                        UCExercisehistory.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCExercisehistory != null)
-                        {
-
-                            this.Controls.Remove(UCExercisehistory);
-                            UCExercisehistory.Dispose();
-                            UCExercisehistory = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.SleepPattern.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCSleeppattern == null)
-                        {
-                            UCSleeppattern = new TLPOtherOptions(ClassClient.enumType.SleepPattern.GetStringValue(), isRequired, CreateSleepPatternUCNumberLabelButt());
-                            UCSleeppattern.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCSleeppattern);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCSleeppattern.IsRequired)
-                            {
-                                UCSleeppattern.IsRequired = true;
-                            }
-                            else if (!isRequired && UCSleeppattern.IsRequired)
-                            {
-                                UCSleeppattern.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.SleepPattern != null)//to fill the info if i am editing a client
-                        {
-                            UCSleeppattern.FillDesignValues(Client.SleepPattern.ToString());
-                        }
-                        UCSleeppattern.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCSleeppattern != null)
-                        {
-
-                            this.Controls.Remove(UCSleeppattern);
-                            UCSleeppattern.Dispose();
-                            UCSleeppattern = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.StressLevel.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCStresslevel == null)
-                        {
-
-                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
-                            foreach (ClassOptionsInsideFields.enumStressLevel enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumStressLevel)))
-                            {
-                                ListOptions.Add((enumValue.GetStringValue(), null, null));
-                            }
-
-
-                            UCStresslevel = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.StressLevel.GetStringValue(), isRequired, false, ListOptions, null, null, true);
-                            UCStresslevel.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCStresslevel);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCStresslevel.IsRequired)
-                            {
-                                UCStresslevel.IsRequired = true;
-                            }
-                            else if (!isRequired && UCStresslevel.IsRequired)
-                            {
-                                UCStresslevel.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.StressLevel != null)
-                        {
-                            UCStresslevel.FillDesignValues(Client.StressLevel);
-                        }
-                        UCStresslevel.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCStresslevel != null)
-                        {
-
-                            this.Controls.Remove(UCStresslevel);
-                            UCStresslevel.Dispose();
-                            UCStresslevel = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.FaceImage.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCProfileImage == null)
-                        {
-                            UCProfileImage = new UCCamera("Profile Picture", isRequired);
-                            UCProfileImage.Tag = this;
-                            UCProfileImage.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCProfileImage);
-                        }
-                        else
-                        {
-                            if (isRequired && !UCProfileImage.IsRequired)
-                            {
-                                UCProfileImage.IsRequired = true;
-                            }
-                            else if (!isRequired && UCProfileImage.IsRequired)
-                            {
-                                UCProfileImage.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.ProfileImage != null)
-                        {
-                            UCProfileImage.FillDesignValues(Client.ProfileImage);
-                        }
-
-                        UCProfileImage.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCProfileImage != null)
-                        {
-
-                            this.Controls.Remove(UCProfileImage);
-                            UCProfileImage.Dispose();
-                            UCProfileImage = null;
-                        }
-                    }
-                }
-
-                else if (FieldName == ClassClient.enumType.BoxingSkills.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCFightingSkills == null)
-                        {
-
-                            List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
-
-                            foreach (ClassOptionsInsideFields.enumFightingSkills enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumFightingSkills)))
-                            {
-                                ListOptions.Add((enumValue.GetStringValue(), null, null));
-                            }
-
-                            UCFightingSkills = new TLPCheckboxesAndRadioOptions(ClassClient.enumType.BoxingSkills.GetStringValue(), isRequired, true, ListOptions, ClassOptionsInsideFields.YesNo.Yes.GetStringValue(), ClassOptionsInsideFields.YesNo.No.GetStringValue(), true);
-                            UCFightingSkills.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCFightingSkills);
-
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCFightingSkills.IsRequired)
-                            {
-                                UCFightingSkills.IsRequired = true;
-                            }
-                            else if (!isRequired && UCFightingSkills.IsRequired)
-                            {
-                                UCFightingSkills.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.FightingSkills != null)
-                        {
-                            UCFightingSkills.FillDesignValues(Client.FightingSkills);
-                        }
-                        UCFightingSkills.Index = DesignIndex;
-
-                    }
-                    else
-                    {
-                        if (UCFightingSkills != null)
-                        {
-
-                            this.Controls.Remove(UCFightingSkills);
-                            UCFightingSkills.Dispose();
-                            UCFightingSkills = null;
-                        }
-                    }
-                }
             }
 
             if (IsUpdateOrCreate)

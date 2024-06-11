@@ -19,6 +19,8 @@ namespace MKproject.Management
         //personal
         public int ClientId { get; set; }
 
+
+        //Static fields
         private string fname;
         public string Fname
         {
@@ -27,7 +29,6 @@ namespace MKproject.Management
         }
 
         private string lname;
-
         public string Lname
         {
             get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lname.ToLower()); }
@@ -40,9 +41,9 @@ namespace MKproject.Management
         public string Adress { get; set; }
         public string InstaUserName { get; set; }
         public string Email { get; set; }
-        public string MaritalStatus { get; set; }
-        public string KnowAboutUs { get; set; }
-
+        public string Note { get; set; }
+        public Image ProfileImage { get; set; }
+        public string ProfileImageName { get; set; }
         private DateTime? birthDate;
         public DateTime? BirthDate
         {
@@ -62,35 +63,12 @@ namespace MKproject.Management
 
             }
         }
-
         public int? Age { get; set; }
-        //ma hattayna? cz hole deyman fiyun values
-        public bool IsParent { get; set; }
-        public bool IsChild { get; set; }
+      
 
-
-        public string AlbumType { get; set; }  //when it null, mean no album
-
-        public Image ProfileImage { get; set; }
-        public string ProfileImageName { get; set; }
-
-        //business
-        public DateTime? SaveDate { get; set; }
-        public DateTime? LastVisit { get; set; }//used to know if the client is visitor or none visitor
-        public DateTime? RegistrationDate { get; set; }//used to know if the client is member or no
-
-
-
-        public string PackagesRemaining;
-        public int PackagesStatus;
-        public bool PackagesHAsStatus;
-
-        public int TotalAttendance { get; set; }//you should do its logic on reducing
-        public int daysLeft { get; set; }//lezim zida bi sql w wen ma ken metel el seeion left    
-        public double TotalBalance { get; set; }
-        public double TotalPayment { get; set; }
-
-        //sport
+    
+      
+        //Dynamic
         public string Height { get; set; }
         public string Weight { get; set; }
         public string BodyShapeTarget { get; set; }
@@ -98,7 +76,8 @@ namespace MKproject.Management
         public string Injuries { get; set; }
         public string Hand { get; set; }
         public int? SessionPerWeek { get; set; }
-        public string Note { get; set; }
+        public string MaritalStatus { get; set; }
+        public string KnowAboutUs { get; set; }
         public string GoalsTimeline { get; set; }
         public string Smoking { get; set; }
         public string Alcohol { get; set; }
@@ -111,6 +90,29 @@ namespace MKproject.Management
 
 
 
+        //ma hattayna? cz hole deyman fiyun values
+        public bool IsParent { get; set; }
+        public bool IsChild { get; set; }
+
+        public string AlbumType { get; set; }  //when it null, mean no album
+
+
+        //business
+        public DateTime? SaveDate { get; set; }
+        public DateTime? LastVisit { get; set; }//used to know if the client is visitor or none visitor
+        public DateTime? RegistrationDate { get; set; }//used to know if the client is member or no
+
+
+        public string PackagesRemaining;
+        public int PackagesStatus;
+        public bool PackagesHAsStatus;
+
+        public int TotalAttendance { get; set; }//you should do its logic on reducing
+        public int daysLeft { get; set; }//lezim zida bi sql w wen ma ken metel el seeion left    
+        public double TotalBalance { get; set; }
+        public double TotalPayment { get; set; }
+
+
 
 
         public enum ClientGender
@@ -120,14 +122,11 @@ namespace MKproject.Management
             Female
         }
 
-        public enum enumType//most of enum strings are in registation field table  the same string in sql 
+        public enum enumStaticFields//most of enum strings are in registation field table  the same string in sql 
         {
-            //personal
-
+            //static
             [StringValue("Full Name")]
             FullName,
-            FirstName,
-            LastName,
             [StringValue("Phone Number")]
             PhoneNumber,
             [StringValue("Gender")]
@@ -139,31 +138,21 @@ namespace MKproject.Management
             [StringValue("Insta")]
             InstaUserName,
             [StringValue("Birthday")]
-            BirthDate,
-            [StringValue("Age")]
-            Age,
-            IsChild,
-            IsParent,
-            [StringValue("New Album")]//hal el wahide li mesg mawjude bel registartion fields bas shelneha lieano eeyzina
-            Album,
+            BirthDate,           
             [StringValue("Image")]
             FaceImage,
             [StringValue("Email")]
-            Email,
-            [StringValue("Marital status")]
-            MaritalStatus,
-            [StringValue("How did you know about us")]
-            HowDidYouKnowAboutUs,
+            Email,  
             [StringValue("Notes")]
             Note,
-
-            //buisness
-            LastVisit,
-            RegistrationDate,
-            SessionNumber,
-            SessionLeft,
-
-            //sport
+      
+            //thats how we access a value
+            //Enum.GetName(typeof(ClassClient.Type), ClassClient.Type.) 
+            //Enum.GetName(typeof(ClassClient.Type), ClassClient.Type.) 
+        }
+        public enum enumDynamicFields
+        {
+            //Dynamic
             [StringValue("Height")]
             Height,
             [StringValue("Weight")]
@@ -178,32 +167,25 @@ namespace MKproject.Management
             Hand,
             [StringValue("Sessions/Week")]
             SessionPerWeek,
-            Levels,
-            levelFeedback,
-            Vision,
+            [StringValue("Marital status")]
+            MaritalStatus,
+            [StringValue("How did you know about us")]
+            HowDidYouKnowAboutUs,
             [StringValue("Goals Timeline")]
             GoalsTimeline,
             [StringValue("Smoking")]
             Smoking,
             [StringValue("Alcohol")]
             Alcohol,
-            [StringValue("Exercise History")]
-            ExerciseHistory,
             [StringValue("Sleep Pattern")]
             SleepPattern,
             [StringValue("Stress Level")]
             StressLevel,
             [StringValue("Focus on Boxing skills")]
             BoxingSkills,
-
-
-            //thats how we access a value
-            //Enum.GetName(typeof(ClassClient.Type), ClassClient.Type.) 
-            //Enum.GetName(typeof(ClassClient.Type), ClassClient.Type.) 
+            [StringValue("Exercise History")]
+            ExerciseHistory
         }
-
-
-
 
         public ClassClient()
         {
@@ -1125,6 +1107,8 @@ namespace MKproject.Management
 
 
             client.ClientId = Convert.ToInt32(datarow["client_id"]);//noway ykun bel db fi client ma endo clientid
+           
+            //static
             client.Fname = datarow["name"] is DBNull ? null : (string)datarow["name"];
             client.Lname = datarow["family_name"] is DBNull ? null : (string)datarow["family_name"];
             client.PhoneNumber = datarow["phone_number"] is DBNull ? null : (string)datarow["phone_number"];
@@ -1133,20 +1117,39 @@ namespace MKproject.Management
             client.Adress = datarow["adress"] is DBNull ? null : (string)datarow["adress"];
             client.InstaUserName = datarow["insta_user"] is DBNull ? null : (string)datarow["insta_user"];
             client.Email = datarow["email"] is DBNull ? null : (string)datarow["email"];
-
-            client.KnowAboutUs = datarow["know_about_us"] is DBNull ? null : (string)datarow["know_about_us"];
-
-            client.MaritalStatus = datarow["marital_status"] is DBNull ? null : (string)datarow["marital_status"];
-
-
+            client.Note = datarow["special_note"] is DBNull ? null : (string)datarow["special_note"];
             client.BirthDate = datarow["date_of_birth"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["date_of_birth"]);   //age is being calculated in the set of this prop     
+            client.ProfileImageName = datarow["profile_image_path"] is DBNull ? null : (string)datarow["profile_image_path"];
+            client.ProfileImage = ImagesFunctions.RetrieveImage(Program.FolderProfileImagePath, client.ProfileImageName);
+
+
+
+            //dynamic
+            client.Weight = datarow["weight"] is DBNull ? null : (string)datarow["weight"];
+            client.Height = datarow["height"] is DBNull ? null : (string)datarow["height"];
+            client.BodyShapeTarget = datarow["body_shape_target"] is DBNull ? null : (string)datarow["body_shape_target"];
+            client.MuscleFocusOn = datarow["muscles_focus_on"] is DBNull ? null : (string)datarow["muscles_focus_on"];
+            client.Injuries = datarow["injuries"] is DBNull ? null : (string)datarow["injuries"];
+            client.ExerciseHistory = datarow["exercise_history"] is DBNull ? null : (string)datarow["exercise_history"];
+            client.SessionPerWeek = datarow["sessions_per_week"] is DBNull ? null : Convert.ToInt32(datarow["sessions_per_week"]);
+            client.Hand = datarow["hand"] is DBNull ? null : (string)datarow["hand"];
+            client.SleepPattern = datarow["sleep_patterns"] is DBNull ? null : (string)datarow["sleep_patterns"];
+            client.StressLevel = datarow["stress_levels"] is DBNull ? null : (string)datarow["stress_levels"];
+            client.KnowAboutUs = datarow["know_about_us"] is DBNull ? null : (string)datarow["know_about_us"];
+            client.MaritalStatus = datarow["marital_status"] is DBNull ? null : (string)datarow["marital_status"];
+            client.GoalsTimeline = datarow["timeline_goals"] is DBNull ? null : (string)datarow["timeline_goals"];
+            client.Smoking = datarow["smoking_consumption"] is DBNull ? null : (string)datarow["smoking_consumption"];
+            client.Alcohol = datarow["alcohol_consumption"] is DBNull ? null : (string)datarow["alcohol_consumption"];
+            client.FightingSkills = datarow["fighting_skills"] is DBNull ? null : (string)datarow["fighting_skills"];
+
+
+
+
+
             client.IsChild = Convert.ToBoolean(datarow["IsChild"]);
             client.IsParent = Convert.ToBoolean(datarow["IsParent"]);
             client.AlbumType = datarow["AlbumType"] is DBNull ? null : (string)datarow["AlbumType"];
 
-
-            client.ProfileImageName = datarow["profile_image_path"] is DBNull ? null : (string)datarow["profile_image_path"];
-            client.ProfileImage = ImagesFunctions.RetrieveImage(Program.FolderProfileImagePath, client.ProfileImageName);
 
 
             client.SaveDate = datarow["save_date"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["save_date"]);
@@ -1162,29 +1165,8 @@ namespace MKproject.Management
             client.TotalPayment = Convert.ToDouble(datarow["total_payment"]);
 
 
-            client.Weight = datarow["weight"] is DBNull ? null : (string)datarow["weight"];
-            client.Height = datarow["height"] is DBNull ? null : (string)datarow["height"];
+         
 
-            client.BodyShapeTarget = datarow["body_shape_target"] is DBNull ? null : (string)datarow["body_shape_target"];
-
-            client.MuscleFocusOn = datarow["muscles_focus_on"] is DBNull ? null : (string)datarow["muscles_focus_on"];
-
-            client.Injuries = datarow["injuries"] is DBNull ? null : (string)datarow["injuries"];
-
-            client.ExerciseHistory = datarow["exercise_history"] is DBNull ? null : (string)datarow["exercise_history"];
-
-
-
-            client.SessionPerWeek = datarow["sessions_per_week"] is DBNull ? null : Convert.ToInt32(datarow["sessions_per_week"]);
-            client.Hand = datarow["hand"] is DBNull ? null : (string)datarow["hand"];
-
-            client.Note = datarow["special_note"] is DBNull ? null : (string)datarow["special_note"];
-            client.SleepPattern = datarow["sleep_patterns"] is DBNull ? null : (string)datarow["sleep_patterns"];
-            client.StressLevel = datarow["stress_levels"] is DBNull ? null : (string)datarow["stress_levels"];
-            client.GoalsTimeline = datarow["timeline_goals"] is DBNull ? null : (string)datarow["timeline_goals"];
-            client.Smoking = datarow["smoking_consumption"] is DBNull ? null : (string)datarow["smoking_consumption"];
-            client.Alcohol = datarow["alcohol_consumption"] is DBNull ? null : (string)datarow["alcohol_consumption"];
-            client.FightingSkills = datarow["fighting_skills"] is DBNull ? null : (string)datarow["fighting_skills"];
             return client;
 
         }

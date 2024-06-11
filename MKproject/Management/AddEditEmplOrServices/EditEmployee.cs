@@ -70,7 +70,7 @@ namespace MKproject.Management
 
             ucTextboxLastName.NextControl = ucTextboxPhoneNumber;
             ucTextboxPhoneNumber.IsPhoneNumber = true;
-            ucTextboxPhoneNumber.StringType = ClassClient.enumType.PhoneNumber.GetStringValue();
+            ucTextboxPhoneNumber.StringType = ClassClient.enumStaticFields.PhoneNumber.GetStringValue();
             ucTextboxPhoneNumber.IsRequired = true;
 
             ucTextboxPassword.StringType = "Password";

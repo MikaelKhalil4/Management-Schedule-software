@@ -115,7 +115,7 @@ namespace MKproject.Management
                     bool isRequired = Convert.ToBoolean(row["Required"]);
                     bool isVisible = Convert.ToBoolean(row["Visible"]);
 
-                    if (row["Fields"].ToString() == ClassClient.enumType.FullName.ToString())
+                    if (row["Fields"].ToString() == ClassClient.enumStaticFields.FullName.ToString())
                     {
                         if (isVisible)
                         {
@@ -134,11 +134,11 @@ namespace MKproject.Management
                             }
                         }
                     }
-                    else if (row["Fields"].ToString() == ClassClient.enumType.PhoneNumber.ToString())
+                    else if (row["Fields"].ToString() == ClassClient.enumStaticFields.PhoneNumber.ToString())
                     {
                         if (isVisible)
                         {
-                            UCPhone = new UCTextbox1(ClassClient.enumType.PhoneNumber.ToString(), isRequired);
+                            UCPhone = new UCTextbox1(ClassClient.enumStaticFields.PhoneNumber.ToString(), isRequired);
                             UCPhone.IsPhoneNumber = true;
                             FLPAddParent.Controls.Add(UCPhone);
                             UCPhone.Margin = new Padding(5, 5, 5, 5);
@@ -146,11 +146,11 @@ namespace MKproject.Management
 
                         }
                     }
-                    else if (row["Fields"].ToString() == ClassClient.enumType.Adress.ToString())
+                    else if (row["Fields"].ToString() == ClassClient.enumStaticFields.Adress.ToString())
                     {
                         if (isVisible)
                         {
-                            UCAdress = new UCTextbox1(ClassClient.enumType.Adress.ToString(), isRequired);
+                            UCAdress = new UCTextbox1(ClassClient.enumStaticFields.Adress.ToString(), isRequired);
                             FLPAddParent.Controls.Add(UCAdress);
                             UCAdress.Margin = new Padding(5, 5, 5, 5);
                             UCAdress.Width = controlsWidth;

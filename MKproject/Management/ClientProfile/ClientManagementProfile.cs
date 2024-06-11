@@ -26,14 +26,8 @@ namespace MKproject.Management
 
         public SearchCurrentClient SearchCurrentClientform { get; set; }
 
+
         private UCLabelAndDetail UCNote;
-        private UCLabelAndDetail UCSessionPerWeek;
-        private UCLabelAndDetail UCHand;
-        private UCLabelAndDetail UCInjuries;
-        private UCLabelAndDetail UCMuscleFocusOn;
-        private UCLabelAndDetail UCShapeTarget;
-        private UCLabelAndDetail UCWeight;
-        private UCLabelAndDetail UCHeight;
         private UCLabelAndDetail UCInsta;
         private UCLabelAndDetail UCAdress;
         private UCLabelAndDetail UCJob;
@@ -42,6 +36,16 @@ namespace MKproject.Management
         private UCLabelAndDetail UCAge;
         private UCLabelAndDetail UCGender;
         private UCLabelAndDetail UCEmail;
+
+
+
+        private UCLabelAndDetail UCSessionPerWeek;
+        private UCLabelAndDetail UCHand;
+        private UCLabelAndDetail UCInjuries;
+        private UCLabelAndDetail UCMuscleFocusOn;
+        private UCLabelAndDetail UCShapeTarget;
+        private UCLabelAndDetail UCWeight;
+        private UCLabelAndDetail UCHeight;
         private UCLabelAndDetail UCKnowAboutUs;
         private UCLabelAndDetail UCMaritalStatus;
         private UCLabelAndDetail UCGoalsTimeline;
@@ -457,6 +461,8 @@ namespace MKproject.Management
                 UpdateAlbum();
             }
 
+
+
             //seocndary info
             bool NewUCCreated = false;
             DataTable dt = SQLToProject.GetAllVisibleFields();
@@ -466,8 +472,8 @@ namespace MKproject.Management
                 int DesignIndex = Convert.ToInt32(row["design_index"]);
                 string FieldName = row["Fields"].ToString();
 
-
-                if (FieldName == ClassClient.enumType.FaceImage.ToString())
+                //Static
+                if (FieldName == ClassClient.enumStaticFields.FaceImage.ToString())
                 {
 
                     if (isVisible)
@@ -490,108 +496,115 @@ namespace MKproject.Management
                     }
 
                 }
-                else if (FieldName == ClassClient.enumType.PhoneNumber.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.PhoneNumber.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCPhoneNumber, ClassClient.enumType.PhoneNumber.GetStringValue(), Client.PhoneNumber, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCPhoneNumber, ClassClient.enumStaticFields.PhoneNumber.GetStringValue(), Client.PhoneNumber, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.Gender.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Gender.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCGender, ClassClient.enumType.Gender.GetStringValue(), Client.Gender, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCGender, ClassClient.enumStaticFields.Gender.GetStringValue(), Client.Gender, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.Job.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Job.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCJob, ClassClient.enumType.Job.GetStringValue(), Client.Job, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCJob, ClassClient.enumStaticFields.Job.GetStringValue(), Client.Job, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.Adress.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Adress.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCAdress, ClassClient.enumType.Adress.GetStringValue(), Client.Adress, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCAdress, ClassClient.enumStaticFields.Adress.GetStringValue(), Client.Adress, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.InstaUserName.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.InstaUserName.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCInsta, ClassClient.enumType.InstaUserName.GetStringValue(), Client.InstaUserName, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCInsta, ClassClient.enumStaticFields.InstaUserName.GetStringValue(), Client.InstaUserName, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.BirthDate.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.BirthDate.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCBirthday, ClassClient.enumType.BirthDate.GetStringValue(), RandomFunctions.SetDateFormat(Convert.ToString(Client.BirthDate)), isVisible, DesignIndex);
+
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCBirthday, ClassClient.enumStaticFields.BirthDate.GetStringValue(), RandomFunctions.SetDateFormat(Convert.ToString(Client.BirthDate)), isVisible, DesignIndex);
 
                     string Details = Client.Age != null ? Convert.ToString(Client.Age) : null;//staamelneha cz eena convertion, w bel convertionn el null bet ruh
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCAge, ClassClient.enumType.Age.GetStringValue(), Details, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCAge, "Age", Details, isVisible, DesignIndex);
 
                 }
-                else if (FieldName == ClassClient.enumType.Email.ToString())
+                else if (FieldName == ClassClient.enumStaticFields.Email.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCEmail, ClassClient.enumType.Email.GetStringValue(), Client.Email, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCEmail, ClassClient.enumStaticFields.Email.GetStringValue(), Client.Email, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.MaritalStatus.ToString())
+             
+                else if (FieldName == ClassClient.enumStaticFields.Note.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCMaritalStatus, ClassClient.enumType.MaritalStatus.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.MaritalStatus), isVisible, DesignIndex);
-                }
-                else if (FieldName == ClassClient.enumType.HowDidYouKnowAboutUs.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCKnowAboutUs, ClassClient.enumType.HowDidYouKnowAboutUs.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.KnowAboutUs), isVisible, DesignIndex);
-                }
-                else if (FieldName == ClassClient.enumType.Note.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCNote, ClassClient.enumType.Note.GetStringValue(), Client.Note, isVisible, DesignIndex);
-                }
-                //custom 
-                else if (FieldName == ClassClient.enumType.Height.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCHeight, ClassClient.enumType.Height.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.Height), isVisible, DesignIndex);
-                }
-                else if (FieldName == ClassClient.enumType.Weight.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCWeight, ClassClient.enumType.Weight.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.Weight), isVisible, DesignIndex);
-                }
-                else if (FieldName == ClassClient.enumType.BodyShapeTarget.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCShapeTarget, ClassClient.enumType.BodyShapeTarget.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.BodyShapeTarget), isVisible, DesignIndex);
-                }
-                else if (FieldName == ClassClient.enumType.MuscleFocusOn.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCMuscleFocusOn, ClassClient.enumType.MuscleFocusOn.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.MuscleFocusOn), isVisible, DesignIndex);
-                }
-                else if (FieldName == ClassClient.enumType.Injuries.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCInjuries, ClassClient.enumType.Injuries.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.Injuries), isVisible, DesignIndex);
-                }
-                else if (FieldName == ClassClient.enumType.Hand.ToString())
-                {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCHand, ClassClient.enumType.Hand.GetStringValue(), Client.Hand, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCNote, ClassClient.enumStaticFields.Note.GetStringValue(), Client.Note, isVisible, DesignIndex);
                 }
 
-                else if (FieldName == ClassClient.enumType.SessionPerWeek.ToString())
+
+
+
+
+                //Dynamic 
+                else if (FieldName == ClassClient.enumDynamicFields.Height.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCHeight, ClassClient.enumDynamicFields.Height.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.Height), isVisible, DesignIndex);
+                }
+                else if (FieldName == ClassClient.enumDynamicFields.Weight.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCWeight, ClassClient.enumDynamicFields.Weight.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.Weight), isVisible, DesignIndex);
+                }
+                else if (FieldName == ClassClient.enumDynamicFields.BodyShapeTarget.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCShapeTarget, ClassClient.enumDynamicFields.BodyShapeTarget.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.BodyShapeTarget), isVisible, DesignIndex);
+                }
+                else if (FieldName == ClassClient.enumDynamicFields.MuscleFocusOn.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCMuscleFocusOn, ClassClient.enumDynamicFields.MuscleFocusOn.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.MuscleFocusOn), isVisible, DesignIndex);
+                }
+                else if (FieldName == ClassClient.enumDynamicFields.Injuries.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCInjuries, ClassClient.enumDynamicFields.Injuries.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.Injuries), isVisible, DesignIndex);
+                }
+                else if (FieldName == ClassClient.enumDynamicFields.Hand.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCHand, ClassClient.enumDynamicFields.Hand.GetStringValue(), Client.Hand, isVisible, DesignIndex);
+                }
+
+                else if (FieldName == ClassClient.enumDynamicFields.SessionPerWeek.ToString())
                 {
                     string Details = Client.SessionPerWeek != null ? Convert.ToString(Client.SessionPerWeek) : null;//staamelneha cz eena convertion, w bel convertionn el null bet ruh
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCSessionPerWeek, ClassClient.enumType.SessionPerWeek.GetStringValue(), RandomFunctions.SetStringFullFormat(Details), isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCSessionPerWeek, ClassClient.enumDynamicFields.SessionPerWeek.GetStringValue(), RandomFunctions.SetStringFullFormat(Details), isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.GoalsTimeline.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.MaritalStatus.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCGoalsTimeline, ClassClient.enumType.GoalsTimeline.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.GoalsTimeline), isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCMaritalStatus, ClassClient.enumDynamicFields.MaritalStatus.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.MaritalStatus), isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.Smoking.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.HowDidYouKnowAboutUs.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCSmoking, ClassClient.enumType.Smoking.GetStringValue(), Client.Smoking, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCKnowAboutUs, ClassClient.enumDynamicFields.HowDidYouKnowAboutUs.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.KnowAboutUs), isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.Alcohol.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.GoalsTimeline.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCAlcohol, ClassClient.enumType.Alcohol.GetStringValue(), Client.Alcohol, isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCGoalsTimeline, ClassClient.enumDynamicFields.GoalsTimeline.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.GoalsTimeline), isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.ExerciseHistory.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.Smoking.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCExerciseHistory, ClassClient.enumType.ExerciseHistory.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.ExerciseHistory), isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCSmoking, ClassClient.enumDynamicFields.Smoking.GetStringValue(), Client.Smoking, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.SleepPattern.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.Alcohol.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCSleepPattern, ClassClient.enumType.SleepPattern.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.SleepPattern), isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCAlcohol, ClassClient.enumDynamicFields.Alcohol.GetStringValue(), Client.Alcohol, isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.StressLevel.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.ExerciseHistory.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCStressLevel, ClassClient.enumType.StressLevel.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.StressLevel), isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCExerciseHistory, ClassClient.enumDynamicFields.ExerciseHistory.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.ExerciseHistory), isVisible, DesignIndex);
                 }
-                else if (FieldName == ClassClient.enumType.BoxingSkills.ToString())
+                else if (FieldName == ClassClient.enumDynamicFields.SleepPattern.ToString())
                 {
-                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCBoxingSkills, ClassClient.enumType.BoxingSkills.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.FightingSkills), isVisible, DesignIndex);
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCSleepPattern, ClassClient.enumDynamicFields.SleepPattern.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.SleepPattern), isVisible, DesignIndex);
+                }
+                else if (FieldName == ClassClient.enumDynamicFields.StressLevel.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCStressLevel, ClassClient.enumDynamicFields.StressLevel.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.StressLevel), isVisible, DesignIndex);
+                }
+                else if (FieldName == ClassClient.enumDynamicFields.BoxingSkills.ToString())
+                {
+                    NewUCCreated = CreateDesiredUCLabelDetails(ref UCBoxingSkills, ClassClient.enumDynamicFields.BoxingSkills.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.FightingSkills), isVisible, DesignIndex);
                 }
             }
 

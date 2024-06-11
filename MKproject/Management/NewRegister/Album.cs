@@ -59,7 +59,7 @@ namespace MKproject.Management
             TLPAddAlbum.Visible = true;
             TLPAddAlbum.Dock = DockStyle.Fill;
 
-            UCAlbum = new UCTextbox1(ClassClient.enumType.Album.ToString(), true);
+            UCAlbum = new UCTextbox1("New Album", true);
             UCAlbum.BackColor = Color.FromArgb(196, 210, 245);
             UCAlbum.Dock = DockStyle.Top;
             UCAlbum.Margin = new Padding(3, 20, 3, 3);
