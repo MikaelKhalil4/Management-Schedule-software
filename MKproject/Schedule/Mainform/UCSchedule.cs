@@ -364,6 +364,7 @@ namespace MKproject.Schedule
                 if (IsHistory)//past
                 {
                     DesiredAvailabiltyOfSpecificDay = DesiredEmployee.Availability;//since hone ha ykun directly of one day, lieanno aam neshaba men table history_employee 
+
                 }
                 else//present-future
                 {
@@ -372,7 +373,7 @@ namespace MKproject.Schedule
 
                 SelectedDateTimeAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployeeFront.GetTimeSpanAvailabiltyOfDesiredDay(DesiredAvailabiltyOfSpecificDay)));
 
-                SelectedRowsAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay.ToString(), TLPSchedule)));
+                SelectedRowsAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay, TLPSchedule)));
             }
         }
         public void SetWeekRowsAvailabilityForTheOnlyEmployee()
@@ -417,7 +418,7 @@ namespace MKproject.Schedule
                 {
                     string DesiredAvailabiltyOfSpecificDay = ClassEmployeeFront.GetAvailabiltyAsAstringFromWeekAvailability(date, TheOnlyEmployee.Availability);
 
-                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay.ToString(), TLPSchedule));
+                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay, TLPSchedule));
                 }
             }
         }
@@ -801,7 +802,7 @@ namespace MKproject.Schedule
                 DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
                 if (dr["client_id"] != DBNull.Value)
                 {
-                    DesiredReminder.DesiredClient = new ClassClient();
+                    DesiredReminder.DesiredClient = new ClassClientCustom();
                     DesiredReminder.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
                     DesiredReminder.DesiredClient.Fname = (string)dr["name"];
                     DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];

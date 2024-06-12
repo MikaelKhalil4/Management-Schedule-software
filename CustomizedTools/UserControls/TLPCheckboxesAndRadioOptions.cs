@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static GlobalFunctions.ClassGlobalEnum;
 using CheckBox = System.Windows.Forms.CheckBox;
 using Control = System.Windows.Forms.Control;
 using Label = System.Windows.Forms.Label;
@@ -151,12 +152,7 @@ namespace CustomizedTools
         List<(string, Control, string)> Options { get; set; }//(enumOptionText,OptionText,ControlExtention,Control InitialValueOrPlaceHolde)    
         Font OptionsFont = new Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-        public enum enumNone
-        {
-            [StringValue("None")]
-            None,
-        }
-
+      
 
 
         public TLPCheckboxesAndRadioOptions(string title, bool? isrequired, bool isCheckBoxesOrRadioButtons, List<(string, Control, string)> options, string rb1Text, string rb2Text, bool isMotherOrChild)

@@ -116,8 +116,8 @@ namespace MKproject.Management
             else if (filterType == FiltersType.Gender)
             {
                 comboBoxDetail.Items.Add(All);
-                comboBoxDetail.Items.Add(ClassClient.ClientGender.Male.ToString());
-                comboBoxDetail.Items.Add(ClassClient.ClientGender.Female.ToString());
+                comboBoxDetail.Items.Add(ClassClientCustom.ClientGender.Male.ToString());
+                comboBoxDetail.Items.Add(ClassClientCustom.ClientGender.Female.ToString());
             }
             else if (filterType == FiltersType.SaveDate)
             {

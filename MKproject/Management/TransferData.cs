@@ -671,7 +671,7 @@ namespace MKproject.Management
         private static void TransferRequiredVisibleFields(SqlConnection conOld, SQLiteConnection conNew)
         {
             string selectQuery = @"
-        SELECT id, Fields, Visible, Required, design_index 
+        SELECT id, Fields, Visible, Required 
         FROM required_visible_fields";
             DataTable dataTable = new DataTable();
 
@@ -687,11 +687,10 @@ namespace MKproject.Management
                 string fields = Convert.ToString(row["Fields"]);
                 int visible = Convert.ToInt32(row["Visible"]);
                 int required = Convert.ToInt32(row["Required"]);
-                int designIndex = Convert.ToInt32(row["design_index"]);
 
                 string insertQuery = @"
-            INSERT INTO required_visible_fields (fields_id, Fields, Visible, Required, design_index) 
-            VALUES (@fields_id, @Fields, @Visible, @Required, @design_index)";
+            INSERT INTO required_visible_fields (fields_id, Fields, Visible, Required) 
+            VALUES (@fields_id, @Fields, @Visible, @Required)";
 
                 using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conNew))
                 {
@@ -699,7 +698,6 @@ namespace MKproject.Management
                     insertCmd.Parameters.AddWithValue("@Fields", fields);
                     insertCmd.Parameters.AddWithValue("@Visible", visible);
                     insertCmd.Parameters.AddWithValue("@Required", required);
-                    insertCmd.Parameters.AddWithValue("@design_index", designIndex);
                     insertCmd.ExecuteNonQuery();
                 }
             }

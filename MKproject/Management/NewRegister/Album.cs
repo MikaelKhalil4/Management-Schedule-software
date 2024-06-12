@@ -142,7 +142,7 @@ namespace MKproject.Management
                 else//jeyin men clientProfile
                 {
                     //sql
-                    ClassClient.UpdateClientAlbumSQL(ClientManagementProfileForm.Client.ClientId, albumName);
+                    ClassClientCustom.UpdateClientAlbumSQL(ClientManagementProfileForm.Client.ClientId, albumName);
                     //design
                     ClientManagementProfileForm.Client.AlbumType = albumName;
                     ClientManagementProfileForm.UpdateAlbum();
@@ -254,7 +254,7 @@ namespace MKproject.Management
             else
             {
                 //sql
-                ClassClient.UpdateClientAlbumSQL(ClientManagementProfileForm.Client.ClientId, null);
+                ClassClientCustom.UpdateClientAlbumSQL(ClientManagementProfileForm.Client.ClientId, null);
                 //design
                 ClientManagementProfileForm.Client.AlbumType = null;
                 ClientManagementProfileForm.UpdateAlbum();

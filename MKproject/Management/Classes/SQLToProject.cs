@@ -84,7 +84,7 @@ namespace MKproject.Management
         public static DataTable GetAllVisibleFields()
         {
             DataTable dt = new DataTable();
-            string query = "SELECT * FROM required_visible_fields ORDER BY design_index ASC";//la2n ma badna n3adil 3l full name w el phone number
+            string query = "SELECT * FROM required_visible_fields";//la2n ma badna n3adil 3l full name w el phone number
             SQLiteCommand cmd = new SQLiteCommand(query, con);
             SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             dt = new DataTable();

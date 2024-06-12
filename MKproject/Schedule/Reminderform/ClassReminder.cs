@@ -16,7 +16,7 @@ namespace MKproject.Schedule.Reminderform
         //Property
         public int Idreminder { get; set; }
         public string Reminder { get; set; }
-        public ClassClient DesiredClient { get; set; }
+        public ClassClientCustom DesiredClient { get; set; }
 
         public string[] PartsRepeat { get; set; }
         private string repeat;
@@ -127,7 +127,7 @@ namespace MKproject.Schedule.Reminderform
             con.Close();
             return dt1;
         }
-        public static DataTable DisplayReminderByClientName(ClassClient DesiredClient)
+        public static DataTable DisplayReminderByClientName(ClassClientCustom DesiredClient)
         {
             SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder_id, reminder, repeat, starttime, is_checked
                                                    FROM reminder

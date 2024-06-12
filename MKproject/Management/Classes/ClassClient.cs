@@ -64,27 +64,11 @@ namespace MKproject.Management
             }
         }
         public int? Age { get; set; }
-      
-
-    
-      
-        //Dynamic
-        public string Height { get; set; }
-        public string Weight { get; set; }
-        public string BodyShapeTarget { get; set; }
-        public string MuscleFocusOn { get; set; }
-        public string Injuries { get; set; }
-        public string Hand { get; set; }
-        public int? SessionPerWeek { get; set; }
         public string MaritalStatus { get; set; }
-        public string KnowAboutUs { get; set; }
-        public string GoalsTimeline { get; set; }
-        public string Smoking { get; set; }
-        public string Alcohol { get; set; }
-        public string ExerciseHistory { get; set; }
-        public string SleepPattern { get; set; }
-        public string StressLevel { get; set; }
-        public string FightingSkills { get; set; }
+
+
+
+
 
 
 
@@ -125,67 +109,84 @@ namespace MKproject.Management
         public enum enumStaticFields//most of enum strings are in registation field table  the same string in sql 
         {
             //static
+            [StringValue("Profile Image")]
+            ProfileImage=1,//kermel el label li bel new register
             [StringValue("Full Name")]
             FullName,
             [StringValue("Phone Number")]
             PhoneNumber,
+            [StringValue("Email")]
+            Email,
             [StringValue("Gender")]
             Gender,
+            [StringValue("Birthday")]
+            BirthDate,
             [StringValue("Job")]
             Job,
             [StringValue("Adress")]
-            Adress,
+            Adress,        
             [StringValue("Insta")]
-            InstaUserName,
-            [StringValue("Birthday")]
-            BirthDate,           
-            [StringValue("Image")]
-            FaceImage,
-            [StringValue("Email")]
-            Email,  
-            [StringValue("Notes")]
-            Note,
-      
-            //thats how we access a value
-            //Enum.GetName(typeof(ClassClient.Type), ClassClient.Type.) 
-            //Enum.GetName(typeof(ClassClient.Type), ClassClient.Type.) 
-        }
-        public enum enumDynamicFields
-        {
-            //Dynamic
-            [StringValue("Height")]
-            Height,
-            [StringValue("Weight")]
-            Weight,
-            [StringValue("Body Shape Target")]
-            BodyShapeTarget,
-            [StringValue("Muscles Focus")]
-            MuscleFocusOn,
-            [StringValue("Injuries")]
-            Injuries,
-            [StringValue("Hand")]
-            Hand,
-            [StringValue("Sessions/Week")]
-            SessionPerWeek,
+            InstaUserName,                       
             [StringValue("Marital status")]
             MaritalStatus,
             [StringValue("How did you know about us")]
             HowDidYouKnowAboutUs,
-            [StringValue("Goals Timeline")]
-            GoalsTimeline,
-            [StringValue("Smoking")]
-            Smoking,
-            [StringValue("Alcohol")]
-            Alcohol,
-            [StringValue("Sleep Pattern")]
-            SleepPattern,
-            [StringValue("Stress Level")]
-            StressLevel,
-            [StringValue("Focus on Boxing skills")]
-            BoxingSkills,
-            [StringValue("Exercise History")]
-            ExerciseHistory
+            [StringValue("Note")]
+            Note=10000,//lieanno it should come after el custpomize fields
+      
+            //thats how we access a value
+            //Enum.GetName(typeof(ClassClientCustom.Type), ClassClientCustom.Type.) 
+            //Enum.GetName(typeof(ClassClientCustom.Type), ClassClientCustom.Type.) 
         }
+        public enum enumGender//used for filling the fields
+        {
+            [StringValue("Male")]
+            Male,
+            [StringValue("Female")]
+            Female
+        }
+        public enum enumHowDidYouKnowAboutUs//checkbox
+        {
+            [StringValue("Instagram")]
+            instagram,//TLPGlobal
+            [StringValue("Facebook")]
+            Facebook,
+            [StringValue("Tiktok")]
+            Tiktok,
+            [StringValue("Bouche A L'Oreille")]//Add Textbox
+            BoucheAOreille,
+            [StringValue("Brochure")]
+            brochure,
+            [StringValue("Gift Voucher")]
+            GiftVoucher,
+            [StringValue("Novo Club")]
+            NovoClub,
+            [StringValue("Others")]//Add Textbox
+            Others
+        }
+        public enum enumInsta
+        {
+            [StringValue("Invitation")]
+            Invitation,
+            [StringValue("Boosting")]
+            Boosting,
+            [StringValue("By Searching")]
+            BySearching,
+            [StringValue("Customer Mention")]//Add Textbox
+            CustomerMention
+        }
+        public enum enumMaritalStatus
+        {
+            [StringValue("Single")]
+            Single,
+            [StringValue("Married")]
+            Married,
+            [StringValue("Have Children")]//add textbox UCPureNumber
+            HaveChildren,
+        }
+
+
+
 
         public ClassClient()
         {
@@ -530,7 +531,7 @@ namespace MKproject.Management
         }
 
         //when a client purchase eenda connection maa many forms, that swhy
-        public static DataTable PurchaseAService(ClassBundles Bundle, DateTime BackOfficeDate, DateTime AttendanceDate, ClassClient Client, int? appointmentId)
+        public static DataTable PurchaseAService(ClassBundles Bundle, DateTime BackOfficeDate, DateTime AttendanceDate, ClassClientCustom Client, int? appointmentId)
         {
             //SQLAndLogic                        
             ActionsEnum actiontype;
@@ -554,7 +555,7 @@ namespace MKproject.Management
                 AttendanceId = null;
             }
 
-            ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, -Bundle.Price, false);
+            ClassClientCustom.UpdateClientTotalBalanceSQL(Client.ClientId, -Bundle.Price, false);
 
             ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, LOGIN.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, BackOfficeDate);
             backOffice.CreateActionDetails(InsertedRow);
@@ -569,7 +570,7 @@ namespace MKproject.Management
             }
             return dtinserteditem;
         }
-        public static DataTable PurchaseAProduct(ClassProduct product, DateTime Date, ClassClient Client)
+        public static DataTable PurchaseAProduct(ClassProduct product, DateTime Date, ClassClientCustom Client)
         {
             //SQL
             ClassClientBalance.InsertToClientBalance(Client.ClientId, product.ID, null);
@@ -577,7 +578,7 @@ namespace MKproject.Management
 
             DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one                     
 
-            ClassClient.UpdateClientTotalBalanceSQL(Client.ClientId, -product.Price, false);
+            ClassClientCustom.UpdateClientTotalBalanceSQL(Client.ClientId, -product.Price, false);
 
             ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null, null, null, null, Date);
             backOffice.CreateActionDetails(InsertedRow);
@@ -590,13 +591,13 @@ namespace MKproject.Management
 
 
         string ImageName = "Client";//theclient id will be added to t
-        public void InsertClientToSQL()
+        public virtual void InsertClientToSQL()
         {
 
 
             // Phone number does not exist, proceed with insertion
-            string insertQuery = "INSERT INTO client (name, family_name, gender, date_of_birth, muscles_focus_on, weight, height, hand, body_shape_target, injuries, sessions_per_week, phone_number, adress, job, special_note, insta_user, IsChild,IsParent,AlbumType,last_time_searched,save_date,Registration_Date,check_in,total_balance,total_payment,email,marital_status,know_about_us,timeline_goals,smoking_consumption,alcohol_consumption,exercise_history,sleep_patterns,stress_levels,fighting_skills) " +
-                                 "VALUES (@Name, @FamilyName, @Gender, @DateOfBirth, @MusclesFocusOn, @Weight, @Height, @Hand, @BodyShapeTarget, @Injuries, @SessionsPerWeek, @PhoneNumber, @Adress, @Job, @SpecialNote, @InstaUser, @IsChild,@IsParent,@AlbumType,@last_time_searched,@save_date,@Registration_Date,@check_in,@total_balance,@total_payment,@Email,@MaritalStatus,@KnowAboutUs,@TimelineGoals,@Smoking,@Alcohol,@ExerciseHistory,@SleepPattern,@StressLevel,@fighting_skills)";
+            string insertQuery = "INSERT INTO client (name, family_name, gender, date_of_birth, phone_number, adress, job, special_note, insta_user, IsChild,IsParent,AlbumType,last_time_searched,save_date,Registration_Date,check_in,total_balance,total_payment,email) " +
+                                 "VALUES (@Name, @FamilyName, @Gender, @DateOfBirth,@PhoneNumber, @Adress, @Job, @SpecialNote, @InstaUser, @IsChild,@IsParent,@AlbumType,@last_time_searched,@save_date,@Registration_Date,@check_in,@total_balance,@total_payment,@Email)";
 
             SQLiteCommand command = new SQLiteCommand(insertQuery, con);
 
@@ -628,48 +629,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@DateOfBirth", ((DateTime)BirthDate).ToString("yyyy-MM-dd"));
 
 
-            if (MuscleFocusOn == null)
-                command.Parameters.AddWithValue("@MusclesFocusOn", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@MusclesFocusOn", MuscleFocusOn);
-
-
-            if (Weight == null)
-                command.Parameters.AddWithValue("@Weight", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Weight", Weight);
-
-
-            if (Height == null)
-                command.Parameters.AddWithValue("@Height", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Height", Height);
-
-
-            if (Hand == null)
-                command.Parameters.AddWithValue("@Hand", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Hand", Hand);
-
-
-
-            if (BodyShapeTarget == null)
-                command.Parameters.AddWithValue("@BodyShapeTarget", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@BodyShapeTarget", BodyShapeTarget);
-
-
-            if (Injuries == null)
-                command.Parameters.AddWithValue("@Injuries", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Injuries", Injuries);
-
-
-            if (SessionPerWeek == null)
-                command.Parameters.AddWithValue("@SessionsPerWeek", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@SessionsPerWeek", SessionPerWeek);
-
+          
 
             if (PhoneNumber == null)
                 command.Parameters.AddWithValue("@PhoneNumber", DBNull.Value);
@@ -707,52 +667,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@Email", Email);
 
 
-            if (MaritalStatus == null)
-                command.Parameters.AddWithValue("@MaritalStatus", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@MaritalStatus", MaritalStatus);
-
-
-            if (KnowAboutUs == null)
-                command.Parameters.AddWithValue("@KnowAboutUs", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@KnowAboutUs", KnowAboutUs);
-
-
-            if (GoalsTimeline == null)
-                command.Parameters.AddWithValue("@TimelineGoals", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@TimelineGoals", GoalsTimeline);
-
-            if (Smoking == null)
-                command.Parameters.AddWithValue("@Smoking", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Smoking", Smoking);
-
-
-            if (Alcohol == null)
-                command.Parameters.AddWithValue("@Alcohol", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Alcohol", Alcohol);
-
-
-
-            if (ExerciseHistory == null)
-                command.Parameters.AddWithValue("@ExerciseHistory", DBNull.Value);
-            else
-
-                command.Parameters.AddWithValue("@ExerciseHistory", ExerciseHistory);
-
-            if (SleepPattern == null)
-                command.Parameters.AddWithValue("@SleepPattern", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@SleepPattern", SleepPattern);
-
-
-            if (StressLevel == null)
-                command.Parameters.AddWithValue("@StressLevel", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@StressLevel", StressLevel);
+          
 
             command.Parameters.AddWithValue("@IsChild", IsChild);
             command.Parameters.AddWithValue("@IsParent", IsParent);
@@ -764,10 +679,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@AlbumType", AlbumType);
 
 
-            if (FightingSkills == null)
-                command.Parameters.AddWithValue("@fighting_skills", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@fighting_skills", FightingSkills);
+         
 
 
 
@@ -801,23 +713,18 @@ namespace MKproject.Management
            
 
         }
-        public void UpdateClientToSQL(bool PicisChanged)
+        public virtual void UpdateClientToSQL(bool PicisChanged)
         {
             string UpdateQuery;
             SQLiteCommand command;
             if (PicisChanged)
             {
                 UpdateQuery = @"UPDATE client 
-                    SET  name = @Name, family_name = @FamilyName, gender = @Gender,date_of_birth = @DateOfBirth, muscles_focus_on = @MusclesFocusOn,
-                     weight = @Weight, height = @Height, hand = @Hand,
-                     body_shape_target = @BodyShapeTarget, injuries = @Injuries, 
-                     sessions_per_week = @SessionsPerWeek, phone_number = @PhoneNumber, 
+                    SET  name = @Name, family_name = @FamilyName, gender = @Gender,date_of_birth = @DateOfBirth,           
+                     phone_number = @PhoneNumber, 
                      adress = @Adress, job = @Job, special_note = @SpecialNote, 
-                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email, 
-                     marital_status = @MaritalStatus, know_about_us = @KnowAboutUs, 
-                     timeline_goals = @TimelineGoals, smoking_consumption = @Smoking, 
-                     alcohol_consumption = @Alcohol, exercise_history = @ExerciseHistory, 
-                     sleep_patterns = @SleepPattern, stress_levels = @StressLevel ,profile_image_path=@profile_image_path,fighting_skills = @fighting_skills 
+                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email,              
+                     profile_image_path=@profile_image_path
                      WHERE client_id = @client_id";
 
 
@@ -837,16 +744,10 @@ namespace MKproject.Management
             else
             {
                 UpdateQuery = @"UPDATE client 
-                    SET  name = @Name, family_name = @FamilyName, gender = @Gender,date_of_birth = @DateOfBirth, muscles_focus_on = @MusclesFocusOn,
-                     weight = @Weight, height = @Height, hand = @Hand, 
-                     body_shape_target = @BodyShapeTarget, injuries = @Injuries, 
-                     sessions_per_week = @SessionsPerWeek, phone_number = @PhoneNumber, 
+                    SET  name = @Name, family_name = @FamilyName, gender = @Gender,date_of_birth = @DateOfBirth,                   
+                     phone_number = @PhoneNumber, 
                      adress = @Adress, job = @Job, special_note = @SpecialNote, 
-                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email, 
-                     marital_status = @MaritalStatus, know_about_us = @KnowAboutUs, 
-                     timeline_goals = @TimelineGoals, smoking_consumption = @Smoking, 
-                     alcohol_consumption = @Alcohol, exercise_history = @ExerciseHistory, 
-                     sleep_patterns = @SleepPattern, stress_levels = @StressLevel,fighting_skills = @fighting_skills 
+                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email                    
                      WHERE client_id = @client_id";
 
                 command = new SQLiteCommand(UpdateQuery, con);
@@ -878,47 +779,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@DateOfBirth", ((DateTime)BirthDate).ToString("yyyy-MM-dd"));
 
 
-            if (MuscleFocusOn == null)
-                command.Parameters.AddWithValue("@MusclesFocusOn", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@MusclesFocusOn", MuscleFocusOn);
-
-
-            if (Weight == null)
-                command.Parameters.AddWithValue("@Weight", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Weight", Weight);
-
-            if (Height == null)
-                command.Parameters.AddWithValue("@Height", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Height", Height);
-
-            if (Hand == null)
-                command.Parameters.AddWithValue("@Hand", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Hand", Hand);
-
-
-
-
-            if (BodyShapeTarget == null)
-                command.Parameters.AddWithValue("@BodyShapeTarget", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@BodyShapeTarget", BodyShapeTarget);
-
-
-            if (Injuries == null)
-                command.Parameters.AddWithValue("@Injuries", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Injuries", Injuries);
-
-
-            if (SessionPerWeek == null)
-                command.Parameters.AddWithValue("@SessionsPerWeek", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@SessionsPerWeek", SessionPerWeek);
-
+         
 
             if (PhoneNumber == null)
                 command.Parameters.AddWithValue("@PhoneNumber", DBNull.Value);
@@ -956,58 +817,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@Email", Email);
 
 
-            if (MaritalStatus == null)
-                command.Parameters.AddWithValue("@MaritalStatus", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@MaritalStatus", MaritalStatus);
-
-
-            if (KnowAboutUs == null)
-                command.Parameters.AddWithValue("@KnowAboutUs", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@KnowAboutUs", KnowAboutUs);
-
-
-            if (GoalsTimeline == null)
-                command.Parameters.AddWithValue("@TimelineGoals", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@TimelineGoals", GoalsTimeline);
-
-            if (Smoking == null)
-                command.Parameters.AddWithValue("@Smoking", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Smoking", Smoking);
-
-
-
-            if (Alcohol == null)
-                command.Parameters.AddWithValue("@Alcohol", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@Alcohol", Alcohol);
-
-
-            if (ExerciseHistory == null)
-                command.Parameters.AddWithValue("@ExerciseHistory", DBNull.Value);
-            else
-
-                command.Parameters.AddWithValue("@ExerciseHistory", ExerciseHistory);
-
-            if (SleepPattern == null)
-                command.Parameters.AddWithValue("@SleepPattern", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@SleepPattern", SleepPattern);
-
-
-            if (StressLevel == null)
-                command.Parameters.AddWithValue("@StressLevel", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@StressLevel", StressLevel);
-
-
-            if (FightingSkills == null)
-                command.Parameters.AddWithValue("@fighting_skills", DBNull.Value);
-            else
-                command.Parameters.AddWithValue("@fighting_skills", FightingSkills);
+           
 
             command.Parameters.AddWithValue("@IsChild", IsChild);
             command.Parameters.AddWithValue("@client_id", ClientId);
@@ -1017,7 +827,7 @@ namespace MKproject.Management
             con.Close();
 
         }
-        public void DeleteClientToSQL()
+        public  void DeleteClientToSQL()
         {
             //ejbare bi hal order men wara el relation baynetu
 
@@ -1096,81 +906,8 @@ namespace MKproject.Management
 
 
 
-        public static ClassClient CreateClientObject(int ClientID)
-        {
-
-            DataTable dt = ClassClient.GetAllClientsInfoSQL(ClientID);
-            DataRow datarow = dt.Rows[0];//since we re expecting one row of return
-
-
-            ClassClient client = new ClassClient();
-
-
-            client.ClientId = Convert.ToInt32(datarow["client_id"]);//noway ykun bel db fi client ma endo clientid
-           
-            //static
-            client.Fname = datarow["name"] is DBNull ? null : (string)datarow["name"];
-            client.Lname = datarow["family_name"] is DBNull ? null : (string)datarow["family_name"];
-            client.PhoneNumber = datarow["phone_number"] is DBNull ? null : (string)datarow["phone_number"];
-            client.Gender = datarow["gender"] is DBNull ? null : (string)datarow["gender"];
-            client.Job = datarow["job"] is DBNull ? null : (string)datarow["job"];
-            client.Adress = datarow["adress"] is DBNull ? null : (string)datarow["adress"];
-            client.InstaUserName = datarow["insta_user"] is DBNull ? null : (string)datarow["insta_user"];
-            client.Email = datarow["email"] is DBNull ? null : (string)datarow["email"];
-            client.Note = datarow["special_note"] is DBNull ? null : (string)datarow["special_note"];
-            client.BirthDate = datarow["date_of_birth"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["date_of_birth"]);   //age is being calculated in the set of this prop     
-            client.ProfileImageName = datarow["profile_image_path"] is DBNull ? null : (string)datarow["profile_image_path"];
-            client.ProfileImage = ImagesFunctions.RetrieveImage(Program.FolderProfileImagePath, client.ProfileImageName);
-
-
-
-            //dynamic
-            client.Weight = datarow["weight"] is DBNull ? null : (string)datarow["weight"];
-            client.Height = datarow["height"] is DBNull ? null : (string)datarow["height"];
-            client.BodyShapeTarget = datarow["body_shape_target"] is DBNull ? null : (string)datarow["body_shape_target"];
-            client.MuscleFocusOn = datarow["muscles_focus_on"] is DBNull ? null : (string)datarow["muscles_focus_on"];
-            client.Injuries = datarow["injuries"] is DBNull ? null : (string)datarow["injuries"];
-            client.ExerciseHistory = datarow["exercise_history"] is DBNull ? null : (string)datarow["exercise_history"];
-            client.SessionPerWeek = datarow["sessions_per_week"] is DBNull ? null : Convert.ToInt32(datarow["sessions_per_week"]);
-            client.Hand = datarow["hand"] is DBNull ? null : (string)datarow["hand"];
-            client.SleepPattern = datarow["sleep_patterns"] is DBNull ? null : (string)datarow["sleep_patterns"];
-            client.StressLevel = datarow["stress_levels"] is DBNull ? null : (string)datarow["stress_levels"];
-            client.KnowAboutUs = datarow["know_about_us"] is DBNull ? null : (string)datarow["know_about_us"];
-            client.MaritalStatus = datarow["marital_status"] is DBNull ? null : (string)datarow["marital_status"];
-            client.GoalsTimeline = datarow["timeline_goals"] is DBNull ? null : (string)datarow["timeline_goals"];
-            client.Smoking = datarow["smoking_consumption"] is DBNull ? null : (string)datarow["smoking_consumption"];
-            client.Alcohol = datarow["alcohol_consumption"] is DBNull ? null : (string)datarow["alcohol_consumption"];
-            client.FightingSkills = datarow["fighting_skills"] is DBNull ? null : (string)datarow["fighting_skills"];
-
-
-
-
-
-            client.IsChild = Convert.ToBoolean(datarow["IsChild"]);
-            client.IsParent = Convert.ToBoolean(datarow["IsParent"]);
-            client.AlbumType = datarow["AlbumType"] is DBNull ? null : (string)datarow["AlbumType"];
-
-
-
-            client.SaveDate = datarow["save_date"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["save_date"]);
-            client.LastVisit = datarow["check_in"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["check_in"]);
-            client.RegistrationDate = datarow["Registration_Date"] is DBNull ? (DateTime?)null : Convert.ToDateTime(datarow["Registration_Date"]);
-
-            //should be calculated and inserted in other forms
-
-            client.TotalAttendance = CalculateNOAttendance(Convert.ToInt32(datarow["client_id"]));//always exist while inserting a new clien
-
-
-            client.TotalBalance = Convert.ToDouble(datarow["total_balance"]);
-            client.TotalPayment = Convert.ToDouble(datarow["total_payment"]);
-
-
-         
-
-            return client;
-
-        }
-        static int CalculateNOAttendance(int ClientId)
+    
+       public static int CalculateNOAttendance(int ClientId)
         {
             DataTable AttendDtt = SQLToProject.GetAllClientAttendance(ClientId);
 
@@ -1195,9 +932,9 @@ namespace MKproject.Management
             return TotalAttend;
         }
 
-        public ClassClient Copy()//This Copy wont work fi Property eza fi  reference-type Properties (classes or list)/ eenda it s own methode, check ClassAppointment
+        public ClassClientCustom Copy()//This Copy wont work fi Property eza fi  reference-type Properties (classes or list)/ eenda it s own methode, check ClassAppointment
         {
-            return (ClassClient)this.MemberwiseClone();
+            return (ClassClientCustom)this.MemberwiseClone();
         }
     }
 

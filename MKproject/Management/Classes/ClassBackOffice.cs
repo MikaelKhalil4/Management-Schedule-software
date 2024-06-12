@@ -251,8 +251,8 @@ namespace MKproject.Management
                 }
 
             }
-            ClassClient.UpdateClientTotalPaymentSQL(ClientId, TotalPayment, true);
-            ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount, true);
+            ClassClientCustom.UpdateClientTotalPaymentSQL(ClientId, TotalPayment, true);
+            ClassClientCustom.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount, true);
 
 
 
@@ -335,8 +335,8 @@ namespace MKproject.Management
                 }
 
             }
-            ClassClient.UpdateClientTotalPaymentSQL(ClientId, TotalPayment, true);
-            ClassClient.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount, true);
+            ClassClientCustom.UpdateClientTotalPaymentSQL(ClientId, TotalPayment, true);
+            ClassClientCustom.UpdateClientTotalBalanceSQL(ClientId, TotalBalanceAmount, true);
 
 
 

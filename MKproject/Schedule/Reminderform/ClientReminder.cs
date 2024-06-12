@@ -11,8 +11,8 @@ namespace MKproject.Schedule
     public partial class ClientReminder : Form
     {
         public bool DisableClosingOnDisactivating;
-        private ClassClient desiredclient;
-        public ClassClient DesiredClient
+        private ClassClientCustom desiredclient;
+        public ClassClientCustom DesiredClient
         {
             get { return desiredclient; }
             set
@@ -34,7 +34,7 @@ namespace MKproject.Schedule
         {
             InitializeComponent();
         }
-        public ClientReminder(ClassClient desiredclient, ScheduleForm form1, UCSchedule uc1)
+        public ClientReminder(ClassClientCustom desiredclient, ScheduleForm form1, UCSchedule uc1)
         {
             InitializeComponent();
             schedule = form1;
@@ -86,7 +86,7 @@ namespace MKproject.Schedule
         }
 
 
-        private void DisplayUCReminder(ClassClient desiredclient)
+        private void DisplayUCReminder(ClassClientCustom desiredclient)
         {
             Cursor = Cursors.WaitCursor;
             panelreminder.Controls.Clear();
@@ -106,7 +106,7 @@ namespace MKproject.Schedule
                 DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
                 if (desiredclient == null && dr["client_id"] != DBNull.Value)
                 {
-                    DesiredReminder.DesiredClient = new ClassClient();
+                    DesiredReminder.DesiredClient = new ClassClientCustom();
                     DesiredReminder.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
                     DesiredReminder.DesiredClient.Fname = (string)dr["name"];
                     DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];

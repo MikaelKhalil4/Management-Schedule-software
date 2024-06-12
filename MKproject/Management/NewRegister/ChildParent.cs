@@ -37,7 +37,7 @@ namespace MKproject.Management
             {
                 ClientId = ParentFormNewRegist.Client.ClientId;
             }
-            Originaldt = ClassClient.GetAllParentsSQL(ClientId);
+            Originaldt = ClassClientCustom.GetAllParentsSQL(ClientId);
 
             FormatOriginaldt();
             FillDataGridview();
@@ -115,7 +115,7 @@ namespace MKproject.Management
                     bool isRequired = Convert.ToBoolean(row["Required"]);
                     bool isVisible = Convert.ToBoolean(row["Visible"]);
 
-                    if (row["Fields"].ToString() == ClassClient.enumStaticFields.FullName.ToString())
+                    if (row["Fields"].ToString() == ClassClientCustom.enumStaticFields.FullName.ToString())
                     {
                         if (isVisible)
                         {
@@ -134,11 +134,11 @@ namespace MKproject.Management
                             }
                         }
                     }
-                    else if (row["Fields"].ToString() == ClassClient.enumStaticFields.PhoneNumber.ToString())
+                    else if (row["Fields"].ToString() == ClassClientCustom.enumStaticFields.PhoneNumber.ToString())
                     {
                         if (isVisible)
                         {
-                            UCPhone = new UCTextbox1(ClassClient.enumStaticFields.PhoneNumber.ToString(), isRequired);
+                            UCPhone = new UCTextbox1(ClassClientCustom.enumStaticFields.PhoneNumber.ToString(), isRequired);
                             UCPhone.IsPhoneNumber = true;
                             FLPAddParent.Controls.Add(UCPhone);
                             UCPhone.Margin = new Padding(5, 5, 5, 5);
@@ -146,11 +146,11 @@ namespace MKproject.Management
 
                         }
                     }
-                    else if (row["Fields"].ToString() == ClassClient.enumStaticFields.Adress.ToString())
+                    else if (row["Fields"].ToString() == ClassClientCustom.enumStaticFields.Adress.ToString())
                     {
                         if (isVisible)
                         {
-                            UCAdress = new UCTextbox1(ClassClient.enumStaticFields.Adress.ToString(), isRequired);
+                            UCAdress = new UCTextbox1(ClassClientCustom.enumStaticFields.Adress.ToString(), isRequired);
                             FLPAddParent.Controls.Add(UCAdress);
                             UCAdress.Margin = new Padding(5, 5, 5, 5);
                             UCAdress.Width = controlsWidth;
@@ -191,10 +191,10 @@ namespace MKproject.Management
             if (CheckRequired())
             {
 
-                if (!ClassClient.SearchClientPhoneNumberSQL(null, UCPhone.myTextBox1.Text))
+                if (!ClassClientCustom.SearchClientPhoneNumberSQL(null, UCPhone.myTextBox1.Text))
                 {
 
-                    ClassClient parent = new ClassClient();
+                    ClassClientCustom parent = new ClassClientCustom();
                     parent.Fname = UCFullName.ucTextbox1.Value;
                     parent.Lname = UCFullName.ucTextbox2.Value;
                     parent.PhoneNumber = UCPhone.Value;
@@ -203,7 +203,7 @@ namespace MKproject.Management
                     parent.IsParent = true;
                     parent.InsertClientToSQL();
 
-                    ParentFormNewRegist.ParentId = ClassClient.GetLastClientIDSQL();
+                    ParentFormNewRegist.ParentId = ClassClientCustom.GetLastClientIDSQL();
 
 
                     //design

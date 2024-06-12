@@ -301,7 +301,6 @@ namespace MKproject.Management
         private System.Windows.Forms.Button buttonSave;
         public System.Windows.Forms.FlowLayoutPanel FLPInfo;
         private System.Windows.Forms.Label labelEditClient;
-        private System.Windows.Forms.Label labelAdultOrChild;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonAddToAlbumAndSave;
         private System.Windows.Forms.Button buttonDelete;
@@ -311,5 +310,6 @@ namespace MKproject.Management
         public System.Windows.Forms.RadioButton radioButtonChild;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonCancel;
+        public System.Windows.Forms.Label labelAdultOrChild;
     }
 }

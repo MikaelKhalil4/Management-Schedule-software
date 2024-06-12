@@ -601,7 +601,7 @@ namespace MKproject.Management
         {
             //Sql update
             UpdateNOSessions(DesiredClientBalanceId, UpdatedSessionLeft);//lieanno this function onlykermel el package sessiosns                   
-            bool IfLastVisitDateChanged=ClassClient.UpdateClientCheckInSQLIfShould(ClientId, AttendanceDate);
+            bool IfLastVisitDateChanged=ClassClientCustom.UpdateClientCheckInSQLIfShould(ClientId, AttendanceDate);
             ProjectToSQL.InsertToClientAttendance(ClientId, DesiredClientBalanceId, AppointmentId, AttendanceDate);
 
             ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, BackOfficeDate);
@@ -624,7 +624,7 @@ namespace MKproject.Management
 
         public static void DeleteClientBalance(int DesiredClientBalanceId)
         {
-            //Eza ghayaret shi hone make sure tghayir also bel classClient on delete client
+            //Eza ghayaret shi hone make sure tghayir also bel ClassClientCustom on delete client
             con.Open();
 
             //hole el 4 ejbare bhal order kermel needir nemhe client balance

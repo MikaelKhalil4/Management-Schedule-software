@@ -7,7 +7,6 @@ using System.Transactions;
 using System.Windows.Documents;
 using GlobalFunctions;
 using MKproject.Schedule;
-using static MKproject.Management.ClassOptionsInsideFields;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
@@ -366,22 +365,23 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@availability", Availability);
                 command.Parameters.AddWithValue("@rank", Rank);
 
-
-
             }
             else
             {
                 Availability = null;
                 Rank = null;
 
-
                 command.Parameters.AddWithValue("@availability", DBNull.Value);
                 command.Parameters.AddWithValue("@rank", DBNull.Value);
 
             }
+
+
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
+
+
 
             if (IsScheduleMember)
             {
@@ -391,6 +391,7 @@ namespace MKproject.Management
                 {
                     int LastInsertedId = Convert.ToInt32(((DataTable)GetAllEmployeesOrLAstInseted(false)).Rows[0]["employee_id"]);
                     Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, LastInsertedId, Convert.ToInt32(Rank), Availability);
+                
                 }
             }
         }

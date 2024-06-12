@@ -49,7 +49,7 @@ namespace MKproject.Management
         }
         void LoadBirthdaysData()
         {
-            Birthdt = ClassClient.GetSoonBirthdaysSQL();
+            Birthdt = ClassClientCustom.GetSoonBirthdaysSQL();
             SetDatagridMode();
         }
         void FormatBirthdt()

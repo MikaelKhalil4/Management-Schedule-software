@@ -31,7 +31,7 @@ namespace MKproject.Management
 
         Label LabelNoDataRecorded;
         //For Filter
-        ClassClient ClientForFilter;
+        ClassClientCustom ClientForFilter;
 
 
         public BackOffice(ClientManagementProfile clientManagement, int? ClientBalanceId, DataTable desiredBalanceRowsdt, int? clientId)//we have 3 modes: child mode(1-spcifc baland and specific client/2-specific client) mode 3: all backoffice

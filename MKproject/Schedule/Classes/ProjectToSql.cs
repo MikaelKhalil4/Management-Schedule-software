@@ -30,6 +30,7 @@ namespace MKproject.Schedule
             command.Parameters.AddWithValue("@history_date", history_date.Date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@employee_id", employee_id);
             command.Parameters.AddWithValue("@rank", rank);
+           
             if (!String.IsNullOrEmpty(availability))
             {
                 command.Parameters.AddWithValue("@availability", availability);

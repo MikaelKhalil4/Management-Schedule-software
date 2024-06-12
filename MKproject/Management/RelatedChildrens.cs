@@ -32,12 +32,12 @@ namespace MKproject.Management
             {
 
                 dt.Clear();
-                dt = ClassClient.GetLinkedChildrenSQL(ChildOrParentPhoneNumber);
+                dt = ClassClientCustom.GetLinkedChildrenSQL(ChildOrParentPhoneNumber);
             }
             else
             {
                 dt.Clear();
-                dt = ClassClient.GetLinkedPArentsSQL(ChildOrParentPhoneNumber);
+                dt = ClassClientCustom.GetLinkedPArentsSQL(ChildOrParentPhoneNumber);
             }
 
             if (dt.Rows.Count > 0)

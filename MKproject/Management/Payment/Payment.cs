@@ -19,7 +19,7 @@ namespace MKproject.Management
 
         public ClientManagementProfile ClientManagementProfileParentForm { get; set; }
         bool IsFromSchedule;
-        public ClassClient DesiredClient;
+        public ClassClientCustom DesiredClient;
         private double initialbalance;
         private int OldSessionOrDaysNumber;
         DateTime Date;//kermel datetime.now el kell yekheda
@@ -36,7 +36,7 @@ namespace MKproject.Management
 
 
         //DataTable here could be only one row or many rows if pay total
-        public Payment(ClassClient desiredClient, DataTable desiredClientBalanceRowsdt, ClientManagementProfile clientManagementProfile, bool isFromSchedule)
+        public Payment(ClassClientCustom desiredClient, DataTable desiredClientBalanceRowsdt, ClientManagementProfile clientManagementProfile, bool isFromSchedule)
         {
             InitializeComponent();
             this.Opacity = 0;
@@ -582,8 +582,8 @@ namespace MKproject.Management
             //Sql
             if (PayOrCancel)
             {
-                ClassClient.UpdateClientTotalBalanceSQL(DesiredClient.ClientId, TotalBalanceAmount, true);//hayde kermel el table el client el asesie
-                ClassClient.UpdateClientTotalPaymentSQL(DesiredClient.ClientId, TotalPayment, true);
+                ClassClientCustom.UpdateClientTotalBalanceSQL(DesiredClient.ClientId, TotalBalanceAmount, true);//hayde kermel el table el client el asesie
+                ClassClientCustom.UpdateClientTotalPaymentSQL(DesiredClient.ClientId, TotalPayment, true);
             }
 
             //Object

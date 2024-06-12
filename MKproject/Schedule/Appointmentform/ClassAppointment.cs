@@ -25,7 +25,7 @@ namespace MKproject.Schedule
         public bool IsCanceled { get; set; }//default false, which we want
 
         public ClassEmployee DesiredEmployee { get; set; }
-        public ClassClient DesiredClient { get; set; } //used in UCClientApp
+        public ClassClientCustom DesiredClient { get; set; } //used in UCClientApp
 
 
 
@@ -458,8 +458,8 @@ namespace MKproject.Schedule
             if (!(datarow["client_id"] is DBNull))
             {
                 //less time men el fawea this method
-                DesiredApp.DesiredClient = new ClassClient();
-                DataTable dtClient = ClassClient.GetAllClientsInfoSQL(Convert.ToInt32(datarow["client_id"]));
+                DesiredApp.DesiredClient = new ClassClientCustom();
+                DataTable dtClient = ClassClientCustom.GetAllClientsInfoSQL(Convert.ToInt32(datarow["client_id"]));
 
                 DesiredApp.DesiredClient.ClientId = Convert.ToInt32(dtClient.Rows[0]["client_id"]);//noway ykun bel db fi client ma endo clientid
                 DesiredApp.DesiredClient.Fname = dtClient.Rows[0]["name"] is DBNull ? null : (string)dtClient.Rows[0]["name"];
@@ -517,7 +517,7 @@ namespace MKproject.Schedule
             // Perform deep copy on reference-type properties
             if (this.DesiredClient != null)
             {
-                copy.DesiredClient = this.DesiredClient.Copy(); // Assuming ClassClient has a Copy method
+                copy.DesiredClient = this.DesiredClient.Copy(); // Assuming ClassClientCustom has a Copy method
             }
             if (this.DesiredClientBalance != null)
             {

@@ -59,7 +59,7 @@ namespace MKproject.Management
             SearchOldText = textBoxSearch.PlaceholderText;//daruriye ma tshila
             textBoxSearch.Text = textBoxSearch.PlaceholderText;
 
-            Originaldt = ClassClient.GetAllClientsSQL();
+            Originaldt = ClassClientCustom.GetAllClientsSQL();
 
             //Datatble
             FormatOrginaldt();
@@ -71,7 +71,7 @@ namespace MKproject.Management
         public void RefreshSQL()//used in case ma ken fi updates aal datagridview (addrows,or update) w need to return to the initial state
         {
 
-            Originaldt = ClassClient.GetAllClientsSQL();
+            Originaldt = ClassClientCustom.GetAllClientsSQL();
             FormatOrginaldt();
             DataTableToDatagrid(Originaldt.Copy());
             filterCheckList.FilterDatable();
@@ -350,10 +350,10 @@ namespace MKproject.Management
             {
                 DataGridViewRow selectedRow = dataGridViewClients.Rows[e.RowIndex];
                 int ClientID = Convert.ToInt32(selectedRow.Cells["client_id"].Value);
-                ClassClient.UpdateClientLastsearchedSQL(ClientID);
+                ClassClientCustom.UpdateClientLastsearchedSQL(ClientID);
 
 
-                ClassClient DesiredCLient = ClassClient.CreateClientObject(ClientID);
+                ClassClientCustom DesiredCLient = ClassClientCustom.CreateClientObject(ClientID);
                 //form creation
                 Menu menu = Program.HomeForm.menu;
                 if (Program.clientManagementProfile == null)

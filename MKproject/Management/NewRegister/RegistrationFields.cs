@@ -4,6 +4,8 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using GlobalFunctions;
+using static MKproject.ClassClientCustom;
+using static MKproject.Management.ClassClient;
 //in this form the index of the cell when i change the value o the visible column i have a problem with the index ,need to be fixed
 namespace MKproject.Management
 {
@@ -14,15 +16,17 @@ namespace MKproject.Management
         public NewRegister NewRegisterForm { get; set; }
 
 
-
+        public ClassClientCustomFront classClientCustomFront { get; set; }
 
 
         public RegistrationFields(NewRegister newregisterForm)
         {
-
-            NewRegisterForm = newregisterForm;
-            InitializeComponent();
+            InitializeComponent();     
             this.Opacity = 0;
+           
+            
+            NewRegisterForm = newregisterForm;
+            classClientCustomFront = new ClassClientCustomFront(); //ejabre foe LoadData
 
             LoadData();
 
@@ -82,9 +86,12 @@ namespace MKproject.Management
 
         void FormatOriginalDt()
         {
+       
+
             dtRegistrationFields.Columns.Add("FakeFields", typeof(string));
             dtRegistrationFields.Columns.Add("FakeVisible", typeof(Boolean));
             dtRegistrationFields.Columns.Add("FakeRequired", typeof(Boolean));
+            dtRegistrationFields.Columns.Add("design_index", typeof(int));
             foreach (DataRow row in dtRegistrationFields.Rows)
             {
 
@@ -94,117 +101,69 @@ namespace MKproject.Management
                string FieldName = row["Fields"].ToString();
 
                 //static
-                if (FieldName == ClassClient.enumStaticFields.FullName.ToString())
+                if (FieldName == enumStaticFields.FullName.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.FullName.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.FullName;
+                    row["FakeFields"] = enumStaticFields.FullName.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.FaceImage.ToString())
+                else if (FieldName == enumStaticFields.ProfileImage.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.FaceImage.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.ProfileImage;
+                    row["FakeFields"] = enumStaticFields.ProfileImage.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.PhoneNumber.ToString())
+                else if (FieldName == enumStaticFields.PhoneNumber.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.PhoneNumber.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.PhoneNumber;
+                    row["FakeFields"] = enumStaticFields.PhoneNumber.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.Gender.ToString())
+                else if (FieldName == enumStaticFields.Gender.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.Gender.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.Gender;
+                    row["FakeFields"] = enumStaticFields.Gender.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.Job.ToString())
+                else if (FieldName == enumStaticFields.Job.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.Job.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.Job;
+                    row["FakeFields"] = enumStaticFields.Job.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.Adress.ToString())
+                else if (FieldName == enumStaticFields.Adress.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.Adress.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.Adress;
+                    row["FakeFields"] = enumStaticFields.Adress.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.InstaUserName.ToString())
+                else if (FieldName == enumStaticFields.InstaUserName.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.InstaUserName.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.InstaUserName;
+                    row["FakeFields"] = enumStaticFields.InstaUserName.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.BirthDate.ToString())
+                else if (FieldName == enumStaticFields.BirthDate.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.BirthDate.GetStringValue();
-
+                    row["design_index"] = (int)enumStaticFields.BirthDate;
+                    row["FakeFields"] = enumStaticFields.BirthDate.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumStaticFields.Email.ToString())
+                else if (FieldName == enumStaticFields.Email.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.Email.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.Email;
+                    row["FakeFields"] = enumStaticFields.Email.GetStringValue();
                 }
                 
-                else if (FieldName == ClassClient.enumStaticFields.Note.ToString())
+                else if (FieldName == enumStaticFields.Note.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumStaticFields.Note.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.Note;
+                    row["FakeFields"] = enumStaticFields.Note.GetStringValue();
                 }
-
-
-
-
-                //Dynamic 
-                else if (FieldName == ClassClient.enumDynamicFields.Height.ToString())
+                else if (FieldName == enumStaticFields.MaritalStatus.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.Height.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.MaritalStatus;
+                    row["FakeFields"] = enumStaticFields.MaritalStatus.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumDynamicFields.Weight.ToString())
+                else if (FieldName == enumStaticFields.HowDidYouKnowAboutUs.ToString())
                 {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.Weight.GetStringValue();
+                    row["design_index"] = (int)enumStaticFields.HowDidYouKnowAboutUs;
+                    row["FakeFields"] = enumStaticFields.HowDidYouKnowAboutUs.GetStringValue();
                 }
-                else if (FieldName == ClassClient.enumDynamicFields.BodyShapeTarget.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.BodyShapeTarget.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.MuscleFocusOn.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.MuscleFocusOn.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.Injuries.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.Injuries.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.Hand.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.Hand.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.SessionPerWeek.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.SessionPerWeek.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.MaritalStatus.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.MaritalStatus.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.HowDidYouKnowAboutUs.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.HowDidYouKnowAboutUs.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.GoalsTimeline.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.GoalsTimeline.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.Smoking.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.Smoking.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.Alcohol.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.Alcohol.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.ExerciseHistory.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.ExerciseHistory.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.SleepPattern.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.SleepPattern.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.StressLevel.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.StressLevel.GetStringValue();
-                }
-                else if (FieldName == ClassClient.enumDynamicFields.BoxingSkills.ToString())
-                {
-                    row["FakeFields"] = ClassClient.enumDynamicFields.BoxingSkills.GetStringValue();
-                }
+                classClientCustomFront.FormatOriginalDt(row, FieldName);  
+                
             }
 
 

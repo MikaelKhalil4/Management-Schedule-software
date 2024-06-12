@@ -84,6 +84,7 @@ namespace MKproject.Management
         }
         static public List<int> GetRowsAvailabilityofDesiredDay(string Availability, TableLayoutPanel DesiredTLP)//it will return a list of rows OF DESIREDAY
         {
+
             List<TimeSpan> AllDayAvailability = GetTimeSpanAvailabiltyOfDesiredDay(Availability);
             List<int> desiredRows = new List<int>();
             foreach (TimeSpan desiredTime in AllDayAvailability)

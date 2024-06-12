@@ -158,7 +158,7 @@ namespace MKproject.Management
                         for (int i = 0; i < Bundle.Qty; i++)
                         {
                            //Sql And Logic
-                            DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, Date, Date, ParentFormClientMang.Client,null);//hattayneha global lieanno ha nestaamela men kaza mahal
+                            DataTable dtinserteditem = ClassClientCustom.PurchaseAService(Bundle, Date, Date, ParentFormClientMang.Client,null);//hattayneha global lieanno ha nestaamela men kaza mahal
 
 
                         //Design
@@ -213,8 +213,8 @@ namespace MKproject.Management
                     //Check if Member , if mo update in sql
                     if (OneOfThePackgesIsMemberShip == true && ParentFormClientMang.Client.RegistrationDate == null)
                     {
-                        //!!!!!sql naamalit bel  ClassClient.PurchaseAService kremel el schedule also
-                        //ClassClient.MakeClientMemberSQL(ParentFormClientMang.Client.ClientId);
+                        //!!!!!sql naamalit bel  ClassClientCustom.PurchaseAService kremel el schedule also
+                        //ClassClientCustom.MakeClientMemberSQL(ParentFormClientMang.Client.ClientId);
 
                         //design
                         ParentFormClientMang.UCMemberSince.Detail = RandomFunctions.SetDateFormat(Date.ToString());
@@ -237,7 +237,7 @@ namespace MKproject.Management
                         for (int i = 0; i < product.Qty; i++)
                         {
                             //SQL
-                            DataTable dtinserteditem = ClassClient.PurchaseAProduct(product, Date,ParentFormClientMang.Client);
+                            DataTable dtinserteditem = ClassClientCustom.PurchaseAProduct(product, Date,ParentFormClientMang.Client);
 
                             //Design
                             //updating originaldatable

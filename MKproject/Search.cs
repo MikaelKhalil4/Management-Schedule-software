@@ -17,11 +17,11 @@ namespace MKproject
 
         TextBoxWithPlaceHolder DesiredTextbox;
 
-        public ClassClient NewDesiredClient;
-        ClassClient ComingDesiredClient;
+        public ClassClientCustom NewDesiredClient;
+        ClassClientCustom ComingDesiredClient;
 
         //what will hapen to access the new selected client , we use the evemt ChosenClientChanged in the other form and we access NewDesiredClient
-        public Search(TextBoxWithPlaceHolder desiredTextbox, ClassClient comingDesiredClient)
+        public Search(TextBoxWithPlaceHolder desiredTextbox, ClassClientCustom comingDesiredClient)
         {
             InitializeComponent();
             DesiredTextbox = desiredTextbox;
@@ -46,7 +46,7 @@ namespace MKproject
         void LoadForm()
         {
 
-            Originaldt = ClassClient.GetAllClientSpecificInfoSQL();
+            Originaldt = ClassClientCustom.GetAllClientSpecificInfoSQL();
             FormatOriginaldt();
             FillDataGridview();
 
@@ -179,7 +179,7 @@ namespace MKproject
                 int Id = Convert.ToInt32(row.Cells["client_id"].Value);
                 double totaBalance = Convert.ToDouble(row.Cells["total_balance"].Value);
 
-                NewDesiredClient = new ClassClient();
+                NewDesiredClient = new ClassClientCustom();
                 NewDesiredClient.ClientId = Id;//ejbare ha foe li tahta cz el filter aal textchange
                 NewDesiredClient.Fname = FName;
                 NewDesiredClient.Lname = LName;

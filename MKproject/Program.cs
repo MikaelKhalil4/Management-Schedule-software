@@ -39,7 +39,7 @@ namespace MKproject
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
         //Elie:C:\\Users\\USER\\Documents\\ELKdb\
 
-        public static string DataLocation = "Data Source=  C:\\Users\\USER\\Documents\\ELKdb\\ELK.db";
+        public static string DataLocation = "Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db";
         public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\ELKdb\\ProfileImages";
 
 
@@ -53,6 +53,9 @@ namespace MKproject
         {
             Currency.Symbol="$";
             Currency.CurrencyName = "USD";
+            ClassClientCustom.CreationOfTheFieldInitially();
+
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

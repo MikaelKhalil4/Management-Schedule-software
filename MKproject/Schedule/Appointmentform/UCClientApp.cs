@@ -790,11 +790,11 @@ namespace MKproject.Schedule
 
             if (Program.clientManagementProfile == null)
             {
-                Program.clientManagementProfile = new ClientManagementProfile(ClassClient.CreateClientObject(DesiredAppointmentUCClientApp.DesiredClient.ClientId), true);
+                Program.clientManagementProfile = new ClientManagementProfile(ClassClientCustom.CreateClientObject(DesiredAppointmentUCClientApp.DesiredClient.ClientId), true);
             }
             else
             {
-                Program.clientManagementProfile.LoadData(ClassClient.CreateClientObject(DesiredAppointmentUCClientApp.DesiredClient.ClientId), true);
+                Program.clientManagementProfile.LoadData(ClassClientCustom.CreateClientObject(DesiredAppointmentUCClientApp.DesiredClient.ClientId), true);
                 // ma aam tozbat el formatdatatgrid men wara el show dialog, bas eemlna glitch bel event visible chnaged on the form
             }
 

@@ -633,11 +633,11 @@ namespace MKproject.Schedule
             {
                 if (PurchasedBundles == null)//kermel yaamil clone w yekhud el shakel
                 {
-                    PurchasedBundles = ClassClient.PurchaseAService(Bundle, BackOfficeDate, AttendanceDate, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
+                    PurchasedBundles = ClassClientCustom.PurchaseAService(Bundle, BackOfficeDate, AttendanceDate, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
                 }
                 else
                 {
-                    DataTable dtinserteditem = ClassClient.PurchaseAService(Bundle, BackOfficeDate, AttendanceDate, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
+                    DataTable dtinserteditem = ClassClientCustom.PurchaseAService(Bundle, BackOfficeDate, AttendanceDate, DesiredAppointmentAppForm.DesiredClient, DesiredAppointmentAppForm.AppointmentID);
 
                     DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one       
                     DataRow NewRow = PurchasedBundles.NewRow();
