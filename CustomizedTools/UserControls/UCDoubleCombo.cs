@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace MKproject.Management
+namespace CustomizedTools
 {
     public partial class UCDoubleCombo : UserControl
     {

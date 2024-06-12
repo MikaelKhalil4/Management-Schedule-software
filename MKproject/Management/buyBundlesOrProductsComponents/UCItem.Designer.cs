@@ -1,4 +1,6 @@
-﻿namespace MKproject.Management
+﻿using CustomizedTools;
+
+namespace MKproject.Management
 {
     partial class UCItem
     {

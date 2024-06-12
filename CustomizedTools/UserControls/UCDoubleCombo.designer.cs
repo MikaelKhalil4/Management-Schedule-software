@@ -1,4 +1,4 @@
-﻿namespace MKproject.Management
+﻿namespace CustomizedTools
 {
     partial class UCDoubleCombo
     {

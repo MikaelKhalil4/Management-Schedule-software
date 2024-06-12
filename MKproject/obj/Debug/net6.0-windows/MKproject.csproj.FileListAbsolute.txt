@@ -420,12 +420,6 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.ChildParent.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.NewRegister.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.RegistrationFields.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.Camera.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.UCCamera.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.UCDoubleCombo.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.UCNumberButt.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.UCNumberComboButt.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.UCNumberLabelButt.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.Payment.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.UCPayments.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.Management.RelatedChildrens.resources

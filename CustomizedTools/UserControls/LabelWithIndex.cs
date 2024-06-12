@@ -1,8 +1,8 @@
 ﻿using System.Windows.Forms;
 
-namespace MKproject.Management
+namespace CustomizedTools
 {
-    internal class LabelWithIndex : Label
+     public class LabelWithIndex : Label
     {
 
         private int index;//to order by index in the FLPInfo in newregister

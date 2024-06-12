@@ -40,7 +40,7 @@ namespace MKproject.Management
         private LabelWithIndex labelPersonalInfo;
 
 
-
+        //Static
         private UCCamera UCProfileImage;
 
         //track all uc if they are used in the right way
@@ -54,7 +54,7 @@ namespace MKproject.Management
 
 
 
-        //custom tools
+        //Dynamic
         private TLPOtherOptions UCBirthDate;
         private TLPOtherOptions UCHeight;
         private TLPOtherOptions UCWeight;
@@ -1302,7 +1302,7 @@ namespace MKproject.Management
                         {
                             List<(string, Control, string)> ListOptions = new List<(string, Control, string)> { };
 
-                            ListOptions.Add((ClassOptionsInsideFields.enumNone.None.GetStringValue(), null, null));
+                            ListOptions.Add((enumNone.None.GetStringValue(), null, null));
 
                             foreach (ClassOptionsInsideFields.enumInjuries enumValue in Enum.GetValues(typeof(ClassOptionsInsideFields.enumInjuries)))
                             {

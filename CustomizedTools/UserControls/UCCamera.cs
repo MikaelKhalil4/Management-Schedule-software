@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using Label = System.Windows.Forms.Label;
 
-namespace MKproject.Management
+namespace CustomizedTools
 {
     public partial class UCCamera : UserControl
     {

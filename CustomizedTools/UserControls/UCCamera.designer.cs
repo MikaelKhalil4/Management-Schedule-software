@@ -1,6 +1,6 @@
-﻿using CustomizedTools;
+﻿
 
-namespace MKproject.Management
+namespace CustomizedTools
 {
     partial class UCCamera
     {

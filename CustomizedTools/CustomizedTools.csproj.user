@@ -11,5 +11,8 @@
     <Compile Update="NotificationBanner.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UserControls\UCCamera.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

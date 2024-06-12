@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-namespace MKproject.Management
+namespace CustomizedTools
 {
     public class TLPOtherOptions : TableLayoutPanel
     {

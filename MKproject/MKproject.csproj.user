@@ -66,9 +66,6 @@
     <Compile Update="Management\NewRegister\RegistrationFields.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Management\NewRegister\UserControls\Camera.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Management\Payment\Payment.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -26,7 +26,7 @@ namespace MKproject.Management
 
         public SearchCurrentClient SearchCurrentClientform { get; set; }
 
-
+        //dynamic
         private UCLabelAndDetail UCNote;
         private UCLabelAndDetail UCInsta;
         private UCLabelAndDetail UCAdress;
@@ -38,7 +38,7 @@ namespace MKproject.Management
         private UCLabelAndDetail UCEmail;
 
 
-
+        //static
         private UCLabelAndDetail UCSessionPerWeek;
         private UCLabelAndDetail UCHand;
         private UCLabelAndDetail UCInjuries;

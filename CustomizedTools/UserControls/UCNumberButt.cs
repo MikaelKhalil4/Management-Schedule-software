@@ -2,26 +2,17 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace MKproject.Management
+namespace CustomizedTools
 {
-    public partial class UCNumberLabelButt : UserControl
+    public partial class UCNumberButt : UserControl
     {
-        public UCNumberLabelButt()
+
+
+        //li farae bayno wben ghayra , the negative number that can occur
+        public UCNumberButt()
         {
             InitializeComponent();
         }
-
-        private string unit;
-
-        public string Unit
-        {
-            get { return unit; }
-            set { unit = value;
-                labelUnit.Text = value;
-            }
-        }
-
-
 
         private Int32 number;////just for testing, but usually we take it from the constrctor while we drag and drop
         public Int32 Number
@@ -33,10 +24,25 @@ namespace MKproject.Management
             set
             {
                 number = value;
+                if (isNegative)
+                {
+                    textBoxValue.ForeColor = Color.Red;
+                }
                 textBoxValue.Text = Convert.ToString(number);
             }
         }
 
+        private bool isNegative = false;//default value 
+        public bool IsNegative//stroy:,to know if the textbox will contain positive or negative numbers, w bas ha tkun negative , w ha tkun output only bel profile, lamma ekbus ha tekhtefe w tsi positive kella
+        {
+            get { return isNegative; }
+            set
+            {
+                isNegative = value;
+
+
+            }
+        }
 
         private Int32 minimum_number = 0;
         public Int32 Minimum_number
@@ -52,10 +58,8 @@ namespace MKproject.Management
                 {
                     minimum_number = (int)maximum_number - 1;
                 }
-
             }
         }
-
 
         private Int32 maximum_number = Int32.MaxValue;
         public Int32 Maximum_number
@@ -71,7 +75,6 @@ namespace MKproject.Management
                 {
                     maximum_number = minimum_number + 1;
                 }
-
             }
         }
 
@@ -115,17 +118,22 @@ namespace MKproject.Management
         private void textBoxValue_Enter(object sender, EventArgs e)
         {
             TextBox textBox = (TextBox)sender;
+
+
             textBox.BeginInvoke(new Action(() =>
             {
                 textBox.SelectAll();
 
             }));
+
+
         }
         private void textBoxValue_KeyPress(object sender, KeyPressEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            // write only digits and .
 
+
+            // write only digits and .
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
             {
                 e.Handled = true; // Ignore the key press
@@ -133,24 +141,32 @@ namespace MKproject.Management
             }
 
             string enteredText = textBox.Text + e.KeyChar;
+
+            //Length kermel masalan eza ken el max number toula 4 digits, ma nkhalli yektub aktar men 4 digits
             if (enteredText.Length > maximum_number.ToString().Length && e.KeyChar != '\b' && textBox.SelectionLength != textBox.Text.Length)
             {
-                e.Handled = true; // Ignore the key press
+                    e.Handled = true;   
             }
 
 
         }
-     
-        public event EventHandler textBoxValueTextChanged;
+
+        public event EventHandler TextBoxValueTextBoxValueTextChange;
         private void textBoxValue_TextChanged(object sender, EventArgs e)
         {
+
             if (textBoxValue.Text != "")
             {
+                if (Number >= 0)//a rare case but we need to handle it, cz ma32oul tkun red in case kenit negative el number
+                {
+                    textBoxValue.ForeColor = Color.Black;
+                }
 
-                if (Convert.ToInt64(textBoxValue.Text) < minimum_number)//kermel eza hattayna raem akbar men el maximum ma nkhalli
+                if (IsNegative == false && Convert.ToInt64(textBoxValue.Text) < minimum_number)//convert to 64 lieanno eza katabla raem akbar men 32 ma yaamil crash
                 {
 
                     Number = minimum_number;
+
                 }
                 else if (Convert.ToInt64(textBoxValue.Text) > maximum_number)//kermel eza hattayna raem akbar men el maximum ma nkhalli
                 {
@@ -159,14 +175,16 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    number = Convert.ToInt32(textBoxValue.Text);//number zghire cz ma bda nerjaa naabe el text cz already mawjud
+                    number = Convert.ToInt32(textBoxValue.Text);//32 lieanno ta yusal la hone ejbare ykkun 32 
                 }
+
+                IsNegative = false;//is negative ha tkun available bas awwal ma nfout w ykun eena negative days left, w ha tkun output only bel profile, lamma ekbus ha tekhtefe w tsi positive kella
 
 
             }
 
-            textBoxValueTextChanged?.Invoke(this, e);
-
+            //
+            TextBoxValueTextBoxValueTextChange?.Invoke(this, e);
         }
 
 
@@ -185,5 +203,7 @@ namespace MKproject.Management
                 Number++;
             }
         }
+
+
     }
 }

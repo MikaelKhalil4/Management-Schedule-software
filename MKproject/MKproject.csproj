@@ -46,13 +46,7 @@
     <Compile Update="Management\CalenderComponents\UCCalanderMonth.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Management\NewRegister\UserControls\UCNumberComboButt.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Management\CalenderComponents\LabelMonth.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Management\NewRegister\UserControls\LabelWithIndex.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Management\CalenderComponents\LabelYear.cs">
@@ -66,12 +60,6 @@
     </Compile>
     <Compile Update="Management\buyBundlesOrProductsComponents\UCItem.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Management\NewRegister\UserControls\TLPCheckboxesAndRadioOptions.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Management\NewRegister\UserControls\TLPOtherOptions.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Update="Management\SearchClient\UCLabelFilterSearch.cs">
       <SubType>UserControl</SubType>
@@ -89,18 +77,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Management\Payment\UCPayments.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Management\NewRegister\UserControls\UCNumberButt.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Management\NewRegister\UserControls\UCNumberLabelButt.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Management\NewRegister\UserControls\UCCamera.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Management\NewRegister\UserControls\UCDoubleCombo.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\Appointmentform\UCClientApp.cs">
@@ -273,5 +249,8 @@
     <Compile Remove="Home\Home.cs" />
     <Compile Remove="Home\Home.designer.cs" />
     <EmbeddedResource Remove="Home\Home.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Management\Interface\" />
   </ItemGroup>
 </Project>

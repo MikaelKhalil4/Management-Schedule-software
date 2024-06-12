@@ -1,4 +1,4 @@
-﻿using CustomizedTools;
+﻿using GlobalFunctions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +10,7 @@ using Control = System.Windows.Forms.Control;
 using Label = System.Windows.Forms.Label;
 using RadioButton = System.Windows.Forms.RadioButton;
 
-namespace MKproject.Management
+namespace CustomizedTools
 {
 
     public class TLPCheckboxesAndRadioOptions : TableLayoutPanel
@@ -151,7 +151,11 @@ namespace MKproject.Management
         List<(string, Control, string)> Options { get; set; }//(enumOptionText,OptionText,ControlExtention,Control InitialValueOrPlaceHolde)    
         Font OptionsFont = new Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-
+        public enum enumNone
+        {
+            [StringValue("None")]
+            None,
+        }
 
 
 
@@ -541,7 +545,7 @@ namespace MKproject.Management
 
 
                 //handling the none
-                if (((CheckBox)sender).Text == ClassOptionsInsideFields.enumNone.None.ToString())
+                if (((CheckBox)sender).Text == enumNone.None.GetStringValue())
                 {
                     if (((CheckBox)sender).Checked)
                     {

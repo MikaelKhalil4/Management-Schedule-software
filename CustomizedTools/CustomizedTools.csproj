@@ -51,6 +51,27 @@
     <Compile Update="UsedForFilters\UCTextBoxFilterOriginal.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="UserControls\LabelWithIndex.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UserControls\TLPCheckboxesAndRadioOptions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UserControls\TLPOtherOptions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UserControls\UCDoubleCombo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\UCNumberButt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\UCNumberComboButt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\UCNumberLabelButt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
