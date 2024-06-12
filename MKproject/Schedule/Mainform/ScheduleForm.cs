@@ -66,7 +66,7 @@ namespace MKproject.Schedule
 
 
             ucSchedule.LoadGlobalyTheForm();
-            ucSchedule.ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, ucSchedule.TLPSchedule), ucSchedule.TLPSchedule);//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+            ucSchedule.ScrollToRow(ClassEmployeeFront.GetRowFromTime(DateTime.Now.TimeOfDay, false, ucSchedule.TLPSchedule), ucSchedule.TLPSchedule);//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
 
         }
 
@@ -222,7 +222,7 @@ namespace MKproject.Schedule
 
         private void ScheduleForm_Load(object sender, EventArgs e)
         {
-            ucSchedule.ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, ucSchedule.TLPSchedule), ucSchedule.TLPSchedule);//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
+            ucSchedule.ScrollToRow(ClassEmployeeFront.GetRowFromTime(DateTime.Now.TimeOfDay, false, ucSchedule.TLPSchedule), ucSchedule.TLPSchedule);//leh hattina marrra tenye hone , maa enno mawjude bel load, form, cz hone la tekhud el form the right size
             ucSchedule.UpdateTimeIndicatorLinePosition();
         }
         public event EventHandler ScheduleFormResize;

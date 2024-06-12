@@ -151,7 +151,7 @@ namespace MKproject.Management
 
             //DatagridView
             dataGridViewBalance.DataSource = OriginalDesiredClientBalanceRowsdt;//badak that mahalla datatble aw mb#rf shu
-            ClassClientBalance.FormatDatagridview(dataGridViewBalance, false);
+            ClassClientBalanceFront.FormatDatagridview(dataGridViewBalance, false);
             dataGridViewBalance.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewBalance.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel taamil stretch aa kell surface  horizontally
             dataGridViewBalance.RowTemplate.MinimumHeight = 40; // Set minimum row height
@@ -630,7 +630,7 @@ namespace MKproject.Management
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.RowIndex < dataGridViewBalance.Rows.Count && e.ColumnIndex < dataGridViewBalance.Columns.Count)
             {
-                ClassClientBalance.FixCellsFormat(dataGridViewBalance, e);
+                ClassClientBalanceFront.FixCellsFormat(dataGridViewBalance, e);
             }
         }
 

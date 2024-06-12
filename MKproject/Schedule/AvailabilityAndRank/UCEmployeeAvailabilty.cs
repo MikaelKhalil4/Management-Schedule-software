@@ -67,7 +67,7 @@ namespace MKproject.Schedule
             CreateTLP();
             SetTLPColumns();
 
-            DailyRowsAvailability = ClassEmployee.GetRowsAvailabilityForTheWholeWeek(DesiredEmploye.Availability,TLPScheduleAv);
+            DailyRowsAvailability = ClassEmployeeFront.GetRowsAvailabilityForTheWholeWeek(DesiredEmploye.Availability,TLPScheduleAv);
 
             labelEmployeeName.Text = desiredEmploye.Fname + " " + desiredEmploye.Lname;
         }
@@ -192,7 +192,7 @@ namespace MKproject.Schedule
 
                 if (hoveredCellColmnRow.Item1 != -1)
                 {
-                    string NewAvailability = GetIntervalBetweenTwoTime(ClassEmployee.GetTimeFromRow(MouseDownPosition.Item2, false,TLPScheduleAv).ToString(@"hh\:mm"), ClassEmployee.GetTimeFromRow(hoveredCellColmnRow.Item2, false,TLPScheduleAv).ToString(@"hh\:mm"));
+                    string NewAvailability = GetIntervalBetweenTwoTime(ClassEmployeeFront.GetTimeFromRow(MouseDownPosition.Item2, false,TLPScheduleAv).ToString(@"hh\:mm"), ClassEmployeeFront.GetTimeFromRow(hoveredCellColmnRow.Item2, false,TLPScheduleAv).ToString(@"hh\:mm"));
                     string[] availabilities = DesiredEmploye.Availability.Split('/');
                     string OldavailabalityOfDesiredDay = availabilities[MouseDownPosition.Item1 - 1];
 
@@ -220,7 +220,7 @@ namespace MKproject.Schedule
 
                     DesiredEmploye.Availability = string.Join("/", availabilities);
 
-                    DailyRowsAvailability = ClassEmployee.GetRowsAvailabilityForTheWholeWeek(DesiredEmploye.Availability,TLPScheduleAv);
+                    DailyRowsAvailability = ClassEmployeeFront.GetRowsAvailabilityForTheWholeWeek(DesiredEmploye.Availability,TLPScheduleAv);
                     TLPScheduleAv.Invalidate();
                 }
                 MouseDownPosition = (-1, -1);
@@ -408,7 +408,7 @@ namespace MKproject.Schedule
         {
 
             // Assuming GetTimeFromRow is a method that returns a TimeSpan for the given row
-            DateTime dateTime = DateTime.Today.Add(ClassEmployee.GetTimeFromRow(rowIndex, false,TLPScheduleAv));//the end time is handled from where we re calling
+            DateTime dateTime = DateTime.Today.Add(ClassEmployeeFront.GetTimeFromRow(rowIndex, false,TLPScheduleAv));//the end time is handled from where we re calling
             string textToDraw = dateTime.ToString("hh:mm tt");
 
             // Define the format for the text
@@ -499,8 +499,8 @@ namespace MKproject.Schedule
 
         string MergeAvailabilities(string oldAvailability, string newAvailability)
         {
-            List<TimeSpan> oldIntervals = ClassEmployee.GetTimeSpanAvailabiltyOfDesiredDay(oldAvailability);
-            List<TimeSpan> newIntervals = ClassEmployee.GetTimeSpanAvailabiltyOfDesiredDay(newAvailability);
+            List<TimeSpan> oldIntervals = ClassEmployeeFront.GetTimeSpanAvailabiltyOfDesiredDay(oldAvailability);
+            List<TimeSpan> newIntervals = ClassEmployeeFront.GetTimeSpanAvailabiltyOfDesiredDay(newAvailability);
             List<TimeSpan> mergedIntervals = new List<TimeSpan>();
 
             int i = 0, j = 0;
@@ -538,8 +538,8 @@ namespace MKproject.Schedule
         }
         string RetrieveRemainingAvailability(string oldAvailability, string newAvailability)
         {
-            List<TimeSpan> oldIntervals = ClassEmployee.GetTimeSpanAvailabiltyOfDesiredDay(oldAvailability);
-            List<TimeSpan> newIntervals = ClassEmployee.GetTimeSpanAvailabiltyOfDesiredDay(newAvailability);
+            List<TimeSpan> oldIntervals = ClassEmployeeFront.GetTimeSpanAvailabiltyOfDesiredDay(oldAvailability);
+            List<TimeSpan> newIntervals = ClassEmployeeFront.GetTimeSpanAvailabiltyOfDesiredDay(newAvailability);
 
             List<TimeSpan> remainingIntervals = oldIntervals.Except(newIntervals).ToList();
 

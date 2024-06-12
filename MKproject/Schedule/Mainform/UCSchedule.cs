@@ -305,7 +305,7 @@ namespace MKproject.Schedule
             //Scrol
             if (IsScrollToNowHour)
             {
-                ScrollToRow(ClassEmployee.GetRowFromTime(DateTime.Now.TimeOfDay, false, TLPSchedule), TLPSchedule);
+                ScrollToRow(ClassEmployeeFront.GetRowFromTime(DateTime.Now.TimeOfDay, false, TLPSchedule), TLPSchedule);
             }
 
             if (IsEmployeeFilterModeOn)
@@ -367,12 +367,12 @@ namespace MKproject.Schedule
                 }
                 else//present-future
                 {
-                    DesiredAvailabiltyOfSpecificDay = ClassEmployee.GetAvailabiltyAsAstringFromWeekAvailability(SelectedDate, DesiredEmployee.Availability);//hone ha tkun the 7 days, lieanno aam nes7aba men table employee
+                    DesiredAvailabiltyOfSpecificDay = ClassEmployeeFront.GetAvailabiltyAsAstringFromWeekAvailability(SelectedDate, DesiredEmployee.Availability);//hone ha tkun the 7 days, lieanno aam nes7aba men table employee
                 }
 
-                SelectedDateTimeAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployee.GetTimeSpanAvailabiltyOfDesiredDay(DesiredAvailabiltyOfSpecificDay)));
+                SelectedDateTimeAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployeeFront.GetTimeSpanAvailabiltyOfDesiredDay(DesiredAvailabiltyOfSpecificDay)));
 
-                SelectedRowsAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployee.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay.ToString(), TLPSchedule)));
+                SelectedRowsAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay.ToString(), TLPSchedule)));
             }
         }
         public void SetWeekRowsAvailabilityForTheOnlyEmployee()
@@ -411,13 +411,13 @@ namespace MKproject.Schedule
                 {
                     string Availabilty = dtAv.AsEnumerable().FirstOrDefault(row => Convert.ToDateTime(row.Field<string>("history_date")).Date == date.Date)?["availability"].ToString();
 
-                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployee.GetRowsAvailabilityofDesiredDay(Availabilty, TLPSchedule));
+                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(Availabilty, TLPSchedule));
                 }
                 else//PRESENT AND FUTURE, from employee table
                 {
-                    string DesiredAvailabiltyOfSpecificDay = ClassEmployee.GetAvailabiltyAsAstringFromWeekAvailability(date, TheOnlyEmployee.Availability);
+                    string DesiredAvailabiltyOfSpecificDay = ClassEmployeeFront.GetAvailabiltyAsAstringFromWeekAvailability(date, TheOnlyEmployee.Availability);
 
-                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployee.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay.ToString(), TLPSchedule));
+                    WeekRowsAvailabilityForTheOnlyEmployee.Add(ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay.ToString(), TLPSchedule));
                 }
             }
         }
@@ -880,13 +880,13 @@ namespace MKproject.Schedule
                                 ClassEmployee SelectedEmployee = null;
                                 if (IsDayOrWeek)
                                 {
-                                    StartTime = SelectedDate.Date + ClassEmployee.GetTimeFromRow(row, false, TLPSchedule);
+                                    StartTime = SelectedDate.Date + ClassEmployeeFront.GetTimeFromRow(row, false, TLPSchedule);
                                     (SelectedEmployee, _) = GetWhichEmployeeOrDateForSpecifieColumn(column, IsDayOrWeek);
                                 }
                                 else
                                 {
                                     (_, StartTime) = GetWhichEmployeeOrDateForSpecifieColumn(column, IsDayOrWeek);
-                                    StartTime += ClassEmployee.GetTimeFromRow(row, false, TLPSchedule);
+                                    StartTime += ClassEmployeeFront.GetTimeFromRow(row, false, TLPSchedule);
                                     if (TheOnlyEmployee != null)
                                     {
                                         SelectedEmployee = TheOnlyEmployee;
@@ -947,7 +947,7 @@ namespace MKproject.Schedule
                 for (int i = 0; i < TotalEmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
                 {
 
-                    string DesiredAvailabiltyOfSpecificDay = ClassEmployee.GetAvailabiltyAsAstringFromWeekAvailability(DateTime.Now, EmployeeScheduleListWorkingOn[i].Availability);
+                    string DesiredAvailabiltyOfSpecificDay = ClassEmployeeFront.GetAvailabiltyAsAstringFromWeekAvailability(DateTime.Now, EmployeeScheduleListWorkingOn[i].Availability);
 
                     ProjectToSql.InsertHistoryEmployeeavailibility(DateTime.Now, EmployeeScheduleListWorkingOn[i].EmployeeId, (int)EmployeeScheduleListWorkingOn[i].Rank, DesiredAvailabiltyOfSpecificDay);
                 }
@@ -1153,10 +1153,10 @@ namespace MKproject.Schedule
         public (int, int) GetUCAppointmentRowIndexes(ClassAppointment DesiredAppointment)
         {
             TimeSpan starttimeTimeSpan = DesiredAppointment.StartTime.TimeOfDay;
-            int PositionRowStart = ClassEmployee.GetRowFromTime(starttimeTimeSpan, false, TLPSchedule);
+            int PositionRowStart = ClassEmployeeFront.GetRowFromTime(starttimeTimeSpan, false, TLPSchedule);
 
             TimeSpan endtimeTimeSpan = DesiredAppointment.EndTime.TimeOfDay;
-            int PositionRowEnd = ClassEmployee.GetRowFromTime(endtimeTimeSpan, true, TLPSchedule);
+            int PositionRowEnd = ClassEmployeeFront.GetRowFromTime(endtimeTimeSpan, true, TLPSchedule);
 
 
             return (PositionRowStart, PositionRowEnd);//position flowlayoutpanel hiye position employee bel list-1 
@@ -2209,7 +2209,7 @@ namespace MKproject.Schedule
                     if (IsDayOrWeek)
                     {
                         //StartTime
-                        TimeSpan NewStartTime = ClassEmployee.GetTimeFromRow(NewRowIndexStart, false, TLPSchedule);
+                        TimeSpan NewStartTime = ClassEmployeeFront.GetTimeFromRow(NewRowIndexStart, false, TLPSchedule);
                         UCApointmentDraged.DesiredAppointmentUCApp.StartTime = UCApointmentDraged.DesiredAppointmentUCApp.StartTime.Date + NewStartTime;
 
 
@@ -2225,7 +2225,7 @@ namespace MKproject.Schedule
                     {
                         if (TheOnlyEmployee != null)
                         {
-                            DateTime NewStartTime = ((DateTime)NewDesiredDate).Date + ClassEmployee.GetTimeFromRow(NewRowIndexStart, false, TLPSchedule);
+                            DateTime NewStartTime = ((DateTime)NewDesiredDate).Date + ClassEmployeeFront.GetTimeFromRow(NewRowIndexStart, false, TLPSchedule);
                             UCApointmentDraged.DesiredAppointmentUCApp.StartTime = NewStartTime;
 
 
@@ -3067,7 +3067,7 @@ namespace MKproject.Schedule
         {
 
             // Assuming GetTimeFromRow is a method that returns a TimeSpan for the given row
-            DateTime dateTime = DateTime.Today.Add(ClassEmployee.GetTimeFromRow(rowIndex, false, TLPSchedule));
+            DateTime dateTime = DateTime.Today.Add(ClassEmployeeFront.GetTimeFromRow(rowIndex, false, TLPSchedule));
             string textToDraw = dateTime.ToString("hh:mm tt");
 
             // Define the format for the text

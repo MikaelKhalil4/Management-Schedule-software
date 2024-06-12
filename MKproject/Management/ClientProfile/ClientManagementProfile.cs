@@ -118,7 +118,7 @@ namespace MKproject.Management
             dtClientBalanceOriginal = ClassClientBalance.GetClientBalanceSpecificOrLastInsert(Client.ClientId);
 
             DataTableToDatagridView();
-            ClassClientBalance.FormatDatagridview(dataGridViewBalance, true);
+            ClassClientBalanceFront.FormatDatagridview(dataGridViewBalance, true);
             //            
             InitialSetBundleMode();//lama ykun eena 10000 UC bundles mesh menshelin ma32eoul tekhud shwayyit waet
             datagridviewBalanceMode();
@@ -178,7 +178,7 @@ namespace MKproject.Management
             {
                 if (dataGridViewBalance.Columns[e.ColumnIndex].Name != "PayOrEdit" && dataGridViewBalance.Columns[e.ColumnIndex].Name != "Transactions")
                 {
-                    ClassClientBalance.FixCellsFormat(dataGridViewBalance, e);
+                    ClassClientBalanceFront.FixCellsFormat(dataGridViewBalance, e);
                 }
             }
         }

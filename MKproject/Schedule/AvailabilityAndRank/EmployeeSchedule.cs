@@ -106,7 +106,7 @@ namespace MKproject.Schedule
             {
                 int rank = (int)ParentucSchedule.TotalEmployeeScheduleList[i].Rank;
              
-                string DesiredAvailabiltyOfSpecificDay = ClassEmployee.GetAvailabiltyAsAstringFromWeekAvailability(DateTime.Now, ParentucSchedule.TotalEmployeeScheduleList[i].Availability);
+                string DesiredAvailabiltyOfSpecificDay = ClassEmployeeFront.GetAvailabiltyAsAstringFromWeekAvailability(DateTime.Now, ParentucSchedule.TotalEmployeeScheduleList[i].Availability);
 
 
                 ProjectToSql.UpdateRank_HistoryEmployeeavailibility(DateTime.Now, ParentucSchedule.TotalEmployeeScheduleList[i].EmployeeId, rank, DesiredAvailabiltyOfSpecificDay);

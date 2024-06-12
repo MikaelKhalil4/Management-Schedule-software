@@ -37,6 +37,12 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Management\Interface\**" />
+    <EmbeddedResource Remove="Management\Interface\**" />
+    <None Remove="Management\Interface\**" />
+    <Page Remove="Management\Interface\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Management\buyBundlesOrProductsComponents\UCBundlesOutput.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -249,8 +255,5 @@
     <Compile Remove="Home\Home.cs" />
     <Compile Remove="Home\Home.designer.cs" />
     <EmbeddedResource Remove="Home\Home.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Management\Interface\" />
   </ItemGroup>
 </Project>

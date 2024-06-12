@@ -537,8 +537,8 @@ namespace MKproject.Schedule
 
 
             TimeSpan EndTime = DesiredAppointmentAppForm.EndTime.TimeOfDay;//let s say end time was 9:00, bel availabilty ha tkun 8:45, so that s why eemelna thismethd tahet
-            int desiredRow = ClassEmployee.GetRowFromTime(EndTime, true, UcScheduleParentForm.TLPSchedule);
-            EndTime = ClassEmployee.GetTimeFromRow(desiredRow, false, UcScheduleParentForm.TLPSchedule);
+            int desiredRow = ClassEmployeeFront.GetRowFromTime(EndTime, true, UcScheduleParentForm.TLPSchedule);
+            EndTime = ClassEmployeeFront.GetTimeFromRow(desiredRow, false, UcScheduleParentForm.TLPSchedule);
 
 
             if (UcScheduleParentForm.SelectedDateTimeAvailabilityForEachEmployeWorkingOn[EmployeeIndex].Item2.Contains(DesiredAppointmentAppForm.StartTime.TimeOfDay)
