@@ -16,190 +16,28 @@ namespace MKproject
     {
         static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
-        public string Height { get; set; }
-        public string Weight { get; set; }
-        public string BodyShapeTarget { get; set; }
-        public string MuscleFocusOn { get; set; }
-        public string Injuries { get; set; }
-        public string Hand { get; set; }
-        public int? SessionPerWeek { get; set; }
-        public string GoalsTimeline { get; set; }
-        public string Smoking { get; set; }
-        public string Alcohol { get; set; }
-        public string ExerciseHistory { get; set; }
-        public string SleepPattern { get; set; }
-        public string StressLevel { get; set; }
-        public string BoxingSkills { get; set; }
-
-
+        //public string Height { get; set; }
+       
         public enum enumDynamicFields//ejabre ballish men 1 aw 101 kermel el labels
         {
             //Dynamic
 
-            [StringValue("Height")]
-            Height = 101,
-            [StringValue("Weight")]
-            Weight,
-            [StringValue("Body Shape Target")]
-            BodyShapeTarget,
-            [StringValue("Hand")]
-            Hand,
-            [StringValue("Injuries")]
-            Injuries,
-            [StringValue("Muscles Focus")]
-            MuscleFocusOn,
-            [StringValue("Sessions/Week")]
-            SessionPerWeek,
-            [StringValue("Goals Timeline")]
-            GoalsTimeline,
-            [StringValue("Alcohol")]
-            Alcohol,
-            [StringValue("Smoking")]
-            Smoking,
-            [StringValue("Exercise History")]
-            ExerciseHistory,
-
-            [StringValue("Sleep Pattern")]
-            SleepPattern,
-            [StringValue("Stress Level")]
-            StressLevel,
-            [StringValue("Focus on Boxing skills")]
-            BoxingSkills,
+            //[StringValue("Height")]
+            //Height = 101,
+       
 
         }
+  
 
-        public enum RightLeft
+        //public enum UnitHeight
+        //{
+        //    [StringValue("cm")]
+        //    cm,
+        //    [StringValue("ft")]
+        //    ft,
+        //}
 
-        {
-            [StringValue("Right")]
-            Right,
-            [StringValue("Left")]
-            Left
-        }
-        //global
-        public enum UnitHeight
-        {
-            cm,
-            ft,
-        }
-
-        public enum UnitWeight
-        {
-            kg,
-            lb,
-        }
-
-
-
-        public enum enumBodyShapeTarget
-        {
-            [StringValue("Toned body")]
-            tonedbody,
-            [StringValue("Build muscles")]
-            buildmuscles,
-            [StringValue("Burn fat")]
-            burnfat
-
-        }
-        public enum enumMuscleFocusOn
-        {
-            [StringValue("Entire body")]
-            Entirebody,
-            [StringValue("Chest")]
-            Chest,
-            [StringValue("Back")]
-            Back,
-            [StringValue("Arms")]
-            Arms,
-            [StringValue("Gluteus")]
-            Gluteus,
-            [StringValue("Legs")]
-            Legs,
-            [StringValue("Abs")]
-            Abs,
-        }
-        public enum enumInjuries//checkboxes
-        {
-            //none badna nzida men el new regis
-            [StringValue("Back pain")]
-            Backpain,
-            [StringValue("Upper back pain")]
-            Upperbackpain,
-            [StringValue("Lower back pain")]
-            Lowerbackpain,
-            [StringValue("Knee pain")]
-            Kneepain,
-            [StringValue("Left knee pain")]
-            Leftkneepain,
-            [StringValue("Right knee pain")]
-            Rightkneepain,
-            [StringValue("Neck pain")]
-            Neckpain,
-            [StringValue("Others")]//add textbox
-            Others
-
-        }
-        public enum enumExerciseHistory//checkboxes
-        {
-            [StringValue("Cardio")]
-            Cardio,
-            [StringValue("Strenght Training")]
-            StrenghtTraining,
-            [StringValue("Flexibility And Mobility")]
-            FlexibilityAndMobility,
-            [StringValue("Others")]//add textbox
-            Others
-        }
-        public enum enumFightingSkills
-        {
-            [StringValue("Self defense")]
-            Selfdefense,
-            [StringValue("Relieve stress")]
-            Relievestress,
-            [StringValue("Increase focus")]
-            Increasefocus,
-            [StringValue("Reflex")]
-            Reflex,
-            [StringValue("Learn how to fight")]
-            Learnhowtofight
-        }
-        public enum enumStressLevel
-        {
-            [StringValue("Not Stressed")]
-            NotStressed,
-            [StringValue("Low Stress")]
-            LowStress,
-            [StringValue("Moderate Stress")]
-            ModerateStress,
-            [StringValue("High Stress")]
-            HighStress,
-            [StringValue("Very High Stress")]
-            VeryHighStress,
-            [StringValue("I don't want to answer")]
-            Idontwanttoanswer
-        }
-        public enum enumSessionPerWeek
-        {
-            [StringValue("1")]
-            One,
-            [StringValue("2")]
-            Two,
-            [StringValue("3")]
-            Three,
-            [StringValue("4")]
-            Four,
-            [StringValue("5")]
-            Five,
-            [StringValue("6")]
-            Six
-        }
-        //custom
-        public enum Period
-        {
-            Weeks,
-            Months,
-            Years
-        }
+       
 
 
         public override int InsertClientToSQL()
@@ -309,64 +147,14 @@ namespace MKproject
             {
                 string fieldName = row["Fields"].ToString();
                 string content = row["content"].ToString();
+              
                 // Map fieldName to properties using if statements
-                if (fieldName == enumDynamicFields.Height.ToString())
-                {
-                    client.Height = content;
-                }
-                else if (fieldName == enumDynamicFields.Weight.ToString())
-                {
-                    client.Weight = content;
-                }
-                else if (fieldName == enumDynamicFields.BodyShapeTarget.ToString())
-                {
-                    client.BodyShapeTarget = content;
-                }
-                else if (fieldName == enumDynamicFields.MuscleFocusOn.ToString())
-                {
-                    client.MuscleFocusOn = content;
-                }
-                else if (fieldName == enumDynamicFields.Injuries.ToString())
-                {
-                    client.Injuries = content;
-                }
-                else if (fieldName == enumDynamicFields.Hand.ToString())
-                {
-                    client.Hand = content;
-                }
-                else if (fieldName == enumDynamicFields.SessionPerWeek.ToString())
-                {
-                    client.SessionPerWeek = Convert.ToInt32(content);
 
-                }
-                else if (fieldName == enumDynamicFields.GoalsTimeline.ToString())
-                {
-                    client.GoalsTimeline = content;
-                }
-                else if (fieldName == enumDynamicFields.Alcohol.ToString())
-                {
-                    client.Alcohol = content;
-                }
-                else if (fieldName == enumDynamicFields.Smoking.ToString())
-                {
-                    client.Smoking = content;
-                }
-                else if (fieldName == enumDynamicFields.ExerciseHistory.ToString())
-                {
-                    client.ExerciseHistory = content;
-                }
-                else if (fieldName == enumDynamicFields.SleepPattern.ToString())
-                {
-                    client.SleepPattern = content;
-                }
-                else if (fieldName == enumDynamicFields.StressLevel.ToString())
-                {
-                    client.StressLevel = content;
-                }
-                else if (fieldName == enumDynamicFields.BoxingSkills.ToString())
-                {
-                    client.BoxingSkills = content;
-                }
+                //if (fieldName == enumDynamicFields.Height.ToString())
+                //{
+                //    client.Height = content;
+                //}
+              
             }
 
             return client;
