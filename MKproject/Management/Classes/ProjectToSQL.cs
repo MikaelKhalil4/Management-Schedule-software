@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace MKproject.Management
 {
@@ -50,7 +51,7 @@ namespace MKproject.Management
 
 
         //client_struct table
-        public static void InsertToClientAttendance(int ClientID, int clientBalanceId, int? AppointmentID,DateTime AttendanceDate)
+        public static void InsertToClientAttendance(int ClientID, int clientBalanceId, int? AppointmentID, DateTime AttendanceDate)
         {
 
             string QueryInsert = "insert into client_services_attendance (client_id,client_balance_id,appointment_id,execute_date) values (@client_id,@client_balance_id,@appointment_id,@execute_date)";
@@ -71,6 +72,52 @@ namespace MKproject.Management
             cmdInsert.ExecuteNonQuery();
             con.Close();
 
+        }
+
+        //client-fields
+        public static void InsertClientField(int clientId, int fieldId, string content)
+        {
+            string insertQuery = "INSERT INTO client_fields (client_id, fields_id, content) VALUES (@clientId, @fieldId, @content)";
+            SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, con);
+            insertCommand.Parameters.AddWithValue("@clientId", clientId);
+            insertCommand.Parameters.AddWithValue("@fieldId", fieldId);
+            insertCommand.Parameters.AddWithValue("@content", content);
+            con.Open();
+            insertCommand.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public static void UpdateClientField(int clientId, int fieldId, string content)
+        {
+            string updateQuery = "UPDATE client_fields SET content = @content WHERE client_id = @clientId AND fields_id = @fieldId";
+            SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, con);
+            updateCommand.Parameters.AddWithValue("@content", content);
+            updateCommand.Parameters.AddWithValue("@clientId", clientId);
+            updateCommand.Parameters.AddWithValue("@fieldId", fieldId);
+            con.Open();
+            updateCommand.ExecuteNonQuery();
+            con.Close();
+
+        }
+        public static void DeleteClientField(int clientId, int? fieldId)
+        {
+            string DeleteQuery = "Delete from client_fields WHERE client_id = @clientId ";
+            if (fieldId != null)
+            {
+                DeleteQuery += " AND fields_id = @fieldId";
+            }
+
+            SQLiteCommand DeleteCommand = new SQLiteCommand(DeleteQuery, con);
+            DeleteCommand.Parameters.AddWithValue("@clientId", clientId);
+
+            if (fieldId != null)
+            {
+                DeleteCommand.Parameters.AddWithValue("@fieldId", fieldId);
+            }
+
+            con.Open();
+            DeleteCommand.ExecuteNonQuery();
+            con.Close();
         }
 
 
@@ -117,6 +164,19 @@ namespace MKproject.Management
             command.ExecuteNonQuery();
             con.Close();
         }
+        public static void InsertField(string fieldName, bool visible, bool required, bool isOriginal)
+        {
+            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO required_visible_fields (Fields, Visible, Required, IsOriginal) VALUES (@Fields, @Visible, @Required, @IsOriginal)", con);
+            cmd.Parameters.AddWithValue("@Fields", fieldName);
+            cmd.Parameters.AddWithValue("@Visible", visible);
+            cmd.Parameters.AddWithValue("@Required", required);
+            cmd.Parameters.AddWithValue("@IsOriginal", isOriginal);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+        }
+
 
 
     }

@@ -65,6 +65,7 @@ namespace MKproject.Management
         }
         public int? Age { get; set; }
         public string MaritalStatus { get; set; }
+        public string KnowAboutUs { get; set; }
 
 
 
@@ -106,11 +107,11 @@ namespace MKproject.Management
             Female
         }
 
-        public enum enumStaticFields//most of enum strings are in registation field table  the same string in sql 
+        public enum enumStaticFields//azghar index lezim ykun one
         {
             //static
             [StringValue("Profile Image")]
-            ProfileImage=1,//kermel el label li bel new register
+            ProfileImage = 10,
             [StringValue("Full Name")]
             FullName,
             [StringValue("Phone Number")]
@@ -124,16 +125,17 @@ namespace MKproject.Management
             [StringValue("Job")]
             Job,
             [StringValue("Adress")]
-            Adress,        
+            Adress,
             [StringValue("Insta")]
-            InstaUserName,                       
+            InstaUserName,
             [StringValue("Marital status")]
             MaritalStatus,
             [StringValue("How did you know about us")]
             HowDidYouKnowAboutUs,
             [StringValue("Note")]
-            Note=10000,//lieanno it should come after el custpomize fields
-      
+            Note = 10000,//lieanno it should come after el custpomize fields
+
+
             //thats how we access a value
             //Enum.GetName(typeof(ClassClientCustom.Type), ClassClientCustom.Type.) 
             //Enum.GetName(typeof(ClassClientCustom.Type), ClassClientCustom.Type.) 
@@ -591,17 +593,17 @@ namespace MKproject.Management
 
 
         string ImageName = "Client";//theclient id will be added to t
-        public virtual void InsertClientToSQL()
+        public virtual int InsertClientToSQL()
         {
 
 
             // Phone number does not exist, proceed with insertion
-            string insertQuery = "INSERT INTO client (name, family_name, gender, date_of_birth, phone_number, adress, job, special_note, insta_user, IsChild,IsParent,AlbumType,last_time_searched,save_date,Registration_Date,check_in,total_balance,total_payment,email) " +
-                                 "VALUES (@Name, @FamilyName, @Gender, @DateOfBirth,@PhoneNumber, @Adress, @Job, @SpecialNote, @InstaUser, @IsChild,@IsParent,@AlbumType,@last_time_searched,@save_date,@Registration_Date,@check_in,@total_balance,@total_payment,@Email)";
+            string insertQuery = "INSERT INTO client (name, family_name, gender, date_of_birth, phone_number, adress, job, special_note, insta_user, IsChild,IsParent,AlbumType,last_time_searched,save_date,Registration_Date,check_in,total_balance,total_payment,email,marital_status,know_about_us) " +
+                                 "VALUES (@Name, @FamilyName, @Gender, @DateOfBirth,@PhoneNumber, @Adress, @Job, @SpecialNote, @InstaUser, @IsChild,@IsParent,@AlbumType,@last_time_searched,@save_date,@Registration_Date,@check_in,@total_balance,@total_payment,@Email,@marital_status,@know_about_us)";
 
             SQLiteCommand command = new SQLiteCommand(insertQuery, con);
 
-           
+
             if (Fname == null)
             {
 
@@ -629,7 +631,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@DateOfBirth", ((DateTime)BirthDate).ToString("yyyy-MM-dd"));
 
 
-          
+
 
             if (PhoneNumber == null)
                 command.Parameters.AddWithValue("@PhoneNumber", DBNull.Value);
@@ -666,8 +668,15 @@ namespace MKproject.Management
             else
                 command.Parameters.AddWithValue("@Email", Email);
 
+            if (MaritalStatus == null)
+                command.Parameters.AddWithValue("@marital_status", DBNull.Value);
+            else
+                command.Parameters.AddWithValue("@marital_status", MaritalStatus);
+            if (KnowAboutUs == null)
+                command.Parameters.AddWithValue("@know_about_us", DBNull.Value);
+            else
+                command.Parameters.AddWithValue("@know_about_us", KnowAboutUs);
 
-          
 
             command.Parameters.AddWithValue("@IsChild", IsChild);
             command.Parameters.AddWithValue("@IsParent", IsParent);
@@ -679,7 +688,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@AlbumType", AlbumType);
 
 
-         
+
 
 
 
@@ -696,13 +705,13 @@ namespace MKproject.Management
             command.ExecuteNonQuery();
             con.Close();
 
-           
+            int InsertedClientId = GetLastClientIDSQL();
+
             if (ProfileImage != null)
             {
                 string QueryUpdateImage = "Update client Set  profile_image_path=@profile_image_path where client_id=@client_id ";
                 SQLiteCommand commandUpdateImage = new SQLiteCommand(QueryUpdateImage, con);
 
-                int InsertedClientId = GetLastClientIDSQL();
                 ImagesFunctions.SaveImage(this.ProfileImage, Program.FolderProfileImagePath, ImageName + InsertedClientId);
                 commandUpdateImage.Parameters.AddWithValue("@profile_image_path", ImageName + InsertedClientId);
                 commandUpdateImage.Parameters.AddWithValue("@client_id", InsertedClientId);
@@ -710,8 +719,8 @@ namespace MKproject.Management
                 commandUpdateImage.ExecuteNonQuery();
                 con.Close();
             }
-           
 
+            return InsertedClientId;
         }
         public virtual void UpdateClientToSQL(bool PicisChanged)
         {
@@ -723,7 +732,7 @@ namespace MKproject.Management
                     SET  name = @Name, family_name = @FamilyName, gender = @Gender,date_of_birth = @DateOfBirth,           
                      phone_number = @PhoneNumber, 
                      adress = @Adress, job = @Job, special_note = @SpecialNote, 
-                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email,              
+                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email,marital_status=@marital_status,know_about_us=@know_about_us                  
                      profile_image_path=@profile_image_path
                      WHERE client_id = @client_id";
 
@@ -747,7 +756,7 @@ namespace MKproject.Management
                     SET  name = @Name, family_name = @FamilyName, gender = @Gender,date_of_birth = @DateOfBirth,                   
                      phone_number = @PhoneNumber, 
                      adress = @Adress, job = @Job, special_note = @SpecialNote, 
-                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email                    
+                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email ,marital_status=@marital_status,know_about_us=@know_about_us                  
                      WHERE client_id = @client_id";
 
                 command = new SQLiteCommand(UpdateQuery, con);
@@ -779,7 +788,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@DateOfBirth", ((DateTime)BirthDate).ToString("yyyy-MM-dd"));
 
 
-         
+
 
             if (PhoneNumber == null)
                 command.Parameters.AddWithValue("@PhoneNumber", DBNull.Value);
@@ -815,9 +824,16 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@Email", DBNull.Value);
             else
                 command.Parameters.AddWithValue("@Email", Email);
-
-
            
+            if (MaritalStatus == null)
+                command.Parameters.AddWithValue("@marital_status", DBNull.Value);
+            else
+                command.Parameters.AddWithValue("@marital_status", MaritalStatus);
+            if (KnowAboutUs == null)
+                command.Parameters.AddWithValue("@know_about_us", DBNull.Value);
+            else
+                command.Parameters.AddWithValue("@know_about_us", KnowAboutUs);
+
 
             command.Parameters.AddWithValue("@IsChild", IsChild);
             command.Parameters.AddWithValue("@client_id", ClientId);
@@ -827,11 +843,13 @@ namespace MKproject.Management
             con.Close();
 
         }
-        public  void DeleteClientToSQL()
+        public void DeleteClientToSQL()
         {
             //ejbare bi hal order men wara el relation baynetu
 
             con.Open();
+
+            ProjectToSQL.DeleteClientField(ClientId, null);
 
             //kermel el balance
             string QueryDeleteArchive = "DELETE FROM archive WHERE client_id = '" + ClientId + "'";
@@ -906,8 +924,8 @@ namespace MKproject.Management
 
 
 
-    
-       public static int CalculateNOAttendance(int ClientId)
+
+        public static int CalculateNOAttendance(int ClientId)
         {
             DataTable AttendDtt = SQLToProject.GetAllClientAttendance(ClientId);
 

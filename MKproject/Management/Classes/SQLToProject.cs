@@ -39,7 +39,7 @@ namespace MKproject.Management
         {
 
             string query = "SELECT execute_date from client_services_attendance  ";
-       
+
 
             SQLiteCommand cmd = new SQLiteCommand(query, con);
             SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
@@ -66,16 +66,16 @@ namespace MKproject.Management
             SELECT cs.client_id,cs.execute_date      
             FROM client_services_attendance cs,client c
             WHERE cs.client_id = c.client_id  AND execute_date IS NOT NULL ";
-           if (ClientId != null)
+            if (ClientId != null)
             {
-                query+= " And cs.client_id='" + ClientId + "'";
+                query += " And cs.client_id='" + ClientId + "'";
             }
-           
+
 
             con.Open();
             SQLiteCommand command = new SQLiteCommand(query, con);
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
-            con.Close();          
+            con.Close();
             adapter.Fill(dt);
             return dt;
         }
@@ -103,6 +103,29 @@ namespace MKproject.Management
             return dt;
 
         }
+        public static int GetFieldIdByEnumName(string enumName)
+        {
+            string query = "SELECT fields_id FROM required_visible_fields WHERE Fields = @enumName";
+            SQLiteCommand command = new SQLiteCommand(query, con);
+            command.Parameters.AddWithValue("@enumName", enumName);
+            con.Open();
+            object result = command.ExecuteScalar();
+            con.Close();
+            return Convert.ToInt32(result);
+        }
+        public static bool GetFieldContentOfSpecificCleint(int clientId, int fieldId)
+        {
+            string query = "SELECT COUNT(*) FROM client_fields WHERE client_id = @clientId AND fields_id = @fieldId";
+            SQLiteCommand command = new SQLiteCommand(query, con);
+            command.Parameters.AddWithValue("@clientId", clientId);
+            command.Parameters.AddWithValue("@fieldId", fieldId);
+            con.Open();
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            con.Close();
+            return count > 0;
+
+        }
+
 
         //Albums
         public static DataTable GetAlbums()
@@ -117,14 +140,14 @@ namespace MKproject.Management
             return dt;
         }
 
-        public static bool IsAlbumAlreadyExists(string albumName,string oldname)//oldname exist only in case of update mode
+        public static bool IsAlbumAlreadyExists(string albumName, string oldname)//oldname exist only in case of update mode
         {
             int count;
             string query;
-            query= "SELECT COUNT(*) FROM Albums WHERE AlbumType = @AlbumName";
+            query = "SELECT COUNT(*) FROM Albums WHERE AlbumType = @AlbumName";
             if (oldname != null)
             {
-                query+= " And AlbumType !='"+ oldname + "'";
+                query += " And AlbumType !='" + oldname + "'";
             }
             SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@AlbumName", albumName);

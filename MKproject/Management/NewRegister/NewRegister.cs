@@ -43,7 +43,7 @@ namespace MKproject.Management
 
 
         //Static
-        private UCCamera UCProfileImage;       
+        private UCCamera UCProfileImage;
         private UCDoubleUCTextbox UCNamefamilyname;
         public UCTextbox1 UCPhoneNumber;
         private UCTextbox1 UCInsta;
@@ -79,7 +79,7 @@ namespace MKproject.Management
 
         public NewRegister(ClassClientCustom Clients, bool isclientFromSchedule)
         {
-            InitializeComponent();   
+            InitializeComponent();
             this.Size = new Size();
             this.Opacity = 0;
             this.Size = new Size(660, 670);//kell shi aam nhotoo juwwa aam naamela width=600, which is not accurate, try bi wpf taamil dock top
@@ -92,7 +92,7 @@ namespace MKproject.Management
 
             LoadForm(Clients, isclientFromSchedule);
 
-          
+
         }
 
         public void LoadForm(ClassClientCustom Clients, bool isclientFromSchedule)
@@ -109,7 +109,7 @@ namespace MKproject.Management
 
             IsFromSchedule = isclientFromSchedule;
             Client = Clients;
-        
+
 
             if (Client != null)//update form
             {
@@ -219,7 +219,7 @@ namespace MKproject.Management
                 string FieldName = row["Fields"].ToString();
 
                 // Check if the "Full Name" field exists in the table
-          
+
                 //Static
                 if (FieldName == enumStaticFields.FullName.ToString())
                 {
@@ -260,7 +260,7 @@ namespace MKproject.Management
                     }
 
                 }
-              
+
                 else if (FieldName == ClassClient.enumStaticFields.Gender.ToString())
                 {
                     if (isVisible)
@@ -286,7 +286,7 @@ namespace MKproject.Management
                         {
                             UCGender.FillDesignValues(Client.Gender);
                         }
-                        UCGender.Index =  (int)enumStaticFields.Gender;
+                        UCGender.Index = (int)enumStaticFields.Gender;
 
                     }
                     else
@@ -341,7 +341,7 @@ namespace MKproject.Management
                     }
 
                 }
-       
+
                 else if (FieldName == enumStaticFields.PhoneNumber.ToString())
                 {
                     if (isVisible)
@@ -600,7 +600,7 @@ namespace MKproject.Management
                         }
                     }
                 }
-           
+
                 else if (FieldName == enumStaticFields.ProfileImage.ToString())
                 {
                     if (isVisible)
@@ -772,13 +772,13 @@ namespace MKproject.Management
                         if (TLPKnowaboutus != null)
                         {
 
-                             Controls.Remove(TLPKnowaboutus);
+                            Controls.Remove(TLPKnowaboutus);
                             TLPKnowaboutus.Dispose();
                             TLPKnowaboutus = null;
                         }
                     }
                 }
-                classClientCustomFront.UpdateOrCreateFields(FieldName,isVisible,isRequired,ControlsWidthInsideFLP,Client,FLPInfo);
+                classClientCustomFront.UpdateOrCreateFields(FieldName, isVisible, isRequired, ControlsWidthInsideFLP, Client, FLPInfo);
 
             }
 
@@ -798,30 +798,30 @@ namespace MKproject.Management
                 labelPersonalInfo.Size = new System.Drawing.Size(605, 38);
                 labelPersonalInfo.Margin = new Padding(3, 3, 3, 3);
                 FLPInfo.Controls.Add(labelPersonalInfo);
-                labelPersonalInfo.Index = 0;
-            }
-            else
-            {
-                labelPersonalInfo.Index = 0;
             }
 
-            if (labelSportlInfo == null)
+            labelPersonalInfo.Index = 0;
+
+
+            if (Enum.GetValues(typeof(enumDynamicFields)).Length > 0)
             {
-                labelSportlInfo = new LabelWithIndex();
-                labelSportlInfo.Text = "Sport Informations";
-                labelSportlInfo.Font = new System.Drawing.Font("Segoe UI", 14, FontStyle.Bold | FontStyle.Italic);
-                labelSportlInfo.ForeColor = Color.Black;
-                labelSportlInfo.TextAlign = ContentAlignment.MiddleCenter;
-                labelSportlInfo.AutoSize = false;
-                labelSportlInfo.Size = new System.Drawing.Size(605, 38);
-                labelSportlInfo.Margin = new Padding(3, 3, 3, 3);
-                FLPInfo.Controls.Add(labelSportlInfo);
+                if (labelSportlInfo == null)
+                {
+                    labelSportlInfo = new LabelWithIndex();
+                    labelSportlInfo.Text = "Business Informations";
+                    labelSportlInfo.Font = new System.Drawing.Font("Segoe UI", 14, FontStyle.Bold | FontStyle.Italic);
+                    labelSportlInfo.ForeColor = Color.Black;
+                    labelSportlInfo.TextAlign = ContentAlignment.MiddleCenter;
+                    labelSportlInfo.AutoSize = false;
+                    labelSportlInfo.Size = new System.Drawing.Size(605, 38);
+                    labelSportlInfo.Margin = new Padding(3, 3, 3, 3);
+                    FLPInfo.Controls.Add(labelSportlInfo);
+                }
+
                 labelSportlInfo.Index = 100;
+
             }
-            else
-            {
-                labelSportlInfo.Index = 100;
-            }
+
 
 
 
@@ -829,6 +829,8 @@ namespace MKproject.Management
             Cursor.Current = Cursors.Default;
 
         }//try catch
+      
+        
         void ResetIndex()
         {
             // Get all controls within the FlowLayoutPanel
@@ -973,7 +975,7 @@ namespace MKproject.Management
                 }
             }
 
-        
+
 
             if (UCNamefamilyname != null)
             {
@@ -1006,142 +1008,49 @@ namespace MKproject.Management
             {
                 UpdatedOrNewClient.Email = UCEmail.Value;
             }
+            if (TLPMaritalstatus != null)
+            {
+                UpdatedOrNewClient.MaritalStatus = TLPMaritalstatus.Value;
+            }
+            if (TLPKnowaboutus != null)
+            {
+                UpdatedOrNewClient.KnowAboutUs = TLPKnowaboutus.Value;
+            }
+
+            //Dynamic fields
+            classClientCustomFront.UpdateOrInsertToSQLAndObj(ref UpdatedOrNewClient, ref Client);
 
 
 
-
-
-
-            //if (UCBodyshapetarget != null)
-            //{
-
-            //    UpdatedOrNewClient.BodyShapeTarget = UCBodyshapetarget.Value;
-
-            //}
-
-            //if (TLPHand != null)
-            //{
-            //    UpdatedOrNewClient.Hand = TLPHand.Value;
-            //}
-
-
-            //if (UCinjuries != null)
-            //{
-            //    UpdatedOrNewClient.Injuries = UCinjuries.Value;
-            //}
-
-            //if (UCMusclesfocuson != null)
-            //{
-            //    UpdatedOrNewClient.MuscleFocusOn = UCMusclesfocuson.Value;
-            //}
-
-            //if (UCSessionperweek != null)
-            //{
-            //    UpdatedOrNewClient.SessionPerWeek = UCSessionperweek.Value != null ? Convert.ToInt32(UCSessionperweek.Value) : (int?)null;//eza kenit null w eemelneha convert bet sir 0
-            //}
-
-            //if (TLPHeight != null)
-            //{
-            //    UpdatedOrNewClient.Height = TLPHeight.Value;
-            //}
-            //if (TLPWeight != null)
-            //{
-            //    UpdatedOrNewClient.Weight = TLPWeight.Value;
-            //}
-
-            //if (UCMaritalstatus != null)
-            //{
-            //    UpdatedOrNewClient.MaritalStatus = UCMaritalstatus.Value;
-            //}
-
-            //if (UCKnowaboutus != null)
-            //{
-            //    UpdatedOrNewClient.KnowAboutUs = UCKnowaboutus.Value;
-            //}
-
-            //if (UCTimelinegoals != null)
-            //{
-            //    UpdatedOrNewClient.GoalsTimeline = UCTimelinegoals.Value;
-            //}
-
-            //if (TLPSmoking != null)
-            //{
-            //    UpdatedOrNewClient.Smoking = TLPSmoking.Value;
-            //}
-
-            //if (TLPAlcohol != null)
-            //{
-            //    UpdatedOrNewClient.Alcohol = TLPAlcohol.Value;
-            //}
-
-            //if (UCExercisehistory != null)
-            //{
-            //    UpdatedOrNewClient.ExerciseHistory = UCExercisehistory.Value;
-            //}
-
-            //if (UCSleeppattern != null)
-            //{
-            //    if (UCSleeppattern.Value != null)
-            //        UpdatedOrNewClient.SleepPattern = UCSleeppattern.Value;
-            //    else
-            //        UpdatedOrNewClient.SleepPattern = null;
-            //}
-
-            //if (UCStresslevel != null)
-            //{
-            //    UpdatedOrNewClient.StressLevel = UCStresslevel.Value;
-            //}
-
-            //if (UCFightingSkills != null)
-            //{
-            //    UpdatedOrNewClient.FightingSkills = UCFightingSkills.Value;
-            //}
-
-
-
-
-            if (Client != null)
+            if (Client != null)//Update Mode
             {
                 Client.IsChild = UpdatedOrNewClient.IsChild;
-              
+
+
+
                 Client.ProfileImage = UpdatedOrNewClient.ProfileImage;
                 Client.PhoneNumber = UpdatedOrNewClient.PhoneNumber;
                 Client.Gender = UpdatedOrNewClient.Gender;
-                Client.BirthDate = UpdatedOrNewClient.BirthDate;           
+                Client.BirthDate = UpdatedOrNewClient.BirthDate;
                 Client.Job = UpdatedOrNewClient.Job;
                 Client.Adress = UpdatedOrNewClient.Adress;
                 Client.Note = UpdatedOrNewClient.Note;
                 Client.InstaUserName = UpdatedOrNewClient.InstaUserName;
-                Client.Email = UpdatedOrNewClient.Email;             
+                Client.Email = UpdatedOrNewClient.Email;
                 Client.Fname = UpdatedOrNewClient.Fname;
                 Client.Lname = UpdatedOrNewClient.Lname;
-
-
-
-                Client.BodyShapeTarget = UpdatedOrNewClient.BodyShapeTarget;
-                Client.Hand = UpdatedOrNewClient.Hand;
-                Client.Injuries = UpdatedOrNewClient.Injuries;
-                Client.MuscleFocusOn = UpdatedOrNewClient.MuscleFocusOn;
-                Client.SessionPerWeek = UpdatedOrNewClient.SessionPerWeek;
-                Client.Weight = UpdatedOrNewClient.Weight;
-                Client.Height = UpdatedOrNewClient.Height;
                 Client.MaritalStatus = UpdatedOrNewClient.MaritalStatus;
                 Client.KnowAboutUs = UpdatedOrNewClient.KnowAboutUs;
-                Client.GoalsTimeline = UpdatedOrNewClient.GoalsTimeline;
-                Client.Smoking = UpdatedOrNewClient.Smoking;
-                Client.Alcohol = UpdatedOrNewClient.Alcohol;
-                Client.ExerciseHistory = UpdatedOrNewClient.ExerciseHistory;
-                Client.SleepPattern = UpdatedOrNewClient.SleepPattern;
-                Client.StressLevel = UpdatedOrNewClient.StressLevel;
-                Client.FightingSkills = UpdatedOrNewClient.FightingSkills;
+
+
+
 
 
                 Client.UpdateClientToSQL(PicHasChanged);
             }
-            else
+            else//iinsert Mode
             {
                 UpdatedOrNewClient.InsertClientToSQL();
-
             }
 
 
@@ -1183,7 +1092,7 @@ namespace MKproject.Management
             }
 
         }
-         bool CheckRequired()//fonction that will check if the required fields are entered and we return false or true in order not or to the save function
+        bool CheckRequired()//fonction that will check if the required fields are entered and we return false or true in order not or to the save function
         {
             bool a = true;
             RequiredControls.Clear();
@@ -1193,13 +1102,13 @@ namespace MKproject.Management
                 a = false;
                 RequiredControls.Add(UCGender);
             }
-         
+
             if (UCBirthDate != null && UCBirthDate.ActiveRequiredMode())
             {
                 a = false;
                 RequiredControls.Add(UCBirthDate);
             }
-           
+
 
             if (UCNamefamilyname != null && UCNamefamilyname.ActiveRequiredMode())
             {
@@ -1238,7 +1147,7 @@ namespace MKproject.Management
                 a = false;
                 RequiredControls.Add(UCEmail);
             }
-           
+
             if (UCProfileImage != null && UCProfileImage.ActiveRequiredMode())
             {
                 a = false;
@@ -1255,7 +1164,7 @@ namespace MKproject.Management
                 RequiredControls.Add(TLPKnowaboutus);
             }
 
-            classClientCustomFront.CheckRequired(ref a,RequiredControls);
+            classClientCustomFront.CheckRequired(ref a, RequiredControls);
 
 
             if (RequiredControls.Count > 0)
@@ -1322,7 +1231,7 @@ namespace MKproject.Management
         }
 
 
-        public void SaveOrUpdate(string AlbumName,bool FromRegistrationFields)//album name could be null,w only used on insert NOT UPDATE
+        public void SaveOrUpdate(string AlbumName, bool FromRegistrationFields)//album name could be null,w only used on insert NOT UPDATE
         {
 
             if (Client == null)//insert
@@ -1388,7 +1297,7 @@ namespace MKproject.Management
                     UpdateOrInsertToSQLAndObj(null);//treka hone better
 
                     ClientManagementProfileForm.UpdateOrCreateUCLabelAndDetail(true);
-                 
+
                     if (!FromRegistrationFields)
                     {
                         this.Close();
@@ -1434,7 +1343,7 @@ namespace MKproject.Management
                 {
                     if (!CheckIfDuplicatesPhoneNumberExistAndCannotOccur())
                     {
-                        SaveOrUpdate(null,false);
+                        SaveOrUpdate(null, false);
                     }
                     else
                     {

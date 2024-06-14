@@ -162,8 +162,13 @@ namespace MKproject.Management
                     row["design_index"] = (int)enumStaticFields.HowDidYouKnowAboutUs;
                     row["FakeFields"] = enumStaticFields.HowDidYouKnowAboutUs.GetStringValue();
                 }
-                classClientCustomFront.FormatOriginalDt(row, FieldName);  
-                
+              
+                    classClientCustomFront.FormatOriginalDt(row, FieldName);
+
+                if (string.IsNullOrEmpty(row["FakeFields"].ToString()))//men kun mhina its enum, bas baado bel db fo security data resone
+                {
+                    row.Delete();
+                }
             }
 
 
@@ -232,7 +237,7 @@ namespace MKproject.Management
             dataGridViewFieldsNew.Columns["design_index"].Visible = false;
             dataGridViewFieldsNew.Columns["fields_id"].Visible = false;
             dataGridViewFieldsNew.Columns["Fields"].Visible = false;
-
+            dataGridViewFieldsNew.Columns["IsOriginal"].Visible = false;
 
             dataGridViewFieldsNew.Columns["FakeRequired"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewFieldsNew.Columns["FakeVisible"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;

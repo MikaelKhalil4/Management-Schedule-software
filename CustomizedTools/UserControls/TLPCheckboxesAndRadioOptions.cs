@@ -733,11 +733,11 @@ namespace CustomizedTools
             if (Options != null && Options.Count > 0)
             {
                 RadioButton RadioButton = (RadioButton)sender;
-                if (RadioButton.Checked)
+                if (RadioButton.Checked && RadioButton.Text==enumYesNo.Yes.ToString())
                 {
                     AddOrRemoveFLPOptions(true);
                 }
-                else
+                else if (!RadioButton.Checked && RadioButton.Text == enumYesNo.Yes.ToString())
                 {
                     AddOrRemoveFLPOptions(false);
                 }

@@ -24,10 +24,10 @@ namespace MKproject
 
         public ClassClientCustomFront()
         {
-                
+
         }
 
-      
+
 
 
         //ClientManagementProfile
@@ -78,8 +78,8 @@ namespace MKproject
                 string Details = Client.SessionPerWeek != null ? Convert.ToString(Client.SessionPerWeek) : null;//staamelneha cz eena convertion, w bel convertionn el null bet ruh
                 NewUCCreated = ExtentionClientManagementProfile.CreateDesiredUCLabelDetails(ref UCSessionPerWeek, enumDynamicFields.SessionPerWeek.GetStringValue(), RandomFunctions.SetStringFullFormat(Details), isVisible, (int)enumDynamicFields.SessionPerWeek);
             }
-           
-         
+
+
             else if (FieldName == enumDynamicFields.GoalsTimeline.ToString())
             {
                 NewUCCreated = ExtentionClientManagementProfile.CreateDesiredUCLabelDetails(ref UCGoalsTimeline, enumDynamicFields.GoalsTimeline.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.GoalsTimeline), isVisible, (int)enumDynamicFields.GoalsTimeline);
@@ -106,7 +106,7 @@ namespace MKproject
             }
             else if (FieldName == enumDynamicFields.BoxingSkills.ToString())
             {
-                NewUCCreated = ExtentionClientManagementProfile.CreateDesiredUCLabelDetails(ref UCBoxingSkills, enumDynamicFields.BoxingSkills.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.FightingSkills), isVisible, (int)enumDynamicFields.BoxingSkills);
+                NewUCCreated = ExtentionClientManagementProfile.CreateDesiredUCLabelDetails(ref UCBoxingSkills, enumDynamicFields.BoxingSkills.GetStringValue(), RandomFunctions.SetStringFullFormat(Client.BoxingSkills), isVisible, (int)enumDynamicFields.BoxingSkills);
             }
         }
 
@@ -133,8 +133,8 @@ namespace MKproject
         private TLPCheckboxesAndRadioOptions TLPSessionperweek;
         private TLPCheckboxesAndRadioOptions TLPFightingSkills;
 
-     
-        
+
+
         //custome tools for funtion creating and updating fields
         UCNumberComboButt uc;//in order to access it from the event
         UCNumberComboButt CreateGoalTimeLineUCNumberComboButt()
@@ -260,14 +260,110 @@ namespace MKproject
             uc.comboBoxUnit.SelectedIndex = uc.comboBoxUnit.FindString(UnitHeight.cm.ToString());
             return uc;
         }
-       
-       
 
 
-        public  void UpdateOrCreateFields(string FieldName,bool isVisible,bool isRequired,int ControlsWidthInsideFLP,ClassClientCustom Client, FlowLayoutPanel FLPInfo)
+
+        public void UpdateOrInsertToSQLAndObj(ref ClassClientCustom UpdatedOrNewClient, ref ClassClientCustom Client)
         {
-              //Dynamic
-           if (FieldName == enumDynamicFields.GoalsTimeline.ToString())
+            if (TLPBodyshapetarget != null)
+            {
+
+                UpdatedOrNewClient.BodyShapeTarget = TLPBodyshapetarget.Value;
+
+            }
+
+            if (TLPHand != null)
+            {
+                UpdatedOrNewClient.Hand = TLPHand.Value;
+            }
+
+
+            if (TLPinjuries != null)
+            {
+                UpdatedOrNewClient.Injuries = TLPinjuries.Value;
+            }
+
+            if (TLPMusclesfocuson != null)
+            {
+                UpdatedOrNewClient.MuscleFocusOn = TLPMusclesfocuson.Value;
+            }
+
+            if (TLPSessionperweek != null)
+            {
+                UpdatedOrNewClient.SessionPerWeek = TLPSessionperweek.Value != null ? Convert.ToInt32(TLPSessionperweek.Value) : (int?)null;//eza kenit null w eemelneha convert bet sir 0
+            }
+
+            if (TLPHeight != null)
+            {
+                UpdatedOrNewClient.Height = TLPHeight.Value;
+            }
+            if (TLPWeight != null)
+            {
+                UpdatedOrNewClient.Weight = TLPWeight.Value;
+            }
+            if (TLPTimelinegoals != null)
+            {
+                UpdatedOrNewClient.GoalsTimeline = TLPTimelinegoals.Value;
+            }
+
+            if (TLPSmoking != null)
+            {
+                UpdatedOrNewClient.Smoking = TLPSmoking.Value;
+            }
+
+            if (TLPAlcohol != null)
+            {
+                UpdatedOrNewClient.Alcohol = TLPAlcohol.Value;
+            }
+
+            if (TLPExercisehistory != null)
+            {
+                UpdatedOrNewClient.ExerciseHistory = TLPExercisehistory.Value;
+            }
+
+            if (TLPSleeppattern != null)
+            {
+                if (TLPSleeppattern.Value != null)
+                    UpdatedOrNewClient.SleepPattern = TLPSleeppattern.Value;
+                else
+                    UpdatedOrNewClient.SleepPattern = null;
+            }
+
+            if (TLPStresslevel != null)
+            {
+                UpdatedOrNewClient.StressLevel = TLPStresslevel.Value;
+            }
+
+            if (TLPFightingSkills != null)
+            {
+                UpdatedOrNewClient.BoxingSkills = TLPFightingSkills.Value;
+            }
+
+
+            if (Client != null)
+            {
+
+                Client.BodyShapeTarget = UpdatedOrNewClient.BodyShapeTarget;
+                Client.Hand = UpdatedOrNewClient.Hand;
+                Client.Injuries = UpdatedOrNewClient.Injuries;
+                Client.MuscleFocusOn = UpdatedOrNewClient.MuscleFocusOn;
+                Client.SessionPerWeek = UpdatedOrNewClient.SessionPerWeek;
+                Client.Weight = UpdatedOrNewClient.Weight;
+                Client.Height = UpdatedOrNewClient.Height;
+                Client.GoalsTimeline = UpdatedOrNewClient.GoalsTimeline;
+                Client.Smoking = UpdatedOrNewClient.Smoking;
+                Client.Alcohol = UpdatedOrNewClient.Alcohol;
+                Client.ExerciseHistory = UpdatedOrNewClient.ExerciseHistory;
+                Client.SleepPattern = UpdatedOrNewClient.SleepPattern;
+                Client.StressLevel = UpdatedOrNewClient.StressLevel;
+                Client.BoxingSkills = UpdatedOrNewClient.BoxingSkills;
+
+            }
+        }
+        public void UpdateOrCreateFields(string FieldName, bool isVisible, bool isRequired, int ControlsWidthInsideFLP, ClassClientCustom Client, FlowLayoutPanel FLPInfo)
+        {
+            //Dynamic
+            if (FieldName == enumDynamicFields.GoalsTimeline.ToString())
             {
                 if (isVisible)
                 {
@@ -576,9 +672,9 @@ namespace MKproject
                         }
                     }
 
-                    if (Client != null && Client.FightingSkills != null)
+                    if (Client != null && Client.BoxingSkills != null)
                     {
-                        TLPFightingSkills.FillDesignValues(Client.FightingSkills);
+                        TLPFightingSkills.FillDesignValues(Client.BoxingSkills);
                     }
                     TLPFightingSkills.Index = (int)enumDynamicFields.BoxingSkills;
 
@@ -924,14 +1020,14 @@ namespace MKproject
                 }
             }
 
-         
 
-          
+
+
 
         }
-        public bool CheckRequired(ref bool a,List<Control> RequiredControls)
+        public bool CheckRequired(ref bool a, List<Control> RequiredControls)
         {
-          
+
             if (TLPHand != null && TLPHand.ActiveRequiredMode())
             {
                 a = false;
@@ -968,8 +1064,8 @@ namespace MKproject
                 a = false;
                 RequiredControls.Add(TLPWeight);
             }
-          
-         
+
+
             if (TLPTimelinegoals != null && TLPTimelinegoals.ActiveRequiredMode())
             {
                 a = false;
@@ -1017,81 +1113,81 @@ namespace MKproject
         //Registation Fields
         public void FormatOriginalDt(DataRow row, string FieldName)
         {
-                   
-                //Dynamic 
-                if (FieldName == enumDynamicFields.Height.ToString())
-                {
+
+            //Dynamic 
+            if (FieldName == enumDynamicFields.Height.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.Height;
                 row["FakeFields"] = enumDynamicFields.Height.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.Weight.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.Weight.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.Weight;
                 row["FakeFields"] = enumDynamicFields.Weight.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.BodyShapeTarget.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.BodyShapeTarget.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.BodyShapeTarget;
                 row["FakeFields"] = enumDynamicFields.BodyShapeTarget.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.MuscleFocusOn.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.MuscleFocusOn.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.MuscleFocusOn;
                 row["FakeFields"] = enumDynamicFields.MuscleFocusOn.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.Injuries.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.Injuries.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.Injuries;
                 row["FakeFields"] = enumDynamicFields.Injuries.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.Hand.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.Hand.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.Hand;
                 row["FakeFields"] = enumDynamicFields.Hand.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.SessionPerWeek.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.SessionPerWeek.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.SessionPerWeek;
                 row["FakeFields"] = enumDynamicFields.SessionPerWeek.GetStringValue();
-                }
-              
-             
-                else if (FieldName == enumDynamicFields.GoalsTimeline.ToString())
-                {
+            }
+
+
+            else if (FieldName == enumDynamicFields.GoalsTimeline.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.GoalsTimeline;
                 row["FakeFields"] = enumDynamicFields.GoalsTimeline.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.Smoking.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.Smoking.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.Smoking;
                 row["FakeFields"] = enumDynamicFields.Smoking.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.Alcohol.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.Alcohol.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.Alcohol;
                 row["FakeFields"] = enumDynamicFields.Alcohol.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.ExerciseHistory.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.ExerciseHistory.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.ExerciseHistory;
                 row["FakeFields"] = enumDynamicFields.ExerciseHistory.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.SleepPattern.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.SleepPattern.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.SleepPattern;
                 row["FakeFields"] = enumDynamicFields.SleepPattern.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.StressLevel.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.StressLevel.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.StressLevel;
                 row["FakeFields"] = enumDynamicFields.StressLevel.GetStringValue();
-                }
-                else if (FieldName == enumDynamicFields.BoxingSkills.ToString())
-                {
+            }
+            else if (FieldName == enumDynamicFields.BoxingSkills.ToString())
+            {
                 row["design_index"] = (int)enumDynamicFields.BoxingSkills;
                 row["FakeFields"] = enumDynamicFields.BoxingSkills.GetStringValue();
-                }
-            
+            }
+
         }
     }
 }
