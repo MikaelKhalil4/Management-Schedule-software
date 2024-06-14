@@ -1,1 +1,3 @@
 .vs/MKproject/
+MKproject/ClassClientCustom/
+MKproject/ClassClientCustomFront/
