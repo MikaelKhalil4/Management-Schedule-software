@@ -227,7 +227,7 @@ namespace MKproject.Management
                     {
                         if (UCNamefamilyname == null)
                         {
-                            UCNamefamilyname = new UCDoubleUCTextbox("Name", "Family Name", isRequired);//kermel l nejme                        
+                            UCNamefamilyname = new UCDoubleUCTextbox("Name", "Family Name", true);//ejbare true, idc abt the sql                    
                             UCNamefamilyname.Width = ControlsWidthInsideFLP;
                             FLPInfo.Controls.Add(UCNamefamilyname);
                         }
@@ -260,7 +260,55 @@ namespace MKproject.Management
                     }
 
                 }
+                else if (FieldName == enumStaticFields.PhoneNumber.ToString())
+                {
+                    if (isVisible)
+                    {
+                        if (UCPhoneNumber == null)
+                        {
+                            UCPhoneNumber = new UCTextbox1(enumStaticFields.PhoneNumber.ToString(), true);//ejbare true, idc abt the sql
+                            UCPhoneNumber.IsPhoneNumber = true;
+                            UCPhoneNumber.textboxtextchange += UCPhoneNumber_textboxtextchange;
 
+                            UCPhoneNumber.Width = ControlsWidthInsideFLP;
+                            FLPInfo.Controls.Add(UCPhoneNumber);
+
+                        }
+                        else
+                        {
+                            if (isRequired && !UCPhoneNumber.IsRequired)
+                            {
+                                UCPhoneNumber.IsRequired = true;
+                            }
+                            else if (!isRequired && UCPhoneNumber.IsRequired)
+                            {
+                                UCPhoneNumber.IsRequired = false;
+                            }
+                        }
+
+                        if (Client != null && Client.PhoneNumber != null)//to fill the info if i am editing a client
+                        {
+                            UCPhoneNumber.FillDesignValue(Client.PhoneNumber);
+
+                            if (Client.IsChild == true)//yaane only lamma neftah el update el form w ykun child
+                            {
+                                UCPhoneNumber.DisableUC();
+                            }
+                        }
+                        UCPhoneNumber.Index = (int)enumStaticFields.PhoneNumber;
+
+                    }
+                    else
+                    {
+                        if (UCPhoneNumber != null)
+                        {
+
+                            this.Controls.Remove(UCPhoneNumber);
+                            UCPhoneNumber.Dispose();
+                            UCPhoneNumber = null;
+                        }
+                    }
+                }
                 else if (FieldName == ClassClient.enumStaticFields.Gender.ToString())
                 {
                     if (isVisible)
@@ -342,55 +390,7 @@ namespace MKproject.Management
 
                 }
 
-                else if (FieldName == enumStaticFields.PhoneNumber.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCPhoneNumber == null)
-                        {
-                            UCPhoneNumber = new UCTextbox1(enumStaticFields.PhoneNumber.ToString(), isRequired);
-                            UCPhoneNumber.IsPhoneNumber = true;
-                            UCPhoneNumber.textboxtextchange += UCPhoneNumber_textboxtextchange;
-
-                            UCPhoneNumber.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCPhoneNumber);
-
-                        }
-                        else
-                        {
-                            if (isRequired && !UCPhoneNumber.IsRequired)
-                            {
-                                UCPhoneNumber.IsRequired = true;
-                            }
-                            else if (!isRequired && UCPhoneNumber.IsRequired)
-                            {
-                                UCPhoneNumber.IsRequired = false;
-                            }
-                        }
-
-                        if (Client != null && Client.PhoneNumber != null)//to fill the info if i am editing a client
-                        {
-                            UCPhoneNumber.FillDesignValue(Client.PhoneNumber);
-
-                            if (Client.IsChild == true)//yaane only lamma neftah el update el form w ykun child
-                            {
-                                UCPhoneNumber.DisableUC();
-                            }
-                        }
-                        UCPhoneNumber.Index = (int)enumStaticFields.PhoneNumber;
-
-                    }
-                    else
-                    {
-                        if (UCPhoneNumber != null)
-                        {
-
-                            this.Controls.Remove(UCPhoneNumber);
-                            UCPhoneNumber.Dispose();
-                            UCPhoneNumber = null;
-                        }
-                    }
-                }
+              
 
                 else if (FieldName == enumStaticFields.Job.ToString())
                 {
