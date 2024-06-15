@@ -94,10 +94,14 @@ namespace MKproject.Management
             return desiredRows;
         }
 
+        static public int GetDayIndex(DateTime Date)
+        {
+            return ((int)Date.DayOfWeek + 6) % 7;
+        }
 
         static public String GetAvailabiltyAsAstringFromWeekAvailability(DateTime Date, string WeekAvaialabilty)
         {
-            int dayOfWeekInt = ((int)Date.DayOfWeek + 6) % 7;//lieanno to take into considartion monday the first day: Monday:0 => sunday:6
+            int dayOfWeekInt = ClassEmployeeFront.GetDayIndex(Date);//lieanno to take into considartion monday the first day: Monday:0 => sunday:6
             string[] HoursOfThedays = WeekAvaialabilty.Split('/');
             return HoursOfThedays[dayOfWeekInt];
         }

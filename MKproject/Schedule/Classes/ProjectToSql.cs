@@ -17,7 +17,14 @@ namespace MKproject.Schedule
             command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@employee_id", employee_id);
             command.Parameters.AddWithValue("@rank", rank);
-            command.Parameters.AddWithValue("@availability", availability);
+            if (!String.IsNullOrEmpty(availability))
+            {
+                command.Parameters.AddWithValue("@availability", availability);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@availability", DBNull.Value);
+            }
             con.Open();
             command.ExecuteNonQuery();
             con.Close();

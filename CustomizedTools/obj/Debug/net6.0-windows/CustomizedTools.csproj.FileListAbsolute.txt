@@ -94,6 +94,11 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCComboBoxFilterOriginal.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCLabelFilterOriginal.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCTextBoxFilterOriginal.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCCamera.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCDoubleCombo.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberComboButt.resources
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberLabelButt.resources
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.csproj.GenerateResource.cache
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.GeneratedMSBuildEditorConfig.editorconfig
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.csproj.CoreCompileInputs.cache
@@ -103,8 +108,3 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\refint\CustomizedTools.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\ref\CustomizedTools.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCDoubleCombo.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberButt.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberComboButt.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberLabelButt.resources
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCCamera.resources

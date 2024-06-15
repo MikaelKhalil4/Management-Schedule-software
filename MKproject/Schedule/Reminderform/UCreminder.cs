@@ -83,8 +83,7 @@ namespace MKproject.Schedule
             schedule = scheduleform;
 
             this.BackColor = scheduleform.panelreminder.BackColor;
-            
-            FixDesign();
+
         }
 
         //In ClientReminder(from select SQL once we open ClientReminder or when we ADD in ClientReminder)
@@ -109,7 +108,6 @@ namespace MKproject.Schedule
                 this.panelColoredReminder.BackColor = Color.FromArgb(109, 122, 224);
             }
 
-            FixDesign();
         }
 
 
@@ -148,7 +146,7 @@ namespace MKproject.Schedule
                 //Design:
                 if (Isclientreminder)
                 {
-              
+
                     UCreminder foundUcReminder = ucday.ListUCreminderForTheSelectedDate.Find(uc => uc.DesiredReminder.Idreminder == DesiredReminder.Idreminder);
 
                     if (foundUcReminder != null)
@@ -256,10 +254,17 @@ namespace MKproject.Schedule
 
         void FixDesign()
         {
-            int DesiredHeight = RandomFunctions.CalculateDesiredHeight(checkBoxReminder, checkBoxReminder.Width-10);
+            int DesiredHeight = RandomFunctions.CalculateDesiredHeight(checkBoxReminder, checkBoxReminder.Width - 10);
             TLPGlobal.RowStyles[1].Height = DesiredHeight;
 
             this.Height = Convert.ToInt16(TLPGlobal.RowStyles[0].Height + TLPGlobal.RowStyles[1].Height) + this.Padding.Bottom + 15;
+        }
+
+      
+        private void UCreminder_Resize(object sender, EventArgs e)
+        {
+            FixDesign();
+
         }
     }
 }

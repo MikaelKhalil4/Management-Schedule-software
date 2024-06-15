@@ -769,10 +769,7 @@ namespace MKproject.Management
 
                             ReduceSession();
                         }
-                        else if (dialogResult == DialogResult.No)
-                        {
-
-                        }
+                       
                     }
                     else
                     {

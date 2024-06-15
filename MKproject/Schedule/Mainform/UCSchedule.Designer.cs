@@ -148,13 +148,13 @@ namespace MKproject.Schedule
             comboBoxDaysOrWeek.BackColor = System.Drawing.Color.WhiteSmoke;
             comboBoxDaysOrWeek.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxDaysOrWeek.FlatStyle = FlatStyle.Flat;
-            comboBoxDaysOrWeek.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            comboBoxDaysOrWeek.Font = new System.Drawing.Font("Segoe UI Semibold", 11.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             comboBoxDaysOrWeek.ForeColor = System.Drawing.Color.Black;
             comboBoxDaysOrWeek.FormattingEnabled = true;
-            comboBoxDaysOrWeek.Location = new System.Drawing.Point(983, 6);
+            comboBoxDaysOrWeek.Location = new System.Drawing.Point(968, 6);
             comboBoxDaysOrWeek.Margin = new Padding(6);
             comboBoxDaysOrWeek.Name = "comboBoxDaysOrWeek";
-            comboBoxDaysOrWeek.Size = new System.Drawing.Size(63, 27);
+            comboBoxDaysOrWeek.Size = new System.Drawing.Size(78, 29);
             comboBoxDaysOrWeek.TabIndex = 750;
             comboBoxDaysOrWeek.SelectedIndexChanged += comboBoxDaysOrWeek_SelectedIndexChanged;
             comboBoxDaysOrWeek.DropDownClosed += comboBoxDaysOrWeek_DropDownClosed;
