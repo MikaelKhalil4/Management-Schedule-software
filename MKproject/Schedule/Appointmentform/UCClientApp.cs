@@ -87,7 +87,7 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCClientApp.DesiredClient != null)
             {
                 SetLabelbalanceDesign();
-               
+
             }
             else
             {
@@ -335,7 +335,7 @@ namespace MKproject.Schedule
         }
         void SetLabelbalanceDesign()
         {
-            if (DesiredAppointmentUCClientApp.StartTime.Date >= DateTime.Now.Date)//present-future
+            if (!(DesiredAppointmentUCClientApp.StartTime.Date < DateTime.Now.Date && (DesiredAppointmentUCClientApp.IsCompleted || DesiredAppointmentUCClientApp.IsCanceled)))//anything else tehn (being in the past and completed or canceled)
             {
                 LabelBalance.Text = Program.SetBalanceFormat(DesiredAppointmentUCClientApp.DesiredClient.TotalBalance.ToString());
                 if (LabelBalance.Text.Contains('-'))
@@ -347,7 +347,7 @@ namespace MKproject.Schedule
                     LabelBalance.ForeColor = Color.Black;
                 }
             }
-            else//past
+            else
             {
                 LabelBalance.Text = "N/A";
             }
@@ -535,39 +535,7 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCClientApp.DesiredClientBalance != null)
             {
                 SetDesignIfServiceOrPackageSelected();
-
-                if (DesiredAppointmentUCClientApp.StartTime.Date >= DateTime.Now.Date)//present
-                {
-
-
-                    if (!(bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired)//Package exist and not expired
-                    {
-                        if (DesiredAppointmentUCClientApp.StartTime.Date >= DateTime.Now.Date)//present-future
-                        {
-                            LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
-                            if (DesiredAppointmentUCClientApp.DesiredClientBalance.SessionLeftDays == 0)
-                            {
-                                LabelService.ForeColor = Color.Red;
-                            }
-                            else
-                            {
-                                LabelService.ForeColor = Color.Black;
-                            }
-                        }
-                    }
-                    else//Package exist and expired
-                    {
-                        LabelService.Text = DesiredAppointmentUCClientApp.DesiredClientBalance.BundleName + " Package Expired";
-                    }
-
-
-                }
-                else if (DesiredAppointmentUCClientApp.StartTime.Date < DateTime.Now.Date)// past
-                {
-
-                    LabelService.Text = DesiredAppointmentUCClientApp.HistoryClientBalance;
-
-                }
+                ClassAppointmentFront.SetServiceLabelModeInCaseOfDumble(LabelService, DesiredAppointmentUCClientApp, Color.Black);
             }
 
             else if (DesiredAppointmentUCClientApp.ChosenBundlesList != null)
@@ -580,7 +548,7 @@ namespace MKproject.Schedule
             else if (DesiredAppointmentUCClientApp.DesiredClientBalance == null && DesiredAppointmentUCClientApp.ChosenBundlesList == null)
             {
 
-                if (!IsReadOrEdit)//present-future
+                if (!IsReadOrEdit)
                 {
                     SetDesignModeIfMultipleOrNoPackagesExist();
                 }
@@ -617,7 +585,7 @@ namespace MKproject.Schedule
                 TimeSpan totalduration = TimeSpan.Zero;
                 foreach (ClassBundles bund in DesiredAppointmentUCClientApp.ChosenBundlesList)
                 {
-                    totalduration+=bund.Duration;
+                    totalduration += bund.Duration;
                 }
 
                 UpdateDuration(totalduration);
@@ -628,7 +596,7 @@ namespace MKproject.Schedule
             }
 
 
-         
+
         }
         public void FillObjectOfAvailablePackageifPresent(DataRow DesiredRow)//only used if we were selecting an available package ( a specified clientbalance) from table sql clientbalance
         {
@@ -647,7 +615,7 @@ namespace MKproject.Schedule
             }
 
 
-         
+
 
         }
 
@@ -848,7 +816,7 @@ namespace MKproject.Schedule
                 else
                 {
                     //men ghayir, automation is working
-                    SetLogicAndDesignEditAndServiceMode(false, false);//only bel present baamil update lal ucclientapp, past eendo static design
+                    SetLogicAndDesignEditAndServiceMode(false, false);
                 }
 
             }
@@ -861,7 +829,7 @@ namespace MKproject.Schedule
 
             if (ParentFormAppointment.UCappointment != null)
             {
-                if (DesiredAppointmentUCClientApp.DesiredClient != null && (DesiredAppointmentUCClientApp.IsPackageMode || DesiredAppointmentUCClientApp.ChosenBundlesList != null))
+                if (DesiredAppointmentUCClientApp.DesiredClient != null)
                 {
                     ParentFormAppointment.UcScheduleParentForm.RefreshAllRelatedAppointments(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
                 }
@@ -870,8 +838,8 @@ namespace MKproject.Schedule
                     ParentFormAppointment.UcScheduleParentForm.RefreshDesiredAppointment(ParentFormAppointment.UCappointment);
                 }
             }
-            if (IsReadOrEdit && !DesiredAppointmentUCClientApp.IsCompleted && DesiredAppointmentUCClientApp.StartTime.Date == DateTime.Now.Date)
-            {// lamma nkun bel present , juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               
+            if (IsReadOrEdit && !DesiredAppointmentUCClientApp.IsCompleted && DesiredAppointmentUCClientApp.StartTime.Date <= DateTime.Now.Date)
+            {// lamma  nkun juwwet appointment completed yaane readonly, w fout aal profile w aamil undo lal session done w erjaa eje, , badde edit mode design yeje w since mafi design function lal edit mode, so mnodtar nekhlaae el form men jdid               
 
                 ParentFormAppointment.Close();
                 ParentFormAppointment.UCappointment.Control_MouseClick(null, null);

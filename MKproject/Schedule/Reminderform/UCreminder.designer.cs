@@ -160,6 +160,7 @@ namespace MKproject.Schedule
             Name = "UCreminder";
             Padding = new System.Windows.Forms.Padding(0, 0, 0, 7);
             Size = new System.Drawing.Size(223, 85);
+            Resize += UCreminder_Resize;
             TLPGlobal.ResumeLayout(false);
             TLPGlobal.PerformLayout();
             ResumeLayout(false);

@@ -8,7 +8,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using GlobalFunctions;
 using CustomizedTools;
-using static MKproject.Management.ClassClient; // Make sure to add this namespace
+using static MKproject.Management.ClassClient;
+using System.Threading.Tasks; // Make sure to add this namespace
 
 namespace MKproject.Management
 {
@@ -47,11 +48,11 @@ namespace MKproject.Management
         TableLayoutPanel TLPLinked;
         IconButton iconViewOrProfile;
 
-        public static Image PayOrEditImage;
+        Image PayOrEditImage;
         Image PayOrEditImagePopUp;
         Image BackOfficeImage;
         Image BackOfficeImagePopUp;
-        public static Image EmptyImage;
+        Image EmptyImage;
 
 
         public ClassClientCustomFront classClientCustomFront { get; set; }
@@ -130,6 +131,7 @@ namespace MKproject.Management
             AutosizeUCLabel();
             //FormatDatagridviewDesign();battal ela aaze, since hattayneha bel visible on off
             dataGridViewBalance.ClearSelection();
+            FormatDatagridviewDesign();
         }
 
 
@@ -1487,7 +1489,7 @@ namespace MKproject.Management
             //TransferInformationToSearch();
 
         }
-        private void ClientManagementProfile_VisibleChanged(object sender, EventArgs e)
+        private async void ClientManagementProfile_VisibleChanged(object sender, EventArgs e)
         {
             //if (IsFromSchedule)//since aam nodtarr naamela show dialog, w lamma tkun cached w showdialo ma aam bi bayno bel usaully method el icons, so this glitsh worked
             //{
@@ -1495,6 +1497,7 @@ namespace MKproject.Management
             //}
             if (Visible == true)
             {
+                await Task.Delay(100);
                 FormatDatagridviewDesign();
             }
         }

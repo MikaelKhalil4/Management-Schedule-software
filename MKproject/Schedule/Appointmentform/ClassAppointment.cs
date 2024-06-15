@@ -196,11 +196,11 @@ namespace MKproject.Schedule
 
         public void InsertOrUpdateAppointment(bool InsertOrUpdate)
         {
-            string queryInsert = @"INSERT INTO appointments (employee_id, client_id,is_package_mode ,client_balance_id,history_client_balance,title, start_time, end_time, Note,is_completed,is_canceled) 
-                                                                  VALUES (@employee_id, @client_id,@is_package_mode,@client_balance_id,@history_client_balance ,@title, @start_time, @end_time, @Note,@is_completed,@is_canceled) ";
+            string queryInsert = @"INSERT INTO appointments (employee_id, client_id,is_package_mode ,client_balance_id,title, start_time, end_time, Note,is_completed,is_canceled) 
+                                                                  VALUES (@employee_id, @client_id,@is_package_mode,@client_balance_id ,@title, @start_time, @end_time, @Note,@is_completed,@is_canceled) ";
 
             string queryUpdate = @"  Update appointments SET  
-                            employee_id=@employee_id ,client_id=@client_id ,is_package_mode=@is_package_mode ,client_balance_id=@client_balance_id,history_client_balance=@history_client_balance, title=@title, 
+                            employee_id=@employee_id ,client_id=@client_id ,is_package_mode=@is_package_mode ,client_balance_id=@client_balance_id,title=@title, 
                                                         start_time=@start_time, end_time=@end_time, Note=@Note ,is_completed=@is_completed,is_canceled=@is_canceled
                                                                 WHERE  appointment_id=@appointment_id ";
 
@@ -275,15 +275,7 @@ namespace MKproject.Schedule
                 cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DBNull.Value);
             }
 
-            if (HistoryClientBalance != null)
-            {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@history_client_balance", HistoryClientBalance);
-            }
-            else
-            {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@history_client_balance", DBNull.Value);
-            }
-
+          
 
             con.Open();
             cmdInsertOrUpdateApp.ExecuteNonQuery();//ejbare foe el cmd tahet mahalla    
@@ -387,15 +379,7 @@ namespace MKproject.Schedule
             SetOrResetIsCompleted();
 
         }
-        public void UpdateHistoryClientBalance()
-        {
-            SQLiteCommand cmdUpdateCompletion = new SQLiteCommand(@" Update appointments SET  history_client_balance=@history_client_balance  WHERE  appointment_id=@appointment_id ", con); ;
-            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", AppointmentID);
-            cmdUpdateCompletion.Parameters.AddWithValue("@history_client_balance", HistoryClientBalance);
-            con.Open();
-            cmdUpdateCompletion.ExecuteNonQuery();
-            con.Close();
-        }
+      
         public void SetOrResetIsCompleted()
         {
             SQLiteCommand cmdUpdateCompletion = new SQLiteCommand(@" Update appointments SET  is_completed=@is_completed  WHERE  appointment_id=@appointment_id ", con); ;
@@ -490,7 +474,6 @@ namespace MKproject.Schedule
                 DesiredApp.DesiredClientBalance.SetStringDetailsIfBundle();
             }
 
-            DesiredApp.HistoryClientBalance = datarow["history_client_balance"] is DBNull ? null : (string)datarow["history_client_balance"];
 
 
             DataTable ChosenBundles = GetAllChosenSoloBundles(DesiredApp.AppointmentID);

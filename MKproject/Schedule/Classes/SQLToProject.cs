@@ -83,6 +83,14 @@ namespace MKproject.Schedule
 
             return count > 0;
         }
+        public static DateTime GetLastHistoryDate()
+        {
+            SQLiteCommand cmd = new SQLiteCommand("SELECT MAX(history_date) FROM history_employee_availability", con);
+            con.Open();
+            DateTime LastHistoryDate = Convert.ToDateTime(cmd.ExecuteScalar());//return the first cell
+            con.Close();
+            return LastHistoryDate;
+        }
 
         //public static DataTable GetEmployeeAvailabiltyForThisWeekForPastDays()
         //{

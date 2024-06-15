@@ -268,12 +268,7 @@ namespace CustomizedTools
                 SetDefaultImage();
 
             }
-            else if (dialogResult == DialogResult.No)
-            {
-
-            }
-
-
+          
         }
 
 

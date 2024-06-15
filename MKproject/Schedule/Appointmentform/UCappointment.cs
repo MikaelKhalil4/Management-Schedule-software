@@ -40,7 +40,7 @@ namespace MKproject.Schedule
         Label LabelBalance;
         static public Color WariningColor = Color.FromArgb(255, 234, 234);
 
-        static public Color DefaultHoverColor= Color.WhiteSmoke;
+        static public Color DefaultHoverColor = Color.WhiteSmoke;
         static public Color DefaultColor = Color.White;
 
         //ADD and SELECT (remember in add there's no uctime but in select there's) 
@@ -116,18 +116,19 @@ namespace MKproject.Schedule
                 TLPGlobal.SetRow(labelTime, 0);
                 TLPGlobal.SetRowSpan(labelTime, 2);
                 labelTime.Margin = new Padding(0, 0, 0, 0);
-                labelTime.Dock=DockStyle.None;
+                labelTime.Dock = DockStyle.None;
                 labelTime.Anchor = AnchorStyles.None;
             }
 
 
 
 
-            if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-Future
+           
             {
                 //Balance
-                if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0)
-                {
+                if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0
+                    &&(!(DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date && (DesiredAppointmentUCApp.IsCompleted || DesiredAppointmentUCApp.IsCanceled))))//anything else (being in the past and completed or canceled)
+                    {
                     if (LabelBalance == null)
                     {
                         CreationOfLabelBalance();
@@ -153,9 +154,6 @@ namespace MKproject.Schedule
                         TLPGlobal.SetColumnSpan(labelTime, 1);
                     }
                 }
-
-                //FixUCDesign();
-
             }
 
 
@@ -205,27 +203,28 @@ namespace MKproject.Schedule
             labelFullName.Margin = new Padding(1, 5, 1, 0);
             labelTime.Margin = new Padding(0, 5, 0, 0);
 
-
-            if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0 && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-Future           
+            if (!(DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date && (DesiredAppointmentUCApp.IsCompleted || DesiredAppointmentUCApp.IsCanceled)))//anything else tehn (being in the past and completed or canceled)  
             {
-                TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 10;
-
-                float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
-                if (RemaingBalance >= 0)
+                if (DesiredAppointmentUCApp.DesiredClient != null && DesiredAppointmentUCApp.DesiredClient.TotalBalance != 0)
                 {
-                    TLPGlobal.ColumnStyles[1].Width = RemaingBalance + 10;
+                    TLPGlobal.ColumnStyles[2].Width = RandomFunctions.MeasureLabelText(LabelBalance) + 10;
+
+                    float RemaingBalance = RandomFunctions.MeasureLabelText(labelTime) - TLPGlobal.ColumnStyles[2].Width;
+                    if (RemaingBalance >= 0)
+                    {
+                        TLPGlobal.ColumnStyles[1].Width = RemaingBalance + 10;
+                    }
+                    else
+                    {
+                        TLPGlobal.ColumnStyles[1].Width = 0;
+                    }
                 }
                 else
                 {
-                    TLPGlobal.ColumnStyles[1].Width = 0;
+                    TLPGlobal.ColumnStyles[1].Width = RandomFunctions.MeasureLabelText(labelTime) + 10;
                 }
             }
-            else
-            {
-                TLPGlobal.ColumnStyles[1].Width = RandomFunctions.MeasureLabelText(labelTime) + 10;
-            }
-
-
+              
             //in the first aam nhot el full name pecentage w hawdie abs, in case el percentage ma kaffa aam nfout bel absolut thing
             //Secondary design , in case the first didn't fit properly
             int CellWidth = TLPGlobal.GetColumnWidths()[0];
@@ -300,7 +299,7 @@ namespace MKproject.Schedule
                 labelFullName.Font = new Font(labelTime.Font.FontFamily, labelTime.Font.Size, labelTime.Font.Style);
             }
             else
-            {   
+            {
                 TLPGlobal.Controls.Add(labelService, 0, 0);
                 if (LabelBalance != null)
                 {
@@ -331,69 +330,23 @@ namespace MKproject.Schedule
             //Service
             if (DesiredAppointmentUCApp.IsPackageMode)
             {
-                if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)//Present-future
+                if (DesiredAppointmentUCApp.DesiredClientBalance != null)
                 {
+                    ClassAppointmentFront.SetServiceLabelModeInCaseOfDumble(labelService, DesiredAppointmentUCApp, Color.FromArgb(94, 94, 94));
 
-                    if (DesiredAppointmentUCApp.DesiredClientBalance != null)
-                    {
-                        if (!(bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)//Package exist and not expired
-                        {
-                            if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)
-                            {
-                                if (DesiredAppointmentUCApp.StartTime.Date == DateTime.Now.Date)
-                                {
-                                    //SQl
-                                    if (DesiredAppointmentUCApp.HistoryClientBalance != DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails)//since eza kenna el future we dont save el history, once sorna bel present we need to save it
-                                    {
-                                        DesiredAppointmentUCApp.HistoryClientBalance = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
-                                        DesiredAppointmentUCApp.UpdateHistoryClientBalance();
-                                    }
-
-                                }
-
-                                //Design
-                                labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.ClientBalanceSessionLeftDetails;
-                                if (DesiredAppointmentUCApp.DesiredClientBalance.SessionLeftDays == 0)
-                                {
-                                    labelService.ForeColor = Color.Red;
-                                }
-                                else
-                                {
-                                    labelService.ForeColor = Color.FromArgb(94, 94, 94);
-                                }
-                            }
-                        }
-                        else if ((bool)DesiredAppointmentUCApp.DesiredClientBalance.IsExpired)//Package exist and  expired
-                        {
-                            //Design
-
-                            labelService.ForeColor = Color.FromArgb(94, 94, 94);
-                            labelService.Text = DesiredAppointmentUCApp.DesiredClientBalance.BundleName + " Package Expired";
-                        }
-
-                    }
-                    else if (DesiredAppointmentUCApp.DesiredClientBalance == null)// Package is deleted
+                }
+                else// Package is deleted
+                {
+                    if (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date)
                     {
                         labelService.Text = "";
                     }
-                }
-                else if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//Past
-                {
-
-                    //Design
-                    if (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance != null)//Usually deyman both diff or equal to null together,unless package was deleted w kenna bel past  
+                    else
                     {
                         labelService.Text = "Client Package Deleted";
                     }
-                    else if (DesiredAppointmentUCApp.DesiredClientBalance == null && DesiredAppointmentUCApp.HistoryClientBalance == null)//kenna mnaeyin package, bel future, w hayda el package mhine abel ma nusal lal future, so IsPCakage=true, w hawde null
-                    {
-                        labelService.Text = "";//could change in the future
-                    }
-                    else if (DesiredAppointmentUCApp.DesiredClientBalance != null && DesiredAppointmentUCApp.HistoryClientBalance != null)//normal case
-                    {
-                        labelService.Text = DesiredAppointmentUCApp.HistoryClientBalance;
-                    }
                 }
+
             }
             else if (DesiredAppointmentUCApp.ChosenBundlesList != null && DesiredAppointmentUCApp.ChoseBundlesString != null)
             {
@@ -449,6 +402,19 @@ namespace MKproject.Schedule
                 return;
             }
 
+            if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)
+            {
+                //ahsan ma that shi lieano mainly ts going to be used on purpose
+                if (LOGIN.Employee.CanEditPastAppSchedule)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+
             UcScheduleParentForm.ParentFormSchedule.CloseNotfBanner();
             ScheduleForm schedule = this.UcScheduleParentForm.ParentFormSchedule;
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
@@ -498,14 +464,22 @@ namespace MKproject.Schedule
         Cursor customCursor;
         private void UCappointments_MouseMove(object sender, MouseEventArgs e)
         {
-          
+
             TLPGlobal.BackColor = DefaultHoverColor;
-
-            if ((UcScheduleParentForm.IsDayOrWeek && DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date) || (DesiredAppointmentUCApp.StartTime.Date >= DateTime.Now.Date && !UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee != null))//onlty present or future
+            if (!isDragging && e.Button == MouseButtons.Left)
             {
-
-                if (!isDragging && e.Button == MouseButtons.Left)
+                if (UcScheduleParentForm.IsDayOrWeek || (!UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee != null))
                 {
+
+                    if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//employee with no access in the past can't drag
+                    {
+                        if (!LOGIN.Employee.CanEditPastAppSchedule)
+                        {
+                            CustomMessageBox.Show("You don't have access to drag in the past", CustomMessageBox.Type.Error);
+                            return;
+                        }
+                    }
+
                     if (Math.Abs(e.X - initialMouseDownPoint.X) > SystemInformation.DoubleClickSize.Width ||
                         Math.Abs(e.Y - initialMouseDownPoint.Y) > SystemInformation.DoubleClickSize.Height)
                     {
@@ -518,6 +492,7 @@ namespace MKproject.Schedule
                         DoDragDrop(this, DragDropEffects.Move);//ha ndalna hone until naaml drop
                         UCAppIsDroped?.Invoke(null, EventArgs.Empty);
                     }
+
                 }
             }
         }

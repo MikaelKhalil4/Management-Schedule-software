@@ -77,7 +77,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>gcpdXlQmrBCsic/7aaX/TUf1tLW9TCvDukGWlRK9GZ8=</dsig:DigestValue>
+      <dsig:DigestValue>D23Rx95m0WMDgnPszJaXdCaOQ9kggx27+ILxoCwX+VA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="EntityFramework.dll" size="4977744">
@@ -104,7 +104,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>GAaDk+rePoTu0c4yljTQSUEVPiXv6hvhI4ym/A8/Ao0=</dsig:DigestValue>
+      <dsig:DigestValue>KR1WtW6C+xPpwv9cpqIBhUOu/L+CiG16fF6awuLbQ+U=</dsig:DigestValue>
     </hash>
   </file>
   <file name="images\BackOfficeBig.png" size="7411">
@@ -404,13 +404,13 @@
       <dsig:DigestValue>l8Q0l/8slBAOheR+UlZIGag2yey6yRvOrZhyUqTwnpI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MKproject.dll" size="1862144">
+  <file name="MKproject.dll" size="1863168">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>tnQthbgPLwcG6IeqSpd6ECtctgAPt6DKR4bq9chAVyo=</dsig:DigestValue>
+      <dsig:DigestValue>tMPR7PpsZ8aLT5AQr17ajxtzms4l/o5ozKji7QNRR2g=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">

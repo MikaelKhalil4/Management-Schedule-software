@@ -52,7 +52,7 @@ namespace MKproject.Management
             }
             else
             {
-                CustomMessageBox.Show("wrong password or phone number, please try again", CustomMessageBox.Type.Error);
+                CustomMessageBox.Show("wrong password , please try again", CustomMessageBox.Type.Error);
                 textBoxPassword.Select();
             }
         }
