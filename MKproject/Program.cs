@@ -40,7 +40,7 @@ namespace MKproject
         //Elie:C:\\Users\\USER\\Documents\\ELKdb\
 
         public static string DataLocation = "Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db";
-        public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\ELKdb\\ProfileImages";
+        public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\Foxdb\\ProfileImages";
 
 
         public static string ExecptionString = "Unexpected error:\n";

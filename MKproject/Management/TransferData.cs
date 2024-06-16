@@ -487,7 +487,7 @@ namespace MKproject.Management
             //private static void TransferAppointments(SqlConnection conOld, SQLiteConnection conNew)
             //{
             //    string selectQuery = @"
-            //SELECT appointment_id, client_id, employee_id, is_package_mode, client_balance_id, history_client_balance, 
+            //SELECT appointment_id, client_id, employee_id, is_package_mode, client_balance_id, 
             //       title, start_time, end_time, Note, is_completed, is_canceled 
             //FROM appointments";
             //    DataTable dataTable = new DataTable();
@@ -505,7 +505,6 @@ namespace MKproject.Management
             //        int employeeId = row["employee_id"] != DBNull.Value ? Convert.ToInt32(row["employee_id"]) : default;
             //        int isPackageMode = row["is_package_mode"] != DBNull.Value ? Convert.ToInt32(row["is_package_mode"]) : default;
             //        int? clientBalanceId = row["client_balance_id"] != DBNull.Value ? (int?)Convert.ToInt32(row["client_balance_id"]) : null;
-            //        string historyClientBalance = row["history_client_balance"] != DBNull.Value ? Convert.ToString(row["history_client_balance"]) : null;
             //        string title = row["title"] != DBNull.Value ? Convert.ToString(row["title"]) : null;
             //        string startTime = row["start_time"] != DBNull.Value ? Convert.ToString(row["start_time"]) : null;
             //        string endTime = row["end_time"] != DBNull.Value ? Convert.ToString(row["end_time"]) : null;
@@ -516,8 +515,8 @@ namespace MKproject.Management
 
             //        string insertQuery = @"
             //    INSERT INTO appointments (appointment_id, client_id, employee_id, is_package_mode, client_balance_id, 
-            //                              history_client_balance, title, start_time, end_time, Note, is_completed, is_canceled) 
-            //    VALUES (@appointment_id, @client_id, @employee_id, @is_package_mode, @client_balance_id, @history_client_balance, 
+            //                               title, start_time, end_time, Note, is_completed, is_canceled) 
+            //    VALUES (@appointment_id, @client_id, @employee_id, @is_package_mode, @client_balance_id,
             //            @title, @start_time, @end_time, @Note, @is_completed, @is_canceled)";
 
             //        using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conNew))
@@ -527,7 +526,6 @@ namespace MKproject.Management
             //            insertCmd.Parameters.AddWithValue("@employee_id", employeeId);
             //            insertCmd.Parameters.AddWithValue("@is_package_mode", isPackageMode);
             //            insertCmd.Parameters.AddWithValue("@client_balance_id", clientBalanceId.HasValue ? (object)clientBalanceId.Value : DBNull.Value);
-            //            insertCmd.Parameters.AddWithValue("@history_client_balance", historyClientBalance);
             //            insertCmd.Parameters.AddWithValue("@title", title);
             //            insertCmd.Parameters.AddWithValue("@start_time", startTime);
             //            insertCmd.Parameters.AddWithValue("@end_time", endTime);

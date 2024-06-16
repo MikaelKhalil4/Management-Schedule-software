@@ -650,7 +650,7 @@ namespace MKproject.Management
             cmd5.ExecuteNonQuery();
 
             string QuerySetUpdatePresentFutureAppointment = @" UPDATE appointments 
-                                                    SET client_balance_id = NULL ,history_client_balance = NULL 
+                                                    SET client_balance_id = NULL 
                                                     WHERE client_balance_id = '" + DesiredClientBalanceId + "' AND start_time >= '" + DateTime.Now.ToString("yyyy-MM-dd") + "'";
 
             SQLiteCommand cmd6 = new SQLiteCommand(QuerySetUpdatePresentFutureAppointment, con);
