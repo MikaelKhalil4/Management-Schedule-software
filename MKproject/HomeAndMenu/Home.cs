@@ -28,7 +28,7 @@ namespace MKproject
             LoadImages();
             menu = new Menu();
             menu.ParentFormHome = this;
-            if (LOGIN.Employee.IsScheduleMember)
+            if (LOGIN.Employee.CanAccesSchedule)
             {
                 menu.OpenChildForm(new ScheduleForm(), menu.buttonSchedule, false);
             }

@@ -106,7 +106,7 @@ namespace MKproject.Schedule
             }
 
             LoadForm(DateTime.Now, true, true, true);
-            InsertHistroyToSqlIfNecessary();
+            ScheduleHistoryCheckAndInsert();
         }
 
 
@@ -964,21 +964,33 @@ namespace MKproject.Schedule
             }
 
         }
-        public void InsertHistroyToSqlIfNecessary()
+        public void ScheduleHistoryCheckAndInsert()
         {
-            DateTime LastHisrotyDate = SQLToProject.GetLastHistoryDate();
-
-            for (DateTime DesiredDate = LastHisrotyDate.Date.AddDays(1); DesiredDate <= DateTime.Now.Date; DesiredDate = DesiredDate.AddDays(1))
+            DateTime? LastHisrotyDate = SQLToProject.GetLastHistoryDate();
+            if (LastHisrotyDate != null)
             {
-                for (int i = 0; i < TotalEmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
+                for (DateTime DesiredDate = ((DateTime)LastHisrotyDate).Date.AddDays(1); DesiredDate <= DateTime.Now.Date; DesiredDate = DesiredDate.AddDays(1))
                 {
-
-                    string DesiredAvailabiltyOfSpecificDay = ClassEmployeeFront.GetAvailabiltyAsAstringFromWeekAvailability(DateTime.Now, EmployeeScheduleListWorkingOn[i].Availability);
-
-                    ProjectToSql.InsertHistoryEmployeeavailibility(DesiredDate, EmployeeScheduleListWorkingOn[i].EmployeeId, (int)EmployeeScheduleListWorkingOn[i].Rank, DesiredAvailabiltyOfSpecificDay);
+                    InsertScheduleHistory(DesiredDate);
                 }
             }
+            else
+            {
+                InsertScheduleHistory(DateTime.Now.Date);
+            }         
         }
+        void InsertScheduleHistory(DateTime DesiredDate)
+        {
+            for (int i = 0; i < TotalEmployeeScheduleList.Count; i++)//both of the string are in the order of the rank
+            {
+
+                string DesiredAvailabiltyOfSpecificDay = ClassEmployeeFront.GetAvailabiltyAsAstringFromWeekAvailability(DateTime.Now, EmployeeScheduleListWorkingOn[i].Availability);
+
+                ProjectToSql.InsertHistoryEmployeeavailibility(DesiredDate, EmployeeScheduleListWorkingOn[i].EmployeeId, (int)EmployeeScheduleListWorkingOn[i].Rank, DesiredAvailabiltyOfSpecificDay);
+            }
+        }
+
+
         void AddAppointmentsToTlpSchedule()
         {
             int totalAppointments = AppointmentsListWorkingOn.Count;

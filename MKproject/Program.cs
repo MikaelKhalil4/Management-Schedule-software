@@ -2,6 +2,7 @@
 using MKproject.Management;
 using MKproject.Schedule;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -37,10 +38,10 @@ namespace MKproject
         //Tablet/Mikas: Data Source=MKpc;Initial Catalog=MKproject;Integrated Security=True;
         //Mikas: Data Source=MKpc;Initial Catalog=MKproject;User ID=sa;Password=1234
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
-        //Elie:C:\\Users\\USER\\Documents\\ELKdb\
+        //Elie:Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db
 
-        public static string DataLocation = "Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db";
-        public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\Foxdb\\ProfileImages";
+        public static string DataLocation/* = "Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db"*/;
+        public static string FolderProfileImagePath /*= "C:\\Users\\USER\\Documents\\Foxdb\\ProfileImages"*/;
 
 
         public static string ExecptionString = "Unexpected error:\n";
@@ -51,6 +52,14 @@ namespace MKproject
         [STAThread]
         static void Main()
         {
+            DataLocation = "Data Source="+ AppPaths.DatabasePath;
+            FolderProfileImagePath = AppPaths.ProfileImagesPath;
+
+            AppPaths.EnsureDirectoriesExist();
+            DatabaseInitializer.InitializeDatabase();
+
+           
+
             Currency.Symbol="$";
             Currency.CurrencyName = "USD";
             ClassClientCustom.CreationOfTheFieldInitially();
@@ -62,9 +71,8 @@ namespace MKproject
             LoginForm = new LOGIN();
           
 
-            Application.Run(LoginForm);       
+            Application.Run(LoginForm);
         }
-
 
 
         //some global functions
