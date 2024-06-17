@@ -1,2 +1,2 @@
-MKproject/ClassClientCustomFront.cs merge=ours
-MKproject/ClassClientCustom.cs merge=ours
+MKproject/Customization/ClassClientCustomFront.cs merge=ours
+MKproject/Customization/ClassClientCustom.cs merge=ours
