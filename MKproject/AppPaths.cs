@@ -6,8 +6,8 @@ public static class AppPaths
 {
     public static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    public static string DatabasePath => Path.Combine(BaseDirectory, GetAppConfig().GetConnectionString());
-    public static string ProfileImagesPath => Path.Combine(BaseDirectory, GetAppConfig().GetImagesDirectory());
+    public static string DatabasePath => Path.Combine("C:\\Users\\USER\\AppData\\Local", "Fox\\Fox.db");
+    public static string ProfileImagesPath => Path.Combine("C:\\Users\\USER\\AppData\\Local", "Fox\\ProfileImages");
 
     private static AppConfig GetAppConfig()
     {
