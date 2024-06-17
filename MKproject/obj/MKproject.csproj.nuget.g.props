@@ -14,11 +14,9 @@
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\netcoreapp3.0\EntityFramework.props" Condition="Exists('$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\netcoreapp3.0\EntityFramework.props')" />
-    <Import Project="$(NuGetPackageRoot)gitversion.msbuild\5.12.0\build\GitVersion.MsBuild.props" Condition="Exists('$(NuGetPackageRoot)gitversion.msbuild\5.12.0\build\GitVersion.MsBuild.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\USER\.nuget\packages\entityframework\6.4.4</PkgEntityFramework>
     <PkgSystem_Data_SQLite_EF6 Condition=" '$(PkgSystem_Data_SQLite_EF6)' == '' ">C:\Users\USER\.nuget\packages\system.data.sqlite.ef6\1.0.118</PkgSystem_Data_SQLite_EF6>
-    <PkgGitVersion_MsBuild Condition=" '$(PkgGitVersion_MsBuild)' == '' ">C:\Users\USER\.nuget\packages\gitversion.msbuild\5.12.0</PkgGitVersion_MsBuild>
   </PropertyGroup>
 </Project>

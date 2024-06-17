@@ -466,15 +466,3 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\appsettings.json
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.FileExtensions.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Json.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Physical.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.Text.Encodings.Web.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.Text.Json.dll
-D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

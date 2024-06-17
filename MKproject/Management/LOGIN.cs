@@ -39,8 +39,8 @@ namespace MKproject.Management
 
             if (EmpId != -1)
             {
-                                                          
                 Cursor = Cursors.WaitCursor;
+
                 Employee = new ClassEmployee();
                 Employee = ClassEmployee.CreateEmployeeObject(EmpId);
                 Employee.SetEmployeeAccess();      
@@ -52,7 +52,7 @@ namespace MKproject.Management
             }
             else
             {
-                CustomMessageBox.Show("wrong password, please try again", CustomMessageBox.Type.Error);
+                CustomMessageBox.Show("wrong password , please try again", CustomMessageBox.Type.Error);
                 textBoxPassword.Select();
             }
         }
