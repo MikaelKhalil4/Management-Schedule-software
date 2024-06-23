@@ -74,7 +74,7 @@ namespace MKproject.Management
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 164F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 291F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 92F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new System.Drawing.Size(434, 515);
@@ -89,7 +89,7 @@ namespace MKproject.Management
             panel5.Controls.Add(buttonShow);
             panel5.Controls.Add(textBoxPassword);
             panel5.Controls.Add(buttonHide);
-            panel5.Location = new System.Drawing.Point(94, 262);
+            panel5.Location = new System.Drawing.Point(94, 135);
             panel5.Name = "panel5";
             panel5.Size = new System.Drawing.Size(246, 64);
             panel5.TabIndex = 14;
@@ -173,9 +173,9 @@ namespace MKproject.Management
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackColor = System.Drawing.Color.Black;
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(117, 37);
+            pictureBox1.Location = new System.Drawing.Point(117, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(199, 184);
+            pictureBox1.Size = new System.Drawing.Size(199, 126);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;

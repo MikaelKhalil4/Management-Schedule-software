@@ -70,11 +70,23 @@
               "version": "[6.0.22, 6.0.22]"
             },
             {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
               "name": "Microsoft.NETCore.App.Ref",
               "version": "[6.0.22, 6.0.22]"
             },
             {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
               "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
               "version": "[6.0.22, 6.0.22]"
             }
           ],
@@ -87,6 +99,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "c:\\Program Files\\dotnet\\sdk\\8.0.100-rc.1.23455.8\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     },
@@ -152,11 +169,23 @@
               "version": "[6.0.22, 6.0.22]"
             },
             {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
               "name": "Microsoft.NETCore.App.Ref",
               "version": "[6.0.22, 6.0.22]"
             },
             {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
               "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
               "version": "[6.0.22, 6.0.22]"
             }
           ],
@@ -169,6 +198,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "c:\\Program Files\\dotnet\\sdk\\8.0.100-rc.1.23455.8\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

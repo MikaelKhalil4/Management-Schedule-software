@@ -45,6 +45,14 @@ C:\Users\USER\Downloads\App1\EntityFramework.dll
 C:\Users\USER\Downloads\App1\System.Windows.Forms.DataVisualization.dll
 C:\Users\USER\Downloads\App1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\USER\Downloads\App1\Microsoft.Data.SqlClient.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.Configuration.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\USER\Downloads\App1\Microsoft.Extensions.Primitives.dll
 C:\Users\USER\Downloads\App1\Microsoft.Identity.Client.dll
 C:\Users\USER\Downloads\App1\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\Users\USER\Downloads\App1\Microsoft.IdentityModel.JsonWebTokens.dll
@@ -60,6 +68,8 @@ C:\Users\USER\Downloads\App1\System.Data.SQLite.EF6.dll
 C:\Users\USER\Downloads\App1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\USER\Downloads\App1\System.Runtime.Caching.dll
 C:\Users\USER\Downloads\App1\System.Security.Cryptography.ProtectedData.dll
+C:\Users\USER\Downloads\App1\System.Text.Encodings.Web.dll
+C:\Users\USER\Downloads\App1\System.Text.Json.dll
 C:\Users\USER\Downloads\App1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\USER\Downloads\App1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\USER\Downloads\App1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
@@ -76,6 +86,7 @@ C:\Users\USER\Downloads\App1\runtimes\win-x86\native\SQLite.Interop.dll
 C:\Users\USER\Downloads\App1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\USER\Downloads\App1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\USER\Downloads\App1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\USER\Downloads\App1\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\USER\Downloads\App1\CustomizedTools.dll
 C:\Users\USER\Downloads\App1\GlobalFunctions.dll
 C:\Users\USER\Downloads\App1\CustomizedTools.pdb

@@ -312,6 +312,8 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKpro
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\MKProject .Net6\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\nlog.config
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\images\fox.ico
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\images\foxlogo.ico
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\MKproject.exe
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\images\BackOfficeBig.png
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\images\BackOfficeSmall.png
@@ -353,6 +355,8 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\MKproject.runtimeconfig.json
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\MKproject.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\MKproject.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\AWSSDK.Core.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\AWSSDK.S3.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Azure.Core.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Azure.Identity.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\EntityFramework.SqlServer.dll
@@ -367,6 +371,7 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Physical.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Identity.Client.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
@@ -375,6 +380,7 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Tokens.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\NuGet.Versioning.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.Data.SQLite.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.ComponentModel.Composition.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.Configuration.ConfigurationManager.dll
@@ -385,6 +391,7 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.Security.Cryptography.ProtectedData.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.Text.Encodings.Web.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\System.Text.Json.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\Velopack.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\MKproject\bin\Debug\net6.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll

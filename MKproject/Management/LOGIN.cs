@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CustomizedTools;
 
@@ -12,7 +13,7 @@ namespace MKproject.Management
         public LOGIN()
         {
             InitializeComponent();
-
+            Program.UpdateMyApp();
             LoadForm();
         }
         public void LoadForm()
@@ -32,8 +33,9 @@ namespace MKproject.Management
 
 
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private  void buttonLogin_Click(object sender, EventArgs e)
         {
+            
 
             int EmpId = ClassEmployee.CheckIfEmployeeExist(textBoxPassword.Text);
 

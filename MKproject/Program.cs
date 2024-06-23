@@ -5,8 +5,17 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Net;
+using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Velopack;
+using Velopack.Windows;
+using Velopack.Locators;
+using System.Net.Http;
+using Amazon.S3;
+using Amazon.S3.Model;
 
 namespace MKproject
 {
@@ -39,8 +48,8 @@ namespace MKproject
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
         //Elie:Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db
 
-        public static string DataLocation = "Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db";
-        public static string FolderProfileImagePath = "C:\\Users\\USER\\Documents\\Foxdb\\ProfileImages";
+        public static string DataLocation ;
+        public static string FolderProfileImagePath;
 
 
         public static string ExecptionString = "Unexpected error:\n";
@@ -49,8 +58,14 @@ namespace MKproject
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void  Main()
         {
+           
+            VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
+            
+            
+
+       
             DataLocation = "Data Source=" + AppPaths.DatabasePath;
             FolderProfileImagePath = AppPaths.ProfileImagesPath;
 
@@ -71,6 +86,41 @@ namespace MKproject
 
             Application.Run(LoginForm);       
         }
+
+        
+        public  static void UpdateMyApp()
+        {
+            try
+            {
+                var mgr = new UpdateManager("http://127.0.0.1:9000/fox");
+
+                // check for new version
+                var newVersion =  mgr.CheckForUpdates();
+                if (newVersion == null)
+                    return; // no update available
+
+                // download new version
+                 mgr.DownloadUpdates(newVersion);
+
+                // install new version and restart app
+                mgr.ApplyUpdatesAndRestart(newVersion);
+
+                MessageBox.Show("Succeeded");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString()); 
+            }
+          
+        }
+
+        // dotnet publish -c Release --self-contained -r win-x64 -o./Publish
+        // vpk pack -u FoxApp -v 1.0.0 -p./Publish -e MKproject.exe --packTitle "Fox" --icon MKproject/images/fox.ico
+
+        //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish
+        //         vpk download s3  --bucket fox --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+        //         vpk pack -u FoxApp -v 1.0.9 -p./bin/Publish -e MKproject.exe --packTitle "Fox" --icon images/fox.ico
+        //          vpk upload s3 --bucket fox --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
 
 
 

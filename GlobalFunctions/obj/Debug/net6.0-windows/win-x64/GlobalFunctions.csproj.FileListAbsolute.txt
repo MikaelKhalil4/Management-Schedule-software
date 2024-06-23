@@ -1,0 +1,10 @@
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\bin\Debug\net6.0-windows\win-x64\GlobalFunctions.deps.json
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\bin\Debug\net6.0-windows\win-x64\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\bin\Debug\net6.0-windows\win-x64\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\win-x64\GlobalFunctions.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\win-x64\GlobalFunctions.csproj.CoreCompileInputs.cache
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\win-x64\GlobalFunctions.sourcelink.json
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\win-x64\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\win-x64\refint\GlobalFunctions.dll
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\win-x64\GlobalFunctions.pdb
+D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\win-x64\ref\GlobalFunctions.dll
