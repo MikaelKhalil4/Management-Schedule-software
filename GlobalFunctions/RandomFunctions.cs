@@ -288,7 +288,7 @@ namespace GlobalFunctions
                 //fi meshkle layering baddak tzabeta
                 //if (Features.IsOnline)
                 //{
-                //    InternetTest();
+                InternetTest();
 
                 //}
                 return true;//cz if  it's offline or online w ma sar fi exceptoion so it s true             

@@ -31,9 +31,9 @@ namespace MKproject
 
         public static Color CancleButton = Color.FromArgb(95, 97, 99);//used for buttons/datagrid headers
         //Cashed Forms, Dont Forget if you have attached events to them, to release them, Also Menu And Home
-        public static ClientManagementProfile clientManagementProfile;      
+        public static ClientManagementProfile clientManagementProfile;
         public static NewRegister NewRegisterForm;
-        public static LOGIN LoginForm;  
+        public static LOGIN LoginForm;
         public static Home HomeForm;
         public static ScheduleForm ScheduleFormGlobal;
         //
@@ -48,7 +48,7 @@ namespace MKproject
         //Gabs:  Data Source=DESKTOP-MMI74FE\\SQLEXPRESS;Initial Catalog=MKproject; Integrated Security=True
         //Elie:Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db
 
-        public static string DataLocation ;
+        public static string DataLocation;
         public static string FolderProfileImagePath;
 
 
@@ -58,14 +58,12 @@ namespace MKproject
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void  Main()
+        static void Main()
         {
-           
             VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
-            
-            
 
-       
+            //UpdateMyApp();
+
             DataLocation = "Data Source=" + AppPaths.DatabasePath;
             FolderProfileImagePath = AppPaths.ProfileImagesPath;
 
@@ -73,7 +71,7 @@ namespace MKproject
             DatabaseInitializer.InitializeDatabase();
 
 
-            Currency.Symbol="$";
+            Currency.Symbol = "$";
             Currency.CurrencyName = "USD";
             ClassClientCustom.CreationOfTheFieldInitially();
 
@@ -82,25 +80,26 @@ namespace MKproject
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LoginForm = new LOGIN();
-          
+            LoginForm.labelVersion.Text = "v 1.0.4";
 
-            Application.Run(LoginForm);       
+            Application.Run(LoginForm);
+
         }
 
-        
-        public  static void UpdateMyApp()
+
+        public static void UpdateMyApp()
         {
             try
             {
-                var mgr = new UpdateManager("http://127.0.0.1:9000/fox");
+                var mgr = new UpdateManager("http://127.0.0.1:9000/fox-global");
 
                 // check for new version
-                var newVersion =  mgr.CheckForUpdates();
+                var newVersion = mgr.CheckForUpdates();
                 if (newVersion == null)
                     return; // no update available
 
                 // download new version
-                 mgr.DownloadUpdates(newVersion);
+                mgr.DownloadUpdates(newVersion);
 
                 // install new version and restart app
                 mgr.ApplyUpdatesAndRestart(newVersion);
@@ -109,18 +108,23 @@ namespace MKproject
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString()); 
+                MessageBox.Show(ex.ToString());
             }
-          
+
         }
 
-        // dotnet publish -c Release --self-contained -r win-x64 -o./Publish
-        // vpk pack -u FoxApp -v 1.0.0 -p./Publish -e MKproject.exe --packTitle "Fox" --icon MKproject/images/fox.ico
 
-        //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish
-        //         vpk download s3  --bucket fox --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
-        //         vpk pack -u FoxApp -v 1.0.9 -p./bin/Publish -e MKproject.exe --packTitle "Fox" --icon images/fox.ico
-        //          vpk upload s3 --bucket fox --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+        //         dotnet publish -c Release --self-contained -r win-x86 -o./bin/Publish/win-x86
+        //         vpk download s3  --bucket fox-global  --channel win-x86 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+        //         vpk pack -u FoxApp -v 1.0.0 -p./bin/Publish/win-x86 -e MKproject.exe  --channel win-x86 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
+        //         vpk upload s3  --bucket fox-global --channel win-x86 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+
+
+
+        //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
+        //         vpk download s3  --bucket fox-global --channel win-x64 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+        //         vpk pack -u FoxApp -v 1.0.4 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
+        //         vpk upload s3  --bucket fox-global  --channel win-x64 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
 
 
 

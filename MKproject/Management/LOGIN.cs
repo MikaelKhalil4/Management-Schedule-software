@@ -13,7 +13,6 @@ namespace MKproject.Management
         public LOGIN()
         {
             InitializeComponent();
-            Program.UpdateMyApp();
             LoadForm();
         }
         public void LoadForm()

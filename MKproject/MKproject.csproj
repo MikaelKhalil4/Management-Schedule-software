@@ -44,87 +44,37 @@
 		<Page Remove="Management\Interface\**" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Update="Management\buyBundlesOrProductsComponents\UCBundlesOutput.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\buyBundlesOrProductsComponents\UCProductOutput.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\CalenderComponents\UCCalanderMonth.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\CalenderComponents\LabelMonth.cs">
-			<SubType>Component</SubType>
-		</Compile>
-		<Compile Update="Management\CalenderComponents\LabelYear.cs">
-			<SubType>Component</SubType>
-		</Compile>
-		<Compile Update="Management\Statistics\UCComboFilterStat.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\BackOffice\UCComboBoxFilterBackOffice.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\buyBundlesOrProductsComponents\UCItem.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\SearchClient\UCLabelFilterSearch.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\Statistics\UCLabelFilterStatistics.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\ClientProfile\UCBundlePackage.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\CalenderComponents\UCCalanderYear.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\SearchClient\UCComboBoxFilterSearch.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Management\Payment\UCPayments.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
+		<Compile Update="Management\buyBundlesOrProductsComponents\UCBundlesOutput.cs" />
+		<Compile Update="Management\buyBundlesOrProductsComponents\UCProductOutput.cs" />
+		<Compile Update="Management\CalenderComponents\UCCalanderMonth.cs" />
+		<Compile Update="Management\CalenderComponents\LabelMonth.cs" />
+		<Compile Update="Management\CalenderComponents\LabelYear.cs" />
+		<Compile Update="Management\Statistics\UCComboFilterStat.cs" />
+		<Compile Update="Management\BackOffice\UCComboBoxFilterBackOffice.cs" />
+		<Compile Update="Management\buyBundlesOrProductsComponents\UCItem.cs" />
+		<Compile Update="Management\SearchClient\UCLabelFilterSearch.cs" />
+		<Compile Update="Management\Statistics\UCLabelFilterStatistics.cs" />
+		<Compile Update="Management\ClientProfile\UCBundlePackage.cs" />
+		<Compile Update="Management\CalenderComponents\UCCalanderYear.cs" />
+		<Compile Update="Management\SearchClient\UCComboBoxFilterSearch.cs" />
+		<Compile Update="Management\Payment\UCPayments.cs" />
 		<Compile Update="Properties\Settings.Designer.cs">
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Settings.settings</DependentUpon>
 		</Compile>
-		<Compile Update="Schedule\Appointmentform\UCClientApp.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Schedule\CustomisedComboBox\LabelTime.cs">
-			<SubType>Component</SubType>
-		</Compile>
-		<Compile Update="Schedule\Calanderform\LabelMonth.cs">
-			<SubType>Component</SubType>
-		</Compile>
-		<Compile Update="Schedule\Calanderform\LabelYearcs.cs">
-			<SubType>Component</SubType>
-		</Compile>
+		<Compile Update="Schedule\Appointmentform\UCClientApp.cs" />
+		<Compile Update="Schedule\CustomisedComboBox\LabelTime.cs" />
+		<Compile Update="Schedule\Calanderform\LabelMonth.cs" />
+		<Compile Update="Schedule\Calanderform\LabelYearcs.cs" />
 		<Compile Update="Schedule\Calanderform\UCCalanderday.cs" />
-		<Compile Update="Schedule\Calanderform\UCCalandermonth.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Schedule\Calanderform\UCCalanderyear.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Schedule\Calanderform\UCDays.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Schedule\Tools\TableLayoutPanelBuffered.cs">
-			<SubType>Component</SubType>
-		</Compile>
-		<Compile Update="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
-			<SubType>Component</SubType>
-		</Compile>
-		<Compile Update="Schedule\AvailabilityAndRank\UCEmployee.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
-		<Compile Update="Schedule\Reminderform\UCreminder.cs">
-			<SubType>UserControl</SubType>
-		</Compile>
+		<Compile Update="Schedule\Calanderform\UCCalandermonth.cs" />
+		<Compile Update="Schedule\Calanderform\UCCalanderyear.cs" />
+		<Compile Update="Schedule\Calanderform\UCDays.cs" />
+		<Compile Update="Schedule\Tools\TableLayoutPanelBuffered.cs" />
+		<Compile Update="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs" />
+		<Compile Update="Schedule\AvailabilityAndRank\UCEmployee.cs" />
+		<Compile Update="Schedule\Reminderform\UCreminder.cs" />
 		<Content Include="images\BackOfficeBig.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>

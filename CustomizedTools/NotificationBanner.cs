@@ -34,11 +34,11 @@ namespace CustomizedTools
             InformativeMode
 
         }
-        private NotificationBanner(string text, EnumType type,bool withOrWithoutButtonDone , Form parentFormHome,bool undoFromNotficationBannerModeOn)
+        private NotificationBanner(string text, EnumType type, bool withOrWithoutButtonDone, Form parentFormHome, bool undoFromNotficationBannerModeOn)
         {
             InitializeComponent();
             this.Opacity = 0;
-           
+
 
             this.TopMost = true;
             UndoFromNotficationBannerClicked = undoFromNotficationBannerModeOn;
@@ -55,7 +55,7 @@ namespace CustomizedTools
         {
             ButtonUndo.Dispose();
             TLPglobal.ColumnStyles[2].Width = 0;
-            
+
         }
         void LoadForm()
         {
@@ -66,7 +66,7 @@ namespace CustomizedTools
             {
                 SetDeignWithoutUndoButton();
                 ButtonUndoWidth = 40;//since the text is so small
-                Text = "Undone";    
+                Text = "Undone";
             }
             else
             {
@@ -81,7 +81,7 @@ namespace CustomizedTools
                 }
             }
 
-          
+
 
             labelText.Text = Text;
             this.Width = Convert.ToInt16(RandomFunctions.MeasureLabelText(labelText)) + pictureBox.Width + ButtonUndoWidth + 17;
@@ -111,7 +111,7 @@ namespace CustomizedTools
                 }
                 else if (type == EnumType.InformativeMode)
                 {
-                    DesiredIcon= ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "info.png");
+                    DesiredIcon = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "info.png");
                     this.TLPglobal.BackColor = Color.FromArgb(109, 122, 224);
                 }
             }
@@ -125,9 +125,17 @@ namespace CustomizedTools
             pictureBox.BackgroundImage = DesiredIcon;
 
             //LOCATION
-
+            int Delta;
+            if (ParentFormHome.ControlBox)
+            {
+                Delta = 40;
+            }
+            else
+            {
+                Delta = 20;
+            }
             Point locationRelativeToScreen = ParentFormHome.PointToScreen(Point.Empty);
-            locationRelativeToScreen.Offset(ParentFormHome.Width / 2 - (this.Width / 2), ParentFormHome.Height-this.Height-20);
+            locationRelativeToScreen.Offset(ParentFormHome.Width / 2 - (this.Width / 2), ParentFormHome.Height - this.Height - Delta);
             this.Location = locationRelativeToScreen;
 
             //Event
@@ -158,7 +166,7 @@ namespace CustomizedTools
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-          
+
             if (Opacity == 1)
             {
                 timer1.Stop();
@@ -197,8 +205,8 @@ namespace CustomizedTools
 
 
 
-       public static NotificationBanner CurrentNotfBanner;
-        public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome,bool UndoFromNotficationBannerCliked)
+        public static NotificationBanner CurrentNotfBanner;
+        public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome, bool UndoFromNotficationBannerCliked)
         {
             //closing the old one
             CloseTheNotfBanner();

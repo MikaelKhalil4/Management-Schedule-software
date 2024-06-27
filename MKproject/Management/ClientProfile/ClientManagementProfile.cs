@@ -1084,7 +1084,6 @@ namespace MKproject.Management
                 ImageForm i = new ImageForm(Client.ProfileImage);
                 i.Show();
             }
-
         }
 
 
