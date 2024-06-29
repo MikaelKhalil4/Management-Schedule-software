@@ -16,9 +16,9 @@ steps:
   clean: true
 
 
-- script: |
-    echo "##vso[task.setvariable variable=version]$(Get-Content MKproject/MKproject.csproj | Select-String -Pattern '<Version>(.*)</Version>' | ForEach-Object {$_.Matches.Groups[1].Value})"
-    cmd: true
+- powershell: |
+    $version = (Get-Content MKproject/MKproject.csproj | Select-String -Pattern '<Version>(.*)</Version>').Matches.Groups[1].Value
+    echo "##vso[task.setvariable variable=version]$version"
   displayName: 'Get Version from Project File'
 
 
