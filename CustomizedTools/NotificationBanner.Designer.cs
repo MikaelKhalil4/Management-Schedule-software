@@ -34,8 +34,8 @@
             pictureBox = new System.Windows.Forms.PictureBox();
             labelText = new System.Windows.Forms.Label();
             ButtonUndo = new CustomButton();
-            timer2 = new System.Windows.Forms.Timer(components);
-            timer1 = new System.Windows.Forms.Timer(components);
+            timerAppearanceDuation = new System.Windows.Forms.Timer(components);
+            timerLocation = new System.Windows.Forms.Timer(components);
             TLPglobal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
@@ -104,15 +104,14 @@
             ButtonUndo.UseVisualStyleBackColor = false;
             ButtonUndo.Click += ButtonUndo_Click;
             // 
-            // timer2
+            // timerAppearanceDuation
             // 
-            timer2.Interval = 1700;
-            timer2.Tick += timer2_Tick;
+            timerAppearanceDuation.Tick += timer2_Tick;
             // 
-            // timer1
+            // timerLocation
             // 
-            timer1.Interval = 10;
-            timer1.Tick += timer1_Tick_1;
+            timerLocation.Interval = 10;
+            timerLocation.Tick += timer1_Tick_1;
             // 
             // NotificationBanner
             // 
@@ -141,8 +140,8 @@
         private System.Windows.Forms.TableLayoutPanel TLPglobal;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Label labelText;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerAppearanceDuation;
+        private System.Windows.Forms.Timer timerLocation;
         public CustomButton ButtonUndo;
     }
 }

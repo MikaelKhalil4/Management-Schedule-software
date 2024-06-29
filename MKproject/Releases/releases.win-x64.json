@@ -1,0 +1,284 @@
+{
+  "Assets": [
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.17",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.17-win-x64-full.nupkg",
+      "SHA1": "FBD7D472AC6FB3B539E8F713F3B32B66C2410C58",
+      "Size": 80594997
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.17",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.17-win-x64-delta.nupkg",
+      "SHA1": "838CFFDD6811296E44AF1621506367339190EF86",
+      "Size": 740417
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.16",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.16-win-x64-full.nupkg",
+      "SHA1": "07B0761C5C078E9D186ABF3E309D5CE6CF22C888",
+      "Size": 81487043
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.16",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.16-win-x64-delta.nupkg",
+      "SHA1": "CB7734BB1C9F63B6FFE186D96414DD7F35438E49",
+      "Size": 605695
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.15",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.15-win-x64-full.nupkg",
+      "SHA1": "AC6C3A9D5A5D1DCF86881BBE08C9893447A3952E",
+      "Size": 81487014
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.15",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.15-win-x64-delta.nupkg",
+      "SHA1": "53B5F1F45D25668EE892C0B3660A8AC431371CDC",
+      "Size": 657531
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.14",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.14-win-x64-full.nupkg",
+      "SHA1": "D1AB9C2439074927C47CAB1D05297960CD00A378",
+      "Size": 81487585
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.14",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.14-win-x64-delta.nupkg",
+      "SHA1": "03CB21172EF3B16C75EE8BC48815B013CFF22BAF",
+      "Size": 546804
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.13",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.13-win-x64-full.nupkg",
+      "SHA1": "F3E22489742D9C9C4337615302272B3FDF229C43",
+      "Size": 81487589
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.13",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.13-win-x64-delta.nupkg",
+      "SHA1": "1FEE81F83F0D289A2F037C80225AD05D6B1AC737",
+      "Size": 661308
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.12",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.12-win-x64-full.nupkg",
+      "SHA1": "FB32398C9D1AA034C8B785BE2309530BDA720DD6",
+      "Size": 81487027
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.12",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.12-win-x64-delta.nupkg",
+      "SHA1": "DF8E260EB97FA7C6EEC4DB38B602773A6B5623AF",
+      "Size": 1534512
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.11",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.11-win-x64-full.nupkg",
+      "SHA1": "052AA558EEF66B98E7116A56837172B2229B134F",
+      "Size": 80590408
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.11",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.11-win-x64-delta.nupkg",
+      "SHA1": "92D079743142CFCED179E2145D57783E9BA557CF",
+      "Size": 545164
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.10",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.10-win-x64-full.nupkg",
+      "SHA1": "0C46447A68F8171D7176A86E592993F7F5B87749",
+      "Size": 80590407
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.10",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.10-win-x64-delta.nupkg",
+      "SHA1": "EBAE79D4DCE92D615EE6CA2FB36ACE51ABDB2618",
+      "Size": 627727
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.9",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.9-win-x64-full.nupkg",
+      "SHA1": "BB886EE13639DCC1F1B2CA0630E31072EF135F7E",
+      "Size": 80590447
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.9",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.9-win-x64-delta.nupkg",
+      "SHA1": "40E980F9EAAFA7367DA2356D6488AD36FA732575",
+      "Size": 543895
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.8",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.8-win-x64-full.nupkg",
+      "SHA1": "1544FF9EA4FC7AF3CEDB0B68BF67A16D55CF9A7A",
+      "Size": 80590447
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.8",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.8-win-x64-delta.nupkg",
+      "SHA1": "7453CB6C006B4990F3FB69C2D13D70EB02C8FCC2",
+      "Size": 652952
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.7",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.7-win-x64-full.nupkg",
+      "SHA1": "B7D01D766062F05599282CE72CC4048827F397BC",
+      "Size": 80590607
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.7",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.7-win-x64-delta.nupkg",
+      "SHA1": "06C192CC63C2FEAF64C7B35686196DF4B640DC5A",
+      "Size": 647040
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.6",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.6-win-x64-full.nupkg",
+      "SHA1": "3754DDC3F522B527D11DDC197DC5D6232F404CE0",
+      "Size": 80590409
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.6",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.6-win-x64-delta.nupkg",
+      "SHA1": "B749362055E790737CEE917359F791EB6B15CC33",
+      "Size": 546483
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.5",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.5-win-x64-full.nupkg",
+      "SHA1": "D6C6CF43E5AFC0DDAFB59CC85CFA0F70E1E155D4",
+      "Size": 80590420
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.5",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.5-win-x64-delta.nupkg",
+      "SHA1": "B00CE1739611D20008B7983D318902D1466696A9",
+      "Size": 1620501
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.4",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.4-win-x64-full.nupkg",
+      "SHA1": "6333CABD92C348790434E7B8382C732F9B44F143",
+      "Size": 79516317
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.4",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.4-win-x64-delta.nupkg",
+      "SHA1": "163C52251E70562335FECA7790AD860ED3130BC0",
+      "Size": 546531
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.3",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.3-win-x64-full.nupkg",
+      "SHA1": "B86F1E769C983D8F71C144A1A691AE9D574CCC92",
+      "Size": 79516302
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.3",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.3-win-x64-delta.nupkg",
+      "SHA1": "5CFAC2C99FD291B333BFC4364AC11E34577A59D1",
+      "Size": 543894
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.2",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.2-win-x64-full.nupkg",
+      "SHA1": "C26C8B1D125FF90D5682A9FDC0CAD3FFAF861E05",
+      "Size": 79516302
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.2",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.2-win-x64-delta.nupkg",
+      "SHA1": "418DEFD5FBBDA75DF9C42F4FC4794759356708D0",
+      "Size": 545065
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.1",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.1-win-x64-full.nupkg",
+      "SHA1": "1DC5BD7E05EC5507454F8E5394DA99FCBB1A0378",
+      "Size": 79516321
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.1",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.1-win-x64-delta.nupkg",
+      "SHA1": "952AAE7DB8B78958A0A5974EE326C47462EC135D",
+      "Size": 601344
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.0",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.0-win-x64-full.nupkg",
+      "SHA1": "5FC77E9ADF20DB2E7FF81FF242F65FA3846171AF",
+      "Size": 79516235
+    }
+  ]
+}

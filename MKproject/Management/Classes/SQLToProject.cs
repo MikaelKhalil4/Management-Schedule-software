@@ -89,6 +89,7 @@ namespace MKproject.Management
             SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
+            con.Close();
             return dt;
         }
         public static DataTable GetChildParentVisibleFields()

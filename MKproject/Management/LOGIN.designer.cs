@@ -42,8 +42,9 @@ namespace MKproject.Management
             buttonShow = new IconButton();
             textBoxPassword = new TextBox();
             buttonHide = new IconButton();
-            pictureBox1 = new PictureBox();
             buttonLogin = new Button();
+            pictureBox1 = new PictureBox();
+            labelVersion = new Label();
             timer1 = new Timer(components);
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -67,15 +68,17 @@ namespace MKproject.Management
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(panel5, 0, 1);
-            tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(buttonLogin, 0, 2);
+            tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(labelVersion, 0, 3);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 164F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 92F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 176F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new System.Drawing.Size(434, 515);
             tableLayoutPanel1.TabIndex = 12;
@@ -89,9 +92,9 @@ namespace MKproject.Management
             panel5.Controls.Add(buttonShow);
             panel5.Controls.Add(textBoxPassword);
             panel5.Controls.Add(buttonHide);
-            panel5.Location = new System.Drawing.Point(94, 262);
+            panel5.Location = new System.Drawing.Point(94, 267);
             panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(246, 64);
+            panel5.Size = new System.Drawing.Size(246, 62);
             panel5.TabIndex = 14;
             // 
             // pictureBox3
@@ -168,18 +171,6 @@ namespace MKproject.Management
             buttonHide.UseVisualStyleBackColor = false;
             buttonHide.Click += buttonHide_Click;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Anchor = AnchorStyles.None;
-            pictureBox1.BackColor = System.Drawing.Color.Black;
-            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(117, 37);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(199, 184);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
             // buttonLogin
             // 
             buttonLogin.Anchor = AnchorStyles.Top;
@@ -190,7 +181,7 @@ namespace MKproject.Management
             buttonLogin.FlatStyle = FlatStyle.Flat;
             buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonLogin.ForeColor = System.Drawing.Color.FromArgb(61, 121, 219);
-            buttonLogin.Location = new System.Drawing.Point(147, 423);
+            buttonLogin.Location = new System.Drawing.Point(147, 440);
             buttonLogin.Margin = new Padding(0);
             buttonLogin.MaximumSize = new System.Drawing.Size(140, 40);
             buttonLogin.MinimumSize = new System.Drawing.Size(140, 40);
@@ -200,6 +191,29 @@ namespace MKproject.Management
             buttonLogin.Text = "LOGIN";
             buttonLogin.UseVisualStyleBackColor = false;
             buttonLogin.Click += buttonLogin_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.None;
+            pictureBox1.BackColor = System.Drawing.Color.Black;
+            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new System.Drawing.Point(54, 25);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(326, 213);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // labelVersion
+            // 
+            labelVersion.Anchor = AnchorStyles.Right;
+            labelVersion.AutoSize = true;
+            labelVersion.ForeColor = System.Drawing.Color.FromArgb(61, 121, 219);
+            labelVersion.Location = new System.Drawing.Point(388, 493);
+            labelVersion.Name = "labelVersion";
+            labelVersion.Size = new System.Drawing.Size(43, 15);
+            labelVersion.TabIndex = 15;
+            labelVersion.Text = "v. 1.0.0";
             // 
             // timer1
             // 
@@ -247,5 +261,6 @@ namespace MKproject.Management
         private System.Windows.Forms.Timer timer1;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel5;
+        public Label labelVersion;
     }
 }

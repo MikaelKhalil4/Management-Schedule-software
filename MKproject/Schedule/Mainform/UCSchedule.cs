@@ -84,6 +84,8 @@ namespace MKproject.Schedule
             ParentFormSchedule = parentform;
             ParentFormSchedule.ScheduleFormResize += ParentFormSchedule_ScheduleFormResize;
 
+           
+
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Day.ToString());
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Week.ToString());
 
@@ -1415,7 +1417,7 @@ namespace MKproject.Schedule
 
                 if (TheOnlyEmployee == null)
                 {
-                    NotificationBanner.Show("Editing is disabled due to multiple members in the weekly schedule. To gain full access, filter by a single member.", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false);
+                    NotificationBanner.Show("Editing is disabled due to multiple members in the weekly schedule. To gain full access, filter by a single member.", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false, false);
                 }
             }
 
@@ -2154,19 +2156,19 @@ namespace MKproject.Schedule
         {
             if (EndingRow > TLPSchedule.RowCount - 1)
             {
-                NotificationBanner.Show("Cannot schedule here!Make sure you don t overpass the limits", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                NotificationBanner.Show("Cannot schedule here!Make sure you don t overpass the limits", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
                 return false;
             }
 
 
             if (UCApointmentDraged.DesiredAppointmentUCApp.IsCompleted)
             {
-                NotificationBanner.Show("To reschedule, undo its completion", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                NotificationBanner.Show("To reschedule, undo its completion", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
                 return false;
             }
             else if (UCApointmentDraged.DesiredAppointmentUCApp.IsCanceled)
             {
-                NotificationBanner.Show("To reschedule, undo its cancelation", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                NotificationBanner.Show("To reschedule, undo its cancelation", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
                 return false;
             }
 
@@ -2182,7 +2184,7 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        NotificationBanner.Show("Appointment returned to its place", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false);
+                        NotificationBanner.Show("Appointment returned to its place", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false, false);
                         return false;
                     }
 
@@ -2190,7 +2192,7 @@ namespace MKproject.Schedule
                 else
                 {
                     CustomMessageBox.Show("You don t have access to schedule in the past", CustomMessageBox.Type.Error);
-                    NotificationBanner.Show("Appointment returned to its place", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false);
+                    NotificationBanner.Show("Appointment returned to its place", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false, false);
                     return false;
                 }
 
@@ -2204,7 +2206,7 @@ namespace MKproject.Schedule
                 }
                 else
                 {
-                    NotificationBanner.Show("Cannot schedule here!Time Not Avaialable", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                    NotificationBanner.Show("Cannot schedule here!Time Not Avaialable", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
                     return false;
                 }
             }
@@ -2220,14 +2222,14 @@ namespace MKproject.Schedule
                     }
                     else
                     {
-                        NotificationBanner.Show("Appointment returned to its place", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false);
+                        NotificationBanner.Show("Appointment returned to its place", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false, false);
                         return false;
                     }
                 }
 
                 if (!CheckIfRowAvaialable(StartingColumn, StartingRow) || !CheckIfRowAvaialable(StartingColumn, EndingRow))
                 {
-                    NotificationBanner.Show("Cannot schedule here!Time Not Avaialable", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false);
+                    NotificationBanner.Show("Cannot schedule here!Time Not Avaialable", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
                     return false;
                 }
             }

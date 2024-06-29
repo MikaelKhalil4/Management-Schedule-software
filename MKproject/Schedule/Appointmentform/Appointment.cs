@@ -574,7 +574,7 @@ namespace MKproject.Schedule
                 UcScheduleParentForm.AppointmentsListWorkingOn.Add(DesiredAppointmentAppForm);
 
 
-                NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                NotfBanner = NotificationBanner.Show("New Appointment Added", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn,false);
                 NotfBanner.UndoNotficationBanner += NotfBanner_UndoAddNotficationBanner;
             }
             else
@@ -669,7 +669,7 @@ namespace MKproject.Schedule
 
                 if (!IsAddOrUpdateMode)//NotificationBanner tb3 el add, inside of  AddOrUpdateSQL(); ased 
                 {
-                    NotfBanner = NotificationBanner.Show("Appointment Updated", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                    NotfBanner = NotificationBanner.Show("Appointment Updated", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                     NotfBanner.UndoNotficationBanner += NotfBanner_UndoUpdateNotficationBanner;
                 }
             }
@@ -703,7 +703,7 @@ namespace MKproject.Schedule
 
                                     //
                                     CompletingOrUndoingCompletionAppointment(true);
-                                    NotfBanner = NotificationBanner.Show("Appointment Completed, Session Reduced", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                                    NotfBanner = NotificationBanner.Show("Appointment Completed, Session Reduced", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                                 }
                                 else
                                 {
@@ -728,7 +728,7 @@ namespace MKproject.Schedule
                             DesiredAppointmentAppForm.DesiredClientBalance.SetStringDetailsIfBundle();
                             //SQl
                             CompletingOrUndoingCompletionAppointment(false);
-                            NotfBanner = NotificationBanner.Show("Appointment completion undo succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                            NotfBanner = NotificationBanner.Show("Appointment completion undo succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                         }
                     }
                     else if (DesiredAppointmentAppForm.DesiredClientBalance.DueDate != null)
@@ -736,12 +736,12 @@ namespace MKproject.Schedule
                         if (!DesiredAppointmentAppForm.IsCompleted)
                         {
                             CompletingOrUndoingCompletionAppointment(true);
-                            NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                            NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                         }
                         else
                         {
                             CompletingOrUndoingCompletionAppointment(false);
-                            NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                            NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn,false);
                         }
                     }
                 }
@@ -769,12 +769,12 @@ namespace MKproject.Schedule
                         DisableClosingOnDisactivating = false;
                         //
                         CompletingOrUndoingCompletionAppointment(true);
-                        NotfBanner = NotificationBanner.Show("Appointment Completed, Services Purchased", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                        NotfBanner = NotificationBanner.Show("Appointment Completed, Services Purchased", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                     }
                     else
                     {
                         CompletingOrUndoingCompletionAppointment(false);
-                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                     }
                 }
                 else //Tile Or Nothing
@@ -783,12 +783,12 @@ namespace MKproject.Schedule
                     if (!DesiredAppointmentAppForm.IsCompleted)
                     {
                         CompletingOrUndoingCompletionAppointment(true);
-                        NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                        NotfBanner = NotificationBanner.Show("Appointment Completed", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                     }
                     else
                     {
                         CompletingOrUndoingCompletionAppointment(false);
-                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                        NotfBanner = NotificationBanner.Show("Appointment Completion Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                     }
                 }
 
@@ -815,14 +815,14 @@ namespace MKproject.Schedule
 
                     DesiredAppointmentAppForm.IsCanceled = true;
                     AddOrUpdateSQL(); //ejabre tahtha
-                    NotfBanner = NotificationBanner.Show("Appointment Canceled", NotificationBanner.EnumType.CanceledMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                    NotfBanner = NotificationBanner.Show("Appointment Canceled", NotificationBanner.EnumType.CanceledMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                     OnAppointmentUpdate?.Invoke(this, EventArgs.Empty);
                 }
                 else//in this case bi kun kell shi read only, that why ma mnaamil update la kell el info
                 {
                     DesiredAppointmentAppForm.IsCanceled = false;//lezim nemnaa yghayir hayalla shi foe, read only kello
                     DesiredAppointmentAppForm.SetOrResetIsCanceled();
-                    NotfBanner = NotificationBanner.Show("Appointment Cancelation Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+                    NotfBanner = NotificationBanner.Show("Appointment Cancelation Undo Succeeded", NotificationBanner.EnumType.UndoMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
                     OnAppointmentUndoCancelation?.Invoke(this, EventArgs.Empty);
                 }
                 if (NotfBanner != null)
@@ -843,7 +843,7 @@ namespace MKproject.Schedule
             int index = UcScheduleParentForm.AppointmentsListWorkingOn.FindIndex(a => a.AppointmentID == DesiredAppointmentAppForm.AppointmentID);
             UcScheduleParentForm.AppointmentsListWorkingOn.RemoveAt(index);
 
-            NotfBanner = NotificationBanner.Show("Appointment Deleted", NotificationBanner.EnumType.DeletedMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn);
+            NotfBanner = NotificationBanner.Show("Appointment Deleted", NotificationBanner.EnumType.DeletedMode, true, Program.HomeForm, UndoFromNotficationBannerModeOn, false);
             if (NotfBanner != null)
             {
                 NotfBanner.UndoNotficationBanner += NotfBanner_UndoDeleteNotficationBanner; ;

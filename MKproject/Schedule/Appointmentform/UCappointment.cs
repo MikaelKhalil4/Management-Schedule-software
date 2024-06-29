@@ -441,7 +441,7 @@ namespace MKproject.Schedule
         //DESIGN
         public void DragAndDropOperationDone()
         {
-            NotificationBanner NotfBanner = NotificationBanner.Show("Appointment Rescheduled", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, false);
+            NotificationBanner NotfBanner = NotificationBanner.Show("Appointment Rescheduled", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, false, false);
             NotfBanner.UndoNotficationBanner += NotfBanner_UndoNotficationBanner;
         }
         private void NotfBanner_UndoNotficationBanner(object sender, EventArgs e)
@@ -454,7 +454,7 @@ namespace MKproject.Schedule
             UcScheduleParentForm.AppointmentsListWorkingOn[index] = DesiredAppointmentUCApp;//they should refer to each others, since bcz of the copy they have lost their refrence, kermel el checkbox filters 
 
             SetUCDesign();
-            NotificationBanner.Show("", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, true);
+            NotificationBanner.Show("", NotificationBanner.EnumType.ConfirmationMode, true, Program.HomeForm, true, false);
         }
 
 

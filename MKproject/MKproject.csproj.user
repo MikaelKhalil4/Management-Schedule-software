@@ -12,13 +12,16 @@
   </PropertyGroup>
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
-    <_LastSelectedProfileId>D:\Work\ELK projet 1\ELk-off\Managing Software%28ouaa tmahi%29\MKProject .Net6\MKproject\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+    <_LastSelectedProfileId>D:\Work\ELK projet 1\ELk-off\Managing Software%28ouaa tmahi%29\Clients\MKProject Original\MKproject\Properties\PublishProfiles\FolderProfile4.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="HomeAndMenu\Home.cs">
+    <Compile Update="HomeAndMenuAndBackUp\BackUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HomeAndMenu\Menu.cs">
+    <Compile Update="HomeAndMenuAndBackUp\Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HomeAndMenuAndBackUp\Menu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Management\AddEditEmplOrServices\EditBundleProduct.cs">
@@ -36,8 +39,20 @@
     <Compile Update="Management\BackOffice\BackOffice.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Management\BackOffice\UCComboBoxFilterBackOffice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Management\buyBundlesOrProductsComponents\BuyBundleOrProudct.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\buyBundlesOrProductsComponents\UCBundlesOutput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Management\buyBundlesOrProductsComponents\UCItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Management\buyBundlesOrProductsComponents\UCProductOutput.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Management\CalenderComponents\Calander.cs">
       <SubType>Form</SubType>
@@ -45,8 +60,23 @@
     <Compile Update="Management\CalenderComponents\Calanderyear.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Management\CalenderComponents\LabelMonth.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Management\CalenderComponents\LabelYear.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Management\CalenderComponents\UCCalanderMonth.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Management\CalenderComponents\UCCalanderYear.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Management\ClientProfile\ClientManagementProfile.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Management\ClientProfile\UCBundlePackage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Management\ImageForm.cs">
       <SubType>Form</SubType>
@@ -69,6 +99,9 @@
     <Compile Update="Management\Payment\Payment.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Management\Payment\UCPayments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Management\RelatedChildrens.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,10 +117,25 @@
     <Compile Update="Management\SearchClient\SearchCurrentClient.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Management\SearchClient\UCComboBoxFilterSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Management\SearchClient\UCLabelFilterSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Management\Statistics\Statistics.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Management\Statistics\UCComboFilterStat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Management\Statistics\UCLabelFilterStatistics.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Management\TransferData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NewUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Schedule\Appointmentform\Appointment.cs">
@@ -99,7 +147,7 @@
     <Compile Update="Schedule\Appointmentform\UCappointment.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Schedule\AvailabilityAndRank\UCEmployeeAvailabilty.cs">
+    <Compile Update="Schedule\Appointmentform\UCClientApp.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\AvailabilityAndRank\EmployeeAvailabiltyForm.cs">
@@ -108,7 +156,31 @@
     <Compile Update="Schedule\AvailabilityAndRank\EmployeeSchedule.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Schedule\AvailabilityAndRank\UCEmployee.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Schedule\AvailabilityAndRank\UCEmployeeAvailabilty.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Schedule\Calanderform\CalanderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Schedule\Calanderform\LabelMonth.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Schedule\Calanderform\LabelYearcs.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Schedule\Calanderform\UCCalanderday.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Schedule\Calanderform\UCCalandermonth.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Schedule\Calanderform\UCCalanderyear.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Schedule\Calanderform\UCDays.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Schedule\CustomisedComboBox\CBdisplayTime.cs">
@@ -117,13 +189,13 @@
     <Compile Update="Schedule\CustomisedComboBox\CBrepeat.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Schedule\CustomisedComboBox\LabelTime.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Schedule\Mainform\ButtonEmployeeOrDay.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Schedule\Mainform\ScheduleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Schedule\Calanderform\CalanderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Schedule\Mainform\UCSchedule.cs">
@@ -135,7 +207,16 @@
     <Compile Update="Schedule\Reminderform\Reminder.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Schedule\Reminderform\UCreminder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Schedule\Tools\CustomFlowLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Schedule\Tools\TableLayoutPanelBuffered.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Schedule\Tools\TableLayoutPanelDoubleBufferedNoscroll.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Search.cs">

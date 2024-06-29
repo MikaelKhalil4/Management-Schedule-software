@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Reflection.Metadata;
 using GlobalFunctions;
 using static MKproject.Management.ClassBundles;
 using System.Data.SQLite;
@@ -535,6 +534,7 @@ namespace MKproject.Management
         //when a client purchase eenda connection maa many forms, that swhy
         public static DataTable PurchaseAService(ClassBundles Bundle, DateTime BackOfficeDate, DateTime AttendanceDate, ClassClientCustom Client, int? appointmentId)
         {
+
             //SQLAndLogic                        
             ActionsEnum actiontype;
             int? AttendanceId;

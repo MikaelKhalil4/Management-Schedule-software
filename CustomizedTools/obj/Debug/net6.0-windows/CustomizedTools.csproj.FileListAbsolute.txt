@@ -108,3 +108,35 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\refint\CustomizedTools.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\CustomizedTools\obj\Debug\net6.0-windows\ref\CustomizedTools.dll
+C:\Users\mikae\Documents\Fox\CustomizedTools\bin\Debug\net6.0-windows\CustomizedTools.deps.json
+C:\Users\mikae\Documents\Fox\CustomizedTools\bin\Debug\net6.0-windows\CustomizedTools.dll
+C:\Users\mikae\Documents\Fox\CustomizedTools\bin\Debug\net6.0-windows\CustomizedTools.pdb
+C:\Users\mikae\Documents\Fox\CustomizedTools\bin\Debug\net6.0-windows\GlobalFunctions.dll
+C:\Users\mikae\Documents\Fox\CustomizedTools\bin\Debug\net6.0-windows\GlobalFunctions.pdb
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.csproj.AssemblyReference.cache
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.CustomButton.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.CustomMessageBox.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.GreyColor.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.NotificationBanner.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.Properties.Resources.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCDoubleUCTextbox.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCLabelAndDetail.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCSlideButton.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCTextbox1.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCComboBoxFilterOriginal.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCLabelFilterOriginal.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCTextBoxFilterOriginal.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCCamera.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCDoubleCombo.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberButt.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberComboButt.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.UCNumberLabelButt.resources
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.csproj.GenerateResource.cache
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.csproj.CoreCompileInputs.cache
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.sourcelink.json
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\Customiz.69F388EE.Up2Date
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.dll
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\refint\CustomizedTools.dll
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\CustomizedTools.pdb
+C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Debug\net6.0-windows\ref\CustomizedTools.dll
