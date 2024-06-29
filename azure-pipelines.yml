@@ -15,3 +15,34 @@ steps:
   fetchDepth: 1  # Shallow fetch only the last commit
   clean: true
 
+
+- script: |
+    echo "##vso[task.setvariable variable=version]$(Get-Content MKproject/MKproject.csproj | Select-String -Pattern '<Version>(.*)</Version>' | ForEach-Object {$_.Matches.Groups[1].Value})"
+    pwsh: true
+  displayName: 'Get Version from Project File'
+
+
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.0.x'
+  displayName: 'Install .NET'
+ 
+- script: |
+    dotnet publish MKproject/MKproject.csproj -c Release -o $(Build.ArtifactStagingDirectory)/publish/win-x64 -r win-x64 --self-contained true
+  displayName: 'Publish Application'
+ 
+- script: |
+    move /y "$(Build.ArtifactStagingDirectory)/publish/win-x64/MKproject.dll" "$(Build.ArtifactStagingDirectory)/publish/win-x64/MKproject.dll"
+    copy /y "MKproject/Obfuscator_Output/MKproject.dll" "$(Build.ArtifactStagingDirectory)/publish/win-x64/MKproject.dll"
+  displayName: 'Replace DLL with Obfuscated Version'
+ 
+- script: |
+    dotnet tool install --global vpk
+    vpk download s3  --bucket fox-global --channel win-x64 --endpoint http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
+    vpk pack -u MKproject --channel win-x64 -v $(version) -p $(Build.ArtifactStagingDirectory)/publish/win-x64 
+    vpk upload s3 --bucket fox-global --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm --publish --releaseName "MKproject $(version)" --tag v$(version)
+  displayName: 'Create and Upload Velopack Release'
+  env:
+    PATH: $(PATH);$(USERPROFILE)\.dotnet\tools
