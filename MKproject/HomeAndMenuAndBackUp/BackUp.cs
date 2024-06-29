@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Net.NetworkInformation;
 using CustomizedTools;
 using System.IO;
+using GlobalFunctions;
 
 namespace MKproject
 {
@@ -36,7 +37,6 @@ namespace MKproject
 
         private void BackUp_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CloseNotfBanner();
 
             if (Program.GreyForm != null)
             {
@@ -69,36 +69,41 @@ namespace MKproject
 
                         // Assuming the attachment and the MailMessage are no longer using the file
                         File.Delete(BackUpDBPath);
-                        NotificationBanner.Show("Backup saved successfully!", NotificationBanner.EnumType.ConfirmationMode, false, this, false);
+                        NotificationBanner.Show("Backup saved successfully!", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false,false);
+                        this.Close();
                     }
                 }
             }
-
             IsFormShouldBeCloseOnDisactivation = true;
-            this.Select();
-
         }
-        private void ButtonOnlineBackUp_Click(object sender, EventArgs e)
+
+        private async void ButtonOnlineBackUp_Click(object sender, EventArgs e)
         {
             CloseNotfBanner();
-            Cursor = Cursors.WaitCursor;
-
             IsFormShouldBeCloseOnDisactivation = false;
-            if (IsInternetAvailable())
+
+            DialogResult dialogResult = CustomMessageBox.Show("This action will send the database via Gmail.\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNo);
+
+            if (RandomFunctions.IsInternetConnected())
             {
-                SendEmail("mikaelkhalil7.mk@gmail.com", "Backup", "");
+                NotificationBanner.Show("Sending email with backup database... Please Do not turn off your Wi-Fi or close the application.", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false,true);
+                this.Close();
+                await SendEmail("mikaelkhalil7.mk@gmail.com", "Backup", "");
             }
             else
             {
                 CustomMessageBox.Show("You don't have an Internet Connection, please connect to the internet", CustomMessageBox.Type.Error);
+                this.Select();
+
             }
+
+
+
             IsFormShouldBeCloseOnDisactivation = true;
 
-            Cursor = Cursors.Default;
 
-            this.Select();
         }
-        public void SendEmail(string toEmail, string subject, string body)
+        public async Task SendEmail(string toEmail, string subject, string body)
         {
             try
             {
@@ -136,18 +141,18 @@ namespace MKproject
                     using (var attachment = new Attachment(BackUpDBPath))
                     {
                         mailMessage.Attachments.Add(attachment);
-                        smtpClient.Send(mailMessage);
+                       await smtpClient.SendMailAsync(mailMessage);
                     }
                 }
 
                 // Assuming the attachment and the MailMessage are no longer using the file
                 File.Delete(BackUpDBPath);
 
-                NotificationBanner.Show("Email sent successfully!", NotificationBanner.EnumType.ConfirmationMode, false, this, false);
+                NotificationBanner.Show("Email with backup database sent successfully.", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false );
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show($"Error sending email: {ex.Message}", CustomMessageBox.Type.Error);
+                NotificationBanner.Show($"Email with backup failed to send, please try again.", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
             }
         }
 

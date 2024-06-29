@@ -1,6 +1,7 @@
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\nlog.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\fox.ico
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\foxlogo.ico
+C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\work-in-progress.gif
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.exe
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\BackOfficeBig.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\BackOfficeSmall.png
@@ -36,8 +37,6 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\eraser.pn
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\oval-Small.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\xCircle.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.dll.config
-C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.dll.manifest
-C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.application
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.deps.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.runtimeconfig.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.dll
@@ -68,6 +67,9 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\Microsoft.Identi
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\Microsoft.IdentityModel.Tokens.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\NuGet.Versioning.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\Serilog.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\Serilog.Sinks.Console.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\Serilog.Sinks.File.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\System.Data.SQLite.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\System.ComponentModel.Composition.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\System.Configuration.ConfigurationManager.dll
@@ -136,6 +138,7 @@ C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.Manage
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.Management.UCComboBoxFilterSearch.resources
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.Management.Statistics.resources
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.Management.TransferData.resources
+C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.NewUpdate.resources
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.Properties.Resources.resources
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.Appointment.resources
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.Schedule.ChooseService.resources
@@ -164,8 +167,6 @@ C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.csproj
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.csproj.CoreCompileInputs.cache
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.sourcelink.json
-C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.dll.manifest
-C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.application
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.csproj.Up2Date
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.dll
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\refint\MKproject.dll

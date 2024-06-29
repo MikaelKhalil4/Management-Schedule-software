@@ -16,6 +16,9 @@ using Velopack.Locators;
 using System.Net.Http;
 using Amazon.S3;
 using Amazon.S3.Model;
+using System.Threading;
+using GlobalFunctions;
+using Serilog;
 
 namespace MKproject
 {
@@ -62,7 +65,7 @@ namespace MKproject
         {
             VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
 
-            //UpdateMyApp();
+
 
             DataLocation = "Data Source=" + AppPaths.DatabasePath;
             FolderProfileImagePath = AppPaths.ProfileImagesPath;
@@ -79,56 +82,103 @@ namespace MKproject
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+
+
+            Application.ThreadException += new ThreadExceptionEventHandler(GlobalExceptionHandler);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
+            
+            Log.Logger =new LoggerConfiguration().MinimumLevel.Debug()
+            // Capture all logs at or above the Debug level
+            .WriteTo.Console()
+            // Optionally, write logs to the console
+            .WriteTo.File(path: AppPaths.DirectoryPath+"\\FoxLogFile.txt", rollingInterval: RollingInterval.Infinite,
+            // Log files roll daily
+            retainedFileCountLimit: null
+            // Optional: Set to null to keep all log files indefinitely
+            ).CreateLogger();
+
+
+            UpdateMyApp();
+
+
             LoginForm = new LOGIN();
-            LoginForm.labelVersion.Text = "v 1.0.4";
+            LoginForm.labelVersion.Text = "v 1.0.17";
+
 
             Application.Run(LoginForm);
 
         }
 
+        private static void GlobalExceptionHandler(object sender, EventArgs args)
+        {
+            // Determine the type of EventArgs and extract the exception object.
+            Exception e = args switch
+            {
+                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
+                ThreadExceptionEventArgs threadArgs => threadArgs.Exception,
+                _ => new Exception("Unknown exception type.")
+            };
+
+            // Log the exception using Serilog (assuming it's configured)
+            Log.Error(e.ToString()+"\n");
+
+            // Show a message box to the user
+            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+        }
+
+
+
 
         public static void UpdateMyApp()
         {
+
             try
             {
-                var mgr = new UpdateManager("http://127.0.0.1:9000/fox-global");
+                var mgr = new UpdateManager("http://foxdigitaltech.online:9000/fox-global");
 
-                // check for new version
-                var newVersion = mgr.CheckForUpdates();
+
+                var newVersion = mgr.CheckForUpdates(); // check for new version
+
                 if (newVersion == null)
-                    return; // no update available
+                {
+                    return; // no update available or no internet
+                }
+                else
+                {
+                    NewUpdate updt = new NewUpdate();
+                    updt.Show();
 
-                // download new version
-                mgr.DownloadUpdates(newVersion);
 
-                // install new version and restart app
-                mgr.ApplyUpdatesAndRestart(newVersion);
+                    mgr.DownloadUpdates(newVersion);   // download new version        
+                    mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
-                MessageBox.Show("Succeeded");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                CustomMessageBox.Show("Error happened while trying to update,\nPlease press Ok to open the application", CustomMessageBox.Type.OkInfo);
             }
 
         }
 
 
         //         dotnet publish -c Release --self-contained -r win-x86 -o./bin/Publish/win-x86
-        //         vpk download s3  --bucket fox-global  --channel win-x86 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+        //         vpk download s3  --bucket fox-global  --channel win-x86 --endpoint http://foxdigitaltech.online:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
         //         vpk pack -u FoxApp -v 1.0.0 -p./bin/Publish/win-x86 -e MKproject.exe  --channel win-x86 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
-        //         vpk upload s3  --bucket fox-global --channel win-x86 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+        //         vpk upload s3  --bucket fox-global --channel win-x86 --endpoint http://foxdigitaltech.online:9000  --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
 
 
 
-        //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
-        //         vpk download s3  --bucket fox-global --channel win-x64 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
-        //         vpk pack -u FoxApp -v 1.0.4 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
-        //         vpk upload s3  --bucket fox-global  --channel win-x64 --endpoint http://127.0.0.1:9000 --keyId 5WjS33bNTytXoNqzPMIN --secret 54fo5ZtU0zYZjRkXV44go56GGxZq0yEH4l06iIJO
+            //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
+            //         vpk download s3  --bucket fox-global --channel win-x64 --endpoint http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
+            //         vpk pack -u FoxApp -v 1.0.17 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
+            //         vpk upload s3  --bucket fox-global  --channel win-x64 --endpoint http://198.7.119.42:9000  --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
 
 
 
-        //some global functions
+            //some global functions
         public static string SetCashFormat(string cash)
         {
             return Currency.Symbol + cash;

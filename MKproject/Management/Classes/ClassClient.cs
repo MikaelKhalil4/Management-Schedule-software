@@ -534,6 +534,7 @@ namespace MKproject.Management
         //when a client purchase eenda connection maa many forms, that swhy
         public static DataTable PurchaseAService(ClassBundles Bundle, DateTime BackOfficeDate, DateTime AttendanceDate, ClassClientCustom Client, int? appointmentId)
         {
+
             //SQLAndLogic                        
             ActionsEnum actiontype;
             int? AttendanceId;

@@ -34,9 +34,18 @@ namespace CustomizedTools
             InformativeMode
 
         }
-        private NotificationBanner(string text, EnumType type, bool withOrWithoutButtonDone, Form parentFormHome, bool undoFromNotficationBannerModeOn)
+        private NotificationBanner(string text, EnumType type, bool withOrWithoutButtonDone, Form parentFormHome, bool undoFromNotficationBannerModeOn,bool IsUnlimtedTime)
         {
             InitializeComponent();
+            if (IsUnlimtedTime)
+            {
+                timerAppearanceDuation.Interval = 500000;//which is 1000 seconds , don t why , glitch
+            }
+            else
+            {
+                timerAppearanceDuation.Interval = 5000;//which is 10 secods , don t why , glitch
+
+            }
             this.Opacity = 0;
 
 
@@ -152,13 +161,13 @@ namespace CustomizedTools
         {
             if (Opacity == 1)
             {
-                timer2.Stop();
-                timer1.Stop();
+                timerAppearanceDuation.Stop();
+                timerLocation.Stop();
             }
         }
         private void TLPglobal_MouseLeave(object sender, EventArgs e)
         {
-            timer2.Start();
+            timerAppearanceDuation.Start();
         }
 
 
@@ -169,8 +178,8 @@ namespace CustomizedTools
 
             if (Opacity == 1)
             {
-                timer1.Stop();
-                timer2.Start();
+                timerLocation.Stop();
+                timerAppearanceDuation.Start();
             }
             Opacity += .2;
             this.Location = new Point(this.Location.X, this.Location.Y - 2);
@@ -181,7 +190,7 @@ namespace CustomizedTools
         {
             if (FirstCyclePassed)
             {
-                timer2.Stop();
+                timerAppearanceDuation.Stop();
                 this.Close();
                 this.Dispose();
                 //mamnuu thot null hone elak
@@ -206,15 +215,15 @@ namespace CustomizedTools
 
 
         public static NotificationBanner CurrentNotfBanner;
-        public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome, bool UndoFromNotficationBannerCliked)
+        public static NotificationBanner Show(string message, EnumType type, bool WithOrWithoutButtonDone, Form parentFormHome, bool UndoFromNotficationBannerCliked, bool IsUnlimtedTime)
         {
             //closing the old one
             CloseTheNotfBanner();
 
             //starting the new one
-            CurrentNotfBanner = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked);
+            CurrentNotfBanner = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked, IsUnlimtedTime);
             CurrentNotfBanner.Show();
-            CurrentNotfBanner.timer1.Start();
+            CurrentNotfBanner.timerLocation.Start();
 
             return CurrentNotfBanner;
         }

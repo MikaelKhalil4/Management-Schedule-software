@@ -35,8 +35,8 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.exe
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\nlog.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\fox.ico
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\foxlogo.ico
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\work-in-progress.gif
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.dll
-C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.deps.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.runtimeconfig.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.dll.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.pdb
@@ -579,3 +579,4 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\CustomizedTools.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\GlobalFunctions.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\CustomizedTools.pdb
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\GlobalFunctions.pdb
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.deps.json

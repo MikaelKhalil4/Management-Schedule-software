@@ -666,13 +666,13 @@
       <dsig:DigestValue>F62lM1/+woGLuOTWfCeiuSLdcDQ5G2kvXN3+1pn2I4U=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CustomizedTools.dll" size="172032">
+  <file name="CustomizedTools.dll" size="172544">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>cNYlciYs7xMO69xs88DKREVcn1R3yX6wskE775hE4cI=</dsig:DigestValue>
+      <dsig:DigestValue>54jR5+7hwTlgpdCSOb0ZMU74UMWuxACPIfvLdVjd8t8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="D3DCompiler_47_cor3.dll" size="4916840">
@@ -1179,13 +1179,13 @@
       <dsig:DigestValue>amw8juJKjGDnNx38NfELB68PlFzT1EgAHepOf4ezAIM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="GlobalFunctions.dll" size="16896">
+  <file name="GlobalFunctions.dll" size="16384">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>KSoJPhkUxGF4n90g1YLjeIawLMbT0LTz5R1YUDbDUJs=</dsig:DigestValue>
+      <dsig:DigestValue>lGO0DKgyES0BGMY8zefHtAfsXFq2OwlMJrmswK9AhoM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="hostfxr.dll" size="378544">
@@ -2142,13 +2142,13 @@
       <dsig:DigestValue>/hV1XxHb4SYnnbM8pKVw2chb1cyRqExuEhgVPVpJg9w=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MKproject.dll" size="2006528">
+  <file name="MKproject.dll" size="2201600">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>H0jCt0ZzGT/J0W0WgVd0zHtdhgEEwz2Q7RNlCOdfA68=</dsig:DigestValue>
+      <dsig:DigestValue>OSOGW8nqulYZnkposYYdyhMa+OKA7MqRvkCwYec3uMc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MKproject.dll.config" size="807">

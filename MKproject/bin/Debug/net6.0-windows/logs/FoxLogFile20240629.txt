@@ -1,0 +1,14 @@
+2024-06-29 19:49:33.894 +03:00 [ERR] An unhandled exception was caught by the global thread exception handler
+System.Exception: Cannot perform this operation in an application which is not installed.
+   at Velopack.UpdateManager.EnsureInstalled() in ./Velopack/UpdateManager.cs:line 442
+   at Velopack.UpdateManager.CheckForUpdatesAsync() in ./Velopack/UpdateManager.cs:line 111
+   at Velopack.UpdateManager.CheckForUpdates() in ./Velopack/UpdateManager.cs:line 100
+   at MKproject.Program.UpdateMyApp() in C:\Users\mikae\Documents\Fox\MKproject\Program.cs:line 142
+   at MKproject.Program.Main() in C:\Users\mikae\Documents\Fox\MKproject\Program.cs:line 104
+2024-06-29 19:50:45.601 +03:00 [ERR] An unhandled exception was caught by the global thread exception handler
+System.Exception: Cannot perform this operation in an application which is not installed.
+   at Velopack.UpdateManager.EnsureInstalled() in ./Velopack/UpdateManager.cs:line 442
+   at Velopack.UpdateManager.CheckForUpdatesAsync() in ./Velopack/UpdateManager.cs:line 111
+   at Velopack.UpdateManager.CheckForUpdates() in ./Velopack/UpdateManager.cs:line 100
+   at MKproject.Program.UpdateMyApp() in C:\Users\mikae\Documents\Fox\MKproject\Program.cs:line 142
+   at MKproject.Program.Main() in C:\Users\mikae\Documents\Fox\MKproject\Program.cs:line 104

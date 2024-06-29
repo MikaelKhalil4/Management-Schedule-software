@@ -135,6 +135,9 @@
     <Compile Update="Management\TransferData.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="NewUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Schedule\Appointmentform\Appointment.cs">
       <SubType>Form</SubType>
     </Compile>

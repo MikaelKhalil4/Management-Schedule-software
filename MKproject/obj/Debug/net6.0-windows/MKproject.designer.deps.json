@@ -373,6 +373,7 @@
           }
         }
       },
+      "Obfuscar/2.2.38": {},
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -913,6 +914,13 @@
       "sha512": "sha512-ypnSvEtpNGo48bAWn95J1oHChycCXcevFSbn53fqzLxlXFSZP7dawu8p/7mHAfGufZQSV2sBpW80XQGIfXO8kQ==",
       "path": "nuget.versioning/6.9.1",
       "hashPath": "nuget.versioning.6.9.1.nupkg.sha512"
+    },
+    "Obfuscar/2.2.38": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v5EwYMf0V+qB4FRoivzF1j6otAnkoLeD79C5v3yFzjKBU5FZKhce7q8uSDDU7jY8wWD+wS/iB6CWJSQeTV3qig==",
+      "path": "obfuscar/2.2.38",
+      "hashPath": "obfuscar.2.2.38.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",

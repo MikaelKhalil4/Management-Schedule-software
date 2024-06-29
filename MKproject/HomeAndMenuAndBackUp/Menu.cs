@@ -137,8 +137,18 @@ namespace MKproject
                 GoingFromChildToChild?.Invoke(this, EventArgs.Empty);
             }
 
-        }
 
+            //for user exprience
+            CloseNotfBanner();
+
+        }
+        public void CloseNotfBanner()
+        {
+            if (CustomizedTools.NotificationBanner.CurrentNotfBanner != null)
+            {
+                CustomizedTools.NotificationBanner.CloseTheNotfBanner();
+            }
+        }
 
 
         private void buttonSearchClient_Click(object sender, EventArgs e)
@@ -201,8 +211,10 @@ namespace MKproject
             HideMenu();
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
-            BackUp backup =new BackUp();
+            BackUp backup = new BackUp();
             backup.Show();
+            //for user exprience
+            CloseNotfBanner();
         }
         private void buttonLogout_Click(object sender, EventArgs e)
         {
@@ -281,6 +293,6 @@ namespace MKproject
             }
         }
 
-     
+
     }
 }

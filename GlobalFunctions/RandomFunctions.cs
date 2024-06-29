@@ -191,7 +191,7 @@ namespace GlobalFunctions
         /// and a heightened height measurement.     
         public static int CalculateDesiredHeight(Control DesiredControl, int ControlWidth)
         {
-          
+
             int desiredHeight;
             using (Graphics g = DesiredControl.CreateGraphics())
             {
@@ -244,7 +244,7 @@ namespace GlobalFunctions
                     }
                 }
 
-                return bestFitWidth+3;
+                return bestFitWidth + 3;
             }
         }
 
@@ -285,17 +285,12 @@ namespace GlobalFunctions
         {
             try
             {
-                //fi meshkle layering baddak tzabeta
-                //if (Features.IsOnline)
-                //{
                 InternetTest();
-
-                //}
-                return true;//cz if  it's offline or online w ma sar fi exceptoion so it s true             
+                return true;//ma sar fi exceptoion so it s true             
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);//in case no connection
+                return false;
             }
 
         }

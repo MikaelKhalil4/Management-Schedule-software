@@ -652,3 +652,6 @@ C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\refint
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.pdb
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.genruntimeconfig.cache
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\ref\MKproject.dll
+C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.BackUp.resources
+C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.NewUpdate.resources
+C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images\work-in-progress.gif
