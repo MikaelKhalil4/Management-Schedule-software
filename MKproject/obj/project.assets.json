@@ -1070,7 +1070,7 @@
         ]
       }
     },
-    "net6.0-windows7.0/win-x86": {
+    "net6.0-windows7.0/win-x64": {
       "AWSSDK.Core/3.7.304.19": {
         "type": "package",
         "compile": {
@@ -1236,7 +1236,7 @@
       "Microsoft.Data.SqlClient.SNI.runtime/3.0.0": {
         "type": "package",
         "native": {
-          "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll": {}
+          "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration/8.0.0": {
@@ -1579,13 +1579,13 @@
         "type": "package"
       },
       "runtime.win-x64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
-        "type": "package"
-      },
-      "runtime.win-x86.runtime.native.System.Data.SqlClient.sni/4.4.0": {
         "type": "package",
         "native": {
-          "runtimes/win-x86/native/sni.dll": {}
+          "runtimes/win-x64/native/sni.dll": {}
         }
+      },
+      "runtime.win-x86.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "type": "package"
       },
       "Serilog/4.0.0": {
         "type": "package",
@@ -1645,7 +1645,7 @@
           }
         },
         "native": {
-          "runtimes/win-x86/native/SQLite.Interop.dll": {}
+          "runtimes/win-x64/native/SQLite.Interop.dll": {}
         }
       },
       "System.Buffers/4.5.0": {
@@ -4164,11 +4164,11 @@
             "version": "[6.0.31, 6.0.31]"
           },
           {
-            "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
             "version": "[6.0.31, 6.0.31]"
           },
           {
-            "name": "Microsoft.NETCore.App.Host.win-x86",
+            "name": "Microsoft.NETCore.App.Host.win-x64",
             "version": "[6.0.31, 6.0.31]"
           },
           {
@@ -4176,7 +4176,7 @@
             "version": "[6.0.31, 6.0.31]"
           },
           {
-            "name": "Microsoft.NETCore.App.Runtime.win-x86",
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
             "version": "[6.0.31, 6.0.31]"
           },
           {
@@ -4184,7 +4184,7 @@
             "version": "[6.0.31, 6.0.31]"
           },
           {
-            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
             "version": "[6.0.31, 6.0.31]"
           }
         ],
@@ -4200,7 +4200,7 @@
       }
     },
     "runtimes": {
-      "win-x86": {
+      "win-x64": {
         "#import": []
       }
     }

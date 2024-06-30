@@ -21,7 +21,7 @@
         }
       }
     },
-    "net6.0-windows7.0/win-x86": {
+    "net6.0-windows7.0/win-x64": {
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "compile": {
@@ -208,7 +208,7 @@
             "version": "[6.0.31, 6.0.31]"
           },
           {
-            "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
             "version": "[6.0.31, 6.0.31]"
           },
           {
@@ -216,7 +216,7 @@
             "version": "[6.0.31, 6.0.31]"
           },
           {
-            "name": "Microsoft.NETCore.App.Runtime.win-x86",
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
             "version": "[6.0.31, 6.0.31]"
           },
           {
@@ -224,7 +224,7 @@
             "version": "[6.0.31, 6.0.31]"
           },
           {
-            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
             "version": "[6.0.31, 6.0.31]"
           }
         ],
@@ -240,7 +240,7 @@
       }
     },
     "runtimes": {
-      "win-x86": {
+      "win-x64": {
         "#import": []
       }
     }
