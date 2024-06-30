@@ -17,10 +17,17 @@ steps:
     fetchDepth: 1  # Shallow fetch only the last commit
     clean: true
  
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+    displayName: 'Install .NET'
+  
   - task: DotNetCoreCLI@2
     inputs:
      command: 'restore'
-     projects: '*/.csproj'
+     projects: './.csproj'
  
   - script: dotnet clean
     displayName: 'Clean Solution'
@@ -28,12 +35,7 @@ steps:
   - script: dotnet build --configuration Release
     displayName: 'Build Solution'
 
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '8.0.x'
-    displayName: 'Install .NET'
- 
+
   - script: |
       dotnet publish MKproject/MKproject.csproj -c Release -o $(Build.ArtifactStagingDirectory)/Publish/win-x64 -r win-x64 --self-contained true
     displayName: 'Publish Application'
