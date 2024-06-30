@@ -1,1 +1,67 @@
-#empty on purpose
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more: https://aka.ms/yaml
+ 
+trigger:
+    - elk
+    - global
+
+pool:
+  vmImage: windows-latest
+ 
+
+steps:
+  - checkout: self
+    path: s
+    fetchDepth: 1  # Shallow fetch to only get the last commit
+    clean: true
+
+  - bash: |
+      if [ "$(Build.SourceBranch)" == "refs/heads/global" ]; then
+        echo "##vso[task.setvariable variable=bucketname]$(minio-bucket-global)"
+      elif [ "$(Build.SourceBranch)" == "refs/heads/elk" ]; then
+        echo "##vso[task.setvariable variable=bucketname]$(minio-bucket-elk)"
+      fi
+    displayName: 'Set Variable Based on Condition'
+
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+    displayName: 'Install .NET'
+  
+  - task: DotNetCoreCLI@2
+    inputs:
+     command: 'restore'
+     projects: 'MKproject/MKproject.csproj'
+ 
+  - script: dotnet clean
+    displayName: 'Clean Solution'
+ 
+  - script: dotnet build --configuration Release
+    displayName: 'Build Solution'
+
+
+  - script: |
+      dotnet publish MKproject/MKproject.csproj -c Release -o MKproject/bin/Publish/win-x64 -r win-x64 --self-contained true
+    displayName: 'Publish Application'
+ 
+jobs:
+  - job: BuildAndUpload
+    strategy:
+      matrix:
+        win_x64:
+          ARCHITECTURE: 'win-x64'
+        win_x86:
+          ARCHITECTURE: 'win-x86'
+
+    steps:
+      - script: |
+          dotnet tool install --global vpk
+          vpk download s3  --bucket bucketname --channel $(ARCHITECTURE) --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
+          vpk pack -u MKproject  -v 1.0.24 -p MKproject/bin/Publish/$(ARCHITECTURE) -e MKproject.exe --channel $(ARCHITECTURE) --packTitle "Fox" --icon MKproject/images/foxlogo.ico --splashImage MKproject/images/foxlogo.ico  --verbose
+          vpk upload s3 --bucket bucketname --channel $(ARCHITECTURE) --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret)
+        displayName: 'Create and Upload Velopack Release'
+        env:
+          PATH: $(PATH):$(USERPROFILE)\.dotnet\tools
