@@ -173,7 +173,6 @@ namespace MKproject
 
         //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
         //         vpk download s3  --bucket fox-global --channel win-x64 --endpoint http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
-        //          or  http://198.7.119.42:9000
         //         vpk pack -u FoxApp -v 1.0.17 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
         //         vpk upload s3  --bucket fox-global  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
 

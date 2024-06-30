@@ -1,7 +1,12 @@
 {
   "Files": [
+<<<<<<< HEAD
     "C:\\Users\\mikae\\Documents\\Fox\\MKproject\\Releases\\FoxApp-1.0.18-win-x64-delta.nupkg",
     "C:\\Users\\mikae\\Documents\\Fox\\MKproject\\Releases\\FoxApp-1.0.18-win-x64-full.nupkg",
+=======
+    "C:\\Users\\mikae\\Documents\\Fox\\MKproject\\Releases\\FoxApp-1.0.22-win-x64-delta.nupkg",
+    "C:\\Users\\mikae\\Documents\\Fox\\MKproject\\Releases\\FoxApp-1.0.22-win-x64-full.nupkg",
+>>>>>>> pipe
     "C:\\Users\\mikae\\Documents\\Fox\\MKproject\\Releases\\FoxApp-win-x64-Portable.zip",
     "C:\\Users\\mikae\\Documents\\Fox\\MKproject\\Releases\\FoxApp-win-x64-Setup.exe"
   ]

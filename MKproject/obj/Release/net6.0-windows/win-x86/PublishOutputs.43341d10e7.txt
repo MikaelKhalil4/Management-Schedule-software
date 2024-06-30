@@ -35,8 +35,8 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\MKproject.exe
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\nlog.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\images\fox.ico
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\images\foxlogo.ico
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\images\work-in-progress.gif
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\MKproject.dll
-C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\MKproject.deps.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\MKproject.runtimeconfig.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\MKproject.dll.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\MKproject.pdb
@@ -562,6 +562,9 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\Microsoft.IdentityMod
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\Microsoft.IdentityModel.Tokens.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\NuGet.Versioning.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\Serilog.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\Serilog.Sinks.Console.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\Serilog.Sinks.File.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\System.Data.SQLite.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\System.ComponentModel.Composition.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\System.Configuration.ConfigurationManager.dll
@@ -580,3 +583,4 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\CustomizedTools.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\GlobalFunctions.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\CustomizedTools.pdb
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\GlobalFunctions.pdb
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x86\MKproject.deps.json

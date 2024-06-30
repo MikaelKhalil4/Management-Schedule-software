@@ -2,19 +2,80 @@
   "Assets": [
     {
       "PackageId": "FoxApp",
+<<<<<<< HEAD
       "Version": "1.0.18",
       "Type": "Full",
       "FileName": "FoxApp-1.0.18-win-x64-full.nupkg",
       "SHA1": "055115C26BBD09B7CAFD20FE964AE78B70FBAA3A",
       "Size": 80687541
+=======
+      "Version": "1.0.22",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.22-win-x64-full.nupkg",
+      "SHA1": "8AD8DCB9E43BBA3A6C802870E630CA57D46E64DB",
+      "Size": 80687535
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.22",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.22-win-x64-delta.nupkg",
+      "SHA1": "5C1DD7B9C9039509F39FB6A6EE6C0233CB407BEA",
+      "Size": 545229
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.20",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.20-win-x64-full.nupkg",
+      "SHA1": "E8A156FF4315F3B765759FAA7988313541F3D1B8",
+      "Size": 80687534
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.20",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.20-win-x64-delta.nupkg",
+      "SHA1": "E757B5E65872D30ABBDE2852257545043D40DFED",
+      "Size": 546081
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.19",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.19-win-x64-full.nupkg",
+      "SHA1": "FA138355C43434B967267B6768BE25A6E55A9111",
+      "Size": 80687314
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.19",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.19-win-x64-delta.nupkg",
+      "SHA1": "57CF007410D77A8B0042141B769F187EF5ED1F71",
+      "Size": 730477
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.18",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.18-win-x64-full.nupkg",
+      "SHA1": "9D75F18C885C48366E594148EFFC260D0E1A2979",
+      "Size": 80693507
+>>>>>>> pipe
     },
     {
       "PackageId": "FoxApp",
       "Version": "1.0.18",
       "Type": "Delta",
       "FileName": "FoxApp-1.0.18-win-x64-delta.nupkg",
+<<<<<<< HEAD
       "SHA1": "15A00610B219173EF74980D2321E90FF43709910",
       "Size": 764696
+=======
+      "SHA1": "F76EE27758D6F4CDC49A6ECA8A07E752F00B9B80",
+      "Size": 835394
+>>>>>>> pipe
     },
     {
       "PackageId": "FoxApp",
