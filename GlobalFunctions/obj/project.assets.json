@@ -20,6 +20,26 @@
           "lib/netstandard2.0/System.Data.DataSetExtensions.dll": {}
         }
       }
+    },
+    "net6.0-windows7.0/win-x86": {
+      "Microsoft.CSharp/4.7.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
+        }
+      },
+      "System.Data.DataSetExtensions/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Data.DataSetExtensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Data.DataSetExtensions.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -188,11 +208,23 @@
             "version": "[6.0.31, 6.0.31]"
           },
           {
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
             "name": "Microsoft.NETCore.App.Ref",
             "version": "[6.0.31, 6.0.31]"
           },
           {
+            "name": "Microsoft.NETCore.App.Runtime.win-x86",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
             "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
             "version": "[6.0.31, 6.0.31]"
           }
         ],
@@ -205,6 +237,11 @@
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302\\RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x86": {
+        "#import": []
       }
     }
   }

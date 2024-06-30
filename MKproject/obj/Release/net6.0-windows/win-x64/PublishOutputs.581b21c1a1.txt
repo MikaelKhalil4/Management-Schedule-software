@@ -561,6 +561,9 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Microsoft.IdentityMod
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Microsoft.IdentityModel.Tokens.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\NuGet.Versioning.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Serilog.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Serilog.Sinks.Console.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Serilog.Sinks.File.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\System.Data.SQLite.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\System.ComponentModel.Composition.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\System.Configuration.ConfigurationManager.dll
