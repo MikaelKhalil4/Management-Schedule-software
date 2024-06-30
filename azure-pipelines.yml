@@ -37,14 +37,14 @@ steps:
 
 
   - script: |
-      dotnet publish MKproject/MKproject.csproj -c Release -o $(Build.ArtifactStagingDirectory)/Publish/win-x64 -r win-x64 --self-contained true
+      dotnet publish MKproject/MKproject.csproj -c Release -o $(Build.ArtifactStagingDirectory)/bin/Publish/win-x64 -r win-x64 --self-contained true
     displayName: 'Publish Application'
  
  
   - script: |
       dotnet tool install --global vpk
       vpk download s3  --bucket fox-global --channel win-x64 --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
-      vpk pack -u MKproject --channel win-x64 -v 1.0.19 -p $(Build.ArtifactStagingDirectory)/Publish/win-x64 -e MKproject.exe --packTitle "Fox" --icon $(Build.ArtifactStagingDirectory)/images/foxlogo.ico --splashImage $(Build.ArtifactStagingDirectory)/images/foxlogo.ico 
+      vpk pack -u MKproject --channel win-x64 -v 1.0.19 -p $(Build.ArtifactStagingDirectory)/bin/Publish/win-x64 -e MKproject.exe --packTitle "Fox" --icon $(Build.ArtifactStagingDirectory)/images/foxlogo.ico --splashImage $(Build.ArtifactStagingDirectory)/images/foxlogo.ico 
       vpk upload s3 --bucket fox-global --channel win-x64 --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
     displayName: 'Create and Upload Velopack Release'
     env:
