@@ -36,8 +36,6 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images\oval-Small.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images\xCircle.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.dll.config
-C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.dll.manifest
-C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.application
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.deps.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.runtimeconfig.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.dll
@@ -644,8 +642,6 @@ C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproj
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.csproj.CoreCompileInputs.cache
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.sourcelink.json
-C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.dll.manifest
-C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.application
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.csproj.Up2Date
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.dll
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\refint\MKproject.dll
@@ -655,3 +651,6 @@ C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\ref\MK
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.BackUp.resources
 C:\Users\mikae\Documents\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.NewUpdate.resources
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images\work-in-progress.gif
+C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\Serilog.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\Serilog.Sinks.Console.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\Serilog.Sinks.File.dll

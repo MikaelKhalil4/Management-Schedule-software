@@ -38,13 +38,3 @@ D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Ori
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\refint\GlobalFunctions.dll
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.pdb
 D:\Work\ELK projet 1\ELk-off\Managing Software(ouaa tmahi)\Clients\MKProject Original\GlobalFunctions\obj\Debug\net6.0-windows\ref\GlobalFunctions.dll
-C:\Users\mikae\Documents\Fox\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.deps.json
-C:\Users\mikae\Documents\Fox\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.dll
-C:\Users\mikae\Documents\Fox\GlobalFunctions\bin\Debug\net6.0-windows\GlobalFunctions.pdb
-C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.csproj.CoreCompileInputs.cache
-C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.sourcelink.json
-C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.dll
-C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Debug\net6.0-windows\refint\GlobalFunctions.dll
-C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Debug\net6.0-windows\GlobalFunctions.pdb
-C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Debug\net6.0-windows\ref\GlobalFunctions.dll

@@ -2,6 +2,22 @@
   "Assets": [
     {
       "PackageId": "FoxApp",
+      "Version": "1.0.18",
+      "Type": "Full",
+      "FileName": "FoxApp-1.0.18-win-x64-full.nupkg",
+      "SHA1": "055115C26BBD09B7CAFD20FE964AE78B70FBAA3A",
+      "Size": 80687541
+    },
+    {
+      "PackageId": "FoxApp",
+      "Version": "1.0.18",
+      "Type": "Delta",
+      "FileName": "FoxApp-1.0.18-win-x64-delta.nupkg",
+      "SHA1": "15A00610B219173EF74980D2321E90FF43709910",
+      "Size": 764696
+    },
+    {
+      "PackageId": "FoxApp",
       "Version": "1.0.17",
       "Type": "Full",
       "FileName": "FoxApp-1.0.17-win-x64-full.nupkg",
