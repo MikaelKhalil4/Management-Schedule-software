@@ -3,20 +3,27 @@
 # Add steps that build, run tests, deploy, and more: https://aka.ms/yaml
  
 trigger:
+    - elk
     - global
- 
+
 pool:
   vmImage: windows-latest
  
-variables:
-  - group: "velopack publish"
- 
+
 steps:
   - checkout: self
     path: s
-    fetchDepth: 1  # Shallow fetch only the last commit
+    fetchDepth: 1  # Shallow fetch to only get the last commit
     clean: true
- 
+
+  - bash: |
+      if [ "$(Build.SourceBranch)" == "refs/heads/global" ]; then
+        echo "##vso[task.setvariable variable=bucketname]$(minio-bucket-global)"
+      elif [ "$(Build.SourceBranch)" == "refs/heads/elk" ]; then
+        echo "##vso[task.setvariable variable=bucketname]$(minio-bucket-elk)"
+      fi
+    displayName: 'Set Variable Based on Condition'
+
 
   - task: UseDotNet@2
     inputs:
@@ -40,13 +47,21 @@ steps:
       dotnet publish MKproject/MKproject.csproj -c Release -o MKproject/bin/Publish/win-x64 -r win-x64 --self-contained true
     displayName: 'Publish Application'
  
- 
-  - script: |
-      dotnet tool install --global vpk
-      vpk download s3  --bucket $(minio-bucket-global) --channel win-x64 --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
-      vpk pack -u MKproject  -v 1.0.23 -p MKproject/bin/Publish/win-x64 -e MKproject.exe --channel win-x64 --packTitle "Fox" --icon MKproject/images/foxlogo.ico --splashImage MKproject/images/foxlogo.ico  --verbose
-      vpk upload s3 --bucket $(minio-bucket-global) --channel win-x64 --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
-    displayName: 'Create and Upload Velopack Release'
-    env:
-      PATH: $(PATH):$(USERPROFILE)\.dotnet\tools
- 
+jobs:
+  - job: BuildAndUpload
+    strategy:
+      matrix:
+        win_x64:
+          ARCHITECTURE: 'win-x64'
+        win_x86:
+          ARCHITECTURE: 'win-x86'
+
+    steps:
+      - script: |
+          dotnet tool install --global vpk
+          vpk download s3  --bucket bucketname --channel $(ARCHITECTURE) --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
+          vpk pack -u MKproject  -v 1.0.24 -p MKproject/bin/Publish/$(ARCHITECTURE) -e MKproject.exe --channel $(ARCHITECTURE) --packTitle "Fox" --icon MKproject/images/foxlogo.ico --splashImage MKproject/images/foxlogo.ico  --verbose
+          vpk upload s3 --bucket bucketname --channel $(ARCHITECTURE) --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret)
+        displayName: 'Create and Upload Velopack Release'
+        env:
+          PATH: $(PATH):$(USERPROFILE)\.dotnet\tools
