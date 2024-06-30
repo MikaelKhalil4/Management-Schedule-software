@@ -27,7 +27,7 @@ steps:
   - task: DotNetCoreCLI@2
     inputs:
      command: 'restore'
-     projects: './.csproj'
+     projects: 'MKproject/MKproject.csproj'
  
   - script: dotnet clean
     displayName: 'Clean Solution'
