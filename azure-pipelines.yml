@@ -44,7 +44,7 @@ steps:
   - script: |
       dotnet tool install --global vpk
       vpk download s3  --bucket fox-global --channel win-x64 --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
-      vpk pack -u MKproject  -v 1.0.21 -p MKproject/bin/Publish/win-x64 -e MKproject.exe --channel win-x64 --packTitle "Fox" --icon MKproject/images/foxlogo.ico --splashImage MKproject/images/foxlogo.ico  --verbose
+      vpk pack -u MKproject  -v 1.0.23 -p MKproject/bin/Publish/win-x64 -e MKproject.exe --channel win-x64 --packTitle "Fox" --icon MKproject/images/foxlogo.ico --splashImage MKproject/images/foxlogo.ico  --verbose
       vpk upload s3 --bucket fox-global --channel win-x64 --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret) 
     displayName: 'Create and Upload Velopack Release'
     env:
