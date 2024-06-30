@@ -34,23 +34,6 @@ steps:
       dotnet publish MKproject/MKproject.csproj -c Release -o $(Build.ArtifactStagingDirectory)/Publish/win-x64 -r win-x64 --self-contained true
     displayName: 'Publish Application'
  
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        # Define paths
-        $sourceFile = "$(Build.ArtifactStagingDirectory)/Obfuscator_Output/MKproject.dll"
-        $targetFile = "$(Build.ArtifactStagingDirectory)/Publish/win-x64/MKproject.dll"
-        # Check if the source file exists
-        if (Test-Path $sourceFile) {
-            # Replace the target file with the source file, overwriting it
-            Copy-Item -Path $sourceFile -Destination $targetFile -Force
-            Write-Host "File replacement successful."
-        } else {
-            Write-Host "Source file does not exist."
-            exit 1  # Exit with error
-            }
-    displayName: 'Replace DLL with Obfuscated Version'
  
   - script: |
       dotnet tool install --global vpk
