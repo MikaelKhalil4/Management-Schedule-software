@@ -17,9 +17,9 @@ stages:
 
           - bash: |
               if [ "$(Build.SourceBranch)" == "refs/heads/global" ]; then
-                echo "##vso[task.setvariable variable=bucketname]$(minio-bucket-global)"
+                export bucketname=$(minio-bucket-global)
               elif [ "$(Build.SourceBranch)" == "refs/heads/elk" ]; then
-                echo "##vso[task.setvariable variable=bucketname]$(minio-bucket-elk)"
+                export bucketname=$(minio-bucket-elk)
               fi
             displayName: 'Set Variable Based on Condition'
 
