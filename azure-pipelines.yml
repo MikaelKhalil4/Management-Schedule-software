@@ -39,11 +39,7 @@ stages:
 
           - script: dotnet build --configuration Release
             displayName: 'Build Solution'
-
-          - script: |
-              dotnet publish MKproject/MKproject.csproj -c Release -o MKproject/bin/Publish/win-x64 -r win-x64 --self-contained true
-            displayName: 'Publish Application'
-
+    
   - stage: BuildAndUpload
     jobs:
       - job: PackageAndDeploy
@@ -56,6 +52,7 @@ stages:
         steps:
           - script: |
               dotnet tool install --global vpk
+              dotnet publish MKproject/MKproject.csproj -c Release -o MKproject/bin/Publish/$(ARCHITECTURE) -r $(ARCHITECTURE) --self-contained true
               vpk download s3 --bucket bucketname --channel $(ARCHITECTURE) --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret)
               vpk pack -u MKproject -v 1.0.24 -p MKproject/bin/Publish/$(ARCHITECTURE) -e MKproject.exe --channel $(ARCHITECTURE) --packTitle "Fox" --icon MKproject/images/foxlogo.ico --splashImage MKproject/images/foxlogo.ico --verbose
               vpk upload s3 --bucket bucketname --channel $(ARCHITECTURE) --endpoint $(minio-upload-url) --keyId $(minio-keyId) --secret $(minio-secret)
