@@ -63,6 +63,8 @@ namespace MKproject
         [STAThread]
         static void Main()
         {
+
+
             VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
 
 
@@ -136,7 +138,7 @@ namespace MKproject
 
             try
             {
-                var mgr = new UpdateManager("https://cdn.foxdigitaltech.online/fox-global");
+                var mgr = new UpdateManager(AppConfig.GetURL() + AppConfig.GetBucketName());
 
 
                 var newVersion = mgr.CheckForUpdates(); // check for new version
@@ -155,6 +157,7 @@ namespace MKproject
                     mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
                 }
+
             }
             catch (Exception ex)
             {

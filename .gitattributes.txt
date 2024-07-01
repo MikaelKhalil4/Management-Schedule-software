@@ -1,2 +1,3 @@
 MKproject/Customization/ClassClientCustomFront.cs merge=ours
 MKproject/Customization/ClassClientCustom.cs merge=ours
+MKproject/appsettings.json merge=ours

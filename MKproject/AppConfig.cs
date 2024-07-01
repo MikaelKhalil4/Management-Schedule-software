@@ -9,26 +9,36 @@ using System.Threading.Tasks;
 
 namespace MKproject
 {
-    public class AppConfig
+    public  class AppConfig
     {
-        public IConfiguration Configuration { get; set; }
-
-        public AppConfig()
+        private static IConfiguration _configuration;
+        public static IConfiguration Configuration
         {
-            Configuration = new ConfigurationBuilder()
+            get
+            {
+                if (_configuration == null)
+                {
+                    InitializeConfiguration();
+                }
+                return _configuration;
+            }
+        }
+
+        private static void InitializeConfiguration()
+        {
+            _configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
         }
 
-        public string GetConnectionString()
+        public static string GetBucketName()
         {
-            return Configuration["Database:ConnectionString"];
+            return Configuration["bucketname"]; // Consider what to return if "bucketname" is not found.
         }
-
-        public string GetImagesDirectory()
+        public static string GetURL()
         {
-            return Configuration["Paths:ImagesDirectory"];
+            return Configuration["url"]; // Consider what to return if "bucketname" is not found.
         }
     }
 }

@@ -173,3 +173,4 @@ C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\refint\MKproject
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.pdb
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 C:\Users\mikae\Documents\Fox\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\appsettings.json
