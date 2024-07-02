@@ -161,21 +161,15 @@ namespace MKproject
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("Error happened while trying to update,\nPlease press Ok to open the application", CustomMessageBox.Type.OkInfo);
+                MessageBox.Show(ex.ToString());
             }
 
         }
 
 
-        //         dotnet publish -c Release --self-contained -r win-x86 -o./bin/Publish/win-x86
-        //         vpk download s3  --bucket fox-global  --channel win-x86 --endpoint http://foxdigitaltech.online:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
-        //         vpk pack -u FoxApp -v 1.0.0 -p./bin/Publish/win-x86 -e MKproject.exe  --channel win-x86 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
-        //         vpk upload s3  --bucket fox-global --channel win-x86 --endpoint http://foxdigitaltech.online:9000  --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
-
-
 
         //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
-        //         vpk download s3  --bucket fox-global --channel win-x64 --endpoint http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
+        //         vpk download http --channel win-x64 --url https://cdn.foxdigitaltech.online/fox-elk
         //         vpk pack -u FoxApp -v 1.0.17 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
         //         vpk upload s3  --bucket fox-global  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
 
