@@ -18,7 +18,7 @@ namespace MKproject
 
         //public string Height { get; set; }
        
-        public enum enumDynamicFields//ejabre ballish men 1 aw 101 kermel el labels
+        public enum enumDynamicFields //ejabre ballish men 1 aw 101 kermel el labels
         {
             //Dynamic
 
