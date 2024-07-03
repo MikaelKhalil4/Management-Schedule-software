@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using MKproject.Schedule.Reminderform;
 using CustomizedTools;
 using GlobalFunctions;
+using System.Linq;
 
 namespace MKproject.Schedule
 {
@@ -158,6 +159,12 @@ namespace MKproject.Schedule
 
                     clientReminder.panelreminder.Controls.Remove(this);
                     this.Dispose();
+
+
+                    if (clientReminder.panelreminder.Controls.Count == 0)
+                    {
+                        clientReminder.panelreminder.Controls.Add(clientReminder.LabelNoReminder);
+                    }
                     clientReminder.DisableClosingOnDisactivating = false;
                 }
                 else
@@ -238,7 +245,6 @@ namespace MKproject.Schedule
 
 
         //DESIGN
-
         private void checkBoxReminder_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxReminder.Checked == false)
@@ -246,7 +252,6 @@ namespace MKproject.Schedule
                 this.panelColoredReminder.BackColor = Color.FromArgb(109, 122, 224);
             }
         }
-
         private void checkBoxReminder_TextChanged(object sender, EventArgs e)
         {
             FixDesign();

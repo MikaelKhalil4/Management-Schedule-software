@@ -922,13 +922,15 @@ Renamed Types:
 	[MKproject]MKproject.Schedule.ClientReminder::ClientReminder_Load[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
 	[MKproject]MKproject.Schedule.ClientReminder::ButtonAdd_Click[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
 	[MKproject]MKproject.Schedule.ClientReminder::textBoxSearch_Click[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
-	[MKproject]MKproject.Schedule.ClientReminder::Searchname_ChosenClientChanged[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
-	[MKproject]MKproject.Schedule.ClientReminder::Searchname_Deactivate[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
+	[MKproject]MKproject.Schedule.ClientReminder::UcSlideButtonCompleted_Button1Clicked[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
+	[MKproject]MKproject.Schedule.ClientReminder::UcSlideButtonCompleted_Button2Clicked[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
+	[MKproject]MKproject.Schedule.ClientReminder::Searchname_ChosenClientChanged[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
+	[MKproject]MKproject.Schedule.ClientReminder::Searchname_Deactivate[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
 	[MKproject]MKproject.Schedule.ClientReminder::DisplayUCReminder[1]( [MKproject]MKproject.ClassClientCustom ) ->  
 	[MKproject]MKproject.Schedule.ClientReminder::GetNoReminderLable[1]( [System.Runtime]System.String ) ->  
 	[MKproject]MKproject.Schedule.ClientReminder::ClientReminder_FormClosed[2]( [System.Runtime]System.Object, [System.Windows.Forms]System.Windows.Forms.FormClosedEventArgs ) ->  
-	[MKproject]MKproject.Schedule.ClientReminder::timer1_Tick[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
-	[MKproject]MKproject.Schedule.ClientReminder::ClientReminder_Deactivate[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
+	[MKproject]MKproject.Schedule.ClientReminder::timer1_Tick[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
+	[MKproject]MKproject.Schedule.ClientReminder::ClientReminder_Deactivate[2]( [System.Runtime]System.Object, [System.Runtime]System.EventArgs ) ->  
 	[MKproject]MKproject.Schedule.ClientReminder::InitializeComponent[0]( ) ->  
 
 	[MKproject]MKproject.Schedule.ClientReminder::Dispose[1]( [System.Runtime]System.Boolean ) skipped:  external base class or interface
@@ -1070,13 +1072,13 @@ Renamed Types:
 	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::set_StartTime[1]( [System.Runtime]System.DateTime ) ->  
 	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::get_IsChecked[0]( ) ->  
 	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::set_IsChecked[1]( [System.Runtime]System.Boolean ) ->  
-	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::DisplayReminder[0]( ) ->  
+	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::DisplayReminder[1]( [System.Runtime]System.Boolean ) ->  
 	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::DisplayReminderInASpecificDate[2]( [System.Runtime]System.DateTime, [System.Runtime]System.Nullable`1<[System.Runtime]System.DateTime> ) ->  
-	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::DisplayReminderByClientName[1]( [MKproject]MKproject.ClassClientCustom ) ->  
-	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::AddRemindertoSQL[0]( ) ->  
-	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::UpdateFromRemindertoSQL[0]( ) ->  
-	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::DeleteReminderSQL[0]( ) ->  
-	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::checkBoxReminderChangedToSQL[0]( ) ->  
+	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::DisplayReminderByClientName[2]( [MKproject]MKproject.ClassClientCustom, [System.Runtime]System.Boolean ) ->  
+	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::AddRemindertoSQL[0]( ) ->  
+	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::UpdateFromRemindertoSQL[0]( ) ->  
+	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::DeleteReminderSQL[0]( ) ->  
+	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::checkBoxReminderChangedToSQL[0]( ) ->  
 
 	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::.ctor[0]( ) skipped:  special name
 	[MKproject]MKproject.Schedule.Reminderform.ClassReminder::.cctor[0]( ) skipped:  special name

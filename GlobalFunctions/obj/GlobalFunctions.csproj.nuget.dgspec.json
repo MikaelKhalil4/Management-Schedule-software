@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mikae\\Documents\\Fox\\GlobalFunctions\\GlobalFunctions.csproj": {}
+    "C:\\MKProject code\\Fox\\GlobalFunctions\\GlobalFunctions.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mikae\\Documents\\Fox\\GlobalFunctions\\GlobalFunctions.csproj": {
+    "C:\\MKProject code\\Fox\\GlobalFunctions\\GlobalFunctions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mikae\\Documents\\Fox\\GlobalFunctions\\GlobalFunctions.csproj",
+        "projectUniqueName": "C:\\MKProject code\\Fox\\GlobalFunctions\\GlobalFunctions.csproj",
         "projectName": "GlobalFunctions",
-        "projectPath": "C:\\Users\\mikae\\Documents\\Fox\\GlobalFunctions\\GlobalFunctions.csproj",
-        "packagesPath": "C:\\Users\\mikae\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mikae\\Documents\\Fox\\GlobalFunctions\\obj\\",
+        "projectPath": "C:\\MKProject code\\Fox\\GlobalFunctions\\GlobalFunctions.csproj",
+        "packagesPath": "C:\\Users\\GK\\.nuget\\packages\\",
+        "outputPath": "C:\\MKProject code\\Fox\\GlobalFunctions\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mikae\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GK\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

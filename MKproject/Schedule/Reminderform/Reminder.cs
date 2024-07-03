@@ -4,6 +4,7 @@ using MKproject.Management;
 using MKproject.Schedule.Reminderform;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MKproject.Schedule
@@ -293,7 +294,7 @@ namespace MKproject.Schedule
                     }
 
                     //DESIGN IF IT'S IN ClientReminder
-                    if (Isclientreminder)
+                    if (Isclientreminder && clientReminder.IsCompletedButtonMode == false)
                     {
                         if (clientReminder.DesiredClient == null)//hone aal akid byaeemil add li2anno all
                         {
@@ -312,6 +313,10 @@ namespace MKproject.Schedule
         }
         void AddUCReminderInClientReminderForm()
         {
+            if (clientReminder.panelreminder.Controls.OfType<Label>().Any())
+            {
+                clientReminder.panelreminder.Controls.Remove(clientReminder.LabelNoReminder);
+            }
             UCreminder ucreminderClientReminder = new UCreminder(DesiredReminder, ucSchedule, ParentFormSchedule, clientReminder);
             clientReminder.panelreminder.Controls.Add(ucreminderClientReminder);
             ucreminderClientReminder.Dock = DockStyle.Top;

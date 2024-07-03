@@ -89,3 +89,35 @@ C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Release\net6.0-windows\Customiz
 C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Release\net6.0-windows\refint\CustomizedTools.dll
 C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.pdb
 C:\Users\mikae\Documents\Fox\CustomizedTools\obj\Release\net6.0-windows\ref\CustomizedTools.dll
+C:\MKProject code\Fox\CustomizedTools\bin\Release\net6.0-windows\CustomizedTools.deps.json
+C:\MKProject code\Fox\CustomizedTools\bin\Release\net6.0-windows\CustomizedTools.dll
+C:\MKProject code\Fox\CustomizedTools\bin\Release\net6.0-windows\CustomizedTools.pdb
+C:\MKProject code\Fox\CustomizedTools\bin\Release\net6.0-windows\GlobalFunctions.dll
+C:\MKProject code\Fox\CustomizedTools\bin\Release\net6.0-windows\GlobalFunctions.pdb
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.csproj.AssemblyReference.cache
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.CustomButton.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.CustomMessageBox.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.GreyColor.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.NotificationBanner.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.Properties.Resources.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCDoubleUCTextbox.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCLabelAndDetail.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCSlideButton.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCTextbox1.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCComboBoxFilterOriginal.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCLabelFilterOriginal.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCTextBoxFilterOriginal.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCCamera.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCDoubleCombo.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCNumberButt.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCNumberComboButt.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.UCNumberLabelButt.resources
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.csproj.GenerateResource.cache
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.GeneratedMSBuildEditorConfig.editorconfig
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.csproj.CoreCompileInputs.cache
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.sourcelink.json
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\Customiz.69F388EE.Up2Date
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.dll
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\refint\CustomizedTools.dll
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\CustomizedTools.pdb
+C:\MKProject code\Fox\CustomizedTools\obj\Release\net6.0-windows\ref\CustomizedTools.dll

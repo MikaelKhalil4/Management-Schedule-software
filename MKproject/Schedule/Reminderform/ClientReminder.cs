@@ -11,6 +11,7 @@ namespace MKproject.Schedule
     public partial class ClientReminder : Form
     {
         public bool DisableClosingOnDisactivating;
+        public bool IsCompletedButtonMode;
         private ClassClientCustom desiredclient;
         public ClassClientCustom DesiredClient
         {
@@ -22,11 +23,11 @@ namespace MKproject.Schedule
             }
         }
 
-        public DataTable tablereminder { get; set; }
+        public DataTable datatablereminder { get; set; }
 
         ScheduleForm schedule;
         UCSchedule ucday;
-        Label LabelNoReminder;
+        public  Label LabelNoReminder;
 
 
 
@@ -39,16 +40,22 @@ namespace MKproject.Schedule
             InitializeComponent();
             schedule = form1;
             ucday = uc1;
+            LabelNoReminder = GetNoReminderLable("N/A");
+
+            ucSlideButtonCompleted.Button1Clicked += UcSlideButtonCompleted_Button1Clicked;
+            ucSlideButtonCompleted.Button2Clicked += UcSlideButtonCompleted_Button2Clicked;
 
             //panelreminder.PerformLayout();
+            IsCompletedButtonMode = false;
+            DesiredClient = desiredclient;
             DisplayUCReminder(desiredclient);
-            panelreminder.VerticalScroll.Value = 0;
+            //panelreminder.VerticalScroll.Value = 0;
 
         }
         private void ClientReminder_Load(object sender, EventArgs e)
         {
-            panelreminder.AutoScroll = true;
-            panelreminder.AutoScrollPosition = new System.Drawing.Point(0, 0);
+            //panelreminder.AutoScroll = true;
+            //panelreminder.AutoScrollPosition = new System.Drawing.Point(0, 0);
 
         }
 
@@ -70,7 +77,22 @@ namespace MKproject.Schedule
             searchname.Location = locationRelativeToScreen;
             searchname.Show();
         }
-
+        private void UcSlideButtonCompleted_Button1Clicked(object sender, EventArgs e)
+        {
+            if (ucSlideButtonCompleted.ClickedButton != ucSlideButtonCompleted.button1)
+            {
+                IsCompletedButtonMode = false;
+                DisplayUCReminder(DesiredClient);
+            }
+        }
+        private void UcSlideButtonCompleted_Button2Clicked(object sender, EventArgs e)
+        {
+            if (ucSlideButtonCompleted.ClickedButton != ucSlideButtonCompleted.button2)
+            {
+                IsCompletedButtonMode = true;
+                DisplayUCReminder(DesiredClient);
+            }
+        }
 
         private void Searchname_ChosenClientChanged(object sender, EventArgs e)
         {
@@ -90,17 +112,19 @@ namespace MKproject.Schedule
         {
             Cursor = Cursors.WaitCursor;
             panelreminder.Controls.Clear();
+
             if (desiredclient == null)
             {
-                tablereminder = ClassReminder.DisplayReminder();
+                datatablereminder = ClassReminder.DisplayReminder(IsCompletedButtonMode);
             }
             else
             {
                 textBoxSearch.Text = desiredclient.Fname + " " + desiredclient.Lname;
                 DesiredClient = desiredclient;
-                tablereminder = ClassReminder.DisplayReminderByClientName(DesiredClient);
+                datatablereminder = ClassReminder.DisplayReminderByClientName(DesiredClient, IsCompletedButtonMode);
             }
-            foreach (DataRow dr in tablereminder.Rows)
+
+            foreach (DataRow dr in datatablereminder.Rows)
             {
                 ClassReminder DesiredReminder = new ClassReminder();
                 DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
@@ -126,10 +150,10 @@ namespace MKproject.Schedule
                 ucreminder.Dock = DockStyle.Top;
                 panelreminder.Controls.Add(ucreminder);
             }
-            if (tablereminder.Rows.Count == 0)
+            if (datatablereminder.Rows.Count == 0)
             {
-                LabelNoReminder = GetNoReminderLable("N/A");
                 panelreminder.Controls.Add(LabelNoReminder);
+
             }
 
             Cursor = Cursors.Default;
@@ -173,8 +197,8 @@ namespace MKproject.Schedule
 
         private void ClientReminder_Deactivate(object sender, EventArgs e)
         {
-            if(!DisableClosingOnDisactivating)
-            this.Close();
+            if (!DisableClosingOnDisactivating)
+                this.Close();
         }
 
         protected override CreateParams CreateParams

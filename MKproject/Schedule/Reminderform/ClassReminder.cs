@@ -51,13 +51,14 @@ namespace MKproject.Schedule.Reminderform
 
 
         //Reminder
-        public static DataTable DisplayReminder()
+        public static DataTable DisplayReminder(bool IsChecked)
         {
             SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder.*, client.name , client.family_name, client.phone_number
-                                                   FROM reminder
-                                                   LEFT JOIN client ON reminder.client_id = client.client_id
-                                                   ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
-
+                                                         FROM reminder
+                                                         LEFT JOIN client ON reminder.client_id = client.client_id
+                                                         WHERE is_checked = @is_checked
+                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
+            command1.Parameters.AddWithValue("@is_checked", IsChecked);
             SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
@@ -127,13 +128,14 @@ namespace MKproject.Schedule.Reminderform
             con.Close();
             return dt1;
         }
-        public static DataTable DisplayReminderByClientName(ClassClientCustom DesiredClient)
+        public static DataTable DisplayReminderByClientName(ClassClientCustom DesiredClient, bool IsChecked)
         {
             SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder_id, reminder, repeat, starttime, is_checked
-                                                   FROM reminder
-                                                   WHERE client_id = @client_id
-                                                   ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
+                                                         FROM reminder
+                                                         WHERE client_id = @client_id AND is_checked = @is_checked
+                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
             command1.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
+            command1.Parameters.AddWithValue("@is_checked", IsChecked);
             SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);

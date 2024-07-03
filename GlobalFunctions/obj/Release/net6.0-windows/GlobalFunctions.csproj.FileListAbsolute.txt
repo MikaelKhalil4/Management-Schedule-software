@@ -28,3 +28,13 @@ C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Release\net6.0-windows\GlobalFu
 C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Release\net6.0-windows\refint\GlobalFunctions.dll
 C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Release\net6.0-windows\GlobalFunctions.pdb
 C:\Users\mikae\Documents\Fox\GlobalFunctions\obj\Release\net6.0-windows\ref\GlobalFunctions.dll
+C:\MKProject code\Fox\GlobalFunctions\bin\Release\net6.0-windows\GlobalFunctions.deps.json
+C:\MKProject code\Fox\GlobalFunctions\bin\Release\net6.0-windows\GlobalFunctions.dll
+C:\MKProject code\Fox\GlobalFunctions\bin\Release\net6.0-windows\GlobalFunctions.pdb
+C:\MKProject code\Fox\GlobalFunctions\obj\Release\net6.0-windows\GlobalFunctions.GeneratedMSBuildEditorConfig.editorconfig
+C:\MKProject code\Fox\GlobalFunctions\obj\Release\net6.0-windows\GlobalFunctions.csproj.CoreCompileInputs.cache
+C:\MKProject code\Fox\GlobalFunctions\obj\Release\net6.0-windows\GlobalFunctions.sourcelink.json
+C:\MKProject code\Fox\GlobalFunctions\obj\Release\net6.0-windows\GlobalFunctions.dll
+C:\MKProject code\Fox\GlobalFunctions\obj\Release\net6.0-windows\refint\GlobalFunctions.dll
+C:\MKProject code\Fox\GlobalFunctions\obj\Release\net6.0-windows\GlobalFunctions.pdb
+C:\MKProject code\Fox\GlobalFunctions\obj\Release\net6.0-windows\ref\GlobalFunctions.dll
