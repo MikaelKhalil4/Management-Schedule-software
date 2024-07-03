@@ -139,6 +139,9 @@
 		<Content Include="nlog.config">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<None Update="appsettings.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="images\checkCircle.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -227,9 +230,7 @@
 	</ItemGroup>	
 	<Target Name="Obfuscate" AfterTargets="Publish">
 		<Exec Command="&quot;$(Obfuscar)&quot; obfuscar.xml" />
-		<Copy SourceFiles="Obfuscator_Output/MKproject.dll"
-			DestinationFolder="bin/Publish/win-x64" />
-		<Copy SourceFiles="Obfuscator_Output/MKproject.dll"
-			DestinationFolder="bin/Publish/win-x86" />
+		<Copy SourceFiles="Obfuscator_Output/MKproject.dll" DestinationFolder="bin/Publish/win-x64" />
+		<Copy SourceFiles="Obfuscator_Output/MKproject.dll" DestinationFolder="bin/Publish/win-x86" />
 	</Target>
 </Project>
