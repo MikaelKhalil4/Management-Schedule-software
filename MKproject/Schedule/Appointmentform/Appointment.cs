@@ -113,7 +113,7 @@ namespace MKproject.Schedule
             DesiredAppointmentAppForm = ucappointment.DesiredAppointmentUCApp.Copy();//as we see hone eena copy aan el ucappointmnet, bas ucClientApp refers to the same DesiredAppointmentAppForm metel el appointment form
 
 
-            if ((!LOGIN.Employee.CanEditPastAppSchedule && DesiredAppointmentAppForm.StartTime.Date < DateTime.Now.Date) || DesiredAppointmentAppForm.IsCompleted || DesiredAppointmentAppForm.IsCanceled || (!UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee == null))
+            if ((!Program.Employee.CanEditPastAppSchedule && DesiredAppointmentAppForm.StartTime.Date < DateTime.Now.Date) || DesiredAppointmentAppForm.IsCompleted || DesiredAppointmentAppForm.IsCanceled || (!UcScheduleParentForm.IsDayOrWeek && UcScheduleParentForm.TheOnlyEmployee == null))
             {
                 IsReadOrEdit = true;
             }
@@ -233,7 +233,7 @@ namespace MKproject.Schedule
             }
 
 
-            if (DesiredAppointmentAppForm.StartTime.Date == DateTime.Now.Date || (DesiredAppointmentAppForm.StartTime.Date < DateTime.Now.Date && LOGIN.Employee.CanEditPastAppSchedule))//present-(past with can access)
+            if (DesiredAppointmentAppForm.StartTime.Date == DateTime.Now.Date || (DesiredAppointmentAppForm.StartTime.Date < DateTime.Now.Date && Program.Employee.CanEditPastAppSchedule))//present-(past with can access)
             {
                 //Always
                 if (!IsAddOrUpdateMode)

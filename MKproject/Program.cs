@@ -39,6 +39,7 @@ namespace MKproject
         public static LOGIN LoginForm;
         public static Home HomeForm;
         public static ScheduleForm ScheduleFormGlobal;
+        public static ClassEmployee Employee;
         //
 
 
@@ -87,30 +88,64 @@ namespace MKproject
 
 
 
+
             Application.ThreadException += new ThreadExceptionEventHandler(GlobalExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
-            
-            Log.Logger =new LoggerConfiguration().MinimumLevel.Debug()
+
+            Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
             // Capture all logs at or above the Debug level
             .WriteTo.Console()
             // Optionally, write logs to the console
-            .WriteTo.File(path: AppPaths.DirectoryPath+"\\FoxLogFile.txt", rollingInterval: RollingInterval.Infinite,
+            .WriteTo.File(path: AppPaths.DirectoryPath + "\\FoxLogFile.txt", rollingInterval: RollingInterval.Infinite,
             // Log files roll daily
             retainedFileCountLimit: null
             // Optional: Set to null to keep all log files indefinitely
             ).CreateLogger();
 
 
-            UpdateMyApp();
+
+            (UpdateManager mgr, UpdateInfo newVersion) = IsUpdateExist();
+       
+
+            if (newVersion!=null)
+            {
+                NewUpdate updt = new NewUpdate();
+                updt.Show();
+                Application.Run(updt);
 
 
-            LoginForm = new LOGIN();
-            LoginForm.labelVersion.Text = "v 1.0.17";
+                UpdateMyApp(mgr, newVersion);
+            }
+            else
+            {
+              
 
+                if (!ClassEmployee.CheckIfOwnerExist())
+                {
+                    EditEmployee editEmployee = new EditEmployee(null, true);
+                    editEmployee.EmployeeInserted += EditEmployee_EmployeeInserted;
+                    Application.Run(editEmployee);
 
-            Application.Run(LoginForm);
+                }
+                else
+                {
+                    LoginForm = new LOGIN();
+                    LoginForm.labelVersion.Text = "v 1.0.17";
+                    Application.Run(LoginForm);
+                }
 
+               
+            }        
         }
+
+
+        private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
+        {
+            Program.HomeForm = new Home();
+            Program.HomeForm.Show();       
+        }
+
+
 
         private static void GlobalExceptionHandler(object sender, EventArgs args)
         {
@@ -123,7 +158,7 @@ namespace MKproject
             };
 
             // Log the exception using Serilog (assuming it's configured)
-            Log.Error(e.ToString()+"\n");
+            Log.Error(e.ToString() + "\n");
 
             // Show a message box to the user
             MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -132,31 +167,39 @@ namespace MKproject
 
 
 
+        public static (UpdateManager, UpdateInfo) IsUpdateExist()
+        {
+           
+            try
+            {
+                UpdateManager mgr = new UpdateManager(AppConfig.GetURL() + AppConfig.GetBucketName());
 
-        public static void UpdateMyApp()
+                UpdateInfo newVersion = mgr.CheckForUpdates(); // check for new version
+
+
+                return (mgr, newVersion);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+
+                return (null, null);
+            }
+
+        }
+        public static void UpdateMyApp(UpdateManager mgr,UpdateInfo newVersion)
         {
 
             try
             {
-                var mgr = new UpdateManager(AppConfig.GetURL() + AppConfig.GetBucketName());
+
+                NewUpdate updt = new NewUpdate();
+                updt.Show();
 
 
-                var newVersion = mgr.CheckForUpdates(); // check for new version
+                mgr.DownloadUpdates(newVersion);   // download new version        
+                mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
-                if (newVersion == null)
-                {
-                    return; // no update available or no internet
-                }
-                else
-                {
-                    NewUpdate updt = new NewUpdate();
-                    updt.Show();
-
-
-                    mgr.DownloadUpdates(newVersion);   // download new version        
-                    mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
-
-                }
 
             }
             catch (Exception ex)

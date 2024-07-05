@@ -36,27 +36,27 @@ namespace MKproject
         {
 
             FLPGlobal.Select();
-            buttonMenu.Text = "Hello " + LOGIN.Employee.Fname + "!";
+            buttonMenu.Text = "Hello " + Program.Employee.Fname + "!";
 
 
             //el order tabaaun bi assir aa their indexing
-            if (LOGIN.Employee.CanAccessTransaction)
+            if (Program.Employee.CanAccessTransaction)
                 buttonTransaction.Visible = true;
             else buttonTransaction.Visible = false;
 
 
-            if (LOGIN.Employee.CanAccessStatistics)
+            if (Program.Employee.CanAccessStatistics)
                 buttonStatistics.Visible = true;
             else buttonStatistics.Visible = false;
 
 
-            if (LOGIN.Employee.CanAccesSchedule)
+            if (Program.Employee.CanAccesSchedule)
                 buttonSchedule.Visible = true;
             else buttonSchedule.Visible = false;
 
 
 
-            if (LOGIN.Employee.CanAccessSevicesProductsEmployees)
+            if (Program.Employee.CanAccessSevicesProductsEmployees)
             {
                 buttonEmployee.Visible = true;
                 buttonBundlesAndProducts.Visible = true;
@@ -224,8 +224,16 @@ namespace MKproject
             }
             ParentFormHome.Dispose();
             this.Dispose();
-            Program.LoginForm.LoadForm();
-            Program.LoginForm.Show();
+            if (Program.LoginForm != null)
+            {
+                Program.LoginForm.LoadForm();
+                Program.LoginForm.Show();
+            }
+         else
+            {
+                Program.LoginForm = new LOGIN();
+                Program.LoginForm.Show();
+            }
 
         }
 

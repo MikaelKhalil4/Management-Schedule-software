@@ -27,17 +27,18 @@ namespace MKproject.Management
         private CheckBox CheckBoxSchedule;
         private CheckBox CheckBoxEditPastSchedule;
 
-
+        bool IsOwnerMode;
 
         DataRow DesiredRow;
         public ViewEmployee ParentFormViewEmpl;
 
 
 
-        public EditEmployee(DataRow desiredRow)
+        public EditEmployee(DataRow desiredRow, bool isOwnerMode)
         {
             InitializeComponent();
             DesiredRow = desiredRow;
+            IsOwnerMode = isOwnerMode;
 
 
             GroupBoxOldHeight = groupBoxFeatures.Size.Height;
@@ -50,9 +51,29 @@ namespace MKproject.Management
             else
             {
                 ucTextboxFirstName.myTextBox1.Select();
-
+                buttonDelete.Visible = false;
+                buttonSave.Text = "Add";
             }
 
+
+            if (IsOwnerMode)
+            {
+                buttonDelete.Visible = false;
+
+                checkBoxScheduleMember.Checked = true;
+
+                checkBoxStatus.Checked = true;
+                checkBoxStatus.Enabled = false;
+
+                foreach (Control control in FLPFeatures.Controls)
+                {
+                    if (control is CheckBox checkbox)
+                    {
+                        checkbox.Checked = true;
+                        checkbox.Enabled = false;
+                    }
+                }
+            }
 
             this.Opacity = 0;
             this.TopMost = true;
@@ -155,6 +176,7 @@ namespace MKproject.Management
 
 
 
+
             AdjustFeaturesSize();
             ChangeFormSize(true);
 
@@ -219,6 +241,10 @@ namespace MKproject.Management
             status = Convert.ToBoolean(DesiredRow["status"]);
             isScheduleMember = Convert.ToBoolean(DesiredRow["is_schedule_member"]);
 
+            if (Program.Employee.EmployeeId == Convert.ToInt32(DesiredRow["employee_id"]))
+            {
+                buttonDelete.Visible = false;
+            }
 
             if (FN != null && FN != "")
             {
@@ -390,7 +416,7 @@ namespace MKproject.Management
 
 
 
-
+        public event EventHandler EmployeeInserted;
         public void AddEmployee()
         {
             ClassEmployee employee = new ClassEmployee();
@@ -402,7 +428,7 @@ namespace MKproject.Management
             employee.Status = checkBoxStatus.Checked;
             employee.IsScheduleMember = checkBoxScheduleMember.Checked;
             employee.Access = GetAccess();
-
+            employee.IsOwner = IsOwnerMode;
 
 
             if (employee.CheckIfPAsswordExist(null))
@@ -413,19 +439,29 @@ namespace MKproject.Management
             {
 
                 employee.InsertEmployee();
-
-
                 DataTable dtinserteditem = ClassEmployee.GetAllEmployeesOrLAstInseted(false);
-                ParentFormViewEmpl.FormatOriginaldt(dtinserteditem);
-                DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one 
 
-                //Design        
-                DataRow NewRow = ParentFormViewEmpl.dtEmployee.NewRow();
-                NewRow.ItemArray = InsertedRow.ItemArray; // Copy the data from InsertedRow to NewRow
-                ParentFormViewEmpl.dtEmployee.Rows.InsertAt(NewRow, 0);
-                ParentFormViewEmpl.dataGridViewEdit.FirstDisplayedScrollingRowIndex = 0;
+                if (ParentFormViewEmpl != null)
+                {
 
-                this.Close();
+                    ParentFormViewEmpl.FormatOriginaldt(dtinserteditem);
+                    DataRow InsertedRow = dtinserteditem.Rows[0];//0 since it s only one row retrieve which is the new one 
+
+                    //Design        
+                    DataRow NewRow = ParentFormViewEmpl.dtEmployee.NewRow();
+                    NewRow.ItemArray = InsertedRow.ItemArray; // Copy the data from InsertedRow to NewRow
+                    ParentFormViewEmpl.dtEmployee.Rows.InsertAt(NewRow, 0);
+                    ParentFormViewEmpl.dataGridViewEdit.FirstDisplayedScrollingRowIndex = 0;
+                    this.Close();
+
+                }
+                else//ea kenna bel initial stat tb3 el app
+                {
+                    Program.Employee = ClassEmployee.CreateEmployeeObject(Convert.ToInt32(dtinserteditem.Rows[0]["employee_id"]));
+                    Program.Employee.SetEmployeeAccess();
+                    EmployeeInserted?.Invoke(this, null);
+                    this.Hide();
+                }
 
             }
 
@@ -445,11 +481,11 @@ namespace MKproject.Management
             employee.IsScheduleMember = checkBoxScheduleMember.Checked;
             //
             employee.EmployeeId = Convert.ToInt32(DesiredRow["employee_id"]);
-         
-            employee.Rank = DesiredRow["rank"] is DBNull ? null : Convert.ToInt32(DesiredRow["rank"]);
-            employee.Availability= DesiredRow["availability"] is DBNull? null : (string)DesiredRow["availability"];
 
-            bool OldIsScheduleMember = Convert.ToBoolean(DesiredRow["is_schedule_member"]);  
+            employee.Rank = DesiredRow["rank"] is DBNull ? null : Convert.ToInt32(DesiredRow["rank"]);
+            employee.Availability = DesiredRow["availability"] is DBNull ? null : (string)DesiredRow["availability"];
+
+            bool OldIsScheduleMember = Convert.ToBoolean(DesiredRow["is_schedule_member"]);
             bool NewIsScheduleMember = checkBoxScheduleMember.Checked;
 
 
@@ -481,8 +517,8 @@ namespace MKproject.Management
                     DesiredRow["is_schedule_member"] = employee.IsScheduleMember;
 
                     //hle ma32oul yetghdayaro by   employee.UpdateEmployee();
-                    DesiredRow["availability"] = employee.Availability is null? DBNull.Value : employee.Availability;
-                    DesiredRow["rank"] = employee.Rank is  null ? DBNull.Value : employee.Rank; ;
+                    DesiredRow["availability"] = employee.Availability is null ? DBNull.Value : employee.Availability;
+                    DesiredRow["rank"] = employee.Rank is null ? DBNull.Value : employee.Rank; ;
                 }
                 this.Close();
 
@@ -509,7 +545,7 @@ namespace MKproject.Management
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             ClassEmployee employee = ClassEmployee.CreateEmployeeObject(Convert.ToInt32(DesiredRow["employee_id"]));
-          
+
             if (employee.CheckIfEmployeeHasReferences())
             {
                 CustomMessageBox.Show("Cannot delete this employee as there is some data attached to them.", CustomMessageBox.Type.Error);

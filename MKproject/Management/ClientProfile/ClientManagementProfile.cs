@@ -840,7 +840,7 @@ namespace MKproject.Management
                 }
                 else if (dataGridViewBalance.Columns[e.ColumnIndex].Name == "Transactions" && dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == BackOfficeImagePopUp)
                 {
-                    if (LOGIN.Employee.CanAccessTransaction)
+                    if (Program.Employee.CanAccessTransaction)
                     {
                         Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                         Program.GreyForm.Show();
@@ -895,7 +895,7 @@ namespace MKproject.Management
         }
         private void buttonBackOffice_Click(object sender, EventArgs e)
         {
-            if (LOGIN.Employee.CanAccessTransaction)
+            if (Program.Employee.CanAccessTransaction)
             {
                 Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                 Program.GreyForm.Show();

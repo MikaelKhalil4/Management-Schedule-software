@@ -409,7 +409,7 @@ namespace MKproject.Management
             if (IsFromPaymentOrBackOffice && Date != null)//yaane payment form
             {
 
-                ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, null, true, FromBalance + "/" + ToBalance, (DateTime)Date);
+                ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.Offers, Program.Employee.EmployeeId, ClientBalanceID, null, null, null, true, FromBalance + "/" + ToBalance, (DateTime)Date);
                 backOffice.CreateActionDetails(DesiredClientBlanaceRow);
                 backOffice.InsertToArchiveSQL();
 
@@ -539,7 +539,7 @@ namespace MKproject.Management
             if (IsFromPaymentOrBackOffice && Date != null)//yaane payment form
             {
                 //Backoffice
-                ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.Offers, LOGIN.Employee.EmployeeId, ClientBalanceID, null, null, null, false, FromSessionOrDays + "/" + ToSessionOrDays, (DateTime)Date);
+                ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.Offers, Program.Employee.EmployeeId, ClientBalanceID, null, null, null, false, FromSessionOrDays + "/" + ToSessionOrDays, (DateTime)Date);
                 backOffice.CreateActionDetails(DesiredClientBlanaceRow);
                 backOffice.InsertToArchiveSQL();
             }
@@ -604,7 +604,7 @@ namespace MKproject.Management
             bool IfLastVisitDateChanged=ClassClientCustom.UpdateClientCheckInSQLIfShould(ClientId, AttendanceDate);
             ProjectToSQL.InsertToClientAttendance(ClientId, DesiredClientBalanceId, AppointmentId, AttendanceDate);
 
-            ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, LOGIN.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, BackOfficeDate);
+            ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, Program.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, BackOfficeDate);
             DataRow DesiredClientBlanaceRow = GetClientBalanceAllInfoSql(DesiredClientBalanceId);//ma ela aaze bas mafina baleha, kermel CreateActionDetails, el clean code
             backOffice.CreateActionDetails(DesiredClientBlanaceRow);
             backOffice.InsertToArchiveSQL();

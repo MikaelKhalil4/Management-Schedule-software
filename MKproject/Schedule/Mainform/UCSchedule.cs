@@ -84,7 +84,7 @@ namespace MKproject.Schedule
             ParentFormSchedule = parentform;
             ParentFormSchedule.ScheduleFormResize += ParentFormSchedule_ScheduleFormResize;
 
-           
+
 
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Day.ToString());
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Week.ToString());
@@ -189,10 +189,9 @@ namespace MKproject.Schedule
                 if (!CheckIfAnyEmployeeAvailable())
                 {
                     IsDesignBlocked = true;
-                    if (SelectedDate.Date >= DateTime.Now.Date)
-                    {
-                        BlockedModeDesign("No Employees Available");
-                    }
+
+                    BlockedModeDesign("No Employees Available");
+
 
                 }
                 else
@@ -879,7 +878,7 @@ namespace MKproject.Schedule
 
                             if ((IsDayOrWeek && IsHistory) || (!IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(column, false).Item2 < DateTime.Now.Date))//in the past in day or week
                             {
-                                if (LOGIN.Employee.CanEditPastAppSchedule)
+                                if (Program.Employee.CanEditPastAppSchedule)
                                 {
                                     DialogResult dialogResult = CustomMessageBox.Show("Are you sure you to add a new appointment in the Past?", CustomMessageBox.Type.YesNoWarning);
                                     if (dialogResult == DialogResult.No || dialogResult == DialogResult.Cancel)//cancel eza kabaset x
@@ -2175,7 +2174,7 @@ namespace MKproject.Schedule
             if ((IsDayOrWeek && IsHistory) || (!IsDayOrWeek && GetWhichEmployeeOrDateForSpecifieColumn(StartingColumn, false).Item2 < DateTime.Now.Date))//in the past in day or week
             {
 
-                if (LOGIN.Employee.CanEditPastAppSchedule)
+                if (Program.Employee.CanEditPastAppSchedule)
                 {
                     DialogResult dialogResult = CustomMessageBox.Show("Are you sure to you to reschedule the appointment in the Past?", CustomMessageBox.Type.YesNoWarning);
                     if (dialogResult == DialogResult.Yes)

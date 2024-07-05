@@ -36,7 +36,6 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\down-arro
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\eraser.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\oval-Small.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\images\xCircle.png
-C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.dll.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.deps.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.runtimeconfig.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\MKproject.dll
@@ -348,3 +347,4 @@ C:\MKProject code\Fox\MKproject\obj\Debug\net6.0-windows\refint\MKproject.dll
 C:\MKProject code\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.pdb
 C:\MKProject code\Fox\MKproject\obj\Debug\net6.0-windows\MKproject.genruntimeconfig.cache
 C:\MKProject code\Fox\MKproject\obj\Debug\net6.0-windows\ref\MKproject.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Debug\net6.0-windows\appsettings.json

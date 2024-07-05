@@ -692,7 +692,7 @@ namespace MKproject.Management
             ClassAppointment.SwapClientBalanceIdOnRenewPackage(DesiredClientBalanceId, Convert.ToInt32(InsertedRow["client_balance_id"]));
 
 
-            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null,null, null, null, DateTime.Now);
+            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, Program.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null,null, null, null, DateTime.Now);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 

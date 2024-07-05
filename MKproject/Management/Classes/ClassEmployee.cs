@@ -45,9 +45,11 @@ namespace MKproject.Management
         public int? Rank { get; set; }
         public bool IsScheduleMember { get; set; }
 
+        public bool IsOwner { get; set; }//by default its false
 
         //additional
         public bool IsChecked { get; set; }//for the design Frontend used
+
 
         public bool CanAccesSchedule { get; set; }
         public bool CanEditPastAppSchedule { get; set; }
@@ -69,7 +71,24 @@ namespace MKproject.Management
 
 
 
-
+        public static bool CheckIfOwnerExist()
+        {
+            SQLiteCommand cmd = new SQLiteCommand("select employee_id from employee where is_owner=1", con);
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            if (dt.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static int CheckIfEmployeeExist(string Pass)
         {
             SQLiteCommand cmd = new SQLiteCommand("select employee_id from employee where password=@pass And status=1", con);
@@ -121,7 +140,7 @@ namespace MKproject.Management
         }
         public static DataTable GetAllEmployeesOrLAstInseted(bool AllOrLastInsered)
         {
-            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member,availability,rank from employee ";
+            string query = "select employee_id ,first_name  ,last_name ,phone_number,password ,access ,status,is_schedule_member,availability,rank,is_owner from employee ";
 
             if (AllOrLastInsered)
             {
@@ -335,14 +354,17 @@ namespace MKproject.Management
         {
 
 
-            string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank) " +
-                         "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank)";
+            string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank,is_owner) " +
+                         "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank,@is_owner)";
 
             SQLiteCommand command = new SQLiteCommand(query, con);
             command.Parameters.AddWithValue("@first_name", Fname);
             command.Parameters.AddWithValue("@last_name", Lname);
             command.Parameters.AddWithValue("@phone_number", PhoneNumber);
             command.Parameters.AddWithValue("@password", Password);
+            command.Parameters.AddWithValue("@is_owner", IsOwner);
+
+
             if (Access == null)
             {
                 command.Parameters.AddWithValue("@access", DBNull.Value);
@@ -375,6 +397,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@rank", DBNull.Value);
 
             }
+          
 
 
             con.Open();
@@ -394,6 +417,9 @@ namespace MKproject.Management
                 
                 }
             }
+
+
+
         }
         public void UpdateEmployee()
         {

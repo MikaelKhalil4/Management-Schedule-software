@@ -405,7 +405,7 @@ namespace MKproject.Schedule
             if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)
             {
                 //ahsan ma that shi lieano mainly ts going to be used on purpose
-                if (LOGIN.Employee.CanEditPastAppSchedule)
+                if (Program.Employee.CanEditPastAppSchedule)
                 {
 
                 }
@@ -473,7 +473,7 @@ namespace MKproject.Schedule
 
                     if (DesiredAppointmentUCApp.StartTime.Date < DateTime.Now.Date)//employee with no access in the past can't drag
                     {
-                        if (!LOGIN.Employee.CanEditPastAppSchedule)
+                        if (!Program.Employee.CanEditPastAppSchedule)
                         {
                             CustomMessageBox.Show("You don't have access to drag in the past", CustomMessageBox.Type.Error);
                             return;

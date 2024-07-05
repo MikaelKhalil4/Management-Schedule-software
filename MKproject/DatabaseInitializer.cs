@@ -80,6 +80,7 @@ public class DatabaseInitializer
 									""is_schedule_member""	INTEGER,
 									""availability""	TEXT,
 									""rank""	INTEGER,
+									""is_owner""	INTEGER,
 									PRIMARY KEY(""employee_id"" AUTOINCREMENT)
 								);
 								DROP TABLE IF EXISTS ""archive"";

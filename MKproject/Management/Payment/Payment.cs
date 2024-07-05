@@ -315,7 +315,7 @@ namespace MKproject.Management
         }
         private void UcSlideButtonPayOrEdit_Button2Clicked(object sender, EventArgs e)
         {
-            if (LOGIN.Employee.CanEditOffre)
+            if (Program.Employee.CanEditOffre)
             {
                 if (SelectedClientBalanceRow != null)
                 {
@@ -552,7 +552,7 @@ namespace MKproject.Management
             //SQL
             ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRow, ClientBalanceId, AmountPaidPerRow, Date, DesiredClient.AlbumType);//ejbare tahet el design section foe, cz el values yetghdayaro b DesiredClientBalanceRow
 
-            ClassBackOffice backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, LOGIN.Employee.EmployeeId, ClientBalanceId, AmountPaidPerRow, null, null, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, Program.Employee.EmployeeId, ClientBalanceId, AmountPaidPerRow, null, null, null, null, Date);
             backOffice.CreateActionDetails(DesiredClientBalanceRow);
             backOffice.InsertToArchiveSQL();
 

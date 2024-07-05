@@ -1208,7 +1208,7 @@ namespace MKproject.Management
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            if (LOGIN.Employee.CanEditRegistrationFields)
+            if (Program.Employee.CanEditRegistrationFields)
             {
                 if (!IsFromSchedule)
                 {
@@ -1337,7 +1337,7 @@ namespace MKproject.Management
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (LOGIN.Employee.CanInsertOrEditClients)
+            if (Program.Employee.CanInsertOrEditClients)
             {
                 if (CheckRequired())
                 {
@@ -1491,7 +1491,7 @@ namespace MKproject.Management
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (!LOGIN.Employee.CanDeleteClient)
+            if (!Program.Employee.CanDeleteClient)
             {
                 CustomMessageBox.Show("You don't have access", CustomMessageBox.Type.OkInfo);
             }

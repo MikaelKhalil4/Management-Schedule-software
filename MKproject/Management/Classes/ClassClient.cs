@@ -559,7 +559,7 @@ namespace MKproject.Management
 
             ClassClientCustom.UpdateClientTotalBalanceSQL(Client.ClientId, -Bundle.Price, false);
 
-            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, LOGIN.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, BackOfficeDate);
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, Program.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, BackOfficeDate);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
@@ -582,7 +582,7 @@ namespace MKproject.Management
 
             ClassClientCustom.UpdateClientTotalBalanceSQL(Client.ClientId, -product.Price, false);
 
-            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Purchases, LOGIN.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null, null, null, null, Date);
+            ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, ActionsEnum.Purchases, Program.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null, null, null, null, Date);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 

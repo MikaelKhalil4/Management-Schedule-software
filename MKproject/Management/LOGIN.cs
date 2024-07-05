@@ -7,7 +7,7 @@ namespace MKproject.Management
 {
     public partial class LOGIN : Form
     {
-        public static ClassEmployee Employee;
+       
 
 
         public LOGIN()
@@ -42,9 +42,9 @@ namespace MKproject.Management
             {
                 Cursor = Cursors.WaitCursor;
 
-                Employee = new ClassEmployee();
-                Employee = ClassEmployee.CreateEmployeeObject(EmpId);
-                Employee.SetEmployeeAccess();      
+                Program.Employee = new ClassEmployee();
+                Program.Employee = ClassEmployee.CreateEmployeeObject(EmpId);
+                Program.Employee.SetEmployeeAccess();      
                 Program.HomeForm = new Home();
                 Program.HomeForm.Show();
                 this.Hide();
@@ -56,7 +56,6 @@ namespace MKproject.Management
                 CustomMessageBox.Show("wrong password , please try again", CustomMessageBox.Type.Error);
                 textBoxPassword.Select();
             }
-
 
         }
 

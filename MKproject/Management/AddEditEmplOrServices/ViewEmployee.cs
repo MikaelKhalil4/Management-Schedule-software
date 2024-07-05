@@ -122,7 +122,7 @@ namespace MKproject.Management
             dataGridViewEdit.Columns["is_schedule_member"].Visible = false;
             dataGridViewEdit.Columns["rank"].Visible = false;
             dataGridViewEdit.Columns["availability"].Visible = false;
-
+            dataGridViewEdit.Columns["is_owner"].Visible = false;
 
             dataGridViewEdit.Columns["first_name"].HeaderCell.Value = "First Name";
             dataGridViewEdit.Columns["last_name"].HeaderCell.Value = "Last Name";
@@ -237,7 +237,7 @@ namespace MKproject.Management
 
                     Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
-                    EditEmployee p = new EditEmployee(desiredRow);
+                    EditEmployee p = new EditEmployee(desiredRow, Convert.ToBoolean(desiredRow["is_owner"]));
                     p.ParentFormViewEmpl = this;
                     p.ShowDialog();
                 }
@@ -250,7 +250,7 @@ namespace MKproject.Management
         {
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
-            EditEmployee p = new EditEmployee(null);
+            EditEmployee p = new EditEmployee(null,false);//owner is false, lieanno not possibe to add an owner from view employee
             p.ParentFormViewEmpl = this;
             p.ShowDialog();
 
