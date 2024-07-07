@@ -814,7 +814,7 @@ namespace MKproject.Management
             }
             else//we re freezing the ackage
             {
-                ClassClientBalance.UpdateClientBalanceOnFreezingDays(DesiredClientBalanceId, sessionOrDaysLeft, null);
+                ClassClientBalance.UpdateClientBalanceOnFreezingDays(DesiredClientBalanceId, sessionOrDaysLeft, null);//Update daysLeft
                 //design
                 IsFreezingMode = true;
                 DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
@@ -823,6 +823,7 @@ namespace MKproject.Management
         }//try catch
         void ReActivateMode()
         {
+
             DateTime newDueDate = DateTime.Now.AddDays(sessionOrDaysLeft);
             ClassClientBalance.UpdateClientBalanceOnFreezingDays(DesiredClientBalanceId, sessionOrDaysLeft, newDueDate);
 

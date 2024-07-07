@@ -233,14 +233,14 @@ namespace MKproject.Management
                         }
                         else
                         {
-                            if (isRequired && !UCNamefamilyname.IsRequired)
-                            {
-                                UCNamefamilyname.IsRequired = true;
-                            }
-                            else if (!isRequired && UCNamefamilyname.IsRequired)
-                            {
-                                UCNamefamilyname.IsRequired = false;
-                            }
+                            //if (isRequired && !UCNamefamilyname.IsRequired)
+                            //{
+                                UCNamefamilyname.IsRequired = true;//always
+                            //}
+                            //else if (!isRequired && UCNamefamilyname.IsRequired)
+                            //{
+                            //    UCNamefamilyname.IsRequired = false;
+                            //}
                         }
 
                         if (Client != null && Client.Fname != null && Client.Lname != null)
@@ -276,14 +276,14 @@ namespace MKproject.Management
                         }
                         else
                         {
-                            if (isRequired && !UCPhoneNumber.IsRequired)
-                            {
-                                UCPhoneNumber.IsRequired = true;
-                            }
-                            else if (!isRequired && UCPhoneNumber.IsRequired)
-                            {
-                                UCPhoneNumber.IsRequired = false;
-                            }
+                            //if (isRequired && !UCPhoneNumber.IsRequired)
+                            //{
+                                UCPhoneNumber.IsRequired = true;//always
+                            //}
+                            //else if (!isRequired && UCPhoneNumber.IsRequired)
+                            //{
+                            //    UCPhoneNumber.IsRequired = false;
+                            //}
                         }
 
                         if (Client != null && Client.PhoneNumber != null)//to fill the info if i am editing a client

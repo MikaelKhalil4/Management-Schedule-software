@@ -237,7 +237,7 @@ namespace MKproject.Management
 
                     Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
-                    EditEmployee p = new EditEmployee(desiredRow, Convert.ToBoolean(desiredRow["is_owner"]));
+                    EditEmployee p = new EditEmployee(desiredRow, Convert.ToBoolean(desiredRow["is_owner"]),false);
                     p.ParentFormViewEmpl = this;
                     p.ShowDialog();
                 }
@@ -250,7 +250,7 @@ namespace MKproject.Management
         {
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
-            EditEmployee p = new EditEmployee(null,false);//owner is false, lieanno not possibe to add an owner from view employee
+            EditEmployee p = new EditEmployee(null,false,false);//owner is false, lieanno not possibe to add an owner from view employee
             p.ParentFormViewEmpl = this;
             p.ShowDialog();
 

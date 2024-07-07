@@ -1,5 +1,8 @@
 ﻿using System.IO;
 using System.Data.SQLite;
+using System.Data.Common;
+using MKproject;
+using static Azure.Core.HttpHeader;
 
 public class DatabaseInitializer
 {
@@ -16,8 +19,7 @@ public class DatabaseInitializer
             {
                 conn.Open();
                
-                string sql = @"BEGIN TRANSACTION;
-								DROP TABLE IF EXISTS ""client_services_attendance"";
+                string sqlQuey = @"BEGIN TRANSACTION;
 								CREATE TABLE IF NOT EXISTS ""client_services_attendance"" (
 									""attendance_id""	INTEGER NOT NULL,
 									""client_id""	INTEGER NOT NULL,
@@ -29,7 +31,6 @@ public class DatabaseInitializer
 									FOREIGN KEY(""appointment_id"") REFERENCES ""appointments""(""appointment_id""),
 									PRIMARY KEY(""attendance_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""appointment_has_bundles"";
 								CREATE TABLE IF NOT EXISTS ""appointment_has_bundles"" (
 									""app_bundle_id""	INTEGER NOT NULL,
 									""appointment_id""	INTEGER NOT NULL,
@@ -38,14 +39,12 @@ public class DatabaseInitializer
 									FOREIGN KEY(""appointment_id"") REFERENCES ""appointments""(""appointment_id""),
 									PRIMARY KEY(""app_bundle_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""Albums"";
 								CREATE TABLE IF NOT EXISTS ""Albums"" (
 									""Album_id""	INTEGER NOT NULL,
 									""AlbumType""	TEXT,
 									PRIMARY KEY(""Album_id"" AUTOINCREMENT),
 									UNIQUE(""AlbumType"")
 								);
-								DROP TABLE IF EXISTS ""history_employee_availability"";
 								CREATE TABLE IF NOT EXISTS ""history_employee_availability"" (
 									""history_id""	INTEGER NOT NULL,
 									""employee_id""	INTEGER,
@@ -55,7 +54,6 @@ public class DatabaseInitializer
 									FOREIGN KEY(""employee_id"") REFERENCES ""employee""(""employee_id""),
 									PRIMARY KEY(""history_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""reminder"";
 								CREATE TABLE IF NOT EXISTS ""reminder"" (
 									""reminder_id""	INTEGER NOT NULL,
 									""client_id""	INTEGER,
@@ -66,7 +64,6 @@ public class DatabaseInitializer
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""reminder_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""employee"";
 								CREATE TABLE IF NOT EXISTS ""employee"" (
 									""employee_id""	INTEGER NOT NULL,
 									""first_name""	TEXT,
@@ -83,7 +80,6 @@ public class DatabaseInitializer
 									""is_owner""	INTEGER,
 									PRIMARY KEY(""employee_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""archive"";
 								CREATE TABLE IF NOT EXISTS ""archive"" (
 									""archive_id""	INTEGER NOT NULL,
 									""client_id""	INTEGER NOT NULL,
@@ -104,7 +100,6 @@ public class DatabaseInitializer
 									FOREIGN KEY(""attendance_id"") REFERENCES ""client_services_attendance""(""attendance_id""),
 									PRIMARY KEY(""archive_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""client_balance"";
 								CREATE TABLE IF NOT EXISTS ""client_balance"" (
 									""client_balance_id""	INTEGER NOT NULL,
 									""client_id""	INTEGER NOT NULL,
@@ -117,6 +112,7 @@ public class DatabaseInitializer
 									""balance""	REAL,
 									""session_left_days""	INTEGER,
 									""isbundle_membership""	INTEGER,
+									""start_date""	TEXT,
 									""due_date""	TEXT,
 									""is_freezed""	INTEGER,
 									""is_expired""	INTEGER,
@@ -125,7 +121,6 @@ public class DatabaseInitializer
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""client_balance_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""products"";
 								CREATE TABLE IF NOT EXISTS ""products"" (
 									""product_id""	INTEGER NOT NULL,
 									""product_name""	TEXT NOT NULL UNIQUE,
@@ -133,18 +128,17 @@ public class DatabaseInitializer
 									""status""	INTEGER,
 									PRIMARY KEY(""product_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""finance"";
 								CREATE TABLE IF NOT EXISTS ""finance"" (
 									""finance_id""	INTEGER NOT NULL,
 									""client_balance_id""	INTEGER NOT NULL,
 									""AlbumType""	TEXT,
 									""amount_paid""	REAL,
 									""payment_date""	TEXT,
+									""payment_method""	TEXT,
 									FOREIGN KEY(""client_balance_id"") REFERENCES ""client_balance""(""client_balance_id""),
 									FOREIGN KEY(""AlbumType"") REFERENCES ""Albums""(""AlbumType"") ON UPDATE CASCADE ON DELETE SET NULL,
 									PRIMARY KEY(""finance_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""bundles"";
 								CREATE TABLE IF NOT EXISTS ""bundles"" (
 									""bundle_id""	INTEGER NOT NULL,
 									""bundle_name""	TEXT NOT NULL,
@@ -157,7 +151,6 @@ public class DatabaseInitializer
 									""duration""	TEXT,
 									PRIMARY KEY(""bundle_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""required_visible_fields"";
 								CREATE TABLE IF NOT EXISTS ""required_visible_fields"" (
 									""fields_id""	INTEGER NOT NULL,
 									""Fields""	TEXT NOT NULL,
@@ -166,7 +159,6 @@ public class DatabaseInitializer
 									""IsOriginal""	INTEGER NOT NULL,
 									PRIMARY KEY(""fields_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""client_fields"";
 								CREATE TABLE IF NOT EXISTS ""client_fields"" (
 									""client_id""	INTEGER NOT NULL,
 									""fields_id""	INTEGER NOT NULL,
@@ -175,7 +167,6 @@ public class DatabaseInitializer
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""client_id"",""fields_id"")
 								);
-								DROP TABLE IF EXISTS ""client"";
 								CREATE TABLE IF NOT EXISTS ""client"" (
 									""client_id""	INTEGER NOT NULL,
 									""name""	TEXT,
@@ -203,7 +194,7 @@ public class DatabaseInitializer
 									FOREIGN KEY(""AlbumType"") REFERENCES ""Albums""(""AlbumType"") ON UPDATE CASCADE ON DELETE SET NULL,
 									PRIMARY KEY(""client_id"" AUTOINCREMENT)
 								);
-								DROP TABLE IF EXISTS ""appointments"";
+
 								CREATE TABLE IF NOT EXISTS ""appointments"" (
 									""appointment_id""	INTEGER NOT NULL,
 									""client_id""	INTEGER,
@@ -221,13 +212,13 @@ public class DatabaseInitializer
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""appointment_id"" AUTOINCREMENT)
 								);
-								DROP INDEX IF EXISTS ""IX_Albums"";
-								CREATE UNIQUE INDEX IF NOT EXISTS ""IX_Albums"" ON ""Albums"" (
-									""AlbumType""
-								);
-								COMMIT;";
-                            
-                using (var cmd = new SQLiteCommand(sql, conn))
+									";
+				  
+				ClassClientCustom.DBExtention(ref sqlQuey);
+
+				sqlQuey += "\n COMMIT;";
+
+                using (var cmd = new SQLiteCommand(sqlQuey, conn))
                 {
                     cmd.ExecuteNonQuery();
                 }

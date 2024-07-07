@@ -68,10 +68,10 @@ namespace MKproject.Schedule.Reminderform
             con.Close();
             return dt1;
         }
-        public static DataTable DisplayReminderInASpecificDate(DateTime SelectedOrStartDate, DateTime? EndDate)
+        public static DataTable DisplayReminderInASpecificDate(DateTime SelectedDate, DateTime? StartDate, DateTime? EndDate)
         {
             string query = @"WITH DayName AS (
-            SELECT CASE strftime('%w', DATE(@SelectedOrStartDate))
+            SELECT CASE strftime('%w', DATE(@SelectedDate))
             WHEN '0' THEN 'Sunday'
             WHEN '1' THEN 'Monday'
              WHEN '2' THEN 'Tuesday'
@@ -80,32 +80,34 @@ namespace MKproject.Schedule.Reminderform
             WHEN '5' THEN 'Friday'
             WHEN '6' THEN 'Saturday'
             END AS day_name)
-     SELECT reminder.*, client.name, client.family_name, client.phone_number
-     FROM reminder
-     LEFT JOIN client ON reminder.client_id = client.client_id
-     LEFT JOIN DayName ON INSTR(reminder.repeat, DayName.day_name) > 0 WHERE 1=1 ";
+         SELECT reminder.*, client.name, client.family_name, client.phone_number
+         FROM reminder
+         LEFT JOIN client ON reminder.client_id = client.client_id
+         LEFT JOIN DayName ON INSTR(reminder.repeat, DayName.day_name) > 0 WHERE 1=1 ";
 
             if (EndDate == null)
             {
-                query += @" AND (
-               (reminder.repeat = 'Does not repeat' AND DATE(reminder.starttime) = DATE(@SelectedOrStartDate))
-               OR
-               (reminder.repeat = 'Every day' AND DATE(reminder.starttime) <= DATE(@SelectedOrStartDate))
-               OR
-               (reminder.repeat LIKE 'Every week%' AND INSTR(reminder.repeat, DayName.day_name) > 0 AND DATE(reminder.starttime) <= DATE(@SelectedOrStartDate))
+                query += @"
+            AND (
+                       (reminder.repeat = 'Does not repeat' AND DATE(reminder.starttime) = DATE(@SelectedDate))
+                       OR
+                       (reminder.repeat = 'Every day' AND DATE(reminder.starttime) <= DATE(@SelectedDate))
+                       OR
+                       (reminder.repeat LIKE 'Every week%' AND INSTR(reminder.repeat, DayName.day_name) > 0 AND DATE(reminder.starttime) <= DATE(@SelectedDate))
                 )";
             }
             else
             {
-                query += @" AND (
-               (reminder.repeat = 'Does not repeat')
-               OR
-               (reminder.repeat = 'Every day')
-               OR
-               (reminder.repeat LIKE 'Every week%' AND INSTR(reminder.repeat, DayName.day_name) > 0)
-                 )
-             AND DATE(reminder.starttime) >= DATE(@SelectedOrStartDate)
-             AND DATE(reminder.starttime) <= DATE(@EndDate)";
+                query += @" 
+        AND (  
+         
+                   (reminder.repeat = 'Does not repeat'  AND DATE(reminder.starttime) <= DATE(@EndDate) AND DATE(reminder.starttime) >= DATE(@StartDate))             
+                   OR
+                   (reminder.repeat = 'Every day' AND  DATE(reminder.starttime) <= DATE(@EndDate))
+                   OR
+                  (reminder.repeat LIKE 'Every week%' AND DATE(reminder.starttime) <= DATE(@EndDate))
+            )
+            ";
             }
 
             query += " ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC";
@@ -114,9 +116,11 @@ namespace MKproject.Schedule.Reminderform
 
             SQLiteCommand command1 = new SQLiteCommand(query, con);
 
-            command1.Parameters.AddWithValue("@SelectedOrStartDate", SelectedOrStartDate.ToString("yyyy-MM-dd"));
-            if (EndDate != null)
+            command1.Parameters.AddWithValue("@SelectedDate", SelectedDate.ToString("yyyy-MM-dd"));
+
+            if (StartDate != null && EndDate != null)
             {
+                command1.Parameters.AddWithValue("@StartDate", ((DateTime)StartDate).ToString("yyyy-MM-dd"));
                 command1.Parameters.AddWithValue("@EndDate", ((DateTime)EndDate).ToString("yyyy-MM-dd"));
             }
             SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);

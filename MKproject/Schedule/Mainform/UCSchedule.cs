@@ -784,13 +784,13 @@ namespace MKproject.Schedule
             DataTable AllReminders;
             if (IsDayOrWeek)
             {
-                AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate, null);
+                AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate,null, null);
             }
             else
             {
                 DateTime StartDate = ListDaysOfDesiredWeek[0];
                 DateTime EndDate = ListDaysOfDesiredWeek[ListDaysOfDesiredWeek.Count - 1];
-                AllReminders = ClassReminder.DisplayReminderInASpecificDate(StartDate, EndDate);
+                AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate, StartDate, EndDate);
             }
 
             foreach (DataRow dr in AllReminders.Rows)
@@ -2153,6 +2153,7 @@ namespace MKproject.Schedule
 
         bool CheckIfPositionAvailable(int StartingColumn, int StartingRow, int EndingRow)
         {
+            bool PositionAvaialable;
             if (EndingRow > TLPSchedule.RowCount - 1)
             {
                 NotificationBanner.Show("Cannot schedule here!Make sure you don t overpass the limits", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
@@ -2177,16 +2178,11 @@ namespace MKproject.Schedule
                 if (Program.Employee.CanEditPastAppSchedule)
                 {
                     DialogResult dialogResult = CustomMessageBox.Show("Are you sure to you to reschedule the appointment in the Past?", CustomMessageBox.Type.YesNoWarning);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        return true;
-                    }
-                    else
+                    if (dialogResult == DialogResult.No)
                     {
                         NotificationBanner.Show("Appointment returned to its place", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false, false);
                         return false;
-                    }
-
+                    }               
                 }
                 else
                 {
@@ -2196,6 +2192,8 @@ namespace MKproject.Schedule
                 }
 
             }
+
+
 
             if (IsDayOrWeek)
             {
@@ -2231,6 +2229,7 @@ namespace MKproject.Schedule
                     NotificationBanner.Show("Cannot schedule here!Time Not Avaialable", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
                     return false;
                 }
+             
             }
 
             return true;

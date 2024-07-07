@@ -1,4 +1,5 @@
-﻿using GlobalFunctions;
+﻿using Amazon.S3.Model;
+using GlobalFunctions;
 using MKproject.Management;
 using System;
 using System.Collections.Generic;
@@ -191,7 +192,17 @@ namespace MKproject
             {
                 if (!FieldExistsInDataTable(dtRegistrationFields, field.ToString()))
                 {
-                    ProjectToSQL. InsertField(field.ToString(), true, false, true);
+
+                    bool IsRequired=false;
+
+
+                    if (field == enumStaticFields.FullName || field == enumStaticFields.PhoneNumber)
+                    {
+                        IsRequired = true;
+                    }
+                  
+
+                    ProjectToSQL. InsertField(field.ToString(), true, IsRequired, true);
                 }
             }
             // Insert enumDynamicFields
@@ -199,6 +210,8 @@ namespace MKproject
             {
                 if (!FieldExistsInDataTable(dtRegistrationFields, field.ToString()))
                 {
+                 
+
                     ProjectToSQL.InsertField(field.ToString(), true, false, false);
                 }
             }
@@ -216,6 +229,20 @@ namespace MKproject
             return false;
         }
       
+
+
+        public static void DBExtention(ref string query)
+        {
+            query += @"  
+                        CREATE TABLE IF NOT EXISTS ""client_auth"" (
+	                    ""auth_token""	TEXT NOT NULL UNIQUE,
+	                    ""client_id""	INTEGER NOT NULL,
+	                    ""is_used""	INTEGER NOT NULL,
+	                    ""is_main_device""	INTEGER NOT NULL,
+	                    PRIMARY KEY(""auth_token""),
+	                    FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id"") ON UPDATE RESTRICT ON DELETE RESTRICT
+                    );";
+        }
 
     }
 }

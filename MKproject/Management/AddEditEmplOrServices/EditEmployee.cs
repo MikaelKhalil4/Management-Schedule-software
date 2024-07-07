@@ -7,6 +7,7 @@ using GlobalFunctions;
 using CustomizedTools;
 using static MKproject.Management.Features;
 using MKproject.Schedule;
+using System.Windows.Forms.VisualStyles;
 
 namespace MKproject.Management
 {
@@ -28,21 +29,23 @@ namespace MKproject.Management
         private CheckBox CheckBoxEditPastSchedule;
 
         bool IsOwnerMode;
+        bool IsInitializeMode;
 
         DataRow DesiredRow;
         public ViewEmployee ParentFormViewEmpl;
 
 
 
-        public EditEmployee(DataRow desiredRow, bool isOwnerMode)
+        public EditEmployee(DataRow desiredRow, bool isOwnerMode,bool isInitializeMode)
         {
             InitializeComponent();
             DesiredRow = desiredRow;
             IsOwnerMode = isOwnerMode;
-
+            IsInitializeMode = isInitializeMode;
 
             GroupBoxOldHeight = groupBoxFeatures.Size.Height;
             LoadForm();
+
 
             if (DesiredRow != null)//edit mode not add
             {
@@ -50,17 +53,20 @@ namespace MKproject.Management
             }
             else
             {
+                checkBoxScheduleMember.Checked = true;
+                checkBoxStatus.Checked = true;
                 ucTextboxFirstName.myTextBox1.Select();
                 buttonDelete.Visible = false;
                 buttonSave.Text = "Add";
             }
 
 
-            if (IsOwnerMode)
+
+            if (IsOwnerMode)//by defau;lt he has all the featuers
             {
                 buttonDelete.Visible = false;
 
-                checkBoxScheduleMember.Checked = true;
+           
 
                 checkBoxStatus.Checked = true;
                 checkBoxStatus.Enabled = false;
@@ -72,6 +78,17 @@ namespace MKproject.Management
                         checkbox.Checked = true;
                         checkbox.Enabled = false;
                     }
+                }
+
+                if (IsInitializeMode)
+                {
+                    groupBoxFeatures.Visible = false;
+                    groupBoxFeatures.Height = 0;
+
+                    checkBoxScheduleMember.Visible = false;
+                    checkBoxStatus.Visible = false;
+                    ChangeFormSize(true);
+                    this.Height -= 100;
                 }
             }
 

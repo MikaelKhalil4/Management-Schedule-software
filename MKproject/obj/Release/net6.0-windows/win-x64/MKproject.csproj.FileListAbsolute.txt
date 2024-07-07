@@ -35,7 +35,6 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images\eraser.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images\oval-Small.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\images\xCircle.png
-C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.dll.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.deps.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.runtimeconfig.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\MKproject.dll
@@ -1310,3 +1309,4 @@ C:\MKProject code\Fox\MKproject\obj\Release\net6.0-windows\win-x64\refint\MKproj
 C:\MKProject code\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.pdb
 C:\MKProject code\Fox\MKproject\obj\Release\net6.0-windows\win-x64\MKproject.genruntimeconfig.cache
 C:\MKProject code\Fox\MKproject\obj\Release\net6.0-windows\win-x64\ref\MKproject.dll
+C:\Users\mikae\Documents\Fox\MKproject\bin\Release\net6.0-windows\win-x64\appsettings.json

@@ -22,6 +22,7 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\userNudeSmall.
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\view.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\Warning.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\YesOrNo.png
+C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\appsettings.json
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\checkCircle.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\circle.png
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\down-arrow-Black.png
@@ -38,7 +39,6 @@ C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\foxlogo.ico
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\images\work-in-progress.gif
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.runtimeconfig.json
-C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.dll.config
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\MKproject.pdb
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Microsoft.CSharp.dll
 C:\Users\mikae\Documents\Fox\MKproject\bin\Publish\win-x64\Microsoft.VisualBasic.Core.dll
