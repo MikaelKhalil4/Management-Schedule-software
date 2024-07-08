@@ -25,7 +25,10 @@ namespace MKproject.Management
         {       
             ParentFormSearch.firstVisibleRowIndex = 0;
 
-            DataTable Filtereddt = ParentFormSearch.Originaldt.Copy();
+
+           
+
+                DataTable Filtereddt = ParentFormSearch.Originaldt.Copy();
             if (ParentFormSearch.textBoxSearch.Text != ParentFormSearch.textBoxSearch.PlaceholderText)
             {
                 String Input = ParentFormSearch.textBoxSearch.Text.TrimEnd();
@@ -173,6 +176,8 @@ namespace MKproject.Management
                     }
                 }
 
+
+                
             }
 
             ParentFormSearch.DataTableToDatagrid(Filtereddt);
@@ -579,7 +584,7 @@ namespace MKproject.Management
 
 
 
-        DataTable PackageRemainingsDt;
+        public DataTable PackageRemainingsDt;
         UCComboBoxFilterSearch UCPackagesRemaing;
         private void checkBoxPackagesRemaining_CheckedChanged(object sender, EventArgs e)
         {

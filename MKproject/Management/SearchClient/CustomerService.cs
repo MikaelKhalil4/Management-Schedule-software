@@ -57,7 +57,7 @@ namespace MKproject.Management
             Birthdt.Columns.Add("DaysLeft", typeof(string));
             Birthdt.Columns.Add("Days till Birthday", typeof(string));
             Birthdt.Columns.Add("Up coming Age", typeof(int));
-
+            Birthdt.Columns.Add("ThisYearBirthdate", typeof(string));
 
 
 
@@ -70,6 +70,7 @@ namespace MKproject.Management
 
                 birthDate = Convert.ToDateTime(row["Birthday"]);
                 nextBirthday = new DateTime(today.Year, birthDate.Month, birthDate.Day);
+                row["ThisYearBirthdate"] = nextBirthday;
 
                 if (nextBirthday < today)
                 {
@@ -119,7 +120,7 @@ namespace MKproject.Management
             Birthdt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
 
-            columnIndexToMove = Birthdt.Columns.IndexOf("Birthday"); // Replace with the actual column name
+            columnIndexToMove = Birthdt.Columns.IndexOf("ThisYearBirthdate"); // Replace with the actual column name
             newIndex = 3; // The new desired index
             Birthdt.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
@@ -137,8 +138,9 @@ namespace MKproject.Management
 
             dataGridViewBirthClients.Columns["client_id"].Visible = false;
             dataGridViewBirthClients.Columns["DaysLeft"].Visible = false;
+            dataGridViewBirthClients.Columns["Birthday"].Visible = false;
 
-            dataGridViewBirthClients.Columns["Birthday"].HeaderCell.Value = "Birthdate";
+            dataGridViewBirthClients.Columns["ThisYearBirthdate"].HeaderCell.Value = "Birthdate";
 
             dataGridViewBirthClients.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewBirthClients.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -149,7 +151,7 @@ namespace MKproject.Management
             dataGridViewBirthClients.Columns["Name"].FillWeight = 30;
             dataGridViewBirthClients.Columns["Days till Birthday"].FillWeight = 20;
             dataGridViewBirthClients.Columns["Up coming Age"].FillWeight = 20;
-            dataGridViewBirthClients.Columns["Birthday"].FillWeight = 30;
+            dataGridViewBirthClients.Columns["ThisYearBirthdate"].FillWeight = 30;
 
         }
 
@@ -163,7 +165,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    if (dataGridViewBirthClients.Columns[e.ColumnIndex].Name == "Birthday")
+                    if (dataGridViewBirthClients.Columns[e.ColumnIndex].Name == "ThisYearBirthdate")
                     {
                         e.Value = RandomFunctions.SetDateFormatWithDayWithoutHour(e.Value.ToString());
                     }

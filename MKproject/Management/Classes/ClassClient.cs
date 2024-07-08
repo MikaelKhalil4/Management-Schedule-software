@@ -8,6 +8,8 @@ using System.Linq;
 using GlobalFunctions;
 using static MKproject.Management.ClassBundles;
 using System.Data.SQLite;
+using System.Reflection.Metadata.Ecma335;
+using System.Data.Entity.Core.Mapping;
 
 namespace MKproject.Management
 {
@@ -347,6 +349,27 @@ namespace MKproject.Management
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
             adapter.Fill(dt);
             return dt;
+        }
+        public static bool CheckIfBirthdayExistsTodayorTmrw()
+        {
+
+
+            string query = @"
+            SELECT COUNT(*) AS BirthdayCount
+            FROM client
+            WHERE strftime('%m-%d', date_of_birth) = strftime('%m-%d', 'now')
+               OR strftime('%m-%d', date_of_birth) = strftime('%m-%d', 'now', '-1 day')";
+
+            SQLiteCommand command = new SQLiteCommand(query, con);
+
+            con.Open();
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            con.Close();
+
+            if (count > 0)
+                return true;
+            else
+                return false;
         }
         public static DataTable GetSoonBirthdaysSQL()
         {
@@ -824,7 +847,7 @@ namespace MKproject.Management
                 command.Parameters.AddWithValue("@Email", DBNull.Value);
             else
                 command.Parameters.AddWithValue("@Email", Email);
-           
+
             if (MaritalStatus == null)
                 command.Parameters.AddWithValue("@marital_status", DBNull.Value);
             else

@@ -37,6 +37,15 @@ namespace MKproject.Management
             panelResults.Click += ClearDataGridSelectionOnClick_Click;
             //FilterOn
             LoadForm();
+
+            if (ClassClient.CheckIfBirthdayExistsTodayorTmrw())
+            {
+                iconButtonViewBirthdays.BackgroundImage= ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "CakeGreen.png");
+            }
+            else
+            {
+                iconButtonViewBirthdays.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "CakeBlack.png");
+            }
         }
         private void SearchCurrentClient_Load(object sender, EventArgs e)
         {
@@ -71,9 +80,23 @@ namespace MKproject.Management
         public void RefreshSQL()//used in case ma ken fi updates aal datagridview (addrows,or update) w need to return to the initial state
         {
 
+
+            filterCheckList.PackageRemainingsDt = null;//in otder to be reset         
+            // bi haje kermel naamil reset lal info in case it was nul like when we call  searchCurrentClient.RefreshSQL();
+            if (filterCheckList.checkBoxPackagesRemaining.Checked)
+            {
+                filterCheckList.FillPackagesRemainingColumn();
+            }
+            if (filterCheckList.checkBoxTotalAttendance.Checked)
+            {
+                filterCheckList.FillSessionDoneColumn();
+            }
+
+
             Originaldt = ClassClientCustom.GetAllClientsSQL();
             FormatOrginaldt();
             DataTableToDatagrid(Originaldt.Copy());
+           
             filterCheckList.FilterDatable();
 
         }

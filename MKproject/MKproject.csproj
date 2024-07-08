@@ -142,6 +142,12 @@
 		<None Update="appsettings.json">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="images\CakeBlack.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="images\CakeGreen.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="images\checkCircle.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
