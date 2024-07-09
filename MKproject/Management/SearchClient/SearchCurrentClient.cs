@@ -611,10 +611,15 @@ namespace MKproject.Management
             {
                 return Color.FromArgb(64, 64, 64); // Default color
             }
+            else if (line.Contains("Starting From"))
+            {
+                return Color.FromArgb(104, 200, 104); // Default color
+            }
             else
             {
                 return Color.Green;
             }
+            
         }
 
 

@@ -31,39 +31,34 @@ namespace MKproject.Management
 
             //ordering
             int columnIndexToMove;
-            int newIndex;
+            int newIndex=0;
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("AutoIncrementColumn"); // Replace with the actual column name
-            newIndex = 0; // The new desired index
             DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("Description");//description bas kermel el design 
-            newIndex = 1; // The new desired index
-            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("purchase_date"); // Replace with the actual column name
-            newIndex = 2; // The new desired index
-            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
+
+            columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("start_date"); // Replace with the actual column name
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("due_date"); // Replace with the actual column name
-            newIndex = 3; // The new desired index
-            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("original_offre"); // Replace with the actual column name
-            newIndex = 4; // The new desired index
-            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("offre"); // Replace with the actual column name
-            newIndex = 5; // The new desired index
-            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("amount_paid"); // Replace with the actual column name
-            newIndex = 6; // The new desired index
-            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
 
             columnIndexToMove = DtClientBalanceOriginal.Columns.IndexOf("balance"); // Replace with the actual column name
-            newIndex = 7; // The new desired index
-            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(newIndex);
+            DtClientBalanceOriginal.Columns[columnIndexToMove].SetOrdinal(++newIndex);
 
         }
         public static void FixCellsFormat(DataGridView DesiredDatagrid, DataGridViewCellFormattingEventArgs e)
@@ -91,6 +86,10 @@ namespace MKproject.Management
                     if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "offre")
                     {
                         e.Value = Program.SetCashFormat(e.Value.ToString());
+                    }
+                    if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "start_date")
+                    {
+                        e.Value = (Convert.ToDateTime(e.Value)).ToString("MMMM/dd/yyyy");
                     }
                     if (DesiredDatagrid.Columns[e.ColumnIndex].Name == "due_date")
                     {
@@ -135,6 +134,7 @@ namespace MKproject.Management
             DesiredDataGrid.Columns["session_left_days"].Visible = false;
             DesiredDataGrid.Columns["is_freezed"].Visible = false;
             DesiredDataGrid.Columns["is_expired"].Visible = false;
+            DesiredDataGrid.Columns["start_date"].Visible = false;
             DesiredDataGrid.Columns["due_date"].Visible = false;
 
             if (IsProfile)
@@ -152,7 +152,9 @@ namespace MKproject.Management
             DesiredDataGrid.Columns["offre"].FillWeight = 17;
             DesiredDataGrid.Columns["amount_paid"].FillWeight = 9;
             DesiredDataGrid.Columns["balance"].FillWeight = 12;
+            DesiredDataGrid.Columns["start_date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             DesiredDataGrid.Columns["due_date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
             //
             DesiredDataGrid.Columns["balance"].HeaderText = "Balance";
             DesiredDataGrid.Columns["AutoIncrementColumn"].HeaderText = "ID";
@@ -160,6 +162,8 @@ namespace MKproject.Management
             DesiredDataGrid.Columns["offre"].HeaderText = "Deal";
             DesiredDataGrid.Columns["amount_paid"].HeaderText = "Paid";
             DesiredDataGrid.Columns["purchase_date"].HeaderText = "PurchaseDate";
+            DesiredDataGrid.Columns["start_date"].HeaderText = "Start Date";
+            DesiredDataGrid.Columns["due_date"].HeaderText = "Due Date";
         }
     }
 }

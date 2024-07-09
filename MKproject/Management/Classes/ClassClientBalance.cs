@@ -76,7 +76,7 @@ namespace MKproject.Management
         {
 
             String query = @"SELECT
-                       cl.client_balance_id,  cl.bundle_id,b.bundle_name, cl.product_id, cl.purchase_date, cl.original_offre, cl.offre, cl.amount_paid, cl.balance, cl.session_left_days, cl.due_date,  cl.is_freezed,cl.is_expired,            
+                       cl.client_balance_id,  cl.bundle_id,b.bundle_name, cl.product_id, cl.purchase_date, cl.original_offre, cl.offre, cl.amount_paid, cl.balance, cl.session_left_days,cl.start_date ,cl.due_date,  cl.is_freezed,cl.is_expired,            
                       CASE
                        WHEN cl.bundle_id IS NOT NULL THEN b.bundle_name
                           WHEN cl.product_id IS NOT NULL THEN p.product_name
@@ -116,11 +116,11 @@ namespace MKproject.Management
             return (Convert.ToDouble(dt.Rows[0]["amount_paid"]), Convert.ToDouble(dt.Rows[0]["balance"]));
 
         }
-        public static DataTable GetClientBalanceNotExpiredPackage(int? clientID)
+        public static DataTable GetClientBalanceNotExpiredPackages(int? clientID)
         {
-            string query = @"Select	c.client_balance_id,c.client_id,c.bundle_id,b.bundle_name as Description,c.session_left_days,c.due_date,c.is_freezed,c.balance                           
+            string query = @"Select	c.client_balance_id,c.client_id,c.bundle_id,b.bundle_name as Description,c.session_left_days,c.start_date,c.due_date,c.is_freezed,c.balance                           
                             from client_balance as c ,bundles  as b
-                              where session_left_days is not null And is_expired='0' and c.bundle_id is not null and c.bundle_id=b.bundle_id ";
+                              where session_left_days is not null And is_expired='0'  AND c.bundle_id is not null and c.bundle_id=b.bundle_id ";
 
             if (clientID != null)
             {
@@ -143,20 +143,7 @@ namespace MKproject.Management
             sda.Fill(dt);
             return dt.Rows[0];
         }
-        public static (int?, int?, DateTime?, int? SessionLeftDays) GetBundleIdProductIdueDateSessions(int ClientBalanceId)
-        {
-            SQLiteCommand cmd = new SQLiteCommand("select bundle_id,product_id,due_date,session_left_days from client_balance where client_balance_id=@client_balance_id", con);
-            cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            int? BundleId = dt.Rows[0]["bundle_id"] is DBNull ? null : Convert.ToInt32(dt.Rows[0]["bundle_id"]);
-            int? productId = dt.Rows[0]["product_id"] is DBNull ? null : Convert.ToInt32(dt.Rows[0]["product_id"]);
-            DateTime? DueDate = dt.Rows[0]["due_date"] is DBNull ? null : Convert.ToDateTime(dt.Rows[0]["due_date"]);
-            int? SessionLeftDays = dt.Rows[0]["session_left_days"] is DBNull ? null : Convert.ToInt32(dt.Rows[0]["session_left_days"]);
-            return (BundleId, productId, DueDate, SessionLeftDays);
-        }
-
+       
         //Insert and update
         public static void InsertToClientBalance(int clientid, int catgeoryid, string bundleType) //bundleType for packages , NULL FOR product
         {
@@ -172,9 +159,9 @@ namespace MKproject.Management
             double originalprice;
             bool IsExpired = false;
             string query = @"INSERT into  client_balance
-                  (client_id,bundle_id,product_id,purchase_date,original_offre,offre,amount_paid,balance,session_left_days,isbundle_membership,due_date,is_freezed,is_expired) 
+                  (client_id,bundle_id,product_id,purchase_date,original_offre,offre,amount_paid,balance,session_left_days,isbundle_membership,start_date,due_date,is_freezed,is_expired) 
                                                               VALUES 
-                  (@client_id,@bundle_id,@product_id,@purchase_date,@original_offre,@offre,@amount_paid,@balance,@session_left_days,@isbundle_membership,@due_date,@is_freezed,@is_expired)";
+                  (@client_id,@bundle_id,@product_id,@purchase_date,@original_offre,@offre,@amount_paid,@balance,@session_left_days,@isbundle_membership,@start_date,@due_date,@is_freezed,@is_expired)";
 
             SQLiteCommand cmd = new SQLiteCommand(query, con);
 
@@ -189,7 +176,11 @@ namespace MKproject.Management
                     cmd.Parameters.AddWithValue("@session_left_days", NOSessionOrDays);
                     cmd.Parameters.AddWithValue("@is_freezed", false);
 
-                    DateTime duedate = DateTime.Now.AddDays((int)NOSessionOrDays);
+
+                    DateTime StartTime=DateTime.Now;
+                    cmd.Parameters.AddWithValue("@start_date", StartTime.ToString("yyyy-MM-dd"));
+
+                    DateTime duedate = StartTime.AddDays((int)NOSessionOrDays);
                     cmd.Parameters.AddWithValue("@due_date", duedate.ToString("yyyy-MM-dd"));
 
                     BundleType = ClassBundles.Days;
@@ -204,6 +195,7 @@ namespace MKproject.Management
                 {
 
                     cmd.Parameters.AddWithValue("@session_left_days", NOSessionOrDays);
+                    cmd.Parameters.AddWithValue("@start_date", DBNull.Value);
                     cmd.Parameters.AddWithValue("@due_date", DBNull.Value);
                     cmd.Parameters.AddWithValue("@is_freezed", DBNull.Value);
 
@@ -218,6 +210,7 @@ namespace MKproject.Management
                 else//solo
                 {
                     cmd.Parameters.AddWithValue("@session_left_days", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@start_date", DBNull.Value);
                     cmd.Parameters.AddWithValue("@due_date", DBNull.Value);
                     cmd.Parameters.AddWithValue("@is_freezed", DBNull.Value);
                     OriginalOffre = originalprice.ToString();
@@ -255,6 +248,7 @@ namespace MKproject.Management
                 cmd.Parameters.AddWithValue("@session_left_days", DBNull.Value);
                 cmd.Parameters.AddWithValue("@isbundle_membership", DBNull.Value);
                 cmd.Parameters.AddWithValue("@bundle_id", DBNull.Value);
+                cmd.Parameters.AddWithValue("@start_date", DBNull.Value);
                 cmd.Parameters.AddWithValue("@due_date", DBNull.Value);
                 cmd.Parameters.AddWithValue("@is_freezed", DBNull.Value);
             }
@@ -621,7 +615,17 @@ namespace MKproject.Management
             cmdUpdate.ExecuteNonQuery();
             con.Close();
         }
-
+        public static void UpdateStartDateDueDate(DateTime StartDate,DateTime EndDate,int ClientBalanceId)
+        {
+            string query = "UPDATE client_balance SET start_date=@start_date,due_date=@due_date WHERE client_balance_id=@client_balance_id ";
+            SQLiteCommand cmdUpdate = new SQLiteCommand(query, con);
+            cmdUpdate.Parameters.AddWithValue("@start_date", StartDate);
+            cmdUpdate.Parameters.AddWithValue("@due_date", EndDate);
+            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
+            con.Open();
+            cmdUpdate.ExecuteNonQuery();
+            con.Close();
+        }
         public static void DeleteClientBalance(int DesiredClientBalanceId)
         {
             //Eza ghayaret shi hone make sure tghayir also bel ClassClientCustom on delete client
@@ -671,19 +675,41 @@ namespace MKproject.Management
 
 
 
-        public static string SetPackageRemainingsFormat(DataRow dtrow)
+        public static string SetPackageRemainingsFormat(DataRow dtrow)//OUAAAA TGHAYIR L STRINGS< LIEANNO BASED SHUF BEL STRINGS BYAAMIL EL PAINT COLOR BEL SEARCHCURRENTCLIENT
         {
             string PackageRemainings = dtrow["Description"] + ": ";//Description = Bundle Name
             if (dtrow["due_date"] != DBNull.Value)
             {
                 if (Convert.ToBoolean(dtrow["is_freezed"]) == false)//only packgae of days not freezed
                 {
-                    int daysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, Convert.ToDateTime(dtrow["due_date"]));
+
+                    DateTime DesiredDate;
+                    DateTime StartDate = Convert.ToDateTime(dtrow["start_date"]);
+                  
+                    if (StartDate.Date <= DateTime.Now.Date)
+                    {
+                        DesiredDate = DateTime.Now;
+                    }
+                    else//start date akbar, pakcage ma naamalo activate yet
+                    {
+                        DesiredDate = StartDate.Date;
+                    }
+
+                    int daysLeft = RandomFunctions.GetDaysDifference(DesiredDate, Convert.ToDateTime(dtrow["due_date"]));
                     if (daysLeft < 0)
                     {
                         daysLeft = 0;
                     }
-                    PackageRemainings += daysLeft + " Days Left";//tene wahde - awwal wahde
+                   
+
+                    if (StartDate.Date <= DateTime.Now.Date)
+                    {
+                        PackageRemainings += daysLeft + " Days Left";//tene wahde - awwal wahde
+                    }
+                    else //start date akbar, pakcage ma naamalo activate yet
+                    {
+                        PackageRemainings += daysLeft+" Days (Starting From " + RandomFunctions.SetDateFormatWithDayWithoutHour(StartDate.ToString()) + ")";
+                    }
                 }
                 else//package days freezed
                 {
@@ -763,6 +789,7 @@ namespace MKproject.Management
             DesiredClientBalance.Balance = DesiredClientBlanaceRow["balance"] is DBNull ? null : Convert.ToDouble(DesiredClientBlanaceRow["balance"]);
             DesiredClientBalance.SessionLeftDays = DesiredClientBlanaceRow["session_left_days"] is DBNull ? null : Convert.ToInt32(DesiredClientBlanaceRow["session_left_days"]);
             DesiredClientBalance.IsBundleMembership = DesiredClientBlanaceRow["isbundle_membership"] is DBNull ? null : Convert.ToBoolean(DesiredClientBlanaceRow["isbundle_membership"]);
+            DesiredClientBalance.DueDate = DesiredClientBlanaceRow["start_date"] is DBNull ? null : Convert.ToDateTime(DesiredClientBlanaceRow["start_date"]);
             DesiredClientBalance.DueDate = DesiredClientBlanaceRow["due_date"] is DBNull ? null : Convert.ToDateTime(DesiredClientBlanaceRow["due_date"]);
             DesiredClientBalance.IsFreezed = DesiredClientBlanaceRow["is_freezed"] is DBNull ? null : Convert.ToBoolean(DesiredClientBlanaceRow["is_freezed"]);
             DesiredClientBalance.IsExpired = DesiredClientBlanaceRow["is_expired"] is DBNull ? null : Convert.ToBoolean(DesiredClientBlanaceRow["is_expired"]);
@@ -776,31 +803,7 @@ namespace MKproject.Management
 
 
         //View Model
-        //new function with sql
-        public static List<ClassClientBalance> GetClientBalanceListNotExpiredPackage(int? clientID)
-        {
-            List<ClassClientBalance> ClientBalanceList = new List<ClassClientBalance> { };
-
-            string query = @"Select	*                           
-                            from client_balance 
-                              where session_left_days is not null And is_expired='0' and c.bundle_id is not null and c.bundle_id=b.bundle_id ";
-
-            if (clientID != null)
-            {
-                query += " And client_id='" + (int)clientID + "'";
-            }
-            query += " Order by is_expired ASC , purchase_date DESC ";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
-            DataTable dtClientBalance = new DataTable();
-            sda.Fill(dtClientBalance);
-            foreach (DataRow dr in dtClientBalance.Rows)
-            {
-                ClientBalanceList.Add(CreateClientBalanceObject(Convert.ToInt32(dr["client_balance_id"])));
-            }
-            return ClientBalanceList;
-        }
-
+             
 
         public void SetStringDetailsIfBundle()
         {

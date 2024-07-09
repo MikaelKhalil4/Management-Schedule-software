@@ -22,13 +22,15 @@ namespace MKproject.Management
         public ClassClientCustom DesiredClient;
         private double initialbalance;
         private int OldSessionOrDaysNumber;
+        private DateTime OldStartDate;//used only for packge of days
+
         DateTime Date;//kermel datetime.now el kell yekheda
 
 
 
         UCSlideButton ucSlideButtonPayOrEdit;
         UCPayments UCPay;
-        UCNumberButt UCNOSession;
+        UCNumberButt UCNOSessionOrDays;
 
         Color ColorBackTExtbOxEditMode = Color.FromArgb(235, 235, 235);
 
@@ -116,7 +118,7 @@ namespace MKproject.Management
 
 
 
-      
+
 
         private void LoadForm()
         {
@@ -160,11 +162,13 @@ namespace MKproject.Management
 
             foreach (DataRow dr in OriginalDesiredClientBalanceRowsdt.Rows)
             {
-                if (dr["due_date"] != DBNull.Value)
+                if (dr["due_date"] != DBNull.Value && dr["start_date"] != DBNull.Value)
                 {
                     dataGridViewBalance.Columns["due_date"].Visible = true;
+                    dataGridViewBalance.Columns["start_date"].Visible = true;
                     break;
                 }
+
             }
 
             if (IsFromSchedule)
@@ -197,10 +201,18 @@ namespace MKproject.Management
             ucSlideButtonPayOrEdit.button1.Text = "Payment";
             ucSlideButtonPayOrEdit.button2.Text = "Edit";
         }
-       
-        
+
+        void RemoveTLPStartDate()
+        {
+            TLPForm.Controls.Remove(TLPStartDate);
+            TLPForm.SetRow(TLPEditInfo, 2);
+            TLPForm.SetRowSpan(TLPEditInfo, 1);
+        }
         private void SetDesignPaymentMode()
         {
+
+            RemoveTLPStartDate();
+
             if (SelectedClientBalanceRow != null)
             {
                 buttonUpdateOrPay.Text = "Pay";
@@ -222,15 +234,18 @@ namespace MKproject.Management
             UCBalance.Amount = Math.Abs(initialbalance);
             UCPay.Amount = UCBalance.Amount;
 
-            if (UCNOSession != null)
+            if (UCNOSessionOrDays != null)
             {
-                UCNOSession.Dispose();
-                UCNOSession = null;
+                UCNOSessionOrDays.Dispose();
+                UCNOSessionOrDays = null;
             }
 
         }
         void SetDesignEditMode(DataRow DesiredClientBalanceRow)
         {
+            RemoveTLPStartDate();
+
+
             buttonUpdateOrPay.Text = "Update";
             UCBalance.Amount = Math.Abs(initialbalance);
             UCBalance.EditModeOn = true;
@@ -244,13 +259,13 @@ namespace MKproject.Management
 
                 //UCSESSIOn
 
-                if (UCNOSession == null)
+                if (UCNOSessionOrDays == null)
                 {
-                    UCNOSession = new UCNumberButt();
-                    UCNOSession.Anchor = AnchorStyles.Top;
-                    UCNOSession.Margin = new Padding(0, 5, 0, 0);
-                    UCNOSession.textBoxValue.BackColor = ColorBackTExtbOxEditMode;
-                    TLPEditInfo.Controls.Add(UCNOSession, 0, 1);
+                    UCNOSessionOrDays = new UCNumberButt();
+                    UCNOSessionOrDays.Anchor = AnchorStyles.Top;
+                    UCNOSessionOrDays.Margin = new Padding(0, 5, 0, 0);
+                    UCNOSessionOrDays.textBoxValue.BackColor = ColorBackTExtbOxEditMode;
+                    TLPEditInfo.Controls.Add(UCNOSessionOrDays, 0, 1);
                 }
 
 
@@ -259,11 +274,22 @@ namespace MKproject.Management
                 if (DesiredClientBalanceRow["due_date"] == DBNull.Value)//package of sessions
                 {
                     OldSessionOrDaysNumber = Convert.ToInt32(DesiredClientBalanceRow["session_left_days"]);
-
                 }
                 else//package of days
                 {
-                    labelPaymentSession.Text = "Days Left";
+
+                    TLPForm.Controls.Add(TLPStartDate, 1, 1);
+                    TLPForm.SetRow(TLPEditInfo, 2);
+                    TLPForm.SetRowSpan(TLPEditInfo, 1);
+
+                    //DateTime Picker
+                    dateTimePickerStartDate.MinDate = Convert.ToDateTime(DesiredClientBalanceRow["purchase_date"]).Date;
+
+                    OldStartDate = Convert.ToDateTime(DesiredClientBalanceRow["start_date"]);
+                    dateTimePickerStartDate.Value = OldStartDate;
+
+
+
 
                     if (Convert.ToBoolean(DesiredClientBalanceRow["is_freezed"]))
                     {
@@ -271,20 +297,31 @@ namespace MKproject.Management
                     }
                     else
                     {
-                        OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DateTime.Now, Convert.ToDateTime(DesiredClientBalanceRow["due_date"]));//tene wahde- awwal wahde                
+                        DateTime DesiredDate;
+                        if (OldStartDate.Date <= DateTime.Now.Date)
+                        {
+                            DesiredDate = DateTime.Now;
+                            labelPaymentSession.Text = "Days Left";
+                        }
+                        else//start time akbar, pakcage ma naamalo activate yet
+                        {
+                            DesiredDate = OldStartDate.Date;
+                            labelPaymentSession.Text = "Number of days";
+                        }
+                        OldSessionOrDaysNumber = RandomFunctions.GetDaysDifference(DesiredDate, Convert.ToDateTime(DesiredClientBalanceRow["due_date"]));//tene wahde- awwal wahde                
                     }
                 }
 
                 if (OldSessionOrDaysNumber < 0)//SINCE HAYDE EL CALUE LI BET BAYYIN BEL update bel days w we know enno minimum bet kun 0 days , even law kenit negative men hott 0 as enno no days left
                 {
-                    UCNOSession.IsNegative = true;
+                    UCNOSessionOrDays.IsNegative = true;
                 }
                 else
                 {
-                    UCNOSession.IsNegative = false;
+                    UCNOSessionOrDays.IsNegative = false;
                 }
 
-                UCNOSession.Number = OldSessionOrDaysNumber;
+                UCNOSessionOrDays.Number = OldSessionOrDaysNumber;
 
 
             }
@@ -295,10 +332,10 @@ namespace MKproject.Management
 
                 TLPEditInfo.Visible = false;
                 UCPay.Visible = false;
-                if (UCNOSession != null)
+                if (UCNOSessionOrDays != null)
                 {
-                    UCNOSession.Dispose();
-                    UCNOSession = null;
+                    UCNOSessionOrDays.Dispose();
+                    UCNOSessionOrDays = null;
                 }
             }
 
@@ -354,7 +391,7 @@ namespace MKproject.Management
                     //SqlUpdate        
                     double ToBalance = Convert.ToDouble(UCBalance.Sign + UCBalance.Amount);
                     (double UpdatedBalance, string UpdatedOffre, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingBalanceOffre(DesiredClient.ClientId, SelectedClientBalanceRow, ToBalance, initialbalance, Date, true);
-                
+
                     //datagrid payment form
                     SelectedClientBalanceRow["balance"] = UpdatedBalance;
                     SelectedClientBalanceRow["offre"] = UpdatedOffre;
@@ -364,26 +401,29 @@ namespace MKproject.Management
                     {
                         ClientManagementProfileParentForm.UpdateBalance(SelectedClientBalanceRow, initialbalance);
                     }
-                   
+
                     CalculatingInitialBalance();//ejbare tahet PayBalance UpdateClientBalanceOnEditingBalanceOffre
 
                 }
-                if (SelectedClientBalanceRow["bundle_id"] != DBNull.Value && SelectedClientBalanceRow["session_left_days"] != DBNull.Value && OldSessionOrDaysNumber != UCNOSession.Number)//packages /ucnosession ma32oul tkun null bas ma mnusalla men wara awwal condition
+                if (SelectedClientBalanceRow["bundle_id"] != DBNull.Value && SelectedClientBalanceRow["session_left_days"] != DBNull.Value && OldSessionOrDaysNumber != UCNOSessionOrDays.Number)//packages /ucnosession ma32oul tkun null bas ma mnusalla men wara awwal condition
                 {
-                    (int UpdatedSessionLeftORNoDays, string newoffre, DateTime? NewDueDate, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingSessionOffre(DesiredClient.ClientId, SelectedClientBalanceRow, UCNOSession.Number, OldSessionOrDaysNumber, Date, true);
+
+
+                    (int UpdatedSessionLeftORNoDays, string newoffre, DateTime? NewDueDate, bool NewIsExpired) = ClassClientBalance.UpdateClientBalanceOnEditingSessionOffre(DesiredClient.ClientId, SelectedClientBalanceRow, UCNOSessionOrDays.Number, OldSessionOrDaysNumber, Date, true);
 
 
                     //design
                     //datatgrid Payment form
                     SelectedClientBalanceRow["offre"] = newoffre;
                     SelectedClientBalanceRow["is_expired"] = NewIsExpired;
+
                     if (NewDueDate == null)//session bundle
                     {
                         SelectedClientBalanceRow["session_left_days"] = UpdatedSessionLeftORNoDays;
                     }
                     else//days bundle
                     {
-                        SelectedClientBalanceRow["session_left_days"] = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)NewDueDate);//tene wahde - awwal wahde
+                        SelectedClientBalanceRow["session_left_days"] = UpdatedSessionLeftORNoDays;
                         SelectedClientBalanceRow["due_date"] = NewDueDate;
                     }
 
@@ -391,10 +431,49 @@ namespace MKproject.Management
                     {
                         ClientManagementProfileParentForm.UpdateSessionNumber(SelectedClientBalanceRow);
                     }
-                   
-                    OldSessionOrDaysNumber = UCNOSession.Number;//reset lal OldSessionNumber             
+
+                    OldSessionOrDaysNumber = UCNOSessionOrDays.Number;//reset lal OldSessionNumber             
 
                 }
+
+
+                DateTime NewStartDate = dateTimePickerStartDate.Value;
+                if (SelectedClientBalanceRow["bundle_id"] != DBNull.Value && SelectedClientBalanceRow["start_date"] != DBNull.Value && NewStartDate != OldStartDate.Date)//package of days
+                {
+                    DateTime NewDueDate;
+                    int TotalNOOfDays = Convert.ToInt32(SelectedClientBalanceRow["session_left_days"]);
+                    //if (NewStartDate <= DateTime.Now.Date)
+                    //{
+                    //     int DaysToBeReduce=RandomFunctions.GetDaysDifference(NewStartDate, DateTime.Now.Date);
+                    //     NewDueDate = NewStartDate.AddDays(TotalNOOfDays);
+                    //}
+                    //else//not activated
+                    //{
+                         NewDueDate = NewStartDate.AddDays(TotalNOOfDays);
+                    //}
+
+
+                    //sql
+                    ClassClientBalance.UpdateStartDateDueDate(NewStartDate, NewDueDate, Convert.ToInt32(SelectedClientBalanceRow["client_balance_id"]));
+
+
+
+                    //design
+
+                    //datagrid of this form
+                    SelectedClientBalanceRow["start_date"] = NewStartDate;
+                    SelectedClientBalanceRow["due_date"] = NewDueDate;
+
+                    //datagrid of cliemntmanagemnt form and uc
+                    if (ClientManagementProfileParentForm != null)
+                    {
+                        ClientManagementProfileParentForm.UpdateStartDate(SelectedClientBalanceRow);
+
+                    }
+                }
+
+
+
                 ucSlideButtonPayOrEdit.button1_Click(null, EventArgs.Empty);
 
             }
@@ -595,7 +674,7 @@ namespace MKproject.Management
 
 
         private void buttonCancel_Click(object sender, EventArgs e)
-        {         
+        {
             this.Close();
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -640,6 +719,21 @@ namespace MKproject.Management
 
         }
 
+       
 
+        private void dateTimePickerStartDate_CloseUp(object sender, EventArgs e)
+        {
+            label1.Select();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
     }
 }

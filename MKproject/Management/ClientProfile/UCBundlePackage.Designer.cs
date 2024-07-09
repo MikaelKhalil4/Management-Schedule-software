@@ -61,8 +61,8 @@
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6F));
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             TLPglobal.Size = new System.Drawing.Size(398, 232);
             TLPglobal.TabIndex = 0;
             // 
@@ -86,10 +86,10 @@
             labelSessiosOrDays.Dock = System.Windows.Forms.DockStyle.Fill;
             labelSessiosOrDays.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelSessiosOrDays.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            labelSessiosOrDays.Location = new System.Drawing.Point(4, 185);
+            labelSessiosOrDays.Location = new System.Drawing.Point(4, 174);
             labelSessiosOrDays.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelSessiosOrDays.Name = "labelSessiosOrDays";
-            labelSessiosOrDays.Size = new System.Drawing.Size(98, 47);
+            labelSessiosOrDays.Size = new System.Drawing.Size(98, 58);
             labelSessiosOrDays.TabIndex = 1;
             labelSessiosOrDays.Text = "Sessions Left:";
             labelSessiosOrDays.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -113,10 +113,10 @@
             labelSessiosOrDaysDetails.BackColor = System.Drawing.Color.Transparent;
             labelSessiosOrDaysDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             labelSessiosOrDaysDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelSessiosOrDaysDetails.Location = new System.Drawing.Point(110, 185);
+            labelSessiosOrDaysDetails.Location = new System.Drawing.Point(110, 174);
             labelSessiosOrDaysDetails.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelSessiosOrDaysDetails.Name = "labelSessiosOrDaysDetails";
-            labelSessiosOrDaysDetails.Size = new System.Drawing.Size(150, 47);
+            labelSessiosOrDaysDetails.Size = new System.Drawing.Size(150, 58);
             labelSessiosOrDaysDetails.TabIndex = 0;
             labelSessiosOrDaysDetails.Text = "3";
             labelSessiosOrDaysDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

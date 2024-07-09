@@ -425,7 +425,7 @@ namespace MKproject.Schedule
                     if (DesiredAppointmentUCClientApp.DesiredClient != null)
                     {
                         //Sql
-                        PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+                        PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackages(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
                         SetLabelbalanceDesign();
 
                         if (DesiredAppointmentUCClientApp.ChosenBundlesList == null)//in case ma kenet mnaea wala service
@@ -489,7 +489,7 @@ namespace MKproject.Schedule
             {
                 if (DesiredAppointmentUCClientApp.DesiredClient != null)//If Update, or eza kenit null bet kun add, fa ma bi sir shi
                 {
-                    PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+                    PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackages(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
                     OldPackageRemainingsDtDesiredClient = PackageRemainingsDt;
 
                     SetLabelbalanceDesign();
@@ -810,7 +810,7 @@ namespace MKproject.Schedule
                 if (DesiredAppointmentUCClientApp.IsPackageMode && DesiredAppointmentUCClientApp.DesiredClientBalance != null && (bool)DesiredAppointmentUCClientApp.DesiredClientBalance.IsExpired) //Expired Package 
                 {
                     //refresh lal maaloumet el cached  bas ma men ghayyir shi bel design
-                    PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackage(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
+                    PackageRemainingsDt = ClassClientBalance.GetClientBalanceNotExpiredPackages(DesiredAppointmentUCClientApp.DesiredClient.ClientId);
                     SetLabelbalanceDesign();
                 }
                 else

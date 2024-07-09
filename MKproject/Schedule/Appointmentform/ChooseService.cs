@@ -101,11 +101,13 @@ namespace MKproject.Schedule
         }
         public void CreateUCPackage(DataRow DesiredRow)
         {
-
-            UCBundlePackage bundlePackage = new UCBundlePackage(true, DesiredRow);
-            bundlePackage.UCMouseClick += BundlePackage_UCMouseClick; ;
-            bundlePackage.Margin = new Padding(ucSlideButton.Location.X + 25, 0, 0, 10);
-            FLPAvailablePackages.Controls.Add(bundlePackage);
+            if (DesiredRow["start_date"] == DBNull.Value || (DesiredRow["start_date"] != DBNull.Value && (Convert.ToDateTime(DesiredRow["start_date"])).Date <= DateTime.Now.Date))
+            {
+                UCBundlePackage bundlePackage = new UCBundlePackage(true, DesiredRow);
+                bundlePackage.UCMouseClick += BundlePackage_UCMouseClick; ;
+                bundlePackage.Margin = new Padding(ucSlideButton.Location.X + 25, 0, 0, 10);
+                FLPAvailablePackages.Controls.Add(bundlePackage);
+            }    
 
         }
 

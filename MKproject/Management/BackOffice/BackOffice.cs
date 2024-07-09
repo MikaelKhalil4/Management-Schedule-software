@@ -267,8 +267,9 @@ namespace MKproject.Management
                     dataGridViewBalance.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                     dataGridViewBalance.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;//kermel taamil stretch aa kell surface  horizontally
                     dataGridViewBalance.RowTemplate.MinimumHeight = 40; // Set minimum row height
-                    if (DesiredBalanceRowBinded["due_date"] != DBNull.Value)
+                    if (DesiredBalanceRowBinded["due_date"] != DBNull.Value && DesiredBalanceRowBinded["start_date"] != DBNull.Value)
                     {
+                        dataGridViewBalance.Columns["start_date"].Visible = true;
                         dataGridViewBalance.Columns["due_date"].Visible = true;
                     }
                     FormatBackOfficeOriginalDt();
@@ -948,7 +949,7 @@ namespace MKproject.Management
             }
             else
             {
-                this.ParentFormClientManagem.ResetUCMode(ClientBalanceID, NoOfSessions, null);
+                this.ParentFormClientManagem.ResetUCMode(ClientBalanceID, NoOfSessions,null, null);
             }
 
 

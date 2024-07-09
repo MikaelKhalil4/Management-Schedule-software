@@ -45,12 +45,16 @@ namespace MKproject.Management
             buttonUpdateOrPay = new System.Windows.Forms.Button();
             buttonCancel = new System.Windows.Forms.Button();
             buttonClearSelection = new System.Windows.Forms.Button();
+            TLPStartDate = new System.Windows.Forms.TableLayoutPanel();
+            dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
+            label1 = new System.Windows.Forms.Label();
             timer1 = new System.Windows.Forms.Timer(components);
             TLPForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBalance).BeginInit();
             TLPEditInfo.SuspendLayout();
             TLPBalance.SuspendLayout();
             panel1.SuspendLayout();
+            TLPStartDate.SuspendLayout();
             SuspendLayout();
             // 
             // TLPForm
@@ -59,20 +63,23 @@ namespace MKproject.Management
             TLPForm.ColumnCount = 2;
             TLPForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             TLPForm.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            TLPForm.Controls.Add(dataGridViewBalance, 0, 2);
-            TLPForm.Controls.Add(TLPEditInfo, 1, 1);
+            TLPForm.Controls.Add(dataGridViewBalance, 0, 3);
+            TLPForm.Controls.Add(TLPEditInfo, 1, 2);
             TLPForm.Controls.Add(TLPBalance, 0, 1);
-            TLPForm.Controls.Add(panel1, 0, 3);
+            TLPForm.Controls.Add(panel1, 0, 4);
+            TLPForm.Controls.Add(TLPStartDate, 1, 1);
             TLPForm.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPForm.Location = new System.Drawing.Point(0, 0);
             TLPForm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 4;
-            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.77778F));
-            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.95413F));
+            TLPForm.RowCount = 5;
+            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.3303242F));
+            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.375F));
+            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.2980766F));
+            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.0288467F));
             TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            TLPForm.Size = new System.Drawing.Size(747, 435);
+            TLPForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            TLPForm.Size = new System.Drawing.Size(747, 464);
             TLPForm.TabIndex = 5;
             // 
             // dataGridViewBalance
@@ -113,7 +120,7 @@ namespace MKproject.Management
             dataGridViewBalance.IsCustomScroll = true;
             dataGridViewBalance.IsRowColorChangeonMouseMove = true;
             dataGridViewBalance.IsSelectRow = true;
-            dataGridViewBalance.Location = new System.Drawing.Point(12, 213);
+            dataGridViewBalance.Location = new System.Drawing.Point(12, 237);
             dataGridViewBalance.Margin = new System.Windows.Forms.Padding(12, 0, 12, 3);
             dataGridViewBalance.Name = "dataGridViewBalance";
             dataGridViewBalance.ReadOnly = true;
@@ -125,23 +132,24 @@ namespace MKproject.Management
             dataGridViewBalance.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             dataGridViewBalance.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             dataGridViewBalance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            dataGridViewBalance.Size = new System.Drawing.Size(723, 171);
+            dataGridViewBalance.Size = new System.Drawing.Size(723, 176);
             dataGridViewBalance.TabIndex = 24;
             dataGridViewBalance.CellFormatting += dataGridViewBalance_CellFormatting;
             // 
             // TLPEditInfo
             // 
-            TLPEditInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            TLPEditInfo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             TLPEditInfo.BackColor = System.Drawing.Color.White;
             TLPEditInfo.ColumnCount = 1;
             TLPEditInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPEditInfo.Controls.Add(labelPaymentSession, 0, 0);
-            TLPEditInfo.Location = new System.Drawing.Point(414, 74);
+            TLPEditInfo.Location = new System.Drawing.Point(414, 86);
+            TLPEditInfo.Margin = new System.Windows.Forms.Padding(0);
             TLPEditInfo.Name = "TLPEditInfo";
             TLPEditInfo.RowCount = 2;
             TLPEditInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.57895F));
             TLPEditInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.42105F));
-            TLPEditInfo.Size = new System.Drawing.Size(291, 107);
+            TLPEditInfo.Size = new System.Drawing.Size(291, 106);
             TLPEditInfo.TabIndex = 23;
             // 
             // labelPaymentSession
@@ -165,12 +173,13 @@ namespace MKproject.Management
             TLPBalance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPBalance.Controls.Add(UCBalance, 0, 1);
             TLPBalance.Controls.Add(labelBalance, 0, 0);
-            TLPBalance.Location = new System.Drawing.Point(41, 74);
+            TLPBalance.Location = new System.Drawing.Point(41, 87);
             TLPBalance.Name = "TLPBalance";
             TLPBalance.RowCount = 2;
+            TLPForm.SetRowSpan(TLPBalance, 2);
             TLPBalance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.52632F));
             TLPBalance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 69.47369F));
-            TLPBalance.Size = new System.Drawing.Size(291, 107);
+            TLPBalance.Size = new System.Drawing.Size(291, 109);
             TLPBalance.TabIndex = 22;
             // 
             // UCBalance
@@ -179,11 +188,11 @@ namespace MKproject.Management
             UCBalance.BackColor = System.Drawing.Color.White;
             UCBalance.Dock = System.Windows.Forms.DockStyle.Fill;
             UCBalance.EditModeOn = false;
-            UCBalance.Location = new System.Drawing.Point(5, 35);
+            UCBalance.Location = new System.Drawing.Point(5, 36);
             UCBalance.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             UCBalance.Name = "UCBalance";
             UCBalance.Sign = "-";
-            UCBalance.Size = new System.Drawing.Size(281, 69);
+            UCBalance.Size = new System.Drawing.Size(281, 70);
             UCBalance.TabIndex = 1;
             // 
             // labelBalance
@@ -191,7 +200,7 @@ namespace MKproject.Management
             labelBalance.Anchor = System.Windows.Forms.AnchorStyles.None;
             labelBalance.AutoSize = true;
             labelBalance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelBalance.Location = new System.Drawing.Point(105, 3);
+            labelBalance.Location = new System.Drawing.Point(105, 4);
             labelBalance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelBalance.Name = "labelBalance";
             labelBalance.Size = new System.Drawing.Size(80, 25);
@@ -206,7 +215,7 @@ namespace MKproject.Management
             panel1.Controls.Add(buttonCancel);
             panel1.Controls.Add(buttonClearSelection);
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(3, 390);
+            panel1.Location = new System.Drawing.Point(3, 419);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(741, 42);
             panel1.TabIndex = 739;
@@ -268,6 +277,51 @@ namespace MKproject.Management
             buttonClearSelection.UseVisualStyleBackColor = false;
             buttonClearSelection.Click += buttonClearSelection_Click;
             // 
+            // TLPStartDate
+            // 
+            TLPStartDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            TLPStartDate.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
+            TLPStartDate.ColumnCount = 2;
+            TLPStartDate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.1786938F));
+            TLPStartDate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.8213043F));
+            TLPStartDate.Controls.Add(dateTimePickerStartDate, 1, 0);
+            TLPStartDate.Controls.Add(label1, 0, 0);
+            TLPStartDate.Location = new System.Drawing.Point(414, 50);
+            TLPStartDate.Name = "TLPStartDate";
+            TLPStartDate.RowCount = 1;
+            TLPStartDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPStartDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            TLPStartDate.Size = new System.Drawing.Size(291, 33);
+            TLPStartDate.TabIndex = 741;
+            // 
+            // dateTimePickerStartDate
+            // 
+            dateTimePickerStartDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            dateTimePickerStartDate.CalendarFont = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dateTimePickerStartDate.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
+            dateTimePickerStartDate.CalendarTitleForeColor = System.Drawing.Color.Red;
+            dateTimePickerStartDate.Cursor = System.Windows.Forms.Cursors.Hand;
+            dateTimePickerStartDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dateTimePickerStartDate.Location = new System.Drawing.Point(85, 5);
+            dateTimePickerStartDate.Name = "dateTimePickerStartDate";
+            dateTimePickerStartDate.Size = new System.Drawing.Size(203, 23);
+            dateTimePickerStartDate.TabIndex = 740;
+            dateTimePickerStartDate.Value = new System.DateTime(2023, 8, 24, 17, 10, 43, 0);
+            dateTimePickerStartDate.CloseUp += dateTimePickerStartDate_CloseUp;
+            // 
+            // label1
+            // 
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.Location = new System.Drawing.Point(4, 8);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(74, 17);
+            label1.TabIndex = 9;
+            label1.Text = "Start Date:";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // timer1
             // 
             timer1.Enabled = true;
@@ -278,7 +332,7 @@ namespace MKproject.Management
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(747, 435);
+            ClientSize = new System.Drawing.Size(747, 464);
             Controls.Add(TLPForm);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -297,6 +351,8 @@ namespace MKproject.Management
             TLPBalance.ResumeLayout(false);
             TLPBalance.PerformLayout();
             panel1.ResumeLayout(false);
+            TLPStartDate.ResumeLayout(false);
+            TLPStartDate.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -314,5 +370,8 @@ namespace MKproject.Management
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonClearSelection;
+        private System.Windows.Forms.TableLayoutPanel TLPStartDate;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
     }
 }

@@ -61,16 +61,16 @@ namespace MKproject.Management
         //!!! eza fi shi matrah aam thattello fi events make sure terjaa tshilun cz this form eza cas=ches, yaane el events ha yeb2o sincce ma aam yenaamalo close
         public ClientManagementProfile(ClassClientCustom client, bool isFromSchedule)//new register
         {
-            InitializeComponent();                       
+            InitializeComponent();
             LoadImages();
-          
+
             classClientCustomFront = new ClassClientCustomFront();
             classClientCustomFront.ExtentionClientManagementProfile = this;//ejabre foe LoadData
 
             LoadData(client, isFromSchedule);
             dataGridViewBalance.ApplyStyle1();
 
-           
+
         }
 
 
@@ -97,7 +97,7 @@ namespace MKproject.Management
             Client = client;
             IsFromSchedule = isFromSchedule;
 
-         
+
 
             IsClientDeleted = false;
             ParentIdInProfile = null;
@@ -315,7 +315,7 @@ namespace MKproject.Management
             //SQL
             if (UpdateMode)//lieanno fi matarih men kun aam naamil update la sql men gher matrah
             {
-                UpdateClientTotalBalanceSQL(Client.ClientId, TotalBalanceAmount,true);//hayde kermel el table el client el asesie
+                UpdateClientTotalBalanceSQL(Client.ClientId, TotalBalanceAmount, true);//hayde kermel el table el client el asesie
 
             }
 
@@ -364,7 +364,7 @@ namespace MKproject.Management
 
 
         public bool CreateDesiredUCLabelDetails(ref UCLabelAndDetail DesiredUC, string type, string detail, bool isVisible, int DesignIndex)//the details will be send formated
-        {         
+        {
             bool NewUCCreated = false;
             if (isVisible)
             {
@@ -463,7 +463,7 @@ namespace MKproject.Management
 
 
             //seocndary info
-         
+
 
 
             bool NewUCCreated = false;
@@ -499,7 +499,7 @@ namespace MKproject.Management
                 }
                 else if (FieldName == enumStaticFields.PhoneNumber.ToString())
                 {
-                   
+
                     NewUCCreated = CreateDesiredUCLabelDetails(ref UCPhoneNumber, enumStaticFields.PhoneNumber.GetStringValue(), Client.PhoneNumber, isVisible, (int)enumStaticFields.PhoneNumber);
                 }
                 else if (FieldName == enumStaticFields.Gender.ToString())
@@ -531,7 +531,7 @@ namespace MKproject.Management
                 {
                     NewUCCreated = CreateDesiredUCLabelDetails(ref UCEmail, enumStaticFields.Email.GetStringValue(), Client.Email, isVisible, (int)enumStaticFields.Email);
                 }
-             
+
                 else if (FieldName == enumStaticFields.Note.ToString())
                 {
                     NewUCCreated = CreateDesiredUCLabelDetails(ref UCNote, enumStaticFields.Note.GetStringValue(), Client.Note, isVisible, (int)enumStaticFields.Note);
@@ -549,7 +549,7 @@ namespace MKproject.Management
 
                 classClientCustomFront.UpdateOrCreateUCLabelAndDetail(ref NewUCCreated, FieldName, Client, isVisible);
 
-                
+
 
             }
 
@@ -648,7 +648,7 @@ namespace MKproject.Management
                 }
             }
             return false;
-        }   
+        }
         //used only awwal ma nekhlae el form
         public void InitialSetBundleMode()
         {
@@ -781,17 +781,29 @@ namespace MKproject.Management
                 }
             }
         }
-        public void ResetUCMode(int BundelID, int SessionNumber, DateTime? NewDueDate)
+        public void ResetUCMode(int BundelID, int? SessionNumber, DateTime? NewStartTime, DateTime? NewDueDate)
         {
             foreach (UCBundlePackage uc in panelBundles.Controls)
             {
                 if (uc.DesiredClientBalanceId == BundelID)
                 {
-                    uc.SessionDaysLeft = SessionNumber;
-                    if (NewDueDate != null)//days mode
+                    if (SessionNumber != null)
+                    {
+                        uc.SessionDaysLeft = (int)SessionNumber;
+
+                    }
+
+
+                    if (NewDueDate != null)
                     {
                         uc.DueDate = NewDueDate;
                     }
+                    if (NewStartTime != null)
+                    {
+                        uc.StartDate = NewStartTime;
+                        uc.SetModeOfDaysBundle();//Make Sure tkun tahe el due date w el starrt date
+                    }
+
                 }
             }
         }
@@ -813,7 +825,7 @@ namespace MKproject.Management
 
 
 
-      
+
 
 
 
@@ -828,10 +840,10 @@ namespace MKproject.Management
                 if (dataGridViewBalance.Columns[e.ColumnIndex].Name == "PayOrEdit" && dataGridViewBalance.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == PayOrEditImagePopUp)
                 {
 
-                 
+
                     Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
-                    Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
+                    Payment payment = new Payment(Client, RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
                     payment.ClientManagementProfileParentForm = this;
                     payment.ShowDialog();
 
@@ -888,7 +900,7 @@ namespace MKproject.Management
         {
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
-            Payment payment = new Payment(Client,RetrievingSpecificRowsInDt(true, null), this, false);
+            Payment payment = new Payment(Client, RetrievingSpecificRowsInDt(true, null), this, false);
             payment.ClientManagementProfileParentForm = this;
             payment.ShowDialog();
 
@@ -1008,7 +1020,7 @@ namespace MKproject.Management
                 panelSecondaryInfo.Controls.Remove(TLPLinked);
             }
         }
-     
+
         private void IconViewOrProfile_Click(object sender, EventArgs e)
         {
             if (Client.IsParent == true)
@@ -1024,7 +1036,7 @@ namespace MKproject.Management
             {
                 if (!IsFromSchedule)
                 {
-                    SearchCurrentClient searchform =(SearchCurrentClient)Program.HomeForm.menu.ActivatedForm;
+                    SearchCurrentClient searchform = (SearchCurrentClient)Program.HomeForm.menu.ActivatedForm;
                     Program.HomeForm.buttonBackHome_Click(null, EventArgs.Empty);//ejbare  abel FocusOnADesiredRow,lieanno inside of it aam yenaamal reset lal datatable, go check
                     searchform.FocusOnADesiredRow((int)ParentIdInProfile);//we have only one trade off, lamma naamil add parent w nerjaa aamil navigation la barra ta nabish aales, li ha ysir, bel back ha yaamil refresh la sql w yaamil filter yerjaa,w yerjaa hone ynabbish aales, eza ma le2e ha yshil el filet  wyerjaa ynabbish aale
                 }
@@ -1088,7 +1100,7 @@ namespace MKproject.Management
 
 
 
-        
+
 
 
 
@@ -1099,7 +1111,7 @@ namespace MKproject.Management
 
             //can implement try catch
             int ClientBalanceID = Convert.ToInt32(DesiredClientBlanaceRow["client_balance_id"]);
-       
+
             DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);//fiya el old informatiomn
             bool OldIsExpired = Convert.ToBoolean(rowToEdit["is_expired"]);
 
@@ -1141,15 +1153,15 @@ namespace MKproject.Management
             FormatDatagridviewDesign();
             dataGridViewBalance.FirstDisplayedScrollingRowIndex = 0;
             CalculatingTotalBalancesDesignAndSql(true);
-          
+
 
         }//try catch
          //if date is null yaane undo men back office, eza lae yaane paymen, //w el ref bas ela aaze bel backoffice
-        public void UpdateSessionNumber(DataRow DesiredClientBlanaceRow )
+        public void UpdateSessionNumber(DataRow DesiredClientBlanaceRow)
         {
             //ready for try catch
             int ClientBalanceID = Convert.ToInt32(DesiredClientBlanaceRow["client_balance_id"]);
-         
+
             DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);//fiya el old informatiomn
             bool OldIsExpired = Convert.ToBoolean(rowToEdit["is_expired"]);
 
@@ -1176,11 +1188,25 @@ namespace MKproject.Management
 
                 if (rowToEdit["due_date"] == DBNull.Value)// package of session
                 {
-                    ResetUCMode(ClientBalanceID, Convert.ToInt32(rowToEdit["session_left_days"]), null);
+                    ResetUCMode(ClientBalanceID, Convert.ToInt32(rowToEdit["session_left_days"]), null, null);
                 }
                 else// package of days
                 {
-                    ResetUCMode(ClientBalanceID, Convert.ToInt32(rowToEdit["session_left_days"]), Convert.ToDateTime(rowToEdit["due_date"]));
+                    DateTime DesiredDate;
+                    DateTime StartDate = Convert.ToDateTime(rowToEdit["start_date"]);
+                    if (StartDate.Date <= DateTime.Now.Date)
+                    {
+                        DesiredDate = DateTime.Now;
+                    }
+                    else//start time akbar, pakcage ma naamalo activate yet
+                    {
+                        DesiredDate = StartDate.Date;
+                    }
+
+                    DateTime NewDueDate = Convert.ToDateTime(rowToEdit["due_date"]);
+                    int DaysLeft = RandomFunctions.GetDaysDifference(DesiredDate, (DateTime)NewDueDate);//only in this case session_left_days will be kaeano days 
+
+                    ResetUCMode(ClientBalanceID, DaysLeft, null, NewDueDate);
                 }
             }
 
@@ -1190,7 +1216,22 @@ namespace MKproject.Management
             //
 
         }//try catch
+        public void UpdateStartDate(DataRow DesiredClientBlanaceRow)
+        {
+            //ready for try catch
+            int ClientBalanceID = Convert.ToInt32(DesiredClientBlanaceRow["client_balance_id"]);
+            DateTime NewStartDate = Convert.ToDateTime(DesiredClientBlanaceRow["start_date"]);
+            DateTime NewDueDate = Convert.ToDateTime(DesiredClientBlanaceRow["due_date"]);
 
+
+            DataRow rowToEdit = dtClientBalanceOriginal.Rows.Find(ClientBalanceID);//fiya el old informatiomn
+            rowToEdit["start_date"] = NewStartDate;
+            rowToEdit["due_date"] = NewDueDate;
+
+
+            ResetUCMode(ClientBalanceID, null, NewStartDate, NewDueDate);
+
+        }
 
 
         //desired row is in case of editing one row
@@ -1474,7 +1515,7 @@ namespace MKproject.Management
 
 
 
-     
+
 
 
 

@@ -2,8 +2,10 @@
 using GlobalFunctions;
 using MKproject.Schedule;
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 
 
@@ -89,12 +91,30 @@ namespace MKproject.Management
         }
 
 
+        bool IsStartDayHigherThenNow;
+        private DateTime? startTime;
+        public DateTime? StartDate
+        {
+            get { return startTime; }
+            set
+            {
+                startTime = value;
+                if (labelStartDate != null)
+                {
+                    labelStartDateDetails.Text = RandomFunctions.SetDateFormatWithDayWithoutHour(startTime.ToString());
+                }
+            }
+        }
+
+
+
         private DateTime? dueDate;
         public DateTime? DueDate
         {
             get { return dueDate; }
             set
             {
+
                 dueDate = value;
                 if (labelDueDateDetails != null)
                 {
@@ -245,8 +265,14 @@ namespace MKproject.Management
             }
         }
 
+
+        Label labelStartDate;
+        Label labelStartDateDetails;
+
         Label labelDueDate;
         Label labelDueDateDetails;
+
+
         bool IsFromSchedule;
         public DataRow DesiredRow;//this row, huwwe men el table client balance, and it s going to be used bel sechdule
         public UCBundlePackage(bool isFromSchedule, DataRow DesiredRow)
@@ -263,7 +289,7 @@ namespace MKproject.Management
                 CreateBalanceLabels();
                 this.Padding = new Padding(0);
                 TLPglobal.ColumnCount -= 1;
-              
+
 
                 TLPglobal.RowStyles[1].Height = 0;//ID ma badna yeha
                 TLPglobal.RowStyles[2].Height = 30;
@@ -304,9 +330,9 @@ namespace MKproject.Management
         void CreateButtons()
         {
             buttonReduceSession = new CustomButton();
-            buttonReduceSession.Text ="Reduce";
+            buttonReduceSession.Text = "Reduce";
             buttonReduceSession.Size = new Size(122, 34);
-            buttonReduceSession.Margin = new Padding(0,0,5,0);
+            buttonReduceSession.Margin = new Padding(0, 0, 5, 0);
             buttonReduceSession.BackAndMouseHoverColor = Color.FromArgb(109, 122, 224);
             buttonReduceSession.Anchor = AnchorStyles.None;
             buttonReduceSession.Click += ButtonReduceSession_Click;
@@ -326,8 +352,8 @@ namespace MKproject.Management
             buttonRemove.Size = new Size(122, 34);
             buttonRemove.Margin = new Padding(0, 0, 5, 0);
             buttonRemove.BackAndMouseHoverColor = Color.Red;
-            buttonRemove.FlatAppearance.MouseOverBackColor= Color.FromArgb(255 - 30, 0, 0);
-           buttonRemove.FlatAppearance.MouseDownBackColor= Color.FromArgb(255 - 90, 0, 0);
+            buttonRemove.FlatAppearance.MouseOverBackColor = Color.FromArgb(255 - 30, 0, 0);
+            buttonRemove.FlatAppearance.MouseDownBackColor = Color.FromArgb(255 - 90, 0, 0);
             buttonRemove.Anchor = AnchorStyles.None;
             buttonRemove.Click += ButtonRemove_Click;
             buttonRemove.MouseMove += Control_MouseMove;
@@ -343,19 +369,76 @@ namespace MKproject.Management
             buttonRenew.MouseLeave += Control_MouseLeave;
         }
 
+
+        public void SetModeOfDaysBundle()
+        {
+
+
+            if (((DateTime)StartDate).Date <= DateTime.Now.Date)
+            {
+
+                this.SessionDaysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, (DateTime)DueDate);//tene wahde - awwal wahde
+
+                if (buttonFreeze != null)
+                {
+                    buttonFreeze.Visible = true;
+                }
+
+                //TLPglobal.Controls.Add(labelSessiosOrDays, 0, 4);
+                //TLPglobal.Controls.Add(labelSessiosOrDaysDetails, 1, 4);
+
+                labelSessiosOrDays.Text = "Days Left";
+                labelSessiosOrDaysDetails.Text = Convert.ToString(SessionDaysLeft) ;
+
+                TLPglobal.Controls.Remove(labelStartDate);
+                TLPglobal.Controls.Remove(labelStartDateDetails);
+
+                TLPglobal.Controls.Add(labelDueDate, 0,3);
+                TLPglobal.Controls.Add(labelDueDateDetails, 1,3);
+               
+            }
+            else//start time akbar, pakcage ma naamalo activate yet
+            {
+                IsFreezingMode = false;
+                ActiveModeOn();
+
+                if (buttonFreeze != null)
+                {
+                    buttonFreeze.Visible = false;
+                }
+
+                //TLPglobal.Controls.Remove(labelSessiosOrDays);
+                //TLPglobal.Controls.Remove(labelSessiosOrDaysDetails);
+                labelSessiosOrDays.Text = "Num of Days";
+                labelSessiosOrDaysDetails.Text = RandomFunctions.GetDaysDifference((DateTime)StartDate, (DateTime)DueDate).ToString();
+
+                TLPglobal.Controls.Remove(labelDueDate);
+                TLPglobal.Controls.Remove(labelDueDateDetails);
+
+
+
+                TLPglobal.Controls.Add(labelStartDate, 0, 3);
+                TLPglobal.Controls.Add(labelStartDateDetails, 1, 3);
+
+            }
+
+
+        }
         public void CreateUCPackage(DataRow dr)
         {
             DesiredRow = dr;
             this.BundleId = Convert.ToInt32(dr["bundle_id"]);
             this.DesiredClientBalanceId = Convert.ToInt32(dr["client_balance_id"]);
 
-            
+
             this.BundleDescription = dr["Description"].ToString();//Decription = bundle Name
 
 
             if (dr["due_date"] != DBNull.Value && dr["is_freezed"] != DBNull.Value)
             {
                 this.BundleType = ClassBundles.enumBundle.Days;
+
+                this.StartDate = Convert.ToDateTime(dr["start_date"]);
                 this.DueDate = Convert.ToDateTime(dr["due_date"]);
 
                 if (Convert.ToBoolean(dr["is_freezed"]) == true)
@@ -366,7 +449,8 @@ namespace MKproject.Management
                 else
                 {
                     this.IsFreezingMode = false;
-                    this.SessionDaysLeft = RandomFunctions.GetDaysDifference(DateTime.Now, Convert.ToDateTime(dr["due_date"]));//tene wahde - awwal wahde
+
+                    SetModeOfDaysBundle();
                 }
                 //hay ejbare tahta cz el desactivate mode eenda priority abel el freezing mode
 
@@ -374,6 +458,7 @@ namespace MKproject.Management
             else
             {
                 this.BundleType = ClassBundles.enumBundle.Sessions;
+                this.StartDate = null;
                 this.DueDate = null;
                 this.SessionDaysLeft = Convert.ToInt32(dr["session_left_days"]);
             }
@@ -395,7 +480,7 @@ namespace MKproject.Management
             else
             {
 
-                string balance = dr["balance"].ToString();           
+                string balance = dr["balance"].ToString();
                 if (balance.Contains("-"))
                 {
                     labelBalanceDetails.ForeColor = Color.Red;
@@ -406,35 +491,60 @@ namespace MKproject.Management
                     labelBalanceDetails.ForeColor = Color.Black;
                     this.IsInDebt = false;
                 }
-                labelBalanceDetails.Text = Program.SetBalanceFormat(balance); 
+                labelBalanceDetails.Text = Program.SetBalanceFormat(balance);
 
             }
 
 
+            //hattaynehunn hone lieannun dynamic
+            if (labelStartDate != null)
+            {
+                labelStartDate.MouseClick += Control_MouseClick;
+                labelStartDate.MouseMove += Control_MouseMove;
+                labelStartDate.MouseLeave += Control_MouseLeave;
 
-          
+                labelStartDateDetails.MouseClick += Control_MouseClick;
+                labelStartDateDetails.MouseMove += Control_MouseMove;
+                labelStartDateDetails.MouseLeave += Control_MouseLeave;
+
+            }
+
+
+            labelSessiosOrDays.MouseClick += Control_MouseClick;
+            labelSessiosOrDays.MouseMove += Control_MouseMove;
+            labelSessiosOrDays.MouseLeave += Control_MouseLeave;
+
+            labelSessiosOrDaysDetails.MouseClick += Control_MouseClick;
+            labelSessiosOrDaysDetails.MouseMove += Control_MouseMove;
+            labelSessiosOrDaysDetails.MouseLeave += Control_MouseLeave;
+
+
             TLPglobal.MouseLeave += Control_MouseLeave;
-            TLPglobal.MouseMove += Control_MouseMove;      
-             TLPglobal.MouseClick += Control_MouseClick;
+            TLPglobal.MouseMove += Control_MouseMove;
+            TLPglobal.MouseClick += Control_MouseClick;
+
+
             if (IsFromSchedule)
-            {        
-                TLPglobal.Cursor = Cursors.Hand;         
+            {
+                TLPglobal.Cursor = Cursors.Hand;
             }
             foreach (Control control in TLPglobal.Controls)
             {
-                if (!(control is CustomButton))
+                if (control != labelStartDate && control != labelStartDateDetails && control != labelSessiosOrDays && control != labelSessiosOrDaysDetails)
                 {
-                    control.MouseClick += Control_MouseClick;
-                }
+                    if (!(control is CustomButton))
+                    {
+                        control.MouseClick += Control_MouseClick;
+                    }
 
-                control.MouseMove += Control_MouseMove;
-                control.MouseLeave += Control_MouseLeave;
-                if (IsFromSchedule)
-                {
-                  
-                    control.Cursor = Cursors.Hand;
-                }
+                    control.MouseMove += Control_MouseMove;
+                    control.MouseLeave += Control_MouseLeave;
+                    if (IsFromSchedule)
+                    {
 
+                        control.Cursor = Cursors.Hand;
+                    }
+                }
             }
 
         }
@@ -458,10 +568,31 @@ namespace MKproject.Management
 
         public void BundleDaysMode()
         {
+            if (labelStartDate == null && labelStartDateDetails == null)
+            {
+                // Create first label
+                labelStartDate = new Label();
+                labelStartDate.Font = new Font("Segoe UI Semibold", 12f, FontStyle.Bold);
+                labelStartDate.ForeColor = Color.FromArgb(64, 64, 64);
+                labelStartDate.TextAlign = ContentAlignment.MiddleLeft;
+                labelStartDate.Text = "Start Date:";
+                labelStartDate.BackColor = Color.Transparent;
+                labelStartDate.Dock = DockStyle.Fill;
+
+                // Create second label
+                labelStartDateDetails = new Label();
+                labelStartDateDetails.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
+                labelStartDateDetails.ForeColor = Color.Black;
+                labelStartDateDetails.TextAlign = ContentAlignment.MiddleLeft;
+                labelStartDateDetails.BackColor = Color.Transparent;
+                labelStartDateDetails.Dock = DockStyle.Fill;
+            }
 
             if (labelDueDate == null && labelDueDateDetails == null)
             {
-                // Create first label
+
+
+
                 labelDueDate = new Label();
                 labelDueDate.Font = new Font("Segoe UI Semibold", 12f, FontStyle.Bold);
                 labelDueDate.ForeColor = Color.FromArgb(64, 64, 64);
@@ -498,7 +629,9 @@ namespace MKproject.Management
                 }
             }
 
+
             labelSessiosOrDays.Text = "Days Left:";
+
 
             if (!IsFromSchedule)
             {
@@ -692,7 +825,7 @@ namespace MKproject.Management
             ClassAppointment.SwapClientBalanceIdOnRenewPackage(DesiredClientBalanceId, Convert.ToInt32(InsertedRow["client_balance_id"]));
 
 
-            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, Program.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null,null, null, null, DateTime.Now);
+            ClassBackOffice backOffice = new ClassBackOffice(ParentFormClientMan.Client.ClientId, ActionsEnum.Purchases, Program.Employee.EmployeeId, Convert.ToInt32(InsertedRow["client_balance_id"]), null, null, null, null, null, DateTime.Now);
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
@@ -724,6 +857,7 @@ namespace MKproject.Management
             if (NewRow["due_date"] != DBNull.Value)
             {
                 BundleType = ClassBundles.enumBundle.Days;
+                StartDate = Convert.ToDateTime(NewRow["start_date"]);
                 DueDate = Convert.ToDateTime(NewRow["due_date"]);
                 isFreezingMode = false;
 
@@ -769,7 +903,7 @@ namespace MKproject.Management
 
                             ReduceSession();
                         }
-                       
+
                     }
                     else
                     {
@@ -788,13 +922,13 @@ namespace MKproject.Management
         {
             //Sql update
             DateTime date = DateTime.Now;
-            bool IfLastVisitDateChanged= ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1,null, date, date);
+            bool IfLastVisitDateChanged = ClassClientBalance.ReduceSessionFromPackageOfSessions(ParentFormClientMan.Client.ClientId, DesiredClientBalanceId, SessionDaysLeft - 1, null, date, date);
 
             //design
             SessionDaysLeft--;
             DataRow rowToEdit = ParentFormClientMan.dtClientBalanceOriginal.Rows.Find(DesiredClientBalanceId);
             rowToEdit["session_left_days"] = sessionOrDaysLeft;
-          
+
             if (IfLastVisitDateChanged)
             {
                 ParentFormClientMan.UCLastVisit.Detail = RandomFunctions.SetDateFormat(date.ToString());
@@ -841,12 +975,12 @@ namespace MKproject.Management
             double EntetityAmount = (double)foundRow["balance"];
 
 
-            Payment payment = new Payment(ParentFormClientMan.Client, ParentFormClientMan.RetrievingSpecificRowsInDt(false, DesiredClientBalanceId), ParentFormClientMan,false);
+            Payment payment = new Payment(ParentFormClientMan.Client, ParentFormClientMan.RetrievingSpecificRowsInDt(false, DesiredClientBalanceId), ParentFormClientMan, false);
             payment.ClientManagementProfileParentForm = this.ParentFormClientMan;
             payment.Show();
         }
 
-      
+
 
     }
 }
