@@ -25,6 +25,8 @@ namespace MKproject
 {
     internal static class Program
     {
+
+
         public static bool IsANewParentAddedOrParentPhoneUpdated;//this variable is used kermel lamma nerjaa aal search(nekbus back men el management), naamil restore men el datatbase 
                                                                  //in 2 cases:1) Lamma naamil add la new parent men el new register,2) lamma naamil update la phone number tabaa parent eendo chiddrens
 
@@ -95,15 +97,11 @@ namespace MKproject
             Application.ThreadException += new ThreadExceptionEventHandler(GlobalExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
 
-            Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
-            // Capture all logs at or above the Debug level
-            .WriteTo.Console()
-            // Optionally, write logs to the console
-            .WriteTo.File(path: AppPaths.DirectoryPath + "\\FoxLogFile.txt", rollingInterval: RollingInterval.Infinite,
-            // Log files roll daily
-            retainedFileCountLimit: null
-            // Optional: Set to null to keep all log files indefinitely
-            ).CreateLogger();
+
+
+            Log.Logger = new LoggerConfiguration()
+                            .ReadFrom.Configuration(AppConfig.Configuration)
+                            .CreateLogger();
 
 
 
@@ -173,21 +171,22 @@ namespace MKproject
         public static (UpdateManager, UpdateInfo) IsUpdateExist()
         {
            
-            try
-            {
+
+            //try
+            //{
                 UpdateManager mgr = new UpdateManager(AppConfig.GetURL() + AppConfig.GetBucketName());
 
                 UpdateInfo newVersion = mgr.CheckForUpdates(); // check for new version
 
 
                 return (mgr, newVersion);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
 
-                return (null, null);
-            }
+            //    return (null, null);
+            //}
 
         }
         public static void UpdateMyApp(UpdateManager mgr,UpdateInfo newVersion)
