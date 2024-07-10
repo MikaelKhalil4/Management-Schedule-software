@@ -210,8 +210,10 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AWSSDK.S3" Version="3.7.309.7" />
+		<PackageReference Include="Azure.Identity" Version="1.12.0" />
 		<PackageReference Include="HIC.System.Windows.Forms.DataVisualization" Version="1.0.1" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Obfuscar" Version="2.2.38">

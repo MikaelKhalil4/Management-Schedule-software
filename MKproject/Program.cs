@@ -111,15 +111,14 @@ namespace MKproject
             if (newVersion!=null)
             {
                 NewUpdate updt = new NewUpdate();
-                updt.Show();
+
+                updt.Shown += async (s, e) => await UpdateMyApp(mgr, newVersion);
+
                 Application.Run(updt);
 
-
-                UpdateMyApp(mgr, newVersion);
             }
             else
             {
-              
 
                 if (!ClassEmployee.CheckIfOwnerExist())
                 {
@@ -170,26 +169,26 @@ namespace MKproject
 
         public static (UpdateManager, UpdateInfo) IsUpdateExist()
         {
-           
 
-            //try
-            //{
+
+            try
+            {
                 UpdateManager mgr = new UpdateManager(AppConfig.GetURL() + AppConfig.GetBucketName());
 
                 UpdateInfo newVersion = mgr.CheckForUpdates(); // check for new version
 
 
                 return (mgr, newVersion);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
 
-            //    return (null, null);
-            //}
+                return (null, null);
+            }
 
         }
-        public static void UpdateMyApp(UpdateManager mgr,UpdateInfo newVersion)
+        public static async Task UpdateMyApp(UpdateManager mgr,UpdateInfo newVersion)
         {
 
             try
