@@ -34,7 +34,7 @@ namespace MKproject
 
         public static string GetBucketName()
         {
-            return Configuration[" "]; // Consider what to return if "bucketname" is not found.
+            return Configuration[""]; // Consider what to return if "bucketname" is not found.
         }
         public static string GetURL()
         {
