@@ -251,7 +251,7 @@ namespace MKproject
                         {
                             ProjectToSQL.UpdateClientField(ClientId, fieldId, propertyValue.ToString());
                         }
-                    }                
+                    }
                 }
             }
 
@@ -403,7 +403,7 @@ namespace MKproject
             {
                 if (!FieldExistsInDataTable(dtRegistrationFields, field.ToString()))
                 {
-                    ProjectToSQL. InsertField(field.ToString(), true, false, true);
+                    ProjectToSQL.InsertField(field.ToString(), true, false, true);
                 }
             }
             // Insert enumDynamicFields
@@ -414,7 +414,7 @@ namespace MKproject
                     ProjectToSQL.InsertField(field.ToString(), true, false, false);
                 }
             }
-      
+
         }
         private static bool FieldExistsInDataTable(DataTable dataTable, string fieldName)
         {
@@ -427,7 +427,10 @@ namespace MKproject
             }
             return false;
         }
-      
 
+        public static void DBExtention(ref string query)
+        {
+
+        }
     }
 }
