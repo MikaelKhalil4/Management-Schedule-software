@@ -111,8 +111,8 @@ namespace MKproject
             if (newVersion!=null)
             {
                 NewUpdate updt = new NewUpdate();
-
-                updt.Shown += async (s, e) => await UpdateMyApp(mgr, newVersion);
+                updt.Show();
+                UpdateMyApp(mgr, newVersion);
 
                 Application.Run(updt);
 

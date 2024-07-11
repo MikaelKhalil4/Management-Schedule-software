@@ -234,14 +234,14 @@ namespace MKproject
         public static void DBExtention(ref string query)
         {
             query += @"  
-                        CREATE TABLE IF NOT EXISTS ""client_auth"" (
-	                    ""auth_token""	TEXT NOT NULL UNIQUE,
-	                    ""client_id""	INTEGER NOT NULL,
-	                    ""is_used""	INTEGER NOT NULL,
-	                    ""is_main_device""	INTEGER NOT NULL,
-	                    PRIMARY KEY(""auth_token""),
-	                    FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id"") ON UPDATE RESTRICT ON DELETE RESTRICT
-                    );";
+                     CREATE TABLE ""client_ticket"" (
+	                ""ticket_id""	TEXT NOT NULL UNIQUE,
+	                ""client_id""	INTEGER,
+	                ""is_used""	INTEGER,
+	                ""is_main_device""	INTEGER,
+	                PRIMARY KEY(""ticket_id""),
+	                FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id"") ON UPDATE RESTRICT ON DELETE RESTRICT
+                );";
         }
 
     }
