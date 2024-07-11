@@ -48,6 +48,20 @@ namespace MKproject.Schedule
                     linkLabelName.Enabled = true;
                     linkLabelName.Text = desiredreminder.DesiredClient.Fname + " " + desiredreminder.DesiredClient.Lname;
                 }
+
+                if (desiredreminder.PartsRepeat[0] == Reminder.NoRepeat)
+                {
+                    LabelReminderType.Text = desiredreminder.StartTime.ToString("ddd");
+                }
+                else if (desiredreminder.PartsRepeat[0] == Reminder.Everyday)
+                {
+                    LabelReminderType.Text = "Daily";
+                }
+                else
+                {
+                    LabelReminderType.Text = "Weekly";
+                }
+
             }
         }
 
@@ -189,8 +203,7 @@ namespace MKproject.Schedule
             //BackEnd
             DesiredReminder.IsChecked = checkBoxReminder.Checked;//tghayar l2esem hone bas houwe zeto ousoulan
 
-            //SQL
-            DesiredReminder.checkBoxReminderChangedToSQL();
+            DateTime? Checked_Date = null;
 
             //Design
             if (Isclientreminder)
@@ -233,6 +246,7 @@ namespace MKproject.Schedule
                 if (DesiredReminder.IsChecked)//hone lezim nzido
                 {
                     this.panelColoredReminder.BackColor = ColorCompletedReminedr;
+                    Checked_Date = ucday.SelectedDate;
                 }
                 else
                 {
@@ -240,6 +254,9 @@ namespace MKproject.Schedule
                 }
 
             }
+
+            //SQL
+            DesiredReminder.checkBoxReminderChangedToSQL(Checked_Date);
         }
 
 
@@ -259,10 +276,10 @@ namespace MKproject.Schedule
 
         void FixDesign()
         {
-            int DesiredHeight = RandomFunctions.CalculateDesiredHeight(checkBoxReminder, checkBoxReminder.Width - 10);
+            int DesiredHeight = RandomFunctions.CalculateDesiredHeight(checkBoxReminder, checkBoxReminder.Width-10);
             TLPGlobal.RowStyles[1].Height = DesiredHeight;
 
-            this.Height = Convert.ToInt16(TLPGlobal.RowStyles[0].Height + TLPGlobal.RowStyles[1].Height) + this.Padding.Bottom + 15;
+            this.Height = Convert.ToInt16(TLPGlobal.RowStyles[0].Height + TLPGlobal.RowStyles[1].Height + TLPGlobal.RowStyles[2].Height) + this.Padding.Bottom + 15;
         }
 
       

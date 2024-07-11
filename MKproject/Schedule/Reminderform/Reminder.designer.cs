@@ -141,7 +141,7 @@ namespace MKproject.Schedule
             checkBoxSunday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxSunday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxSunday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxSunday.Location = new System.Drawing.Point(23, 38);
+            checkBoxSunday.Location = new System.Drawing.Point(98, 38);
             checkBoxSunday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             checkBoxSunday.Name = "checkBoxSunday";
             checkBoxSunday.Size = new System.Drawing.Size(63, 19);
@@ -177,7 +177,7 @@ namespace MKproject.Schedule
             checkBoxSaturday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxSaturday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxSaturday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxSaturday.Location = new System.Drawing.Point(98, 38);
+            checkBoxSaturday.Location = new System.Drawing.Point(23, 38);
             checkBoxSaturday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             checkBoxSaturday.Name = "checkBoxSaturday";
             checkBoxSaturday.Size = new System.Drawing.Size(72, 19);
