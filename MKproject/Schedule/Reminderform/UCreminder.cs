@@ -277,7 +277,7 @@ namespace MKproject.Schedule
         void FixDesign()
         {
             int DesiredHeight = RandomFunctions.CalculateDesiredHeight(checkBoxReminder, checkBoxReminder.Width-10);
-            TLPGlobal.RowStyles[1].Height = DesiredHeight;
+            TLPGlobal.RowStyles[1].Height = DesiredHeight+15;
 
             this.Height = Convert.ToInt16(TLPGlobal.RowStyles[0].Height + TLPGlobal.RowStyles[1].Height + TLPGlobal.RowStyles[2].Height) + this.Padding.Bottom + 15;
         }

@@ -45,18 +45,19 @@ namespace MKproject.Schedule
             ucSlideButtonCompleted.Button1Clicked += UcSlideButtonCompleted_Button1Clicked;
             ucSlideButtonCompleted.Button2Clicked += UcSlideButtonCompleted_Button2Clicked;
 
-            //panelreminder.PerformLayout();
             IsCompletedButtonMode = false;
             DesiredClient = desiredclient;
             DisplayUCReminder(desiredclient);
-            //panelreminder.VerticalScroll.Value = 0;
+
 
         }
         private void ClientReminder_Load(object sender, EventArgs e)
         {
-            //panelreminder.AutoScroll = true;
-            //panelreminder.AutoScrollPosition = new System.Drawing.Point(0, 0);
-
+            this.BeginInvoke((MethodInvoker)delegate
+            {
+                panelreminder.VerticalScroll.Value = 0;
+                panelreminder.PerformLayout(); // Forces the panel to update its layout if necessary
+            });
         }
 
         private void ButtonAdd_Click(object sender, EventArgs e)
@@ -156,11 +157,10 @@ namespace MKproject.Schedule
 
             }
 
+
             Cursor = Cursors.Default;
-            panelreminder.VerticalScroll.Value = 0;
-            panelreminder.AutoScroll = false;
-            panelreminder.AutoScroll = true;
-            panelreminder.AutoScrollPosition = new Point(0, 0);
+
+         
         }
 
         public Label GetNoReminderLable(string Text)//in case we had no bundles
