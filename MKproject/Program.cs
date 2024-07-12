@@ -67,7 +67,7 @@ namespace MKproject
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static async void Main()
         {
 
 
@@ -114,7 +114,7 @@ namespace MKproject
                 NewUpdate updt = new NewUpdate();
                 updt.Show();
 
-                UpdateMyApp(mgr, newVersion);
+               await UpdateMyApp(mgr, newVersion);
 
               
                 Application.Run(updt);
@@ -133,7 +133,7 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.1";    
+                    LoginForm.labelVersion.Text = "v 1.0.0";    
                     Application.Run(LoginForm);
                 }
 
@@ -196,7 +196,7 @@ namespace MKproject
 
             try
             {            
-                mgr.DownloadUpdatesAsync(newVersion);   // download new version        
+                mgr.DownloadUpdates(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
             }
@@ -212,8 +212,7 @@ namespace MKproject
         //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
         //         vpk download http --channel win-x64 --url https://cdn.foxdigitaltech.online/fox-elk
         //         vpk pack -u FoxApp -v 1.0.1 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
-        //         vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint   https://cdn.foxdigitaltech.online/fox-elk --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4
-        //         https://cdn.foxdigitaltech.online/fox-elk
+      //  vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint http://198.7.119.42:9000 --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4        //         https://cdn.foxdigitaltech.online/fox-elk
 
 
         //some global functions
