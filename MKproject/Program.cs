@@ -205,7 +205,7 @@ namespace MKproject
             }
 
         }
-
+         
 
 
         //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
