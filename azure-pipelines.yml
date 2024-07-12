@@ -30,7 +30,7 @@ stages:
             
             win_x86:
               ARCHITECTURE: 'win-x86'            
-              
+               
         steps:
         
           - bash: |            
