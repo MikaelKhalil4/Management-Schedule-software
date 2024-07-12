@@ -65,7 +65,7 @@ stages:
               dotnet tool install --global vpk --version 0.0.359 
               dotnet publish MKproject/MKproject.csproj  -c Release  -o MKproject/bin/Publish/$(ARCHITECTURE)  -r $(ARCHITECTURE)  --self-contained true
                vpk download http --channel $(ARCHITECTURE) --url $(minio-url)
-              vpk pack  -u FoxApp -v 1.0.32  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
+              vpk pack  -u FoxApp -v 1.0.33  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
               vpk upload s3  --bucket  $(bucketname)  --channel $(ARCHITECTURE)  --endpoint $(minio-ip-port)  --keyId $(minio-keyId)  --secret $(minio-secret)
             displayName: 'Create and Upload Velopack Release'
             env:
