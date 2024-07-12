@@ -37,6 +37,7 @@ namespace MKproject.Schedule
             linkLabelName = new System.Windows.Forms.LinkLabel();
             panelColoredReminder = new System.Windows.Forms.Panel();
             checkBoxReminder = new System.Windows.Forms.CheckBox();
+            LabelReminderType = new System.Windows.Forms.Label();
             TLPGlobal.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,14 +54,17 @@ namespace MKproject.Schedule
             TLPGlobal.Controls.Add(linkLabelName, 1, 0);
             TLPGlobal.Controls.Add(panelColoredReminder, 0, 0);
             TLPGlobal.Controls.Add(checkBoxReminder, 1, 1);
+            TLPGlobal.Controls.Add(LabelReminderType, 2, 2);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
             TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
             TLPGlobal.Name = "TLPGlobal";
-            TLPGlobal.RowCount = 1;
+            TLPGlobal.RowCount = 3;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
-            TLPGlobal.Size = new System.Drawing.Size(223, 78);
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            TLPGlobal.Size = new System.Drawing.Size(223, 86);
             TLPGlobal.TabIndex = 4;
             // 
             // buttonDelete
@@ -126,8 +130,8 @@ namespace MKproject.Schedule
             panelColoredReminder.Location = new System.Drawing.Point(0, 0);
             panelColoredReminder.Margin = new System.Windows.Forms.Padding(0);
             panelColoredReminder.Name = "panelColoredReminder";
-            TLPGlobal.SetRowSpan(panelColoredReminder, 2);
-            panelColoredReminder.Size = new System.Drawing.Size(4, 78);
+            TLPGlobal.SetRowSpan(panelColoredReminder, 3);
+            panelColoredReminder.Size = new System.Drawing.Size(4, 86);
             panelColoredReminder.TabIndex = 5;
             // 
             // checkBoxReminder
@@ -141,7 +145,7 @@ namespace MKproject.Schedule
             checkBoxReminder.Location = new System.Drawing.Point(9, 30);
             checkBoxReminder.Margin = new System.Windows.Forms.Padding(4);
             checkBoxReminder.Name = "checkBoxReminder";
-            checkBoxReminder.Size = new System.Drawing.Size(210, 44);
+            checkBoxReminder.Size = new System.Drawing.Size(210, 32);
             checkBoxReminder.TabIndex = 3;
             checkBoxReminder.Text = "DDDDDDDDDDDDDDDDDDDDDDDDDDDD";
             checkBoxReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -149,6 +153,21 @@ namespace MKproject.Schedule
             checkBoxReminder.CheckedChanged += checkBoxReminder_CheckedChanged;
             checkBoxReminder.TextChanged += checkBoxReminder_TextChanged;
             checkBoxReminder.Click += checkBoxReminder_Click;
+            // 
+            // LabelReminderType
+            // 
+            LabelReminderType.AutoSize = true;
+            TLPGlobal.SetColumnSpan(LabelReminderType, 2);
+            LabelReminderType.Dock = System.Windows.Forms.DockStyle.Fill;
+            LabelReminderType.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            LabelReminderType.Location = new System.Drawing.Point(158, 66);
+            LabelReminderType.Margin = new System.Windows.Forms.Padding(0);
+            LabelReminderType.Name = "LabelReminderType";
+            LabelReminderType.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            LabelReminderType.Size = new System.Drawing.Size(65, 20);
+            LabelReminderType.TabIndex = 6;
+            LabelReminderType.Text = "Daily";
+            LabelReminderType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // UCreminder
             // 
@@ -159,7 +178,7 @@ namespace MKproject.Schedule
             Margin = new System.Windows.Forms.Padding(4);
             Name = "UCreminder";
             Padding = new System.Windows.Forms.Padding(0, 0, 0, 7);
-            Size = new System.Drawing.Size(223, 85);
+            Size = new System.Drawing.Size(223, 93);
             Resize += UCreminder_Resize;
             TLPGlobal.ResumeLayout(false);
             TLPGlobal.PerformLayout();
@@ -174,5 +193,6 @@ namespace MKproject.Schedule
         public System.Windows.Forms.LinkLabel linkLabelName;
         private System.Windows.Forms.CheckBox checkBoxReminder;
         private System.Windows.Forms.Panel panelColoredReminder;
+        private System.Windows.Forms.Label LabelReminderType;
     }
 }

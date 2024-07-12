@@ -86,14 +86,14 @@ namespace MKproject.Schedule.Reminderform
          LEFT JOIN DayName ON INSTR(reminder.repeat, DayName.day_name) > 0 WHERE 1=1 ";
 
             if (EndDate == null)
-            {
+            {//DATE(reminder.checked_date) can be a null value 
                 query += @"
             AND (
                        (reminder.repeat = 'Does not repeat' AND DATE(reminder.starttime) = DATE(@SelectedDate))
                        OR
-                       (reminder.repeat = 'Every day' AND DATE(reminder.starttime) <= DATE(@SelectedDate))
+                       (  reminder.repeat = 'Every day' AND ( (DATE(reminder.starttime) <= DATE(@SelectedDate) AND  is_checked = 0) OR (DATE(reminder.checked_date) = DATE(@SelectedDate) AND  is_checked = 1) ) )
                        OR
-                       (reminder.repeat LIKE 'Every week%' AND INSTR(reminder.repeat, DayName.day_name) > 0 AND DATE(reminder.starttime) <= DATE(@SelectedDate))
+                       (reminder.repeat LIKE 'Every week%' AND ( ( INSTR(reminder.repeat, DayName.day_name) > 0 AND DATE(reminder.starttime) <= DATE(@SelectedDate)  AND  is_checked = 0) OR (DATE(reminder.checked_date) = DATE(@SelectedDate) AND  is_checked = 1) ))
                 )";
             }
             else
@@ -209,16 +209,25 @@ namespace MKproject.Schedule.Reminderform
             command.ExecuteNonQuery();
             con.Close();
         }
-        public void checkBoxReminderChangedToSQL()
+        public void checkBoxReminderChangedToSQL(DateTime? CheckedDate)
         {
-            SQLiteCommand command = new SQLiteCommand(@"UPDATE reminder
-                                                  SET is_checked=@is_checked
+            SQLiteCommand command = new SQLiteCommand(@"UPDATE reminder 
+                                                  SET is_checked=@is_checked,checked_date=@checked_date
                                                   WHERE reminder_id =@reminder_id", con);
             command.Parameters.AddWithValue("@is_checked", IsChecked);
             command.Parameters.AddWithValue("@reminder_id", Idreminder);
+            if (CheckedDate != null)
+            {
+                command.Parameters.AddWithValue("@checked_date",((DateTime)CheckedDate).ToString("yyyy-MM-dd"));
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@checked_date", DBNull.Value);
+            }
             con.Open();
             command.ExecuteNonQuery();
             con.Close();
+           
         }
     }
 }

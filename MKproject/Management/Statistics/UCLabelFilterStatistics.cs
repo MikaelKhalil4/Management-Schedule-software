@@ -11,8 +11,7 @@ namespace MKproject.Management
         public Statistics StatisticsForm { get; set; }
         public enum FiltersCategories
         {
-            Income,
-            Sessions
+            IncomeSessions,
         }
 
         public UCLabelFilterStatistics(FiltersCategories type)
@@ -29,9 +28,9 @@ namespace MKproject.Management
 
         private void LabelDetail_TextChanged(object sender, EventArgs e)
         {
-            if (Category == FiltersCategories.Income)
+            if (Category == FiltersCategories.IncomeSessions)
             {
-                StatisticsForm.FilterDatatbleIncome();
+                StatisticsForm.FilterDatatbleIncomeSessions();
                 labelDetail.Font = new Font(labelDetail.Font.FontFamily, 12);
 
                 ///
@@ -41,41 +40,26 @@ namespace MKproject.Management
                 //TLPAll.Width = itemWidth + buttonRemove.Width + buttonSwitch.Width + 3 * buttonSwitch.Margin.Left + 30;
                 //TLPAll.Anchor = AnchorStyles.None;
 
-            }
-            else if (Category == FiltersCategories.Sessions)
-            {
-                StatisticsForm.FilterDatatbleSessions();
-                labelDetail.Font = new Font(labelDetail.Font.FontFamily, 12);
-
-                ///
-                RandomFunctions.FixedFont(labelDetail,null);
-
-            }
+            }          
         }
 
 
 
         private void ButtonRemove_Click(object sender, EventArgs e)
         {
-            if (Category == FiltersCategories.Income)
+            if (Category == FiltersCategories.IncomeSessions)
             {
                 StatisticsForm.labelIncome.Select();
-                StatisticsForm.FilterDatatbleIncome();
+                StatisticsForm.FilterDatatbleIncomeSessions();
                 StatisticsForm.UCComboFilterDateIncome.comboBoxDetail.SelectedIndex = 0;
-            }
-            else if (Category == FiltersCategories.Sessions)
-            {
-                StatisticsForm.labelSession.Select();
-                StatisticsForm.FilterDatatbleSessions();
-                StatisticsForm.UCComboFilterDateSessions.comboBoxDetail.SelectedIndex = 0;
-            }
+            }          
         }
 
 
 
         private void ButtonSwitch_Click(object sender, EventArgs e)
         {
-            if (Category == FiltersCategories.Income)
+            if (Category == FiltersCategories.IncomeSessions)
             {
                 if (StatisticsForm.UCComboFilterDateIncome.comboBoxDetail.SelectedItem.ToString() == UCComboFilterStat.ChooseMonth)
                 {
@@ -85,18 +69,7 @@ namespace MKproject.Management
                 {
                     StatisticsForm.OpenDateYearForm(this, (DateTime)Startdate);
                 }
-            }
-            else if (Category == FiltersCategories.Sessions)
-            {
-                if (StatisticsForm.UCComboFilterDateSessions.comboBoxDetail.SelectedItem.ToString() == UCComboFilterStat.ChooseMonth)
-                {
-                    StatisticsForm.OpenDateMonthForm(this, (DateTime)Startdate);
-                }
-                if (StatisticsForm.UCComboFilterDateSessions.comboBoxDetail.SelectedItem.ToString() == UCComboFilterStat.ChooseYear)
-                {
-                    StatisticsForm.OpenDateYearForm(this, (DateTime)Startdate);
-                }
-            }
+            }          
         }
     }
 }
