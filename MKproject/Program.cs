@@ -110,12 +110,13 @@ namespace MKproject
 
             if (newVersion!=null)
             {
-              
-                UpdateMyApp(mgr, newVersion);
-
 
                 NewUpdate updt = new NewUpdate();
                 updt.Show();
+
+                UpdateMyApp(mgr, newVersion);
+
+              
                 Application.Run(updt);
 
             }
@@ -132,7 +133,7 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.1";  
+                    LoginForm.labelVersion.Text = "v 1.0.0";  
                     Application.Run(LoginForm);
                 }
 
