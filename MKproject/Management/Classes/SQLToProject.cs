@@ -163,7 +163,7 @@ namespace MKproject.Management
         //finance
         public static DataTable GetIncome()
         {
-            string query = @"SELECT f.finance_id,f.client_balance_id,f.amount_paid,f.payment_date,cb.bundle_id,cb.bundle_id,cb.product_id
+            string query = @"SELECT f.finance_id,f.client_balance_id,f.amount_paid,f.payment_date,cb.bundle_id,cb.product_id
                                 from finance f,client c,client_balance cb 
                                WHERE f.client_balance_id=cb.client_balance_id AND cb.client_id=c.client_id";
 

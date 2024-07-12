@@ -19,9 +19,7 @@ namespace MKproject.Management
 
         public enum FiltersType
         {
-
-            DateSessions,
-            DateIncome,
+            DateIncomeSessions,
             TypeIncome,
             ServiceIncome
         }
@@ -57,22 +55,17 @@ namespace MKproject.Management
             if (LastState != comboBoxDetail.SelectedItem.ToString())
             {
                 DateTime currentDate = DateTime.Now;
-
-                if (filterType == FiltersType.DateSessions)
+            
                 {
-
-                    StatisticsForm.CreateUCCustomeDateSessions();
-                }
-
-                else if (filterType == FiltersType.DateIncome || filterType == FiltersType.TypeIncome || filterType == FiltersType.ServiceIncome)
-                {
-                    if (filterType == FiltersType.DateIncome)
+                    if (filterType == FiltersType.DateIncomeSessions)
                     {
-                        StatisticsForm.CreateUCCustomeDateIncome();
+                        StatisticsForm.CreateUCCustomeDate();
+                        StatisticsForm.FilterDatatbleIncomeSessions();//in case kenit gher custom date taamil filter
+
                     }
                     else
                     {
-                        StatisticsForm.FilterDatatbleIncome();
+                        StatisticsForm.FilterDatatbleIncomeSessions();
                     }
 
                 }
@@ -93,7 +86,7 @@ namespace MKproject.Management
 
             }
 
-            else if (filterType == FiltersType.DateSessions || filterType == FiltersType.DateIncome)
+            else if (filterType == FiltersType.DateIncomeSessions)
             {
                 comboBoxDetail.Items.Add(ThisMonth);
                 comboBoxDetail.Items.Add(LastMonth);

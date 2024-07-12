@@ -20,14 +20,19 @@ namespace MKproject.Management
         Label LabelNoDataYetIncome;
         Label LabelNoDataYetSessions;
 
-        public UCComboFilterStat UCComboFilterDateSessions;
-        UCLabelFilterStatistics UCCustomeDateSessions;
+        //public UCComboFilterStat UCComboFilterDateIncome;
+        //UCLabelFilterStatistics UCCustomeDateIncome;
+
+
 
         public UCComboFilterStat UCComboFilterDateIncome;
+        UCLabelFilterStatistics UCCustomeDateIncome;
+
+
         UCComboFilterStat UCComboFilterServiceIncome;
 
 
-        UCLabelFilterStatistics UCCustomeDateIncome;
+
 
 
         DataTable OriginalIncomeDt;
@@ -56,8 +61,9 @@ namespace MKproject.Management
             CreatingTheNoDateLabel(ref LabelNoDataYetSessions);
 
             SetupChartIncomePerService();
-            SetupChartIncomePerTime();
-            SetupChartSessions();
+            SetupCombinedChart();
+
+     
 
             Formatcharts();
 
@@ -116,10 +122,7 @@ namespace MKproject.Management
                 else
                 {
                     LabelNoDataYetSessions.Text = "No Sessions Done ";
-                    TLPGlobalSessions.Controls.Remove(LabelNoDataYetSessions);
                     LabelNoDataYetSessions.Show();
-                    TLPGlobalSessions.Controls.Add(LabelNoDataYetSessions, 1, 0);
-
                 }
             }
             else
@@ -140,15 +143,15 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    if (TLPGlobalSessions.Controls.Contains(LabelNoDataYetSessions))
+                    if (TLPGLobalIncom.Controls.Contains(LabelNoDataYetSessions))
                     {
                         LabelNoDataYetSessions.Hide();
-                        TLPGlobalSessions.Controls.Remove(LabelNoDataYetSessions);
+                        TLPGLobalIncom.Controls.Remove(LabelNoDataYetSessions);
                     }
                 }
             }
         }
-       
+
         Chart chartIncomePerService;
         private void SetupChartIncomePerService()
         {
@@ -197,172 +200,138 @@ namespace MKproject.Management
             chartIncomePerService.Location = new Point(156, 3);
             chartIncomePerService.Name = "chartIncomePerService";
 
-            Series series9 = new Series();
-            series9.ChartArea = "ChartArea1";
-            series9.Color = Color.FromArgb(109, 122, 224);
-            series9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            series9.IsValueShownAsLabel = true;
-            series9.Label = "#VAL{C1}";
-            series9.LabelBackColor = Color.WhiteSmoke;
-            series9.LabelForeColor = Color.FromArgb(114, 189, 57);
-            series9.Legend = "Legend3";
-            series9.LegendText = "Income";
-            series9.Name = "SeriesIncome";
-            series9.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.Yes;
-            series9.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
+            Series Income = new Series();
+            Income.ChartArea = "ChartArea1";
+            Income.Color = Color.FromArgb(109, 122, 224);
+            Income.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            Income.IsValueShownAsLabel = true;
+            Income.Label = "#VAL{C1}";
+            Income.LabelBackColor = Color.WhiteSmoke;
+            Income.LabelForeColor = Color.FromArgb(114, 189, 57);
+            Income.Legend = "Legend3";
+            Income.LegendText = "Income";
+            Income.Name = "SeriesIncome";
+            Income.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.Yes;
+            Income.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
 
-            Series series10 = new Series();
-            series10.ChartArea = "ChartArea1";
-            series10.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            series10.IsValueShownAsLabel = true;
-            series10.LabelBackColor = Color.WhiteSmoke;
-            series10.Legend = "Legend3";
-            series10.LegendText = "Quantity";
-            series10.Name = "SeriesQty";
-            series10.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.Yes;
-            series10.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopLeft | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
-            series10.YAxisType = AxisType.Secondary;
+            Series Quantity = new Series();
+            Quantity.ChartArea = "ChartArea1";
+            Quantity.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            Quantity.IsValueShownAsLabel = true;
+            Quantity.LabelBackColor = Color.WhiteSmoke;
+            Quantity.Legend = "Legend3";
+            Quantity.LegendText = "Quantity";
+            Quantity.Name = "SeriesQty";
+            Quantity.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.Yes;
+            Quantity.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopLeft | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
+            Quantity.YAxisType = AxisType.Secondary;
 
-            chartIncomePerService.Series.Add(series9);
-            chartIncomePerService.Series.Add(series10);
+            chartIncomePerService.Series.Add(Income);
+            chartIncomePerService.Series.Add(Quantity);
 
             chartIncomePerService.Size = new Size(1050, 214);
             chartIncomePerService.TabIndex = 35;
             chartIncomePerService.Text = "chart1";
-           
+
             TLPGLobalIncom.Controls.Add(chartIncomePerService, 1, 0);
-        }   
-        Chart chartIncomePerTime;
-        private void SetupChartIncomePerTime()
-        {
-            chartIncomePerTime = new Chart();
-            chartIncomePerTime.BackColor = Color.Transparent;
-
-            ChartArea chartArea8 = new ChartArea();
-            chartArea8.AxisX.ArrowStyle = AxisArrowStyle.Lines;
-            chartArea8.AxisX.IsLabelAutoFit = false;
-            chartArea8.AxisX.LabelStyle.Font = new Font("Segoe UI", 11.25F);
-            chartArea8.AxisX.MajorGrid.Enabled = false;
-            chartArea8.AxisX.MajorGrid.LineColor = Color.Empty;
-            chartArea8.AxisX.MinorGrid.Enabled = false;
-            chartArea8.AxisX.MinorGrid.LineColor = Color.WhiteSmoke;
-            chartArea8.AxisX.TitleAlignment = StringAlignment.Far;
-            chartArea8.AxisX.TitleFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            chartArea8.AxisY.ArrowStyle = AxisArrowStyle.Lines;
-            chartArea8.AxisY.IsLabelAutoFit = false;
-            chartArea8.AxisY.LabelStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            chartArea8.AxisY.MajorGrid.Enabled = false;
-            chartArea8.AxisY.MajorGrid.LineColor = Color.LightGray;
-            chartArea8.AxisY.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            chartArea8.AxisY2.ArrowStyle = AxisArrowStyle.Lines;
-            chartArea8.BackColor = Color.Transparent;
-            chartArea8.InnerPlotPosition.Auto = false;
-            chartArea8.InnerPlotPosition.Height = 85F;
-            chartArea8.InnerPlotPosition.Width = 90F;
-            chartArea8.InnerPlotPosition.X = 5F;
-            chartArea8.Name = "ChartArea1";
-            chartArea8.Position.Auto = false;
-            chartArea8.Position.Height = 83F;
-            chartArea8.Position.Width = 100F;
-            chartArea8.Position.Y = 11F;
-
-            chartIncomePerTime.ChartAreas.Add(chartArea8);
-            chartIncomePerTime.Dock = DockStyle.Fill;
-            chartIncomePerTime.Location = new Point(156, 223);
-            chartIncomePerTime.Name = "chartIncomePerTime";
-
-            Series series11 = new Series();
-            series11.BorderColor = Color.White;
-            series11.BorderWidth = 2;
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = SeriesChartType.Line;
-            series11.Color = Color.FromArgb(109, 122, 224);
-            series11.CustomProperties = "LabelStyle=Top";
-            series11.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            series11.LabelBackColor = Color.WhiteSmoke;
-            series11.LabelForeColor = Color.FromArgb(114, 189, 57);
-            series11.MarkerColor = Color.FromArgb(109, 122, 224);
-            series11.MarkerSize = 7;
-            series11.MarkerStyle = MarkerStyle.Circle;
-            series11.Name = "Series1";
-            series11.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.No;
-            series11.SmartLabelStyle.CalloutBackColor = Color.Empty;
-            series11.SmartLabelStyle.CalloutLineColor = Color.FromArgb(109, 122, 224);
-            series11.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
-
-            chartIncomePerTime.Series.Add(series11);
-
-            chartIncomePerTime.Size = new Size(1050, 237);
-            chartIncomePerTime.TabIndex = 38;
-            chartIncomePerTime.Text = "chart1";
-
-            TLPGLobalIncom.Controls.Add(chartIncomePerTime, 1, 1);
         }
-        Chart chartSessions;
-        private void SetupChartSessions()
+
+
+        Chart combinedChart;
+
+        private void SetupCombinedChart()
         {
-            chartSessions = new Chart();
             // Initialize the chart
-            chartSessions.BackColor = Color.Transparent;
+            combinedChart = new Chart();
+            combinedChart.BackColor = Color.Transparent;
+            combinedChart.Dock = DockStyle.Fill;
+            combinedChart.Location = new Point(156, 3);
+            combinedChart.Name = "combinedChart";
+            combinedChart.Size = new Size(1050, 255);
+            combinedChart.TabIndex = 39;
+            combinedChart.Text = "Combined Chart";
 
-            ChartArea chartArea9 = new ChartArea();
-            chartArea9.AxisX.ArrowStyle = AxisArrowStyle.Lines;
-            chartArea9.AxisX.LabelStyle.Font = new Font("Segoe UI", 11.25F);
-            chartArea9.AxisX.MajorGrid.Enabled = false;
-            chartArea9.AxisX.MajorGrid.LineColor = Color.WhiteSmoke;
-            chartArea9.AxisX.MinorGrid.Enabled = false;
-            chartArea9.AxisX.MinorGrid.LineColor = Color.WhiteSmoke;
-            chartArea9.AxisX.TitleAlignment = StringAlignment.Far;
-            chartArea9.AxisX.TitleFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            chartArea9.AxisY.ArrowStyle = AxisArrowStyle.Lines;
-            chartArea9.AxisY.IsLabelAutoFit = false;
-            chartArea9.AxisY.LabelStyle.Font = new Font("Segoe UI", 9.75F);
-            chartArea9.AxisY.MajorGrid.Enabled = false;
-            chartArea9.AxisY.MajorGrid.LineColor = Color.LightGray;
-            chartArea9.AxisY.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            chartArea9.BackColor = Color.Transparent;
-            chartArea9.InnerPlotPosition.Auto = false;
-            chartArea9.InnerPlotPosition.Height = 85F;
-            chartArea9.InnerPlotPosition.Width = 90F;
-            chartArea9.InnerPlotPosition.X = 5F;
-            chartArea9.Name = "ChartArea1";
-            chartArea9.Position.Auto = false;
-            chartArea9.Position.Height = 83F;
-            chartArea9.Position.Width = 100F;
-            chartArea9.Position.Y = 11F;
+            // Create and configure the Chart Area
+            ChartArea chartArea = new ChartArea();
+            chartArea.BackColor = Color.Transparent;
+            chartArea.Name = "ChartArea1";
+            chartArea.AxisX.ArrowStyle = AxisArrowStyle.Lines;
+            chartArea.AxisX.LabelStyle.Font = new Font("Segoe UI", 11.25F);
+            chartArea.AxisX.MajorGrid.Enabled = false;
+            chartArea.AxisX.MinorGrid.Enabled = false;
+            chartArea.AxisX.TitleFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            chartArea.AxisX.TitleAlignment = StringAlignment.Far;
 
-            chartSessions.ChartAreas.Add(chartArea9);
-            chartSessions.Dock = DockStyle.Fill;
-            chartSessions.Location = new Point(156, 3);
-            chartSessions.Name = "chartSessions";
+            // Configure the primary Y-Axis (for Income)
+            chartArea.AxisY.ArrowStyle = AxisArrowStyle.Lines;
+            chartArea.AxisY.LabelStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            chartArea.AxisY.MajorGrid.Enabled = false;
+            chartArea.AxisY.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 
-            Series series12 = new Series();
-            series12.BorderColor = Color.White;
-            series12.BorderWidth = 2;
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = SeriesChartType.Line;
-            series12.Color = Color.FromArgb(109, 122, 224);
-            series12.CustomProperties = "LabelStyle=Top";
-            series12.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            series12.LabelBackColor = Color.WhiteSmoke;
-            series12.LabelForeColor = Color.FromArgb(114, 189, 57);
-            series12.MarkerColor = Color.FromArgb(109, 122, 224);
-            series12.MarkerSize = 7;
-            series12.MarkerStyle = MarkerStyle.Circle;
-            series12.Name = "Series1";
-            series12.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.No;
-            series12.SmartLabelStyle.CalloutBackColor = Color.Empty;
-            series12.SmartLabelStyle.CalloutLineColor = Color.FromArgb(109, 122, 224);
-            series12.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
+            // Configure the secondary Y-Axis (for Sessions)
+            chartArea.AxisY2.Enabled = AxisEnabled.True;
+            chartArea.AxisY2.ArrowStyle = AxisArrowStyle.Lines;
+            chartArea.AxisY2.LabelStyle.Font = new Font("Segoe UI", 9.75F);
+            chartArea.AxisY2.MajorGrid.Enabled = false;
+            chartArea.AxisY2.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 
-            chartSessions.Series.Add(series12);
+            combinedChart.ChartAreas.Add(chartArea);
 
-            chartSessions.Size = new Size(1050, 255);
-            chartSessions.TabIndex = 39;
-            chartSessions.Text = "chart1";
+            // Series for Income and Sessions
+            Series seriesIncome = new Series();
+            Color IncomeColor = Color.FromArgb(114, 189, 57);
+            seriesIncome.BorderColor = Color.White;
+            seriesIncome.BorderWidth = 2;
+            seriesIncome.ChartArea = "ChartArea1";
+            seriesIncome.ChartType = SeriesChartType.Line;
+            seriesIncome.Color = IncomeColor;
+            seriesIncome.CustomProperties = "LabelStyle=Top";
+            seriesIncome.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            seriesIncome.LabelBackColor = Color.WhiteSmoke;
+            seriesIncome.LabelForeColor = IncomeColor;
+            seriesIncome.MarkerColor = IncomeColor;
+            seriesIncome.MarkerSize = 7;
+            seriesIncome.MarkerStyle = MarkerStyle.Circle;
+            seriesIncome.Name = "Income";
+            seriesIncome.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.No;
+            seriesIncome.SmartLabelStyle.CalloutBackColor = Color.Empty;
+            seriesIncome.SmartLabelStyle.CalloutLineColor = IncomeColor;
+            seriesIncome.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
 
-            TLPGlobalSessions.Controls.Add(chartSessions, 1, 0);
+
+            // Series for Sessions
+            Series seriesSessions = new Series();
+            Color sessionColor = Color.FromArgb(109, 122, 224);
+            seriesSessions.BorderColor = Color.White;
+            seriesSessions.BorderWidth = 2;
+            seriesSessions.ChartArea = "ChartArea1";
+            seriesSessions.ChartType = SeriesChartType.Line;
+            seriesSessions.Color = sessionColor;
+            seriesSessions.CustomProperties = "LabelStyle=Top";
+            seriesSessions.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            seriesSessions.LabelBackColor = Color.WhiteSmoke;
+            seriesSessions.LabelForeColor = sessionColor;
+            seriesSessions.MarkerColor = sessionColor;
+            seriesSessions.MarkerSize = 7;
+            seriesSessions.MarkerStyle = MarkerStyle.Circle;
+            seriesSessions.Name = "Sessions";
+            seriesSessions.YAxisType = AxisType.Secondary;
+            seriesSessions.SmartLabelStyle.Enabled = true;
+            seriesSessions.SmartLabelStyle.AllowOutsidePlotArea = LabelOutsidePlotAreaStyle.No;
+            seriesSessions.SmartLabelStyle.CalloutBackColor = Color.Empty;
+            seriesSessions.SmartLabelStyle.CalloutLineColor = sessionColor;
+            seriesSessions.SmartLabelStyle.MovingDirection = LabelAlignmentStyles.Top | LabelAlignmentStyles.TopRight | LabelAlignmentStyles.BottomLeft | LabelAlignmentStyles.BottomRight;
+
+            combinedChart.Series.Add(seriesIncome);
+            combinedChart.Series.Add(seriesSessions);
+
+
+
+            // Add the chart to a panel or a form
+            TLPGLobalIncom.Controls.Add(combinedChart, 1, 1);// Assuming this code is in a Form
         }
+
+     
 
         public void Formatcharts()
         {
@@ -374,26 +343,17 @@ namespace MKproject.Management
             chartIncomePerService.Series["SeriesQty"]["PointWidth"] = "0.7";
 
 
-            chartIncomePerTime.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Regular);
-            chartIncomePerTime.ChartAreas[0].AxisX.Interval = 1;
+            combinedChart.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Regular);
+            combinedChart.ChartAreas[0].AxisX.Interval = 1;
 
-            chartSessions.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Regular);
-            chartSessions.ChartAreas[0].AxisX.Interval = 1;
+            //combinedChart.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 10, System.Drawing.FontStyle.Regular);
+            //combinedChart.ChartAreas[0].AxisX.Interval = 1;
         }
         public void CreateFilters()
         {
-            ///
-            UCComboFilterDateSessions = new UCComboFilterStat();
-            UCComboFilterDateSessions.StatisticsForm = this;
-            UCComboFilterDateSessions.FilterType = UCComboFilterStat.FiltersType.DateSessions;
-            UCComboFilterDateSessions.Title = "Date";
-            UCComboFilterDateSessions.Dock = DockStyle.Top;
-            panelSessionsFilter.Controls.Add(UCComboFilterDateSessions);
-
 
             UCComboFilterServiceIncome = new UCComboFilterStat();
             UCComboFilterServiceIncome.StatisticsForm = this;
-
             UCComboFilterServiceIncome.FilterType = UCComboFilterStat.FiltersType.ServiceIncome;
             UCComboFilterServiceIncome.Title = "Category Type";
             UCComboFilterServiceIncome.Dock = DockStyle.Top;
@@ -403,23 +363,23 @@ namespace MKproject.Management
 
 
 
-            //sessions
+            //income,session /time
             UCComboFilterDateIncome = new UCComboFilterStat();
             UCComboFilterDateIncome.StatisticsForm = this;
-            UCComboFilterDateIncome.FilterType = UCComboFilterStat.FiltersType.DateIncome;
+            UCComboFilterDateIncome.FilterType = UCComboFilterStat.FiltersType.DateIncomeSessions;
             UCComboFilterDateIncome.Title = "Date";
             UCComboFilterDateIncome.Dock = DockStyle.Top;
             panelIncomeFilter.Controls.Add(UCComboFilterDateIncome);
 
         }
-        public void CreateUCCustomeDateIncome()
+        public void CreateUCCustomeDate()
         {
             String SelectedString = UCComboFilterDateIncome.comboBoxDetail.SelectedItem.ToString();
             if (SelectedString == UCComboFilterStat.ChooseMonth || SelectedString == UCComboFilterStat.ChooseYear)
             {
                 if (UCCustomeDateIncome == null || UCCustomeDateIncome.IsDisposed)
                 {
-                    UCCustomeDateIncome = new UCLabelFilterStatistics(UCLabelFilterStatistics.FiltersCategories.Income);
+                    UCCustomeDateIncome = new UCLabelFilterStatistics(UCLabelFilterStatistics.FiltersCategories.IncomeSessions);
                     UCCustomeDateIncome.StatisticsForm = this;
                     UCCustomeDateIncome.Visible = false;
                     UCCustomeDateIncome.Dock = DockStyle.Top;
@@ -461,68 +421,68 @@ namespace MKproject.Management
                 {
                     UCCustomeDateIncome.Dispose();
                 }
-                FilterDatatbleIncome();//in case kenit gher custom date taamil filter
-            }
-
-        }
-        public void CreateUCCustomeDateSessions()
-        {
-            String SelectedString = UCComboFilterDateSessions.comboBoxDetail.SelectedItem.ToString();
-            if (SelectedString == UCComboFilterStat.ChooseMonth || SelectedString == UCComboFilterStat.ChooseYear)
-            {
-                if (UCCustomeDateSessions == null || UCCustomeDateSessions.IsDisposed)
-                {
-                    UCCustomeDateSessions = new UCLabelFilterStatistics(UCLabelFilterStatistics.FiltersCategories.Sessions);
-                    UCCustomeDateSessions.StatisticsForm = this;
-                    UCCustomeDateSessions.Visible = false;
-                    UCCustomeDateSessions.Dock = DockStyle.Top;
-                    panelSessionsFilter.Controls.Add(UCCustomeDateSessions);
-                    int indexFather = panelSessionsFilter.Controls.GetChildIndex(UCComboFilterDateSessions);
-                    panelSessionsFilter.Controls.SetChildIndex(UCCustomeDateSessions, indexFather);
-
-                }
-
-                if (SelectedString == UCComboFilterStat.ChooseMonth)
-                {
-                    UCCustomeDateSessions.Title = "Month";
-
-                    UCCustomeDateSessions.Show();
-                    UCCustomeDateSessions.PerformLayout();
-                    UCCustomeDateSessions.Detail = DateOfFilterSessions.ToString("MMMM") + " " + DateOfFilterSessions.ToString("yyyy");//default value, on textchnage tabaa el label byaamil filter
-
-                    OpenDateMonthForm(UCCustomeDateSessions, DateOfFilterSessions);
-                }
-                else if (SelectedString == UCComboFilterStat.ChooseYear)
-                {
-                    UCCustomeDateSessions.Title = "Year";
-                    UCCustomeDateSessions.Show();
-                    UCCustomeDateSessions.PerformLayout();
-                    UCCustomeDateSessions.Detail = DateOfFilterSessions.ToString("yyyy");
-
-                    OpenDateYearForm(UCCustomeDateSessions, DateOfFilterSessions);
-                }
-
-            }
-            else
-            {
-                if (UCCustomeDateSessions != null)
-                {
-                    UCCustomeDateSessions.Dispose();
-                }
-                FilterDatatbleSessions();//in case kenit gher custom date taamil filter
             }
         }
 
 
-        public void FilterDatatbleIncome()
+        //public void CreateUCCustomeDateSessions()
+        //{
+        //    String SelectedString = UCComboFilterDateIncome.comboBoxDetail.SelectedItem.ToString();
+        //    if (SelectedString == UCComboFilterStat.ChooseMonth || SelectedString == UCComboFilterStat.ChooseYear)
+        //    {
+        //        if (UCCustomeDateIncome == null || UCCustomeDateIncome.IsDisposed)
+        //        {
+        //            UCCustomeDateIncome = new UCLabelFilterStatistics(UCLabelFilterStatistics.FiltersCategories.Sessions);
+        //            UCCustomeDateIncome.StatisticsForm = this;
+        //            UCCustomeDateIncome.Visible = false;
+        //            UCCustomeDateIncome.Dock = DockStyle.Top;
+        //            panelSessionsFilter.Controls.Add(UCCustomeDateIncome);
+        //            int indexFather = panelSessionsFilter.Controls.GetChildIndex(UCComboFilterDateIncome);
+        //            panelSessionsFilter.Controls.SetChildIndex(UCCustomeDateIncome, indexFather);
+
+        //        }
+
+        //        if (SelectedString == UCComboFilterStat.ChooseMonth)
+        //        {
+        //            UCCustomeDateIncome.Title = "Month";
+
+        //            UCCustomeDateIncome.Show();
+        //            UCCustomeDateIncome.PerformLayout();
+        //            UCCustomeDateIncome.Detail = DateOfFilterSessions.ToString("MMMM") + " " + DateOfFilterSessions.ToString("yyyy");//default value, on textchnage tabaa el label byaamil filter
+
+        //            OpenDateMonthForm(UCCustomeDateIncome, DateOfFilterSessions);
+        //        }
+        //        else if (SelectedString == UCComboFilterStat.ChooseYear)
+        //        {
+        //            UCCustomeDateIncome.Title = "Year";
+        //            UCCustomeDateIncome.Show();
+        //            UCCustomeDateIncome.PerformLayout();
+        //            UCCustomeDateIncome.Detail = DateOfFilterSessions.ToString("yyyy");
+
+        //            OpenDateYearForm(UCCustomeDateIncome, DateOfFilterSessions);
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        if (UCCustomeDateIncome != null)
+        //        {
+        //            UCCustomeDateIncome.Dispose();
+        //        }
+
+        //    }
+        //}
+
+
+        public void FilterDatatbleIncomeSessions()
         {
-            DataTable FilteredDt = OriginalAllServicesIncomeDt.Copy();
+            DataTable FilteredIncomeDt = OriginalAllServicesIncomeDt.Copy();
             if (UCComboFilterServiceIncome != null && UCComboFilterDateIncome != null)
             {
                 string selectedString1 = UCComboFilterServiceIncome.comboBoxDetail.SelectedItem.ToString();
                 if (selectedString1 != UCComboFilterStat.All)
                 {
-                    FilteredDt = FiltersDataTable.FilterDatatableIFStringEquality("Category Type", selectedString1, FilteredDt);
+                    FilteredIncomeDt = FiltersDataTable.FilterDatatableIFStringEquality("Category Type", selectedString1, FilteredIncomeDt);
                 }
 
 
@@ -532,11 +492,15 @@ namespace MKproject.Management
 
                 if (selectedString3 == UCComboFilterStat.ThisMonth)
                 {
-                    OutputChartIncomePerDay(FilteredDt, DateTime.Now);
+                    OutputChartIncomePerDay(FilteredIncomeDt, DateTime.Now);
                     // This month
+                    //income
                     DateTime thisMonthStartDate = new DateTime(currentDate.Year, currentDate.Month, 1);
                     DateTime thisMonthEndDate = thisMonthStartDate.AddMonths(1).AddSeconds(-1);
-                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredDt, thisMonthStartDate, thisMonthEndDate));
+                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, thisMonthStartDate, thisMonthEndDate));
+
+                    //session
+                    OutputSessionPerDay(OriginalSessionsDt, DateTime.Now);
                 }
                 else if (selectedString3 == UCComboFilterStat.LastMonth)
                 {
@@ -545,104 +509,75 @@ namespace MKproject.Management
                     DateTime lastMonthStartDate = thisMonthStartDate.AddMonths(-1);
                     DateTime lastMonthEndDate = thisMonthStartDate.AddSeconds(-1);
 
-                    OutputChartIncomePerDay(FilteredDt, lastMonthEndDate);
-                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredDt, lastMonthStartDate, lastMonthEndDate));
+                    //income
+                    OutputChartIncomePerDay(FilteredIncomeDt, lastMonthEndDate);
+                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, lastMonthStartDate, lastMonthEndDate));
+
+                    //sessions
+                    OutputSessionPerDay(OriginalSessionsDt, lastMonthEndDate);
                 }
                 else if (selectedString3 == UCComboFilterStat.ThisYear)
                 {
-                    OutputChartIncomePerMonth(FilteredDt, DateTime.Now);
 
                     DateTime thisYearStartDate = new DateTime(currentDate.Year, 1, 1);
                     DateTime thisYearEndDate = new DateTime(currentDate.Year + 1, 1, 1).AddSeconds(-1);
-                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredDt, thisYearStartDate, thisYearEndDate));
+
+                    //income
+                    OutputChartIncomePerMonth(FilteredIncomeDt, DateTime.Now);
+                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, thisYearStartDate, thisYearEndDate));
+
+                    //sessions
+                    OutputSessionPerMonth(OriginalSessionsDt, DateTime.Now);
+
                 }
                 else if (selectedString3 == UCComboFilterStat.LastYear)
                 {
                     // Last year
                     DateTime lastYearStartDate = new DateTime(currentDate.Year - 1, 1, 1);
                     DateTime lastYearEndDate = new DateTime(currentDate.Year, 1, 1).AddSeconds(-1);
-                    OutputChartIncomePerMonth(FilteredDt, lastYearEndDate);
-                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredDt, lastYearStartDate, lastYearEndDate));
+
+                    //income
+                    OutputChartIncomePerMonth(FilteredIncomeDt, lastYearEndDate);
+                    OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, lastYearStartDate, lastYearEndDate));
+
+                    //session
+                    OutputSessionPerMonth(OriginalSessionsDt, lastYearEndDate);
+
                 }
 
                 else if (selectedString3 == UCComboFilterStat.AllYears)
                 {
+                    //income
+                    OutputChartIncomePerYear(FilteredIncomeDt);
+                    OutputChartIncomePerService(FilteredIncomeDt);
 
-                    OutputChartIncomePerYear(FilteredDt);
-                    OutputChartIncomePerService(FilteredDt);
+                    //sessions
+                    OutputSessionPerYear(OriginalSessionsDt);
                 }
                 else if (selectedString3 == UCComboFilterStat.ChooseMonth)
                 {
                     if (UCCustomeDateIncome.Startdate != null && UCCustomeDateIncome.Enddate != null)
                     {
+                        //income
+                        OutputChartIncomePerDay(FilteredIncomeDt, (DateTime)UCCustomeDateIncome.Startdate);
+                        OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, (DateTime)UCCustomeDateIncome.Startdate, (DateTime)UCCustomeDateIncome.Enddate));
 
-                        OutputChartIncomePerDay(FilteredDt, (DateTime)UCCustomeDateIncome.Startdate);
-                        OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredDt, (DateTime)UCCustomeDateIncome.Startdate, (DateTime)UCCustomeDateIncome.Enddate));
 
+                        //sessions
+                        OutputSessionPerDay(OriginalSessionsDt, (DateTime)UCCustomeDateIncome.Startdate);
                     }
                 }
                 else if (selectedString3 == UCComboFilterStat.ChooseYear)
                 {
                     if (UCCustomeDateIncome.Startdate != null && UCCustomeDateIncome.Enddate != null)
                     {
-                        OutputChartIncomePerMonth(FilteredDt, (DateTime)UCCustomeDateIncome.Startdate);
-                        OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredDt, (DateTime)UCCustomeDateIncome.Startdate, (DateTime)UCCustomeDateIncome.Enddate));
-                    }
-                }
-            }
-        }
-        public void FilterDatatbleSessions()
-        {
+                        //income
+                        OutputChartIncomePerMonth(FilteredIncomeDt, (DateTime)UCCustomeDateIncome.Startdate);
+                        OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, (DateTime)UCCustomeDateIncome.Startdate, (DateTime)UCCustomeDateIncome.Enddate));
 
-            if (UCComboFilterDateSessions != null)
-            {
-                DateTime currentDate = DateTime.Now;
-                string selectedString = UCComboFilterDateSessions.comboBoxDetail.SelectedItem.ToString();
-                if (selectedString == UCComboFilterStat.ThisMonth)
-                {
-                    OutputSessionPerDay(OriginalSessionsDt, DateTime.Now);
-                }
-                else if (selectedString == UCComboFilterStat.LastMonth)
-                {
-                    // Last month
-                    DateTime thisMonthStartDate = new DateTime(currentDate.Year, currentDate.Month, 1);
-                    DateTime lastMonthStartDate = thisMonthStartDate.AddMonths(-1);
-                    DateTime lastMonthEndDate = thisMonthStartDate.AddSeconds(-1);
-                    OutputSessionPerDay(OriginalSessionsDt, lastMonthEndDate);
 
-                }
-
-                else if (selectedString == UCComboFilterStat.ThisYear)
-                {
-                    OutputSessionPerMonth(OriginalSessionsDt, DateTime.Now);
-                }
-                else if (selectedString == UCComboFilterStat.LastYear)
-                {
-                    // Last year
-                    DateTime lastYearStartDate = new DateTime(currentDate.Year - 1, 1, 1);
-                    DateTime lastYearEndDate = new DateTime(currentDate.Year, 1, 1).AddSeconds(-1);
-                    OutputSessionPerMonth(OriginalSessionsDt, lastYearEndDate);
-
-                }
-
-                else if (selectedString == UCComboFilterStat.AllYears)
-                {
-
-                    OutputSessionPerYear(OriginalSessionsDt);
-                }
-                else if (selectedString == UCComboFilterStat.ChooseMonth)
-                {
-                    if (UCCustomeDateSessions.Startdate != null && UCCustomeDateSessions.Enddate != null)
-                    {
-                        OutputSessionPerDay(OriginalSessionsDt, (DateTime)UCCustomeDateSessions.Startdate);
-                    }
-                }
-                else if (selectedString == UCComboFilterStat.ChooseYear)
-                {
-                    if (UCCustomeDateSessions.Startdate != null && UCCustomeDateSessions.Enddate != null)
-                    {
-                        OutputSessionPerMonth(OriginalSessionsDt, (DateTime)UCCustomeDateSessions.Startdate);
-
+                        //sessions
+                        OutputSessionPerMonth(OriginalSessionsDt, (DateTime)UCCustomeDateIncome.Startdate);
                     }
                 }
             }
@@ -703,7 +638,7 @@ namespace MKproject.Management
         public void OutputChartIncomePerService(DataTable FilteredAllServicesIncomeDt)
         {
 
-            List<Chart> charts = new List<Chart> { chartIncomePerService, chartIncomePerTime };//kermel el el mode
+            List<Chart> charts = new List<Chart> { chartIncomePerService, combinedChart };//kermel el el mode
 
             //
             chartIncomePerService.Series["SeriesIncome"].Points.Clear();
@@ -889,7 +824,7 @@ namespace MKproject.Management
                         chartIncomePerService.Series["SeriesQty"].Points.AddXY(i, CategoryQty);
                         chartIncomePerService.ChartAreas[0].AxisX.CustomLabels.Add(i - 1, i + 1, ProductName);
 
-                        i++;
+                        i += 2;
 
                     }
                 }
@@ -909,7 +844,14 @@ namespace MKproject.Management
         public void OutputChartIncomePerDay(DataTable FilteredAllServicesIncomeDt, DateTime DesiredDate)
         {
             //hone ma eemlna format la kell el labels metel tahet, or eemelneha , label by label that are different then 0
-            chartIncomePerTime.Series["Series1"].Label = "";//reset
+            combinedChart.Series["Income"].Label = "";//reset
+            combinedChart.Series["Income"].Points.Clear();
+
+            combinedChart.Series["Sessions"].Label = "";
+            combinedChart.Series["Sessions"].Points.Clear();
+
+            combinedChart.ChartAreas[0].AxisX.CustomLabels.Clear();
+            combinedChart.ChartAreas[0].AxisX.StripLines.Clear();
             //
             DateOfFilterIncome = DesiredDate;
             //
@@ -947,9 +889,7 @@ namespace MKproject.Management
                                  TotalAmountPaid = groupData?.TotalAmountPaid ?? 0
                              };
 
-            chartIncomePerTime.Series["Series1"].Points.Clear();
-            chartIncomePerTime.ChartAreas[0].AxisX.CustomLabels.Clear();
-            chartIncomePerTime.ChartAreas[0].AxisX.StripLines.Clear();
+
 
             double TotalIncome = 0;
             string[] dayAbbreviations = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
@@ -963,32 +903,32 @@ namespace MKproject.Management
 
 
 
-                chartIncomePerTime.Series["Series1"].Points.AddXY(group.Day, group.TotalAmountPaid);
+                combinedChart.Series["Income"].Points.AddXY(group.Day, group.TotalAmountPaid);
 
 
 
 
                 var dayOfWeek = new DateTime(DesiredDate.Year, DesiredDate.Month, group.Day).DayOfWeek;
                 var dayNameAbbreviation = dayAbbreviations[(int)dayOfWeek]; // Get day abbreviation
-                chartIncomePerTime.ChartAreas[0].AxisX.CustomLabels.Add(group.Day - 0.5, group.Day + 0.5, dayNameAbbreviation + "\n" + group.Day.ToString());
+                combinedChart.ChartAreas[0].AxisX.CustomLabels.Add(group.Day - 0.5, group.Day + 0.5, dayNameAbbreviation + "\n" + group.Day.ToString());
 
 
                 //kermel el x axis labels
                 if (group.TotalAmountPaid > 0)
                 {
-                    chartIncomePerTime.Series["Series1"].Points[index].Label = Currency.Symbol + "#VAL{N1}";
-                    chartIncomePerTime.Series["Series1"].Points[index].IsValueShownAsLabel = true;
+                    combinedChart.Series["Income"].Points[index].Label = Currency.Symbol + "#VAL{N1}";
+                    combinedChart.Series["Income"].Points[index].IsValueShownAsLabel = true;
 
 
                     // Create a StripLine for the specific gridline
-                    CreateStripLine(index + 1, chartIncomePerTime);
+                    CreateStripLine(index + 1, combinedChart);
 
 
 
                 }
                 else
                 {
-                    chartIncomePerTime.Series["Series1"].Points[index].IsValueShownAsLabel = false;
+                    combinedChart.Series["Income"].Points[index].IsValueShownAsLabel = false;
                 }
                 index++;
             }
@@ -996,7 +936,11 @@ namespace MKproject.Management
         }
         public void OutputChartIncomePerMonth(DataTable FilteredAllServicesIncomeDt, DateTime DesiredDate)
         {
+            combinedChart.Series["Income"].Points.Clear();
+            combinedChart.Series["Sessions"].Points.Clear();
 
+            combinedChart.ChartAreas[0].AxisX.CustomLabels.Clear();
+            combinedChart.ChartAreas[0].AxisX.StripLines.Clear();
             //
             DateOfFilterIncome = DesiredDate;
             //
@@ -1009,6 +953,7 @@ namespace MKproject.Management
             {
                 allMonths = Enumerable.Range(1, 12);
             }
+
 
             // Group and aggregate the data from FilteredAllServicesIncomeDt by month of the current year
             var groupedData = from row in FilteredAllServicesIncomeDt.AsEnumerable()
@@ -1035,9 +980,7 @@ namespace MKproject.Management
 
 
 
-            chartIncomePerTime.Series["Series1"].Points.Clear();
-            chartIncomePerTime.ChartAreas[0].AxisX.CustomLabels.Clear();
-            chartIncomePerTime.ChartAreas[0].AxisX.StripLines.Clear();
+
 
             double TotalIncome = 0;
             int index = 1;
@@ -1046,25 +989,31 @@ namespace MKproject.Management
 
 
 
-                chartIncomePerTime.Series["Series1"].Points.AddXY(data.Month, data.TotalAmountPaid);
+                combinedChart.Series["Income"].Points.AddXY(data.Month, data.TotalAmountPaid);
                 TotalIncome += data.TotalAmountPaid;
 
                 var monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(data.Month);
-                chartIncomePerTime.ChartAreas[0].AxisX.CustomLabels.Add(data.Month - 0.5, data.Month + 0.5, monthName);
+                combinedChart.ChartAreas[0].AxisX.CustomLabels.Add(data.Month - 0.5, data.Month + 0.5, monthName);
 
                 if (data.TotalAmountPaid > 0)
                 {
-                    CreateStripLine(index, chartIncomePerTime);
+                    CreateStripLine(index, combinedChart);
 
                 }
                 index++;
             }
 
-            chartIncomePerTime.Series["Series1"].Label = Currency.Symbol + "#VAL{N1}";
+            combinedChart.Series["Income"].Label = Currency.Symbol + "#VAL{N1}";
             labelTotalIncome.Text = Currency.Symbol + TotalIncome.ToString("N1");
         }
         public void OutputChartIncomePerYear(DataTable FilteredAllServicesIncomeDt)
         {
+            combinedChart.Series["Income"].Points.Clear();
+            combinedChart.Series["Sessions"].Points.Clear();
+
+            combinedChart.ChartAreas[0].AxisX.CustomLabels.Clear();
+            combinedChart.ChartAreas[0].AxisX.StripLines.Clear();
+
             //
             DateOfFilterIncome = DateTime.Now;
             // Get distinct years from your DataTable
@@ -1085,29 +1034,27 @@ namespace MKproject.Management
 
 
 
-            chartIncomePerTime.Series["Series1"].Points.Clear();
-            chartIncomePerTime.ChartAreas[0].AxisX.CustomLabels.Clear();
-            chartIncomePerTime.ChartAreas[0].AxisX.StripLines.Clear();
+          
 
             double TotalIncome = 0;
             int index = 1;
             foreach (var group in groupedData)
             {
 
-                chartIncomePerTime.Series["Series1"].Points.AddXY(group.Year, group.TotalAmountPaid);
+                combinedChart.Series["Income"].Points.AddXY(group.Year, group.TotalAmountPaid);
                 TotalIncome += group.TotalAmountPaid;
 
-                chartIncomePerTime.ChartAreas[0].AxisX.CustomLabels.Add(group.Year - 0.5, group.Year + 0.5, group.Year.ToString());
+                combinedChart.ChartAreas[0].AxisX.CustomLabels.Add(group.Year - 0.5, group.Year + 0.5, group.Year.ToString());
                 if (group.TotalAmountPaid > 0)
                 {
-                    CreateStripLine(index, chartIncomePerTime);
+                    CreateStripLine(index, combinedChart);
 
                 }
                 index++;
             }
             //chartIncomePerTime.ChartAreas[0].AxisX.Title = "Years";
 
-            chartIncomePerTime.Series["Series1"].Label = Currency.Symbol + "#VAL{N1}";
+            combinedChart.Series["Income"].Label = Currency.Symbol + "#VAL{N1}";
             labelTotalIncome.Text = Currency.Symbol + TotalIncome.ToString("N1");
         }
 
@@ -1116,7 +1063,7 @@ namespace MKproject.Management
         {
 
             //
-            chartSessions.Series["Series1"].Label = "";
+
             //
             DateOfFilterSessions = DesiredDate;
             //
@@ -1156,31 +1103,28 @@ namespace MKproject.Management
 
 
 
-            chartSessions.Series["Series1"].Points.Clear();
-            chartSessions.ChartAreas[0].AxisX.CustomLabels.Clear();
-            chartSessions.ChartAreas[0].AxisX.StripLines.Clear();
 
             string[] dayAbbreviations = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
             int TotalNumberOfSessions = 0;
             int index = 0;
             foreach (var data in mergedData)
             {
-                chartSessions.Series["Series1"].Points.AddXY(data.Day, data.TotalSessionsPerDay);
+                combinedChart.Series["Sessions"].Points.AddXY(data.Day, data.TotalSessionsPerDay);
                 TotalNumberOfSessions += data.TotalSessionsPerDay;
                 var dayOfWeek = new DateTime(DesiredDate.Year, DesiredDate.Month, data.Day).DayOfWeek;
                 var dayNameAbbreviation = dayAbbreviations[(int)dayOfWeek]; // Get day abbreviation
-                chartSessions.ChartAreas[0].AxisX.CustomLabels.Add(data.Day - 0.5, data.Day + 0.5, $"{dayNameAbbreviation}\n{data.Day}");
+                combinedChart.ChartAreas[0].AxisX.CustomLabels.Add(data.Day - 0.5, data.Day + 0.5, $"{dayNameAbbreviation}\n{data.Day}");
 
 
                 if (data.TotalSessionsPerDay > 0)
                 {
-                    chartSessions.Series["Series1"].Points[index].IsValueShownAsLabel = true;
+                    combinedChart.Series["Sessions"].Points[index].IsValueShownAsLabel = true;
                     // Create a StripLine for the specific gridline
-                    CreateStripLine(index + 1, chartSessions);
+                    CreateStripLine(index + 1, combinedChart);
                 }
                 else
                 {
-                    chartSessions.Series["Series1"].Points[index].IsValueShownAsLabel = false;
+                    combinedChart.Series["Sessions"].Points[index].IsValueShownAsLabel = false;
                 }
                 index++;
 
@@ -1189,17 +1133,17 @@ namespace MKproject.Management
             labelTotalNumberOfSessions.Text = TotalNumberOfSessions.ToString();
 
 
-            //
-            List<Chart> charts = new List<Chart> { chartSessions };//kermel el el mode
-            if (groupedData.ToList().Count > 0)
-            {
-                SetNoDateLabel(false, true, charts);
-            }
-            else
-            {
-                SetNoDateLabel(false, false, charts);
-            }
-            //
+            ////
+            //List<Chart> charts = new List<Chart> { combinedChart };//kermel el el mode
+            //if (groupedData.ToList().Count > 0)
+            //{
+            //    SetNoDateLabel(false, true, charts);
+            //}
+            //else
+            //{
+            //    SetNoDateLabel(false, false, charts);
+            //}
+            ////
         }
         public void OutputSessionPerMonth(DataTable FilteredSessionsDt, DateTime DesiredDate)
         {
@@ -1236,40 +1180,37 @@ namespace MKproject.Management
                                  TotalSessionsPerMonth = monthData != null ? monthData.TotalSessionsPerMonth : 0
                              };
 
-            chartSessions.Series["Series1"].Points.Clear();
-            chartSessions.ChartAreas[0].AxisX.CustomLabels.Clear();
-            chartSessions.ChartAreas[0].AxisX.StripLines.Clear();
 
             int TotalNumberOfSessions = 0;
             int index = 1;
             foreach (var data in mergedData)
             {
                 // Adding points to the chart series
-                chartSessions.Series["Series1"].Points.AddXY(data.Month, data.TotalSessionsPerMonth);
+                combinedChart.Series["Sessions"].Points.AddXY(data.Month, data.TotalSessionsPerMonth);
                 TotalNumberOfSessions += data.TotalSessionsPerMonth;
                 // Add a custom label for the current data point
                 var monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(data.Month);
-                chartSessions.ChartAreas[0].AxisX.CustomLabels.Add(data.Month - 0.5, data.Month + 0.5, monthName);
+                combinedChart.ChartAreas[0].AxisX.CustomLabels.Add(data.Month - 0.5, data.Month + 0.5, monthName);
 
                 if (data.TotalSessionsPerMonth > 0)
                 {
-                    CreateStripLine(index, chartSessions);
+                    CreateStripLine(index, combinedChart);
                 }
                 index++;
             }
-            chartSessions.Series["Series1"].Label = "#VAL{}";
+            combinedChart.Series["Sessions"].Label = "#VAL{}";
             labelTotalNumberOfSessions.Text = TotalNumberOfSessions.ToString();
 
-            //
-            List<Chart> charts = new List<Chart> { chartSessions };//kermel el el mode
-            if (groupedData.ToList().Count > 0)
-            {
-                SetNoDateLabel(false, true, charts);
-            }
-            else
-            {
-                SetNoDateLabel(false, false, charts);
-            }
+            ////
+            //List<Chart> charts = new List<Chart> { combinedChart };//kermel el el mode
+            //if (groupedData.ToList().Count > 0)
+            //{
+            //    SetNoDateLabel(false, true, charts);
+            //}
+            //else
+            //{
+            //    SetNoDateLabel(false, false, charts);
+            //}
             //
         }
         public void OutputSessionPerYear(DataTable FilteredSessionsDt)
@@ -1285,9 +1226,6 @@ namespace MKproject.Management
                                   TotalSessionsPerYear = g.Count()
                               };
 
-            chartSessions.Series["Series1"].Points.Clear();
-            chartSessions.ChartAreas[0].AxisX.CustomLabels.Clear();
-            chartSessions.ChartAreas[0].AxisX.StripLines.Clear();
 
 
 
@@ -1296,31 +1234,33 @@ namespace MKproject.Management
             foreach (var data in groupedData)
             {
                 // Adding points to the chart series
-                chartSessions.Series["Series1"].Points.AddXY(data.Year, data.TotalSessionsPerYear);
+                combinedChart.Series["Sessions"].Points.AddXY(data.Year, data.TotalSessionsPerYear);
                 TotalNumberOfSessions += data.TotalSessionsPerYear;
                 // Add a custom label for the current data point
-                chartSessions.ChartAreas[0].AxisX.CustomLabels.Add(data.Year - 0.5, data.Year + 0.5, data.Year.ToString());
+                combinedChart.ChartAreas[0].AxisX.CustomLabels.Add(data.Year - 0.5, data.Year + 0.5, data.Year.ToString());
 
                 if (data.TotalSessionsPerYear > 0)
                 {
-                    CreateStripLine(index, chartSessions);
+                    CreateStripLine(index, combinedChart);
 
                 }
                 index++;
             }
-            chartSessions.Series["Series1"].Label = "#VAL{}";
+            combinedChart.Series["Sessions"].Label = "#VAL{}";
             labelTotalNumberOfSessions.Text = TotalNumberOfSessions.ToString();
-            //
-            List<Chart> charts = new List<Chart> { chartSessions };//kermel el el mode
-            if (groupedData.ToList().Count > 0)
-            {
-                SetNoDateLabel(false, true, charts);
-            }
-            else
-            {
-                SetNoDateLabel(false, false, charts);
-            }
-            //
+
+
+            ////
+            //List<Chart> charts = new List<Chart> { combinedChart };//kermel el el mode
+            //if (groupedData.ToList().Count > 0)
+            //{
+            //    SetNoDateLabel(false, true, charts);
+            //}
+            //else
+            //{
+            //    SetNoDateLabel(false, false, charts);
+            //}
+            ////
         }
 
 
