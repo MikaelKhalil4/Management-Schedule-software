@@ -110,10 +110,12 @@ namespace MKproject
 
             if (newVersion!=null)
             {
-                NewUpdate updt = new NewUpdate();
-                updt.Show();
+              
                 UpdateMyApp(mgr, newVersion);
 
+
+                NewUpdate updt = new NewUpdate();
+                updt.Show();
                 Application.Run(updt);
 
             }
@@ -130,7 +132,7 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.33"; 
+                    LoginForm.labelVersion.Text = "v 1.0.0";  
                     Application.Run(LoginForm);
                 }
 
@@ -198,7 +200,7 @@ namespace MKproject
                 updt.Show();
 
 
-                mgr.DownloadUpdates(newVersion);   // download new version        
+                mgr.DownloadUpdatesAsync(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
 
