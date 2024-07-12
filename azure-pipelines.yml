@@ -28,8 +28,8 @@ stages:
             win_x64:
               ARCHITECTURE: 'win-x64'
             
-            # win_x86:
-            #   ARCHITECTURE: 'win-x86'            
+            win_x86:
+              ARCHITECTURE: 'win-x86'            
               
         steps:
         

@@ -194,15 +194,9 @@ namespace MKproject
         {
 
             try
-            {
-
-                NewUpdate updt = new NewUpdate();
-                updt.Show();
-
-
+            {            
                 mgr.DownloadUpdatesAsync(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
-
 
             }
             catch (Exception ex)
