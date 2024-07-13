@@ -160,12 +160,12 @@ namespace MKproject.Management
             //creating the new columns and deletening the old ones
             Originaldt.Columns.Add("Full Name", typeof(string));
             Originaldt.Columns.Add("Age Category", typeof(string));
-            Originaldt.Columns.Add("Type", typeof(string));
+            Originaldt.Columns.Add("Status", typeof(string));
             Originaldt.Columns.Add("Total Balance", typeof(string));
             Originaldt.Columns.Add("Total payment", typeof(string));
-            Originaldt.Columns.Add("Save Date", typeof(string));
-            Originaldt.Columns.Add("Last Visit", typeof(string));
-            Originaldt.Columns.Add("Registration Date", typeof(string));
+            Originaldt.Columns.Add("Profile Creation Date", typeof(string));
+            Originaldt.Columns.Add("Last Visit Date", typeof(string));
+            Originaldt.Columns.Add("Membership Date", typeof(string));
             Originaldt.Columns.Add("Total Attendance", typeof(int));
 
             //related for the packages
@@ -234,10 +234,10 @@ namespace MKproject.Management
                 //new original dt
                 d["Full Name"] = d["name"] + " " + d["family_name"];
                 d["Age Category"] = AgeCategory;
-                d["Type"] = ClientType;
-                d["Save Date"] = SaveDate;
-                d["Last Visit"] = LastVisit;
-                d["Registration Date"] = RegistrationDate;
+                d["Status"] = ClientType;
+                d["Profile Creation Date"] = SaveDate;
+                d["Last Visit Date"] = LastVisit;
+                d["Membership Date"] = RegistrationDate;
                 d["Total Balance"] = balance;
                 d["Total payment"] = Payment;
 
@@ -420,7 +420,7 @@ namespace MKproject.Management
                 DataTableToDatagrid(Filtereddt);
 
             }
-            else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Save Date")
+            else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Profile Creation Date")
             {
 
                 DataView sortedView = Filtereddt.DefaultView;
@@ -439,7 +439,7 @@ namespace MKproject.Management
                 Filtereddt = sortedView.ToTable(); // Reassigning dt here, which should still work
                 DataTableToDatagrid(Filtereddt);
             }
-            else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Last Visit")
+            else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Last Visit Date")
             {
                 // Sort the DataTable by the new column in descending order
                 DataView sortedView = Filtereddt.DefaultView;
@@ -457,7 +457,7 @@ namespace MKproject.Management
                 Filtereddt = sortedView.ToTable(); // Reassigning dt here, which should still work
                 DataTableToDatagrid(Filtereddt);
             }
-            else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Registration Date")
+            else if (dataGridViewClients.Columns[e.ColumnIndex].Name == "Membership Date")
             {
                 // Sort the DataTable by the new column in descending order
                 DataView sortedView = Filtereddt.DefaultView;

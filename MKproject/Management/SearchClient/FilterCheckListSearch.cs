@@ -74,7 +74,7 @@ namespace MKproject.Management
                     string selectedString = UCType.comboBoxDetail.SelectedItem.ToString();
                     if (selectedString != UCComboBoxFilterSearch.All)
                     {
-                        Filtereddt = FiltersDataTable.FilterDatatableIFStringEquality("Type", selectedString, Filtereddt);
+                        Filtereddt = FiltersDataTable.FilterDatatableIFStringEquality("Status", selectedString, Filtereddt);
                     }
                 }
 
@@ -375,16 +375,16 @@ namespace MKproject.Management
         {
             if (checkBoxType.Checked)
             {
-                SetIndex("Type");//ejbare el order hone, kermel naamil bnnzabeta bel original dt, abel ma nekhla new filterdt which is copy of the original
+                SetIndex("Status");//ejbare el order hone, kermel naamil bnnzabeta bel original dt, abel ma nekhla new filterdt which is copy of the original
                 UCType = new UCComboBoxFilterSearch();
-                UCType.Title = "Type";
+                UCType.Title = "Status";
                 UCType.ParentFormFilter = this;
                 UCType.FilterType = UCComboBoxFilterSearch.FiltersType.Type;
                 UCType.Show();
 
                 ParentFormSearch.FLPFiltersSlideSDhow.Controls.Add(UCType);
 
-                ParentFormSearch.dataGridViewClients.Columns["Type"].Visible = true;
+                ParentFormSearch.dataGridViewClients.Columns["Status"].Visible = true;
 
             }
             else
@@ -393,7 +393,7 @@ namespace MKproject.Management
                 //we couldnt use Dispose, cz it s making the filter close
                 UCType.Visible = false;
                 UCType = null;
-                ParentFormSearch.dataGridViewClients.Columns["Type"].Visible = false;
+                ParentFormSearch.dataGridViewClients.Columns["Status"].Visible = false;
 
             }
             FixGrandParentFilterSize();
@@ -781,14 +781,14 @@ namespace MKproject.Management
         {
             if (checkBoxSaveDate.Checked)
             {
-                SetIndex("Save Date");
+                SetIndex("Profile Creation Date");
                 UCSaveDate = new UCComboBoxFilterSearch();
-                UCSaveDate.Title = "Save Date";
+                UCSaveDate.Title = "Profile Creation Date";
                 UCSaveDate.ParentFormFilter = this;
                 UCSaveDate.FilterType = UCComboBoxFilterSearch.FiltersType.SaveDate;
                 UCSaveDate.Show();
                 ParentFormSearch.FLPFiltersSlideSDhow.Controls.Add(UCSaveDate);
-                ParentFormSearch.dataGridViewClients.Columns["Save Date"].Visible = true;
+                ParentFormSearch.dataGridViewClients.Columns["Profile Creation Date"].Visible = true;
 
             }
             else
@@ -798,7 +798,7 @@ namespace MKproject.Management
                 //we couldnt use Dispose, cz it s making the filter close
                 UCSaveDate.Visible = false;
                 UCSaveDate = null;
-                ParentFormSearch.dataGridViewClients.Columns["Save Date"].Visible = false;
+                ParentFormSearch.dataGridViewClients.Columns["Profile Creation Date"].Visible = false;
 
             }
             FixGrandParentFilterSize();
@@ -812,7 +812,7 @@ namespace MKproject.Management
                 {
                     UCCustomeDateSave = new UCLabelFilterSearch(UCLabelFilterSearch.FiltersCategories.SaveDate);
                     UCCustomeDateSave.FilterCheckListSearchForm = this;
-                    UCCustomeDateSave.Title = " Custome Save Date";
+                    UCCustomeDateSave.Title = "Profile Creation Custom Date";
                     UCCustomeDateSave.Visible = false;
                     ParentFormSearch.FLPFiltersSlideSDhow.Controls.Add(UCCustomeDateSave);
                     int indexFather = ParentFormSearch.FLPFiltersSlideSDhow.Controls.GetChildIndex(UCSaveDate);
@@ -840,14 +840,14 @@ namespace MKproject.Management
         {
             if (checkBoxLastVisit.Checked)
             {
-                SetIndex("Last Visit");
+                SetIndex("Last Visit Date");
                 UCLastVisit = new UCComboBoxFilterSearch();
                 UCLastVisit.Title = "Last Visit Date";
                 UCLastVisit.ParentFormFilter = this;
                 UCLastVisit.FilterType = UCComboBoxFilterSearch.FiltersType.LastVisit;
                 UCLastVisit.Show();
                 ParentFormSearch.FLPFiltersSlideSDhow.Controls.Add(UCLastVisit);
-                ParentFormSearch.dataGridViewClients.Columns["Last Visit"].Visible = true;
+                ParentFormSearch.dataGridViewClients.Columns["Last Visit Date"].Visible = true;
 
             }
             else
@@ -856,7 +856,7 @@ namespace MKproject.Management
                 //we couldnt use Dispose, cz it s making the filter close
                 UCLastVisit.Visible = false;
                 UCLastVisit = null;
-                ParentFormSearch.dataGridViewClients.Columns["Last Visit"].Visible = false;
+                ParentFormSearch.dataGridViewClients.Columns["Last Visit Date"].Visible = false;
 
             }
             FixGrandParentFilterSize();
@@ -870,7 +870,7 @@ namespace MKproject.Management
                 {
                     UCCustomeDateLastVisit = new UCLabelFilterSearch(UCLabelFilterSearch.FiltersCategories.LastVisitDate);
                     UCCustomeDateLastVisit.FilterCheckListSearchForm = this;
-                    UCCustomeDateLastVisit.Title = "Last Visit Custome Date";
+                    UCCustomeDateLastVisit.Title = "Last Visit Custom Date";
                     UCCustomeDateLastVisit.Visible = false;
                     ParentFormSearch.FLPFiltersSlideSDhow.Controls.Add(UCCustomeDateLastVisit);
                     int indexFather = ParentFormSearch.FLPFiltersSlideSDhow.Controls.GetChildIndex(UCLastVisit);
@@ -899,14 +899,14 @@ namespace MKproject.Management
         {
             if (checkBoxRegistration.Checked)
             {
-                SetIndex("Registration Date");
+                SetIndex("Membership Date");
                 UCRegistrationDate = new UCComboBoxFilterSearch();
-                UCRegistrationDate.Title = "Registration Date";
+                UCRegistrationDate.Title = "Membership Date";
                 UCRegistrationDate.ParentFormFilter = this;
                 UCRegistrationDate.FilterType = UCComboBoxFilterSearch.FiltersType.Registration;
                 UCRegistrationDate.Show();
                 ParentFormSearch.FLPFiltersSlideSDhow.Controls.Add(UCRegistrationDate);
-                ParentFormSearch.dataGridViewClients.Columns["Registration Date"].Visible = true;
+                ParentFormSearch.dataGridViewClients.Columns["Membership Date"].Visible = true;
 
 
             }
@@ -916,7 +916,7 @@ namespace MKproject.Management
                 //we couldnt use Dispose, cz it s making the filter close
                 UCRegistrationDate.Visible = false;
                 UCRegistrationDate = null;
-                ParentFormSearch.dataGridViewClients.Columns["Registration Date"].Visible = false;
+                ParentFormSearch.dataGridViewClients.Columns["Membership Date"].Visible = false;
 
             }
             FixGrandParentFilterSize();
@@ -930,7 +930,7 @@ namespace MKproject.Management
                 {
                     UCCustomeDateRegistartion = new UCLabelFilterSearch(UCLabelFilterSearch.FiltersCategories.RegisterDate);
                     UCCustomeDateRegistartion.FilterCheckListSearchForm = this;
-                    UCCustomeDateRegistartion.Title = "Registartion Custome Date";
+                    UCCustomeDateRegistartion.Title = "Membership Custom Date";
                     UCCustomeDateRegistartion.Visible = false;
                     ParentFormSearch.FLPFiltersSlideSDhow.Controls.Add(UCCustomeDateRegistartion);
                     int indexFather = ParentFormSearch.FLPFiltersSlideSDhow.Controls.GetChildIndex(UCRegistrationDate);

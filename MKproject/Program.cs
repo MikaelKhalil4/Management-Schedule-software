@@ -106,8 +106,8 @@ namespace MKproject
 
 
             (UpdateManager mgr, UpdateInfo newVersion) = IsUpdateExist();
-            
 
+          
             if (newVersion!=null)
             {
 
@@ -139,33 +139,7 @@ namespace MKproject
         }
 
 
-        private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
-        {
-            Program.HomeForm = new Home();
-            Program.HomeForm.Show();       
-        }
-
-
-
-        private static void GlobalExceptionHandler(object sender, EventArgs args)
-        {
-            // Determine the type of EventArgs and extract the exception object.
-            Exception e = args switch
-            {
-                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
-                ThreadExceptionEventArgs threadArgs => threadArgs.Exception,
-                _ => new Exception("Unknown exception type.")
-            };
-
-            // Log the exception using Serilog (assuming it's configured)
-            Log.Error(e.ToString() + "\n");
-
-            // Show a message box to the user
-            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-        }
-
-
+       
 
         public static (UpdateManager, UpdateInfo) IsUpdateExist()
         {
@@ -194,7 +168,6 @@ namespace MKproject
             try
             {
                
-
                 await mgr.DownloadUpdatesAsync(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
@@ -205,7 +178,6 @@ namespace MKproject
             }
 
         }
-         
 
 
         //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
@@ -214,8 +186,33 @@ namespace MKproject
         //         vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4
         //         https://cdn-admin.foxdigitaltech.online/fox-elk
 
-         
+
         //some global functions
+
+        private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
+        {
+            Program.HomeForm = new Home();
+            Program.HomeForm.Show();
+        }
+
+        private static void GlobalExceptionHandler(object sender, EventArgs args)
+        {
+            // Determine the type of EventArgs and extract the exception object.
+            Exception e = args switch
+            {
+                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
+                ThreadExceptionEventArgs threadArgs => threadArgs.Exception,
+                _ => new Exception("Unknown exception type.")
+            };
+
+            // Log the exception using Serilog (assuming it's configured)
+            Log.Error(e.ToString() + "\n");
+
+            // Show a message box to the user
+            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+        }
+
         public static string SetCashFormat(string cash)
         {
             return Currency.Symbol + cash;

@@ -21,7 +21,7 @@ namespace MKproject.Management
         {
             DateIncomeSessions,
             TypeIncome,
-            ServiceIncome
+            CategoryType
         }
 
 
@@ -96,7 +96,7 @@ namespace MKproject.Management
                 comboBoxDetail.Items.Add(ChooseYear);
                 comboBoxDetail.Items.Add(AllYears);
             }
-            else if (filterType == FiltersType.ServiceIncome)
+            else if (filterType == FiltersType.CategoryType)
             {
                 comboBoxDetail.Items.Add(All);
                 comboBoxDetail.Items.Add(Services);
