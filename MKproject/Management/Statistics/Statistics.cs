@@ -190,7 +190,7 @@ namespace MKproject.Management
 
             Legend legend3 = new Legend();
             legend3.Name = "Legend3";
-            legend3.Name = "Legend3";
+            legend3.Font = new Font("Segoe UI Semibold", 9.00f, FontStyle.Bold);
             legend3.BackColor = Color.Transparent;
             chartIncomePerService.Legends.Add(legend3);
 
@@ -325,7 +325,7 @@ namespace MKproject.Management
 
 
             // Add the chart to a panel or a form
-            TLPGLobalIncom.Controls.Add(combinedChart, 1, 1);// Assuming this code is in a Form
+            TLPGLobalIncom.Controls.Add(combinedChart, 1, 2);// Assuming this code is in a Form
         }
 
 
@@ -507,6 +507,8 @@ namespace MKproject.Management
 
 
                 int RowHeight = 33;
+                TLPGLobalIncom.RowStyles[1].Height = 55;
+
                 if (selectedString1 == UCComboFilterStat.Services)
                 {
                     IsServices = true;
@@ -514,6 +516,16 @@ namespace MKproject.Management
                     TLPIncome.RowStyles[1].Height = RowHeight;
                     TLPIncome.RowStyles[2].Height = RowHeight;
                     TLPIncome.RowStyles[3].Height = RowHeight;
+
+
+                    combinedChart.Series["Income"].Enabled = true;
+                    combinedChart.Series["Sessions"].Enabled = true;
+
+                    checkBoxServices.Enabled = true;
+                    checkBoxServices.Checked = true;
+
+                    checkBoxIncome.Enabled = true;
+                    checkBoxIncome.Checked = true;
                 }
                 else
                 {
@@ -522,6 +534,15 @@ namespace MKproject.Management
                     TLPIncome.RowStyles[1].Height = RowHeight;
                     TLPIncome.RowStyles[2].Height = 0;
                     TLPIncome.RowStyles[3].Height = 0;
+
+                    combinedChart.Series["Income"].Enabled = true;
+                    combinedChart.Series["Sessions"].Enabled = false;
+
+                    checkBoxServices.Enabled = false;
+                    checkBoxServices.Checked = false;
+
+                    checkBoxIncome.Enabled = true;
+                    checkBoxIncome.Checked = true;
                 }
                 FixFonts();
 
@@ -646,6 +667,7 @@ namespace MKproject.Management
 
                     }
                 }
+               
             }
         }
         public void SplitServices(DataTable OriginalIncomDt)
@@ -1371,6 +1393,31 @@ namespace MKproject.Management
             }
         }
 
+     
+        private void checkBoxIncome_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxIncome.Checked)
+            {
+                combinedChart.Series["Income"].Enabled = true;
+            }
+            else
+            {
+                combinedChart.Series["Income"].Enabled = false;
+            }
+        }
+
+        private void checkBoxServices_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxServices.Checked)
+            {
+                combinedChart.Series["Sessions"].Enabled = true;
+            }
+            else
+            {
+                combinedChart.Series["Sessions"].Enabled = false;
+            }
+        }
+
         protected override CreateParams CreateParams
         {
             get
@@ -1381,7 +1428,7 @@ namespace MKproject.Management
             }
         }
 
-      #pragma warning restore CA1416 // Validate platform compatibility
+#pragma warning restore CA1416 // Validate platform compatibility
 
 
     }
