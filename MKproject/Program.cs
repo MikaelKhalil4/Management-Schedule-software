@@ -106,15 +106,16 @@ namespace MKproject
 
 
             (UpdateManager mgr, UpdateInfo newVersion) = IsUpdateExist();
-       
+            NewUpdate updt = new NewUpdate();
 
+            updt.Show();
             if (newVersion!=null)
             {
 
-                NewUpdate updt = new NewUpdate();
-                updt.Shown += async (s, e) => await UpdateMyApp(mgr, newVersion);
+                //NewUpdate updt = new NewUpdate();
+                //updt.Shown += async (s, e) => await UpdateMyApp(mgr, newVersion);
 
-                Application.Run(updt);
+                //Application.Run(updt);
 
             }
             else
@@ -130,7 +131,7 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.2";  
+                    LoginForm.labelVersion.Text = "v 1.0.3";  
                     Application.Run(LoginForm);
                 }
 
