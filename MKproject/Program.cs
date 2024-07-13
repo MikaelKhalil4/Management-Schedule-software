@@ -112,8 +112,8 @@ namespace MKproject
             {
 
                 NewUpdate updt = new NewUpdate();
-
                 updt.Shown += async (s, e) => await UpdateMyApp(mgr, newVersion);
+
                 Application.Run(updt);
 
             }
@@ -130,7 +130,7 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.1";  
+                    LoginForm.labelVersion.Text = "v 1.0.2";  
                     Application.Run(LoginForm);
                 }
 
@@ -195,7 +195,7 @@ namespace MKproject
             {
                
 
-                mgr.DownloadUpdates(newVersion);   // download new version        
+                await mgr.DownloadUpdatesAsync(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
             }
