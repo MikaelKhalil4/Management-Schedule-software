@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MKproject
 {
-    public  class AppConfig
+    public class AppConfig
     {
         private static IConfiguration _configuration;
         public static IConfiguration Configuration
@@ -34,7 +34,7 @@ namespace MKproject
 
         public static string GetBucketName()
         {
-            return Configuration["bucketnameelk"]; // Consider what to return if "bucketname" is not found.
+            return Configuration[""]; // Consider what to return if "bucketname" is not found.
         }
         public static string GetURL()
         {
