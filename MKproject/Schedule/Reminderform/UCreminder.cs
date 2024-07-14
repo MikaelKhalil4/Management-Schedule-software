@@ -51,15 +51,15 @@ namespace MKproject.Schedule
 
                 if (desiredreminder.PartsRepeat[0] == Reminder.NoRepeat)
                 {
-                    LabelReminderType.Text = desiredreminder.StartTime.ToString("ddd");
+                    LabelReminderType.Text = desiredreminder.StartTime.ToString("dddd");
                 }
                 else if (desiredreminder.PartsRepeat[0] == Reminder.Everyday)
                 {
-                    LabelReminderType.Text = "Daily";
+                    LabelReminderType.Text = "Daily Repetition";
                 }
                 else
                 {
-                    LabelReminderType.Text = "Weekly";
+                    LabelReminderType.Text = "Weekly Repetition";
                 }
 
             }
@@ -277,9 +277,9 @@ namespace MKproject.Schedule
         void FixDesign()
         {
             int DesiredHeight = RandomFunctions.CalculateDesiredHeight(checkBoxReminder, checkBoxReminder.Width-10);
-            TLPGlobal.RowStyles[1].Height = DesiredHeight+15;
+            TLPGlobal.RowStyles[1].Height = DesiredHeight+13;
 
-            this.Height = Convert.ToInt16(TLPGlobal.RowStyles[0].Height + TLPGlobal.RowStyles[1].Height + TLPGlobal.RowStyles[2].Height) + this.Padding.Bottom + 15;
+            this.Height = Convert.ToInt16(TLPGlobal.RowStyles[0].Height + TLPGlobal.RowStyles[1].Height + TLPGlobal.RowStyles[2].Height) + this.Padding.Bottom ;
         }
 
       

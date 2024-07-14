@@ -22,13 +22,13 @@ namespace MKproject.Management
 
 
         public void FilterDatable()
-        {       
+        {
             ParentFormSearch.firstVisibleRowIndex = 0;
 
 
-           
 
-                DataTable Filtereddt = ParentFormSearch.Originaldt.Copy();
+
+            DataTable Filtereddt = ParentFormSearch.Originaldt.Copy();
             if (ParentFormSearch.textBoxSearch.Text != ParentFormSearch.textBoxSearch.PlaceholderText)
             {
                 String Input = ParentFormSearch.textBoxSearch.Text.TrimEnd();
@@ -177,7 +177,7 @@ namespace MKproject.Management
                 }
 
 
-                
+
             }
 
             ParentFormSearch.DataTableToDatagrid(Filtereddt);
@@ -271,7 +271,7 @@ namespace MKproject.Management
             ParentFormSearch.Filtereddt.Columns[columnIndexToMove].SetOrdinal(ParentFormSearch.Originaldt.Columns.Count - 1);
 
             ParentFormSearch.dataGridViewClients.Columns[ColumnName].DisplayIndex = ParentFormSearch.dataGridViewClients.Columns.Count - 1;
-        
+
             if (ParentFormSearch.dataGridViewClients.Rows.Count > 0)
             {
                 ParentFormSearch.dataGridViewClients.FirstDisplayedScrollingRowIndex = ParentFormSearch.firstVisibleRowIndex;
@@ -365,8 +365,8 @@ namespace MKproject.Management
                 UCGender.comboBoxDetail.SelectedIndex = 0;
                 //we couldnt use Dispose, cz it s making the filter close
                 UCGender.Visible = false;
-                UCGender =null;
-                ParentFormSearch.dataGridViewClients.Columns["Gender"].Visible = false;                             
+                UCGender = null;
+                ParentFormSearch.dataGridViewClients.Columns["Gender"].Visible = false;
             }
             FixGrandParentFilterSize();
         }
@@ -653,7 +653,7 @@ namespace MKproject.Management
             foreach (DataRow dtrow in DtRows)
             {
 
-                PackageRemainings += ClassClientBalance.SetPackageRemainingsFormat(dtrow);               
+                PackageRemainings += ClassClientBalance.SetPackageRemainingsFormat(dtrow);
                 PackageRemainings += Environment.NewLine;
             }
 

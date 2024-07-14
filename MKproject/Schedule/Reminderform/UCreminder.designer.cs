@@ -54,15 +54,15 @@ namespace MKproject.Schedule
             TLPGlobal.Controls.Add(linkLabelName, 1, 0);
             TLPGlobal.Controls.Add(panelColoredReminder, 0, 0);
             TLPGlobal.Controls.Add(checkBoxReminder, 1, 1);
-            TLPGlobal.Controls.Add(LabelReminderType, 2, 2);
+            TLPGlobal.Controls.Add(LabelReminderType, 1, 2);
             TLPGlobal.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGlobal.Location = new System.Drawing.Point(0, 0);
             TLPGlobal.Margin = new System.Windows.Forms.Padding(0);
             TLPGlobal.Name = "TLPGlobal";
             TLPGlobal.RowCount = 3;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             TLPGlobal.Size = new System.Drawing.Size(223, 86);
             TLPGlobal.TabIndex = 4;
@@ -145,7 +145,7 @@ namespace MKproject.Schedule
             checkBoxReminder.Location = new System.Drawing.Point(9, 30);
             checkBoxReminder.Margin = new System.Windows.Forms.Padding(4);
             checkBoxReminder.Name = "checkBoxReminder";
-            checkBoxReminder.Size = new System.Drawing.Size(210, 32);
+            checkBoxReminder.Size = new System.Drawing.Size(210, 36);
             checkBoxReminder.TabIndex = 3;
             checkBoxReminder.Text = "DDDDDDDDDDDDDDDDDDDDDDDDDDDD";
             checkBoxReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -157,17 +157,18 @@ namespace MKproject.Schedule
             // LabelReminderType
             // 
             LabelReminderType.AutoSize = true;
-            TLPGlobal.SetColumnSpan(LabelReminderType, 2);
+            TLPGlobal.SetColumnSpan(LabelReminderType, 3);
             LabelReminderType.Dock = System.Windows.Forms.DockStyle.Fill;
-            LabelReminderType.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            LabelReminderType.Location = new System.Drawing.Point(158, 66);
+            LabelReminderType.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            LabelReminderType.ForeColor = System.Drawing.Color.Silver;
+            LabelReminderType.Location = new System.Drawing.Point(5, 70);
             LabelReminderType.Margin = new System.Windows.Forms.Padding(0);
             LabelReminderType.Name = "LabelReminderType";
             LabelReminderType.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            LabelReminderType.Size = new System.Drawing.Size(65, 20);
+            LabelReminderType.Size = new System.Drawing.Size(218, 16);
             LabelReminderType.TabIndex = 6;
             LabelReminderType.Text = "Daily";
-            LabelReminderType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LabelReminderType.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // UCreminder
             // 
