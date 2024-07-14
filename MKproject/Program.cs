@@ -106,13 +106,13 @@ namespace MKproject
 
 
             (UpdateManager mgr, UpdateInfo newVersion) = IsUpdateExist();
-       
 
+          
             if (newVersion!=null)
             {
+
                 NewUpdate updt = new NewUpdate();
-                updt.Show();
-                UpdateMyApp(mgr, newVersion);
+                updt.Shown += async (s, e) => await UpdateMyApp(mgr, newVersion);
 
                 Application.Run(updt);
 
@@ -130,7 +130,7 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.17";
+                    LoginForm.labelVersion.Text = "v 1.0.5";  
                     Application.Run(LoginForm);
                 }
 
@@ -139,33 +139,7 @@ namespace MKproject
         }
 
 
-        private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
-        {
-            Program.HomeForm = new Home();
-            Program.HomeForm.Show();       
-        }
-
-
-
-        private static void GlobalExceptionHandler(object sender, EventArgs args)
-        {
-            // Determine the type of EventArgs and extract the exception object.
-            Exception e = args switch
-            {
-                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
-                ThreadExceptionEventArgs threadArgs => threadArgs.Exception,
-                _ => new Exception("Unknown exception type.")
-            };
-
-            // Log the exception using Serilog (assuming it's configured)
-            Log.Error(e.ToString() + "\n");
-
-            // Show a message box to the user
-            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-        }
-
-
+       
 
         public static (UpdateManager, UpdateInfo) IsUpdateExist()
         {
@@ -193,14 +167,9 @@ namespace MKproject
 
             try
             {
-
-                NewUpdate updt = new NewUpdate();
-                updt.Show();
-
-
-                mgr.DownloadUpdates(newVersion);   // download new version        
+               
+                await mgr.DownloadUpdatesAsync(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
-
 
             }
             catch (Exception ex)
@@ -211,15 +180,39 @@ namespace MKproject
         }
 
 
-
         //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
         //         vpk download http --channel win-x64 --url https://cdn.foxdigitaltech.online/fox-elk
-        //         vpk pack -u FoxApp -v 1.0.17 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
-        //         vpk upload s3  --bucket fox-global  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId M7vOlSs7PznsJwiuGVyE --secret RwPBh65YQ3vi7mFNleszDzLCDe2aP3LSO4RS2Vdm
+        //         vpk pack -u FoxApp -v 1.0.1 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
+        //         vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4
         //         https://cdn-admin.foxdigitaltech.online/fox-elk
 
 
         //some global functions
+
+        private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
+        {
+            Program.HomeForm = new Home();
+            Program.HomeForm.Show();
+        }
+
+        private static void GlobalExceptionHandler(object sender, EventArgs args)
+        {
+            // Determine the type of EventArgs and extract the exception object.
+            Exception e = args switch
+            {
+                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
+                ThreadExceptionEventArgs threadArgs => threadArgs.Exception,
+                _ => new Exception("Unknown exception type.")
+            };
+
+            // Log the exception using Serilog (assuming it's configured)
+            Log.Error(e.ToString() + "\n");
+
+            // Show a message box to the user
+            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+        }
+
         public static string SetCashFormat(string cash)
         {
             return Currency.Symbol + cash;

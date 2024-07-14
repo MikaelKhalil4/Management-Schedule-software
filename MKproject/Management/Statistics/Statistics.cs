@@ -63,7 +63,7 @@ namespace MKproject.Management
             SetupChartIncomePerService();
             SetupCombinedChart();
 
-     
+
 
             Formatcharts();
 
@@ -75,10 +75,7 @@ namespace MKproject.Management
             CreateFilters();
 
 
-            labelIncome.Font = new Font(labelIncome.Font.FontFamily, 12, FontStyle.Bold);
-            labelSession.Font = new Font(labelSession.Font.FontFamily, 12, FontStyle.Bold);
-            RandomFunctions.FixedFont(labelIncome, FontStyle.Bold);
-            RandomFunctions.FixedFont(labelSession, FontStyle.Bold);
+
 
         }//try catch
         void CreatingTheNoDateLabel(ref Label DesireddLabel)//false yaane sessions
@@ -236,9 +233,7 @@ namespace MKproject.Management
             TLPGLobalIncom.Controls.Add(chartIncomePerService, 1, 0);
         }
 
-
         Chart combinedChart;
-
         private void SetupCombinedChart()
         {
             // Initialize the chart
@@ -262,18 +257,20 @@ namespace MKproject.Management
             chartArea.AxisX.TitleFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             chartArea.AxisX.TitleAlignment = StringAlignment.Far;
 
-            // Configure the primary Y-Axis (for Income)
-            chartArea.AxisY.ArrowStyle = AxisArrowStyle.Lines;
-            chartArea.AxisY.LabelStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            chartArea.AxisY.MajorGrid.Enabled = false;
-            chartArea.AxisY.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            chartArea.AxisY.Enabled = AxisEnabled.False;
+            chartArea.AxisY2.Enabled = AxisEnabled.False;
+            //// Configure the primary Y-Axis (for Income)
+            //chartArea.AxisY.ArrowStyle = AxisArrowStyle.Lines;
+            //chartArea.AxisY.LabelStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            //chartArea.AxisY.MajorGrid.Enabled = false;
+            //chartArea.AxisY.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 
-            // Configure the secondary Y-Axis (for Sessions)
-            chartArea.AxisY2.Enabled = AxisEnabled.True;
-            chartArea.AxisY2.ArrowStyle = AxisArrowStyle.Lines;
-            chartArea.AxisY2.LabelStyle.Font = new Font("Segoe UI", 9.75F);
-            chartArea.AxisY2.MajorGrid.Enabled = false;
-            chartArea.AxisY2.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            //// Configure the secondary Y-Axis (for Sessions)
+            //chartArea.AxisY2.Enabled = AxisEnabled.True;
+            //chartArea.AxisY2.ArrowStyle = AxisArrowStyle.Lines;
+            //chartArea.AxisY2.LabelStyle.Font = new Font("Segoe UI", 9.75F);
+            //chartArea.AxisY2.MajorGrid.Enabled = false;
+            //chartArea.AxisY2.TitleFont = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 
             combinedChart.ChartAreas.Add(chartArea);
 
@@ -331,7 +328,7 @@ namespace MKproject.Management
             TLPGLobalIncom.Controls.Add(combinedChart, 1, 1);// Assuming this code is in a Form
         }
 
-     
+
 
         public void Formatcharts()
         {
@@ -354,7 +351,7 @@ namespace MKproject.Management
 
             UCComboFilterServiceIncome = new UCComboFilterStat();
             UCComboFilterServiceIncome.StatisticsForm = this;
-            UCComboFilterServiceIncome.FilterType = UCComboFilterStat.FiltersType.ServiceIncome;
+            UCComboFilterServiceIncome.FilterType = UCComboFilterStat.FiltersType.CategoryType;
             UCComboFilterServiceIncome.Title = "Category Type";
             UCComboFilterServiceIncome.Dock = DockStyle.Top;
             UCComboFilterServiceIncome.BringToFront();
@@ -386,7 +383,17 @@ namespace MKproject.Management
                     panelIncomeFilter.Controls.Add(UCCustomeDateIncome);
                     int indexFather = panelIncomeFilter.Controls.GetChildIndex(UCComboFilterDateIncome);
                     panelIncomeFilter.Controls.SetChildIndex(UCCustomeDateIncome, indexFather);
-                    UCCustomeDateIncome.Startdate = DateOfFilterIncome;
+
+                    if (SelectedString == UCComboFilterStat.ChooseMonth) // Month
+                    {
+                        UCCustomeDateIncome.Startdate = new DateTime(DateOfFilterIncome.Year, DateOfFilterIncome.Month, 1);
+                        UCCustomeDateIncome.Enddate = ((DateTime)UCCustomeDateIncome.Startdate).AddMonths(1).AddDays(-1);
+                    }
+                    else // Year
+                    {
+                        UCCustomeDateIncome.Startdate = new DateTime(DateOfFilterIncome.Year, 1, 1);
+                        UCCustomeDateIncome.Enddate = new DateTime(DateOfFilterIncome.Year, 12, 31);
+                    }
 
                 }
                 if (SelectedString == UCComboFilterStat.ChooseMonth)
@@ -473,12 +480,25 @@ namespace MKproject.Management
         //    }
         //}
 
-
+        bool IsServices;
         public void FilterDatatbleIncomeSessions()
         {
             DataTable FilteredIncomeDt = OriginalAllServicesIncomeDt.Copy();
+
             if (UCComboFilterServiceIncome != null && UCComboFilterDateIncome != null)
             {
+
+
+                combinedChart.Series["Income"].Points.Clear();
+                combinedChart.Series["Sessions"].Points.Clear();
+
+                combinedChart.ChartAreas[0].AxisX.CustomLabels.Clear();
+                combinedChart.ChartAreas[0].AxisX.StripLines.Clear();
+
+
+
+
+
                 string selectedString1 = UCComboFilterServiceIncome.comboBoxDetail.SelectedItem.ToString();
                 if (selectedString1 != UCComboFilterStat.All)
                 {
@@ -486,6 +506,24 @@ namespace MKproject.Management
                 }
 
 
+                int RowHeight = 33;
+                if (selectedString1 == UCComboFilterStat.Services)
+                {
+                    IsServices = true;
+                    TLPIncome.RowStyles[0].Height = RowHeight;
+                    TLPIncome.RowStyles[1].Height = RowHeight;
+                    TLPIncome.RowStyles[2].Height = RowHeight;
+                    TLPIncome.RowStyles[3].Height = RowHeight;
+                }
+                else
+                {
+                    IsServices = false;
+                    TLPIncome.RowStyles[0].Height = RowHeight;
+                    TLPIncome.RowStyles[1].Height = RowHeight;
+                    TLPIncome.RowStyles[2].Height = 0;
+                    TLPIncome.RowStyles[3].Height = 0;
+                }
+                FixFonts();
 
                 DateTime currentDate = DateTime.Now;
                 string selectedString3 = UCComboFilterDateIncome.comboBoxDetail.SelectedItem.ToString();
@@ -500,7 +538,12 @@ namespace MKproject.Management
                     OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, thisMonthStartDate, thisMonthEndDate));
 
                     //session
-                    OutputSessionPerDay(OriginalSessionsDt, DateTime.Now);
+                    if (IsServices)
+                    {
+                        OutputSessionPerDay(OriginalSessionsDt, DateTime.Now);
+                    }
+
+
                 }
                 else if (selectedString3 == UCComboFilterStat.LastMonth)
                 {
@@ -514,7 +557,10 @@ namespace MKproject.Management
                     OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, lastMonthStartDate, lastMonthEndDate));
 
                     //sessions
-                    OutputSessionPerDay(OriginalSessionsDt, lastMonthEndDate);
+                    if (IsServices)
+                    {
+                        OutputSessionPerDay(OriginalSessionsDt, lastMonthEndDate);
+                    }
                 }
                 else if (selectedString3 == UCComboFilterStat.ThisYear)
                 {
@@ -527,7 +573,10 @@ namespace MKproject.Management
                     OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, thisYearStartDate, thisYearEndDate));
 
                     //sessions
-                    OutputSessionPerMonth(OriginalSessionsDt, DateTime.Now);
+                    if (IsServices)
+                    {
+                        OutputSessionPerMonth(OriginalSessionsDt, DateTime.Now);
+                    }
 
                 }
                 else if (selectedString3 == UCComboFilterStat.LastYear)
@@ -541,7 +590,10 @@ namespace MKproject.Management
                     OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, lastYearStartDate, lastYearEndDate));
 
                     //session
-                    OutputSessionPerMonth(OriginalSessionsDt, lastYearEndDate);
+                    if (IsServices)
+                    {
+                        OutputSessionPerMonth(OriginalSessionsDt, lastYearEndDate);
+                    }
 
                 }
 
@@ -552,7 +604,11 @@ namespace MKproject.Management
                     OutputChartIncomePerService(FilteredIncomeDt);
 
                     //sessions
-                    OutputSessionPerYear(OriginalSessionsDt);
+                    if (IsServices)
+                    {
+                        OutputSessionPerYear(OriginalSessionsDt);
+                    }
+
                 }
                 else if (selectedString3 == UCComboFilterStat.ChooseMonth)
                 {
@@ -564,20 +620,30 @@ namespace MKproject.Management
 
 
                         //sessions
-                        OutputSessionPerDay(OriginalSessionsDt, (DateTime)UCCustomeDateIncome.Startdate);
+                        if (IsServices)
+                        {
+                            OutputSessionPerDay(OriginalSessionsDt, (DateTime)UCCustomeDateIncome.Startdate);
+                        }
+
                     }
                 }
                 else if (selectedString3 == UCComboFilterStat.ChooseYear)
                 {
                     if (UCCustomeDateIncome.Startdate != null && UCCustomeDateIncome.Enddate != null)
                     {
+
+
                         //income
                         OutputChartIncomePerMonth(FilteredIncomeDt, (DateTime)UCCustomeDateIncome.Startdate);
                         OutputChartIncomePerService(FiltersDataTable.FilterDatatableDateCustomDate("Payment Date", FilteredIncomeDt, (DateTime)UCCustomeDateIncome.Startdate, (DateTime)UCCustomeDateIncome.Enddate));
 
 
                         //sessions
-                        OutputSessionPerMonth(OriginalSessionsDt, (DateTime)UCCustomeDateIncome.Startdate);
+                        if (IsServices)
+                        {
+                            OutputSessionPerMonth(OriginalSessionsDt, (DateTime)UCCustomeDateIncome.Startdate);
+                        }
+
                     }
                 }
             }
@@ -845,13 +911,8 @@ namespace MKproject.Management
         {
             //hone ma eemlna format la kell el labels metel tahet, or eemelneha , label by label that are different then 0
             combinedChart.Series["Income"].Label = "";//reset
-            combinedChart.Series["Income"].Points.Clear();
-
             combinedChart.Series["Sessions"].Label = "";
-            combinedChart.Series["Sessions"].Points.Clear();
 
-            combinedChart.ChartAreas[0].AxisX.CustomLabels.Clear();
-            combinedChart.ChartAreas[0].AxisX.StripLines.Clear();
             //
             DateOfFilterIncome = DesiredDate;
             //
@@ -936,11 +997,7 @@ namespace MKproject.Management
         }
         public void OutputChartIncomePerMonth(DataTable FilteredAllServicesIncomeDt, DateTime DesiredDate)
         {
-            combinedChart.Series["Income"].Points.Clear();
-            combinedChart.Series["Sessions"].Points.Clear();
 
-            combinedChart.ChartAreas[0].AxisX.CustomLabels.Clear();
-            combinedChart.ChartAreas[0].AxisX.StripLines.Clear();
             //
             DateOfFilterIncome = DesiredDate;
             //
@@ -1008,11 +1065,7 @@ namespace MKproject.Management
         }
         public void OutputChartIncomePerYear(DataTable FilteredAllServicesIncomeDt)
         {
-            combinedChart.Series["Income"].Points.Clear();
-            combinedChart.Series["Sessions"].Points.Clear();
 
-            combinedChart.ChartAreas[0].AxisX.CustomLabels.Clear();
-            combinedChart.ChartAreas[0].AxisX.StripLines.Clear();
 
             //
             DateOfFilterIncome = DateTime.Now;
@@ -1034,7 +1087,7 @@ namespace MKproject.Management
 
 
 
-          
+
 
             double TotalIncome = 0;
             int index = 1;
@@ -1300,6 +1353,24 @@ namespace MKproject.Management
             }
         }
 
+        private void TLPGLobalIncom_Resize(object sender, EventArgs e)
+        {
+            FixFonts();
+
+
+        }
+        void FixFonts()
+        {
+            labelIncome.Font = new Font(labelIncome.Font.FontFamily, 12, FontStyle.Bold);
+            RandomFunctions.FixedFont(labelIncome, FontStyle.Bold);
+
+            if (IsServices)
+            {
+                labelSession.Font = new Font(labelSession.Font.FontFamily, 12, FontStyle.Bold);
+                RandomFunctions.FixedFont(labelSession, FontStyle.Bold);
+            }
+        }
+
         protected override CreateParams CreateParams
         {
             get
@@ -1310,7 +1381,7 @@ namespace MKproject.Management
             }
         }
 
-#pragma warning restore CA1416 // Validate platform compatibility
+      #pragma warning restore CA1416 // Validate platform compatibility
 
 
     }

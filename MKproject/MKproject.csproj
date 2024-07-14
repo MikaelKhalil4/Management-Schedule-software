@@ -24,6 +24,7 @@
 		<UseWPF>true</UseWPF>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<ApplicationIcon>images/foxlogo.ico</ApplicationIcon>
+	
 	</PropertyGroup>
 	
 	<ItemGroup>
@@ -231,7 +232,8 @@
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 		<PackageReference Include="System.Data.SQLite" Version="1.0.118" />
 		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />		
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+		<PackageReference Include="System.Text.Json" Version="8.0.4" />		
 		<PackageReference Include="Velopack" Version="0.0.359" />
 	</ItemGroup>
 	<ItemGroup>

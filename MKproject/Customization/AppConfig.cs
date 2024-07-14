@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MKproject
 {
-    public  class AppConfig
+    public class AppConfig
     {
         private static IConfiguration _configuration;
         public static IConfiguration Configuration

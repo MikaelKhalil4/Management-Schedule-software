@@ -18,17 +18,17 @@ namespace MKproject
         static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         //public string Height { get; set; }
-       
+
         public enum enumDynamicFields //ejabre ballish men 1 aw 101 kermel el labels
         {
             //Dynamic
 
             //[StringValue("Height")]
             //Height = 101,
-       
+
 
         }
-  
+
 
         //public enum UnitHeight
         //{
@@ -38,7 +38,7 @@ namespace MKproject
         //    ft,
         //}
 
-       
+
 
 
         public override int InsertClientToSQL()
@@ -90,7 +90,7 @@ namespace MKproject
                         {
                             ProjectToSQL.UpdateClientField(ClientId, fieldId, propertyValue.ToString());
                         }
-                    }                
+                    }
                 }
             }
 
@@ -148,14 +148,14 @@ namespace MKproject
             {
                 string fieldName = row["Fields"].ToString();
                 string content = row["content"].ToString();
-              
+
                 // Map fieldName to properties using if statements
 
                 //if (fieldName == enumDynamicFields.Height.ToString())
                 //{
                 //    client.Height = content;
                 //}
-              
+
             }
 
             return client;
@@ -193,16 +193,16 @@ namespace MKproject
                 if (!FieldExistsInDataTable(dtRegistrationFields, field.ToString()))
                 {
 
-                    bool IsRequired=false;
+                    bool IsRequired = false;
 
 
                     if (field == enumStaticFields.FullName || field == enumStaticFields.PhoneNumber)
                     {
                         IsRequired = true;
                     }
-                  
 
-                    ProjectToSQL. InsertField(field.ToString(), true, IsRequired, true);
+
+                    ProjectToSQL.InsertField(field.ToString(), true, IsRequired, true);
                 }
             }
             // Insert enumDynamicFields
@@ -210,12 +210,12 @@ namespace MKproject
             {
                 if (!FieldExistsInDataTable(dtRegistrationFields, field.ToString()))
                 {
-                 
+
 
                     ProjectToSQL.InsertField(field.ToString(), true, false, false);
                 }
             }
-      
+
         }
         private static bool FieldExistsInDataTable(DataTable dataTable, string fieldName)
         {
@@ -228,7 +228,7 @@ namespace MKproject
             }
             return false;
         }
-      
+
 
 
         public static void DBExtention(ref string query)

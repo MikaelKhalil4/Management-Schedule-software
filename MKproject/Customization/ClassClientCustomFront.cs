@@ -30,17 +30,17 @@ namespace MKproject
 
 
 
-  
+
         //private UCLabelAndDetail UCWeight;
-      
-  
+
+
         public void UpdateOrCreateUCLabelAndDetail(ref bool NewUCCreated, string FieldName, ClassClientCustom Client, bool isVisible)
         {
             //if (FieldName == enumDynamicFields.Height.ToString())
             //{
             //    NewUCCreated = ExtentionClientManagementProfile.CreateDesiredUCLabelDetails(ref UCHeight, enumDynamicFields.Height.GetStringValue(), RandomFunctions.SetStringFormatSpaceInsteadOflash(Client.Height), isVisible, (int)enumDynamicFields.Height);
             //}
-        
+
         }
 
 
@@ -49,27 +49,27 @@ namespace MKproject
 
         //NEw Register
         //private TLPOtherOptions TLPHeight;
-    
 
 
 
-      
+
+
 
 
         public void UpdateOrInsertToSQLAndObj(ref ClassClientCustom UpdatedOrNewClient, ref ClassClientCustom Client)
         {
-    
+
             //if (TLPHeight != null)
             //{
             //    UpdatedOrNewClient.Height = TLPHeight.Value;
             //}
-         
+
 
             if (Client != null)
             {
 
                 //Client.Height = UpdatedOrNewClient.Height;
-          
+
             }
         }
         public void UpdateOrCreateFields(string FieldName, bool isVisible, bool isRequired, int ControlsWidthInsideFLP, ClassClientCustom Client, FlowLayoutPanel FLPInfo)
@@ -117,14 +117,14 @@ namespace MKproject
         }
         public bool CheckRequired(ref bool a, List<Control> RequiredControls)
         {
-        
+
 
             //if (TLPHeight != null && TLPHeight.ActiveRequiredMode())
             //{
             //    a = false;
             //    RequiredControls.Add(TLPHeight);
             //}
-          
+
             return a;
         }
 
@@ -143,7 +143,7 @@ namespace MKproject
             //    row["design_index"] = (int)enumDynamicFields.Height;
             //    row["FakeFields"] = enumDynamicFields.Height.GetStringValue();
             //}
-          
+
 
         }
     }

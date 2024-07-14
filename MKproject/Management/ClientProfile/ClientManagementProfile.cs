@@ -1408,16 +1408,16 @@ namespace MKproject.Management
 
                     if (Client.SaveDate != null)
                     {
-                        DesiredRowF["Save Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.SaveDate));
-                        DesiredRowO["Save Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.SaveDate));
+                        DesiredRowF["Profile Creation Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.SaveDate));
+                        DesiredRowO["Profile Creation Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.SaveDate));
 
                         DesiredRowF["save_date"] = Client.SaveDate;
                         DesiredRowO["save_date"] = Client.SaveDate;
                     }
                     else
                     {
-                        DesiredRowF["Save Date"] = NotAvailable;
-                        DesiredRowO["Save Date"] = NotAvailable;
+                        DesiredRowF["Profile Creation Date"] = NotAvailable;
+                        DesiredRowO["Profile Creation Date"] = NotAvailable;
                         DesiredRowF["save_date"] = DBNull.Value;
                         DesiredRowO["save_date"] = DBNull.Value;
                     }
@@ -1429,15 +1429,15 @@ namespace MKproject.Management
 
                     if (Client.LastVisit != null)
                     {
-                        DesiredRowF["Last Visit"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.LastVisit));
-                        DesiredRowO["Last Visit"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.LastVisit));
+                        DesiredRowF["Last Visit Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.LastVisit));
+                        DesiredRowO["Last Visit Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.LastVisit));
                         DesiredRowF["check_in"] = Client.LastVisit;
                         DesiredRowO["check_in"] = Client.LastVisit;
                     }
                     else
                     {
-                        DesiredRowF["Last Visit"] = NotAvailable;
-                        DesiredRowO["Last Visit"] = NotAvailable;
+                        DesiredRowF["Last Visit Date"] = NotAvailable;
+                        DesiredRowO["Last Visit Date"] = NotAvailable;
                         DesiredRowF["check_in"] = DBNull.Value;
                         DesiredRowO["check_in"] = DBNull.Value;
                     }
@@ -1445,31 +1445,31 @@ namespace MKproject.Management
 
                     if (Client.RegistrationDate != null)
                     {
-                        DesiredRowF["Registration Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
-                        DesiredRowO["Registration Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
+                        DesiredRowF["Membership Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
+                        DesiredRowO["Membership Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
 
                         DesiredRowF["Registration_Date"] = Client.RegistrationDate;
                         DesiredRowO["Registration_Date"] = Client.RegistrationDate;
                     }
                     else
                     {
-                        DesiredRowF["Registration Date"] = NotAvailable;
-                        DesiredRowO["Registration Date"] = NotAvailable;
+                        DesiredRowF["Membership Date"] = NotAvailable;
+                        DesiredRowO["Membership Date"] = NotAvailable;
                         DesiredRowF["Registration_Date"] = DBNull.Value;
                         DesiredRowO["Registration_Date"] = DBNull.Value;
                     }
                     if (Client.RegistrationDate != null)
                     {
-                        DesiredRowF["Registration Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
-                        DesiredRowO["Registration Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
+                        DesiredRowF["Membership Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
+                        DesiredRowO["Membership Date"] = RandomFunctions.SetDateFormat(Convert.ToString(Client.RegistrationDate));
 
                         DesiredRowF["Registration_Date"] = Client.RegistrationDate;
                         DesiredRowO["Registration_Date"] = Client.RegistrationDate;
                     }
                     else
                     {
-                        DesiredRowF["Registration Date"] = NotAvailable;
-                        DesiredRowO["Registration Date"] = NotAvailable;
+                        DesiredRowF["Membership Date"] = NotAvailable;
+                        DesiredRowO["Membership Date"] = NotAvailable;
                         DesiredRowF["Registration_Date"] = DBNull.Value;
                         DesiredRowO["Registration_Date"] = DBNull.Value;
                     }
@@ -1504,8 +1504,8 @@ namespace MKproject.Management
                     {
                         ClientType = UCComboBoxFilterSearch.NoneVisitor;
                     }
-                    DesiredRowF["Type"] = ClientType;
-                    DesiredRowO["Type"] = ClientType;
+                    DesiredRowF["Status"] = ClientType;
+                    DesiredRowO["Status"] = ClientType;
 
                 }
             }

@@ -193,7 +193,7 @@
             checkBoxRegistration.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             checkBoxRegistration.Size = new System.Drawing.Size(221, 25);
             checkBoxRegistration.TabIndex = 4;
-            checkBoxRegistration.Text = "Registration Date";
+            checkBoxRegistration.Text = "Membership Date";
             checkBoxRegistration.UseVisualStyleBackColor = true;
             checkBoxRegistration.CheckedChanged += checkBoxRegistration_CheckedChanged;
             // 
@@ -208,7 +208,7 @@
             checkBoxLastVisit.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             checkBoxLastVisit.Size = new System.Drawing.Size(221, 25);
             checkBoxLastVisit.TabIndex = 3;
-            checkBoxLastVisit.Text = "LastVisit Date";
+            checkBoxLastVisit.Text = "Last Visit Date";
             checkBoxLastVisit.UseVisualStyleBackColor = true;
             checkBoxLastVisit.CheckedChanged += checkBoxLastVisit_CheckedChanged;
             // 
@@ -223,7 +223,7 @@
             checkBoxSaveDate.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             checkBoxSaveDate.Size = new System.Drawing.Size(221, 25);
             checkBoxSaveDate.TabIndex = 13;
-            checkBoxSaveDate.Text = "Save Date";
+            checkBoxSaveDate.Text = "Profile Creation Date";
             checkBoxSaveDate.UseVisualStyleBackColor = true;
             checkBoxSaveDate.CheckedChanged += checkBoxSaveDate_CheckedChanged;
             // 
@@ -253,7 +253,7 @@
             checkBoxType.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             checkBoxType.Size = new System.Drawing.Size(221, 25);
             checkBoxType.TabIndex = 1;
-            checkBoxType.Text = "Type";
+            checkBoxType.Text = "Status";
             checkBoxType.UseVisualStyleBackColor = true;
             checkBoxType.CheckedChanged += checkBoxType_CheckedChanged;
             // 

@@ -30,11 +30,11 @@
         {
             TLPGLobalIncom = new System.Windows.Forms.TableLayoutPanel();
             TLPIncome = new System.Windows.Forms.TableLayoutPanel();
+            labelSession = new System.Windows.Forms.Label();
+            labelTotalNumberOfSessions = new System.Windows.Forms.Label();
             labelIncome = new System.Windows.Forms.Label();
             labelTotalIncome = new System.Windows.Forms.Label();
             panelIncomeFilter = new System.Windows.Forms.Panel();
-            labelSession = new System.Windows.Forms.Label();
-            labelTotalNumberOfSessions = new System.Windows.Forms.Label();
             TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             TLPGLobalIncom.SuspendLayout();
             TLPIncome.SuspendLayout();
@@ -52,11 +52,13 @@
             TLPGLobalIncom.Location = new System.Drawing.Point(0, 0);
             TLPGLobalIncom.Margin = new System.Windows.Forms.Padding(0);
             TLPGLobalIncom.Name = "TLPGLobalIncom";
-            TLPGLobalIncom.RowCount = 2;
-            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.5255661F));
-            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.4744339F));
+            TLPGLobalIncom.RowCount = 3;
+            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             TLPGLobalIncom.Size = new System.Drawing.Size(1410, 841);
             TLPGLobalIncom.TabIndex = 0;
+            TLPGLobalIncom.Resize += TLPGLobalIncom_Resize;
             // 
             // TLPIncome
             // 
@@ -73,14 +75,41 @@
             TLPIncome.Margin = new System.Windows.Forms.Padding(0);
             TLPIncome.Name = "TLPIncome";
             TLPIncome.RowCount = 5;
-            TLPGLobalIncom.SetRowSpan(TLPIncome, 2);
+            TLPGLobalIncom.SetRowSpan(TLPIncome, 3);
             TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             TLPIncome.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPIncome.Size = new System.Drawing.Size(179, 841);
             TLPIncome.TabIndex = 41;
+            // 
+            // labelSession
+            // 
+            labelSession.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelSession.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelSession.ForeColor = System.Drawing.Color.Black;
+            labelSession.Location = new System.Drawing.Point(0, 66);
+            labelSession.Margin = new System.Windows.Forms.Padding(0);
+            labelSession.Name = "labelSession";
+            labelSession.Size = new System.Drawing.Size(179, 33);
+            labelSession.TabIndex = 35;
+            labelSession.Text = "Total Services";
+            labelSession.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTotalNumberOfSessions
+            // 
+            labelTotalNumberOfSessions.Dock = System.Windows.Forms.DockStyle.Fill;
+            labelTotalNumberOfSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelTotalNumberOfSessions.ForeColor = System.Drawing.Color.Lime;
+            labelTotalNumberOfSessions.Location = new System.Drawing.Point(4, 99);
+            labelTotalNumberOfSessions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelTotalNumberOfSessions.Name = "labelTotalNumberOfSessions";
+            labelTotalNumberOfSessions.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            labelTotalNumberOfSessions.Size = new System.Drawing.Size(171, 33);
+            labelTotalNumberOfSessions.TabIndex = 1;
+            labelTotalNumberOfSessions.Text = "89";
+            labelTotalNumberOfSessions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelIncome
             // 
@@ -104,7 +133,7 @@
             labelTotalIncome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelTotalIncome.Name = "labelTotalIncome";
             labelTotalIncome.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            labelTotalIncome.Size = new System.Drawing.Size(171, 48);
+            labelTotalIncome.Size = new System.Drawing.Size(171, 33);
             labelTotalIncome.TabIndex = 1;
             labelTotalIncome.Text = "+$3000000";
             labelTotalIncome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -113,38 +142,11 @@
             // 
             panelIncomeFilter.AutoScroll = true;
             panelIncomeFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelIncomeFilter.Location = new System.Drawing.Point(0, 157);
+            panelIncomeFilter.Location = new System.Drawing.Point(0, 132);
             panelIncomeFilter.Margin = new System.Windows.Forms.Padding(0);
             panelIncomeFilter.Name = "panelIncomeFilter";
-            panelIncomeFilter.Size = new System.Drawing.Size(179, 684);
+            panelIncomeFilter.Size = new System.Drawing.Size(179, 709);
             panelIncomeFilter.TabIndex = 33;
-            // 
-            // labelSession
-            // 
-            labelSession.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelSession.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelSession.ForeColor = System.Drawing.Color.Black;
-            labelSession.Location = new System.Drawing.Point(0, 81);
-            labelSession.Margin = new System.Windows.Forms.Padding(0);
-            labelSession.Name = "labelSession";
-            labelSession.Size = new System.Drawing.Size(179, 38);
-            labelSession.TabIndex = 35;
-            labelSession.Text = "Total Services";
-            labelSession.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelTotalNumberOfSessions
-            // 
-            labelTotalNumberOfSessions.Dock = System.Windows.Forms.DockStyle.Fill;
-            labelTotalNumberOfSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelTotalNumberOfSessions.ForeColor = System.Drawing.Color.Lime;
-            labelTotalNumberOfSessions.Location = new System.Drawing.Point(4, 119);
-            labelTotalNumberOfSessions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelTotalNumberOfSessions.Name = "labelTotalNumberOfSessions";
-            labelTotalNumberOfSessions.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            labelTotalNumberOfSessions.Size = new System.Drawing.Size(171, 38);
-            labelTotalNumberOfSessions.TabIndex = 1;
-            labelTotalNumberOfSessions.Text = "89";
-            labelTotalNumberOfSessions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TLPGlobal
             // 
