@@ -35,9 +35,13 @@
             labelIncome = new System.Windows.Forms.Label();
             labelTotalIncome = new System.Windows.Forms.Label();
             panelIncomeFilter = new System.Windows.Forms.Panel();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            checkBoxServices = new System.Windows.Forms.CheckBox();
+            checkBoxIncome = new System.Windows.Forms.CheckBox();
             TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             TLPGLobalIncom.SuspendLayout();
             TLPIncome.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             TLPGlobal.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,14 +52,15 @@
             TLPGLobalIncom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.7F));
             TLPGLobalIncom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.3F));
             TLPGLobalIncom.Controls.Add(TLPIncome, 0, 0);
+            TLPGLobalIncom.Controls.Add(tableLayoutPanel1, 1, 1);
             TLPGLobalIncom.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPGLobalIncom.Location = new System.Drawing.Point(0, 0);
             TLPGLobalIncom.Margin = new System.Windows.Forms.Padding(0);
             TLPGLobalIncom.Name = "TLPGLobalIncom";
             TLPGLobalIncom.RowCount = 3;
-            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            TLPGLobalIncom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
             TLPGLobalIncom.Size = new System.Drawing.Size(1410, 841);
             TLPGLobalIncom.TabIndex = 0;
             TLPGLobalIncom.Resize += TLPGLobalIncom_Resize;
@@ -148,6 +153,59 @@
             panelIncomeFilter.Size = new System.Drawing.Size(179, 709);
             panelIncomeFilter.TabIndex = 33;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(checkBoxServices, 0, 1);
+            tableLayoutPanel1.Controls.Add(checkBoxIncome, 0, 0);
+            tableLayoutPanel1.Location = new System.Drawing.Point(1247, 368);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(160, 52);
+            tableLayoutPanel1.TabIndex = 44;
+            // 
+            // checkBoxServices
+            // 
+            checkBoxServices.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            checkBoxServices.AutoSize = true;
+            checkBoxServices.BackColor = System.Drawing.Color.White;
+            checkBoxServices.Checked = true;
+            checkBoxServices.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBoxServices.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxServices.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxServices.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
+            checkBoxServices.Location = new System.Drawing.Point(10, 29);
+            checkBoxServices.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            checkBoxServices.Name = "checkBoxServices";
+            checkBoxServices.Size = new System.Drawing.Size(146, 20);
+            checkBoxServices.TabIndex = 43;
+            checkBoxServices.Text = "Number of Services";
+            checkBoxServices.UseVisualStyleBackColor = false;
+            checkBoxServices.CheckedChanged += checkBoxServices_CheckedChanged;
+            // 
+            // checkBoxIncome
+            // 
+            checkBoxIncome.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            checkBoxIncome.AutoSize = true;
+            checkBoxIncome.BackColor = System.Drawing.Color.White;
+            checkBoxIncome.Checked = true;
+            checkBoxIncome.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBoxIncome.Cursor = System.Windows.Forms.Cursors.Hand;
+            checkBoxIncome.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkBoxIncome.ForeColor = System.Drawing.Color.FromArgb(114, 189, 57);
+            checkBoxIncome.Location = new System.Drawing.Point(10, 3);
+            checkBoxIncome.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            checkBoxIncome.Name = "checkBoxIncome";
+            checkBoxIncome.Size = new System.Drawing.Size(72, 20);
+            checkBoxIncome.TabIndex = 42;
+            checkBoxIncome.Text = "Income";
+            checkBoxIncome.UseVisualStyleBackColor = false;
+            checkBoxIncome.CheckedChanged += checkBoxIncome_CheckedChanged;
+            // 
             // TLPGlobal
             // 
             TLPGlobal.BackColor = System.Drawing.Color.White;
@@ -177,6 +235,8 @@
             Text = "Statistics";
             TLPGLobalIncom.ResumeLayout(false);
             TLPIncome.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             TLPGlobal.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -191,5 +251,8 @@
         private System.Windows.Forms.TableLayoutPanel TLPGlobal;
         public System.Windows.Forms.Label labelIncome;
         public System.Windows.Forms.Label labelSession;
+        public System.Windows.Forms.CheckBox checkBoxIncome;
+        public System.Windows.Forms.CheckBox checkBoxServices;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
