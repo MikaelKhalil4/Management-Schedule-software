@@ -46,6 +46,8 @@ namespace MKproject.Management
             {
                 UCBundleName.myTextBox1.Select();
                 //this.Height = this.Height - (checkBoxStatus.Height + checkBoxMemberShip.Height);
+                buttonDelete.Visible = false;
+                buttonSave.Text = "Add";
             }
 
 
