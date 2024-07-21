@@ -13,18 +13,57 @@ using System.Net.NetworkInformation;
 using CustomizedTools;
 using System.IO;
 using GlobalFunctions;
+using System.Net.Http;
+using System.Reflection.Metadata;
+using MKproject.Infrastucture;
 
 namespace MKproject
 {
     public partial class BackUp : Form
     {
         bool IsFormShouldBeCloseOnDisactivation = true;
-
+        bool isConstrutor;
 
         public BackUp()
         {
             InitializeComponent();
+            isConstrutor = true;
+            checkBoxBackUp.Checked = BackupHelper.CheckBackupIntervalIfExists();
+            isConstrutor = false;
         }
+
+
+
+        private void ButtonOnlineBackUp_Click(object sender, EventArgs e)
+        {
+            CloseNotfBanner();
+            IsFormShouldBeCloseOnDisactivation = false;
+
+            DialogResult dialogResult = CustomMessageBox.Show("This action will upload your database online.\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+
+
+                if (RandomFunctions.IsInternetAvailable())
+                {
+                    NotificationBanner.Show("Uploading backup database online... Please Do not turn off your Wi-Fi or close the application.", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false, true);
+                    this.Close();
+                    HttpRequestsClass.UploadBackupFileAsync();
+                }
+                else
+                {
+                    CustomMessageBox.Show("You don't have an Internet Connection, please connect to the internet", CustomMessageBox.Type.Error);
+                    this.Select();
+
+                }
+
+
+
+                IsFormShouldBeCloseOnDisactivation = true;
+            }
+        }
+
 
         private void BackUp_Deactivate(object sender, EventArgs e)
         {
@@ -35,6 +74,7 @@ namespace MKproject
             }
         }
 
+
         private void BackUp_FormClosing(object sender, FormClosingEventArgs e)
         {
 
@@ -44,153 +84,6 @@ namespace MKproject
                 Program.GreyForm = null;
             }
         }
-        private void ButtonOfflineBackUp_Click(object sender, EventArgs e)
-        {
-            CloseNotfBanner();
-            IsFormShouldBeCloseOnDisactivation = false;
-          
-            
-            string dbPath = AppPaths.DatabasePath;
-          
-            if (!string.IsNullOrEmpty(dbPath) && System.IO.File.Exists(dbPath))
-            {
-                string BackUpDBPath = AppPaths.DirectoryPath + "\\FoxBackUp.db";
-                File.Copy(dbPath, BackUpDBPath, true);
-
-                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-                {
-                    saveFileDialog.Filter = "Database files (*.db)|*.db|All files (*.*)|*.*";
-                    saveFileDialog.Title = "Save Backup Database";
-                    saveFileDialog.FileName = "FoxBackUp.db";
-
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        File.Copy(BackUpDBPath, saveFileDialog.FileName, true);
-
-                        // Assuming the attachment and the MailMessage are no longer using the file
-                        File.Delete(BackUpDBPath);
-                        NotificationBanner.Show("Backup saved successfully!", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false,false);
-                        this.Close();
-                    }
-                }
-            }
-            IsFormShouldBeCloseOnDisactivation = true;
-        }
-
-        private async void ButtonOnlineBackUp_Click(object sender, EventArgs e)
-        {
-            CloseNotfBanner();
-            IsFormShouldBeCloseOnDisactivation = false;
-
-            DialogResult dialogResult = CustomMessageBox.Show("This action will send the database via Gmail.\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNo);
-
-            if (RandomFunctions.IsInternetConnected())
-            {
-                NotificationBanner.Show("Sending email with backup database... Please Do not turn off your Wi-Fi or close the application.", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false,true);
-                this.Close();
-                await SendEmail("mikaelkhalil7.mk@gmail.com", "Backup", "");
-            }
-            else
-            {
-                CustomMessageBox.Show("You don't have an Internet Connection, please connect to the internet", CustomMessageBox.Type.Error);
-                this.Select();
-
-            }
-
-
-
-            IsFormShouldBeCloseOnDisactivation = true;
-
-
-        }
-        public async Task SendEmail(string toEmail, string subject, string body)
-        {
-            try
-            {
-                var fromEmail = "mikaelkhalil7.mk@gmail.com";
-                var password = "pxvm nxuv ahth mkgn";
-                // Use App Passwords if you have 2FA enabled on your Google account.
-
-
-
-                var smtpClient = new SmtpClient("smtp.gmail.com")
-                {
-                    Port = 587,
-                    Credentials = new NetworkCredential(fromEmail, password),
-                    EnableSsl = true,
-                };
-
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress(fromEmail),
-                    Subject = subject,
-                    Body = body,
-                    IsBodyHtml = true,
-                };
-
-                mailMessage.To.Add(toEmail);
-
-
-                string dbPath = AppPaths.DatabasePath;
-                string BackUpDBPath = AppPaths.DirectoryPath + "\\FoxBackUp.db";
-
-                if (!string.IsNullOrEmpty(dbPath) && System.IO.File.Exists(dbPath))
-                {
-                    File.Copy(dbPath, BackUpDBPath, true);
-
-                    using (var attachment = new Attachment(BackUpDBPath))
-                    {
-                        mailMessage.Attachments.Add(attachment);
-                       await smtpClient.SendMailAsync(mailMessage);
-                    }
-                }
-
-                // Assuming the attachment and the MailMessage are no longer using the file
-                File.Delete(BackUpDBPath);
-
-                NotificationBanner.Show("Email with backup database sent successfully.", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false );
-            }
-            catch (Exception ex)
-            {
-                NotificationBanner.Show($"Email with backup failed to send, please try again.", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
-            }
-        }
-
-
-
-        public static bool IsInternetAvailable()
-        {
-            try
-            {
-                InternetTest();
-                return true;//cz if  it's offline or online w ma sar fi exceptoion so it s true             
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-        }
-        public static void InternetTest()
-        {
-            try
-            {
-                using (var ping = new Ping())
-                {
-                    var result = ping.Send("www.google.com", 5000);
-                    if (result.Status != IPStatus.Success)
-                    {
-                        throw new Exception("No internet connection. Please check your network.");//in case la2oit el pc internet bas mesh meshye
-                    }
-                }
-            }
-            catch
-            {
-
-                throw new Exception("No internet connection. Please check your network.");//in case sar fi crach bel ping, w ma nbaat el mssg, yane eza maken el device connected men el asel
-            }
-        }
-
 
         public void CloseNotfBanner()
         {
@@ -199,5 +92,130 @@ namespace MKproject
                 CustomizedTools.NotificationBanner.CloseTheNotfBanner();
             }
         }
+
+
+
+        private void checkBoxBackUp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!isConstrutor)
+            {
+                IsFormShouldBeCloseOnDisactivation = false;
+                if (checkBoxBackUp.Checked)
+                {
+                    DialogResult dialog = CustomMessageBox.Show("Are you do you want to active the auto backup daily", CustomMessageBox.Type.YesNo);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        BackupHelper.UpdateBackupIntervalAsync(true);
+                    }
+                }
+                else
+                {
+                    DialogResult dialog = CustomMessageBox.Show("Are you do you want to desactive the auto backup daily", CustomMessageBox.Type.YesNo);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        BackupHelper.UpdateBackupIntervalAsync(false);
+                    }
+                }
+                IsFormShouldBeCloseOnDisactivation = true;
+            }
+          
+        }
+
+
+
+        //Email and offline backup
+        //private void ButtonOfflineBackUp_Click(object sender, EventArgs e)
+        //{
+        //    CloseNotfBanner();
+        //    IsFormShouldBeCloseOnDisactivation = false;
+
+
+        //    string dbPath = AppPaths.DatabasePath;
+
+        //    if (!string.IsNullOrEmpty(dbPath) && System.IO.File.Exists(dbPath))
+        //    {
+        //        string BackUpDBPath = AppPaths.DirectoryPath + "\\FoxBackUp.db";
+        //        File.Copy(dbPath, BackUpDBPath, true);
+
+        //        using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+        //        {
+        //            saveFileDialog.Filter = "Database files (*.db)|*.db|All files (*.*)|*.*";
+        //            saveFileDialog.Title = "Save Backup Database";
+        //            saveFileDialog.FileName = "FoxBackUp.db";
+
+        //            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        //            {
+        //                File.Copy(BackUpDBPath, saveFileDialog.FileName, true);
+
+        //                // Assuming the attachment and the MailMessage are no longer using the file
+        //                File.Delete(BackUpDBPath);
+        //                NotificationBanner.Show("Backup saved successfully!", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false);
+        //                this.Close();
+        //            }
+        //        }
+        //    }
+        //    IsFormShouldBeCloseOnDisactivation = true;
+        //}
+
+
+
+
+
+
+        //public async Task SendEmail(string toEmail, string subject, string body)
+        //{
+        //    try
+        //    {
+        //        var fromEmail = "mikaelkhalil7.mk@gmail.com";
+        //        var password = "pxvm nxuv ahth mkgn";
+        //        // Use App Passwords if you have 2FA enabled on your Google account.
+
+
+
+        //        var smtpClient = new SmtpClient("smtp.gmail.com")
+        //        {
+        //            Port = 587,
+        //            Credentials = new NetworkCredential(fromEmail, password),
+        //            EnableSsl = true,
+        //        };
+
+        //        var mailMessage = new MailMessage
+        //        {
+        //            From = new MailAddress(fromEmail),
+        //            Subject = subject,
+        //            Body = body,
+        //            IsBodyHtml = true,
+        //        };
+
+        //        mailMessage.To.Add(toEmail);
+
+
+        //        string dbPath = AppPaths.DatabasePath;
+        //        string BackUpDBPath = AppPaths.DirectoryPath + "\\FoxBackUp.db";
+
+        //        if (!string.IsNullOrEmpty(dbPath) && System.IO.File.Exists(dbPath))
+        //        {
+        //            File.Copy(dbPath, BackUpDBPath, true);
+
+        //            using (var attachment = new Attachment(BackUpDBPath))
+        //            {
+        //                mailMessage.Attachments.Add(attachment);
+        //                await smtpClient.SendMailAsync(mailMessage);
+        //            }
+        //        }
+
+        //        // Assuming the attachment and the MailMessage are no longer using the file
+        //        File.Delete(BackUpDBPath);
+
+        //        NotificationBanner.Show("Email with backup database sent successfully.", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        NotificationBanner.Show($"Email with backup failed to send, please try again.", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
+        //    }
+        //}
+
+
+
     }
 }

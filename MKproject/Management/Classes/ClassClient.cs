@@ -755,7 +755,7 @@ namespace MKproject.Management
                     SET  name = @Name, family_name = @FamilyName, gender = @Gender,date_of_birth = @DateOfBirth,           
                      phone_number = @PhoneNumber, 
                      adress = @Adress, job = @Job, special_note = @SpecialNote, 
-                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email,marital_status=@marital_status,know_about_us=@know_about_us                  
+                     insta_user = @InstaUser, IsChild = @IsChild, email = @Email,marital_status=@marital_status,know_about_us=@know_about_us,                  
                      profile_image_path=@profile_image_path
                      WHERE client_id = @client_id";
 

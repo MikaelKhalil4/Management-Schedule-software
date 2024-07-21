@@ -1,10 +1,12 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
+using MKproject.Infrastucture;
 using MKproject.Management;
 using MKproject.Schedule;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MKproject
@@ -37,7 +39,14 @@ namespace MKproject
                 menu.OpenChildForm(new SearchCurrentClient(), menu.buttonSearchClient, false);
             }
             buttonMaximize.Select();
+
+
+            //
+            SubscriptionHelper.SetupTimerAndStartSubuscriptionTimer();
+
         }
+
+
         void LoadImages()
         {
             MaximizeImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "maximizee.png");
@@ -73,14 +82,11 @@ namespace MKproject
         }
 
 
-
-
         private void panelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
-
         private void buttonMaximize_Click(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
@@ -97,19 +103,16 @@ namespace MKproject
 
             }
         }
-
         private void buttonClose_Click(object sender, EventArgs e)
         {
             this.Close();
             Application.Exit();
 
         }
-
         private void buttonMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
-
         private void buttonMenu_Click(object sender, EventArgs e)
         {
 
@@ -126,6 +129,10 @@ namespace MKproject
             menu.timerMenuOpen.Start();
 
         }
+
+
+
+      
 
     }
 }

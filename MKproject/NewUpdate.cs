@@ -16,5 +16,17 @@ namespace MKproject
         {
             InitializeComponent();
         }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                const int CS_NOCLOSE = 0x200;
+                cp.ClassStyle |= CS_NOCLOSE;
+                return cp;
+            }
+        }
+
     }
 }

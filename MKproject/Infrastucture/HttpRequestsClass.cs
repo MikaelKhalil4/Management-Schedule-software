@@ -1,0 +1,193 @@
+﻿using GlobalFunctions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using CustomizedTools;
+using Newtonsoft.Json;
+using System.Data.SQLite;
+using System.Drawing;
+using Amazon.S3.Model.Internal.MarshallTransformations;
+using static MKproject.Infrastucture.SettingsSql;
+
+
+namespace MKproject.Infrastucture
+{
+    public class HttpRequestsClass
+    {
+        static string BaseAddress = "http://localhost:5117";
+
+
+        //BackUP
+        public static async Task UploadBackupFileAsync()
+        {
+
+            string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+
+            if (ticketID == null)
+                return;
+
+            string dbPath = AppPaths.DatabasePath;
+            string NewBackFile = "FoxBackUp.db";
+            string BackUpDBPath = $"{AppPaths.DirectoryPath}\\{NewBackFile}";
+
+            if (!string.IsNullOrEmpty(dbPath) && File.Exists(dbPath))
+            {
+                File.Copy(dbPath, BackUpDBPath, true);
+            }
+
+            using (var client = new HttpClient())
+            {
+                // Create Multipart Content
+                using (var content = new MultipartFormDataContent())
+                {
+                    //string requestUri = $"{AppConfig.Configuration["api-url"]}?TicketId=123&branchName={AppConfig.GetBucketName()}";
+                    string requestUri = $"{BaseAddress}/Backup/Backup()?TicketId={ticketID}&branchName={AppConfig.GetBucketName()}";
+
+
+                    var fileContent = new StreamContent(File.OpenRead(BackUpDBPath));
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    content.Add(fileContent, "backupFile", NewBackFile);
+
+                    // Send POST request6
+                    var response = await client.PostAsync(requestUri, content);
+
+                    // Check if the response is successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Optionally read the response
+                        await response.Content.ReadAsStringAsync();
+                        NotificationBanner.Show("Backup database uploaded successfully.", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false);
+                    }
+                    else
+                    {
+                        NotificationBanner.Show($"Backup failed to upload online, please try again.", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
+                    }
+                }
+            }
+            File.Delete(BackUpDBPath);
+        }
+
+
+        //logs
+        public static async Task CheckAndProcessLogs()
+        {
+            if (RandomFunctions.IsInternetAvailable())
+            {
+                string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+
+                if (ticketID == null)
+                    return;
+
+
+                string logDirectoryPath = AppPaths.DirectoryPath;
+
+                // Ensure the directory exists to avoid runtime exceptions
+                if (Directory.Exists(logDirectoryPath))
+                {
+                    // Get all .json files in the directory
+                    string[] logFiles = Directory.GetFiles(logDirectoryPath, "*.json");
+
+                    // Process each file
+                    foreach (string filePath in logFiles)
+                    {
+                        HttpResponseMessage response = null;
+                        using (var client = new HttpClient())
+                        {
+                            // Create Multipart Content
+                            using (var content = new MultipartFormDataContent())
+                            {
+                                //string requestUri = $"{AppConfig.Configuration["api-url"]}?TicketId=123&branchName={AppConfig.GetBucketName()}";
+                                string requestUri = $"{BaseAddress}/Backup/Log()?TicketId={ticketID}&branchName={AppConfig.GetBucketName()}";
+
+
+                                // Load the file data
+                                var fileContent = new StreamContent(File.OpenRead(filePath));
+                                fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                                // 'logFile' is the parameter name that the server expects
+                                content.Add(fileContent, "logFile", Path.GetFileName(filePath));
+
+                                response = await client.PostAsync(requestUri, content);
+
+                            }
+                        }
+
+                        // Check if the response is successful then delete the log file
+                        if (response != null && response.IsSuccessStatusCode)
+                        {
+                            File.Delete(filePath);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        //client registration
+        public static async Task RegisterClient()
+        {
+
+            string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+
+            if (ticketID == null)
+                return;
+
+
+            string phoneNumber = "123";
+            string MacAdress = "111";
+
+            using (HttpClient client = new HttpClient())
+            {
+                var requestUri = $"{BaseAddress}/Subscription/RegisterClient()?TicketId={ticketID}&phoneNumber={phoneNumber}&MACAdressOfDesiredDevice={MacAdress}";
+                HttpResponseMessage response = await client.PostAsync(requestUri, null);
+                if (response.IsSuccessStatusCode)
+                {
+                    DateTime? dueDate = await CheckIfClientHasSubscriptionAndReturnDueDate();
+                    //i need here to insert it inside the settings table
+                }
+            }
+
+        }
+
+
+        //subscription
+        public static async Task<DateTime?> CheckIfClientHasSubscriptionAndReturnDueDate()
+        {
+            string ticketId = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+
+            using (HttpClient client = new HttpClient())
+            {
+                var requestUri = $"{BaseAddress}/Subscription/CheckIfClientHasSubscriptionAndReturnDueDate/{ticketId}";
+                HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                DateTime? Date = null;
+                if (response.IsSuccessStatusCode)//eza ma eendo package available ha tred NotFound
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    Date = DateTime.Parse(JsonConvert.DeserializeObject<string>(jsonResponse));
+                }
+
+                //Update DB, take into consideration if null or no
+
+
+                string DueDateKeyEncryp = EncryptionService.EncryptString(EnumSettingKey.DueDateMembership.ToString());
+
+                string DueDateValueEncryp = null;
+                if (Date != null)
+                {
+                    DueDateValueEncryp = EncryptionService.EncryptString(((DateTime)Date).ToString("yyyy-MM-dd"));
+                }
+
+                SettingsSql.UpdateKeyValue(DueDateKeyEncryp, DueDateValueEncryp);
+                //we should also insert the IsMainDevic
+
+                return Date;
+
+            }
+        }
+    }
+}

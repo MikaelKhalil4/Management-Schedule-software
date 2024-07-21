@@ -213,6 +213,11 @@ public class DatabaseInitializer
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""appointment_id"" AUTOINCREMENT)
 								);
+								CREATE TABLE ""Settings"" (
+									""SettingKey""	TEXT,
+									""SettingValue""	TEXT,
+									PRIMARY KEY(""SettingKey"")
+								);
 									";
 				  
 				ClassClientCustom.DBExtention(ref sqlQuey);

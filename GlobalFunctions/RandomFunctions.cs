@@ -281,7 +281,7 @@ namespace GlobalFunctions
         }
 
 
-        public static bool IsInternetConnected()
+        public static bool IsInternetAvailable()
         {
             try
             {

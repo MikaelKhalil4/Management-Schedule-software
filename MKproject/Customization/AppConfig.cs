@@ -34,11 +34,11 @@ namespace MKproject
 
         public static string GetBucketName()
         {
-            return Configuration[""]; // Consider what to return if "bucketname" is not found.
+            return Configuration["bucketnamemaster"]; // Consider what to return if "bucketname" is not found.
         }
         public static string GetURL()
         {
-            return Configuration["url"]; // Consider what to return if "bucketname" is not found.
+            return Configuration["minio-url"]; // Consider what to return if "bucketname" is not found.
         }
     }
 }

@@ -34,7 +34,7 @@ namespace CustomizedTools
             InformativeMode
 
         }
-        private NotificationBanner(string text, EnumType type, bool withOrWithoutButtonDone, Form parentFormHome, bool undoFromNotficationBannerModeOn,bool IsUnlimtedTime)
+        private NotificationBanner(string text, EnumType type, bool withOrWithoutButtonDone, Form parentFormHome, bool undoFromNotficationBannerModeOn, bool IsUnlimtedTime)
         {
             InitializeComponent();
             if (IsUnlimtedTime)
@@ -55,10 +55,27 @@ namespace CustomizedTools
             this.type = type;
             Text = text;
             ParentFormHome = parentFormHome;
+            ParentFormHome.Resize += ParentFormHome_Resize;
+            ParentFormHome.LocationChanged += ParentFormHome_LocationChanged;
+            ParentFormHome.Deactivate += ParentFormHome_Deactivate;
             LoadForm();
-
         }
 
+      
+        private void ParentFormHome_Deactivate(object sender, EventArgs e)
+        {
+            NotificationBanner.CloseTheNotfBanner();
+        }
+
+        private void ParentFormHome_LocationChanged(object sender, EventArgs e)
+        {
+            SetLocation();
+        }
+
+        private void ParentFormHome_Resize(object sender, EventArgs e)
+        {
+            SetLocation();
+        }
 
         void SetDeignWithoutUndoButton()
         {
@@ -133,6 +150,20 @@ namespace CustomizedTools
             ButtonUndo.BackAndMouseHoverColor = this.TLPglobal.BackColor;
             pictureBox.BackgroundImage = DesiredIcon;
 
+
+            SetLocation();
+            //Event
+            TLPglobal.MouseLeave += TLPglobal_MouseLeave; ;
+            TLPglobal.MouseMove += TLPglobal_MouseMove; ;
+            foreach (Control control in TLPglobal.Controls)
+            {
+                control.MouseMove += TLPglobal_MouseMove;
+                control.MouseLeave += TLPglobal_MouseLeave;
+            }
+
+        }
+        public void SetLocation()
+        {
             //LOCATION
             int Delta;
             if (ParentFormHome.ControlBox)
@@ -143,19 +174,11 @@ namespace CustomizedTools
             {
                 Delta = 20;
             }
+
+
             Point locationRelativeToScreen = ParentFormHome.PointToScreen(Point.Empty);
             locationRelativeToScreen.Offset(ParentFormHome.Width / 2 - (this.Width / 2), ParentFormHome.Height - this.Height - Delta);
             this.Location = locationRelativeToScreen;
-
-            //Event
-            TLPglobal.MouseLeave += TLPglobal_MouseLeave; ;
-            TLPglobal.MouseMove += TLPglobal_MouseMove; ;
-            foreach (Control control in TLPglobal.Controls)
-            {
-                control.MouseMove += TLPglobal_MouseMove;
-                control.MouseLeave += TLPglobal_MouseLeave;
-            }
-
         }
         private void TLPglobal_MouseMove(object sender, MouseEventArgs e)
         {
@@ -236,6 +259,8 @@ namespace CustomizedTools
                 CurrentNotfBanner = null;
             }
         }
+
+
         private void NotificationBanner_Deactivate(object sender, EventArgs e)
         {
             labelText.Select();//kermel ma el button ybayyin eendo borders

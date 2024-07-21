@@ -20,6 +20,11 @@ using System.Threading;
 using GlobalFunctions;
 using Serilog;
 using System.Data.SQLite;
+using System.Net.Http.Headers;
+using System.Reflection.Metadata;
+using MKproject.Infrastucture;
+using Amazon.Auth.AccessControlPolicy.ActionIdentifiers;
+using static MKproject.Infrastucture.SettingsSql;
 
 namespace MKproject
 {
@@ -98,17 +103,25 @@ namespace MKproject
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
 
 
-
             Log.Logger = new LoggerConfiguration()
                             .ReadFrom.Configuration(AppConfig.Configuration)
                             .CreateLogger();
 
 
+            //logging and backup
+            SettingsSql.EnsureSettingsExist();
 
+            LogHelper.SetupTimerAndStartLogsTimer();
+            BackupHelper.SetupBackupTimerndStartItIfNecessar();
+
+            //int zero = 0;
+            //int x = 1 / zero;
+
+
+            //Update
             (UpdateManager mgr, UpdateInfo newVersion) = IsUpdateExist();
 
-          
-            if (newVersion!=null)
+            if (newVersion != null)
             {
 
                 NewUpdate updt = new NewUpdate();
@@ -119,27 +132,28 @@ namespace MKproject
             }
             else
             {
-
-                if (!ClassEmployee.CheckIfOwnerExist())
+                if (CheckOwnerMembership())
                 {
-                    EditEmployee editEmployee = new EditEmployee(null, true,true);
-                    editEmployee.EmployeeInserted += EditEmployee_EmployeeInserted;
-                    Application.Run(editEmployee);
+                    if (!ClassEmployee.CheckIfOwnerExist())
+                    {
+                        EditEmployee editEmployee = new EditEmployee(null, true, true);
+                        editEmployee.EmployeeInserted += EditEmployee_EmployeeInserted;
+                        Application.Run(editEmployee);
 
-                }
-                else
-                {
-                    LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.5";  
-                    Application.Run(LoginForm);
+                    }
+                    else
+                    {
+                        LoginForm = new LOGIN();
+                        LoginForm.labelVersion.Text = "v 1.0.5";
+                        Application.Run(LoginForm);
+                    }
                 }
 
-               
-            }        
+            }
         }
 
 
-       
+
 
         public static (UpdateManager, UpdateInfo) IsUpdateExist()
         {
@@ -162,12 +176,12 @@ namespace MKproject
             }
 
         }
-        public static async Task UpdateMyApp(UpdateManager mgr,UpdateInfo newVersion)
+        public static async Task UpdateMyApp(UpdateManager mgr, UpdateInfo newVersion)
         {
 
             try
             {
-               
+
                 await mgr.DownloadUpdatesAsync(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
@@ -178,6 +192,55 @@ namespace MKproject
             }
 
         }
+
+
+
+        private static void GlobalExceptionHandler(object sender, EventArgs args)
+        {
+            // Determine the type of EventArgs and extract the exception object.
+            Exception e = args switch
+            {
+                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
+                ThreadExceptionEventArgs threadArgs => threadArgs.Exception,
+                _ => new Exception("Unknown exception type.")
+            };
+
+            // Log the exception using Serilog (assuming it's configured)
+            Log.Error("Unhandled exception occurred. Message: {ExceptionMessage}, StackTrace: {StackTrace}", e.Message, e.StackTrace);
+
+
+            // Show a message box to the user
+            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+        }
+
+
+
+
+
+    
+
+
+     
+
+
+        public static bool CheckOwnerMembership()
+        {
+            int RemainingDays = 0;
+
+            if (RemainingDays > 0)
+            {
+                if (RemainingDays == 0)
+                {
+                    CustomMessageBox.Show("Please Note that your membership", CustomMessageBox.Type.OkWarning);
+                }
+
+
+
+            }
+            return true;
+        }
+
 
 
         //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
@@ -195,23 +258,8 @@ namespace MKproject
             Program.HomeForm.Show();
         }
 
-        private static void GlobalExceptionHandler(object sender, EventArgs args)
-        {
-            // Determine the type of EventArgs and extract the exception object.
-            Exception e = args switch
-            {
-                UnhandledExceptionEventArgs unhandledArgs => unhandledArgs.ExceptionObject as Exception,
-                ThreadExceptionEventArgs threadArgs => threadArgs.Exception,
-                _ => new Exception("Unknown exception type.")
-            };
 
-            // Log the exception using Serilog (assuming it's configured)
-            Log.Error(e.ToString() + "\n");
 
-            // Show a message box to the user
-            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-        }
 
         public static string SetCashFormat(string cash)
         {
