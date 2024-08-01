@@ -8,6 +8,8 @@ using CustomizedTools;
 using static MKproject.Management.Features;
 using MKproject.Schedule;
 using System.Windows.Forms.VisualStyles;
+using MKproject.Infrastucture;
+using System.Threading.Tasks;
 
 namespace MKproject.Management
 {
@@ -34,7 +36,7 @@ namespace MKproject.Management
         DataRow DesiredRow;
         public ViewEmployee ParentFormViewEmpl;
 
-
+        UCTextbox1 UCTextboxTicketID;
 
         public EditEmployee(DataRow desiredRow, bool isOwnerMode,bool isInitializeMode)
         {
@@ -87,8 +89,21 @@ namespace MKproject.Management
 
                     checkBoxScheduleMember.Visible = false;
                     checkBoxStatus.Visible = false;
+
+
+                    UCTextboxTicketID = new UCTextbox1();
+                    UCTextboxTicketID.Size = ucTextboxPassword.Size;
+                    UCTextboxTicketID.IsRequired = true;
+                    UCTextboxTicketID.StringType = "Ticket ID";
+                    FLPTop.Controls.Add(UCTextboxTicketID);
+                    FLPTop.Controls.SetChildIndex(UCTextboxTicketID, FLPTop.Controls.GetChildIndex(ucTextboxPassword) + 1);
+
+
+                    ucTextboxPassword.NextControl = UCTextboxTicketID;
+
+
                     ChangeFormSize(true);
-                    this.Height -= 100;
+                    this.Height -= 30;
                 }
             }
 
@@ -105,15 +120,18 @@ namespace MKproject.Management
 
             ucTextboxLastName.IsRequired = true;
             ucTextboxLastName.StringType = "Last Name";
-
             ucTextboxLastName.NextControl = ucTextboxPhoneNumber;
+
+
             ucTextboxPhoneNumber.IsPhoneNumber = true;
             ucTextboxPhoneNumber.StringType = ClassClientCustom.enumStaticFields.PhoneNumber.GetStringValue();
             ucTextboxPhoneNumber.IsRequired = true;
+            ucTextboxPhoneNumber.NextControl = ucTextboxPassword;
+
 
             ucTextboxPassword.StringType = "Password";
-            ucTextboxPhoneNumber.NextControl = ucTextboxPassword;
             ucTextboxPassword.IsRequired = true;
+           
 
             if (DesiredRow == null) //Add Employee men el editemployeeForm 
             {
@@ -365,6 +383,8 @@ namespace MKproject.Management
         bool CheckRequired()
         {
             bool a = true;
+
+
             if (ucTextboxFirstName != null && ucTextboxFirstName.ActiveRequiredMode())
             {
                 a = false;
@@ -377,6 +397,16 @@ namespace MKproject.Management
             {
                 a = false;
             }
+            if (ucTextboxPhoneNumber != null && ucTextboxPhoneNumber.ActiveRequiredMode())
+            {
+                a = false;
+            }
+            if (UCTextboxTicketID != null && UCTextboxTicketID.ActiveRequiredMode())
+            {
+                a = false;
+            }
+
+
             if (ucTextboxPhoneNumber != null && ucTextboxPhoneNumber.ActiveRequiredMode())
             {
                 a = false;
@@ -434,7 +464,7 @@ namespace MKproject.Management
 
 
         public event EventHandler EmployeeInserted;
-        public void AddEmployee()
+        public async Task AddEmployee()
         {
             ClassEmployee employee = new ClassEmployee();
 
@@ -454,6 +484,21 @@ namespace MKproject.Management
             }
             else
             {
+                if (IsInitializeMode)
+                {
+                   
+                        
+                    if (await HttpRequestsClass.RegisterClient(UCTextboxTicketID.Value,ucTextboxPhoneNumber.Value))
+                    {
+                        //succeeded
+                    }
+                    else
+                    {
+                        CustomMessageBox.Show("TicketId Is Wrong", CustomMessageBox.Type.Error);
+                        return;
+                    }
+                    
+                }
 
                 employee.InsertEmployee();
                 DataTable dtinserteditem = ClassEmployee.GetAllEmployeesOrLAstInseted(false);
@@ -474,6 +519,7 @@ namespace MKproject.Management
                 }
                 else//ea kenna bel initial stat tb3 el app
                 {
+                  
                     Program.Employee = ClassEmployee.CreateEmployeeObject(Convert.ToInt32(dtinserteditem.Rows[0]["employee_id"]));
                     Program.Employee.SetEmployeeAccess();
                     EmployeeInserted?.Invoke(this, null);
@@ -544,7 +590,7 @@ namespace MKproject.Management
 
 
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private async void buttonSave_Click(object sender, EventArgs e)
         {
             if (CheckRequired())
             {
@@ -554,7 +600,7 @@ namespace MKproject.Management
                 }
                 else
                 {
-                    AddEmployee();
+                   await AddEmployee();
                 }
 
             }

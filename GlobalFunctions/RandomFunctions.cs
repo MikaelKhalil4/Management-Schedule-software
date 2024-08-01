@@ -76,7 +76,34 @@ namespace GlobalFunctions
             return input;
         }
 
+        //ased string to handle NULLVALUES
+        public static string SetDateFormatWithhours(string DeisredDate)
+        {
+            DateTime yesterday = DateTime.Now.AddDays(-1);
+            DateTime today = DateTime.Now;
+            string Lastvisit;
 
+            if (DeisredDate != DBNull.Value.ToString())
+            {
+                DateTime check_in = Convert.ToDateTime(DeisredDate);
+                if (check_in.Day == today.Day && check_in.Month == today.Month && check_in.Year == today.Year)
+                {
+                    Lastvisit = "Today";
+                }
+                else if (check_in.Day == yesterday.Day && check_in.Month == yesterday.Month && check_in.Year == yesterday.Year)
+                {
+                    Lastvisit = "Yesterday";
+                }
+                else Lastvisit = check_in.ToString("MMMM, dd yyyy");
+
+                Lastvisit+= " at " + check_in.ToString("h:mm tt");
+            }
+            else
+            {
+                Lastvisit = null;
+            }
+            return Lastvisit;
+        }
         //ased string to handle NULLVALUES
         public static string SetDateFormat(string DeisredDate)
         {

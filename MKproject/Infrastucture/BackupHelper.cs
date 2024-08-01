@@ -13,52 +13,50 @@ using System.Data.SQLite;
 using System.Data.Entity;
 using static MKproject.Infrastucture.SettingsSql;
 using GlobalFunctions;
+using System.IO.Packaging;
 
 namespace MKproject.Infrastucture
 {
     public class BackupHelper
     {
-        public static string backUpConstantInterval = "24:00:00";
+        public static string backUpConstantInterval = "06:00:00";
         static Timer backupTimer;
 
 
 
-        //leh el waet hl2d asir?
         public static async Task SetupBackupTimerndStartItIfNecessar()
         {
+
             backupTimer = new Timer();
-            backupTimer.Interval = 10000; // 15 minutes == 900000 in ms
-
-
-            backupTimer.Tick += async (sender, args) => await CheckAndMaybeBackupAsync();//setup the even tick and it s logic inside
-
-
-            if (BackupHelper.CheckBackupIntervalIfExists())
+            backupTimer.Interval = 60000 * 15; // 15 minutes == 900000 in ms
+            backupTimer.Tick += async (sender, args) => await CheckAndAutomateBackUpIfNecessar();//setup the even tick and it s logic inside
+            if (BackupHelper.CheckIfAutomatedBackupIsActive())
             {
-              backupTimer.Start();
+                //starting the first iteration
+                await CheckAndAutomateBackUpIfNecessar();
+                backupTimer.Start();
             }
         }
-        public static  bool CheckBackupIntervalIfExists()
+        public static bool CheckIfAutomatedBackupIsActive()
         {
 
             string backupIntervalKey = EnumSettingKey.BackupInterval.ToString();
+            var BackupIntervalValue = SettingsSql.GetKeyValue(backupIntervalKey);
 
-
-            var KeyValue = SettingsSql.GetKeyValue(backupIntervalKey);
-
-            if (string.IsNullOrEmpty(KeyValue))
+            if (string.IsNullOrEmpty(BackupIntervalValue))
             {
                 return false;
             }
             else
             {
-                UpdateBackupIntervalAsync(true);
+                SettingsSql.UpdateKeyValue(EnumSettingKey.BackupInterval.ToString(), BackupIntervalValue);//in order to keep the right time updated, in case ghayrto hard coded
                 return true;
             }
-           
+
         }
-        //hayde el function kermel el automated backup
-        public static async Task CheckAndMaybeBackupAsync()
+
+
+        public static async Task CheckAndAutomateBackUpIfNecessar()
         {
             if (RandomFunctions.IsInternetAvailable())
             {
@@ -79,23 +77,46 @@ namespace MKproject.Infrastucture
 
                 if (backupIntervalValue != null && (lastBackupTimeValue == null || DateTime.Now >= lastBackupTimeValue + backupIntervalValue))
                 {
-
-                    await HttpRequestsClass.UploadBackupFileAsync();
-
-                    string LastBackupTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    SettingsSql.UpdateKeyValue(EnumSettingKey.LastBackupTime.ToString(), LastBackupTime);
+                    await Backup();
                 }
             }
         }
-   
-        public static void UpdateBackupIntervalAsync(bool isBackupAutoEnabled)//it will change lamma ghayyir bel setting =s el checkbox
+        public static async Task<bool> Backup()
         {
+            String PreviousBackupDate= SettingsSql.GetKeyValue(EnumSettingKey.LastBackupTime.ToString());//kermel yenaamal upload aal server maa the last time naamal fiya backup
+            string LastBackupTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
            
-            if (isBackupAutoEnabled)
-                backupTimer.Start();
-            else
-                backupTimer.Stop();
 
+            if (await HttpRequestsClass.UploadBackupFileAsync())
+            {
+                SettingsSql.UpdateKeyValue(EnumSettingKey.LastBackupTime.ToString(), LastBackupTime);
+                return true;
+            }
+            else
+            {
+                SettingsSql.UpdateKeyValue(EnumSettingKey.LastBackupTime.ToString(), PreviousBackupDate);
+                return false;
+            }
+        }
+
+        public static string GetLastbackUpTime()
+        {
+
+            string BackUpTime = SettingsSql.GetKeyValue(EnumSettingKey.LastBackupTime.ToString());
+            if (!string.IsNullOrEmpty(BackUpTime))
+            {
+                return RandomFunctions.SetDateFormatWithhours(BackUpTime);
+            }
+            else
+            {
+                return "N/A";
+            }
+        }
+
+
+        //used for frontend interaction
+        public static void UpdateBackupIntervalAsync(bool isBackupAutoEnabled)
+        {
 
             string BackupIntervalValue = null;
             if (isBackupAutoEnabled)
@@ -104,13 +125,19 @@ namespace MKproject.Infrastucture
             }
 
             SettingsSql.UpdateKeyValue(EnumSettingKey.BackupInterval.ToString(), BackupIntervalValue);
+
+
+            if (isBackupAutoEnabled)
+            {
+                CheckAndAutomateBackUpIfNecessar();//first iteration
+                backupTimer.Start();
+            }
+            else
+            {
+                backupTimer.Stop();
+            }
+
         }
-
-
-      
-
-
-
-
+       
     }
 }

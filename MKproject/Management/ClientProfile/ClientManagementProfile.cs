@@ -63,7 +63,7 @@ namespace MKproject.Management
         {
             InitializeComponent();
             LoadImages();
-
+            LoadSomeDesign();
             classClientCustomFront = new ClassClientCustomFront();
             classClientCustomFront.ExtentionClientManagementProfile = this;//ejabre foe LoadData
 
@@ -73,8 +73,33 @@ namespace MKproject.Management
 
         }
 
+        IconButton buttonEditClientInfo;
+        IconButton buttonEditAlbum;
+        IconButton iconButtonImage;
+        void LoadSomeDesign()
+        {
+
+            buttonEditClientInfo = new CustomizedTools.IconButton();
+            buttonEditClientInfo.BackgroundImage= ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "Editing_pen.png");
+            buttonEditClientInfo.Size = new Size(34, 34) ;
+            buttonEditClientInfo.Anchor = AnchorStyles.None;
+            tableLayoutPanel3.Controls.Add(buttonEditClientInfo);
+            buttonEditClientInfo.Click += buttonEditClientInfo_Click;
 
 
+            buttonEditAlbum = new CustomizedTools.IconButton();
+            buttonEditAlbum.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "Editing_pen.png");
+            buttonEditAlbum.Size =new  Size(30, 30);
+            buttonEditAlbum.Anchor = AnchorStyles.None;
+            TLPAlbum.Controls.Add(buttonEditAlbum, 1,0);
+            buttonEditAlbum.Click += buttonEditAlbum_Click;
+
+            iconButtonImage = new CustomizedTools.IconButton();
+            iconButtonImage.Size = new Size(200, 200);
+            iconButtonImage.Anchor = AnchorStyles.None;
+            TLPPrimaryInfo.Controls.Add(iconButtonImage,0,1);
+            iconButtonImage.Click += iconButtonImage_Click;
+        }
 
         void LoadImages()
         {

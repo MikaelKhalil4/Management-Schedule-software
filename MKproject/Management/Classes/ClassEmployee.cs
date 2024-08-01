@@ -159,7 +159,6 @@ namespace MKproject.Management
             con.Close();
             return dt;
         }
-
         public static bool SearchEmployeePhoneNumber(int? employeeid, string PhoneNumber)
         {
             string query;
@@ -192,6 +191,16 @@ namespace MKproject.Management
             }
 
 
+        }
+        public static int GetOwnerId()
+        {
+            string query = "SELECT employee_id FROM employee WHERE is_owner=1";
+
+            SQLiteCommand command = new SQLiteCommand(query, con);
+            con.Open();
+            int OwnerID = Convert.ToInt32(command.ExecuteScalar());
+            con.Close();
+            return OwnerID;
         }
         public static int GetLastRank(int empId)
         {

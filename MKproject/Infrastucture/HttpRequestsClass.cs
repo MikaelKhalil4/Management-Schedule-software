@@ -13,7 +13,9 @@ using System.Data.SQLite;
 using System.Drawing;
 using Amazon.S3.Model.Internal.MarshallTransformations;
 using static MKproject.Infrastucture.SettingsSql;
-
+using MKproject.Management;
+using System.Management;
+using MKproject.ViewModels;
 
 namespace MKproject.Infrastucture
 {
@@ -23,54 +25,64 @@ namespace MKproject.Infrastucture
 
 
         //BackUP
-        public static async Task UploadBackupFileAsync()
+        public static async Task<bool> UploadBackupFileAsync()
         {
-
-            string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
-
-            if (ticketID == null)
-                return;
-
-            string dbPath = AppPaths.DatabasePath;
-            string NewBackFile = "FoxBackUp.db";
-            string BackUpDBPath = $"{AppPaths.DirectoryPath}\\{NewBackFile}";
-
-            if (!string.IsNullOrEmpty(dbPath) && File.Exists(dbPath))
+            try
             {
-                File.Copy(dbPath, BackUpDBPath, true);
-            }
+                bool result;
 
-            using (var client = new HttpClient())
-            {
-                // Create Multipart Content
-                using (var content = new MultipartFormDataContent())
+                string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+
+                if (ticketID == null)
+                    return false;
+
+                string dbPath = AppPaths.DatabasePath;
+                string NewBackFile = "FoxBackUp.db";
+                string BackUpDBPath = $"{AppPaths.DirectoryPath}\\{NewBackFile}";
+
+                if (!string.IsNullOrEmpty(dbPath) && File.Exists(dbPath))
                 {
-                    //string requestUri = $"{AppConfig.Configuration["api-url"]}?TicketId=123&branchName={AppConfig.GetBucketName()}";
-                    string requestUri = $"{BaseAddress}/Backup/Backup()?TicketId={ticketID}&branchName={AppConfig.GetBucketName()}";
+                    File.Copy(dbPath, BackUpDBPath, true);
+                }
 
-
-                    var fileContent = new StreamContent(File.OpenRead(BackUpDBPath));
-                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                    content.Add(fileContent, "backupFile", NewBackFile);
-
-                    // Send POST request6
-                    var response = await client.PostAsync(requestUri, content);
-
-                    // Check if the response is successful
-                    if (response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
+                {
+                    // Create Multipart Content
+                    using (var content = new MultipartFormDataContent())
                     {
-                        // Optionally read the response
-                        await response.Content.ReadAsStringAsync();
-                        NotificationBanner.Show("Backup database uploaded successfully.", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false);
-                    }
-                    else
-                    {
-                        NotificationBanner.Show($"Backup failed to upload online, please try again.", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
+                        //string requestUri = $"{AppConfig.Configuration["api-url"]}?TicketId=123&branchName={AppConfig.GetBucketName()}";
+                        string requestUri = $"{BaseAddress}/Backup/Backup()?TicketId={ticketID}&branchName={AppConfig.GetBucketName()}";
+
+
+                        var fileContent = new StreamContent(File.OpenRead(BackUpDBPath));
+                        fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                        content.Add(fileContent, "backupFile", NewBackFile);
+
+                        // Send POST request6
+                        var response = await client.PostAsync(requestUri, content);
+
+                        // Check if the response is successful
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Optionally read the response
+                            await response.Content.ReadAsStringAsync();
+                            result = true;
+                        }
+                        else
+                        {
+                            result = false;
+                        }
                     }
                 }
+                File.Delete(BackUpDBPath);
+                return result;
             }
-            File.Delete(BackUpDBPath);
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
+
 
 
         //logs
@@ -127,31 +139,67 @@ namespace MKproject.Infrastucture
         }
 
 
+
+
         //client registration
-        public static async Task RegisterClient()
+        public static async Task<bool> RegisterClient(string TicketIdValue,string phoneNumber)
         {
 
-            string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
-
-            if (ticketID == null)
-                return;
+            if (string.IsNullOrEmpty(TicketIdValue))
+                return false;
 
 
-            string phoneNumber = "123";
-            string MacAdress = "111";
+            string MacAdress = GetMotherboardSerialNumber();
 
             using (HttpClient client = new HttpClient())
             {
-                var requestUri = $"{BaseAddress}/Subscription/RegisterClient()?TicketId={ticketID}&phoneNumber={phoneNumber}&MACAdressOfDesiredDevice={MacAdress}";
+                var requestUri = $"{BaseAddress}/Subscription/RegisterClient()?TicketId={TicketIdValue}&phoneNumber={phoneNumber}&MACAdressOfDesiredDevice={MacAdress}";
                 HttpResponseMessage response = await client.PostAsync(requestUri, null);
                 if (response.IsSuccessStatusCode)
                 {
-                    DateTime? dueDate = await CheckIfClientHasSubscriptionAndReturnDueDate();
-                    //i need here to insert it inside the settings table
-                }
-            }
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    ClientTicket clientTicket = JsonConvert.DeserializeObject<ClientTicket>(jsonResponse);
 
+
+                    //Updating the TicketId
+                    string TicketIdKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.TicketId.ToString());
+                    string TicketIDvalueEncryp = EncryptionService.EncryptString(clientTicket.TicketId);
+                    SettingsSql.UpdateKeyValue(TicketIdKeyEnc, TicketIDvalueEncryp);
+
+                     //Updating the TicketId The Main Device
+                    string IsMaindDeviceKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.IsMainDevice.ToString());
+                    string IsMaindDeviceKeyValueEnc = EncryptionService.EncryptString(clientTicket.IsMainDevice.ToString());
+                    SettingsSql.UpdateKeyValue(IsMaindDeviceKeyEnc, IsMaindDeviceKeyValueEnc);
+
+
+                    //Update the Duedate
+                    await CheckIfClientHasSubscriptionAndReturnDueDate();
+                }
+
+                return response.IsSuccessStatusCode;
+            }
         }
+        public static string GetMotherboardSerialNumber()
+        {
+            try
+            {
+                string serialNumber = string.Empty;
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT SerialNumber FROM Win32_BaseBoard");
+                foreach (ManagementObject queryObj in searcher.Get())
+                {
+                    serialNumber = queryObj["SerialNumber"].ToString();
+                    break; // Assuming only one motherboard
+                }
+                return serialNumber;
+            }
+            catch
+            {
+                return "MACNOTFOUND";
+            }
+        }
+
+
+
 
 
         //subscription
@@ -186,8 +234,11 @@ namespace MKproject.Infrastucture
                 //we should also insert the IsMainDevic
 
                 return Date;
-
             }
         }
+
+
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -68,13 +69,21 @@ namespace MKproject.Infrastucture
         {
             SQLiteCommand cmd = new SQLiteCommand("select SettingValue from Settings Where SettingKey==@SettingKey", con);
             cmd.Parameters.AddWithValue("@SettingKey", key);
-            con.Open();
-            object keyValue = cmd.ExecuteScalar();//shuf shu bi red el ma ken mawjud el row
-            con.Close();
-            if(keyValue != null) 
-               return keyValue.ToString();
-            else 
-                return null;
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            string keyValue;
+            if (dt.Rows[0][0] != DBNull.Value)
+            {
+                keyValue=dt.Rows[0][0].ToString();
+            }
+            else
+            {
+                keyValue = null;
+            }
+            return keyValue;
+
         }
 
     

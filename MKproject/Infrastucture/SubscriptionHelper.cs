@@ -15,18 +15,17 @@ namespace MKproject.Infrastucture
         //Subscription Wise
         public static async Task SetupTimerAndStartSubuscriptionTimer()
         {
+            //first iteration
+            await CheckSubscription();
+
+
             System.Windows.Forms.Timer TimerSubsucription = new System.Windows.Forms.Timer();
             TimerSubsucription.Interval = 60000 * 360;//each 6hrs
-            TimerSubsucription.Tick += TimerSubsucription_Tick;
+            TimerSubsucription.Tick += async (sender, args) => await CheckSubscription();
 
-
-            await CheckSubscription();
             TimerSubsucription.Start();
         }
-        private static async void TimerSubsucription_Tick(object sender, EventArgs e)
-        {
-            await CheckSubscription();
-        }
+      
         public static async Task CheckSubscription()
         {
 

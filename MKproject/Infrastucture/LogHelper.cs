@@ -10,18 +10,13 @@ namespace MKproject.Infrastucture
     {
         public static async Task SetupTimerAndStartLogsTimer()
         {
+            HttpRequestsClass.CheckAndProcessLogs();
+
             System.Windows.Forms.Timer TimerLog = new System.Windows.Forms.Timer();
             TimerLog.Interval = 60000 * 15;//each  xmin
-            TimerLog.Tick += MyFormsTimer_Tick;
-
-            HttpRequestsClass.CheckAndProcessLogs();
-
+            TimerLog.Tick += async (sender, args) => await HttpRequestsClass.CheckAndProcessLogs();
             TimerLog.Start();
         }
-        private static void MyFormsTimer_Tick(object sender, EventArgs e)
-        {
-            HttpRequestsClass.CheckAndProcessLogs();
-
-        }
+      
     }
 }

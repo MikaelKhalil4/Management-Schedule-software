@@ -28,13 +28,22 @@ namespace MKproject
         {
             InitializeComponent();
             isConstrutor = true;
-            checkBoxBackUp.Checked = BackupHelper.CheckBackupIntervalIfExists();
+
+            labelbackUpTime.Text = BackupHelper.GetLastbackUpTime();
+            //AutoBackup
+            checkBoxBackUp.Checked = BackupHelper.CheckIfAutomatedBackupIsActive();
+
+            if (checkBoxBackUp.Checked)
+                checkBoxBackUp.Text = "On";
+            else 
+                checkBoxBackUp.Text = "Off";
+
             isConstrutor = false;
         }
 
 
 
-        private void ButtonOnlineBackUp_Click(object sender, EventArgs e)
+        private async void ButtonOnlineBackUp_Click(object sender, EventArgs e)
         {
             CloseNotfBanner();
             IsFormShouldBeCloseOnDisactivation = false;
@@ -49,7 +58,18 @@ namespace MKproject
                 {
                     NotificationBanner.Show("Uploading backup database online... Please Do not turn off your Wi-Fi or close the application.", NotificationBanner.EnumType.InformativeMode, false, Program.HomeForm, false, true);
                     this.Close();
-                    HttpRequestsClass.UploadBackupFileAsync();
+                    if (await BackupHelper.Backup())
+                    {
+                        NotificationBanner.Show("Backup database uploaded successfully.", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false);
+
+                    }
+                    else
+                    {
+                        NotificationBanner.Show($"Backup failed to upload online, please try again.", NotificationBanner.EnumType.DeletedMode, false, Program.HomeForm, false, false);
+
+                    }
+
+
                 }
                 else
                 {
@@ -94,10 +114,10 @@ namespace MKproject
         }
 
 
-
+        bool isFromEventCheckItself;
         private void checkBoxBackUp_CheckedChanged(object sender, EventArgs e)
         {
-            if (!isConstrutor)
+            if (!isConstrutor && !isFromEventCheckItself)
             {
                 IsFormShouldBeCloseOnDisactivation = false;
                 if (checkBoxBackUp.Checked)
@@ -106,6 +126,15 @@ namespace MKproject
                     if (dialog == DialogResult.Yes)
                     {
                         BackupHelper.UpdateBackupIntervalAsync(true);
+                        checkBoxBackUp.Text = "On";
+
+                    }
+                    else
+                    {
+                        isFromEventCheckItself = true;
+                        checkBoxBackUp.Checked = false;
+                        checkBoxBackUp.Text = "Off";
+                        isFromEventCheckItself = false;
                     }
                 }
                 else
@@ -114,11 +143,19 @@ namespace MKproject
                     if (dialog == DialogResult.Yes)
                     {
                         BackupHelper.UpdateBackupIntervalAsync(false);
+                        checkBoxBackUp.Text = "Off";
+                    }
+                    else
+                    {
+                        isFromEventCheckItself = true;
+                        checkBoxBackUp.Checked = true;
+                        checkBoxBackUp.Text = "On";
+                        isFromEventCheckItself = false;
                     }
                 }
                 IsFormShouldBeCloseOnDisactivation = true;
             }
-          
+
         }
 
 
@@ -167,7 +204,7 @@ namespace MKproject
         //    try
         //    {
         //        var fromEmail = "mikaelkhalil7.mk@gmail.com";
-        //        var password = "pxvm nxuv ahth mkgn";
+        //        var password = "    ";
         //        // Use App Passwords if you have 2FA enabled on your Google account.
 
 

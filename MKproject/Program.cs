@@ -110,7 +110,6 @@ namespace MKproject
 
             //logging and backup
             SettingsSql.EnsureSettingsExist();
-
             LogHelper.SetupTimerAndStartLogsTimer();
             BackupHelper.SetupBackupTimerndStartItIfNecessar();
 
@@ -132,8 +131,7 @@ namespace MKproject
             }
             else
             {
-                if (CheckOwnerMembership())
-                {
+              
                     if (!ClassEmployee.CheckIfOwnerExist())
                     {
                         EditEmployee editEmployee = new EditEmployee(null, true, true);
@@ -147,14 +145,13 @@ namespace MKproject
                         LoginForm.labelVersion.Text = "v 1.0.5";
                         Application.Run(LoginForm);
                     }
-                }
-
+               
             }
         }
 
 
 
-
+        //Update
         public static (UpdateManager, UpdateInfo) IsUpdateExist()
         {
 
@@ -194,7 +191,7 @@ namespace MKproject
         }
 
 
-
+        //Exeption hadnler
         private static void GlobalExceptionHandler(object sender, EventArgs args)
         {
             // Determine the type of EventArgs and extract the exception object.
@@ -213,54 +210,14 @@ namespace MKproject
             MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
         }
-
-
-
-
-
-    
-
-
-     
-
-
-        public static bool CheckOwnerMembership()
-        {
-            int RemainingDays = 0;
-
-            if (RemainingDays > 0)
-            {
-                if (RemainingDays == 0)
-                {
-                    CustomMessageBox.Show("Please Note that your membership", CustomMessageBox.Type.OkWarning);
-                }
-
-
-
-            }
-            return true;
-        }
-
-
-
-        //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
-        //         vpk download http --channel win-x64 --url https://cdn.foxdigitaltech.online/fox-elk
-        //         vpk pack -u FoxApp -v 1.0.1 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
-        //         vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4
-        //         https://cdn-admin.foxdigitaltech.online/fox-elk
-
+  
 
         //some global functions
-
         private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
         {
             Program.HomeForm = new Home();
             Program.HomeForm.Show();
         }
-
-
-
-
         public static string SetCashFormat(string cash)
         {
             return Currency.Symbol + cash;
@@ -278,5 +235,14 @@ namespace MKproject
             }
             return balance;
         }
+   
+    
     }
 }
+
+
+//         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
+//         vpk download http --channel win-x64 --url https://cdn.foxdigitaltech.online/fox-elk
+//         vpk pack -u FoxApp -v 1.0.1 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
+//         vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4
+//         https://cdn-admin.foxdigitaltech.online/fox-elk
