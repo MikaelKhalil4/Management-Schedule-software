@@ -62,6 +62,7 @@ public class DatabaseInitializer
 									""starttime""	TEXT,
 									""is_checked""	INTEGER NOT NULL,
 									""checked_date""	TEXT,
+									""modified_date""	TEXT,
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""reminder_id"" AUTOINCREMENT)
 								);

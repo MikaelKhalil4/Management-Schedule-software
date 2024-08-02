@@ -64,7 +64,10 @@ namespace CustomizedTools
       
         private void ParentFormHome_Deactivate(object sender, EventArgs e)
         {
-            NotificationBanner.CloseTheNotfBanner();
+            if (CurrentNotfBanner != null)
+            {
+                CurrentNotfBanner.Hide();
+            }
         }
 
         private void ParentFormHome_LocationChanged(object sender, EventArgs e)
@@ -153,8 +156,8 @@ namespace CustomizedTools
 
             SetLocation();
             //Event
-            TLPglobal.MouseLeave += TLPglobal_MouseLeave; ;
-            TLPglobal.MouseMove += TLPglobal_MouseMove; ;
+            TLPglobal.MouseLeave += TLPglobal_MouseLeave;
+            TLPglobal.MouseMove += TLPglobal_MouseMove;
             foreach (Control control in TLPglobal.Controls)
             {
                 control.MouseMove += TLPglobal_MouseMove;
@@ -247,7 +250,7 @@ namespace CustomizedTools
             CurrentNotfBanner = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked, IsUnlimtedTime);
             CurrentNotfBanner.Show();
             CurrentNotfBanner.timerLocation.Start();
-
+            parentFormHome.Select();
             return CurrentNotfBanner;
         }
         public static void CloseTheNotfBanner()
