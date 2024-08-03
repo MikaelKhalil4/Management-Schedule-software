@@ -69,28 +69,24 @@ namespace MKproject
 
             VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
 
-            if (AppConfig.GetBucketName() == "fox-soft")
+
+
+
+            if (!string.IsNullOrEmpty(AppConfig.GetOnlineSoftwareConnectionString()))
             {
                 IsSoftwareOnline = true;
-            }
-            else
-            {
-                IsSoftwareOnline = false;
-            }
-
-
-          
-
-            if (IsSoftwareOnline)
-            {
                 DataLocation = AppConfig.GetOnlineSoftwareConnectionString();
                 con = new SqlConnection(DataLocation);
             }
             else
             {
+                IsSoftwareOnline = false;
                 DataLocation = "Data Source=" + AppPaths.DatabasePath;
                 con = new SQLiteConnection(DataLocation);
             }
+
+
+        
 
 
             FolderProfileImagePath = AppPaths.ProfileImagesPath;
