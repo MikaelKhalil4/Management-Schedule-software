@@ -861,10 +861,11 @@ namespace MKproject.Management
         {
             //ejbare bi hal order men wara el relation baynetu
 
-            Program.conOpen();
+           
 
             ProjectToSQL.DeleteClientField(ClientId, null);
 
+            Program.conOpen();
             //kermel el balance
             string QueryDeleteArchive = "DELETE FROM archive WHERE client_id = '" + ClientId + "'";
             var cmd1 = Program.CreateCommand(QueryDeleteArchive );
