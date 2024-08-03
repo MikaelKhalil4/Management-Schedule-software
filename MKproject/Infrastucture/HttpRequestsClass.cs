@@ -144,39 +144,48 @@ namespace MKproject.Infrastucture
         //client registration
         public static async Task<bool> RegisterClient(string TicketIdValue,string phoneNumber)
         {
-
-            if (string.IsNullOrEmpty(TicketIdValue))
-                return false;
-
-
-            string MacAdress = GetMotherboardSerialNumber();
-
-            using (HttpClient client = new HttpClient())
+            try
             {
-                var requestUri = $"{BaseAddress}/Subscription/RegisterClient()?TicketId={TicketIdValue}&phoneNumber={phoneNumber}&MACAdressOfDesiredDevice={MacAdress}";
-                HttpResponseMessage response = await client.PostAsync(requestUri, null);
-                if (response.IsSuccessStatusCode)
+
+
+                if (string.IsNullOrEmpty(TicketIdValue))
+                    return false;
+
+
+                string MacAdress = GetMotherboardSerialNumber();
+
+                using (HttpClient client = new HttpClient())
                 {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    ClientTicket clientTicket = JsonConvert.DeserializeObject<ClientTicket>(jsonResponse);
+                    var requestUri = $"{BaseAddress}/Subscription/RegisterClient()?TicketId={TicketIdValue}&phoneNumber={phoneNumber}&MACAdressOfDesiredDevice={MacAdress}";
+                    HttpResponseMessage response = await client.PostAsync(requestUri, null);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        ClientTicket clientTicket = JsonConvert.DeserializeObject<ClientTicket>(jsonResponse);
 
 
-                    //Updating the TicketId
-                    string TicketIdKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.TicketId.ToString());
-                    string TicketIDvalueEncryp = EncryptionService.EncryptString(clientTicket.TicketId);
-                    SettingsSql.UpdateKeyValue(TicketIdKeyEnc, TicketIDvalueEncryp);
+                        //Updating the TicketId
+                        string TicketIdKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.TicketId.ToString());
+                        string TicketIDvalueEncryp = EncryptionService.EncryptString(clientTicket.TicketId);
+                        SettingsSql.UpdateKeyValue(TicketIdKeyEnc, TicketIDvalueEncryp);
 
-                     //Updating the TicketId The Main Device
-                    string IsMaindDeviceKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.IsMainDevice.ToString());
-                    string IsMaindDeviceKeyValueEnc = EncryptionService.EncryptString(clientTicket.IsMainDevice.ToString());
-                    SettingsSql.UpdateKeyValue(IsMaindDeviceKeyEnc, IsMaindDeviceKeyValueEnc);
+                        //Updating the TicketId The Main Device
+                        string IsMaindDeviceKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.IsMainDevice.ToString());
+                        string IsMaindDeviceKeyValueEnc = EncryptionService.EncryptString(clientTicket.IsMainDevice.ToString());
+                        SettingsSql.UpdateKeyValue(IsMaindDeviceKeyEnc, IsMaindDeviceKeyValueEnc);
 
 
-                    //Update the Duedate
-                    await CheckIfClientHasSubscriptionAndReturnDueDate();
+                        //Update the Duedate
+                        await CheckIfClientHasSubscriptionAndReturnDueDate();
+                    }
+
+                    return response.IsSuccessStatusCode;
                 }
-
-                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                CustomMessageBox.Show("Something went wrong from our side,Please let us know and then try again",CustomMessageBox.Type.Error);
+                return false;
             }
         }
         public static string GetMotherboardSerialNumber()

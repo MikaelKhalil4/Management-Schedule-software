@@ -8,7 +8,6 @@ namespace MKproject.Management
 {
     public class ClassProduct
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
         public int ID { get; set; }
         private string name;
 
@@ -29,8 +28,8 @@ namespace MKproject.Management
         {
 
             string query = "Select product_price From products WHERE  product_id='" + categoryId + "'";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
@@ -43,8 +42,8 @@ namespace MKproject.Management
             string ProuctName = "Not Accessible";
 
             string query = "Select product_name From products WHERE  product_id='" + categoryId + "'";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
@@ -55,8 +54,8 @@ namespace MKproject.Management
         public static DataTable GetLastInsertProduct()
         {
             string Query = "Select * from products where  product_id=(Select MAX(product_id) from products)";
-            SQLiteCommand cmd = new SQLiteCommand(Query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(Query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -64,8 +63,8 @@ namespace MKproject.Management
         public static DataTable RetrieveAllProductsStatusOn()
         {
             string query = "Select * From products where status=1 ORDER by product_id Desc";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -73,8 +72,8 @@ namespace MKproject.Management
         public static DataTable RetrieveAllProducts()
         {
             string query = "Select * From products ORDER by status Desc, product_id Desc";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -87,11 +86,11 @@ namespace MKproject.Management
             string query = "INSERT INTO products (product_name,product_price,status) " +
                            "VALUES (@ProductName, @Price,@Status)";
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@ProductName", Name);
-            command.Parameters.AddWithValue("@Price", Price);
-            command.Parameters.AddWithValue("@Status", Status);
-            con.Open();
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@ProductName", Name);
+            command.AddWithValue("@Price", Price);
+            command.AddWithValue("@Status", Status);
+            Program.conOpen();
 
             int rowsAffected = command.ExecuteNonQuery();
 
@@ -100,7 +99,7 @@ namespace MKproject.Management
                 Console.WriteLine("Product added successfully.");
             }
 
-            con.Close();
+            Program.con.Close();
         }
         public void UpdateProduct()
         {
@@ -111,14 +110,14 @@ namespace MKproject.Management
                "WHERE product_id = @ProductID";
 
             // Create a SQL command with parameters
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@ProductName", Name);
-            command.Parameters.AddWithValue("@Price", Price);
-            command.Parameters.AddWithValue("@Status", Status);
-            command.Parameters.AddWithValue("@ProductID", ID);
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@ProductName", Name);
+            command.AddWithValue("@Price", Price);
+            command.AddWithValue("@Status", Status);
+            command.AddWithValue("@ProductID", ID);
 
             // Open the connection
-            con.Open();
+            Program.conOpen();
 
             // Execute the SQL query to update the bundle
             int rowsAffected = command.ExecuteNonQuery();
@@ -129,15 +128,15 @@ namespace MKproject.Management
             }
 
             // Close the connection
-            con.Close();
+            Program.con.Close();
         }
         public void DeleteProducts()
         {
 
-            SQLiteCommand cmd = new SQLiteCommand("Delete FROM  products where product_id='" + ID + "'", con);
-            con.Open();
+            var cmd = Program.CreateCommand("Delete FROM  products where product_id='" + ID + "'");
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
 
         }
@@ -145,13 +144,13 @@ namespace MKproject.Management
         {
             string query = @"Select Count(*) from products as p
                          where product_id='"+ID+"' And  Exists ( Select * from client_balance as c where c.product_id=p.product_id)";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Open();
+            Program.conOpen();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
             if (count == 0)
             {
                 return false;

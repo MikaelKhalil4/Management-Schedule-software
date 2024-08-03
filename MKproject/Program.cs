@@ -3,28 +3,17 @@ using MKproject.Management;
 using MKproject.Schedule;
 using System;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Velopack;
 using Velopack.Windows;
-using Velopack.Locators;
-using System.Net.Http;
-using Amazon.S3;
-using Amazon.S3.Model;
 using System.Threading;
-using GlobalFunctions;
 using Serilog;
-using System.Data.SQLite;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata;
 using MKproject.Infrastucture;
-using Amazon.Auth.AccessControlPolicy.ActionIdentifiers;
-using static MKproject.Infrastucture.SettingsSql;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data.SQLite;
 
 namespace MKproject
 {
@@ -35,7 +24,7 @@ namespace MKproject
         public static bool IsANewParentAddedOrParentPhoneUpdated;//this variable is used kermel lamma nerjaa aal search(nekbus back men el management), naamil restore men el datatbase 
                                                                  //in 2 cases:1) Lamma naamil add la new parent men el new register,2) lamma naamil update la phone number tabaa parent eendo chiddrens
 
-        public static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
+
 
         //Global Colors:  Soft Gentle  Medium Vibrant Bold
         public static Color SoftColor = Color.FromArgb(238, 241, 254);//used if the backgorund was white
@@ -63,6 +52,9 @@ namespace MKproject
         //Elie:Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db
 
         public static string DataLocation;
+
+        public static DbConnection con;
+        public static bool  IsSoftwareOnline;
         public static string FolderProfileImagePath;
 
 
@@ -75,12 +67,32 @@ namespace MKproject
         static void Main()
         {
 
-
             VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
 
+            if (AppConfig.GetBucketName() == "fox-soft")
+            {
+                IsSoftwareOnline = true;
+            }
+            else
+            {
+                IsSoftwareOnline = false;
+            }
 
 
-            DataLocation = "Data Source=" + AppPaths.DatabasePath;
+          
+
+            if (IsSoftwareOnline)
+            {
+                DataLocation = AppConfig.GetOnlineSoftwareConnectionString();
+                con = new SqlConnection(DataLocation);
+            }
+            else
+            {
+                DataLocation = "Data Source=" + AppPaths.DatabasePath;
+                con = new SQLiteConnection(DataLocation);
+            }
+
+
             FolderProfileImagePath = AppPaths.ProfileImagesPath;
 
             AppPaths.EnsureDirectoriesExist();
@@ -131,24 +143,55 @@ namespace MKproject
             }
             else
             {
-              
-                    if (!ClassEmployee.CheckIfOwnerExist())
-                    {
-                        EditEmployee editEmployee = new EditEmployee(null, true, true);
-                        editEmployee.EmployeeInserted += EditEmployee_EmployeeInserted;
-                        Application.Run(editEmployee);
 
-                    }
-                    else
-                    {
-                        LoginForm = new LOGIN();
-                        LoginForm.labelVersion.Text = "v 1.0.5";
-                        Application.Run(LoginForm);
-                    }
-               
+                if (!ClassEmployee.CheckIfOwnerExist())
+                {
+                    EditEmployee editEmployee = new EditEmployee(null, true, true);
+                    editEmployee.EmployeeInserted += EditEmployee_EmployeeInserted;
+                    Application.Run(editEmployee);
+
+                }
+                else
+                {
+                    LoginForm = new LOGIN();
+                    LoginForm.labelVersion.Text = "v 1.0.5";
+                    Application.Run(LoginForm);
+                }
+
             }
         }
 
+        //get the right sqlcommand and adapter
+        public static DbCommand CreateCommand(string query)
+        {
+            if (IsSoftwareOnline)
+            {
+                return new SqlCommand(query, (SqlConnection)con);
+            }
+            else
+            {
+                return new SQLiteCommand(query, (SQLiteConnection)con);
+            }
+        }
+        public static DbDataAdapter CreateDataAdapter(DbCommand command)
+        {
+            if (IsSoftwareOnline)
+            {
+                return new SqlDataAdapter((SqlCommand)command);
+            }
+            else
+            {
+                return new SQLiteDataAdapter((SQLiteCommand)command);
+
+            }
+        }
+
+
+        public static void conOpen()
+        {
+            con.Close();
+            con.Open();
+        }
 
 
         //Update
@@ -210,7 +253,7 @@ namespace MKproject
             MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
         }
-  
+
 
         //some global functions
         private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
@@ -235,8 +278,19 @@ namespace MKproject
             }
             return balance;
         }
-   
-    
+
+
+    }
+
+    public static class DbCommandExtensions
+    {
+        public static void AddWithValue(this DbCommand command, string parameterName, object value)
+        {
+            var parameter = command.CreateParameter();
+            parameter.ParameterName = parameterName;
+            parameter.Value = value ?? DBNull.Value;  // Handle null values appropriately
+            command.Parameters.Add(parameter);
+        }
     }
 }
 

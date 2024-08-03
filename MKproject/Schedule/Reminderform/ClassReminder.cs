@@ -47,25 +47,24 @@ namespace MKproject.Schedule.Reminderform
         }
 
         //SQL
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
 
         //Reminder
         public static DataTable DisplayReminder(bool IsChecked)
         {
-            SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder.*, client.name , client.family_name, client.phone_number
+            var command1 = Program.CreateCommand(@"SELECT reminder.*, client.name , client.family_name, client.phone_number
                                                          FROM reminder
                                                          LEFT JOIN client ON reminder.client_id = client.client_id
                                                          WHERE is_checked = @is_checked
-                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
-            command1.Parameters.AddWithValue("@is_checked", IsChecked);
-            SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
+                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC");
+            command1.AddWithValue("@is_checked", IsChecked);
+            var adapter1 = Program.CreateDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
             dt1.PrimaryKey = new DataColumn[] { dt1.Columns["reminder_id"] };
-            con.Open();
+            Program.conOpen();
             command1.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             return dt1;
         }
         public static DataTable DisplayReminderInASpecificDate(DateTime SelectedDate, DateTime? StartDate, DateTime? EndDate)
@@ -114,39 +113,39 @@ namespace MKproject.Schedule.Reminderform
 
 
 
-            SQLiteCommand command1 = new SQLiteCommand(query, con);
+            var command1 = Program.CreateCommand(query);
 
-            command1.Parameters.AddWithValue("@SelectedDate", SelectedDate.ToString("yyyy-MM-dd"));
+            command1.AddWithValue("@SelectedDate", SelectedDate.ToString("yyyy-MM-dd"));
 
             if (StartDate != null && EndDate != null)
             {
-                command1.Parameters.AddWithValue("@StartDate", ((DateTime)StartDate).ToString("yyyy-MM-dd"));
-                command1.Parameters.AddWithValue("@EndDate", ((DateTime)EndDate).ToString("yyyy-MM-dd"));
+                command1.AddWithValue("@StartDate", ((DateTime)StartDate).ToString("yyyy-MM-dd"));
+                command1.AddWithValue("@EndDate", ((DateTime)EndDate).ToString("yyyy-MM-dd"));
             }
-            SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
+            var adapter1 = Program.CreateDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
             dt1.PrimaryKey = new DataColumn[] { dt1.Columns["reminder_id"] };
-            con.Open();
+            Program.conOpen();
             command1.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             return dt1;
         }
         public static DataTable DisplayReminderByClientName(ClassClientCustom DesiredClient, bool IsChecked)
         {
-            SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder_id, reminder, repeat, starttime, is_checked
+            var command1 = Program.CreateCommand(@"SELECT reminder_id, reminder, repeat, starttime, is_checked
                                                          FROM reminder
                                                          WHERE client_id = @client_id AND is_checked = @is_checked
-                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
-            command1.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
-            command1.Parameters.AddWithValue("@is_checked", IsChecked);
-            SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
+                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC");
+            command1.AddWithValue("@client_id", DesiredClient.ClientId);
+            command1.AddWithValue("@is_checked", IsChecked);
+            var adapter1 = Program.CreateDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
             dt1.PrimaryKey = new DataColumn[] { dt1.Columns["reminder_id"] };
-            con.Open();
+            Program.conOpen();
             command1.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             return dt1;
         }
 
@@ -156,78 +155,78 @@ namespace MKproject.Schedule.Reminderform
             int idreminder;
             IsChecked = false;
 
-            SQLiteCommand command = new SQLiteCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked) ", con);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Max(reminder_id) FROM reminder", con);
+            var command = Program.CreateCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked) ");
+            var cmd = Program.CreateCommand("SELECT Max(reminder_id) FROM reminder");
 
 
-            command.Parameters.AddWithValue("@reminder", Reminder);
+            command.AddWithValue("@reminder", Reminder);
             if (DesiredClient != null)
             {
-                command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
+                command.AddWithValue("@client_id", DesiredClient.ClientId);
             }
             else
             {
-                command.Parameters.AddWithValue("@client_id", DBNull.Value);
+                command.AddWithValue("@client_id", DBNull.Value);
             }
-            command.Parameters.AddWithValue("@repeat", Repeat);
-            command.Parameters.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@is_checked", IsChecked);
+            command.AddWithValue("@repeat", Repeat);
+            command.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@is_checked", IsChecked);
 
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();//first command       
             Idreminder = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
         }
         public void UpdateFromRemindertoSQL()
         {
-            SQLiteCommand command = new SQLiteCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime WHERE reminder_id =@reminder_id", con);
+            var command = Program.CreateCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime WHERE reminder_id =@reminder_id");
 
 
-            command.Parameters.AddWithValue("@reminder", Reminder);
+            command.AddWithValue("@reminder", Reminder);
             if (DesiredClient != null)
             {
-                command.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
+                command.AddWithValue("@client_id", DesiredClient.ClientId);
             }
             else
             {
-                command.Parameters.AddWithValue("@client_id", DBNull.Value);
+                command.AddWithValue("@client_id", DBNull.Value);
             }
-            command.Parameters.AddWithValue("@repeat", Repeat);
-            command.Parameters.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@is_checked", IsChecked);
-            command.Parameters.AddWithValue("@reminder_id", Idreminder);
+            command.AddWithValue("@repeat", Repeat);
+            command.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@is_checked", IsChecked);
+            command.AddWithValue("@reminder_id", Idreminder);
 
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public void DeleteReminderSQL()
         {
-            SQLiteCommand command = new SQLiteCommand("DELETE FROM reminder WHERE reminder_id = @value1 ", con);
-            command.Parameters.AddWithValue("@value1", Idreminder);
-            con.Open();
+            var command = Program.CreateCommand("DELETE FROM reminder WHERE reminder_id = @value1 ");
+            command.AddWithValue("@value1", Idreminder);
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public void checkBoxReminderChangedToSQL(DateTime? CheckedDate)
         {
-            SQLiteCommand command = new SQLiteCommand(@"UPDATE reminder 
+            var command = Program.CreateCommand(@"UPDATE reminder 
                                                   SET is_checked=@is_checked,checked_date=@checked_date
-                                                  WHERE reminder_id =@reminder_id", con);
-            command.Parameters.AddWithValue("@is_checked", IsChecked);
-            command.Parameters.AddWithValue("@reminder_id", Idreminder);
+                                                  WHERE reminder_id =@reminder_id");
+            command.AddWithValue("@is_checked", IsChecked);
+            command.AddWithValue("@reminder_id", Idreminder);
             if (CheckedDate != null)
             {
-                command.Parameters.AddWithValue("@checked_date",((DateTime)CheckedDate).ToString("yyyy-MM-dd"));
+                command.AddWithValue("@checked_date", ((DateTime)CheckedDate).ToString("yyyy-MM-dd"));
             }
             else
             {
-                command.Parameters.AddWithValue("@checked_date", DBNull.Value);
+                command.AddWithValue("@checked_date", DBNull.Value);
             }
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
-           
+            Program.con.Close();
+
         }
     }
 }

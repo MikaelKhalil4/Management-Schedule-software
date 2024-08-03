@@ -15,7 +15,6 @@ namespace MKproject
 {
     public class ClassClientCustom : ClassClient
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         //public string Height { get; set; }
 
@@ -173,9 +172,9 @@ namespace MKproject
                 WHERE cf.client_id = @clientId";
 
 
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-            cmd.Parameters.AddWithValue("@clientId", clientId);
+            var cmd = Program.CreateCommand(query);
+            var adapter = Program.CreateDataAdapter(cmd);
+            cmd.AddWithValue("@clientId", clientId);
             adapter.Fill(dt);
 
             return dt;

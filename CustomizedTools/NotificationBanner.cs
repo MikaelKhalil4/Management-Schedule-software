@@ -58,17 +58,26 @@ namespace CustomizedTools
             ParentFormHome.Resize += ParentFormHome_Resize;
             ParentFormHome.LocationChanged += ParentFormHome_LocationChanged;
             ParentFormHome.Deactivate += ParentFormHome_Deactivate;
+            ParentFormHome.Activated += ParentFormHome_Activated;
             LoadForm();
         }
 
-      
+        private void ParentFormHome_Activated(object sender, EventArgs e)
+        {
+            if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+            {
+                CurrentNotfBanner.Show();
+            }
+        }
+
         private void ParentFormHome_Deactivate(object sender, EventArgs e)
         {
-            if (CurrentNotfBanner != null)
+            if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
             {
                 CurrentNotfBanner.Hide();
             }
         }
+
 
         private void ParentFormHome_LocationChanged(object sender, EventArgs e)
         {

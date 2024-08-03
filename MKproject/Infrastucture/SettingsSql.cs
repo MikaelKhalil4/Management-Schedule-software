@@ -64,12 +64,11 @@ namespace MKproject.Infrastucture
         
         
         //SqlRowQueries for SetingsTable
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
         public static string GetKeyValue(string key)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select SettingValue from Settings Where SettingKey==@SettingKey", con);
-            cmd.Parameters.AddWithValue("@SettingKey", key);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select SettingValue from Settings Where SettingKey=@SettingKey");
+            cmd.AddWithValue("@SettingKey", key);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
@@ -90,31 +89,38 @@ namespace MKproject.Infrastucture
         public static void InsertKey(string key, string KeyValue)
         {
             string query = "INSERT INTO Settings (SettingKey,SettingValue) VALUES (@SettingKey,@SettingValue)";
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@SettingKey", key);
-            command.Parameters.AddWithValue("@SettingValue", KeyValue);
-            con.Open();
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@SettingKey", key);
+            command.AddWithValue("@SettingValue", KeyValue);
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public static void UpdateKeyValue(string key, string? keyValue)
         {
-            string query = "UPDATE Settings SET SettingValue=@SettingValue Where SettingKey==@SettingKey";
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@SettingKey", key);
-            command.Parameters.AddWithValue("@SettingValue", keyValue);//if null lahala ha tnazela Null bel db
-            con.Open();
+            string query = "UPDATE Settings SET SettingValue=@SettingValue Where SettingKey=@SettingKey";
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@SettingKey", key);
+            if (keyValue == null)
+            {
+                command.AddWithValue("@SettingValue", DBNull.Value);
+            }
+            else
+            {
+                command.AddWithValue("@SettingValue", keyValue);
+            }
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public static bool IsKeyExists(string key)
         {
             string query = "SELECT COUNT(1) FROM Settings WHERE SettingKey=@SettingKey";
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@SettingKey", key);
-            con.Open();
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@SettingKey", key);
+            Program.conOpen();
             int count = Convert.ToInt32(command.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
 
             return count > 0;
         }

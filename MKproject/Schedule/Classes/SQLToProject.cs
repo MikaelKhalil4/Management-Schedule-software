@@ -9,7 +9,6 @@ namespace MKproject.Schedule
 {
     public class SQLToProject
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
 
         //HistoryEmployeeavailibility
@@ -23,16 +22,16 @@ namespace MKproject.Schedule
                             ORDER BY h.rank ASC";
 
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
+            var command = Program.CreateCommand(query);
           
             
-            command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            command.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
+            var adapter = Program.CreateDataAdapter(command);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             return dt;
         }
         public static DataTable GetEmployeeAvailabilityBetweenTwoDates(DateTime StartDate,DateTime EndDate,int empId)
@@ -40,18 +39,18 @@ namespace MKproject.Schedule
 
             string query = "SELECT history_date,availability FROM history_employee_availability WHERE employee_id=@employee_id and Date(history_date) BETWEEN @startDate AND @endDate";
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
+            var command = Program.CreateCommand(query);
 
-            command.Parameters.AddWithValue("@startDate", StartDate.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@endDate", EndDate.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@employee_id", empId);
+            command.AddWithValue("@startDate", StartDate.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@endDate", EndDate.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@employee_id", empId);
 
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            var adapter = Program.CreateDataAdapter(command);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             return dt;
         }
         public static DataTable GetEmployeeAvailabilityofDesiredDate(DateTime Date, int empId)
@@ -59,37 +58,37 @@ namespace MKproject.Schedule
 
             string query = "SELECT history_date,availability FROM history_employee_availability WHERE employee_id=@employee_id and Date(history_date)=@history_date";
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
+            var command = Program.CreateCommand(query);
 
-            command.Parameters.AddWithValue("@history_date", Date.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@employee_id", empId);
+            command.AddWithValue("@history_date", Date.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@employee_id", empId);
 
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            var adapter = Program.CreateDataAdapter(command);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             return dt;
         }
         public static bool CheckIfHistoryExistsToday(DateTime dateToCheck)
         {
            
-            SQLiteCommand cmd = new SQLiteCommand("SELECT COUNT(*) FROM history_employee_availability WHERE Date(history_date) = @history_date", con);
-            cmd.Parameters.AddWithValue("@history_date",dateToCheck.ToString("yyyy-MM-dd"));
-            con.Open();
+            var cmd = Program.CreateCommand("SELECT COUNT(*) FROM history_employee_availability WHERE Date(history_date) = @history_date");
+            cmd.AddWithValue("@history_date",dateToCheck.ToString("yyyy-MM-dd"));
+            Program.conOpen();
             int count = Convert.ToInt32(cmd.ExecuteScalar());//return the first cell
-            con.Close();
+            Program.con.Close();
 
             return count > 0;
         }
         public static DateTime? GetLastHistoryDate()
         {
-            SQLiteCommand cmd = new SQLiteCommand("SELECT MAX(history_date) FROM history_employee_availability", con);
+            var cmd = Program.CreateCommand("SELECT MAX(history_date) FROM history_employee_availability");
 
-            con.Open();
+            Program.conOpen();
             object LastHistoryDate = cmd.ExecuteScalar();
-            con.Close();
+            Program.con.Close();
 
             if (LastHistoryDate != DBNull.Value)
             {
