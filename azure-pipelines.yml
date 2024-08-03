@@ -1,6 +1,7 @@
 trigger:
   - elk
   - global
+  - soft
 
 pool:
   vmImage: windows-latest
