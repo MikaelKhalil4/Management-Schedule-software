@@ -154,7 +154,7 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.5";
+                    LoginForm.labelVersion.Text = "v 1.0.6";
                     Application.Run(LoginForm);
                 }
 
