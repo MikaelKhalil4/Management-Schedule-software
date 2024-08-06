@@ -259,6 +259,8 @@ namespace MKproject.Management
 
 
             var checkCommand = Program.CreateCommand(checkQuery);
+
+
             if (ClientId != null)
             {
                 checkCommand.AddWithValue("@client_id", ClientId);
@@ -752,7 +754,6 @@ namespace MKproject.Management
                      insta_user = @InstaUser, IsChild = @IsChild, email = @Email ,marital_status=@marital_status,know_about_us=@know_about_us ";
 
 
-            var command = Program.CreateCommand(UpdateQuery);
             if (PicisChanged)
             {
 
@@ -762,6 +763,7 @@ namespace MKproject.Management
             UpdateQuery += " WHERE client_id = @client_id";
 
 
+            var command = Program.CreateCommand(UpdateQuery);
 
             if (PicisChanged)
             {
@@ -861,8 +863,6 @@ namespace MKproject.Management
         {
             //ejbare bi hal order men wara el relation baynetu
 
-           
-
             ProjectToSQL.DeleteClientField(ClientId, null);
 
             Program.conOpen();
@@ -904,7 +904,6 @@ namespace MKproject.Management
             string QueryDeleteClient = "DELETE FROM client WHERE client_id = '" + ClientId + "'";
             var cmd6 = Program.CreateCommand(QueryDeleteClient);
             cmd6.ExecuteNonQuery();
-
 
             Program.con.Close();
 

@@ -214,35 +214,48 @@ namespace MKproject.Infrastucture
         //subscription
         public static async Task<DateTime?> CheckIfClientHasSubscriptionAndReturnDueDate()
         {
-            string ticketId = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
 
-            using (HttpClient client = new HttpClient())
+            string DueDateKeyEncryp = EncryptionService.EncryptString(EnumSettingKey.DueDateMembership.ToString());
+            string DueDateValueEncryp = null;
+
+            try
             {
-                var requestUri = $"{BaseAddress}/Subscription/CheckIfClientHasSubscriptionAndReturnDueDate/{ticketId}";
-                HttpResponseMessage response = await client.GetAsync(requestUri);
 
-                DateTime? Date = null;
-                if (response.IsSuccessStatusCode)//eza ma eendo package available ha tred NotFound
+                string ticketId = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+
+                using (HttpClient client = new HttpClient())
                 {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    Date = DateTime.Parse(JsonConvert.DeserializeObject<string>(jsonResponse));
+                    var requestUri = $"{BaseAddress}/Subscription/CheckIfClientHasSubscriptionAndReturnDueDate/{ticketId}";
+                    HttpResponseMessage response = await client.GetAsync(requestUri);
+
+                    DateTime? Date = null;
+
+
+                    if (response.IsSuccessStatusCode)//eza ma eendo package available ha tred NotFound
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        Date = DateTime.Parse(JsonConvert.DeserializeObject<string>(jsonResponse));
+                    }
+
+                    //Update DB, take into consideration if null or no
+
+                  
+                    if (Date != null)
+                    {
+                        DueDateValueEncryp = EncryptionService.EncryptString(((DateTime)Date).ToString("yyyy-MM-dd"));
+                    }
+
+
+                    return Date;
                 }
-
-                //Update DB, take into consideration if null or no
-
-
-                string DueDateKeyEncryp = EncryptionService.EncryptString(EnumSettingKey.DueDateMembership.ToString());
-
-                string DueDateValueEncryp = null;
-                if (Date != null)
-                {
-                    DueDateValueEncryp = EncryptionService.EncryptString(((DateTime)Date).ToString("yyyy-MM-dd"));
-                }
-
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
                 SettingsSql.UpdateKeyValue(DueDateKeyEncryp, DueDateValueEncryp);
-                //we should also insert the IsMainDevic
-
-                return Date;
             }
         }
 
