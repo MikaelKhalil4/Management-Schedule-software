@@ -117,7 +117,7 @@ namespace MKproject
 
 
             //logging and backup
-            SettingsSql.EnsureSettingsExist();
+            SettingsSql.EnsureSettingsExist();//ejabre
             LogHelper.SetupTimerAndStartLogsTimer();
             BackupHelper.SetupBackupTimerndStartItIfNecessar();
 
@@ -235,7 +235,7 @@ namespace MKproject
 
 
         //Exeption hadnler
-        private static void GlobalExceptionHandler(object sender, EventArgs args)
+        private static async void GlobalExceptionHandler(object sender, EventArgs args)
         {
             // Determine the type of EventArgs and extract the exception object.
             Exception e = args switch
@@ -248,10 +248,9 @@ namespace MKproject
             // Log the exception using Serilog (assuming it's configured)
             Log.Error("Unhandled exception occurred. Message: {ExceptionMessage}, StackTrace: {StackTrace}", e.Message, e.StackTrace);
 
-
             // Show a message box to the user
             MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
+      
         }
 
 

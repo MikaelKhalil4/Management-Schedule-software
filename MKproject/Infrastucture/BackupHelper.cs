@@ -26,14 +26,14 @@ namespace MKproject.Infrastucture
 
         public static async Task SetupBackupTimerndStartItIfNecessar()
         {
-
-            backupTimer = new Timer();
-            backupTimer.Interval = 60000 * 15; // 15 minutes == 900000 in ms
-            backupTimer.Tick += async (sender, args) => await CheckAndAutomateBackUpIfNecessar();//setup the even tick and it s logic inside
+             
             if (BackupHelper.CheckIfAutomatedBackupIsActive())
             {
-                //starting the first iteration
-                await CheckAndAutomateBackUpIfNecessar();
+                await CheckAndAutomateBackUpIfNecessar(); //starting the first iteration
+
+                backupTimer = new Timer();
+                backupTimer.Interval = 60000 * 15; // 15 minutes == 900000 in ms
+                backupTimer.Tick += async (sender, args) => await CheckAndAutomateBackUpIfNecessar();//setup the even tick and it s logic inside
                 backupTimer.Start();
             }
         }
@@ -54,8 +54,6 @@ namespace MKproject.Infrastucture
             }
 
         }
-
-
         public static async Task CheckAndAutomateBackUpIfNecessar()
         {
             if (RandomFunctions.IsInternetAvailable())
@@ -99,19 +97,6 @@ namespace MKproject.Infrastucture
             }
         }
 
-        public static string GetLastbackUpTime()
-        {
-
-            string BackUpTime = SettingsSql.GetKeyValue(EnumSettingKey.LastBackupTime.ToString());
-            if (!string.IsNullOrEmpty(BackUpTime))
-            {
-                return RandomFunctions.SetDateFormatWithhours(BackUpTime);
-            }
-            else
-            {
-                return "N/A";
-            }
-        }
 
 
         //used for frontend interaction
@@ -138,6 +123,19 @@ namespace MKproject.Infrastucture
             }
 
         }
-       
+        public static string GetLastbackUpTime()
+        {
+
+            string BackUpTime = SettingsSql.GetKeyValue(EnumSettingKey.LastBackupTime.ToString());
+            if (!string.IsNullOrEmpty(BackUpTime))
+            {
+                return RandomFunctions.SetDateFormatWithhours(BackUpTime);
+            }
+            else
+            {
+                return "N/A";
+            }
+        }
+
     }
 }

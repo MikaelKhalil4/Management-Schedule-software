@@ -13,7 +13,7 @@ namespace MKproject.Infrastucture
             HttpRequestsClass.CheckAndProcessLogs();
 
             System.Windows.Forms.Timer TimerLog = new System.Windows.Forms.Timer();
-            TimerLog.Interval = 60000 * 15;//each  xmin
+            TimerLog.Interval = 60000 * 1;//each  1min
             TimerLog.Tick += async (sender, args) => await HttpRequestsClass.CheckAndProcessLogs();
             TimerLog.Start();
         }

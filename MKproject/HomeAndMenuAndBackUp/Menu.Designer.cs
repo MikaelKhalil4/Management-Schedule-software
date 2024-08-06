@@ -61,7 +61,7 @@
             FLPGlobal.Location = new System.Drawing.Point(0, 0);
             FLPGlobal.Margin = new System.Windows.Forms.Padding(0);
             FLPGlobal.Name = "FLPGlobal";
-            FLPGlobal.Size = new System.Drawing.Size(292, 521);
+            FLPGlobal.Size = new System.Drawing.Size(334, 695);
             FLPGlobal.TabIndex = 1;
             // 
             // buttonMenu
@@ -79,7 +79,7 @@
             buttonMenu.Location = new System.Drawing.Point(0, 0);
             buttonMenu.Margin = new System.Windows.Forms.Padding(0);
             buttonMenu.Name = "buttonMenu";
-            buttonMenu.Size = new System.Drawing.Size(288, 43);
+            buttonMenu.Size = new System.Drawing.Size(329, 57);
             buttonMenu.TabIndex = 7;
             buttonMenu.Text = "Hello  Boutros!";
             buttonMenu.UseVisualStyleBackColor = false;
@@ -97,10 +97,10 @@
             buttonSchedule.ForeColor = System.Drawing.Color.White;
             buttonSchedule.Image = (System.Drawing.Image)resources.GetObject("buttonSchedule.Image");
             buttonSchedule.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonSchedule.Location = new System.Drawing.Point(0, 43);
+            buttonSchedule.Location = new System.Drawing.Point(0, 57);
             buttonSchedule.Margin = new System.Windows.Forms.Padding(0);
             buttonSchedule.Name = "buttonSchedule";
-            buttonSchedule.Size = new System.Drawing.Size(288, 57);
+            buttonSchedule.Size = new System.Drawing.Size(329, 76);
             buttonSchedule.TabIndex = 15;
             buttonSchedule.Text = "Schedule";
             buttonSchedule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -119,10 +119,10 @@
             buttonSearchClient.ForeColor = System.Drawing.Color.White;
             buttonSearchClient.Image = (System.Drawing.Image)resources.GetObject("buttonSearchClient.Image");
             buttonSearchClient.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonSearchClient.Location = new System.Drawing.Point(0, 100);
+            buttonSearchClient.Location = new System.Drawing.Point(0, 133);
             buttonSearchClient.Margin = new System.Windows.Forms.Padding(0);
             buttonSearchClient.Name = "buttonSearchClient";
-            buttonSearchClient.Size = new System.Drawing.Size(288, 57);
+            buttonSearchClient.Size = new System.Drawing.Size(329, 76);
             buttonSearchClient.TabIndex = 8;
             buttonSearchClient.Text = "Clients";
             buttonSearchClient.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -141,10 +141,10 @@
             buttonTransaction.ForeColor = System.Drawing.Color.White;
             buttonTransaction.Image = (System.Drawing.Image)resources.GetObject("buttonTransaction.Image");
             buttonTransaction.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonTransaction.Location = new System.Drawing.Point(0, 157);
+            buttonTransaction.Location = new System.Drawing.Point(0, 209);
             buttonTransaction.Margin = new System.Windows.Forms.Padding(0);
             buttonTransaction.Name = "buttonTransaction";
-            buttonTransaction.Size = new System.Drawing.Size(288, 57);
+            buttonTransaction.Size = new System.Drawing.Size(329, 76);
             buttonTransaction.TabIndex = 9;
             buttonTransaction.Text = "Transactions";
             buttonTransaction.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -163,10 +163,10 @@
             buttonStatistics.ForeColor = System.Drawing.Color.White;
             buttonStatistics.Image = (System.Drawing.Image)resources.GetObject("buttonStatistics.Image");
             buttonStatistics.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonStatistics.Location = new System.Drawing.Point(0, 214);
+            buttonStatistics.Location = new System.Drawing.Point(0, 285);
             buttonStatistics.Margin = new System.Windows.Forms.Padding(0);
             buttonStatistics.Name = "buttonStatistics";
-            buttonStatistics.Size = new System.Drawing.Size(288, 57);
+            buttonStatistics.Size = new System.Drawing.Size(329, 76);
             buttonStatistics.TabIndex = 10;
             buttonStatistics.Text = "Satistics";
             buttonStatistics.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -185,10 +185,10 @@
             buttonBundlesAndProducts.ForeColor = System.Drawing.Color.White;
             buttonBundlesAndProducts.Image = (System.Drawing.Image)resources.GetObject("buttonBundlesAndProducts.Image");
             buttonBundlesAndProducts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonBundlesAndProducts.Location = new System.Drawing.Point(0, 271);
+            buttonBundlesAndProducts.Location = new System.Drawing.Point(0, 361);
             buttonBundlesAndProducts.Margin = new System.Windows.Forms.Padding(0);
             buttonBundlesAndProducts.Name = "buttonBundlesAndProducts";
-            buttonBundlesAndProducts.Size = new System.Drawing.Size(288, 57);
+            buttonBundlesAndProducts.Size = new System.Drawing.Size(329, 76);
             buttonBundlesAndProducts.TabIndex = 11;
             buttonBundlesAndProducts.Text = "Services && Products";
             buttonBundlesAndProducts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -207,10 +207,10 @@
             buttonEmployee.ForeColor = System.Drawing.Color.White;
             buttonEmployee.Image = (System.Drawing.Image)resources.GetObject("buttonEmployee.Image");
             buttonEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonEmployee.Location = new System.Drawing.Point(0, 328);
+            buttonEmployee.Location = new System.Drawing.Point(0, 437);
             buttonEmployee.Margin = new System.Windows.Forms.Padding(0);
             buttonEmployee.Name = "buttonEmployee";
-            buttonEmployee.Size = new System.Drawing.Size(288, 57);
+            buttonEmployee.Size = new System.Drawing.Size(329, 76);
             buttonEmployee.TabIndex = 12;
             buttonEmployee.Text = "Employees";
             buttonEmployee.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -229,12 +229,12 @@
             buttonBackUp.ForeColor = System.Drawing.Color.White;
             buttonBackUp.Image = (System.Drawing.Image)resources.GetObject("buttonBackUp.Image");
             buttonBackUp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            buttonBackUp.Location = new System.Drawing.Point(0, 385);
+            buttonBackUp.Location = new System.Drawing.Point(0, 513);
             buttonBackUp.Margin = new System.Windows.Forms.Padding(0);
             buttonBackUp.Name = "buttonBackUp";
-            buttonBackUp.Size = new System.Drawing.Size(288, 57);
+            buttonBackUp.Size = new System.Drawing.Size(329, 76);
             buttonBackUp.TabIndex = 16;
-            buttonBackUp.Text = "BackUp";
+            buttonBackUp.Text = "Plan&&BackUp";
             buttonBackUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             buttonBackUp.UseVisualStyleBackColor = false;
             buttonBackUp.Click += buttonBackUp_Click;
@@ -251,10 +251,10 @@
             buttonLogout.ForeColor = System.Drawing.Color.White;
             buttonLogout.Image = (System.Drawing.Image)resources.GetObject("buttonLogout.Image");
             buttonLogout.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            buttonLogout.Location = new System.Drawing.Point(0, 442);
+            buttonLogout.Location = new System.Drawing.Point(0, 589);
             buttonLogout.Margin = new System.Windows.Forms.Padding(0);
             buttonLogout.Name = "buttonLogout";
-            buttonLogout.Size = new System.Drawing.Size(288, 57);
+            buttonLogout.Size = new System.Drawing.Size(329, 76);
             buttonLogout.TabIndex = 13;
             buttonLogout.Text = "Logout";
             buttonLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -273,12 +273,12 @@
             // 
             // Menu
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(292, 521);
+            ClientSize = new System.Drawing.Size(334, 695);
             Controls.Add(FLPGlobal);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             Name = "Menu";
             ShowIcon = false;
             ShowInTaskbar = false;

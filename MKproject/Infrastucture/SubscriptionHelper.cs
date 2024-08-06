@@ -31,7 +31,15 @@ namespace MKproject.Infrastucture
 
             if (RandomFunctions.IsInternetAvailable())
             {
-                await HttpRequestsClass.CheckIfClientHasSubscriptionAndReturnDueDate();//it will upadte the offline db
+                try
+                {
+                    await HttpRequestsClass.UpdateDueDateSubscription();//it will upadte the offline db
+                }
+                catch (Exception ex) 
+                {
+                   await CloseAppIfSubsciptionFinishedAsync(ex.Message);
+                    return;
+                }
             }
 
             //check offline his due date,and start drop warnings
@@ -46,7 +54,7 @@ namespace MKproject.Infrastucture
                 dueDate = DateTime.Parse(DueDateValue);
                 if (dueDate.Value < DateTime.Now.Date)//kholis eshitrako
                 {
-                    CloseAppIfSubsciptionFinished();
+                    await CloseAppIfSubsciptionFinishedAsync(null);
                 }
                 else if (dueDate.Value == DateTime.Now.Date)//eza liom byokhlas eshtirako
                 {
@@ -75,7 +83,7 @@ namespace MKproject.Infrastucture
             }
             else//kholis eshitrako
             {
-                CloseAppIfSubsciptionFinished();
+                await CloseAppIfSubsciptionFinishedAsync(null);
             }
         }
         public static void LaunchWarningTimer(int NbrOfDaysLeft, int Duration, bool IsWarningOrUrgent)
@@ -93,9 +101,27 @@ namespace MKproject.Infrastucture
                 CustomMessageBox.Show(message, CustomMessageBox.Type.OkWarning);
             }
         }
-        public static void CloseAppIfSubsciptionFinished()
+        public static async Task CloseAppIfSubsciptionFinishedAsync(string Message)
         {
-            CustomMessageBox.Show("Bundle Finished,Please Recharge your Plan in order to keep using your software", CustomMessageBox.Type.Error);
+            string DesiredMessage;
+            if (String.IsNullOrEmpty(Message))
+            {
+                DesiredMessage = $"Hello {Program.Employee.Fname}," +
+                    $"\n\nIt looks like your current plan has expired." +
+                    $"\nPlease renew your subscription at your earliest convenience to continue accessing all features." +
+                    $"\n\nThank you for choosing us!";
+            }
+            else
+            {
+                DesiredMessage = $"Something went wrong from our side,Please let us know and then try again.\nDetails:{Message}";
+            }
+
+
+            await Task.Delay(1000);
+            Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
+            Program.GreyForm.Show();
+            CustomMessageBox.Show(DesiredMessage, CustomMessageBox.Type.OkInfo);
+            Program.GreyForm.Dispose();
             Application.Exit();
         }
     }

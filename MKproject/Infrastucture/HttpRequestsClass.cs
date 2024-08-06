@@ -21,7 +21,7 @@ namespace MKproject.Infrastucture
 {
     public class HttpRequestsClass
     {
-        static string BaseAddress = "https://api.foxdigitaltech.online/admin";
+        static string BaseAddress = "http://localhost:5117";
 
 
         //BackUP
@@ -88,50 +88,52 @@ namespace MKproject.Infrastucture
         //logs
         public static async Task CheckAndProcessLogs()
         {
-            if (RandomFunctions.IsInternetAvailable())
+            string logDirectoryPath = AppPaths.DirectoryPath;
+
+            // Ensure the directory exists to avoid runtime exceptions
+            if (Directory.Exists(logDirectoryPath))
             {
-                string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
-
-                if (ticketID == null)
-                    return;
-
-
-                string logDirectoryPath = AppPaths.DirectoryPath;
-
-                // Ensure the directory exists to avoid runtime exceptions
-                if (Directory.Exists(logDirectoryPath))
+                // Get all .json files in the directory
+                string[] logFiles = Directory.GetFiles(logDirectoryPath, "*.json");
+                if (logFiles.Count() > 0)
                 {
-                    // Get all .json files in the directory
-                    string[] logFiles = Directory.GetFiles(logDirectoryPath, "*.json");
 
-                    // Process each file
-                    foreach (string filePath in logFiles)
+                    if (RandomFunctions.IsInternetAvailable())
                     {
-                        HttpResponseMessage response = null;
-                        using (var client = new HttpClient())
+                        string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+
+                        if (ticketID == null)
+                            return;
+
+                        // Process each file
+                        foreach (string filePath in logFiles)
                         {
-                            // Create Multipart Content
-                            using (var content = new MultipartFormDataContent())
+                            HttpResponseMessage response = null;
+                            using (var client = new HttpClient())
                             {
-                                //string requestUri = $"{AppConfig.Configuration["api-url"]}?TicketId=123&branchName={AppConfig.GetBucketName()}";
-                                string requestUri = $"{BaseAddress}/Backup/Log()?TicketId={ticketID}&branchName={AppConfig.GetBucketName()}";
+                                // Create Multipart Content
+                                using (var content = new MultipartFormDataContent())
+                                {
+                                    //string requestUri = $"{AppConfig.Configuration["api-url"]}?TicketId=123&branchName={AppConfig.GetBucketName()}";
+                                    string requestUri = $"{BaseAddress}/Backup/Log()?TicketId={ticketID}&branchName={AppConfig.GetBucketName()}";
 
 
-                                // Load the file data
-                                var fileContent = new StreamContent(File.OpenRead(filePath));
-                                fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                                // 'logFile' is the parameter name that the server expects
-                                content.Add(fileContent, "logFile", Path.GetFileName(filePath));
+                                    // Load the file data
+                                    var fileContent = new StreamContent(File.OpenRead(filePath));
+                                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                                    // 'logFile' is the parameter name that the server expects
+                                    content.Add(fileContent, "logFile", Path.GetFileName(filePath));
 
-                                response = await client.PostAsync(requestUri, content);
+                                    response = await client.PostAsync(requestUri, content);
 
+                                }
                             }
-                        }
 
-                        // Check if the response is successful then delete the log file
-                        if (response != null && response.IsSuccessStatusCode)
-                        {
-                            File.Delete(filePath);
+                            // Check if the response is successful then delete the log file
+                            if (response != null && response.IsSuccessStatusCode)
+                            {
+                                File.Delete(filePath);
+                            }
                         }
                     }
                 }
@@ -142,7 +144,7 @@ namespace MKproject.Infrastucture
 
 
         //client registration
-        public static async Task<bool> RegisterClient(string TicketIdValue,string phoneNumber)
+        public static async Task<bool> RegisterClient(string TicketIdValue, string phoneNumber)
         {
             try
             {
@@ -176,15 +178,15 @@ namespace MKproject.Infrastucture
 
 
                         //Update the Duedate
-                        await CheckIfClientHasSubscriptionAndReturnDueDate();
+                        await UpdateDueDateSubscription();
                     }
 
                     return response.IsSuccessStatusCode;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                CustomMessageBox.Show("Something went wrong from our side,Please let us know and then try again",CustomMessageBox.Type.Error);
+                CustomMessageBox.Show($"Something went wrong from our side,Please let us know and then try again\nDetails:{ex}", CustomMessageBox.Type.Error);
                 return false;
             }
         }
@@ -212,7 +214,7 @@ namespace MKproject.Infrastucture
 
 
         //subscription
-        public static async Task<DateTime?> CheckIfClientHasSubscriptionAndReturnDueDate()
+        public static async Task UpdateDueDateSubscription()
         {
 
             string DueDateKeyEncryp = EncryptionService.EncryptString(EnumSettingKey.DueDateMembership.ToString());
@@ -222,10 +224,10 @@ namespace MKproject.Infrastucture
             {
 
                 string ticketId = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
-
+                string DeviceIp = GetMotherboardSerialNumber();
                 using (HttpClient client = new HttpClient())
                 {
-                    var requestUri = $"{BaseAddress}/Subscription/CheckIfClientHasSubscriptionAndReturnDueDate/{ticketId}";
+                    var requestUri = $"{BaseAddress}/Subscription/CheckIfClientHasSubscriptionAndReturnDueDate/{ticketId}/{DeviceIp}";
                     HttpResponseMessage response = await client.GetAsync(requestUri);
 
                     DateTime? Date = null;
@@ -236,22 +238,25 @@ namespace MKproject.Infrastucture
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         Date = DateTime.Parse(JsonConvert.DeserializeObject<string>(jsonResponse));
                     }
+                    else
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        throw new Exception(responseContent);
+                    }
 
                     //Update DB, take into consideration if null or no
 
-                  
+
                     if (Date != null)
                     {
                         DueDateValueEncryp = EncryptionService.EncryptString(((DateTime)Date).ToString("yyyy-MM-dd"));
                     }
 
-
-                    return Date;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
             finally
             {

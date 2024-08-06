@@ -14,7 +14,7 @@ namespace MKproject.Management
         {
             InitializeComponent();
             LoadForm();
-          
+           
         }
         public void LoadForm()
         {
