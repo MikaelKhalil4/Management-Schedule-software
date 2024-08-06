@@ -575,8 +575,7 @@ namespace MKproject.Management
             }
             else//reactivation mode
             {
-                DateTime DueDate = (DateTime)Newduedate;
-                cmdUpdate.AddWithValue("@due_date", Newduedate);
+                cmdUpdate.AddWithValue("@due_date", ((DateTime)Newduedate).ToString("yyyy-MM-dd"));
                 //
                 IsFreezing = false;
             }
@@ -631,8 +630,8 @@ namespace MKproject.Management
         {
             string query = "UPDATE client_balance SET start_date=@start_date,due_date=@due_date WHERE client_balance_id=@client_balance_id ";
             var cmdUpdate = Program.CreateCommand(query);
-            cmdUpdate.AddWithValue("@start_date", StartDate);
-            cmdUpdate.AddWithValue("@due_date", EndDate);
+            cmdUpdate.AddWithValue("@start_date", StartDate.ToString("yyyy-MM-dd"));
+            cmdUpdate.AddWithValue("@due_date", EndDate.ToString("yyyy-MM-dd"));
             cmdUpdate.AddWithValue("@client_balance_id", ClientBalanceId);
             Program.conOpen();
             cmdUpdate.ExecuteNonQuery();

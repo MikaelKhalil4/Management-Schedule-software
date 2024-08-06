@@ -66,7 +66,8 @@ namespace CustomizedTools
         {
             if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
             {
-                CurrentNotfBanner.Show();
+                //CurrentNotfBanner.Show();
+                SetLocation();
             }
         }
 
@@ -74,7 +75,8 @@ namespace CustomizedTools
         {
             if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
             {
-                CurrentNotfBanner.Hide();
+                //CurrentNotfBanner.Hide();
+                SetLocation();
             }
         }
 
@@ -217,6 +219,7 @@ namespace CustomizedTools
                 timerAppearanceDuation.Start();
             }
             Opacity += .2;
+
             this.Location = new Point(this.Location.X, this.Location.Y - 2);
         }
 
