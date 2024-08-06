@@ -121,8 +121,12 @@ namespace MKproject
             LogHelper.SetupTimerAndStartLogsTimer();
             BackupHelper.SetupBackupTimerndStartItIfNecessar();
 
+
+
             //int zero = 0;
             //int x = 1 / zero;
+
+
 
 
             //Update

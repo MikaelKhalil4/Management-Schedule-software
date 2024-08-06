@@ -592,6 +592,7 @@ namespace MKproject.Management
 
         private async void buttonSave_Click(object sender, EventArgs e)
         {
+
             if (CheckRequired())
             {
                 if (DesiredRow != null)
@@ -600,9 +601,13 @@ namespace MKproject.Management
                 }
                 else
                 {
-                   await AddEmployee();
-                }
+                    Cursor = Cursors.WaitCursor;
+                    this.Enabled = false;
+                    await AddEmployee();
+                    this.Enabled = true;
+                    Cursor = Cursors.Default;
 
+                }
             }
         }
         private void buttonDelete_Click(object sender, EventArgs e)
