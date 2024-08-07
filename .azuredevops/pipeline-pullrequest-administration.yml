@@ -19,7 +19,7 @@ jobs:
       - task: gitversion/setup@3
         displayName: Install GitVersion
         inputs:
-          versionSpec: '6.x'
+          versionSpec: '5.x'
 
       # Retrieve Pull Request Description
       - task: PullRequestDescription@0
