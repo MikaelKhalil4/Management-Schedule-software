@@ -21,7 +21,7 @@ namespace MKproject.Infrastucture
 {
     public class HttpRequestsClass
     {
-        static string BaseAddress = "http://localhost:5117";
+        static string BaseAddress = "https://api.foxdigitaltech.online/admin";
 
 
         //BackUP
