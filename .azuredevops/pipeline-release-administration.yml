@@ -24,13 +24,13 @@ jobs:
         fetchDepth: 0
 
       # Install GitVersion
-      - task: gitversion/setup@0
+      - task: gitversion/setup@3
         displayName: Install GitVersion
         inputs:
           versionSpec: "5.x"
 
       # Determine the semantic version
-      - task: gitversion/execute@0
+      - task: gitversion/execute@3
         displayName: Calculating version
         inputs:
           useConfigFile: True
