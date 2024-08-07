@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: wiki
       type: git
-      name: Cohu_AiArchitect/Cohu---AI-Core.wiki
+      name: Fox/Fox.wiki
       ref: wikiMaster
 
 ## Job to create release and add tag
@@ -83,7 +83,7 @@ jobs:
       - task: WikiUpdaterTask@2
         displayName: "Publish to the wiki"
         inputs:
-          repo: "https://inmindai@dev.azure.com/inmindai/Cohu_AiArchitect/_git/Cohu---AI-Core.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri
+          repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri
           filename: "Release-Notes.md" #Note: want a space in the name of the page? Use a '-' here!
           replaceFile: false
           appendToFile: false
