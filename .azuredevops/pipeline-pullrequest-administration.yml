@@ -33,6 +33,8 @@ jobs:
 
       # Add git commit message that will be picked up by GitVersion ("+semver: patch/minor/major")
       # Depending on the Pull Request description, where the developer has marked the type of change
+      # at this level, nehna bel pull reuqest ha nkun jabrino bi template, Feature/Fix.., so based aa shu bi na2e aam naamil nehna commit in a specific patter
+
       - task: PowerShell@2
         displayName: Add git commit message for SemVer
         inputs:
@@ -66,6 +68,7 @@ jobs:
             Write-Host "Done." -ForegroundColor Cyan
       
       # Determine the semantic version
+      #this section hone ma ela aaze, bas mnetreka
       - task: gitversion/execute@3
         displayName: Determine SemVer
         inputs:
