@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: wiki
       type: git
-      name: Cohu_AiArchitect/Cohu---AI-Core.wiki
+      name:  Fox/Fox.wiki #ProjectName/ProjectWikiName
       ref: wikiMaster
 
 ## Job to create release and add tag
@@ -24,13 +24,14 @@ jobs:
         fetchDepth: 0
 
       # Install GitVersion
-      - task: gitversion/setup@0
+      - task: gitversion/setup@3
         displayName: Install GitVersion
         inputs:
           versionSpec: "5.x"
 
       # Determine the semantic version
-      - task: gitversion/execute@0
+      #at this level we re calculating GitVersion.SemVer
+      - task: gitversion/execute@3
         displayName: Calculating version
         inputs:
           useConfigFile: True
@@ -83,7 +84,7 @@ jobs:
       - task: WikiUpdaterTask@2
         displayName: "Publish to the wiki"
         inputs:
-          repo: "https://inmindai@dev.azure.com/inmindai/Cohu_AiArchitect/_git/Cohu---AI-Core.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri
+          repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri, knowing the origin was:https://dev.azure.com/FoxTechInnovation/Fox/_wiki/wikis/Fox.wiki
           filename: "Release-Notes.md" #Note: want a space in the name of the page? Use a '-' here!
           replaceFile: false
           appendToFile: false

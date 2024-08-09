@@ -11,7 +11,7 @@ msg_file=$1
 file_content="$(cat $msg_file)"
 
 # Initialize constants here
-export valid_message_regex='^(FEATURE|FIX|TECHNICAL) (#[0-9]+) .+'
+export valid_message_regex='^(FEATURE|FIX|TECHNICAL) (#[0-9]+) .+' #ex: Fix #0 VerbInPresent-details...
 export error_message="Commit message must match regex \"${valid_message_regex}\""
 
 # Checks if message is valid
