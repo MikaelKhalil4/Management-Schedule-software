@@ -30,6 +30,7 @@ jobs:
           versionSpec: "5.x"
 
       # Determine the semantic version
+      #at this level we re calculating GitVersion.SemVer
       - task: gitversion/execute@0
         displayName: Calculating version
         inputs:
