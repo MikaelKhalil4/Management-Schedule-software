@@ -20,5 +20,5 @@ if [[ ! $file_content =~ $valid_message_regex ]]; then
  echo $error_message
  exit 1
 fi
-
+ 
 exit 0
