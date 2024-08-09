@@ -21,7 +21,6 @@ jobs:
         local branch=$1
         git fetch -a     
         git checkout $branch  
-        git status    
         git merge origin/master -m "Merging changes from master into $branch"
         git push origin $branch
       }
