@@ -12,6 +12,8 @@ jobs:
     persistCredentials: true
 
   - script: |
+      git config --global user.email "mikaelkhalil7.mk@gmail.com"
+      git config --global user.name "Azure DevOps pipeline"
       git checkout master
       git pull origin master
     
