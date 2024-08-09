@@ -1,12 +1,12 @@
 trigger:
-  - main
+  - master
 
 pool:
   vmImage: ubuntu-latest
 
 jobs:
-- job: MergeMainIntoBranches
-  displayName: 'Merge Main into Custom Branches'
+- job: MergemasterIntoBranches
+  displayName: 'Merge master into Custom Branches'
   steps:
   - checkout: self
     persistCredentials: true
@@ -14,18 +14,18 @@ jobs:
   - script: |
       git config --global user.email "you@example.com"
       git config --global user.name "Your Name"
-      git checkout main
-      git pull origin main
-      # Merging main into global
+      git checkout master
+      git pull origin master
+      # Merging master into global
       git checkout -b global origin/global
-      git merge main --no-ff -m "Merging changes from main into global"
+      git merge master --no-ff -m "Merging changes from master into global"
       git push origin global
-      # Merging main into elk
+      # Merging master into elk
       git checkout -b elk origin/elk
-      git merge main --no-ff -m "Merging changes from main into elk"
+      git merge master --no-ff -m "Merging changes from master into elk"
       git push origin elk
-      # Merging main into soft
+      # Merging master into soft
       git checkout -b soft origin/soft
-      git merge main --no-ff -m "Merging changes from main into soft"
+      git merge master --no-ff -m "Merging changes from master into soft"
       git push origin soft
-    displayName: 'Fetch Main and Merge into Branches'
+    displayName: 'Fetch master and Merge into Branches'
