@@ -23,8 +23,7 @@ jobs:
         if git rev-parse --verify --quiet origin/$branch; then
           git checkout -b $branch origin/$branch
         else
-          echo "Branch $branch does not exist, creating it from master."
-          git checkout -b $branch master
+          echo "Branch $branch does not exist"         
         fi
         git merge master --no-ff -m "Merging changes from master into $branch"
         git push origin $branch
