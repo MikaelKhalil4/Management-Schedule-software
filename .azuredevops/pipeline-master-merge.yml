@@ -12,20 +12,26 @@ jobs:
     persistCredentials: true
 
   - script: |
-      git config --global user.email "you@example.com"
-      git config --global user.name "Your Name"
+      # Checkout master and update it
       git checkout master
       git pull origin master
-      # Merging master into global
-      git checkout -b global origin/global
-      git merge master --no-ff -m "Merging changes from master into global"
-      git push origin global
-      # Merging master into elk
-      git checkout -b elk origin/elk
-      git merge master --no-ff -m "Merging changes from master into elk"
-      git push origin elk
-      # Merging master into soft
-      git checkout -b soft origin/soft
-      git merge master --no-ff -m "Merging changes from master into soft"
-      git push origin soft
+
+      # Function to handle branch merging
+      function merge_branch {
+        local branch=$1
+        # Check if branch exists on the remote
+        if git rev-parse --verify --quiet origin/$branch; then
+          git checkout -b $branch origin/$branch
+        else
+          echo "Branch $branch does not exist, creating it from master."
+          git checkout -b $branch master
+        fi
+        git merge master --no-ff -m "Merging changes from master into $branch"
+        git push origin $branch
+      }
+
+      # Merge master into each branch
+      merge_branch "global"
+      merge_branch "elk"
+      merge_branch "soft"
     displayName: 'Fetch master and Merge into Branches'
