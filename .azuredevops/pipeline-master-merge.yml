@@ -26,7 +26,6 @@ jobs:
           echo "Branch $branch does not exist"         
         fi
         git merge master --no-ff -m "Merging changes from master into $branch"
-        git push origin $branch
       }
 
       # Merge master into each branch
