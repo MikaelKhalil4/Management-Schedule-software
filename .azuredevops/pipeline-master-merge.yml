@@ -20,7 +20,11 @@ jobs:
       function merge_branch {
         local branch=$1
         # Check if branch exists on the remote
-        git checkout $branch 
+        git fetch -a
+        if git rev-parse --verify --quiet origin/$branch; then
+          git checkout $branch
+        else
+          echo "Branch $branch does not exist"   
         git merge master --no-ff -m "Merging changes from master into $branch"
       }
 
