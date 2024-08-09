@@ -17,14 +17,8 @@ jobs:
       git checkout master
       git pull origin master
     
-      function merge_branch {
-        local branch=$1
-        git fetch -a     
-        git checkout $branch  
-        git merge --allow-unrelated-histories origin/master --no-ff -m "Merging changes from master into $branch"
-        git push origin $branch
-      }
-      merge_branch "global"
-      merge_branch "elk"
-      merge_branch "soft"
+      git fetch -a     
+      git checkout elk  
+      git merge --allow-unrelated-histories origin/master --no-ff -m "Merging changes from master into $branch"
+      git push origin elk
     displayName: 'Fetch master and Merge into Branches'
