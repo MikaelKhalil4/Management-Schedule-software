@@ -17,15 +17,15 @@ jobs:
       git checkout master
       git pull origin master
       # Merging master into global
-      git checkout -b global
+      git checkout -b global origin/global
       git merge master --no-ff -m "Merging changes from master into global"
       git push origin global
       # Merging master into elk
-      git checkout -b elk
+      git checkout -b elk origin/elk
       git merge master --no-ff -m "Merging changes from master into elk"
       git push origin elk
       # Merging master into soft
-      git checkout -b soft
+      git checkout -b soft origin/soft
       git merge master --no-ff -m "Merging changes from master into soft"
       git push origin soft
     displayName: 'Fetch master and Merge into Branches'
