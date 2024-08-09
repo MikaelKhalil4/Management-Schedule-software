@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using System.Data.SQLite;
-using System.Data.Common;
 using MKproject;
-using static Azure.Core.HttpHeader;
 
 public class DatabaseInitializer
 {
