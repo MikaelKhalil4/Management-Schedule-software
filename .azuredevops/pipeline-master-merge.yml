@@ -12,23 +12,15 @@ jobs:
     persistCredentials: true
 
   - script: |
-      # Checkout master and update it
       git checkout master
       git pull origin master
-
-      # Function to handle branch merging
+    
       function merge_branch {
         local branch=$1
-        # Check if branch exists on the remote
-        git fetch -a
-        if git rev-parse --verify --quiet origin/$branch; then
-          git checkout $branch
-        else
-          echo "Branch $branch does not exist"   
+        git fetch -a     
+        git checkout $branch      
         git merge master --no-ff -m "Merging changes from master into $branch"
       }
-
-      # Merge master into each branch
       merge_branch "global"
       merge_branch "elk"
       merge_branch "soft"
