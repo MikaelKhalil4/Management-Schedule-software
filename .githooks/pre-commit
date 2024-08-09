@@ -9,7 +9,7 @@
 # check current branch name
 local_branch="$(git rev-parse --abbrev-ref HEAD)"
 
-valid_branch_regex="^(feature|fix|technical)\/[a-z0-9._-]+$"
+valid_branch_regex="^(feature|fix|technical)\/[a-z0-9._-]+$" #ex: feauture/0-adding-new-client, el validation tb3 el branch ha tbayyin while tryiing to commit something, not while creating it
 error_message="Branch names must match regex \"$valid_branch_regex\". You should rename your branch to a valid name and try again."
 
 if [[ ! $local_branch =~ $valid_branch_regex ]]
