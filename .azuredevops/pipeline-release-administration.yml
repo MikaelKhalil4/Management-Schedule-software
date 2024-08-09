@@ -1,120 +1,120 @@
-﻿trigger:
-  - elk
-  - global
-  - soft
+﻿  trigger:
+    - elk
+    - global
+    - soft
 
-pool:
-  vmImage: ubuntu-latest
+  pool:
+    vmImage: ubuntu-latest
 
-variables:
-- group: "velopack publish"
+  variables:
+  - group: "velopack publish"
 
-- ${{ if eq(variables['Build.SourceBranchName'], 'global') }}:
-  - name: bucketname
-    value: $(minio-bucket-global)
+  - ${{ if eq(variables['Build.SourceBranchName'], 'global') }}:
+    - name: bucketname
+      value: $(minio-bucket-global)
 
-- ${{ if eq(variables['Build.SourceBranchName'], 'elk') }}:
-  - name: bucketname
-    value: $(minio-bucket-elk)
+  - ${{ if eq(variables['Build.SourceBranchName'], 'elk') }}:
+    - name: bucketname
+      value: $(minio-bucket-elk)
 
-- ${{ if eq(variables['Build.SourceBranchName'], 'soft') }}:
-  - name: bucketname
-    value: $(minio-bucket-soft)  
+  - ${{ if eq(variables['Build.SourceBranchName'], 'soft') }}:
+    - name: bucketname
+      value: $(minio-bucket-soft)  
 
 
-resources:
-  repositories:
-    - repository: wiki
-      type: git
-      name:  Fox/Fox.wiki #ProjectName/ProjectWikiName
-      ref: wikiMaster
+  resources:
+    repositories:
+      - repository: wiki
+        type: git
+        name:  Fox/Fox.wiki #ProjectName/ProjectWikiName
+        ref: wikiMaster
 
-## Job to create release and add tag
-jobs:
-  - job: CalculateVersion
-    displayName: Tagging release version
+  ## Job to create release and add tag
+  jobs:
+    - job: CalculateVersion
+      displayName: Tagging release version
 
-    steps:
-      # Checkout with persist credentials
-      - checkout: self
-        persistCredentials: true
-        fetchDepth: 0
+      steps:
+        # Checkout with persist credentials
+        - checkout: self
+          persistCredentials: true
+          fetchDepth: 0
 
-      # Install GitVersion
-      - task: gitversion/setup@3
-        displayName: Install GitVersion
-        inputs:
-          versionSpec: "5.x"
+        # Install GitVersion
+        - task: gitversion/setup@3
+          displayName: Install GitVersion
+          inputs:
+            versionSpec: "5.x"
 
-      # Determine the semantic version
-      #at this level we re calculating GitVersion.SemVer
-      - task: gitversion/execute@3
-        displayName: Calculating version
-        inputs:
-          useConfigFile: True
-          configFilePath: ".azuredevops/gitversion.yml"
+        # Determine the semantic version
+        #at this level we re calculating GitVersion.SemVer
+        - task: gitversion/execute@3
+          displayName: Calculating version
+          inputs:
+            useConfigFile: True
+            configFilePath: ".azuredevops/gitversion.yml"
 
-      # Update Build.BuildNumber to use SemVer, as by default it uses FullSemVer
-      - pwsh: |
-          Write-Host "##vso[build.updatebuildnumber]$(GitVersion.SemVer)"
-        displayName: Update Build.BuildNumber
-      # Adds the tag for the calculated semantic version
-      - task: PowerShell@2
-        displayName: Adding git release tag
-        inputs:
-          targetType: inline
-          script: |
-            Write-Host "Configuring git author info.." -ForegroundColor Cyan
-            git config user.email "Azure DevOps pipeline"
-            git config user.name "Azure.Devops@pipeline.com"
-            Write-Host "Adding git tag for release $(GitVersion.SemVer).." -ForegroundColor Cyan
-            git tag -a $("v$(GitVersion.SemVer)/$(Build.SourceBranchName)") -m $("Release $(GitVersion.SemVer)/$(Build.SourceBranchName))")
-            Write-Host "Doing git push.." -ForegroundColor Cyan
-            git push --tags
-            Write-Host "Done." -ForegroundColor Cyan
-  ## Job to create release notes file and publish it to the wiki
-  - job: CreateReleaseNotes
-    displayName: Creating release notes
-    dependsOn: CalculateVersion
-    uses:
-      repositories:
-        - wiki
+        # Update Build.BuildNumber to use SemVer, as by default it uses FullSemVer
+        - pwsh: |
+            Write-Host "##vso[build.updatebuildnumber]$(GitVersion.SemVer)"
+          displayName: Update Build.BuildNumber
+        # Adds the tag for the calculated semantic version
+        - task: PowerShell@2
+          displayName: Adding git release tag
+          inputs:
+            targetType: inline
+            script: |
+              Write-Host "Configuring git author info.." -ForegroundColor Cyan
+              git config user.email "Azure DevOps pipeline"
+              git config user.name "Azure.Devops@pipeline.com"
+              Write-Host "Adding git tag for release $(GitVersion.SemVer).." -ForegroundColor Cyan
+              git tag -a $("v$(GitVersion.SemVer)/$(Build.SourceBranchName)") -m $("Release $(GitVersion.SemVer)/$(Build.SourceBranchName))")
+              Write-Host "Doing git push.." -ForegroundColor Cyan
+              git push --tags
+              Write-Host "Done." -ForegroundColor Cyan
+    ## Job to create release notes file and publish it to the wiki
+    - job: CreateReleaseNotes
+      displayName: Creating release notes
+      dependsOn: CalculateVersion
+      uses:
+        repositories:
+          - wiki
 
-    steps:
-      # Generates a release notes file
-      - task: XplatGenerateReleaseNotes@4
-        displayName: "Generate release notes"
-        inputs:
-          outputfile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
-          templateLocation: File
-          templatefile: ".azuredevops/release-notes-template.md"
-          dumpPayloadToConsole: false
-          dumpPayloadToFile: false
-          replaceFile: True
-          getParentsAndChildren: False
-          getAllParents: False
-          getIndirectPullRequests: False
-          stopOnError: True
-          considerPartiallySuccessfulReleases: False
+      steps:
+        # Generates a release notes file
+        - task: XplatGenerateReleaseNotes@4
+          displayName: "Generate release notes"
+          inputs:
+            outputfile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
+            templateLocation: File
+            templatefile: ".azuredevops/release-notes-template.md"
+            dumpPayloadToConsole: false
+            dumpPayloadToFile: false
+            replaceFile: True
+            getParentsAndChildren: False
+            getAllParents: False
+            getIndirectPullRequests: False
+            stopOnError: True
+            considerPartiallySuccessfulReleases: False
 
-      # Publishes the release notes in the project wiki
-      - task: WikiUpdaterTask@2
-        displayName: "Publish to the wiki"
-        inputs:
-          repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri, knowing the origin was:https://dev.azure.com/FoxTechInnovation/Fox/_wiki/wikis/Fox.wiki
-          filename: "Release-Notes.md" #Note: want a space in the name of the page? Use a '-' here!
-          replaceFile: false
-          appendToFile: false
-          dataIsFile: true
-          sourceFile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
-          message: "Update from Pipeline"
-          gitname: '$(Release.RequestedFor)'
-          gitemail: '$(Release.RequestedForEmail)'
-          useAgentToken: true
-          localpath: '$(System.DefaultWorkingDirectory)\repo'      
-  
-  - job: VeloPack
-    displayName: Create the VeloPackPackage And pushing to minio
+        # Publishes the release notes in the project wiki
+        - task: WikiUpdaterTask@2
+          displayName: "Publish to the wiki"
+          inputs:
+            repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri, knowing the origin was:https://dev.azure.com/FoxTechInnovation/Fox/_wiki/wikis/Fox.wiki
+            filename: "Release-Notes.md" #Note: want a space in the name of the page? Use a '-' here!
+            replaceFile: false
+            appendToFile: false
+            dataIsFile: true
+            sourceFile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
+            message: "Update from Pipeline"
+            gitname: '$(Release.RequestedFor)'
+            gitemail: '$(Release.RequestedForEmail)'
+            useAgentToken: true
+            localpath: '$(System.DefaultWorkingDirectory)\repo'      
+    
+    - job: VeloPack
+      displayName: Create the VeloPackPackage And pushing to minio
       strategy:
         matrix:
           win_x64:
@@ -125,13 +125,13 @@ jobs:
         - bash: |            
             echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret)"
           displayName: 'Set Variable Based on Condition'
-  
+
 
         - checkout: self
           path: s
           fetchDepth: 1  # Shallow fetch to only get the last commit
           clean: true
-  
+
 
         - task: UseDotNet@2
           inputs:
