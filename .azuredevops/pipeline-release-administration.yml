@@ -1,161 +1,161 @@
-﻿  trigger:
-    - elk
-    - global
-    - soft
+﻿trigger:
+  - elk
+  - global
+  - soft
 
-  pool:
-    vmImage: ubuntu-latest
+pool:
+  vmImage: ubuntu-latest
 
-  variables:
+variables:
   - group: "velopack publish"
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'global') }}:
-    - name: bucketname
-      value: $(minio-bucket-global)
+      - name: bucketname
+        value: $(minio-bucket-global)
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'elk') }}:
-    - name: bucketname
-      value: $(minio-bucket-elk)
+      - name: bucketname
+        value: $(minio-bucket-elk)
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'soft') }}:
-    - name: bucketname
-      value: $(minio-bucket-soft)  
+      - name: bucketname
+        value: $(minio-bucket-soft)
 
 
-  resources:
-    repositories:
-      - repository: wiki
-        type: git
-        name:  Fox/Fox.wiki #ProjectName/ProjectWikiName
-        ref: wikiMaster
+resources:
+  repositories:
+    - repository: wiki
+      type: git
+      name: Fox/Fox.wiki #ProjectName/ProjectWikiName
+      ref: wikiMaster
 
-  ## Job to create release and add tag
-  jobs:
-    - job: CalculateVersion
-      displayName: Tagging release version
-
-      steps:
-        # Checkout with persist credentials
-        - checkout: self
-          persistCredentials: true
-          fetchDepth: 0
-
-        # Install GitVersion
-        - task: gitversion/setup@3
-          displayName: Install GitVersion
-          inputs:
-            versionSpec: "5.x"
-
-        # Determine the semantic version
-        #at this level we re calculating GitVersion.SemVer
-        - task: gitversion/execute@3
-          displayName: Calculating version
-          inputs:
-            useConfigFile: True
-            configFilePath: ".azuredevops/gitversion.yml"
-
-        # Update Build.BuildNumber to use SemVer, as by default it uses FullSemVer
-        - pwsh: |
-            Write-Host "##vso[build.updatebuildnumber]$(GitVersion.SemVer)"
-          displayName: Update Build.BuildNumber
-        # Adds the tag for the calculated semantic version
-        - task: PowerShell@2
-          displayName: Adding git release tag
-          inputs:
-            targetType: inline
-            script: |
-              Write-Host "Configuring git author info.." -ForegroundColor Cyan
-              git config user.email "Azure DevOps pipeline"
-              git config user.name "Azure.Devops@pipeline.com"
-              Write-Host "Adding git tag for release $(GitVersion.SemVer).." -ForegroundColor Cyan
-              git tag -a $("v$(GitVersion.SemVer)/$(Build.SourceBranchName)") -m $("Release $(GitVersion.SemVer)/$(Build.SourceBranchName))")
-              Write-Host "Doing git push.." -ForegroundColor Cyan
-              git push --tags
-              Write-Host "Done." -ForegroundColor Cyan
-    ## Job to create release notes file and publish it to the wiki
-    - job: CreateReleaseNotes
-      displayName: Creating release notes
-      dependsOn: CalculateVersion
-      uses:
-        repositories:
-          - wiki
-
-      steps:
-        # Generates a release notes file
-        - task: XplatGenerateReleaseNotes@4
-          displayName: "Generate release notes"
-          inputs:
-            outputfile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
-            templateLocation: File
-            templatefile: ".azuredevops/release-notes-template.md"
-            dumpPayloadToConsole: false
-            dumpPayloadToFile: false
-            replaceFile: True
-            getParentsAndChildren: False
-            getAllParents: False
-            getIndirectPullRequests: False
-            stopOnError: True
-            considerPartiallySuccessfulReleases: False
-
-        # Publishes the release notes in the project wiki
-        - task: WikiUpdaterTask@2
-          displayName: "Publish to the wiki"
-          inputs:
-            repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri, knowing the origin was:https://dev.azure.com/FoxTechInnovation/Fox/_wiki/wikis/Fox.wiki
-            filename: "Release-Notes.md" #Note: want a space in the name of the page? Use a '-' here!
-            replaceFile: false
-            appendToFile: false
-            dataIsFile: true
-            sourceFile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
-            message: "Update from Pipeline"
-            gitname: '$(Release.RequestedFor)'
-            gitemail: '$(Release.RequestedForEmail)'
-            useAgentToken: true
-            localpath: '$(System.DefaultWorkingDirectory)\repo'      
+## Job to create release and add tag
+jobs:
+  - job: CalculateVersion
+    displayName: Tagging release version
     
-    - job: VeloPack
-      displayName: Create the VeloPackPackage And pushing to minio
-      strategy:
-        matrix:
-          win_x64:
-            ARCHITECTURE: 'win-x64'
-          win_x86:
-            ARCHITECTURE: 'win-x86'            
-      steps:
-        - bash: |            
-            echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret)"
-          displayName: 'Set Variable Based on Condition'
+    steps:
+      # Checkout with persist credentials
+      - checkout: self
+        persistCredentials: true
+        fetchDepth: 0
+      
+      # Install GitVersion
+      - task: gitversion/setup@3
+        displayName: Install GitVersion
+        inputs:
+          versionSpec: "5.x"
+      
+      # Determine the semantic version
+      #at this level we re calculating GitVersion.SemVer
+      - task: gitversion/execute@3
+        displayName: Calculating version
+        inputs:
+          useConfigFile: True
+          configFilePath: ".azuredevops/gitversion.yml"
+      
+      # Update Build.BuildNumber to use SemVer, as by default it uses FullSemVer
+      - pwsh: |
+          Write-Host "##vso[build.updatebuildnumber]$(GitVersion.SemVer)"
+        displayName: Update Build.BuildNumber
+      # Adds the tag for the calculated semantic version
+      - task: PowerShell@2
+        displayName: Adding git release tag
+        inputs:
+          targetType: inline
+          script: |
+            Write-Host "Configuring git author info.." -ForegroundColor Cyan
+            git config user.email "Azure DevOps pipeline"
+            git config user.name "Azure.Devops@pipeline.com"
+            Write-Host "Adding git tag for release $(GitVersion.SemVer).." -ForegroundColor Cyan
+            git tag -a $("v$(GitVersion.SemVer)/$(Build.SourceBranchName)") -m $("Release $(GitVersion.SemVer)/$(Build.SourceBranchName))")
+            Write-Host "Doing git push.." -ForegroundColor Cyan
+            git push --tags
+            Write-Host "Done." -ForegroundColor Cyan
+  ## Job to create release notes file and publish it to the wiki
+  - job: CreateReleaseNotes
+    displayName: Creating release notes
+    dependsOn: CalculateVersion
+    uses:
+      repositories:
+        - wiki
+    
+    steps:
+      # Generates a release notes file
+      - task: XplatGenerateReleaseNotes@4
+        displayName: "Generate release notes"
+        inputs:
+          outputfile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
+          templateLocation: File
+          templatefile: ".azuredevops/release-notes-template.md"
+          dumpPayloadToConsole: false
+          dumpPayloadToFile: false
+          replaceFile: True
+          getParentsAndChildren: False
+          getAllParents: False
+          getIndirectPullRequests: False
+          stopOnError: True
+          considerPartiallySuccessfulReleases: False
+      
+      # Publishes the release notes in the project wiki
+      - task: WikiUpdaterTask@2
+        displayName: "Publish to the wiki"
+        inputs:
+          repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri, knowing the origin was:https://dev.azure.com/FoxTechInnovation/Fox/_wiki/wikis/Fox.wiki
+          filename: "Release-Notes.md" #Note: want a space in the name of the page? Use a '-' here!
+          replaceFile: false
+          appendToFile: false
+          dataIsFile: true
+          sourceFile: '$(System.DefaultWorkingDirectory)\releasenotes.md'
+          message: "Update from Pipeline"
+          gitname: '$(Release.RequestedFor)'
+          gitemail: '$(Release.RequestedForEmail)'
+          useAgentToken: true
+          localpath: '$(System.DefaultWorkingDirectory)\repo'
+
+  - job: VeloPack
+    displayName: Create the VeloPackPackage And pushing to minio
+    strategy:
+      matrix:
+        win_x64:
+          ARCHITECTURE: 'win-x64'
+        win_x86:
+          ARCHITECTURE: 'win-x86'
+    steps:
+      - bash: |
+          echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret)"
+        displayName: 'Set Variable Based on Condition'
 
 
-        - checkout: self
-          path: s
-          fetchDepth: 1  # Shallow fetch to only get the last commit
-          clean: true
+      - checkout: self
+        path: s
+        fetchDepth: 1  # Shallow fetch to only get the last commit
+        clean: true
 
 
-        - task: UseDotNet@2
-          inputs:
-            packageType: 'sdk'
-            version: '8.0.x'
-          displayName: 'Install .NET'
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: '8.0.x'
+        displayName: 'Install .NET'
 
-        - task: DotNetCoreCLI@2
-          inputs:
-            command: 'restore'
-            projects: 'MKproject/MKproject.csproj'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          projects: 'MKproject/MKproject.csproj'
 
-        - script: dotnet clean
-          displayName: 'Clean Solution'
+      - script: dotnet clean
+        displayName: 'Clean Solution'
 
-        - script: dotnet build --configuration Release
-          displayName: 'Build Solution'
-          
-        - script: |          
-            dotnet tool install --global vpk --version 0.0.359 
-            dotnet publish MKproject/MKproject.csproj  -c Release  -o MKproject/bin/Publish/$(ARCHITECTURE)  -r $(ARCHITECTURE)  --self-contained true
-              vpk download http --channel $(ARCHITECTURE) --url $(minio-url)
-            vpk pack  -u FoxApp -v $(GitVersion.SemVer)  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
-            vpk upload s3  --bucket  $(bucketname)  --channel $(ARCHITECTURE)  --endpoint $(minio-ip-port)  --keyId $(minio-keyId)  --secret $(minio-secret)
-          displayName: 'Create and Upload Velopack Release'
-          env:
-            PATH: $(PATH):$(USERPROFILE)\.dotnet\tools
+      - script: dotnet build --configuration Release
+        displayName: 'Build Solution'
+
+      - script: |
+          dotnet tool install --global vpk --version 0.0.359 
+          dotnet publish MKproject/MKproject.csproj  -c Release  -o MKproject/bin/Publish/$(ARCHITECTURE)  -r $(ARCHITECTURE)  --self-contained true
+            vpk download http --channel $(ARCHITECTURE) --url $(minio-url)
+          vpk pack  -u FoxApp -v $(GitVersion.SemVer)  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
+          vpk upload s3  --bucket  $(bucketname)  --channel $(ARCHITECTURE)  --endpoint $(minio-ip-port)  --keyId $(minio-keyId)  --secret $(minio-secret)
+        displayName: 'Create and Upload Velopack Release'
+        env:
+          PATH: $(PATH):$(USERPROFILE)\.dotnet\tools
