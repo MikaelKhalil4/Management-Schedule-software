@@ -5,7 +5,7 @@ mode: Mainline
 increment: Inherit
 continuous-delivery-fallback-tag: ci
 tag-prefix: '[vV]'
-major-version-bump-message: '\+semver:\s?(breaking|major)'
+major-version-bump-message: '\+semver:\s?(breaking|major)' #this will be called when counting the versions, what will happen each commit he reads, it checks if major,minor..., 
 minor-version-bump-message: '\+semver:\s?(feature|minor)'
 patch-version-bump-message: '\+semver:\s?(fix|patch)'
 no-bump-message: '\+semver:\s?(none|skip)'
@@ -17,6 +17,7 @@ commit-date-format: 'yyyy-MM-dd'
 # ignore:
 #   sha: []
 #   commits-before: yyyy-MM-ddTHH:mm:ss
+#this section downbelow can bi ignored, lieanno it's the default couting, amma li foe, we did customize it
 merge-message-formats: {}
 branches:
   main:

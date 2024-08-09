@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: wiki
       type: git
-      name: Fox/Fox.wiki
+      name:  Fox/Fox.wiki #ProjectName/ProjectWikiName
       ref: wikiMaster
 
 ## Job to create release and add tag
@@ -30,6 +30,7 @@ jobs:
           versionSpec: "5.x"
 
       # Determine the semantic version
+      #at this level we re calculating GitVersion.SemVer
       - task: gitversion/execute@3
         displayName: Calculating version
         inputs:
@@ -83,7 +84,7 @@ jobs:
       - task: WikiUpdaterTask@2
         displayName: "Publish to the wiki"
         inputs:
-          repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri
+          repo: "https://dev.azure.com/FoxTechInnovation/Fox/_git/Fox.wiki" #REPLACE THIS!! NB. use _git instead of _wiki/wikis in the uri, knowing the origin was:https://dev.azure.com/FoxTechInnovation/Fox/_wiki/wikis/Fox.wiki
           filename: "Release-Notes.md" #Note: want a space in the name of the page? Use a '-' here!
           replaceFile: false
           appendToFile: false
