@@ -4,7 +4,7 @@
   - soft
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
   - group: "velopack publish"
