@@ -1,9 +1,26 @@
 ﻿trigger:
-  - main
-  - master
+  - elk
+  - global
+  - soft
 
 pool:
   vmImage: ubuntu-latest
+
+variables:
+- group: "velopack publish"
+
+- ${{ if eq(variables['Build.SourceBranchName'], 'global') }}:
+  - name: bucketname
+    value: $(minio-bucket-global)
+
+- ${{ if eq(variables['Build.SourceBranchName'], 'elk') }}:
+  - name: bucketname
+    value: $(minio-bucket-elk)
+
+- ${{ if eq(variables['Build.SourceBranchName'], 'soft') }}:
+  - name: bucketname
+    value: $(minio-bucket-soft)  
+
 
 resources:
   repositories:
@@ -51,7 +68,7 @@ jobs:
             git config user.email "Azure DevOps pipeline"
             git config user.name "Azure.Devops@pipeline.com"
             Write-Host "Adding git tag for release $(GitVersion.SemVer).." -ForegroundColor Cyan
-            git tag -a $("v$(GitVersion.SemVer)") -m $("Release $(GitVersion.SemVer)")
+            git tag -a $("v$(GitVersion.SemVer)/$(Build.SourceBranchName)") -m $("Release $(GitVersion.SemVer)/$(Build.SourceBranchName))")
             Write-Host "Doing git push.." -ForegroundColor Cyan
             git push --tags
             Write-Host "Done." -ForegroundColor Cyan
@@ -95,3 +112,50 @@ jobs:
           gitemail: '$(Release.RequestedForEmail)'
           useAgentToken: true
           localpath: '$(System.DefaultWorkingDirectory)\repo'      
+  
+  - job: VeloPack
+    displayName: Create the VeloPackPackage And pushing to minio
+      strategy:
+        matrix:
+          win_x64:
+            ARCHITECTURE: 'win-x64'
+          win_x86:
+            ARCHITECTURE: 'win-x86'            
+      steps:
+        - bash: |            
+            echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret)"
+          displayName: 'Set Variable Based on Condition'
+  
+
+        - checkout: self
+          path: s
+          fetchDepth: 1  # Shallow fetch to only get the last commit
+          clean: true
+  
+
+        - task: UseDotNet@2
+          inputs:
+            packageType: 'sdk'
+            version: '8.0.x'
+          displayName: 'Install .NET'
+
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'restore'
+            projects: 'MKproject/MKproject.csproj'
+
+        - script: dotnet clean
+          displayName: 'Clean Solution'
+
+        - script: dotnet build --configuration Release
+          displayName: 'Build Solution'
+          
+        - script: |          
+            dotnet tool install --global vpk --version 0.0.359 
+            dotnet publish MKproject/MKproject.csproj  -c Release  -o MKproject/bin/Publish/$(ARCHITECTURE)  -r $(ARCHITECTURE)  --self-contained true
+              vpk download http --channel $(ARCHITECTURE) --url $(minio-url)
+            vpk pack  -u FoxApp -v $(GitVersion.SemVer)  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
+            vpk upload s3  --bucket  $(bucketname)  --channel $(ARCHITECTURE)  --endpoint $(minio-ip-port)  --keyId $(minio-keyId)  --secret $(minio-secret)
+          displayName: 'Create and Upload Velopack Release'
+          env:
+            PATH: $(PATH):$(USERPROFILE)\.dotnet\tools
