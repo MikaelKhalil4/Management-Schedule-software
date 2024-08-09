@@ -68,7 +68,7 @@ jobs:
             git config user.email "Azure DevOps pipeline"
             git config user.name "Azure.Devops@pipeline.com"
             Write-Host "Adding git tag for release $(GitVersion.SemVer).." -ForegroundColor Cyan
-            git tag -a $("v$(GitVersion.SemVer)/$(Build.SourceBranchName)") -m $("Release $(GitVersion.SemVer)/$(Build.SourceBranchName))")
+            git tag -a $("v$(GitVersion.SemVer)") -m $("Release $(GitVersion.SemVer))")
             Write-Host "Doing git push.." -ForegroundColor Cyan
             git push --tags
             Write-Host "Done." -ForegroundColor Cyan
