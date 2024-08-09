@@ -10,6 +10,7 @@ jobs:
   steps:
   - checkout: self
     persistCredentials: true
+    fetchDepth: 0
 
   - script: |
       git config --global user.email "mikaelkhalil7.mk@gmail.com"
@@ -21,7 +22,7 @@ jobs:
         local branch=$1
         git fetch -a     
         git checkout $branch  
-        git merge --allow-unrelated-histories origin/master --no-ff -m "Merging changes from master into $branch"
+        git merge master -m "Merging changes from master into $branch"
         git push origin $branch
       }
       merge_branch "global"
