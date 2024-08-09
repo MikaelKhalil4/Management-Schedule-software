@@ -19,7 +19,7 @@ jobs:
         local branch=$1
         git fetch -a     
         git checkout $branch      
-        git merge origin/master --no-ff -m "Merging changes from master into $branch"
+        git merge origin/master --no-ff -m "Merging changes from master into $branch" --allow-unrelated-histories
       }
       merge_branch "global"
       merge_branch "elk"
