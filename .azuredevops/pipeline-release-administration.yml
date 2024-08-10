@@ -77,11 +77,12 @@ jobs:
             git push --tags
             Write-Host "Done." -ForegroundColor Cyan
       
-        # Set the VersionNumber variable to the GitVersion.SemVer value
+      # Set the VersionNumber variable as an output variable
       - script: |
-          echo "##vso[task.setvariable variable=VersionNumber]$(GitVersionOutput.SemVer)"
-          echo "The calculated version is $(VersionNumber)"
+          echo "##vso[task.setvariable variable=VersionNumber;isOutput=true]$(GitVersionOutput.SemVer)"
         displayName: Set VersionNumber
+    outputs:
+      VersionNumber: GitVersionOutput.VersionNumber
 
 
   ## Job to create release notes file and publish it to the wiki

@@ -17,6 +17,7 @@ commit-date-format: 'yyyy-MM-dd'
 # ignore:
 #   sha: []
 #   commits-before: yyyy-MM-ddTHH:mm:ss
+
 #this section down below , btekhlae el bet zid osas aal version (tag) hasab what branch, v 0.0.1-elk
 #increment means, if no specific version bump message is found, ha taamil increment as patch
 merge-message-formats: {}
