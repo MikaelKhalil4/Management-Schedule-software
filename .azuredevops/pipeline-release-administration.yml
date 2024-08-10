@@ -58,6 +58,7 @@ jobs:
       - pwsh: |
           Write-Host "##vso[build.updatebuildnumber]$(GitVersion.SemVer)"
         displayName: Update Build.BuildNumber
+
       # Adds the tag for the calculated semantic version
       - task: PowerShell@2
         displayName: Adding git release tag
@@ -115,6 +116,7 @@ jobs:
 
   - job: VeloPack
     displayName: Create the VeloPackPackage And pushing to minio
+    dependsOn: CalculateVersion
     strategy:
       matrix:
         win_x64:
@@ -123,7 +125,7 @@ jobs:
           ARCHITECTURE: 'win-x86'
     steps:
       - bash: |
-          echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret)"
+          echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret), New Version: $(GitVersion.SemVer)"
         displayName: 'Set Variable Based on Condition'
 
 
