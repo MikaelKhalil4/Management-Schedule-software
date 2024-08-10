@@ -79,11 +79,11 @@ jobs:
       
         # Set the VersionNumber variable to the GitVersion.SemVer value
       - bash: |
-          echo "##vso[task.setvariable variable=VersionNumber]$(GitVersionOutput.SemVer)"
+          echo "##vso[task.setvariable variable=VersionNumber]$(GitVersion.SemVer)"
         displayName: Set VersionNumber
       - script: |
           echo "The calculated version is $(VersionNumber)"
-          echo "The calculated version Should be $(GitVersionOutput.SemVer)"
+          echo "The calculated version Should be $(GitVersion.SemVer)"
         displayName: Output VersionNumber
 
 
