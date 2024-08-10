@@ -86,3 +86,4 @@ branches:
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
+    source-branches: ['develop', 'release', 'hotfix', 'master']
