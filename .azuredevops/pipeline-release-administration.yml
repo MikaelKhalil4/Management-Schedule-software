@@ -137,7 +137,7 @@ jobs:
           ARCHITECTURE: 'win-x86'
     steps:
       - bash: |
-          echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret), New Version: $(GitVersion.SemVer)"
+          echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret), New Version: $(VersionNumber)"
         displayName: 'Set Variable Based on Condition'
 
 
@@ -168,7 +168,7 @@ jobs:
           dotnet tool install --global vpk --version 0.0.359 
           dotnet publish MKproject/MKproject.csproj  -c Release  -o MKproject/bin/Publish/$(ARCHITECTURE)  -r $(ARCHITECTURE)  --self-contained true
           vpk download http --channel $(ARCHITECTURE) --url $(minio-url)
-          vpk pack  -u FoxApp -v $(GitVersion.SemVer)  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
+          vpk pack  -u FoxApp -v $(VersionNumber)  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
           vpk upload s3  --bucket  $(bucketname)  --channel $(ARCHITECTURE)  --endpoint $(minio-ip-port)  --keyId $(minio-keyId)  --secret $(minio-secret)
         displayName: 'Create and Upload Velopack Release'
         env:
