@@ -17,7 +17,7 @@ commit-date-format: 'yyyy-MM-dd'
 # ignore:
 #   sha: []
 #   commits-before: yyyy-MM-ddTHH:mm:ss
-#this section downbelow can bi ignored, lieanno it's the default couting, amma li foe, we did customize it
+#this section down below , btekhlae el bet zid osas aal version (tag) hasab what branch, v 0.0.1-elk
 merge-message-formats: {}
 branches:
   main:
@@ -77,4 +77,12 @@ branches:
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
     tracks-release-branches: true
+    is-release-branch: false
+  other:
+    regex: .*
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
     is-release-branch: false
