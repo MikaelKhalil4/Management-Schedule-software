@@ -78,10 +78,13 @@ jobs:
             Write-Host "Done." -ForegroundColor Cyan
       
         # Set the VersionNumber variable to the GitVersion.SemVer value
-      - script: |
+      - bash: |
           echo "##vso[task.setvariable variable=VersionNumber]$(GitVersionOutput.SemVer)"
-          echo "The calculated version is $(VersionNumber)"
         displayName: Set VersionNumber
+      - script: |
+          echo "The calculated version is $(VersionNumber)"
+          echo "The calculated version Should be $(GitVersionOutput.SemVer)"
+        displayName: Output VersionNumber
 
 
   ## Job to create release notes file and publish it to the wiki
