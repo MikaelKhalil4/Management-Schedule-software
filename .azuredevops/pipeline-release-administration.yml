@@ -9,6 +9,9 @@ pool:
 variables:
   - group: "velopack publish"
 
+  - name: VersionNumber
+    value: ''  # Leave this empty if you don't want to specify a value upfront
+
   - ${{ if eq(variables['Build.SourceBranchName'], 'global') }}:
       - name: bucketname
         value: $(minio-bucket-global)
@@ -73,6 +76,13 @@ jobs:
             Write-Host "Doing git push.." -ForegroundColor Cyan
             git push --tags
             Write-Host "Done." -ForegroundColor Cyan
+      
+        # Set the VersionNumber variable to the GitVersion.SemVer value
+      - script: |
+          echo "##vso[task.setvariable variable=VersionNumber]$(GitVersionOutput.SemVer)"
+        displayName: Set VersionNumber
+
+
   ## Job to create release notes file and publish it to the wiki
   - job: CreateReleaseNotes
     displayName: Creating release notes
@@ -113,6 +123,8 @@ jobs:
           gitemail: '$(Release.RequestedForEmail)'
           useAgentToken: true
           localpath: '$(System.DefaultWorkingDirectory)\repo'
+
+
 
   - job: VeloPack
     displayName: Create the VeloPackPackage And pushing to minio
