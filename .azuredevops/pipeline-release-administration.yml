@@ -147,7 +147,7 @@ jobs:
 
     steps:
 
-      - download: current
+      - download: VersionNumber.txt
         artifact: globalVarArtifact
 
       - bash: |
