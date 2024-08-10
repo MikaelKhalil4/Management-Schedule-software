@@ -80,11 +80,16 @@ jobs:
         # Set the VersionNumber variable to the GitVersion.SemVer value
       - bash: |
           echo "##vso[task.setvariable variable=VersionNumber]$(GitVersion.SemVer)"
+          echo $(VersionNumber) > VersionNumber.txt
         displayName: Set VersionNumber
       - script: |
           echo "The calculated version is $(VersionNumber)"
           echo "The calculated version Should be $(GitVersion.SemVer)"
         displayName: Output VersionNumber
+
+      - publish: VersionNumber.txt
+        artifact: globalVarArtifact
+
 
 
   ## Job to create release notes file and publish it to the wiki
@@ -139,8 +144,14 @@ jobs:
           ARCHITECTURE: 'win-x64'
         win_x86:
           ARCHITECTURE: 'win-x86'
+
     steps:
+
+      - download: current
+        artifact: globalVarArtifact
+
       - bash: |
+          VersionNumber=$(cat VersionNumber.txt)
           echo "Architecture: $(ARCHITECTURE), Bucket Name: $(bucketname), Minio-Ip:$(minio-ip-port) ,Minio Key ID: $(minio-keyId), Minio Secret: $(minio-secret), New Version: $(VersionNumber)"
         displayName: 'Set Variable Based on Condition'
 
