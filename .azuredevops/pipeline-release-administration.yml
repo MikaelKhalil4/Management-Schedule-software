@@ -16,21 +16,21 @@ variables:
         value: $(minio-bucket-global)
 
       - name: AppName
-        values: FoxApp
+        value: FoxApp
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'elk') }}:
       - name: bucketname
         value: $(minio-bucket-elk)
 
       - name: AppName
-        values: FoxAppelk
+        value: FoxAppelk
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'soft') }}:
       - name: bucketname
         value: $(minio-bucket-soft)
 
       - name: AppName
-        values: FoxAppSoft
+        value: FoxAppSoft
 
 
 resources:
