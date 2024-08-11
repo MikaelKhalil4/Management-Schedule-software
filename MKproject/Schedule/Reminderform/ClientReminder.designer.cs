@@ -159,7 +159,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(397, 643);
             Controls.Add(tableLayoutPanel1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(5);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ClientReminder";
             Opacity = 0D;
             ShowInTaskbar = false;

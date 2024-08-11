@@ -176,7 +176,7 @@ namespace MKproject.Schedule.Reminderform
             command.AddWithValue("@repeat", Repeat);
             command.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
             command.AddWithValue("@is_checked", IsChecked);
-            command.AddWithValue("@modified_date", ModifiedDate.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@modified_date", ModifiedDate);
 
             Program.conOpen();
             command.ExecuteNonQuery();//first command       
@@ -201,7 +201,7 @@ namespace MKproject.Schedule.Reminderform
             command.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
             command.AddWithValue("@is_checked", IsChecked);
             command.AddWithValue("@reminder_id", Idreminder);
-            command.AddWithValue("@modified_date", ModifiedDate.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@modified_date", ModifiedDate);
 
 
             Program.conOpen();

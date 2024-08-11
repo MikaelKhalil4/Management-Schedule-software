@@ -132,7 +132,6 @@ namespace MKproject
             {
                 NotificationBanner.CloseTheNotfBanner();
             }
-
         }
 
 

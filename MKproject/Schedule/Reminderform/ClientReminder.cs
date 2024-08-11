@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Metrics;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MKproject.Schedule
@@ -35,7 +36,7 @@ namespace MKproject.Schedule
 
         public Label LoadLabel;
         List<UCreminder> ListUCReminders = new List<UCreminder>();
-        private int MaxDisplayUCReminders = 3;
+        private int MaxDisplayUCReminders = 5;
 
         public ClientReminder()
         {
@@ -174,9 +175,12 @@ namespace MKproject.Schedule
             for (int i = 0; i < ListUCReminders.Count; i++)
             {
                 var ucreminder = ListUCReminders[i];
-                panelreminder.Controls.SetChildIndex(ucreminder, i);
+                panelreminder.Controls.SetChildIndex(ucreminder, ListUCReminders.Count-i);
             }
-            panelreminder.Controls.SetChildIndex(LoadLabel, ListUCReminders.Count);
+            if(ListUCReminders.Count > MaxDisplayUCReminders)
+            {
+                panelreminder.Controls.SetChildIndex(LoadLabel, 0);
+            }
 
             if (datatablereminder.Rows.Count == 0)
             {
