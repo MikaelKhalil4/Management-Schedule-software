@@ -233,35 +233,40 @@ namespace MKproject.Infrastucture
                     DateTime? Date = null;
 
 
-                    if (response.IsSuccessStatusCode)//eza ma eendo package available ha tred NotFound
+                    if (response.IsSuccessStatusCode)//2xx,eza ma eendo package available ha tred NotFound
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         Date = DateTime.Parse(JsonConvert.DeserializeObject<string>(jsonResponse));
                     }
-                    else
+                    else if ((int)response.StatusCode >= 500 && (int)response.StatusCode < 600)//5xx,yaane ma edir yaamil connection maa el api
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
-                        throw new Exception(responseContent);
+                        LogHelper.logException(new Exception(responseContent));
+                        return;//it won't close the app but it will let him use the offline credentials
+                    }
+                    else//4xx,not found or bad request
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        throw new Exception(responseContent);//this will make the app close,lieanno ha yenzal el datenull
                     }
 
                     //Update DB, take into consideration if null or no
 
-
                     if (Date != null)
                     {
                         DueDateValueEncryp = EncryptionService.EncryptString(((DateTime)Date).ToString("yyyy-MM-dd"));
+                      
                     }
 
+                    SettingsSql.UpdateKeyValue(DueDateKeyEncryp, DueDateValueEncryp);
                 }
             }
             catch (Exception ex)
             {
+                SettingsSql.UpdateKeyValue(DueDateKeyEncryp, DueDateValueEncryp);
                 throw new Exception(ex.Message);
             }
-            finally
-            {
-                SettingsSql.UpdateKeyValue(DueDateKeyEncryp, DueDateValueEncryp);
-            }
+          
         }
 
 

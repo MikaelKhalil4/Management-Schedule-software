@@ -246,10 +246,9 @@ namespace MKproject
             };
 
             // Log the exception using Serilog (assuming it's configured)
-            Log.Error("Unhandled exception occurred. Message: {ExceptionMessage}, StackTrace: {StackTrace}", e.Message, e.StackTrace);
-
+            LogHelper.logException(e);
             // Show a message box to the user
-            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            CustomMessageBox.Show("Oops! Something went wrong. We're here to help—please reach out to customer support so we can get this sorted out for you.", CustomMessageBox.Type.OkInfo);
       
         }
 

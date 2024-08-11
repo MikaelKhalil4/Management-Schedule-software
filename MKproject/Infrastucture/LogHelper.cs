@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace MKproject.Infrastucture
 {
@@ -17,6 +18,9 @@ namespace MKproject.Infrastucture
             TimerLog.Tick += async (sender, args) => await HttpRequestsClass.CheckAndProcessLogs();
             TimerLog.Start();
         }
-      
+        public static void logException(Exception e)
+        {
+            Log.Error("Unhandled exception occurred. Message: {ExceptionMessage}, StackTrace: {StackTrace}", e.Message, e.StackTrace);
+        }
     }
 }

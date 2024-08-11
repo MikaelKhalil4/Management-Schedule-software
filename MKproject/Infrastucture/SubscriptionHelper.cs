@@ -37,7 +37,8 @@ namespace MKproject.Infrastucture
                 }
                 catch (Exception ex) 
                 {
-                   await CloseAppIfSubsciptionFinishedAsync(ex.Message);
+                    LogHelper.logException(ex);
+                    await CloseAppIfSubsciptionFinishedAsync(ex.Message);
                     return;
                 }
             }
@@ -113,7 +114,9 @@ namespace MKproject.Infrastucture
             }
             else
             {
-                DesiredMessage = $"Something went wrong from our side,Please let us know and then try again.\nDetails:{Message}";
+                DesiredMessage = $"Oops! Something went wrong. We're here to help—please reach out to customer support so we can get this sorted out for you."+
+                                 $"\nIf you have an active bundle, you can turn off the internet and continue using the application.";
+
             }
 
 
