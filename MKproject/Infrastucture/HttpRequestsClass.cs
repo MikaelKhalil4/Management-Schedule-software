@@ -236,7 +236,18 @@ namespace MKproject.Infrastucture
                     if (response.IsSuccessStatusCode)//2xx,eza ma eendo package available ha tred NotFound
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
-                        Date = DateTime.Parse(JsonConvert.DeserializeObject<string>(jsonResponse));
+                        string dateString = JsonConvert.DeserializeObject<string>(jsonResponse);
+                        DateTime parsedDate;
+                        if (DateTime.TryParse(dateString, out parsedDate))//raddetna datetime,package exisit
+                        {
+                            // Parsing was successful, use parsedDate
+                            Date = parsedDate;
+                        }
+                        else//raddit ok(No Package Available)
+                        {
+                            // Parsing failed, handle accordingly
+                            Date = null;
+                        }
                     }
                     else if ((int)response.StatusCode >= 500 && (int)response.StatusCode < 600)//5xx,yaane ma edir yaamil connection maa el api
                     {
@@ -244,7 +255,7 @@ namespace MKproject.Infrastucture
                         LogHelper.logException(new Exception(responseContent));
                         return;//it won't close the app but it will let him use the offline credentials
                     }
-                    else//4xx,not found or bad request
+                    else//4xx,not found or bad request, which means ma naamal the right authentication
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
                         throw new Exception(responseContent);//this will make the app close,lieanno ha yenzal el datenull
