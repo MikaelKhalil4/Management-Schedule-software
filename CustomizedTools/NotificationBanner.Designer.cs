@@ -44,9 +44,9 @@
             // 
             TLPglobal.BackColor = System.Drawing.Color.FromArgb(2, 162, 111);
             TLPglobal.ColumnCount = 3;
-            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
             TLPglobal.Controls.Add(pictureBox, 0, 0);
             TLPglobal.Controls.Add(labelText, 1, 0);
             TLPglobal.Controls.Add(ButtonUndo, 2, 0);
@@ -56,7 +56,7 @@
             TLPglobal.Name = "TLPglobal";
             TLPglobal.RowCount = 1;
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPglobal.Size = new System.Drawing.Size(304, 51);
+            TLPglobal.Size = new System.Drawing.Size(347, 68);
             TLPglobal.TabIndex = 31;
             // 
             // pictureBox
@@ -64,10 +64,10 @@
             pictureBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             pictureBox.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox.BackgroundImage");
             pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pictureBox.Location = new System.Drawing.Point(3, 11);
-            pictureBox.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            pictureBox.Location = new System.Drawing.Point(3, 15);
+            pictureBox.Margin = new System.Windows.Forms.Padding(3, 7, 3, 4);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new System.Drawing.Size(39, 30);
+            pictureBox.Size = new System.Drawing.Size(45, 40);
             pictureBox.TabIndex = 31;
             pictureBox.TabStop = false;
             // 
@@ -77,9 +77,9 @@
             labelText.AutoSize = true;
             labelText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelText.ForeColor = System.Drawing.Color.White;
-            labelText.Location = new System.Drawing.Point(48, 15);
+            labelText.Location = new System.Drawing.Point(54, 20);
             labelText.Name = "labelText";
-            labelText.Size = new System.Drawing.Size(150, 21);
+            labelText.Size = new System.Drawing.Size(193, 28);
             labelText.TabIndex = 32;
             labelText.Text = "Appointment Added";
             // 
@@ -95,10 +95,10 @@
             ButtonUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonUndo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonUndo.ForeColor = System.Drawing.Color.White;
-            ButtonUndo.Location = new System.Drawing.Point(233, 11);
+            ButtonUndo.Location = new System.Drawing.Point(266, 14);
             ButtonUndo.Margin = new System.Windows.Forms.Padding(0);
             ButtonUndo.Name = "ButtonUndo";
-            ButtonUndo.Size = new System.Drawing.Size(61, 29);
+            ButtonUndo.Size = new System.Drawing.Size(70, 39);
             ButtonUndo.TabIndex = 33;
             ButtonUndo.Text = "Undo";
             ButtonUndo.UseVisualStyleBackColor = false;
@@ -115,13 +115,14 @@
             // 
             // NotificationBanner
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(124, 218, 124);
-            ClientSize = new System.Drawing.Size(304, 51);
+            ClientSize = new System.Drawing.Size(347, 68);
             ControlBox = false;
             Controls.Add(TLPglobal);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "NotificationBanner";
@@ -129,6 +130,7 @@
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Deactivate += NotificationBanner_Deactivate;
+            FormClosing += NotificationBanner_FormClosing;
             TLPglobal.ResumeLayout(false);
             TLPglobal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
@@ -60,35 +61,124 @@ namespace CustomizedTools
             ParentFormHome.Deactivate += ParentFormHome_Deactivate;
             ParentFormHome.Activated += ParentFormHome_Activated;
             LoadForm();
+
+            this.Activated += NotificationBanner_Activated;
+
         }
+
+
+        private void NotificationBanner_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ParentFormHome.Resize -= ParentFormHome_Resize;
+            ParentFormHome.LocationChanged -= ParentFormHome_LocationChanged;
+            ParentFormHome.Deactivate -= ParentFormHome_Deactivate;
+            ParentFormHome.Activated -= ParentFormHome_Activated;
+        }
+
+
+        //this bloack here kermel nsakkir el notfication banner in the right time
+        bool IsNotfActive;
+        bool IsParentFormActivated = true;
+        bool IfDelayStillRunning = false;
+        async Task ParentFormIsDeactivated()
+        {
+            if (!IfDelayStillRunning)
+            {
+                IfDelayStillRunning = true;
+
+                await Task.Delay(10);
+                if (!IsNotfActive)
+                {
+                    if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+                    {
+                        CurrentNotfBanner.Hide();
+                        SetLocation();
+                    }
+                }
+                IfDelayStillRunning = false;
+            }
+        }
+        private void NotificationBanner_Activated(object sender, EventArgs e)
+        {
+            IsNotfActive = true;
+        }
+        private void NotificationBanner_Deactivate(object sender, EventArgs e)
+        {
+            IsNotfActive = false;
+            labelText.Select();//kermel ma el button ybayyin eendo borders
+        }
+       
+
+
+
+
+
+
+        public event EventHandler UndoNotficationBanner;
+        private void ButtonUndo_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+
+            if (CurrentNotfBanner != null)
+            {
+                CurrentNotfBanner = null;
+            }
+
+            UndoNotficationBanner?.Invoke(sender, e);//ejare tahet hawde
+        }
+
 
         private void ParentFormHome_Activated(object sender, EventArgs e)
         {
-            if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+            if (!IsParentFormActivated)
             {
-                //CurrentNotfBanner.Show();
-                SetLocation();
+                IsParentFormActivated = true;
+                Debug.WriteLine("Activated");
+                if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+                {
+                    CurrentNotfBanner.Show();
+                    SetLocation();
+                }
+
+                IsParentFormActivated = true;
             }
         }
 
         private void ParentFormHome_Deactivate(object sender, EventArgs e)
         {
-            if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+            if (IsParentFormActivated)
             {
-                //CurrentNotfBanner.Hide();
-                SetLocation();
+                Debug.WriteLine("DesActivated");
+                if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+                {
+
+                    ParentFormIsDeactivated();
+
+                }
+
+                IsParentFormActivated = false;
             }
         }
 
 
         private void ParentFormHome_LocationChanged(object sender, EventArgs e)
         {
-            SetLocation();
+            if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+            {
+                SetLocation();
+            }
         }
 
         private void ParentFormHome_Resize(object sender, EventArgs e)
         {
-            SetLocation();
+            if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+            {
+                if (this.WindowState == FormWindowState.Minimized)
+                {
+                    CurrentNotfBanner.Hide();
+                }
+            }
         }
 
         void SetDeignWithoutUndoButton()
@@ -236,20 +326,6 @@ namespace CustomizedTools
             FirstCyclePassed = true;
         }
 
-        public event EventHandler UndoNotficationBanner;
-        private void ButtonUndo_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            this.Dispose();
-
-            if (CurrentNotfBanner != null)
-            {
-                CurrentNotfBanner = null;
-            }
-
-            UndoNotficationBanner?.Invoke(sender, e);//ejare tahet hawde
-        }
-
 
 
         public static NotificationBanner CurrentNotfBanner;
@@ -275,10 +351,6 @@ namespace CustomizedTools
             }
         }
 
-
-        private void NotificationBanner_Deactivate(object sender, EventArgs e)
-        {
-            labelText.Select();//kermel ma el button ybayyin eendo borders
-        }
+   
     }
 }

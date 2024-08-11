@@ -44,7 +44,6 @@ namespace MKproject
             //
             SubscriptionHelper.SetupTimerAndStartSubuscriptionTimer();
 
-       
         }
 
 
@@ -129,11 +128,22 @@ namespace MKproject
             menu.Width = 2;//lieanno ma aam tenzal lal 0 , since fiya contnent
             menu.timerMenuOpen.Start();
 
+            if (NotificationBanner.CurrentNotfBanner != null)
+            {
+                NotificationBanner.CloseTheNotfBanner();
+            }
+
         }
 
 
+        //protected override void OnDeactivate(EventArgs e)
+        //{
+        //    base.OnDeactivate(e);
 
-      
+        //    // Your custom code here
+        //    MessageBox.Show("The form has been deactivated.");
+        //}
+
 
     }
 }
