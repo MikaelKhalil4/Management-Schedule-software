@@ -167,6 +167,9 @@
 		<None Update="images\down-arrow-LighterGreenColor.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="images\down-arrow1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="images\eraser.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

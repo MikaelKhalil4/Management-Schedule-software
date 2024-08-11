@@ -198,6 +198,7 @@ namespace MKproject.Schedule
             {
                 //Bi koun akhad lDesiredCient men abel
                 DesiredReminder.Reminder = textBoxReminder.Text;
+                DesiredReminder.ModifiedDate = System.DateTime.Now;
 
                 //UPDATE
                 if (isupdate)
@@ -280,7 +281,6 @@ namespace MKproject.Schedule
                 {
                     //SQL
                     DesiredReminder.AddRemindertoSQL();//hone byekhoud lid bi zet lwa2et
-
 
                     //DESIGN SCHEDULE
                     if (ucSchedule.isThedayofUCreminder(DesiredReminder))//ma daroure chouf eza checked akid ha tkoun la2

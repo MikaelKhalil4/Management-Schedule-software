@@ -31,6 +31,7 @@ namespace MKproject.Schedule.Reminderform
         }
 
         public DateTime StartTime { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         //Awal ma yenkhala2 is checked ha ykou false
         private bool ischecked = false;
@@ -53,11 +54,11 @@ namespace MKproject.Schedule.Reminderform
         //Reminder
         public static DataTable DisplayReminder(bool IsChecked)
         {
-            SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder.*, client.name , client.family_name, client.phone_number
-                                                         FROM reminder
-                                                         LEFT JOIN client ON reminder.client_id = client.client_id
-                                                         WHERE is_checked = @is_checked
-                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
+            SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder.*, client.name, client.family_name, client.phone_number
+                                                        FROM reminder
+                                                        LEFT JOIN client ON reminder.client_id = client.client_id
+                                                        WHERE is_checked = @is_checked
+                                                        ORDER BY modified_date DESC", con);
             command1.Parameters.AddWithValue("@is_checked", IsChecked);
             SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
             DataTable dt1 = new DataTable();
@@ -110,7 +111,7 @@ namespace MKproject.Schedule.Reminderform
             ";
             }
 
-            query += " ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC";
+            query += " ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, modified_date DESC";
 
 
 
@@ -137,7 +138,7 @@ namespace MKproject.Schedule.Reminderform
             SQLiteCommand command1 = new SQLiteCommand(@"SELECT reminder_id, reminder, repeat, starttime, is_checked
                                                          FROM reminder
                                                          WHERE client_id = @client_id AND is_checked = @is_checked
-                                                         ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC", con);
+                                                         ORDER BY modified_date DESC", con);
             command1.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
             command1.Parameters.AddWithValue("@is_checked", IsChecked);
             SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
@@ -156,7 +157,7 @@ namespace MKproject.Schedule.Reminderform
             int idreminder;
             IsChecked = false;
 
-            SQLiteCommand command = new SQLiteCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked) ", con);
+            SQLiteCommand command = new SQLiteCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked,modified_date)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked,@modified_date) ", con);
             SQLiteCommand cmd = new SQLiteCommand("SELECT Max(reminder_id) FROM reminder", con);
 
 
@@ -172,6 +173,7 @@ namespace MKproject.Schedule.Reminderform
             command.Parameters.AddWithValue("@repeat", Repeat);
             command.Parameters.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@is_checked", IsChecked);
+            command.Parameters.AddWithValue("@modified_date", ModifiedDate.ToString("yyyy-MM-dd"));
 
             con.Open();
             command.ExecuteNonQuery();//first command       
@@ -180,7 +182,7 @@ namespace MKproject.Schedule.Reminderform
         }
         public void UpdateFromRemindertoSQL()
         {
-            SQLiteCommand command = new SQLiteCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime WHERE reminder_id =@reminder_id", con);
+            SQLiteCommand command = new SQLiteCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime, modified_date=@modified_date WHERE reminder_id =@reminder_id", con);
 
 
             command.Parameters.AddWithValue("@reminder", Reminder);
@@ -196,6 +198,7 @@ namespace MKproject.Schedule.Reminderform
             command.Parameters.AddWithValue("@starttime", StartTime.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@is_checked", IsChecked);
             command.Parameters.AddWithValue("@reminder_id", Idreminder);
+            command.Parameters.AddWithValue("@modified_date", ModifiedDate.ToString("yyyy-MM-dd"));
 
             con.Open();
             command.ExecuteNonQuery();

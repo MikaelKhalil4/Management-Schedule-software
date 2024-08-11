@@ -1,8 +1,11 @@
 ﻿using CustomizedTools;
+using GlobalFunctions;
 using MKproject.Management;
 using MKproject.Schedule.Reminderform;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -30,17 +33,21 @@ namespace MKproject.Schedule
         public  Label LabelNoReminder;
 
 
+        public Label LoadLabel;
+        List<UCreminder> ListUCReminders = new List<UCreminder>();
+        private int MaxDisplayUCReminders = 3;
 
         public ClientReminder()
         {
             InitializeComponent();
-        }
+        }   
         public ClientReminder(ClassClientCustom desiredclient, ScheduleForm form1, UCSchedule uc1)
         {
             InitializeComponent();
             schedule = form1;
             ucday = uc1;
             LabelNoReminder = GetNoReminderLable("N/A");
+            LoadLabel = GetLoadLabel();
 
             ucSlideButtonCompleted.Button1Clicked += UcSlideButtonCompleted_Button1Clicked;
             ucSlideButtonCompleted.Button2Clicked += UcSlideButtonCompleted_Button2Clicked;
@@ -48,9 +55,8 @@ namespace MKproject.Schedule
             IsCompletedButtonMode = false;
             DesiredClient = desiredclient;
             DisplayUCReminder(desiredclient);
-
-
         }
+
         private void ClientReminder_Load(object sender, EventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate
@@ -125,8 +131,16 @@ namespace MKproject.Schedule
                 datatablereminder = ClassReminder.DisplayReminderByClientName(DesiredClient, IsCompletedButtonMode);
             }
 
+            int counter = 0;
+
             foreach (DataRow dr in datatablereminder.Rows)
             {
+                if (counter >= MaxDisplayUCReminders)
+                {
+                    panelreminder.Controls.Add(LoadLabel);
+                    break;
+                }
+
                 ClassReminder DesiredReminder = new ClassReminder();
                 DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
                 if (desiredclient == null && dr["client_id"] != DBNull.Value)
@@ -149,18 +163,39 @@ namespace MKproject.Schedule
 
                 UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, this);//zedna true kermel naeemela construction khas la ela
                 ucreminder.Dock = DockStyle.Top;
+
+                
                 panelreminder.Controls.Add(ucreminder);
+                ListUCReminders.Add(ucreminder);
+                counter++;
             }
+
+            for (int i = 0; i < ListUCReminders.Count; i++)
+            {
+                var ucreminder = ListUCReminders[i];
+                panelreminder.Controls.SetChildIndex(ucreminder, i);
+            }
+            panelreminder.Controls.SetChildIndex(LoadLabel, ListUCReminders.Count);
+
             if (datatablereminder.Rows.Count == 0)
             {
                 panelreminder.Controls.Add(LabelNoReminder);
-
             }
-
-
             Cursor = Cursors.Default;
-
-         
+        }
+        public Label GetLoadLabel()
+        {
+            Label loadLable = new Label();
+            // Set the properties
+            loadLable.BackColor = Program.MediumColor;
+            loadLable.Cursor = Cursors.Hand;
+            loadLable.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular);
+            loadLable.TextAlign = ContentAlignment.MiddleCenter;
+            loadLable.Text = "Show More";
+            loadLable.AutoSize = false;
+            loadLable.Dock = DockStyle.Top;
+            loadLable.Click += new EventHandler(LoadLabel_Click);
+            return loadLable;
         }
 
         public Label GetNoReminderLable(string Text)//in case we had no bundles
@@ -176,6 +211,52 @@ namespace MKproject.Schedule
             return labelNoReminder;
         }
 
+
+        private void LoadLabel_Click(object sender, EventArgs e)
+        {
+            panelreminder.Controls.Remove(LoadLabel);
+
+            int NumberOfAddingUCReminder = 10;
+            int startRow = panelreminder.Controls.Count-1;
+            int endRow = startRow + NumberOfAddingUCReminder;
+
+            bool NoMoreLoad = endRow > datatablereminder.Rows.Count - 1;
+            endRow = Math.Min(endRow, datatablereminder.Rows.Count - 1);
+
+            for (int i = startRow; i <= endRow; i++)
+            {
+                DataRow dr = datatablereminder.Rows[i];
+                ClassReminder DesiredReminder = new ClassReminder();
+                DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
+                if (desiredclient == null && dr["client_id"] != DBNull.Value)
+                {
+                    DesiredReminder.DesiredClient = new ClassClientCustom();
+                    DesiredReminder.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
+                    DesiredReminder.DesiredClient.Fname = (string)dr["name"];
+                    DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
+                    DesiredReminder.DesiredClient.PhoneNumber = (string)dr["phone_number"];
+                }
+                else
+                {
+                    DesiredReminder.DesiredClient = DesiredClient;
+                }
+
+                DesiredReminder.Reminder = (string)dr["reminder"];
+                DesiredReminder.Repeat = (string)dr["repeat"];
+                DesiredReminder.StartTime = Convert.ToDateTime(dr["starttime"]);
+                DesiredReminder.IsChecked = Convert.ToBoolean(dr["is_checked"]);
+
+                UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, this);
+                ucreminder.Dock = DockStyle.Top;
+                panelreminder.Controls.Add(ucreminder);
+            }
+
+            if (NoMoreLoad == false)
+            {
+                panelreminder.Controls.Add(LoadLabel);
+                panelreminder.Controls.SetChildIndex(LoadLabel, 4);
+            }
+        }
         private void ClientReminder_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (Program.GreyForm != null)
@@ -185,7 +266,6 @@ namespace MKproject.Schedule
             }
 
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Opacity == 1)
@@ -194,12 +274,12 @@ namespace MKproject.Schedule
             }
             Opacity += .1;
         }
-
         private void ClientReminder_Deactivate(object sender, EventArgs e)
         {
             if (!DisableClosingOnDisactivating)
                 this.Close();
         }
+
 
         protected override CreateParams CreateParams
         {
