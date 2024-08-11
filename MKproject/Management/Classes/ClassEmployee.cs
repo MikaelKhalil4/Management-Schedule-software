@@ -15,7 +15,6 @@ namespace MKproject.Management
 {
     public class ClassEmployee
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
         public int EmployeeId { get; set; }
 
         private string fname;
@@ -73,13 +72,13 @@ namespace MKproject.Management
 
         public static bool CheckIfOwnerExist()
         {
-            SQLiteCommand cmd = new SQLiteCommand("select employee_id from employee where is_owner=1", con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select employee_id from employee where is_owner=1");
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Open();
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             if (dt.Rows.Count > 0)
             {
                 return true;
@@ -91,14 +90,14 @@ namespace MKproject.Management
         }
         public static int CheckIfEmployeeExist(string Pass)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select employee_id from employee where password=@pass And status=1", con);
-            cmd.Parameters.AddWithValue("@pass", Pass);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select employee_id from employee where password=@pass And status=1");
+            cmd.AddWithValue("@pass", Pass);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Open();
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             if (dt.Rows.Count > 0)
             {
                 return Convert.ToInt32(dt.Rows[0]["employee_id"]);
@@ -112,8 +111,8 @@ namespace MKproject.Management
         {
             DataTable dt = new DataTable();
             string query = "SELECT first_name,last_name FROM employee ";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             dt = new DataTable();
             sda.Fill(dt);
 
@@ -121,18 +120,18 @@ namespace MKproject.Management
         }
         public static DataTable GetAllEmployeesInfo(int EmployeeID)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select * from employee where employee_id=@employee_id", con);
-            cmd.Parameters.AddWithValue("@employee_id", Convert.ToInt64(EmployeeID));
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select * from employee where employee_id=@employee_id");
+            cmd.AddWithValue("@employee_id", Convert.ToInt64(EmployeeID));
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
         }
         public static string GetEmployeeFullName(int EmployeeID)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select first_name  ,last_name  from employee where employee_id=@employee_id", con);
-            cmd.Parameters.AddWithValue("@employee_id", EmployeeID);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select first_name  ,last_name  from employee where employee_id=@employee_id");
+            cmd.AddWithValue("@employee_id", EmployeeID);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return ((string)dt.Rows[0]["first_name"] + " " + (string)dt.Rows[0]["last_name"]);
@@ -150,16 +149,15 @@ namespace MKproject.Management
             {
                 query += " where  employee_id=(Select MAX(employee_id) from employee)";
             }
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            con.Open();
+            var cmd = Program.CreateCommand(query);
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Close();
+            Program.con.Close();
             return dt;
         }
-
         public static bool SearchEmployeePhoneNumber(int? employeeid, string PhoneNumber)
         {
             string query;
@@ -172,16 +170,16 @@ namespace MKproject.Management
                 query = "SELECT COUNT(*) FROM employee WHERE phone_number = @PhoneNumber";
             }
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@PhoneNumber", PhoneNumber);
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@PhoneNumber", PhoneNumber);
 
             if (employeeid != null)
             {
-                command.Parameters.AddWithValue("@EmployeeId", Convert.ToInt32(employeeid));
+                command.AddWithValue("@EmployeeId", Convert.ToInt32(employeeid));
             }
-            con.Open();
+            Program.conOpen();
             int count = Convert.ToInt32(command.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
             if (count > 0)
             {
                 return true;
@@ -193,14 +191,24 @@ namespace MKproject.Management
 
 
         }
+        public static int GetOwnerId()
+        {
+            string query = "SELECT employee_id FROM employee WHERE is_owner=1";
+
+            var command = Program.CreateCommand(query);
+            Program.conOpen();
+            int OwnerID = Convert.ToInt32(command.ExecuteScalar());
+            Program.con.Close();
+            return OwnerID;
+        }
         public static int GetLastRank(int empId)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select MAX(rank) from employee Where employee_id!=@employee_id", con);
-            cmd.Parameters.AddWithValue("@employee_id", empId);
-            con.Open();
+            var cmd = Program.CreateCommand("select MAX(rank) from employee Where employee_id!=@employee_id");
+            cmd.AddWithValue("@employee_id", empId);
+            Program.conOpen();
 
             var MAxRank = cmd.ExecuteScalar();
-            con.Close();
+            Program.con.Close();
             if (MAxRank == DBNull.Value)
             {
                 return 1;
@@ -215,15 +223,15 @@ namespace MKproject.Management
         {
 
             List<(int, int)> ranks = new List<(int, int)>();
-            SQLiteCommand command = new SQLiteCommand("SELECT employee_id,rank FROM employee where rank is not null and employee_id!=@employee_id ORDER BY rank ASC", con);
-            command.Parameters.AddWithValue("@employee_id", empId);
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            var command = Program.CreateCommand("SELECT employee_id,rank FROM employee where rank is not null and employee_id!=@employee_id ORDER BY rank ASC");
+            command.AddWithValue("@employee_id", empId);
+            var adapter = Program.CreateDataAdapter(command);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -247,12 +255,12 @@ namespace MKproject.Management
         {
             for (int i = 0; i < normalizedRanks.Count; i++)
             {
-                SQLiteCommand command = new SQLiteCommand("UPDATE employee SET rank = @rank WHERE employee_id = @employee_id", con);
-                command.Parameters.AddWithValue("@employee_id", normalizedRanks[i].Item1);
-                command.Parameters.AddWithValue("@rank", normalizedRanks[i].Item2);
-                con.Open();
+                var command = Program.CreateCommand("UPDATE employee SET rank = @rank WHERE employee_id = @employee_id");
+                command.AddWithValue("@employee_id", normalizedRanks[i].Item1);
+                command.AddWithValue("@rank", normalizedRanks[i].Item2);
+                Program.conOpen();
                 command.ExecuteNonQuery();
-                con.Close();
+                Program.con.Close();
 
             }
         }
@@ -333,13 +341,13 @@ namespace MKproject.Management
             {
                 query += " And password!='" + OldPass + "'";
             }
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Open();
+            Program.conOpen();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
             if (count == 0)
             {
                 return false;
@@ -357,26 +365,26 @@ namespace MKproject.Management
             string query = "INSERT INTO employee (first_name, last_name, phone_number, password, access, clearcash_date, status,is_schedule_member,availability,rank,is_owner) " +
                          "VALUES (@first_name, @last_name, @phone_number, @password, @access, @clearcash_date, @Status,@is_schedule_member,@availability,@rank,@is_owner)";
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@first_name", Fname);
-            command.Parameters.AddWithValue("@last_name", Lname);
-            command.Parameters.AddWithValue("@phone_number", PhoneNumber);
-            command.Parameters.AddWithValue("@password", Password);
-            command.Parameters.AddWithValue("@is_owner", IsOwner);
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@first_name", Fname);
+            command.AddWithValue("@last_name", Lname);
+            command.AddWithValue("@phone_number", PhoneNumber);
+            command.AddWithValue("@password", Password);
+            command.AddWithValue("@is_owner", IsOwner);
 
 
             if (Access == null)
             {
-                command.Parameters.AddWithValue("@access", DBNull.Value);
+                command.AddWithValue("@access", DBNull.Value);
             }
             else
             {
-                command.Parameters.AddWithValue("@access", Access);
+                command.AddWithValue("@access", Access);
             }
 
-            command.Parameters.AddWithValue("@Status", Status);
-            command.Parameters.AddWithValue("@clearcash_date", DBNull.Value);
-            command.Parameters.AddWithValue("@is_schedule_member", IsScheduleMember);
+            command.AddWithValue("@Status", Status);
+            command.AddWithValue("@clearcash_date", DBNull.Value);
+            command.AddWithValue("@is_schedule_member", IsScheduleMember);
 
             if (IsScheduleMember)
             {
@@ -384,8 +392,8 @@ namespace MKproject.Management
                 Rank = GetLastRank(EmployeeId) + 1;
 
 
-                command.Parameters.AddWithValue("@availability", Availability);
-                command.Parameters.AddWithValue("@rank", Rank);
+                command.AddWithValue("@availability", Availability);
+                command.AddWithValue("@rank", Rank);
 
             }
             else
@@ -393,16 +401,16 @@ namespace MKproject.Management
                 Availability = null;
                 Rank = null;
 
-                command.Parameters.AddWithValue("@availability", DBNull.Value);
-                command.Parameters.AddWithValue("@rank", DBNull.Value);
+                command.AddWithValue("@availability", DBNull.Value);
+                command.AddWithValue("@rank", DBNull.Value);
 
             }
-          
 
 
-            con.Open();
+
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
 
 
@@ -414,7 +422,7 @@ namespace MKproject.Management
                 {
                     int LastInsertedId = Convert.ToInt32(((DataTable)GetAllEmployeesOrLAstInseted(false)).Rows[0]["employee_id"]);
                     Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, LastInsertedId, Convert.ToInt32(Rank), Availability);
-                
+
                 }
             }
 
@@ -436,22 +444,22 @@ namespace MKproject.Management
 
             // Create a SQL command with parameters
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@first_name", Fname);
-            command.Parameters.AddWithValue("@last_name", Lname);
-            command.Parameters.AddWithValue("@phone_number", PhoneNumber);
-            command.Parameters.AddWithValue("@password", Password);
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@first_name", Fname);
+            command.AddWithValue("@last_name", Lname);
+            command.AddWithValue("@phone_number", PhoneNumber);
+            command.AddWithValue("@password", Password);
             if (Access == null)
             {
-                command.Parameters.AddWithValue("@access", DBNull.Value);
+                command.AddWithValue("@access", DBNull.Value);
             }
             else
             {
-                command.Parameters.AddWithValue("@access", Access);
+                command.AddWithValue("@access", Access);
             }
-            command.Parameters.AddWithValue("@Status", Status);
-            command.Parameters.AddWithValue("@employee_id", EmployeeId);
-            command.Parameters.AddWithValue("@is_schedule_member", IsScheduleMember);
+            command.AddWithValue("@Status", Status);
+            command.AddWithValue("@employee_id", EmployeeId);
+            command.AddWithValue("@is_schedule_member", IsScheduleMember);
 
 
 
@@ -467,7 +475,7 @@ namespace MKproject.Management
                 }
 
                 //eza ma feto foe bel condtion , btenzal their old value
-                command.Parameters.AddWithValue("@rank", Rank);
+                command.AddWithValue("@rank", Rank);
 
 
 
@@ -476,9 +484,9 @@ namespace MKproject.Management
                 {
                     Availability = GetInitialAvailabilty();
                 }
-               
 
-                command.Parameters.AddWithValue("@availability", Availability);//means ken eendo old value
+
+                command.AddWithValue("@availability", Availability);//means ken eendo old value
 
 
                 if (IsBecomingAScheduleMember)
@@ -500,23 +508,23 @@ namespace MKproject.Management
 
                 if (Availability != null)//means ken eendo availabiity
                 {
-                    command.Parameters.AddWithValue("@availability", Availability);
+                    command.AddWithValue("@availability", Availability);
                 }
                 else
                 {
-                    command.Parameters.AddWithValue("@availability", DBNull.Value);
+                    command.AddWithValue("@availability", DBNull.Value);
                 }
 
 
                 Rank = null;//ejbare tahet el condition foe
-                command.Parameters.AddWithValue("@rank", DBNull.Value);//i need to reOrder the others rank , ta yozbato
+                command.AddWithValue("@rank", DBNull.Value);//i need to reOrder the others rank , ta yozbato
 
 
             }
 
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
         }
         public void DeleteEmployee()
@@ -526,10 +534,10 @@ namespace MKproject.Management
                 UpdateRanks(NormalizeRanks(GetRanks(EmployeeId)));
                 Schedule.ProjectToSql.DeleteHistoryEmployee(DateTime.Now.Date, EmployeeId);
             }
-            SQLiteCommand cmd = new SQLiteCommand("Delete FROM employee where employee_id='" + EmployeeId + "'", con);
-            con.Open();
+            var cmd = Program.CreateCommand("Delete FROM employee where employee_id='" + EmployeeId + "'");
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
 
         public bool CheckIfEmployeeHasAppointments()
@@ -537,13 +545,13 @@ namespace MKproject.Management
             string query = @"
             Select Count(*) from employee as b
             where employee_id='" + EmployeeId + "' And Exists(Select * from appointments as a where a.employee_id = b.employee_id AND DATE(a.start_time) >= DATE('now')) ";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Open();
+            Program.conOpen();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
             if (count == 0)
             {
                 return false;
@@ -563,13 +571,13 @@ namespace MKproject.Management
             " Exists(Select* from appointments as a where a.employee_id = b.employee_id) )";
 
 
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query );
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Open();
+            Program.conOpen();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
             if (count == 0)
             {
                 return false;
@@ -605,22 +613,22 @@ namespace MKproject.Management
         public static List<ClassEmployee> GetEmployeeScheduleMemberASC()
         {
             //Select employee id where status = schedule bhatoun bi datatable breja3 ba3mil for loop baeetiya la kel list
-            SQLiteCommand command = new SQLiteCommand("SELECT *" +
+            var command = Program.CreateCommand("SELECT *" +
                            "FROM employee " +
                            "WHERE is_schedule_member = 1 " +//1 means true
-                           "ORDER BY rank ASC", con);
+                           "ORDER BY rank ASC");
 
 
 
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            var adapter = Program.CreateDataAdapter(command);
             DataTable dt = new DataTable();
             // Fill the DataTable with the results of the query
             adapter.Fill(dt);
 
             // If you want to execute the query without returning the DataTable, you can use cmd.ExecuteNonQuery()
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
             List<ClassEmployee> ListEmployeeSchedule = DataTableToList(dt);
             return ListEmployeeSchedule;
@@ -631,7 +639,7 @@ namespace MKproject.Management
         }
 
 
-       
+
 
     }
 }

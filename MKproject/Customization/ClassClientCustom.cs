@@ -15,7 +15,6 @@ namespace MKproject
 {
     public class ClassClientCustom : ClassClient
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         //public string Height { get; set; }
 
@@ -173,9 +172,9 @@ namespace MKproject
                 WHERE cf.client_id = @clientId";
 
 
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-            cmd.Parameters.AddWithValue("@clientId", clientId);
+            var cmd = Program.CreateCommand(query);
+            var adapter = Program.CreateDataAdapter(cmd);
+            cmd.AddWithValue("@clientId", clientId);
             adapter.Fill(dt);
 
             return dt;
@@ -195,7 +194,7 @@ namespace MKproject
 
                     bool IsRequired = false;
 
-
+    
                     if (field == enumStaticFields.FullName || field == enumStaticFields.PhoneNumber)
                     {
                         IsRequired = true;
@@ -237,8 +236,9 @@ namespace MKproject
                      CREATE TABLE ""client_ticket"" (
 	                ""ticket_id""	TEXT NOT NULL UNIQUE,
 	                ""client_id""	INTEGER,
-	                ""is_used""	INTEGER,
+	                ""device_ip""	TEXT,
 	                ""is_main_device""	INTEGER,
+	                ""is_used""	INTEGER,
 	                PRIMARY KEY(""ticket_id""),
 	                FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id"") ON UPDATE RESTRICT ON DELETE RESTRICT
                 );";

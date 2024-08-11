@@ -20,7 +20,6 @@ namespace MKproject.Management
 {
     public class ClassClientBalance//mainly used bel schedule , when we re selection a ervice
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         public int ClientBalanceID { get; set; }
         public int ClientId { get; set; }
@@ -98,8 +97,8 @@ namespace MKproject.Management
             }
 
 
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dtClientBalance = new DataTable();
             sda.Fill(dtClientBalance);
             ClassClientBalanceFront.FormatClientBalanceDt(dtClientBalance);
@@ -108,9 +107,9 @@ namespace MKproject.Management
         public static (double, double) GetClientBalanceSpecificItem(int ClientBalanceId)
         {
             string query = "Select amount_paid,balance from client_balance WHERE client_balance_id=@client_balance_id";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            cmd.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            cmd.AddWithValue("@client_balance_id", ClientBalanceId);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return (Convert.ToDouble(dt.Rows[0]["amount_paid"]), Convert.ToDouble(dt.Rows[0]["balance"]));
@@ -127,8 +126,8 @@ namespace MKproject.Management
                 query += " And client_id='" + (int)clientID + "'";
             }
             query += " Order by is_expired ASC , purchase_date DESC ";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dtClientBalance = new DataTable();
             sda.Fill(dtClientBalance);
             return dtClientBalance;
@@ -136,14 +135,14 @@ namespace MKproject.Management
         }
         public static DataRow GetClientBalanceAllInfoSql(int BalanceId)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select * from client_balance where client_balance_id=@client_balance_id", con);
-            cmd.Parameters.AddWithValue("@client_balance_id", BalanceId);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select * from client_balance where client_balance_id=@client_balance_id");
+            cmd.AddWithValue("@client_balance_id", BalanceId);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt.Rows[0];
         }
-       
+
         //Insert and update
         public static void InsertToClientBalance(int clientid, int catgeoryid, string bundleType) //bundleType for packages , NULL FOR product
         {
@@ -163,7 +162,7 @@ namespace MKproject.Management
                                                               VALUES 
                   (@client_id,@bundle_id,@product_id,@purchase_date,@original_offre,@offre,@amount_paid,@balance,@session_left_days,@isbundle_membership,@start_date,@due_date,@is_freezed,@is_expired)";
 
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            var cmd = Program.CreateCommand(query);
 
 
             if (bundleType != null)//bundles
@@ -173,15 +172,15 @@ namespace MKproject.Management
 
                 if (bundleType == ClassBundles.enumBundle.Days.ToString())
                 {
-                    cmd.Parameters.AddWithValue("@session_left_days", NOSessionOrDays);
-                    cmd.Parameters.AddWithValue("@is_freezed", false);
+                    cmd.AddWithValue("@session_left_days", NOSessionOrDays);
+                    cmd.AddWithValue("@is_freezed", false);
 
 
-                    DateTime StartTime=DateTime.Now;
-                    cmd.Parameters.AddWithValue("@start_date", StartTime.ToString("yyyy-MM-dd"));
+                    DateTime StartTime = DateTime.Now;
+                    cmd.AddWithValue("@start_date", StartTime.ToString("yyyy-MM-dd"));
 
                     DateTime duedate = StartTime.AddDays((int)NOSessionOrDays);
-                    cmd.Parameters.AddWithValue("@due_date", duedate.ToString("yyyy-MM-dd"));
+                    cmd.AddWithValue("@due_date", duedate.ToString("yyyy-MM-dd"));
 
                     BundleType = ClassBundles.Days;
                     OriginalOffre = originalprice + "/" + Convert.ToInt32(NOSessionOrDays) + " " + BundleType;
@@ -194,10 +193,10 @@ namespace MKproject.Management
                 else if (bundleType == ClassBundles.enumBundle.Sessions.ToString())
                 {
 
-                    cmd.Parameters.AddWithValue("@session_left_days", NOSessionOrDays);
-                    cmd.Parameters.AddWithValue("@start_date", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@due_date", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@is_freezed", DBNull.Value);
+                    cmd.AddWithValue("@session_left_days", NOSessionOrDays);
+                    cmd.AddWithValue("@start_date", DBNull.Value);
+                    cmd.AddWithValue("@due_date", DBNull.Value);
+                    cmd.AddWithValue("@is_freezed", DBNull.Value);
 
                     BundleType = ClassBundles.Session;//hone fi "sess"
                     OriginalOffre = originalprice + "/" + Convert.ToInt32(NOSessionOrDays) + " " + BundleType;
@@ -209,10 +208,10 @@ namespace MKproject.Management
                 }
                 else//solo
                 {
-                    cmd.Parameters.AddWithValue("@session_left_days", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@start_date", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@due_date", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@is_freezed", DBNull.Value);
+                    cmd.AddWithValue("@session_left_days", DBNull.Value);
+                    cmd.AddWithValue("@start_date", DBNull.Value);
+                    cmd.AddWithValue("@due_date", DBNull.Value);
+                    cmd.AddWithValue("@is_freezed", DBNull.Value);
                     OriginalOffre = originalprice.ToString();
 
                     if (originalprice == 0)//possible
@@ -220,9 +219,9 @@ namespace MKproject.Management
                         IsExpired = true;
                     }
                 }
-                cmd.Parameters.AddWithValue("@bundle_id", catgeoryid);
-                cmd.Parameters.AddWithValue("@isbundle_membership", IsMemberShip);
-                cmd.Parameters.AddWithValue("@product_id", DBNull.Value);
+                cmd.AddWithValue("@bundle_id", catgeoryid);
+                cmd.AddWithValue("@isbundle_membership", IsMemberShip);
+                cmd.AddWithValue("@product_id", DBNull.Value);
 
 
 
@@ -236,40 +235,38 @@ namespace MKproject.Management
                     IsExpired = true;
                 }
 
-
-                cmd = new SQLiteCommand(query, con);
-                cmd.Parameters.AddWithValue("@product_id", catgeoryid);
+                cmd.AddWithValue("@product_id", catgeoryid);
 
                 //
                 OriginalOffre = originalprice.ToString();
                 //
 
 
-                cmd.Parameters.AddWithValue("@session_left_days", DBNull.Value);
-                cmd.Parameters.AddWithValue("@isbundle_membership", DBNull.Value);
-                cmd.Parameters.AddWithValue("@bundle_id", DBNull.Value);
-                cmd.Parameters.AddWithValue("@start_date", DBNull.Value);
-                cmd.Parameters.AddWithValue("@due_date", DBNull.Value);
-                cmd.Parameters.AddWithValue("@is_freezed", DBNull.Value);
+                cmd.AddWithValue("@session_left_days", DBNull.Value);
+                cmd.AddWithValue("@isbundle_membership", DBNull.Value);
+                cmd.AddWithValue("@bundle_id", DBNull.Value);
+                cmd.AddWithValue("@start_date", DBNull.Value);
+                cmd.AddWithValue("@due_date", DBNull.Value);
+                cmd.AddWithValue("@is_freezed", DBNull.Value);
             }
 
-            cmd.Parameters.AddWithValue("@client_id", clientid);
-            cmd.Parameters.AddWithValue("@purchase_date", DateTime.Now);
-            cmd.Parameters.AddWithValue("@amount_paid", 0);
+            cmd.AddWithValue("@client_id", clientid);
+            cmd.AddWithValue("@purchase_date", DateTime.Now);
+            cmd.AddWithValue("@amount_paid", 0);
 
             if (originalprice == 0)
-                cmd.Parameters.AddWithValue("@balance", originalprice);
+                cmd.AddWithValue("@balance", originalprice);
             else
-                cmd.Parameters.AddWithValue("@balance", -originalprice);
+                cmd.AddWithValue("@balance", -originalprice);
 
-            cmd.Parameters.AddWithValue("@original_offre", OriginalOffre);
-            cmd.Parameters.AddWithValue("@offre", OriginalOffre);
+            cmd.AddWithValue("@original_offre", OriginalOffre);
+            cmd.AddWithValue("@offre", OriginalOffre);
 
-            cmd.Parameters.AddWithValue("@is_expired", IsExpired);//since deyman shu ma neshtre , mnehstri bel initial price, later on mnaamil el updates     
+            cmd.AddWithValue("@is_expired", IsExpired);//since deyman shu ma neshtre , mnehstri bel initial price, later on mnaamil el updates     
 
-            con.Open();
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
             //}
             //}     
             //catch (Exception ex)
@@ -295,14 +292,14 @@ namespace MKproject.Management
                 queryUpdate = "UPDATE client_balance SET balance= @balance,amount_paid=@amount_paid WHERE  client_balance_id=@client_balance_id";
             }
 
-            SQLiteCommand cmdUpdate = new SQLiteCommand(queryUpdate, con);
-            cmdUpdate.Parameters.AddWithValue("@client_balance_id", DesiredClientBalanceRow["client_balance_id"]);
-            cmdUpdate.Parameters.AddWithValue("@balance", DesiredClientBalanceRow["balance"]);
-            cmdUpdate.Parameters.AddWithValue("@amount_paid", DesiredClientBalanceRow["amount_paid"]);
-            cmdUpdate.Parameters.AddWithValue("@is_expired", DesiredClientBalanceRow["is_expired"]);
-            con.Open();
+            var cmdUpdate = Program.CreateCommand(queryUpdate);
+            cmdUpdate.AddWithValue("@client_balance_id", DesiredClientBalanceRow["client_balance_id"]);
+            cmdUpdate.AddWithValue("@balance", DesiredClientBalanceRow["balance"]);
+            cmdUpdate.AddWithValue("@amount_paid", DesiredClientBalanceRow["amount_paid"]);
+            cmdUpdate.AddWithValue("@is_expired", DesiredClientBalanceRow["is_expired"]);
+            Program.conOpen();
             cmdUpdate.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
 
             ProjectToSQL.InsertToFinance(ClientBalanceId, AmountPaid, Date, AlbumType);
@@ -388,14 +385,14 @@ namespace MKproject.Management
             {
                 query = "UPDATE client_balance SET offre=@offre,balance=@balance WHERE client_balance_id=@client_balance_id ";
             }
-            SQLiteCommand cmdUpdate = new SQLiteCommand(query, con);
-            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ClientBalanceID);
-            cmdUpdate.Parameters.AddWithValue("@balance", UpdatedBalance);
-            cmdUpdate.Parameters.AddWithValue("@offre", UpdatedOffre);
-            cmdUpdate.Parameters.AddWithValue("@is_expired", NewIsExpired);
-            con.Open();
+            var cmdUpdate = Program.CreateCommand(query);
+            cmdUpdate.AddWithValue("@client_balance_id", ClientBalanceID);
+            cmdUpdate.AddWithValue("@balance", UpdatedBalance);
+            cmdUpdate.AddWithValue("@offre", UpdatedOffre);
+            cmdUpdate.AddWithValue("@is_expired", NewIsExpired);
+            Program.conOpen();
             cmdUpdate.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
 
 
@@ -461,7 +458,7 @@ namespace MKproject.Management
 
             if (DueDate == null)//updating session left
             {
-                UpdatedSessionLeftORNoDays = Convert.ToInt32(DesiredClientBlanaceRow["session_left_days"])+ DifferenceInSessionOrDaysNumber;
+                UpdatedSessionLeftORNoDays = Convert.ToInt32(DesiredClientBlanaceRow["session_left_days"]) + DifferenceInSessionOrDaysNumber;
             }
             else//update days left
             {
@@ -491,42 +488,52 @@ namespace MKproject.Management
 
 
 
-            string query = "";
-            SQLiteCommand cmdUpdate = null;
+            string query = "UPDATE client_balance SET session_left_days=@session_left_days,is_expired=@is_expired";
             if (newoffre != null)//Updating mode
             {
                 if (NewDueDate == null)
                 {
-                    query = "UPDATE client_balance SET session_left_days=@session_left_days,offre=@offre,is_expired=@is_expired WHERE client_balance_id=@client_balance_id ";
-                    cmdUpdate = new SQLiteCommand(query, con);
-                    cmdUpdate.Parameters.AddWithValue("@offre", newoffre);
+                    query += " ,offre=@offre ";
                 }
                 else//days, w baddak now tkammil men hone, shuf el save points
                 {
-                    query = "UPDATE client_balance SET session_left_days=@session_left_days,offre=@offre,due_date=@due_date,is_expired=@is_expired WHERE client_balance_id=@client_balance_id ";
-                    cmdUpdate = new SQLiteCommand(query, con);
-                    cmdUpdate.Parameters.AddWithValue("@offre", newoffre);
-                    //               
-                    cmdUpdate.Parameters.AddWithValue("@due_date", ((DateTime)NewDueDate).ToString("yyyy-MM-dd"));
-
+                    query += " ,offre=@offre ";
+                    query += " ,due_date=@due_date ";
                 }
 
             }
             else//reducing a session mode
             {
-                if (NewDueDate == null)//mafi reduce session lal bundle days that s why ma hattayna else
+
+            }
+
+            query += " WHERE client_balance_id=@client_balance_id ";
+
+
+            var cmdUpdate = Program.CreateCommand(query);
+
+            if (newoffre != null)//Updating mode
+            {
+                if (NewDueDate == null)
                 {
-                    query = "UPDATE client_balance SET session_left_days=@session_left_days,is_expired=@is_expired  WHERE client_balance_id=@client_balance_id ";
-                    cmdUpdate = new SQLiteCommand(query, con);
+                    cmdUpdate.AddWithValue("@offre", newoffre);
+
+                }
+                else
+                {
+                    cmdUpdate.AddWithValue("@offre", newoffre);
+                    //               
+                    cmdUpdate.AddWithValue("@due_date", ((DateTime)NewDueDate).ToString("yyyy-MM-dd"));
                 }
             }
 
-            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ClientBalanceID);
-            cmdUpdate.Parameters.AddWithValue("@session_left_days", UpdatedSessionLeftORNoDays);
-            cmdUpdate.Parameters.AddWithValue("@is_expired", NewIsExpired);
-            con.Open();
+
+            cmdUpdate.AddWithValue("@client_balance_id", ClientBalanceID);
+            cmdUpdate.AddWithValue("@session_left_days", UpdatedSessionLeftORNoDays);
+            cmdUpdate.AddWithValue("@is_expired", NewIsExpired);
+            Program.conOpen();
             cmdUpdate.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
 
 
@@ -547,55 +554,59 @@ namespace MKproject.Management
 
         public static void UpdateClientBalanceOnFreezingDays(int ID, int UpdatedSessionOrDaysLeft, DateTime? Newduedate)
         {
-            string query = "";
-            SQLiteCommand cmdUpdate = null;
+            string query = "UPDATE client_balance SET session_left_days=@session_left_days,is_freezed=@is_freezed ";
             bool IsFreezing;
+
+
+            if (Newduedate != null)//reactivation mode
+            {
+                query += " ,due_date=@due_date ";
+
+            }
+
+            query += " WHERE client_balance_id=@client_balance_id";
+
+
+            var cmdUpdate = Program.CreateCommand(query);
+
             if (Newduedate == null)//freezing mode
             {
-                query = "UPDATE client_balance SET session_left_days=@session_left_days,is_freezed=@is_freezed WHERE client_balance_id=@client_balance_id ";
-                cmdUpdate = new SQLiteCommand(query, con);
-                //
                 IsFreezing = true;
             }
             else//reactivation mode
             {
-
-                query = "UPDATE client_balance SET session_left_days=@session_left_days,due_date=@due_date,is_freezed=@is_freezed WHERE client_balance_id=@client_balance_id ";
-                cmdUpdate = new SQLiteCommand(query, con);
-                //
-                DateTime DueDate = (DateTime)Newduedate;
-                cmdUpdate.Parameters.AddWithValue("@due_date", Newduedate);
+                cmdUpdate.AddWithValue("@due_date", ((DateTime)Newduedate).ToString("yyyy-MM-dd"));
                 //
                 IsFreezing = false;
-
-
             }
-            cmdUpdate.Parameters.AddWithValue("@session_left_days", UpdatedSessionOrDaysLeft);
-            cmdUpdate.Parameters.AddWithValue("@is_freezed", IsFreezing);
-            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ID);
 
-            con.Open();
+
+            cmdUpdate.AddWithValue("@session_left_days", UpdatedSessionOrDaysLeft);
+            cmdUpdate.AddWithValue("@is_freezed", IsFreezing);
+            cmdUpdate.AddWithValue("@client_balance_id", ID);
+
+            Program.conOpen();
             cmdUpdate.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
         }
         public static void UpdateIsexpiredClientBalanceRemoveUC(int ID, bool isExpired)
         {
             string query = "UPDATE client_balance SET is_expired=@is_expired WHERE client_balance_id=@client_balance_id ";
-            SQLiteCommand cmdUpdate = new SQLiteCommand(query, con);
-            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ID);
-            cmdUpdate.Parameters.AddWithValue("@is_expired", isExpired);
-            con.Open();
+            var cmdUpdate = Program.CreateCommand(query);
+            cmdUpdate.AddWithValue("@client_balance_id", ID);
+            cmdUpdate.AddWithValue("@is_expired", isExpired);
+            Program.conOpen();
             cmdUpdate.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
         }
 
-        public static bool ReduceSessionFromPackageOfSessions(int ClientId, int DesiredClientBalanceId, int UpdatedSessionLeft, int? AppointmentId, DateTime BackOfficeDate,DateTime AttendanceDate)
+        public static bool ReduceSessionFromPackageOfSessions(int ClientId, int DesiredClientBalanceId, int UpdatedSessionLeft, int? AppointmentId, DateTime BackOfficeDate, DateTime AttendanceDate)
         {
             //Sql update
             UpdateNOSessions(DesiredClientBalanceId, UpdatedSessionLeft);//lieanno this function onlykermel el package sessiosns                   
-            bool IfLastVisitDateChanged=ClassClientCustom.UpdateClientCheckInSQLIfShould(ClientId, AttendanceDate);
+            bool IfLastVisitDateChanged = ClassClientCustom.UpdateClientCheckInSQLIfShould(ClientId, AttendanceDate);
             ProjectToSQL.InsertToClientAttendance(ClientId, DesiredClientBalanceId, AppointmentId, AttendanceDate);
 
             ClassBackOffice backOffice = new ClassBackOffice(ClientId, ActionsEnum.SessionDone, Program.Employee.EmployeeId, DesiredClientBalanceId, null, SQLToProject.GetLAstInsertedAttendance(), AppointmentId, null, null, BackOfficeDate);
@@ -608,40 +619,40 @@ namespace MKproject.Management
         public static void UpdateNOSessions(int DesiredClientBalanceId, int UpdatedSessionLeft)
         {
             string query = "UPDATE client_balance SET session_left_days=@session_left_days WHERE client_balance_id=@client_balance_id ";
-            SQLiteCommand cmdUpdate = new SQLiteCommand(query, con);
-            cmdUpdate.Parameters.AddWithValue("@client_balance_id", DesiredClientBalanceId);
-            cmdUpdate.Parameters.AddWithValue("@session_left_days", UpdatedSessionLeft);
-            con.Open();
+            var cmdUpdate = Program.CreateCommand(query);
+            cmdUpdate.AddWithValue("@client_balance_id", DesiredClientBalanceId);
+            cmdUpdate.AddWithValue("@session_left_days", UpdatedSessionLeft);
+            Program.conOpen();
             cmdUpdate.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
-        public static void UpdateStartDateDueDate(DateTime StartDate,DateTime EndDate,int ClientBalanceId)
+        public static void UpdateStartDateDueDate(DateTime StartDate, DateTime EndDate, int ClientBalanceId)
         {
             string query = "UPDATE client_balance SET start_date=@start_date,due_date=@due_date WHERE client_balance_id=@client_balance_id ";
-            SQLiteCommand cmdUpdate = new SQLiteCommand(query, con);
-            cmdUpdate.Parameters.AddWithValue("@start_date", StartDate);
-            cmdUpdate.Parameters.AddWithValue("@due_date", EndDate);
-            cmdUpdate.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
-            con.Open();
+            var cmdUpdate = Program.CreateCommand(query);
+            cmdUpdate.AddWithValue("@start_date", StartDate.ToString("yyyy-MM-dd"));
+            cmdUpdate.AddWithValue("@due_date", EndDate.ToString("yyyy-MM-dd"));
+            cmdUpdate.AddWithValue("@client_balance_id", ClientBalanceId);
+            Program.conOpen();
             cmdUpdate.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public static void DeleteClientBalance(int DesiredClientBalanceId)
         {
             //Eza ghayaret shi hone make sure tghayir also bel ClassClientCustom on delete client
-            con.Open();
+            Program.conOpen();
 
             //hole el 4 ejbare bhal order kermel needir nemhe client balance
             string QueryDeleteArchive = "DELETE FROM archive WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
-            SQLiteCommand cmd1 = new SQLiteCommand(QueryDeleteArchive, con);
+            var cmd1 = Program.CreateCommand(QueryDeleteArchive);
             cmd1.ExecuteNonQuery();
 
             string QueryDeleteFinance = "DELETE FROM finance WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
-            SQLiteCommand cmd2 = new SQLiteCommand(QueryDeleteFinance, con);
+            var cmd2 = Program.CreateCommand(QueryDeleteFinance);
             cmd2.ExecuteNonQuery();
 
             string QueryDeleteRelatedServices = "DELETE FROM client_services_attendance WHERE client_balance_id = '" + DesiredClientBalanceId + "'";
-            SQLiteCommand cmd4 = new SQLiteCommand(QueryDeleteRelatedServices, con);
+            var cmd4 = Program.CreateCommand(QueryDeleteRelatedServices);
             cmd4.ExecuteNonQuery();
 
 
@@ -650,14 +661,14 @@ namespace MKproject.Management
                                             SET client_balance_id = NULL 
                                              WHERE client_balance_id = '" + DesiredClientBalanceId + "' And start_time < '" + DateTime.Now.ToString("yyyy-MM-dd") + "'";
 
-            SQLiteCommand cmd5 = new SQLiteCommand(QuerySetUpdatePastAppointment, con);
+            var cmd5 = Program.CreateCommand(QuerySetUpdatePastAppointment);
             cmd5.ExecuteNonQuery();
 
             string QuerySetUpdatePresentFutureAppointment = @" UPDATE appointments 
                                                     SET client_balance_id = NULL 
                                                     WHERE client_balance_id = '" + DesiredClientBalanceId + "' AND start_time >= '" + DateTime.Now.ToString("yyyy-MM-dd") + "'";
 
-            SQLiteCommand cmd6 = new SQLiteCommand(QuerySetUpdatePresentFutureAppointment, con);
+            var cmd6 = Program.CreateCommand(QuerySetUpdatePresentFutureAppointment);
             cmd6.ExecuteNonQuery();
 
 
@@ -665,11 +676,11 @@ namespace MKproject.Management
 
 
             string QueryDeleteClientBalance = "DELETE FROM client_balance WHERE client_balance_id ='" + DesiredClientBalanceId + "'";
-            SQLiteCommand cmd3 = new SQLiteCommand(QueryDeleteClientBalance, con);
+            var cmd3 = Program.CreateCommand(QueryDeleteClientBalance);
             cmd3.ExecuteNonQuery();
 
 
-            con.Close();
+            Program.con.Close();
 
         }
 
@@ -685,7 +696,7 @@ namespace MKproject.Management
 
                     DateTime DesiredDate;
                     DateTime StartDate = Convert.ToDateTime(dtrow["start_date"]);
-                  
+
                     if (StartDate.Date <= DateTime.Now.Date)
                     {
                         DesiredDate = DateTime.Now;
@@ -700,7 +711,7 @@ namespace MKproject.Management
                     {
                         daysLeft = 0;
                     }
-                   
+
 
                     if (StartDate.Date <= DateTime.Now.Date)
                     {
@@ -708,7 +719,7 @@ namespace MKproject.Management
                     }
                     else //start date akbar, pakcage ma naamalo activate yet
                     {
-                        PackageRemainings += daysLeft+" Days (Starting From " + RandomFunctions.SetDateFormatWithDayWithoutHour(StartDate.ToString()) + ")";
+                        PackageRemainings += daysLeft + " Days (Starting From " + RandomFunctions.SetDateFormatWithDayWithoutHour(StartDate.ToString()) + ")";
                     }
                 }
                 else//package days freezed
@@ -803,7 +814,7 @@ namespace MKproject.Management
 
 
         //View Model
-             
+
 
         public void SetStringDetailsIfBundle()
         {

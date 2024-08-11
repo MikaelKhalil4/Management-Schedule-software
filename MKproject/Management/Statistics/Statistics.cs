@@ -75,8 +75,6 @@ namespace MKproject.Management
             CreateFilters();
 
 
-
-
         }//try catch
         void CreatingTheNoDateLabel(ref Label DesireddLabel)//false yaane sessions
         {
@@ -113,7 +111,6 @@ namespace MKproject.Management
                     TLPGLobalIncom.Controls.Remove(LabelNoDataYetIncome);
                     LabelNoDataYetIncome.Show();
                     TLPGLobalIncom.Controls.Add(LabelNoDataYetIncome, 1, 0);
-                    TLPGLobalIncom.SetRowSpan(LabelNoDataYetIncome, 2);
 
                 }
                 else
@@ -520,6 +517,7 @@ namespace MKproject.Management
 
                     combinedChart.Series["Income"].Enabled = true;
                     combinedChart.Series["Sessions"].Enabled = true;
+                    TLPCheckBoxes.Visible = true;
 
                     checkBoxServices.Enabled = true;
                     checkBoxServices.Checked = true;
@@ -537,6 +535,7 @@ namespace MKproject.Management
 
                     combinedChart.Series["Income"].Enabled = true;
                     combinedChart.Series["Sessions"].Enabled = false;
+                    TLPCheckBoxes.Visible = false;
 
                     checkBoxServices.Enabled = false;
                     checkBoxServices.Checked = false;
@@ -726,7 +725,7 @@ namespace MKproject.Management
         public void OutputChartIncomePerService(DataTable FilteredAllServicesIncomeDt)
         {
 
-            List<Chart> charts = new List<Chart> { chartIncomePerService, combinedChart };//kermel el el mode
+            List<Chart> charts = new List<Chart> { chartIncomePerService };//kermel el el mode
 
             //
             chartIncomePerService.Series["SeriesIncome"].Points.Clear();
@@ -734,7 +733,7 @@ namespace MKproject.Management
             chartIncomePerService.ChartAreas[0].AxisX.CustomLabels.Clear();
             if (FilteredAllServicesIncomeDt.Rows.Count > 0)
             {
-                SetNoDateLabel(true, true, charts);
+                //SetNoDateLabel(true, true, charts);
 
                 if (UCComboFilterServiceIncome == null || UCComboFilterServiceIncome.comboBoxDetail.SelectedItem.ToString() == UCComboFilterStat.All)
                 {
@@ -920,7 +919,18 @@ namespace MKproject.Management
             }
             else
             {
-                SetNoDateLabel(true, false, charts);
+                //SetNoDateLabel(true, false, charts);
+                int i = 1;
+                List<string> groupedByCategoryId = new List<string> { "Services", "Products" };
+
+                foreach (string group in groupedByCategoryId)
+                {
+                    chartIncomePerService.Series["SeriesIncome"].Points.AddXY(i, 0);
+                    chartIncomePerService.Series["SeriesQty"].Points.AddXY(i, 0);
+                    chartIncomePerService.ChartAreas[0].AxisX.CustomLabels.Add(i - 1, i + 1, group);
+
+                    i += 2;
+                }
             }
 
 

@@ -10,7 +10,6 @@ namespace MKproject.Management
 {
     internal class ProjectToSQL
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
 
 
@@ -25,24 +24,24 @@ namespace MKproject.Management
                         VALUES
                         (@client_balance_id,@AlbumType,@amount_paid,@payment_date) ";
 
-            SQLiteCommand cmdInsert = new SQLiteCommand(QueryInsert, con); // Initialize the SQLiteCommand inside the loop
+            var cmdInsert = Program.CreateCommand(QueryInsert); // Initialize the SQLiteCommand inside the loop
 
-            cmdInsert.Parameters.AddWithValue("@client_balance_id", ClientBalanceId);
+            cmdInsert.AddWithValue("@client_balance_id", ClientBalanceId);
 
             if (AlbumType == null)
             {
-                cmdInsert.Parameters.AddWithValue("@AlbumType", DBNull.Value);
+                cmdInsert.AddWithValue("@AlbumType", DBNull.Value);
 
             }
             else
             {
-                cmdInsert.Parameters.AddWithValue("@AlbumType", AlbumType);
+                cmdInsert.AddWithValue("@AlbumType", AlbumType);
             }
-            cmdInsert.Parameters.AddWithValue("@amount_paid", AmountPaid);
-            cmdInsert.Parameters.AddWithValue("@payment_date", Date);
-            con.Open();
+            cmdInsert.AddWithValue("@amount_paid", AmountPaid);
+            cmdInsert.AddWithValue("@payment_date", Date);
+            Program.conOpen();
             cmdInsert.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
 
 
@@ -55,22 +54,22 @@ namespace MKproject.Management
         {
 
             string QueryInsert = "insert into client_services_attendance (client_id,client_balance_id,appointment_id,execute_date) values (@client_id,@client_balance_id,@appointment_id,@execute_date)";
-            SQLiteCommand cmdInsert = new SQLiteCommand(QueryInsert, con);
-            cmdInsert.Parameters.AddWithValue("@client_id", ClientID);
-            cmdInsert.Parameters.AddWithValue("@client_balance_id", clientBalanceId);
+            var cmdInsert = Program.CreateCommand(QueryInsert);
+            cmdInsert.AddWithValue("@client_id", ClientID);
+            cmdInsert.AddWithValue("@client_balance_id", clientBalanceId);
             if (AppointmentID == null)
             {
-                cmdInsert.Parameters.AddWithValue("@appointment_id", DBNull.Value);
+                cmdInsert.AddWithValue("@appointment_id", DBNull.Value);
 
             }
             else
             {
-                cmdInsert.Parameters.AddWithValue("@appointment_id", AppointmentID);
+                cmdInsert.AddWithValue("@appointment_id", AppointmentID);
             }
-            cmdInsert.Parameters.AddWithValue("@execute_date", AttendanceDate);
-            con.Open();
+            cmdInsert.AddWithValue("@execute_date", AttendanceDate);
+            Program.conOpen();
             cmdInsert.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
         }
 
@@ -78,25 +77,25 @@ namespace MKproject.Management
         public static void InsertClientField(int clientId, int fieldId, string content)
         {
             string insertQuery = "INSERT INTO client_fields (client_id, fields_id, content) VALUES (@clientId, @fieldId, @content)";
-            SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, con);
-            insertCommand.Parameters.AddWithValue("@clientId", clientId);
-            insertCommand.Parameters.AddWithValue("@fieldId", fieldId);
-            insertCommand.Parameters.AddWithValue("@content", content);
-            con.Open();
+            var insertCommand = Program.CreateCommand(insertQuery);
+            insertCommand.AddWithValue("@clientId", clientId);
+            insertCommand.AddWithValue("@fieldId", fieldId);
+            insertCommand.AddWithValue("@content", content);
+            Program.conOpen();
             insertCommand.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
 
         public static void UpdateClientField(int clientId, int fieldId, string content)
         {
             string updateQuery = "UPDATE client_fields SET content = @content WHERE client_id = @clientId AND fields_id = @fieldId";
-            SQLiteCommand updateCommand = new SQLiteCommand(updateQuery, con);
-            updateCommand.Parameters.AddWithValue("@content", content);
-            updateCommand.Parameters.AddWithValue("@clientId", clientId);
-            updateCommand.Parameters.AddWithValue("@fieldId", fieldId);
-            con.Open();
+            var updateCommand = Program.CreateCommand(updateQuery);
+            updateCommand.AddWithValue("@content", content);
+            updateCommand.AddWithValue("@clientId", clientId);
+            updateCommand.AddWithValue("@fieldId", fieldId);
+            Program.conOpen();
             updateCommand.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
         }
         public static void DeleteClientField(int clientId, int? fieldId)
@@ -107,17 +106,17 @@ namespace MKproject.Management
                 DeleteQuery += " AND fields_id = @fieldId";
             }
 
-            SQLiteCommand DeleteCommand = new SQLiteCommand(DeleteQuery, con);
-            DeleteCommand.Parameters.AddWithValue("@clientId", clientId);
+            var DeleteCommand = Program.CreateCommand(DeleteQuery);
+            DeleteCommand.AddWithValue("@clientId", clientId);
 
             if (fieldId != null)
             {
-                DeleteCommand.Parameters.AddWithValue("@fieldId", fieldId);
+                DeleteCommand.AddWithValue("@fieldId", fieldId);
             }
 
-            con.Open();
+            Program.conOpen();
             DeleteCommand.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
 
 
@@ -125,55 +124,55 @@ namespace MKproject.Management
         public static void InsertNewAlbum(string albumName)
         {
             string query = "INSERT INTO Albums (AlbumType) VALUES (@AlbumName)";
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@AlbumName", albumName);
-            con.Open();
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@AlbumName", albumName);
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
         }
         public static void UpdateAlbum(string NewAlbumName, string OldAlbumName)
         {
             string query = "UPDATE Albums SET AlbumType = @NewAlbumName WHERE AlbumType = @AlbumName";
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@AlbumName", OldAlbumName);
-            command.Parameters.AddWithValue("@NewAlbumName", NewAlbumName);
-            con.Open();
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@AlbumName", OldAlbumName);
+            command.AddWithValue("@NewAlbumName", NewAlbumName);
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public static void DeleteAlbum(string AlbumName)
         {
             string query = "Delete FROM  Albums  WHERE AlbumType = @AlbumName";
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@AlbumName", AlbumName);
-            con.Open();
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@AlbumName", AlbumName);
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
 
 
         //registrationFidls
         public static void UpdateField(bool Isvisible, bool IsRequired, int id)
         {
-            SQLiteCommand command = new SQLiteCommand("UPDATE required_visible_fields SET Visible = @Visible, Required = @Required WHERE fields_id = @fields_id", con);
-            command.Parameters.AddWithValue("@Visible", Isvisible);
-            command.Parameters.AddWithValue("@Required", IsRequired);
-            command.Parameters.AddWithValue("@fields_id", id);
-            con.Open();
+            var command = Program.CreateCommand("UPDATE required_visible_fields SET Visible = @Visible, Required = @Required WHERE fields_id = @fields_id");
+            command.AddWithValue("@Visible", Isvisible);
+            command.AddWithValue("@Required", IsRequired);
+            command.AddWithValue("@fields_id", id);
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public static void InsertField(string fieldName, bool visible, bool required, bool isOriginal)
         {
-            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO required_visible_fields (Fields, Visible, Required, IsOriginal) VALUES (@Fields, @Visible, @Required, @IsOriginal)", con);
-            cmd.Parameters.AddWithValue("@Fields", fieldName);
-            cmd.Parameters.AddWithValue("@Visible", visible);
-            cmd.Parameters.AddWithValue("@Required", required);
-            cmd.Parameters.AddWithValue("@IsOriginal", isOriginal);
-            con.Open();
+            var cmd = Program.CreateCommand("INSERT INTO required_visible_fields (Fields, Visible, Required, IsOriginal) VALUES (@Fields, @Visible, @Required, @IsOriginal)");
+            cmd.AddWithValue("@Fields", fieldName);
+            cmd.AddWithValue("@Visible", visible);
+            cmd.AddWithValue("@Required", required);
+            cmd.AddWithValue("@IsOriginal", isOriginal);
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
         }
 

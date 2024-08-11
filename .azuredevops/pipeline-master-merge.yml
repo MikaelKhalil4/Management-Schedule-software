@@ -1,0 +1,31 @@
+trigger:
+  - master
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: MergemasterIntoBranches
+  displayName: 'Merge master into Custom Branches'
+  steps:
+  - checkout: self
+    persistCredentials: true
+    fetchDepth: 0
+
+  - script: |
+      git config --global user.email "mikaelkhalil7.mk@gmail.com"
+      git config --global user.name "Azure DevOps pipeline"
+      git checkout master
+      git pull origin master
+    
+      function merge_branch {
+        local branch=$1
+        git fetch -a     
+        git checkout $branch  
+        git merge master -m "Merging changes from master into $branch"
+        git push origin $branch
+      }
+      merge_branch "global"
+      merge_branch "elk"
+      merge_branch "soft"
+    displayName: 'Fetch master and Merge into Branches'

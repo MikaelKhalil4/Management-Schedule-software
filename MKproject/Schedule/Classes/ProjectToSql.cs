@@ -7,59 +7,58 @@ namespace MKproject.Schedule
 {
     public class ProjectToSql
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
         //HistoryEmployeeavailibility
         public static void UpdateRank_HistoryEmployeeavailibility(DateTime history_date, int employee_id, int rank,string availability)
         {
-            SQLiteCommand command = new SQLiteCommand("UPDATE history_employee_availability SET rank= @rank,availability=@availability WHERE DATE(history_date) = @history_date and employee_id = @employee_id", con);
+            var command = Program.CreateCommand("UPDATE history_employee_availability SET rank= @rank,availability=@availability WHERE DATE(history_date) = @history_date and employee_id = @employee_id");
 
-            command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@employee_id", employee_id);
-            command.Parameters.AddWithValue("@rank", rank);
+            command.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@employee_id", employee_id);
+            command.AddWithValue("@rank", rank);
             if (!String.IsNullOrEmpty(availability))
             {
-                command.Parameters.AddWithValue("@availability", availability);
+                command.AddWithValue("@availability", availability);
             }
             else
             {
-                command.Parameters.AddWithValue("@availability", DBNull.Value);
+                command.AddWithValue("@availability", DBNull.Value);
             }
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }    
         public static void InsertHistoryEmployeeavailibility(DateTime history_date, int employee_id, int rank, string availability)
         {
-            SQLiteCommand command = new SQLiteCommand(@"INSERT INTO history_employee_availability (history_date,employee_id, rank, availability) 
-                                                                  VALUES (@history_date,@employee_id,@rank,@availability) ", con);
+            var command = Program.CreateCommand(@"INSERT INTO history_employee_availability (history_date,employee_id, rank, availability) 
+                                                                  VALUES (@history_date,@employee_id,@rank,@availability) ");
 
-            command.Parameters.AddWithValue("@history_date", history_date.Date.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@employee_id", employee_id);
-            command.Parameters.AddWithValue("@rank", rank);
+            command.AddWithValue("@history_date", history_date.Date.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@employee_id", employee_id);
+            command.AddWithValue("@rank", rank);
            
             if (!String.IsNullOrEmpty(availability))
             {
-                command.Parameters.AddWithValue("@availability", availability);
+                command.AddWithValue("@availability", availability);
             }
             else
             {
-                command.Parameters.AddWithValue("@availability", DBNull.Value);
+                command.AddWithValue("@availability", DBNull.Value);
             }
 
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();//first command
-            con.Close();
+            Program.con.Close();
         }
         public static void DeleteHistoryEmployee(DateTime history_date, int employee_id)
         {
-            SQLiteCommand command = new SQLiteCommand("DELETE from history_employee_availability  WHERE DATE(history_date) = @history_date and employee_id = @employee_id", con);
-            command.Parameters.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@employee_id", employee_id);
+            var command = Program.CreateCommand("DELETE from history_employee_availability  WHERE DATE(history_date) = @history_date and employee_id = @employee_id");
+            command.AddWithValue("@history_date", history_date.ToString("yyyy-MM-dd"));
+            command.AddWithValue("@employee_id", employee_id);
 
-            con.Open();
+            Program.conOpen();
             command.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
 
 

@@ -11,7 +11,6 @@ namespace MKproject.Management
 {
     public class ClassBundles
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
         public static string Session = "sess", Days = "days";//only strings kermel el transaction
         public enum Category
         {
@@ -63,8 +62,8 @@ namespace MKproject.Management
         {
 
             string query = "Select price,sessions_numb,is_member_ship From bundles where bundle_id='" + BundleId + "'";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda =Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
@@ -76,8 +75,8 @@ namespace MKproject.Management
         {
 
             string query = "Select bundle_name From bundles where bundle_id='" + categoryId + "'";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
@@ -88,8 +87,8 @@ namespace MKproject.Management
         {
 
             string query = "Select duration From bundles where bundle_id='" + categoryId + "'";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
@@ -100,8 +99,8 @@ namespace MKproject.Management
         public static DataTable GetLastInsertBundle()
         {
             string Query = "Select * from bundles where  bundle_id=(Select MAX(bundle_id) from bundles)";
-            SQLiteCommand cmd = new SQLiteCommand(Query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(Query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -115,8 +114,8 @@ namespace MKproject.Management
             }
             query += " ORDER by bundle_id Desc ";
 
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -130,8 +129,8 @@ namespace MKproject.Management
             }
             query += " ORDER by status Desc, bundle_id Desc ";
 
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -144,37 +143,37 @@ namespace MKproject.Management
             string query = "INSERT INTO bundles (bundle_name, description, sessions_numb,bundle_type ,price,duration, status,is_member_ship) " +
                            "VALUES (@bundle_name, @description, @SessionsNumb,@bundle_type, @Price,@duration, @Status,@is_member_ship)";
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@bundle_name", BundleName);
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@bundle_name", BundleName);
             if (Description == null)
             {
-                command.Parameters.AddWithValue("@description", DBNull.Value);
+                command.AddWithValue("@description", DBNull.Value);
 
             }
             else
             {
-                command.Parameters.AddWithValue("@description", Description);
+                command.AddWithValue("@description", Description);
             }
 
             if (SessionDaysNumber == null)
             {
-                command.Parameters.AddWithValue("@SessionsNumb", DBNull.Value);
+                command.AddWithValue("@SessionsNumb", DBNull.Value);
 
             }
             else
             {
-                command.Parameters.AddWithValue("@SessionsNumb", SessionDaysNumber);
+                command.AddWithValue("@SessionsNumb", SessionDaysNumber);
             }
-            command.Parameters.AddWithValue("@bundle_type", EnumBundletype.ToString());
-            command.Parameters.AddWithValue("@Price", Price);
-            command.Parameters.AddWithValue("@Status", Status);
-            command.Parameters.AddWithValue("@is_member_ship", IsMemberShip);
-            command.Parameters.AddWithValue("@duration", Duration);
-            con.Open();
+            command.AddWithValue("@bundle_type", EnumBundletype.ToString());
+            command.AddWithValue("@Price", Price);
+            command.AddWithValue("@Status", Status);
+            command.AddWithValue("@is_member_ship", IsMemberShip);
+            command.AddWithValue("@duration", Duration);
+            Program.conOpen();
 
             command.ExecuteNonQuery();
 
-            con.Close();
+            Program.con.Close();
         }
         public void UpdateBundle()
         {
@@ -189,45 +188,45 @@ namespace MKproject.Management
                            is_member_ship=@is_member_ship                  
                            WHERE bundle_id = @bundle_id";
 
-            SQLiteCommand command = new SQLiteCommand(query, con);
-            command.Parameters.AddWithValue("@bundle_name", BundleName);
+            var command = Program.CreateCommand(query);
+            command.AddWithValue("@bundle_name", BundleName);
             if (Description == null)
             {
-                command.Parameters.AddWithValue("@description", DBNull.Value);
+                command.AddWithValue("@description", DBNull.Value);
 
             }
             else
             {
-                command.Parameters.AddWithValue("@description", Description);
+                command.AddWithValue("@description", Description);
             }
 
             if (SessionDaysNumber == null)
             {
-                command.Parameters.AddWithValue("@SessionsNumb", DBNull.Value);
+                command.AddWithValue("@SessionsNumb", DBNull.Value);
             }
             else
             {
-                command.Parameters.AddWithValue("@SessionsNumb", SessionDaysNumber);
+                command.AddWithValue("@SessionsNumb", SessionDaysNumber);
             }
-            command.Parameters.AddWithValue("@bundle_type", EnumBundletype.ToString());
-            command.Parameters.AddWithValue("@Price", Price);
-            command.Parameters.AddWithValue("@Status", Status);
-            command.Parameters.AddWithValue("@bundle_id", BundleID);
-            command.Parameters.AddWithValue("@is_member_ship", IsMemberShip);
-            command.Parameters.AddWithValue("@duration", Duration);
-            con.Open();
+            command.AddWithValue("@bundle_type", EnumBundletype.ToString());
+            command.AddWithValue("@Price", Price);
+            command.AddWithValue("@Status", Status);
+            command.AddWithValue("@bundle_id", BundleID);
+            command.AddWithValue("@is_member_ship", IsMemberShip);
+            command.AddWithValue("@duration", Duration);
+            Program.conOpen();
 
             command.ExecuteNonQuery();
 
-            con.Close();
+            Program.con.Close();
         }
         public void DeleteBundle()
         {
 
-            SQLiteCommand cmd = new SQLiteCommand("Delete FROM  bundles where bundle_id='" + BundleID + "'", con);
-            con.Open();
+            var cmd = Program.CreateCommand("Delete FROM  bundles where bundle_id='" + BundleID + "'");
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
 
         }
@@ -235,13 +234,13 @@ namespace MKproject.Management
         {
             string query = @"Select Count(*) from bundles as p
                          where bundle_id='" + BundleID + "' And  Exists ( Select * from client_balance as c where c.bundle_id=p.bundle_id)";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand(query);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            con.Open();
+            Program.conOpen();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
+            Program.con.Close();
             if (count == 0)
             {
                 return false;

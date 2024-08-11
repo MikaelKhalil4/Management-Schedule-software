@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using System.Data.SQLite;
-using System.Data.Common;
 using MKproject;
-using static Azure.Core.HttpHeader;
 
 public class DatabaseInitializer
 {
@@ -62,6 +60,7 @@ public class DatabaseInitializer
 									""starttime""	TEXT,
 									""is_checked""	INTEGER NOT NULL,
 									""checked_date""	TEXT,
+									""modified_date""	TEXT,
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""reminder_id"" AUTOINCREMENT)
 								);
@@ -212,6 +211,11 @@ public class DatabaseInitializer
 									FOREIGN KEY(""employee_id"") REFERENCES ""employee""(""employee_id""),
 									FOREIGN KEY(""client_id"") REFERENCES ""client""(""client_id""),
 									PRIMARY KEY(""appointment_id"" AUTOINCREMENT)
+								);
+								CREATE TABLE ""Settings"" (
+									""SettingKey""	TEXT,
+									""SettingValue""	TEXT,
+									PRIMARY KEY(""SettingKey"")
 								);
 									";
 				  

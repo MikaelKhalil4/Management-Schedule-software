@@ -38,13 +38,20 @@ namespace MKproject.Management
             //FilterOn
             LoadForm();
 
-            if (ClassClient.CheckIfBirthdayExistsTodayorTmrw())
+            try//bas kermel el sql thing
             {
-                iconButtonViewBirthdays.BackgroundImage= ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "CakeGreen.png");
+                if (ClassClient.CheckIfBirthdayExistsTodayorTmrw())
+                {
+                    iconButtonViewBirthdays.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "CakeGreen.png");
+                }
+                else
+                {
+                    iconButtonViewBirthdays.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "CakeBlack.png");
+                }
             }
-            else
+            catch
             {
-                iconButtonViewBirthdays.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "CakeBlack.png");
+
             }
         }
         private void SearchCurrentClient_Load(object sender, EventArgs e)

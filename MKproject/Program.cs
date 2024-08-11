@@ -3,22 +3,16 @@ using MKproject.Management;
 using MKproject.Schedule;
 using System;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Velopack;
 using Velopack.Windows;
-using Velopack.Locators;
-using System.Net.Http;
-using Amazon.S3;
-using Amazon.S3.Model;
 using System.Threading;
-using GlobalFunctions;
 using Serilog;
+using MKproject.Infrastucture;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Data.SQLite;
 
 namespace MKproject
@@ -30,7 +24,7 @@ namespace MKproject
         public static bool IsANewParentAddedOrParentPhoneUpdated;//this variable is used kermel lamma nerjaa aal search(nekbus back men el management), naamil restore men el datatbase 
                                                                  //in 2 cases:1) Lamma naamil add la new parent men el new register,2) lamma naamil update la phone number tabaa parent eendo chiddrens
 
-        public static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
+
 
         //Global Colors:  Soft Gentle  Medium Vibrant Bold
         public static Color SoftColor = Color.FromArgb(238, 241, 254);//used if the backgorund was white
@@ -58,6 +52,9 @@ namespace MKproject
         //Elie:Data Source= C:\\Users\\USER\\Documents\\Foxdb\\Fox.db
 
         public static string DataLocation;
+
+        public static DbConnection con;
+        public static bool  IsSoftwareOnline;
         public static string FolderProfileImagePath;
 
 
@@ -70,12 +67,28 @@ namespace MKproject
         static void Main()
         {
 
-
             VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
 
 
 
-            DataLocation = "Data Source=" + AppPaths.DatabasePath;
+
+            if (!string.IsNullOrEmpty(AppConfig.GetOnlineSoftwareConnectionString()))
+            {
+                IsSoftwareOnline = true;
+                DataLocation = AppConfig.GetOnlineSoftwareConnectionString();
+                con = new SqlConnection(DataLocation);
+            }
+            else
+            {
+                IsSoftwareOnline = false;
+                DataLocation = "Data Source=" + AppPaths.DatabasePath;
+                con = new SQLiteConnection(DataLocation);
+            }
+
+
+        
+
+
             FolderProfileImagePath = AppPaths.ProfileImagesPath;
 
             AppPaths.EnsureDirectoriesExist();
@@ -98,17 +111,28 @@ namespace MKproject
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
 
 
-
             Log.Logger = new LoggerConfiguration()
                             .ReadFrom.Configuration(AppConfig.Configuration)
                             .CreateLogger();
 
 
+            //logging and backup
+            SettingsSql.EnsureSettingsExist();//ejabre
+            LogHelper.SetupTimerAndStartLogsTimer();
+            BackupHelper.SetupBackupTimerndStartItIfNecessar();
 
+
+
+            //int zero = 0;
+            //int x = 1 / zero;
+
+
+
+
+            //Update
             (UpdateManager mgr, UpdateInfo newVersion) = IsUpdateExist();
 
-          
-            if (newVersion!=null)
+            if (newVersion != null)
             {
 
                 NewUpdate updt = new NewUpdate();
@@ -122,7 +146,7 @@ namespace MKproject
 
                 if (!ClassEmployee.CheckIfOwnerExist())
                 {
-                    EditEmployee editEmployee = new EditEmployee(null, true,true);
+                    EditEmployee editEmployee = new EditEmployee(null, true, true);
                     editEmployee.EmployeeInserted += EditEmployee_EmployeeInserted;
                     Application.Run(editEmployee);
 
@@ -130,17 +154,47 @@ namespace MKproject
                 else
                 {
                     LoginForm = new LOGIN();
-                    LoginForm.labelVersion.Text = "v 1.0.5";  
+                    LoginForm.labelVersion.Text = "v 1.0.6";
                     Application.Run(LoginForm);
                 }
 
-               
-            }        
+            }
+        }
+
+        //get the right sqlcommand and adapter
+        public static DbCommand CreateCommand(string query)
+        {
+            if (IsSoftwareOnline)
+            {
+                return new SqlCommand(query, (SqlConnection)con);
+            }
+            else
+            {
+                return new SQLiteCommand(query, (SQLiteConnection)con);
+            }
+        }
+        public static DbDataAdapter CreateDataAdapter(DbCommand command)
+        {
+            if (IsSoftwareOnline)
+            {
+                return new SqlDataAdapter((SqlCommand)command);
+            }
+            else
+            {
+                return new SQLiteDataAdapter((SQLiteCommand)command);
+
+            }
         }
 
 
-       
+        public static void conOpen()
+        {
+            con.Close();
+            con.Open();
+        }
 
+
+        //Update
         public static (UpdateManager, UpdateInfo) IsUpdateExist()
         {
 
@@ -162,12 +216,12 @@ namespace MKproject
             }
 
         }
-        public static async Task UpdateMyApp(UpdateManager mgr,UpdateInfo newVersion)
+        public static async Task UpdateMyApp(UpdateManager mgr, UpdateInfo newVersion)
         {
 
             try
             {
-               
+
                 await mgr.DownloadUpdatesAsync(newVersion);   // download new version        
                 mgr.ApplyUpdatesAndRestart(newVersion);  // install new version and restart app
 
@@ -180,22 +234,8 @@ namespace MKproject
         }
 
 
-        //         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
-        //         vpk download http --channel win-x64 --url https://cdn.foxdigitaltech.online/fox-elk
-        //         vpk pack -u FoxApp -v 1.0.1 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
-        //         vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4
-        //         https://cdn-admin.foxdigitaltech.online/fox-elk
-
-
-        //some global functions
-
-        private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
-        {
-            Program.HomeForm = new Home();
-            Program.HomeForm.Show();
-        }
-
-        private static void GlobalExceptionHandler(object sender, EventArgs args)
+        //Exeption hadnler
+        private static async void GlobalExceptionHandler(object sender, EventArgs args)
         {
             // Determine the type of EventArgs and extract the exception object.
             Exception e = args switch
@@ -206,13 +246,19 @@ namespace MKproject
             };
 
             // Log the exception using Serilog (assuming it's configured)
-            Log.Error(e.ToString() + "\n");
-
+            LogHelper.logException(e);
             // Show a message box to the user
-            MessageBox.Show("An application error occurred. Please contact the administrator with the following information:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
+            CustomMessageBox.Show("Oops! Something went wrong. We're here to help—please reach out to customer support so we can get this sorted out for you.", CustomMessageBox.Type.OkInfo);
+      
         }
 
+
+        //some global functions
+        private static void EditEmployee_EmployeeInserted(object sender, EventArgs e)
+        {
+            Program.HomeForm = new Home();
+            Program.HomeForm.Show();
+        }
         public static string SetCashFormat(string cash)
         {
             return Currency.Symbol + cash;
@@ -230,5 +276,25 @@ namespace MKproject
             }
             return balance;
         }
+
+
+    }
+
+    public static class DbCommandExtensions
+    {
+        public static void AddWithValue(this DbCommand command, string parameterName, object value)
+        {
+            var parameter = command.CreateParameter();
+            parameter.ParameterName = parameterName;
+            parameter.Value = value ?? DBNull.Value;  // Handle null values appropriately
+            command.Parameters.Add(parameter);
+        }
     }
 }
+
+
+//         dotnet publish -c Release --self-contained -r win-x64 -o./bin/Publish/win-x64
+//         vpk download http --channel win-x64 --url https://cdn.foxdigitaltech.online/fox-elk
+//         vpk pack -u FoxApp -v 1.0.1 -p./bin/Publish/win-x64 -e MKproject.exe  --channel win-x64 --packTitle "Fox" --icon images/foxlogo.ico --splashImage images/foxlogo.ico 
+//         vpk upload s3  --bucket fox-elk  --channel win-x64 --endpoint  http://198.7.119.42:9000 --keyId z7XrmE85WvdpJu66TZHs --secret LdalmmahMPdml5ChdACVYeebuoO1C7tVpQDFwMA4
+//         https://cdn-admin.foxdigitaltech.online/fox-elk

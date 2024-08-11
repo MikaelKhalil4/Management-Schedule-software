@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Data.Common;
 
 namespace MKproject.Schedule
 {
     public class ClassAppointment
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
         //Property
         public int AppointmentID { get; set; }
 
@@ -76,18 +76,18 @@ namespace MKproject.Schedule
 
         public static DataTable GetAllAppointmentInfoSql(int appointmentId)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select * from appointments where appointment_id=@appointment_id", con);
-            cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select * from appointments where appointment_id=@appointment_id");
+            cmd.AddWithValue("@appointment_id", appointmentId);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
         }
         public static DataTable GetAllChosenSoloBundles(int appointmentId)
         {
-            SQLiteCommand cmd = new SQLiteCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id ORDER BY app_bundle_id ASC", con);
-            cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select ab.bundle_id from appointments as a , appointment_has_bundles as ab where a.appointment_id=ab.appointment_id And a.appointment_id=@appointment_id ORDER BY app_bundle_id ASC");
+            cmd.AddWithValue("@appointment_id", appointmentId);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
@@ -113,14 +113,14 @@ namespace MKproject.Schedule
                 query += ")";
             }
 
-            SQLiteCommand command1 = new SQLiteCommand(query, con);
-            command1.Parameters.AddWithValue("@Date", SelectedDate.ToString("yyyy-MM-dd"));
-            SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
+            var command1 = Program.CreateCommand(query);
+            command1.AddWithValue("@Date", SelectedDate.ToString("yyyy-MM-dd"));
+            var adapter1 = Program.CreateDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
-            con.Open();
+            Program.conOpen();
             command1.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
 
             return DataTableToList(dt1);
         }
@@ -144,14 +144,14 @@ namespace MKproject.Schedule
                 query += ")";
             }
 
-            SQLiteCommand command1 = new SQLiteCommand(query, con);
+            var command1 = Program.CreateCommand(query);
 
             for (int i = 0; i < ListDaysOfDesiredWeek.Count; i++)
             {
-                command1.Parameters.AddWithValue($"@Date{i}", ListDaysOfDesiredWeek[i].ToString("yyyy-MM-dd"));
+                command1.AddWithValue($"@Date{i}", ListDaysOfDesiredWeek[i].ToString("yyyy-MM-dd"));
             }
 
-            SQLiteDataAdapter adapter1 = new SQLiteDataAdapter(command1);
+            var adapter1 = Program.CreateDataAdapter(command1);
             DataTable dt1 = new DataTable();
             adapter1.Fill(dt1);
 
@@ -159,37 +159,37 @@ namespace MKproject.Schedule
         }
         public static int GetLastAppointmentId()
         {
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Max(appointment_id) FROM appointments", con);
-            con.Open();
+            var cmd = Program.CreateCommand("SELECT Max(appointment_id) FROM appointments");
+            Program.conOpen();
             object result = cmd.ExecuteScalar();//return the first cell
-            con.Close();
+            Program.con.Close();
             return Convert.ToInt32(result);
         }
         public static DataTable GetRelatedSoloBundles(int appointmentId)
         {
-            SQLiteCommand cmd = new SQLiteCommand("Select * from appointment_has_bundles WHERE  appointment_id = @appointment_id", con);
-            cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("Select * from appointment_has_bundles WHERE  appointment_id = @appointment_id");
+            cmd.AddWithValue("@appointment_id", appointmentId);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;
         }
         public static void DeleteRelatedSoloBundle(int appointmentId, int bundleId)
         {
-            SQLiteCommand cmdDeleteOldBundlesToApp = new SQLiteCommand(@"Delete FROM  appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ", con);
-            cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", appointmentId);
-            cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@bundle_id", bundleId);
-            con.Open();
+            var cmdDeleteOldBundlesToApp = Program.CreateCommand(@"Delete FROM  appointment_has_bundles WHERE  appointment_id = @appointment_id And bundle_id=@bundle_id ");
+            cmdDeleteOldBundlesToApp.AddWithValue("@appointment_id", appointmentId);
+            cmdDeleteOldBundlesToApp.AddWithValue("@bundle_id", bundleId);
+            Program.conOpen();
             cmdDeleteOldBundlesToApp.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public static void SwapClientBalanceIdOnRenewPackage(int ExistingClientBalanceId, int NewClientBalanceId)
         {
             string query = "Update appointments Set client_balance_id='" + NewClientBalanceId + "' Where start_time >= '" + DateTime.Now.ToString("yyyy-MM-dd") + "' And appointment_id in (Select appointment_id from appointments where client_balance_id='" + ExistingClientBalanceId + "')";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            con.Open();
+            var cmd = Program.CreateCommand(query);
+            Program.conOpen();
             cmd.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
 
 
@@ -204,91 +204,91 @@ namespace MKproject.Schedule
                                                         start_time=@start_time, end_time=@end_time, Note=@Note ,is_completed=@is_completed,is_canceled=@is_canceled
                                                                 WHERE  appointment_id=@appointment_id ";
 
-            SQLiteCommand cmdInsertOrUpdateApp;
+            DbCommand cmdInsertOrUpdateApp;
             if (InsertOrUpdate)
             {
-                cmdInsertOrUpdateApp = new SQLiteCommand(queryInsert, con);
+                cmdInsertOrUpdateApp = Program.CreateCommand(queryInsert);
 
             }
             else
             {
-                cmdInsertOrUpdateApp = new SQLiteCommand(queryUpdate, con);
+                cmdInsertOrUpdateApp = Program.CreateCommand(queryUpdate);
 
             }
 
 
             if (!InsertOrUpdate)
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@appointment_id", AppointmentID);
+                cmdInsertOrUpdateApp.AddWithValue("@appointment_id", AppointmentID);
             }
 
 
             if (DesiredClient != null)
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_id", DesiredClient.ClientId);
+                cmdInsertOrUpdateApp.AddWithValue("@client_id", DesiredClient.ClientId);
             }
             else
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_id", DBNull.Value);
+                cmdInsertOrUpdateApp.AddWithValue("@client_id", DBNull.Value);
 
             }
 
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@employee_id", DesiredEmployee.EmployeeId);
+            cmdInsertOrUpdateApp.AddWithValue("@employee_id", DesiredEmployee.EmployeeId);
 
 
 
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@start_time", StartTime);
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@end_time", EndTime);
+            cmdInsertOrUpdateApp.AddWithValue("@start_time", StartTime);
+            cmdInsertOrUpdateApp.AddWithValue("@end_time", EndTime);
 
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@is_completed", IsCompleted);
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@is_canceled", IsCanceled);
+            cmdInsertOrUpdateApp.AddWithValue("@is_completed", IsCompleted);
+            cmdInsertOrUpdateApp.AddWithValue("@is_canceled", IsCanceled);
 
 
 
             if (Notes != null)
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@Note", Notes);
+                cmdInsertOrUpdateApp.AddWithValue("@Note", Notes);
             }
             else
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@Note", DBNull.Value);
+                cmdInsertOrUpdateApp.AddWithValue("@Note", DBNull.Value);
             }
 
             if (Title != null)
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@title", Title);
+                cmdInsertOrUpdateApp.AddWithValue("@title", Title);
             }
             else
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@title", DBNull.Value);
+                cmdInsertOrUpdateApp.AddWithValue("@title", DBNull.Value);
             }
 
-            cmdInsertOrUpdateApp.Parameters.AddWithValue("@is_package_mode", IsPackageMode);
+            cmdInsertOrUpdateApp.AddWithValue("@is_package_mode", IsPackageMode);
 
 
             if (DesiredClientBalance != null)
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DesiredClientBalance.ClientBalanceID);
+                cmdInsertOrUpdateApp.AddWithValue("@client_balance_id", DesiredClientBalance.ClientBalanceID);
             }
             else
             {
-                cmdInsertOrUpdateApp.Parameters.AddWithValue("@client_balance_id", DBNull.Value);
+                cmdInsertOrUpdateApp.AddWithValue("@client_balance_id", DBNull.Value);
             }
 
-          
 
-            con.Open();
+
+            Program.conOpen();
             cmdInsertOrUpdateApp.ExecuteNonQuery();//ejbare foe el cmd tahet mahalla    
-            con.Close();
+            Program.con.Close();
 
 
             if (!InsertOrUpdate)
             {
-                SQLiteCommand cmdDeleteOldBundlesToApp = new SQLiteCommand(@"Delete FROM appointment_has_bundles WHERE  appointment_id = @appointment_id ", con);
-                cmdDeleteOldBundlesToApp.Parameters.AddWithValue("@appointment_id", AppointmentID);
-                con.Open();
+                var cmdDeleteOldBundlesToApp = Program.CreateCommand(@"Delete FROM appointment_has_bundles WHERE  appointment_id = @appointment_id ");
+                cmdDeleteOldBundlesToApp.AddWithValue("@appointment_id", AppointmentID);
+                Program.conOpen();
                 cmdDeleteOldBundlesToApp.ExecuteNonQuery();
-                con.Close();
+                Program.con.Close();
             }
 
 
@@ -310,14 +310,14 @@ namespace MKproject.Schedule
 
                 foreach (ClassBundles bundle in chosenBundlesList)
                 {
-                    SQLiteCommand cmdInsertBundleToApp = new SQLiteCommand(@"INSERT INTO appointment_has_bundles (appointment_id, bundle_id) 
-                                                                  VALUES (@appointment_id, @bundle_id) ", con);
+                    var cmdInsertBundleToApp = Program.CreateCommand(@"INSERT INTO appointment_has_bundles (appointment_id, bundle_id) 
+                                                                  VALUES (@appointment_id, @bundle_id) ");
 
-                    cmdInsertBundleToApp.Parameters.AddWithValue("@appointment_id", DesiredAppointmentId);
-                    cmdInsertBundleToApp.Parameters.AddWithValue("@bundle_id", bundle.BundleID);
-                    con.Open();
+                    cmdInsertBundleToApp.AddWithValue("@appointment_id", DesiredAppointmentId);
+                    cmdInsertBundleToApp.AddWithValue("@bundle_id", bundle.BundleID);
+                    Program.conOpen();
                     cmdInsertBundleToApp.ExecuteNonQuery();
-                    con.Close();
+                    Program.con.Close();
                 }
             }
 
@@ -328,7 +328,7 @@ namespace MKproject.Schedule
             //ejbare bhal order men wara el rlt
             UndoCompletionAppointmentSQL();
 
-            con.Open();
+            Program.conOpen();
 
             //Battal ela aaze Since aam yenma7o bel UndoCompletionAppointment
             //string queryDeleteArchive = "DELETE FROM archive WHERE appointment_id='" + (int)AppointmentID + "'";
@@ -336,29 +336,29 @@ namespace MKproject.Schedule
             //cmd1.ExecuteNonQuery();
 
             string queryDeleteRelation = "DELETE FROM appointment_has_bundles WHERE appointment_id='" + AppointmentID + "'";
-            SQLiteCommand cmd3 = new SQLiteCommand(queryDeleteRelation, con);
+            var cmd3 = Program.CreateCommand(queryDeleteRelation);
             cmd3.ExecuteNonQuery();
 
 
             string QueryDeleteClientAttendace = "DELETE FROM client_services_attendance WHERE appointment_id = '" + AppointmentID + "'";
-            SQLiteCommand cmd4 = new SQLiteCommand(QueryDeleteClientAttendace, con);
+            var cmd4 = Program.CreateCommand(QueryDeleteClientAttendace);
             cmd4.ExecuteNonQuery();
 
             string queryDelteApp = "DELETE FROM appointments WHERE appointment_id='" + AppointmentID + "'";
-            SQLiteCommand cmd2 = new SQLiteCommand(queryDelteApp, con);
+            var cmd2 = Program.CreateCommand(queryDelteApp);
             cmd2.ExecuteNonQuery();
 
 
-            con.Close();
+            Program.con.Close();
         }
         public void UndoCompletionAppointmentSQL()
         {
 
             //kermel naamil Undo lal Purchases 
 
-            SQLiteCommand cmd = new SQLiteCommand("select archive_id,attendance_id,client_balance_id,action_type from archive where appointment_id=@appointment_id", con);
-            cmd.Parameters.AddWithValue("@appointment_id", AppointmentID);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("select archive_id,attendance_id,client_balance_id,action_type from archive where appointment_id=@appointment_id");
+            cmd.AddWithValue("@appointment_id", AppointmentID);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
@@ -379,30 +379,30 @@ namespace MKproject.Schedule
             SetOrResetIsCompleted();
 
         }
-      
+
         public void SetOrResetIsCompleted()
         {
-            SQLiteCommand cmdUpdateCompletion = new SQLiteCommand(@" Update appointments SET  is_completed=@is_completed  WHERE  appointment_id=@appointment_id ", con); ;
-            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", AppointmentID);
-            cmdUpdateCompletion.Parameters.AddWithValue("@is_completed", IsCompleted);
-            con.Open();
+            var cmdUpdateCompletion = Program.CreateCommand(@" Update appointments SET  is_completed=@is_completed  WHERE  appointment_id=@appointment_id "); ;
+            cmdUpdateCompletion.AddWithValue("@appointment_id", AppointmentID);
+            cmdUpdateCompletion.AddWithValue("@is_completed", IsCompleted);
+            Program.conOpen();
             cmdUpdateCompletion.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public void SetOrResetIsCanceled()
         {
-            SQLiteCommand cmdUpdateCompletion = new SQLiteCommand(@" Update appointments SET  is_canceled=@is_canceled  WHERE  appointment_id=@appointment_id ", con); ;
-            cmdUpdateCompletion.Parameters.AddWithValue("@appointment_id", AppointmentID);
-            cmdUpdateCompletion.Parameters.AddWithValue("@is_canceled", IsCanceled);
-            con.Open();
+            var cmdUpdateCompletion = Program.CreateCommand(@" Update appointments SET  is_canceled=@is_canceled  WHERE  appointment_id=@appointment_id "); ;
+            cmdUpdateCompletion.AddWithValue("@appointment_id", AppointmentID);
+            cmdUpdateCompletion.AddWithValue("@is_canceled", IsCanceled);
+            Program.conOpen();
             cmdUpdateCompletion.ExecuteNonQuery();
-            con.Close();
+            Program.con.Close();
         }
         public DataTable AllRelatedRowsInArchiveTable()
         {
-            SQLiteCommand cmd = new SQLiteCommand("Select * from archive WHERE  appointment_id = @appointment_id", con);
-            cmd.Parameters.AddWithValue("@appointment_id", AppointmentID);
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+            var cmd = Program.CreateCommand("Select * from archive WHERE  appointment_id = @appointment_id");
+            cmd.AddWithValue("@appointment_id", AppointmentID);
+            var sda = Program.CreateDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             return dt;

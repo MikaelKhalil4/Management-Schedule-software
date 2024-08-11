@@ -8,7 +8,6 @@ namespace MKproject.Management
 {
     public class Features
     {
-        static SQLiteConnection con = new SQLiteConnection(Program.DataLocation);
 
     
         public enum enumFeatures

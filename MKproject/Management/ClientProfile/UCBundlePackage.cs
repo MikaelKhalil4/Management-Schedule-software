@@ -388,7 +388,6 @@ namespace MKproject.Management
                 //TLPglobal.Controls.Add(labelSessiosOrDaysDetails, 1, 4);
 
                 labelSessiosOrDays.Text = "Days Left";
-                labelSessiosOrDaysDetails.Text = Convert.ToString(SessionDaysLeft) ;
 
                 TLPglobal.Controls.Remove(labelStartDate);
                 TLPglobal.Controls.Remove(labelStartDateDetails);

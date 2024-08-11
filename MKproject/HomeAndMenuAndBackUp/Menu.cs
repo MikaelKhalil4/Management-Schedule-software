@@ -211,7 +211,7 @@ namespace MKproject
             HideMenu();
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
-            BackUp backup = new BackUp();
+            PlanAndBackUp backup = new PlanAndBackUp();
             backup.Show();
             //for user exprience
             CloseNotfBanner();

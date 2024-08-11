@@ -47,7 +47,7 @@ namespace MKproject
             textBoxSearch.Location = new System.Drawing.Point(0, 0);
             textBoxSearch.Margin = new System.Windows.Forms.Padding(0);
             textBoxSearch.Name = "textBoxSearch";
-            textBoxSearch.Size = new System.Drawing.Size(414, 29);
+            textBoxSearch.Size = new System.Drawing.Size(473, 34);
             textBoxSearch.TabIndex = 20;
             textBoxSearch.TextChanged += textBoxSearch_TextChanged;
             // 
@@ -60,12 +60,12 @@ namespace MKproject
             tableLayoutPanel1.Controls.Add(dataGridViewMembers, 0, 1);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(414, 211);
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 68F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(473, 281);
             tableLayoutPanel1.TabIndex = 21;
             // 
             // dataGridViewMembers
@@ -104,7 +104,7 @@ namespace MKproject
             dataGridViewMembers.IsCustomScroll = true;
             dataGridViewMembers.IsRowColorChangeonMouseMove = false;
             dataGridViewMembers.IsSelectRow = false;
-            dataGridViewMembers.Location = new System.Drawing.Point(2, 35);
+            dataGridViewMembers.Location = new System.Drawing.Point(2, 47);
             dataGridViewMembers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             dataGridViewMembers.Name = "dataGridViewMembers";
             dataGridViewMembers.ReadOnly = true;
@@ -116,7 +116,7 @@ namespace MKproject
             dataGridViewMembers.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             dataGridViewMembers.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             dataGridViewMembers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewMembers.Size = new System.Drawing.Size(410, 176);
+            dataGridViewMembers.Size = new System.Drawing.Size(469, 234);
             dataGridViewMembers.TabIndex = 19;
             dataGridViewMembers.CellFormatting += dataGridViewMembers_CellFormatting;
             dataGridViewMembers.CellMouseClick += dataGridViewMembers_CellMouseClick;
@@ -125,15 +125,15 @@ namespace MKproject
             // 
             // Search
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.SystemColors.ActiveCaption;
-            ClientSize = new System.Drawing.Size(414, 213);
+            ClientSize = new System.Drawing.Size(473, 284);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             Name = "Search";
-            Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "SearchName";

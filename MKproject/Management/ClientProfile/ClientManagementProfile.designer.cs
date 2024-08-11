@@ -34,7 +34,6 @@ namespace MKproject.Management
             components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientManagementProfile));
             TLPGlobal = new System.Windows.Forms.TableLayoutPanel();
             TLPdatagrid = new System.Windows.Forms.TableLayoutPanel();
             TLPBalance = new System.Windows.Forms.TableLayoutPanel();
@@ -60,17 +59,14 @@ namespace MKproject.Management
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             TLPInfo = new System.Windows.Forms.TableLayoutPanel();
             panelSecondaryInfo = new System.Windows.Forms.Panel();
-            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            TLPPrimaryInfo = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            buttonEditClientInfo = new IconButton();
             panelPrimaryInfo = new System.Windows.Forms.Panel();
             UCMemberSince = new UCLabelAndDetail();
             UCLastVisit = new UCLabelAndDetail();
             TLPAlbum = new System.Windows.Forms.TableLayoutPanel();
-            buttonEditAlbum = new IconButton();
             UCAlbum = new UCLabelAndDetail();
             labelName = new System.Windows.Forms.Label();
-            iconButtonImage = new IconButton();
             TLPHistory = new System.Windows.Forms.TableLayoutPanel();
             UCpaymentsTotal = new UCLabelAndDetail();
             UCpaymentsServices = new UCLabelAndDetail();
@@ -92,8 +88,7 @@ namespace MKproject.Management
             tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             TLPInfo.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
+            TLPPrimaryInfo.SuspendLayout();
             panelPrimaryInfo.SuspendLayout();
             TLPAlbum.SuspendLayout();
             TLPHistory.SuspendLayout();
@@ -114,7 +109,7 @@ namespace MKproject.Management
             TLPGlobal.RowCount = 1;
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             TLPGlobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 953F));
-            TLPGlobal.Size = new System.Drawing.Size(1640, 1055);
+            TLPGlobal.Size = new System.Drawing.Size(1640, 1128);
             TLPGlobal.TabIndex = 21;
             // 
             // TLPdatagrid
@@ -132,7 +127,7 @@ namespace MKproject.Management
             TLPdatagrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.84339F));
             TLPdatagrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.92489F));
             TLPdatagrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            TLPdatagrid.Size = new System.Drawing.Size(891, 1046);
+            TLPdatagrid.Size = new System.Drawing.Size(891, 1119);
             TLPdatagrid.TabIndex = 21;
             // 
             // TLPBalance
@@ -151,13 +146,13 @@ namespace MKproject.Management
             TLPBalance.Controls.Add(panelTotalBalance, 2, 0);
             TLPBalance.Controls.Add(panelProductBalance, 1, 0);
             TLPBalance.Dock = System.Windows.Forms.DockStyle.Fill;
-            TLPBalance.Location = new System.Drawing.Point(5, 531);
+            TLPBalance.Location = new System.Drawing.Point(5, 567);
             TLPBalance.Margin = new System.Windows.Forms.Padding(5, 8, 7, 0);
             TLPBalance.Name = "TLPBalance";
             TLPBalance.RowCount = 2;
             TLPBalance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             TLPBalance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            TLPBalance.Size = new System.Drawing.Size(879, 515);
+            TLPBalance.Size = new System.Drawing.Size(879, 552);
             TLPBalance.TabIndex = 25;
             // 
             // buttonBackOffice
@@ -173,7 +168,7 @@ namespace MKproject.Management
             buttonBackOffice.Location = new System.Drawing.Point(731, 16);
             buttonBackOffice.Margin = new System.Windows.Forms.Padding(14, 16, 14, 16);
             buttonBackOffice.Name = "buttonBackOffice";
-            buttonBackOffice.Size = new System.Drawing.Size(134, 71);
+            buttonBackOffice.Size = new System.Drawing.Size(134, 78);
             buttonBackOffice.TabIndex = 23;
             buttonBackOffice.Text = "All Transactions";
             buttonBackOffice.UseVisualStyleBackColor = false;
@@ -218,7 +213,7 @@ namespace MKproject.Management
             dataGridViewBalance.IsCustomScroll = true;
             dataGridViewBalance.IsRowColorChangeonMouseMove = true;
             dataGridViewBalance.IsSelectRow = false;
-            dataGridViewBalance.Location = new System.Drawing.Point(9, 103);
+            dataGridViewBalance.Location = new System.Drawing.Point(9, 110);
             dataGridViewBalance.Margin = new System.Windows.Forms.Padding(9, 0, 9, 11);
             dataGridViewBalance.MultiSelect = false;
             dataGridViewBalance.Name = "dataGridViewBalance";
@@ -231,7 +226,7 @@ namespace MKproject.Management
             dataGridViewBalance.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             dataGridViewBalance.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             dataGridViewBalance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewBalance.Size = new System.Drawing.Size(861, 401);
+            dataGridViewBalance.Size = new System.Drawing.Size(861, 431);
             dataGridViewBalance.TabIndex = 22;
             dataGridViewBalance.CellClick += dataGridViewBalance_CellClick;
             dataGridViewBalance.CellFormatting += dataGridViewBalance_CellFormatting;
@@ -273,7 +268,7 @@ namespace MKproject.Management
             buttonPayTotalBalance.Location = new System.Drawing.Point(595, 16);
             buttonPayTotalBalance.Margin = new System.Windows.Forms.Padding(14, 16, 14, 16);
             buttonPayTotalBalance.Name = "buttonPayTotalBalance";
-            buttonPayTotalBalance.Size = new System.Drawing.Size(108, 71);
+            buttonPayTotalBalance.Size = new System.Drawing.Size(108, 78);
             buttonPayTotalBalance.TabIndex = 2;
             buttonPayTotalBalance.Text = "Pay All";
             buttonPayTotalBalance.UseVisualStyleBackColor = false;
@@ -288,7 +283,7 @@ namespace MKproject.Management
             panelServiceBalance.Location = new System.Drawing.Point(9, 11);
             panelServiceBalance.Margin = new System.Windows.Forms.Padding(9, 11, 9, 11);
             panelServiceBalance.Name = "panelServiceBalance";
-            panelServiceBalance.Size = new System.Drawing.Size(175, 81);
+            panelServiceBalance.Size = new System.Drawing.Size(175, 88);
             panelServiceBalance.TabIndex = 0;
             // 
             // labelServiceBalance
@@ -327,7 +322,7 @@ namespace MKproject.Management
             panelTotalBalance.Location = new System.Drawing.Point(396, 11);
             panelTotalBalance.Margin = new System.Windows.Forms.Padding(9, 11, 9, 11);
             panelTotalBalance.Name = "panelTotalBalance";
-            panelTotalBalance.Size = new System.Drawing.Size(176, 81);
+            panelTotalBalance.Size = new System.Drawing.Size(176, 88);
             panelTotalBalance.TabIndex = 1;
             // 
             // labelTotalBalance
@@ -366,7 +361,7 @@ namespace MKproject.Management
             panelProductBalance.Location = new System.Drawing.Point(202, 11);
             panelProductBalance.Margin = new System.Windows.Forms.Padding(9, 11, 9, 11);
             panelProductBalance.Name = "panelProductBalance";
-            panelProductBalance.Size = new System.Drawing.Size(176, 81);
+            panelProductBalance.Size = new System.Drawing.Size(176, 88);
             panelProductBalance.TabIndex = 2;
             // 
             // labelProductBalance
@@ -410,7 +405,7 @@ namespace MKproject.Management
             TLPAdd.Name = "TLPAdd";
             TLPAdd.RowCount = 1;
             TLPAdd.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPAdd.Size = new System.Drawing.Size(879, 164);
+            TLPAdd.Size = new System.Drawing.Size(879, 176);
             TLPAdd.TabIndex = 27;
             // 
             // tableLayoutPanel5
@@ -425,7 +420,7 @@ namespace MKproject.Management
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new System.Drawing.Size(433, 156);
+            tableLayoutPanel5.Size = new System.Drawing.Size(433, 168);
             tableLayoutPanel5.TabIndex = 6;
             // 
             // buttonAddProduct
@@ -438,7 +433,7 @@ namespace MKproject.Management
             buttonAddProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAddProduct.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonAddProduct.ForeColor = System.Drawing.Color.White;
-            buttonAddProduct.Location = new System.Drawing.Point(110, 27);
+            buttonAddProduct.Location = new System.Drawing.Point(110, 33);
             buttonAddProduct.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             buttonAddProduct.Name = "buttonAddProduct";
             buttonAddProduct.Size = new System.Drawing.Size(213, 101);
@@ -459,7 +454,7 @@ namespace MKproject.Management
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel4.Size = new System.Drawing.Size(432, 156);
+            tableLayoutPanel4.Size = new System.Drawing.Size(432, 168);
             tableLayoutPanel4.TabIndex = 5;
             // 
             // buttonAddPAckge
@@ -472,7 +467,7 @@ namespace MKproject.Management
             buttonAddPAckge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonAddPAckge.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonAddPAckge.ForeColor = System.Drawing.Color.White;
-            buttonAddPAckge.Location = new System.Drawing.Point(109, 29);
+            buttonAddPAckge.Location = new System.Drawing.Point(109, 35);
             buttonAddPAckge.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             buttonAddPAckge.Name = "buttonAddPAckge";
             buttonAddPAckge.Size = new System.Drawing.Size(213, 97);
@@ -494,7 +489,7 @@ namespace MKproject.Management
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75.77548F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.22452F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(729, 1047);
+            tableLayoutPanel1.Size = new System.Drawing.Size(729, 1120);
             tableLayoutPanel1.TabIndex = 22;
             // 
             // TLPInfo
@@ -503,7 +498,7 @@ namespace MKproject.Management
             TLPInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.68354F));
             TLPInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.31646F));
             TLPInfo.Controls.Add(panelSecondaryInfo, 1, 0);
-            TLPInfo.Controls.Add(tableLayoutPanel2, 0, 0);
+            TLPInfo.Controls.Add(TLPPrimaryInfo, 0, 0);
             TLPInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             TLPInfo.Location = new System.Drawing.Point(5, 4);
             TLPInfo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -511,7 +506,7 @@ namespace MKproject.Management
             TLPInfo.RowCount = 1;
             TLPInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             TLPInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 840F));
-            TLPInfo.Size = new System.Drawing.Size(719, 785);
+            TLPInfo.Size = new System.Drawing.Size(719, 840);
             TLPInfo.TabIndex = 0;
             // 
             // panelSecondaryInfo
@@ -522,63 +517,41 @@ namespace MKproject.Management
             panelSecondaryInfo.Location = new System.Drawing.Point(364, 8);
             panelSecondaryInfo.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             panelSecondaryInfo.Name = "panelSecondaryInfo";
-            panelSecondaryInfo.Size = new System.Drawing.Size(348, 769);
+            panelSecondaryInfo.Size = new System.Drawing.Size(348, 824);
             panelSecondaryInfo.TabIndex = 1;
             // 
-            // tableLayoutPanel2
+            // TLPPrimaryInfo
             // 
-            tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(238, 241, 254);
-            tableLayoutPanel2.ColumnCount = 1;
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
-            tableLayoutPanel2.Controls.Add(panelPrimaryInfo, 0, 3);
-            tableLayoutPanel2.Controls.Add(labelName, 0, 2);
-            tableLayoutPanel2.Controls.Add(iconButtonImage, 0, 1);
-            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel2.Location = new System.Drawing.Point(7, 8);
-            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 4;
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.45674F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 41.04628F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.7773F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.47323F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(343, 769);
-            tableLayoutPanel2.TabIndex = 2;
+            TLPPrimaryInfo.BackColor = System.Drawing.Color.FromArgb(238, 241, 254);
+            TLPPrimaryInfo.ColumnCount = 1;
+            TLPPrimaryInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            TLPPrimaryInfo.Controls.Add(tableLayoutPanel3, 0, 0);
+            TLPPrimaryInfo.Controls.Add(panelPrimaryInfo, 0, 3);
+            TLPPrimaryInfo.Controls.Add(labelName, 0, 2);
+            TLPPrimaryInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            TLPPrimaryInfo.Location = new System.Drawing.Point(7, 8);
+            TLPPrimaryInfo.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            TLPPrimaryInfo.Name = "TLPPrimaryInfo";
+            TLPPrimaryInfo.RowCount = 4;
+            TLPPrimaryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.45674F));
+            TLPPrimaryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 41.04628F));
+            TLPPrimaryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.7773F));
+            TLPPrimaryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.47323F));
+            TLPPrimaryInfo.Size = new System.Drawing.Size(343, 824);
+            TLPPrimaryInfo.TabIndex = 2;
             // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             tableLayoutPanel3.ColumnCount = 1;
             tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel3.Controls.Add(buttonEditClientInfo, 0, 0);
-            tableLayoutPanel3.Location = new System.Drawing.Point(279, 4);
+            tableLayoutPanel3.Location = new System.Drawing.Point(284, 9);
             tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new System.Drawing.Size(59, 64);
+            tableLayoutPanel3.Size = new System.Drawing.Size(54, 60);
             tableLayoutPanel3.TabIndex = 0;
-            // 
-            // buttonEditClientInfo
-            // 
-            buttonEditClientInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            buttonEditClientInfo.BackColor = System.Drawing.Color.Transparent;
-            buttonEditClientInfo.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonEditClientInfo.BackgroundImage");
-            buttonEditClientInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            buttonEditClientInfo.Cursor = System.Windows.Forms.Cursors.Hand;
-            buttonEditClientInfo.FlatAppearance.BorderSize = 0;
-            buttonEditClientInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonEditClientInfo.Location = new System.Drawing.Point(6, 6);
-            buttonEditClientInfo.Margin = new System.Windows.Forms.Padding(0);
-            buttonEditClientInfo.MotionHeight = true;
-            buttonEditClientInfo.MotionWidth = true;
-            buttonEditClientInfo.Name = "buttonEditClientInfo";
-            buttonEditClientInfo.Size = new System.Drawing.Size(46, 52);
-            buttonEditClientInfo.TabIndex = 690;
-            toolTip1.SetToolTip(buttonEditClientInfo, "Edit Client Info");
-            buttonEditClientInfo.UseVisualStyleBackColor = false;
-            buttonEditClientInfo.Click += buttonEditClientInfo_Click;
             // 
             // panelPrimaryInfo
             // 
@@ -588,10 +561,10 @@ namespace MKproject.Management
             panelPrimaryInfo.Controls.Add(UCLastVisit);
             panelPrimaryInfo.Controls.Add(TLPAlbum);
             panelPrimaryInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelPrimaryInfo.Location = new System.Drawing.Point(0, 482);
+            panelPrimaryInfo.Location = new System.Drawing.Point(0, 518);
             panelPrimaryInfo.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             panelPrimaryInfo.Name = "panelPrimaryInfo";
-            panelPrimaryInfo.Size = new System.Drawing.Size(343, 287);
+            panelPrimaryInfo.Size = new System.Drawing.Size(343, 306);
             panelPrimaryInfo.TabIndex = 0;
             // 
             // UCMemberSince
@@ -621,9 +594,8 @@ namespace MKproject.Management
             // TLPAlbum
             // 
             TLPAlbum.ColumnCount = 2;
-            TLPAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            TLPAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            TLPAlbum.Controls.Add(buttonEditAlbum, 0, 0);
+            TLPAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.96501F));
+            TLPAlbum.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0349846F));
             TLPAlbum.Controls.Add(UCAlbum, 0, 0);
             TLPAlbum.Dock = System.Windows.Forms.DockStyle.Top;
             TLPAlbum.Location = new System.Drawing.Point(0, 0);
@@ -635,26 +607,6 @@ namespace MKproject.Management
             TLPAlbum.Size = new System.Drawing.Size(343, 63);
             TLPAlbum.TabIndex = 0;
             // 
-            // buttonEditAlbum
-            // 
-            buttonEditAlbum.Anchor = System.Windows.Forms.AnchorStyles.None;
-            buttonEditAlbum.BackColor = System.Drawing.Color.Transparent;
-            buttonEditAlbum.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonEditAlbum.BackgroundImage");
-            buttonEditAlbum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            buttonEditAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
-            buttonEditAlbum.FlatAppearance.BorderSize = 0;
-            buttonEditAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonEditAlbum.Location = new System.Drawing.Point(285, 11);
-            buttonEditAlbum.Margin = new System.Windows.Forms.Padding(0);
-            buttonEditAlbum.MotionHeight = true;
-            buttonEditAlbum.MotionWidth = true;
-            buttonEditAlbum.Name = "buttonEditAlbum";
-            buttonEditAlbum.Size = new System.Drawing.Size(46, 40);
-            buttonEditAlbum.TabIndex = 691;
-            toolTip1.SetToolTip(buttonEditAlbum, "Edit Album");
-            buttonEditAlbum.UseVisualStyleBackColor = false;
-            buttonEditAlbum.Click += buttonEditAlbum_Click;
-            // 
             // UCAlbum
             // 
             UCAlbum.Detail = "";
@@ -663,7 +615,7 @@ namespace MKproject.Management
             UCAlbum.Location = new System.Drawing.Point(0, 0);
             UCAlbum.Margin = new System.Windows.Forms.Padding(0);
             UCAlbum.Name = "UCAlbum";
-            UCAlbum.Size = new System.Drawing.Size(274, 63);
+            UCAlbum.Size = new System.Drawing.Size(287, 63);
             UCAlbum.TabIndex = 2;
             UCAlbum.Tag = "";
             UCAlbum.Type = "Album";
@@ -672,32 +624,13 @@ namespace MKproject.Management
             // 
             labelName.Dock = System.Windows.Forms.DockStyle.Fill;
             labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelName.Location = new System.Drawing.Point(5, 388);
+            labelName.Location = new System.Drawing.Point(5, 417);
             labelName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             labelName.Name = "labelName";
-            labelName.Size = new System.Drawing.Size(333, 90);
+            labelName.Size = new System.Drawing.Size(333, 97);
             labelName.TabIndex = 1;
             labelName.Text = "Mikael khalil(Adult)";
             labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // iconButtonImage
-            // 
-            iconButtonImage.Anchor = System.Windows.Forms.AnchorStyles.None;
-            iconButtonImage.BackColor = System.Drawing.Color.Transparent;
-            iconButtonImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            iconButtonImage.FlatAppearance.BorderSize = 0;
-            iconButtonImage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            iconButtonImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            iconButtonImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            iconButtonImage.Location = new System.Drawing.Point(51, 114);
-            iconButtonImage.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            iconButtonImage.MotionHeight = true;
-            iconButtonImage.MotionWidth = true;
-            iconButtonImage.Name = "iconButtonImage";
-            iconButtonImage.Size = new System.Drawing.Size(241, 231);
-            iconButtonImage.TabIndex = 691;
-            iconButtonImage.UseVisualStyleBackColor = false;
-            iconButtonImage.Click += iconButtonImage_Click;
             // 
             // TLPHistory
             // 
@@ -712,7 +645,7 @@ namespace MKproject.Management
             TLPHistory.Controls.Add(UCpaymentsProducts, 1, 1);
             TLPHistory.Controls.Add(UCTokenProducts, 0, 1);
             TLPHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            TLPHistory.Location = new System.Drawing.Point(5, 797);
+            TLPHistory.Location = new System.Drawing.Point(5, 852);
             TLPHistory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             TLPHistory.Name = "TLPHistory";
             TLPHistory.RowCount = 3;
@@ -720,7 +653,7 @@ namespace MKproject.Management
             TLPHistory.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             TLPHistory.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             TLPHistory.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            TLPHistory.Size = new System.Drawing.Size(719, 246);
+            TLPHistory.Size = new System.Drawing.Size(719, 264);
             TLPHistory.TabIndex = 1;
             // 
             // UCpaymentsTotal
@@ -728,10 +661,10 @@ namespace MKproject.Management
             UCpaymentsTotal.Detail = "$600";
             UCpaymentsTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             UCpaymentsTotal.Index = 0;
-            UCpaymentsTotal.Location = new System.Drawing.Point(362, 171);
+            UCpaymentsTotal.Location = new System.Drawing.Point(362, 183);
             UCpaymentsTotal.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             UCpaymentsTotal.Name = "UCpaymentsTotal";
-            UCpaymentsTotal.Size = new System.Drawing.Size(351, 68);
+            UCpaymentsTotal.Size = new System.Drawing.Size(351, 74);
             UCpaymentsTotal.TabIndex = 0;
             UCpaymentsTotal.Type = "Total Payments";
             // 
@@ -743,7 +676,7 @@ namespace MKproject.Management
             UCpaymentsServices.Location = new System.Drawing.Point(362, 7);
             UCpaymentsServices.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             UCpaymentsServices.Name = "UCpaymentsServices";
-            UCpaymentsServices.Size = new System.Drawing.Size(351, 68);
+            UCpaymentsServices.Size = new System.Drawing.Size(351, 74);
             UCpaymentsServices.TabIndex = 0;
             UCpaymentsServices.Type = "Total Services Payment";
             // 
@@ -752,12 +685,12 @@ namespace MKproject.Management
             UCTotalAttendance.Detail = "14";
             UCTotalAttendance.Dock = System.Windows.Forms.DockStyle.Fill;
             UCTotalAttendance.Index = 0;
-            UCTotalAttendance.Location = new System.Drawing.Point(6, 171);
+            UCTotalAttendance.Location = new System.Drawing.Point(6, 183);
             UCTotalAttendance.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             UCTotalAttendance.Name = "UCTotalAttendance";
-            UCTotalAttendance.Size = new System.Drawing.Size(344, 68);
+            UCTotalAttendance.Size = new System.Drawing.Size(344, 74);
             UCTotalAttendance.TabIndex = 0;
-            UCTotalAttendance.Type = "Total Session Completions";
+            UCTotalAttendance.Type = "Total Sessions Completions";
             // 
             // UCTokenServices
             // 
@@ -767,7 +700,7 @@ namespace MKproject.Management
             UCTokenServices.Location = new System.Drawing.Point(6, 7);
             UCTokenServices.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             UCTokenServices.Name = "UCTokenServices";
-            UCTokenServices.Size = new System.Drawing.Size(344, 68);
+            UCTokenServices.Size = new System.Drawing.Size(344, 74);
             UCTokenServices.TabIndex = 0;
             UCTokenServices.Type = "Token services";
             // 
@@ -776,10 +709,10 @@ namespace MKproject.Management
             UCpaymentsProducts.Detail = "$200";
             UCpaymentsProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             UCpaymentsProducts.Index = 0;
-            UCpaymentsProducts.Location = new System.Drawing.Point(362, 89);
+            UCpaymentsProducts.Location = new System.Drawing.Point(362, 95);
             UCpaymentsProducts.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             UCpaymentsProducts.Name = "UCpaymentsProducts";
-            UCpaymentsProducts.Size = new System.Drawing.Size(351, 68);
+            UCpaymentsProducts.Size = new System.Drawing.Size(351, 74);
             UCpaymentsProducts.TabIndex = 0;
             UCpaymentsProducts.Type = "Total Products Payment";
             // 
@@ -788,10 +721,10 @@ namespace MKproject.Management
             UCTokenProducts.Detail = "1";
             UCTokenProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             UCTokenProducts.Index = 0;
-            UCTokenProducts.Location = new System.Drawing.Point(6, 89);
+            UCTokenProducts.Location = new System.Drawing.Point(6, 95);
             UCTokenProducts.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             UCTokenProducts.Name = "UCTokenProducts";
-            UCTokenProducts.Size = new System.Drawing.Size(344, 68);
+            UCTokenProducts.Size = new System.Drawing.Size(344, 74);
             UCTokenProducts.TabIndex = 0;
             UCTokenProducts.Type = "Token Products";
             // 
@@ -804,7 +737,7 @@ namespace MKproject.Management
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1640, 1055);
+            ClientSize = new System.Drawing.Size(1640, 1128);
             Controls.Add(TLPGlobal);
             DoubleBuffered = true;
             Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -827,8 +760,7 @@ namespace MKproject.Management
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             TLPInfo.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel3.ResumeLayout(false);
+            TLPPrimaryInfo.ResumeLayout(false);
             panelPrimaryInfo.ResumeLayout(false);
             TLPAlbum.ResumeLayout(false);
             TLPHistory.ResumeLayout(false);
@@ -859,8 +791,7 @@ namespace MKproject.Management
         private System.Windows.Forms.Panel panelSecondaryInfo;
         private System.Windows.Forms.Panel panelPrimaryInfo;
         private System.Windows.Forms.Label labelName;
-        private IconButton buttonEditClientInfo;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel TLPPrimaryInfo;
         private UCLabelAndDetail UCAlbum;
         public UCLabelAndDetail UCLastVisit;
         private System.Windows.Forms.TableLayoutPanel TLPHistory;
@@ -872,8 +803,6 @@ namespace MKproject.Management
         public UCLabelAndDetail UCTokenServices;
         public UCLabelAndDetail UCMemberSince;
         private System.Windows.Forms.TableLayoutPanel TLPAlbum;
-        private IconButton iconButtonImage;
-        private IconButton buttonEditAlbum;
         private System.Windows.Forms.Button buttonBackOffice;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
