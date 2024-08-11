@@ -54,7 +54,6 @@ namespace MKproject.Schedule
 
             IsCompletedButtonMode = false;
             DesiredClient = desiredclient;
-            DisplayUCReminder(desiredclient);
         }
 
         private void ClientReminder_Load(object sender, EventArgs e)
@@ -64,6 +63,8 @@ namespace MKproject.Schedule
                 panelreminder.VerticalScroll.Value = 0;
                 panelreminder.PerformLayout(); // Forces the panel to update its layout if necessary
             });
+            DisplayUCReminder(desiredclient);
+
         }
 
         private void ButtonAdd_Click(object sender, EventArgs e)

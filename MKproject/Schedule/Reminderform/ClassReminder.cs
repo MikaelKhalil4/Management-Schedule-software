@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows.Controls;
+using Amazon.S3.Model;
 
 namespace MKproject.Schedule.Reminderform
 {
@@ -57,7 +58,7 @@ namespace MKproject.Schedule.Reminderform
                                                         FROM reminder
                                                         LEFT JOIN client ON reminder.client_id = client.client_id
                                                         WHERE is_checked = @is_checked
-                                                        ORDER BY modified_date DESC", con);
+                                                        ORDER BY modified_date DESC");
             command1.AddWithValue("@is_checked", IsChecked);
             var adapter1 = Program.CreateDataAdapter(command1);
             DataTable dt1 = new DataTable();
@@ -132,12 +133,15 @@ namespace MKproject.Schedule.Reminderform
             Program.con.Close();
             return dt1;
         }
+
+
+        //ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, starttime ASC
         public static DataTable DisplayReminderByClientName(ClassClientCustom DesiredClient, bool IsChecked)
         {
             var command1 = Program.CreateCommand(@"SELECT reminder_id, reminder, repeat, starttime, is_checked
                                                          FROM reminder
                                                          WHERE client_id = @client_id AND is_checked = @is_checked
-                                                         ORDER BY modified_date DESC", con);
+                                                         ORDER BY modified_date DESC");
             command1.AddWithValue("@client_id", DesiredClient.ClientId);
             command1.AddWithValue("@is_checked", IsChecked);
             var adapter1 = Program.CreateDataAdapter(command1);
@@ -156,8 +160,8 @@ namespace MKproject.Schedule.Reminderform
             int idreminder;
             IsChecked = false;
 
-            var command = Program.CreateCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked,modified_date)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked,@modified_date) ", con);
-            var cmd = Program.CreateCommand("SELECT Max(reminder_id) FROM reminder", con);
+            var command = Program.CreateCommand("INSERT INTO reminder  (client_id,reminder,repeat,starttime,is_checked,modified_date)  VALUES (@client_id,@reminder,@repeat,@starttime,@is_checked,@modified_date) ");
+            var cmd = Program.CreateCommand("SELECT Max(reminder_id) FROM reminder");
 
 
             command.AddWithValue("@reminder", Reminder);
@@ -181,7 +185,7 @@ namespace MKproject.Schedule.Reminderform
         }
         public void UpdateFromRemindertoSQL()
         {
-            var command = Program.CreateCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime, modified_date=@modified_date WHERE reminder_id =@reminder_id", con);
+            var command = Program.CreateCommand("UPDATE reminder SET client_id=@client_id,reminder=@reminder, repeat=@repeat, starttime=@starttime, modified_date=@modified_date WHERE reminder_id =@reminder_id");
 
 
             command.AddWithValue("@reminder", Reminder);
