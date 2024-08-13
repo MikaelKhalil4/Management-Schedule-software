@@ -601,48 +601,48 @@ namespace MKproject.Management
                     }
                 }
 
-                else if (FieldName == enumStaticFields.ProfileImage.ToString())
-                {
-                    if (isVisible)
-                    {
-                        if (UCProfileImage == null)
-                        {
-                            UCProfileImage = new UCCamera("Profile Picture", isRequired);
-                            UCProfileImage.Tag = this;
-                            UCProfileImage.Width = ControlsWidthInsideFLP;
-                            FLPInfo.Controls.Add(UCProfileImage);
-                        }
-                        else
-                        {
-                            if (isRequired && !UCProfileImage.IsRequired)
-                            {
-                                UCProfileImage.IsRequired = true;
-                            }
-                            else if (!isRequired && UCProfileImage.IsRequired)
-                            {
-                                UCProfileImage.IsRequired = false;
-                            }
-                        }
+                //else if (FieldName == enumStaticFields.ProfileImage.ToString())
+                //{
+                //    if (isVisible)
+                //    {
+                //        if (UCProfileImage == null)
+                //        {
+                //            UCProfileImage = new UCCamera("Profile Picture", isRequired);
+                //            UCProfileImage.Tag = this;
+                //            UCProfileImage.Width = ControlsWidthInsideFLP;
+                //            FLPInfo.Controls.Add(UCProfileImage);
+                //        }
+                //        else
+                //        {
+                //            if (isRequired && !UCProfileImage.IsRequired)
+                //            {
+                //                UCProfileImage.IsRequired = true;
+                //            }
+                //            else if (!isRequired && UCProfileImage.IsRequired)
+                //            {
+                //                UCProfileImage.IsRequired = false;
+                //            }
+                //        }
 
-                        if (Client != null && Client.ProfileImage != null)
-                        {
-                            UCProfileImage.FillDesignValues(Client.ProfileImage);
-                        }
+                //        if (Client != null && Client.ProfileImage != null)
+                //        {
+                //            UCProfileImage.FillDesignValues(Client.ProfileImage);
+                //        }
 
-                        UCProfileImage.Index = (int)enumStaticFields.ProfileImage;
+                //        UCProfileImage.Index = (int)enumStaticFields.ProfileImage;
 
-                    }
-                    else
-                    {
-                        if (UCProfileImage != null)
-                        {
+                //    }
+                //    else
+                //    {
+                //        if (UCProfileImage != null)
+                //        {
 
-                            this.Controls.Remove(UCProfileImage);
-                            UCProfileImage.Dispose();
-                            UCProfileImage = null;
-                        }
-                    }
-                }
+                //            this.Controls.Remove(UCProfileImage);
+                //            UCProfileImage.Dispose();
+                //            UCProfileImage = null;
+                //        }
+                //    }
+                //}
                 else if (FieldName == enumStaticFields.MaritalStatus.ToString())
                 {
                     if (isVisible)

@@ -56,6 +56,7 @@ namespace CustomizedTools
             this.FlatStyle = FlatStyle.Flat;
             this.FlatAppearance.BorderSize = 0;
             this.BackgroundImageLayout = ImageLayout.Zoom;
+            this.Cursor = Cursors.Hand;
 
         }
         protected override void OnMouseEnter(EventArgs e)
@@ -70,7 +71,6 @@ namespace CustomizedTools
             {
                 this.Height = InitialHeight + 2;
             }
-          this.Cursor = Cursors.Hand;
         }
 
         protected override void OnMouseLeave(EventArgs e)
@@ -80,7 +80,7 @@ namespace CustomizedTools
             {
                 this.Size = new Size(InitialWidth, InitialHeight);
             }
-            this.Cursor= Cursors.Default;
+
         }
       
 

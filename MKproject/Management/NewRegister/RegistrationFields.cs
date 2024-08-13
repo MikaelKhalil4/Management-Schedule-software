@@ -106,11 +106,11 @@ namespace MKproject.Management
                     row["design_index"] = (int)enumStaticFields.FullName;
                     row["FakeFields"] = enumStaticFields.FullName.GetStringValue();
                 }
-                else if (FieldName == enumStaticFields.ProfileImage.ToString())
-                {
-                    row["design_index"] = (int)enumStaticFields.ProfileImage;
-                    row["FakeFields"] = enumStaticFields.ProfileImage.GetStringValue();
-                }
+                //else if (FieldName == enumStaticFields.ProfileImage.ToString())
+                //{
+                //    row["design_index"] = (int)enumStaticFields.ProfileImage;
+                //    row["FakeFields"] = enumStaticFields.ProfileImage.GetStringValue();
+                //}
                 else if (FieldName == enumStaticFields.PhoneNumber.ToString())
                 {
                     row["design_index"] = (int)enumStaticFields.PhoneNumber;
@@ -163,7 +163,7 @@ namespace MKproject.Management
                     row["FakeFields"] = enumStaticFields.HowDidYouKnowAboutUs.GetStringValue();
                 }
               
-                    classClientCustomFront.FormatOriginalDt(row, FieldName);
+                classClientCustomFront.FormatOriginalDt(row, FieldName);
 
                 if (string.IsNullOrEmpty(row["FakeFields"].ToString()))//men kun mhina its enum, bas baado bel db fo security data resone
                 {

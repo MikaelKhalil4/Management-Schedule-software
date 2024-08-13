@@ -69,8 +69,6 @@ namespace MKproject.Management
 
             LoadData(client, isFromSchedule);
             dataGridViewBalance.ApplyStyle1();
-
-
         }
 
         IconButton buttonEditClientInfo;
@@ -489,7 +487,11 @@ namespace MKproject.Management
 
             //seocndary info
 
-
+            //hayde should be deleted men hone eza rjeena raddayna el profile
+            iconButtonImage.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "user1.png");
+            iconButtonImage.Cursor = Cursors.Default;
+            iconButtonImage.MotionHeight = false;
+            iconButtonImage.MotionHeight = false;
 
             bool NewUCCreated = false;
             DataTable dt = SQLToProject.GetAllVisibleFields();
@@ -498,31 +500,32 @@ namespace MKproject.Management
                 bool isVisible = Convert.ToBoolean(row["Visible"]);
                 string FieldName = row["Fields"].ToString();
 
-                //Static
-                if (FieldName == enumStaticFields.ProfileImage.ToString())
-                {
+                ////Static
+                //if (FieldName == enumStaticFields.ProfileImage.ToString())
+                //{
 
-                    if (isVisible)
-                    {
+                //    if (isVisible)
+                //    {
 
-                        if (Client.ProfileImage != null)
-                        {
+                //        if (Client.ProfileImage != null)
+                //        {
 
-                            iconButtonImage.BackgroundImage = Client.ProfileImage;
-                            NewUCCreated = true;
-                        }
-                        else
-                        {
-                            iconButtonImage.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "user1.png");
-                        }
-                    }
-                    else
-                    {
-                        iconButtonImage.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "user1.png");
-                    }
+                //            iconButtonImage.BackgroundImage = Client.ProfileImage;
+                //            NewUCCreated = true;
+                //        }
+                //        else
+                //        {
+                //            iconButtonImage.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "user1.png");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        iconButtonImage.BackgroundImage = ImagesFunctions.loadImageFromProject(AppDomain.CurrentDomain.BaseDirectory, "images", "user1.png");
+                //    }
 
-                }
-                else if (FieldName == enumStaticFields.PhoneNumber.ToString())
+                //}
+                //else
+                if (FieldName == enumStaticFields.PhoneNumber.ToString())
                 {
 
                     NewUCCreated = CreateDesiredUCLabelDetails(ref UCPhoneNumber, enumStaticFields.PhoneNumber.GetStringValue(), Client.PhoneNumber, isVisible, (int)enumStaticFields.PhoneNumber);

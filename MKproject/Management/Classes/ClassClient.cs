@@ -107,13 +107,13 @@ namespace MKproject.Management
             Female
         }
 
-        public enum enumStaticFields//azghar index lezim ykun one
+        public enum enumStaticFields//ejabre ballish men 1 minimum kermel el labels
         {
             //static
-            [StringValue("Profile Image")]
-            ProfileImage = 10,
+            //[StringValue("Profile Image")]
+            //ProfileImage = 10,
             [StringValue("Full Name")]
-            FullName,
+            FullName = 10,
             [StringValue("Phone Number")]
             PhoneNumber,
             [StringValue("Email")]
