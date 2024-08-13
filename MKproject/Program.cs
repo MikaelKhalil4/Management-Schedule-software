@@ -24,7 +24,7 @@ namespace MKproject
         public static bool IsANewParentAddedOrParentPhoneUpdated;//this variable is used kermel lamma nerjaa aal search(nekbus back men el management), naamil restore men el datatbase 
                                                                  //in 2 cases:1) Lamma naamil add la new parent men el new register,2) lamma naamil update la phone number tabaa parent eendo chiddrens
 
-       
+        
 
         //Global Colors:  Soft Gentle  Medium Vibrant Bold
         public static Color SoftColor = Color.FromArgb(238, 241, 254);//used if the backgorund was white
