@@ -16,21 +16,21 @@ variables:
         value: $(minio-bucket-global)
 
       - name: AppName
-        value: FoxApp
+        value: Foxera
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'elk') }}:
       - name: bucketname
         value: $(minio-bucket-elk)
 
       - name: AppName
-        value: FoxAppelk
+        value: Foxera-elk
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'soft') }}:
       - name: bucketname
         value: $(minio-bucket-soft)
 
       - name: AppName
-        value: FoxAppSoft
+        value: Foxera-Soft
 
 
 resources:
@@ -182,7 +182,7 @@ jobs:
           dotnet tool install --global vpk --version 0.0.359 
           dotnet publish MKproject/MKproject.csproj  -c Release  -o MKproject/bin/Publish/$(ARCHITECTURE)  -r $(ARCHITECTURE)  --self-contained true
           vpk download http --channel $(ARCHITECTURE) --url $(minio-url)
-          vpk pack  -u $(AppName) -v $(VersionNumber)  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle "Fox"  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
+          vpk pack  -u $(AppName) -v $(VersionNumber)  -p MKproject/bin/Publish/$(ARCHITECTURE)  -e MKproject.exe  --channel $(ARCHITECTURE)  --packTitle $(AppName)  --icon MKproject/images/foxlogo.ico  --splashImage MKproject/images/foxlogo.ico  --verbose
           vpk upload s3  --bucket  $(bucketname)  --channel $(ARCHITECTURE)  --endpoint $(minio-ip-port)  --keyId $(minio-keyId)  --secret $(minio-secret)
         displayName: 'Create and Upload Velopack Release'
         env:

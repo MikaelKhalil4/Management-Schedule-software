@@ -127,7 +127,6 @@ namespace MKproject.Infrastucture
                                             // 'logFile' is the parameter name that the server expects
                                             content.Add(fileContent, "logFile", Path.GetFileName(filePath));
 
-                                            // Handle if it can't connect to the API
                                             response = await client.PostAsync(requestUri, content);
                                         }
                                     }
