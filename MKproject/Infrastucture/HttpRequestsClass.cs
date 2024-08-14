@@ -31,7 +31,7 @@ namespace MKproject.Infrastucture
             {
                 bool result;
 
-                string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+                string ticketID = ECService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
 
                 if (ticketID == null)
                     return false;
@@ -100,7 +100,7 @@ namespace MKproject.Infrastucture
 
                     if (RandomFunctions.IsInternetAvailable())
                     {
-                        string ticketID = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+                        string ticketID = ECService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
 
                         if (ticketID == null)
                             return;
@@ -167,13 +167,13 @@ namespace MKproject.Infrastucture
 
 
                         //Updating the TicketId
-                        string TicketIdKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.TicketId.ToString());
-                        string TicketIDvalueEncryp = EncryptionService.EncryptString(clientTicket.TicketId);
+                        string TicketIdKeyEnc = ECService.EncryptString(SettingsSql.EnumSettingKey.TicketId.ToString());
+                        string TicketIDvalueEncryp = ECService.EncryptString(clientTicket.TicketId);
                         SettingsSql.UpdateKeyValue(TicketIdKeyEnc, TicketIDvalueEncryp);
 
                         //Updating the TicketId The Main Device
-                        string IsMaindDeviceKeyEnc = EncryptionService.EncryptString(SettingsSql.EnumSettingKey.IsMainDevice.ToString());
-                        string IsMaindDeviceKeyValueEnc = EncryptionService.EncryptString(clientTicket.IsMainDevice.ToString());
+                        string IsMaindDeviceKeyEnc = ECService.EncryptString(SettingsSql.EnumSettingKey.IsMainDevice.ToString());
+                        string IsMaindDeviceKeyValueEnc = ECService.EncryptString(clientTicket.IsMainDevice.ToString());
                         SettingsSql.UpdateKeyValue(IsMaindDeviceKeyEnc, IsMaindDeviceKeyValueEnc);
 
 
@@ -217,13 +217,13 @@ namespace MKproject.Infrastucture
         public static async Task UpdateDueDateSubscription()
         {
 
-            string DueDateKeyEncryp = EncryptionService.EncryptString(EnumSettingKey.DueDateMembership.ToString());
+            string DueDateKeyEncryp = ECService.EncryptString(EnumSettingKey.DueDateMembership.ToString());
             string DueDateValueEncryp = null;
 
             try
             {
 
-                string ticketId = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
+                string ticketId = ECService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.TicketId.ToString());
                 string DeviceIp = GetMotherboardSerialNumber();
                 using (HttpClient client = new HttpClient())
                 {
@@ -265,7 +265,7 @@ namespace MKproject.Infrastucture
 
                     if (Date != null)
                     {
-                        DueDateValueEncryp = EncryptionService.EncryptString(((DateTime)Date).ToString("yyyy-MM-dd"));
+                        DueDateValueEncryp = ECService.EncryptString(((DateTime)Date).ToString("yyyy-MM-dd"));
                       
                     }
 

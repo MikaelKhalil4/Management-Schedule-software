@@ -26,14 +26,13 @@ namespace MKproject.Infrastucture
 
         public static async Task SetupBackupTimerndStartItIfNecessar()
         {
-             
+            backupTimer = new Timer();
+            backupTimer.Interval = 60000 * 15; // 15 minutes == 900000 in ms
+            backupTimer.Tick += async (sender, args) => await CheckAndAutomateBackUpIfNecessar();//setup the even tick and it s logic inside
+
             if (BackupHelper.CheckIfAutomatedBackupIsActive())
             {
                 await CheckAndAutomateBackUpIfNecessar(); //starting the first iteration
-
-                backupTimer = new Timer();
-                backupTimer.Interval = 60000 * 15; // 15 minutes == 900000 in ms
-                backupTimer.Tick += async (sender, args) => await CheckAndAutomateBackUpIfNecessar();//setup the even tick and it s logic inside
                 backupTimer.Start();
             }
         }

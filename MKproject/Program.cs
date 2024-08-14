@@ -110,11 +110,9 @@ namespace MKproject
             Application.ThreadException += new ThreadExceptionEventHandler(GlobalExceptionHandler);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
 
+       
 
-            Log.Logger = new LoggerConfiguration()
-                            .ReadFrom.Configuration(AppConfig.Configuration)
-                            .CreateLogger();
-
+            LogHelper.ConfigureLogging();
 
             //logging and backup
             SettingsSql.EnsureSettingsExist();//ejabre

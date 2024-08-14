@@ -30,8 +30,8 @@ namespace MKproject.Infrastucture
 
                 if (key == EnumSettingKey.TicketId || key == EnumSettingKey.DueDateMembership || key == EnumSettingKey.IsMainDevice)
                 {
-                    keyName = EncryptionService.EncryptString(keyName);
-                    keyValue = keyValue != null ? EncryptionService.EncryptString(keyValue) : null;
+                    keyName = ECService.EncryptString(keyName);
+                    keyValue = keyValue != null ? ECService.EncryptString(keyValue) : null;
                 }
 
 

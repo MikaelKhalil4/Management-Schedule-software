@@ -20,7 +20,20 @@ namespace MKproject.Infrastucture
         }
         public static void logException(Exception e)
         {
+            ConfigureLogging();
+
+
             Log.Error("Unhandled exception occurred. Message: {ExceptionMessage}, StackTrace: {StackTrace}", e.Message, e.StackTrace);
+
+
+            Log.CloseAndFlush();
+        }
+
+        public static void ConfigureLogging()
+        {
+            Log.Logger = new LoggerConfiguration()
+                                       .ReadFrom.Configuration(AppConfig.Configuration)
+                                       .CreateLogger();
         }
     }
 }

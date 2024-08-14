@@ -31,7 +31,7 @@ namespace MKproject
             isConstrutor = true;
 
 
-            DateTime DueDate =Convert.ToDateTime(EncryptionService.GetDecryptedKeyValue(EnumSettingKey.DueDateMembership.ToString()));
+            DateTime DueDate =Convert.ToDateTime(ECService.GetDecryptedKeyValue(EnumSettingKey.DueDateMembership.ToString()));
 
 
             string DueDateString= RandomFunctions.SetDateFormatWithDayWithoutHour(DueDate.ToString());

@@ -44,7 +44,7 @@ namespace MKproject.Infrastucture
             }
 
             //check offline his due date,and start drop warnings
-            string DueDateValue = EncryptionService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.DueDateMembership.ToString());
+            string DueDateValue = ECService.GetDecryptedKeyValue(SettingsSql.EnumSettingKey.DueDateMembership.ToString());
 
             DateTime? dueDate = null;
             int Minute = 60000;
@@ -112,9 +112,9 @@ namespace MKproject.Infrastucture
                     $"\nPlease renew your subscription at your earliest convenience to continue accessing all features." +
                     $"\n\nThank you for choosing us!";
             }
-            else
+            else//hayda el message ha ybayyin only eza bel https request toloolna 5XX error
             {
-                DesiredMessage = $"Oops! Something went wrong. We're here to help—please reach out to customer support so we can get this sorted out for you."+
+                DesiredMessage = $"Oops! Something went wrong on our Server. We're here to help—please reach out to customer support so we can get this sorted out for you."+
                                  $"\nIf you have an active bundle, you can turn off the internet and continue using the application.";
 
             }
