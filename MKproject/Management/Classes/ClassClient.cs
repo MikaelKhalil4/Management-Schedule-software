@@ -329,7 +329,6 @@ namespace MKproject.Management
 
             DataTable dt = new DataTable();
             string query = "SELECT client_id,name,family_name,phone_number as \"Phone Number\",adress as \"Adress\",IsParent FROM Client WHERE IsChild='0' ";
-            SQLiteCommand command = null;
 
             if (ClientId != null)//update form
             {
@@ -338,16 +337,16 @@ namespace MKproject.Management
             query += " ORDER BY last_time_searched  DESC";
 
 
-            command = new SQLiteCommand(query);
+            var command = Program.CreateCommand(query);
 
 
             if (ClientId != null)//update form
             {
-                command.Parameters.AddWithValue("@client_id", ClientId);
+                command.AddWithValue("@client_id", ClientId);
             }
 
 
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            var adapter = Program.CreateDataAdapter(command);
             adapter.Fill(dt);
             return dt;
         }

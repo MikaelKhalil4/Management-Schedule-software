@@ -91,73 +91,73 @@ namespace MKproject.Management
             //TransferProducts(conOld, conNew);
         }
 
-        private static void InsertClientField(SQLiteConnection connection, int clientId, enumDynamicFields field, string content)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                return;
-            }
-            // Get the field ID from the required_visible_fields table
-            int fieldId = GetFieldId(connection, field.ToString());
+        //private static void InsertClientField(SQLiteConnection connection, int clientId, enumDynamicFields field, string content)
+        //{
+        //    if (string.IsNullOrWhiteSpace(content))
+        //    {
+        //        return;
+        //    }
+        //    // Get the field ID from the required_visible_fields table
+        //    int fieldId = GetFieldId(connection, field.ToString());
 
-            string insertQuery = "INSERT INTO client_fields (client_id, fields_id, content) VALUES (@client_id, @fields_id, @content)";
-            using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
-            {
-                insertCommand.Parameters.AddWithValue("@client_id", clientId);
-                insertCommand.Parameters.AddWithValue("@fields_id", fieldId);
-                insertCommand.Parameters.AddWithValue("@content", content);
+        //    string insertQuery = "INSERT INTO client_fields (client_id, fields_id, content) VALUES (@client_id, @fields_id, @content)";
+        //    using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
+        //    {
+        //        insertCommand.Parameters.AddWithValue("@client_id", clientId);
+        //        insertCommand.Parameters.AddWithValue("@fields_id", fieldId);
+        //        insertCommand.Parameters.AddWithValue("@content", content);
 
-                insertCommand.ExecuteNonQuery();
-            }
-        }
+        //        insertCommand.ExecuteNonQuery();
+        //    }
+        //}
 
-        private static int GetFieldId(SQLiteConnection connection, string fieldName)
-        {
-            string query = "SELECT fields_id FROM required_visible_fields WHERE Fields = @fieldName";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@fieldName", fieldName);
-                return Convert.ToInt32(command.ExecuteScalar());
-            }
-        }
+        //private static int GetFieldId(SQLiteConnection connection, string fieldName)
+        //{
+        //    string query = "SELECT fields_id FROM required_visible_fields WHERE Fields = @fieldName";
+        //    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+        //    {
+        //        command.Parameters.AddWithValue("@fieldName", fieldName);
+        //        return Convert.ToInt32(command.ExecuteScalar());
+        //    }
+        //}
 
 
 
-        static void UpdateDate(string connectionString)
-        {
-            using (SQLiteConnection conNew = new SQLiteConnection(connectionString))
-            {
-                conNew.Open();
+        //static void UpdateDate(string connectionString)
+        //{
+        //    using (SQLiteConnection conNew = new SQLiteConnection(connectionString))
+        //    {
+        //        conNew.Open();
 
-                string selectQuery = "SELECT client_id, last_time_searched FROM client";
-                SQLiteCommand cmd = new SQLiteCommand(selectQuery, conNew);
-                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
+        //        string selectQuery = "SELECT client_id, last_time_searched FROM client";
+        //        SQLiteCommand cmd = new SQLiteCommand(selectQuery, conNew);
+        //        SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+        //        DataTable dt = new DataTable();
+        //        sda.Fill(dt);
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    DateTime originalDate;
-                    if (DateTime.TryParse(dr["last_time_searched"].ToString(), out originalDate))
-                    {
-                        //Convert the date to the desired format
-                        string formattedDate = originalDate.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            DateTime originalDate;
+        //            if (DateTime.TryParse(dr["last_time_searched"].ToString(), out originalDate))
+        //            {
+        //                //Convert the date to the desired format
+        //                string formattedDate = originalDate.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
 
-                        //Update the date in the database
-                        string updateQuery = "UPDATE client SET last_time_searched = @newDate WHERE client_id = @client_id";
-                        using (SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conNew))
-                        {
-                            updateCmd.Parameters.AddWithValue("@newDate", formattedDate);
-                            updateCmd.Parameters.AddWithValue("@client_id", dr["client_id"]);
-                            updateCmd.ExecuteNonQuery();
-                        }
-                    }
-                }
+        //                //Update the date in the database
+        //                string updateQuery = "UPDATE client SET last_time_searched = @newDate WHERE client_id = @client_id";
+        //                using (SQLiteCommand updateCmd = new SQLiteCommand(updateQuery, conNew))
+        //                {
+        //                    updateCmd.Parameters.AddWithValue("@newDate", formattedDate);
+        //                    updateCmd.Parameters.AddWithValue("@client_id", dr["client_id"]);
+        //                    updateCmd.ExecuteNonQuery();
+        //                }
+        //            }
+        //        }
 
-                conNew.Close();
-            }
+        //        conNew.Close();
+        //    }
 
-        }
+        //}
 
             //private static void TransferAlbums(SqlConnection conOld, SQLiteConnection conNew)
             //{
