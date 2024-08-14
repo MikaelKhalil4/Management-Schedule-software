@@ -227,6 +227,7 @@ namespace MKproject.Management
             labelVersion.Size = new System.Drawing.Size(53, 20);
             labelVersion.TabIndex = 15;
             labelVersion.Text = "v. 1.0.0";
+            labelVersion.Visible = false;
             // 
             // timer1
             // 

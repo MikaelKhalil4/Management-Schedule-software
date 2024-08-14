@@ -117,21 +117,37 @@ namespace MKproject.Infrastucture
                                     string requestUri = $"{BaseAddress}/Backup/Log()?TicketId={ticketID}&branchName={AppConfig.GetBucketName()}";
 
 
-                                    // Load the file data
-                                    var fileContent = new StreamContent(File.OpenRead(filePath));
-                                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                                    // 'logFile' is the parameter name that the server expects
-                                    content.Add(fileContent, "logFile", Path.GetFileName(filePath));
+                                    try
+                                    {
+                                        // Load the file data
+                                        using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite))
+                                        {
+                                            var fileContent = new StreamContent(fileStream);
+                                            fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                                            // 'logFile' is the parameter name that the server expects
+                                            content.Add(fileContent, "logFile", Path.GetFileName(filePath));
 
-                                    response = await client.PostAsync(requestUri, content);
-
+                                            // Handle if it can't connect to the API
+                                            response = await client.PostAsync(requestUri, content);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        LogHelper.logException(ex);
+                                    }
                                 }
                             }
 
                             // Check if the response is successful then delete the log file
                             if (response != null && response.IsSuccessStatusCode)
                             {
-                                File.Delete(filePath);
+                                try
+                                {
+                                    File.Delete(filePath);
+                                }
+                                catch 
+                                {
+                                }
                             }
                         }
                     }
