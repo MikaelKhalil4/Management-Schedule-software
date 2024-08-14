@@ -88,13 +88,13 @@ namespace MKproject.Schedule
             TLPReminder.Margin = new System.Windows.Forms.Padding(0);
             TLPReminder.Name = "TLPReminder";
             TLPReminder.RowCount = 6;
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 141F));
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
-            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            TLPReminder.Size = new System.Drawing.Size(418, 435);
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 188F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 68F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 73F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 108F));
+            TLPReminder.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            TLPReminder.Size = new System.Drawing.Size(478, 580);
             TLPReminder.TabIndex = 3;
             // 
             // panelDaysofTheWeek
@@ -107,10 +107,10 @@ namespace MKproject.Schedule
             panelDaysofTheWeek.Controls.Add(checkBoxFriday);
             panelDaysofTheWeek.Controls.Add(checkBoxThursday);
             panelDaysofTheWeek.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelDaysofTheWeek.Location = new System.Drawing.Point(0, 192);
+            panelDaysofTheWeek.Location = new System.Drawing.Point(0, 256);
             panelDaysofTheWeek.Margin = new System.Windows.Forms.Padding(0);
             panelDaysofTheWeek.Name = "panelDaysofTheWeek";
-            panelDaysofTheWeek.Size = new System.Drawing.Size(418, 65);
+            panelDaysofTheWeek.Size = new System.Drawing.Size(478, 87);
             panelDaysofTheWeek.TabIndex = 74;
             // 
             // checkBoxMonday
@@ -123,10 +123,10 @@ namespace MKproject.Schedule
             checkBoxMonday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxMonday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxMonday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxMonday.Location = new System.Drawing.Point(23, 13);
-            checkBoxMonday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxMonday.Location = new System.Drawing.Point(19, 17);
+            checkBoxMonday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             checkBoxMonday.Name = "checkBoxMonday";
-            checkBoxMonday.Size = new System.Drawing.Size(67, 19);
+            checkBoxMonday.Size = new System.Drawing.Size(84, 24);
             checkBoxMonday.TabIndex = 0;
             checkBoxMonday.Text = "Monday";
             checkBoxMonday.UseVisualStyleBackColor = true;
@@ -141,10 +141,10 @@ namespace MKproject.Schedule
             checkBoxSunday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxSunday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxSunday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxSunday.Location = new System.Drawing.Point(98, 38);
-            checkBoxSunday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxSunday.Location = new System.Drawing.Point(112, 51);
+            checkBoxSunday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             checkBoxSunday.Name = "checkBoxSunday";
-            checkBoxSunday.Size = new System.Drawing.Size(63, 19);
+            checkBoxSunday.Size = new System.Drawing.Size(78, 24);
             checkBoxSunday.TabIndex = 0;
             checkBoxSunday.Text = "Sunday";
             checkBoxSunday.UseVisualStyleBackColor = true;
@@ -159,10 +159,10 @@ namespace MKproject.Schedule
             checkBoxTuesday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxTuesday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxTuesday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxTuesday.Location = new System.Drawing.Point(98, 13);
-            checkBoxTuesday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxTuesday.Location = new System.Drawing.Point(112, 17);
+            checkBoxTuesday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             checkBoxTuesday.Name = "checkBoxTuesday";
-            checkBoxTuesday.Size = new System.Drawing.Size(67, 19);
+            checkBoxTuesday.Size = new System.Drawing.Size(84, 24);
             checkBoxTuesday.TabIndex = 0;
             checkBoxTuesday.Text = "Tuesday";
             checkBoxTuesday.UseVisualStyleBackColor = true;
@@ -177,10 +177,10 @@ namespace MKproject.Schedule
             checkBoxSaturday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxSaturday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxSaturday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxSaturday.Location = new System.Drawing.Point(23, 38);
-            checkBoxSaturday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxSaturday.Location = new System.Drawing.Point(26, 51);
+            checkBoxSaturday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             checkBoxSaturday.Name = "checkBoxSaturday";
-            checkBoxSaturday.Size = new System.Drawing.Size(72, 19);
+            checkBoxSaturday.Size = new System.Drawing.Size(89, 24);
             checkBoxSaturday.TabIndex = 0;
             checkBoxSaturday.Text = "Saturday";
             checkBoxSaturday.UseVisualStyleBackColor = true;
@@ -196,10 +196,10 @@ namespace MKproject.Schedule
             checkBoxWednesday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxWednesday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxWednesday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxWednesday.Location = new System.Drawing.Point(173, 13);
-            checkBoxWednesday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxWednesday.Location = new System.Drawing.Point(198, 17);
+            checkBoxWednesday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             checkBoxWednesday.Name = "checkBoxWednesday";
-            checkBoxWednesday.Size = new System.Drawing.Size(87, 19);
+            checkBoxWednesday.Size = new System.Drawing.Size(108, 24);
             checkBoxWednesday.TabIndex = 0;
             checkBoxWednesday.Text = "Wednesday";
             checkBoxWednesday.UseVisualStyleBackColor = true;
@@ -215,10 +215,10 @@ namespace MKproject.Schedule
             checkBoxFriday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxFriday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxFriday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxFriday.Location = new System.Drawing.Point(349, 13);
-            checkBoxFriday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxFriday.Location = new System.Drawing.Point(393, 17);
+            checkBoxFriday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             checkBoxFriday.Name = "checkBoxFriday";
-            checkBoxFriday.Size = new System.Drawing.Size(56, 19);
+            checkBoxFriday.Size = new System.Drawing.Size(70, 24);
             checkBoxFriday.TabIndex = 0;
             checkBoxFriday.Text = "Friday";
             checkBoxFriday.UseVisualStyleBackColor = true;
@@ -233,10 +233,10 @@ namespace MKproject.Schedule
             checkBoxThursday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxThursday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             checkBoxThursday.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            checkBoxThursday.Location = new System.Drawing.Point(268, 13);
-            checkBoxThursday.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxThursday.Location = new System.Drawing.Point(306, 17);
+            checkBoxThursday.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             checkBoxThursday.Name = "checkBoxThursday";
-            checkBoxThursday.Size = new System.Drawing.Size(73, 19);
+            checkBoxThursday.Size = new System.Drawing.Size(92, 24);
             checkBoxThursday.TabIndex = 0;
             checkBoxThursday.Text = "Thursday";
             checkBoxThursday.UseVisualStyleBackColor = true;
@@ -247,10 +247,10 @@ namespace MKproject.Schedule
             panel6.Controls.Add(TBLRepeat);
             panel6.Controls.Add(labelStartTime);
             panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel6.Location = new System.Drawing.Point(0, 141);
+            panel6.Location = new System.Drawing.Point(0, 188);
             panel6.Margin = new System.Windows.Forms.Padding(0);
             panel6.Name = "panel6";
-            panel6.Size = new System.Drawing.Size(418, 51);
+            panel6.Size = new System.Drawing.Size(478, 68);
             panel6.TabIndex = 12;
             // 
             // TBLRepeat
@@ -263,12 +263,13 @@ namespace MKproject.Schedule
             TBLRepeat.Controls.Add(labelrepeat, 0, 0);
             TBLRepeat.Controls.Add(pictureBox1, 1, 0);
             TBLRepeat.Cursor = System.Windows.Forms.Cursors.Hand;
-            TBLRepeat.Location = new System.Drawing.Point(238, 18);
+            TBLRepeat.Location = new System.Drawing.Point(272, 24);
+            TBLRepeat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             TBLRepeat.Name = "TBLRepeat";
-            TBLRepeat.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            TBLRepeat.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             TBLRepeat.RowCount = 1;
             TBLRepeat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            TBLRepeat.Size = new System.Drawing.Size(170, 26);
+            TBLRepeat.Size = new System.Drawing.Size(194, 35);
             TBLRepeat.TabIndex = 73;
             // 
             // labelrepeat
@@ -282,7 +283,7 @@ namespace MKproject.Schedule
             labelrepeat.Location = new System.Drawing.Point(1, 1);
             labelrepeat.Margin = new System.Windows.Forms.Padding(0);
             labelrepeat.Name = "labelrepeat";
-            labelrepeat.Size = new System.Drawing.Size(142, 22);
+            labelrepeat.Size = new System.Drawing.Size(162, 30);
             labelrepeat.TabIndex = 65;
             labelrepeat.Text = "Does not repeat";
             labelrepeat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -297,10 +298,10 @@ namespace MKproject.Schedule
             pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            pictureBox1.Location = new System.Drawing.Point(144, 1);
+            pictureBox1.Location = new System.Drawing.Point(164, 1);
             pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(25, 22);
+            pictureBox1.Size = new System.Drawing.Size(29, 30);
             pictureBox1.TabIndex = 64;
             pictureBox1.TabStop = false;
             pictureBox1.Click += flowLayoutPanelRepeat_Click;
@@ -311,10 +312,10 @@ namespace MKproject.Schedule
             // 
             labelStartTime.AutoSize = true;
             labelStartTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelStartTime.Location = new System.Drawing.Point(15, 18);
-            labelStartTime.Margin = new System.Windows.Forms.Padding(6);
+            labelStartTime.Location = new System.Drawing.Point(17, 24);
+            labelStartTime.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             labelStartTime.Name = "labelStartTime";
-            labelStartTime.Size = new System.Drawing.Size(53, 17);
+            labelStartTime.Size = new System.Drawing.Size(68, 23);
             labelStartTime.TabIndex = 72;
             labelStartTime.Text = "Repeat:";
             labelStartTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -328,7 +329,7 @@ namespace MKproject.Schedule
             panel2.Location = new System.Drawing.Point(0, 0);
             panel2.Margin = new System.Windows.Forms.Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(418, 141);
+            panel2.Size = new System.Drawing.Size(478, 188);
             panel2.TabIndex = 11;
             // 
             // textBoxSearch
@@ -337,11 +338,11 @@ namespace MKproject.Schedule
             textBoxSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             textBoxSearch.ForeColor = System.Drawing.Color.Gray;
             textBoxSearch.IsRequiredModeOn = false;
-            textBoxSearch.Location = new System.Drawing.Point(65, 11);
-            textBoxSearch.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            textBoxSearch.Location = new System.Drawing.Point(74, 15);
+            textBoxSearch.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             textBoxSearch.Name = "textBoxSearch";
             textBoxSearch.PlaceholderText = "Select a linked client";
-            textBoxSearch.Size = new System.Drawing.Size(304, 29);
+            textBoxSearch.Size = new System.Drawing.Size(347, 34);
             textBoxSearch.TabIndex = 32;
             textBoxSearch.Text = "Select a linked client";
             textBoxSearch.Click += textBoxSearch_Click;
@@ -352,12 +353,12 @@ namespace MKproject.Schedule
             textBoxReminder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             textBoxReminder.ForeColor = System.Drawing.Color.Gray;
             textBoxReminder.IsRequiredModeOn = false;
-            textBoxReminder.Location = new System.Drawing.Point(65, 54);
-            textBoxReminder.Margin = new System.Windows.Forms.Padding(2);
+            textBoxReminder.Location = new System.Drawing.Point(74, 72);
+            textBoxReminder.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             textBoxReminder.Multiline = true;
             textBoxReminder.Name = "textBoxReminder";
             textBoxReminder.PlaceholderText = "Add Reminder...";
-            textBoxReminder.Size = new System.Drawing.Size(304, 65);
+            textBoxReminder.Size = new System.Drawing.Size(347, 85);
             textBoxReminder.TabIndex = 13;
             textBoxReminder.Text = "Add Reminder...";
             // 
@@ -366,10 +367,10 @@ namespace MKproject.Schedule
             pictureBox4.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox4.BackgroundImage");
             pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             pictureBox4.ErrorImage = (System.Drawing.Image)resources.GetObject("pictureBox4.ErrorImage");
-            pictureBox4.Location = new System.Drawing.Point(23, 11);
-            pictureBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox4.Location = new System.Drawing.Point(26, 15);
+            pictureBox4.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new System.Drawing.Size(20, 29);
+            pictureBox4.Size = new System.Drawing.Size(23, 39);
             pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 9;
             pictureBox4.TabStop = false;
@@ -379,10 +380,10 @@ namespace MKproject.Schedule
             panel5.Controls.Add(ButtonCancel);
             panel5.Controls.Add(ButtonDone);
             panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel5.Location = new System.Drawing.Point(0, 393);
+            panel5.Location = new System.Drawing.Point(0, 524);
             panel5.Margin = new System.Windows.Forms.Padding(0);
             panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(418, 42);
+            panel5.Size = new System.Drawing.Size(478, 56);
             panel5.TabIndex = 72;
             // 
             // ButtonCancel
@@ -397,10 +398,10 @@ namespace MKproject.Schedule
             ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonCancel.ForeColor = System.Drawing.Color.White;
-            ButtonCancel.Location = new System.Drawing.Point(238, 7);
-            ButtonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ButtonCancel.Location = new System.Drawing.Point(272, 9);
+            ButtonCancel.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             ButtonCancel.Name = "ButtonCancel";
-            ButtonCancel.Size = new System.Drawing.Size(83, 29);
+            ButtonCancel.Size = new System.Drawing.Size(95, 39);
             ButtonCancel.TabIndex = 2;
             ButtonCancel.Text = "Cancel";
             ButtonCancel.UseVisualStyleBackColor = false;
@@ -418,10 +419,10 @@ namespace MKproject.Schedule
             ButtonDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             ButtonDone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonDone.ForeColor = System.Drawing.Color.White;
-            ButtonDone.Location = new System.Drawing.Point(329, 5);
-            ButtonDone.Margin = new System.Windows.Forms.Padding(4, 3, 6, 3);
+            ButtonDone.Location = new System.Drawing.Point(376, 7);
+            ButtonDone.Margin = new System.Windows.Forms.Padding(5, 4, 7, 4);
             ButtonDone.Name = "ButtonDone";
-            ButtonDone.Size = new System.Drawing.Size(83, 29);
+            ButtonDone.Size = new System.Drawing.Size(95, 39);
             ButtonDone.TabIndex = 1;
             ButtonDone.Text = "Done";
             ButtonDone.UseVisualStyleBackColor = false;
@@ -434,10 +435,10 @@ namespace MKproject.Schedule
             labelQuote.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             labelQuote.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             labelQuote.ForeColor = System.Drawing.Color.FromArgb(109, 122, 224);
-            labelQuote.Location = new System.Drawing.Point(51, 322);
+            labelQuote.Location = new System.Drawing.Point(58, 429);
             labelQuote.Margin = new System.Windows.Forms.Padding(0);
             labelQuote.Name = "labelQuote";
-            labelQuote.Size = new System.Drawing.Size(316, 61);
+            labelQuote.Size = new System.Drawing.Size(361, 81);
             labelQuote.TabIndex = 71;
             labelQuote.Text = "Only for today";
             labelQuote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -447,10 +448,10 @@ namespace MKproject.Schedule
             panel1.Controls.Add(TLPDate);
             panel1.Controls.Add(label1);
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(0, 257);
+            panel1.Location = new System.Drawing.Point(0, 343);
             panel1.Margin = new System.Windows.Forms.Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(418, 55);
+            panel1.Size = new System.Drawing.Size(478, 73);
             panel1.TabIndex = 75;
             // 
             // TLPDate
@@ -463,12 +464,13 @@ namespace MKproject.Schedule
             TLPDate.Controls.Add(labelDate, 0, 0);
             TLPDate.Controls.Add(pictureBox2, 1, 0);
             TLPDate.Cursor = System.Windows.Forms.Cursors.Hand;
-            TLPDate.Location = new System.Drawing.Point(239, 12);
+            TLPDate.Location = new System.Drawing.Point(273, 16);
+            TLPDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             TLPDate.Name = "TLPDate";
-            TLPDate.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            TLPDate.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             TLPDate.RowCount = 1;
             TLPDate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            TLPDate.Size = new System.Drawing.Size(168, 26);
+            TLPDate.Size = new System.Drawing.Size(192, 35);
             TLPDate.TabIndex = 75;
             TLPDate.Click += TLPDate_Click;
             // 
@@ -483,7 +485,7 @@ namespace MKproject.Schedule
             labelDate.Location = new System.Drawing.Point(1, 1);
             labelDate.Margin = new System.Windows.Forms.Padding(0);
             labelDate.Name = "labelDate";
-            labelDate.Size = new System.Drawing.Size(139, 22);
+            labelDate.Size = new System.Drawing.Size(159, 30);
             labelDate.TabIndex = 65;
             labelDate.Text = "Day,00 Week,Year";
             labelDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -496,10 +498,10 @@ namespace MKproject.Schedule
             pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            pictureBox2.Location = new System.Drawing.Point(141, 1);
+            pictureBox2.Location = new System.Drawing.Point(161, 1);
             pictureBox2.Margin = new System.Windows.Forms.Padding(0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new System.Drawing.Size(26, 22);
+            pictureBox2.Size = new System.Drawing.Size(30, 30);
             pictureBox2.TabIndex = 64;
             pictureBox2.TabStop = false;
             pictureBox2.Click += TLPDate_Click;
@@ -508,10 +510,10 @@ namespace MKproject.Schedule
             // 
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            label1.Location = new System.Drawing.Point(15, 12);
-            label1.Margin = new System.Windows.Forms.Padding(6);
+            label1.Location = new System.Drawing.Point(17, 16);
+            label1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(73, 17);
+            label1.Size = new System.Drawing.Size(92, 23);
             label1.TabIndex = 74;
             label1.Text = "Start Time:";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -524,13 +526,15 @@ namespace MKproject.Schedule
             // 
             // Reminder
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
-            ClientSize = new System.Drawing.Size(418, 435);
+            ClientSize = new System.Drawing.Size(478, 580);
             Controls.Add(TLPReminder);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Reminder";
             Opacity = 0D;
             ShowInTaskbar = false;

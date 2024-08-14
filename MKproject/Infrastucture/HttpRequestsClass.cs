@@ -21,7 +21,7 @@ namespace MKproject.Infrastucture
 {
     public class HttpRequestsClass
     {
-        static string BaseAddress = "https://api.foxdigitaltech.online/admin";
+        static string BaseAddress = "http://localhost:5117";
 
 
         //BackUP
@@ -236,9 +236,8 @@ namespace MKproject.Infrastucture
                     if (response.IsSuccessStatusCode)//2xx,eza ma eendo package available ha tred NotFound
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
-                        string dateString = JsonConvert.DeserializeObject<string>(jsonResponse);
                         DateTime parsedDate;
-                        if (DateTime.TryParse(dateString, out parsedDate))//raddetna datetime,package exisit
+                        if (DateTime.TryParse(jsonResponse, out parsedDate))//raddetna datetime,package exisit
                         {
                             // Parsing was successful, use parsedDate
                             Date = parsedDate;

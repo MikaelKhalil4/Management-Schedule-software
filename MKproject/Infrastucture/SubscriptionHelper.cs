@@ -89,6 +89,7 @@ namespace MKproject.Infrastucture
         }
         public static void LaunchWarningTimer(int NbrOfDaysLeft, int Duration, bool IsWarningOrUrgent)
         {
+
             string message = $"{NbrOfDaysLeft} Days Left Before Your Bundle Finishes,Please Refuel your Days";
             if (IsWarningOrUrgent)
             {

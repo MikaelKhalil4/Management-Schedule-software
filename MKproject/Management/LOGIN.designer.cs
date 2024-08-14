@@ -59,12 +59,14 @@ namespace MKproject.Management
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(434, 515);
+            panel1.Size = new System.Drawing.Size(540, 644);
             panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.BackColor = System.Drawing.Color.White;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(panel5, 0, 1);
@@ -73,14 +75,15 @@ namespace MKproject.Management
             tableLayoutPanel1.Controls.Add(labelVersion, 0, 3);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new Padding(4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 176F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(434, 515);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 221F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(540, 644);
             tableLayoutPanel1.TabIndex = 12;
             // 
             // panel5
@@ -92,18 +95,20 @@ namespace MKproject.Management
             panel5.Controls.Add(buttonShow);
             panel5.Controls.Add(textBoxPassword);
             panel5.Controls.Add(buttonHide);
-            panel5.Location = new System.Drawing.Point(94, 267);
+            panel5.Location = new System.Drawing.Point(116, 333);
+            panel5.Margin = new Padding(4);
             panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(246, 62);
+            panel5.Size = new System.Drawing.Size(308, 78);
             panel5.TabIndex = 14;
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = System.Drawing.Color.Black;
+            pictureBox3.BackColor = System.Drawing.Color.White;
             pictureBox3.Image = (System.Drawing.Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new System.Drawing.Point(13, 18);
+            pictureBox3.Location = new System.Drawing.Point(16, 22);
+            pictureBox3.Margin = new Padding(4);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new System.Drawing.Size(25, 25);
+            pictureBox3.Size = new System.Drawing.Size(31, 31);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 2;
             pictureBox3.TabStop = false;
@@ -111,21 +116,23 @@ namespace MKproject.Management
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = System.Drawing.Color.Black;
+            label2.BackColor = System.Drawing.Color.White;
             label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label2.ForeColor = System.Drawing.Color.FromArgb(61, 121, 219);
-            label2.Location = new System.Drawing.Point(37, 0);
+            label2.Location = new System.Drawing.Point(46, 0);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(67, 15);
+            label2.Size = new System.Drawing.Size(83, 18);
             label2.TabIndex = 7;
             label2.Text = "Password :";
             // 
             // panel3
             // 
             panel3.BackColor = System.Drawing.Color.FromArgb(61, 121, 219);
-            panel3.Location = new System.Drawing.Point(13, 46);
+            panel3.Location = new System.Drawing.Point(16, 58);
+            panel3.Margin = new Padding(4);
             panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(228, 3);
+            panel3.Size = new System.Drawing.Size(285, 4);
             panel3.TabIndex = 8;
             // 
             // buttonShow
@@ -134,24 +141,26 @@ namespace MKproject.Management
             buttonShow.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonShow.BackgroundImage");
             buttonShow.BackgroundImageLayout = ImageLayout.Stretch;
             buttonShow.FlatStyle = FlatStyle.Flat;
-            buttonShow.Location = new System.Drawing.Point(217, 20);
+            buttonShow.Location = new System.Drawing.Point(271, 25);
+            buttonShow.Margin = new Padding(4);
             buttonShow.MotionHeight = false;
             buttonShow.MotionWidth = false;
             buttonShow.Name = "buttonShow";
-            buttonShow.Size = new System.Drawing.Size(25, 25);
+            buttonShow.Size = new System.Drawing.Size(31, 31);
             buttonShow.TabIndex = 10;
             buttonShow.UseVisualStyleBackColor = false;
             buttonShow.Click += buttonShow_Click;
             // 
             // textBoxPassword
             // 
-            textBoxPassword.BackColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            textBoxPassword.BackColor = System.Drawing.Color.White;
             textBoxPassword.BorderStyle = BorderStyle.None;
             textBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            textBoxPassword.ForeColor = System.Drawing.Color.White;
-            textBoxPassword.Location = new System.Drawing.Point(42, 24);
+            textBoxPassword.ForeColor = System.Drawing.Color.FromArgb(20, 20, 20);
+            textBoxPassword.Location = new System.Drawing.Point(52, 30);
+            textBoxPassword.Margin = new Padding(4);
             textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.Size = new System.Drawing.Size(200, 16);
+            textBoxPassword.Size = new System.Drawing.Size(250, 19);
             textBoxPassword.TabIndex = 5;
             textBoxPassword.UseSystemPasswordChar = true;
             textBoxPassword.KeyDown += textBoxPassword_KeyDown;
@@ -162,11 +171,12 @@ namespace MKproject.Management
             buttonHide.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonHide.BackgroundImage");
             buttonHide.BackgroundImageLayout = ImageLayout.Stretch;
             buttonHide.FlatStyle = FlatStyle.Flat;
-            buttonHide.Location = new System.Drawing.Point(218, 21);
+            buttonHide.Location = new System.Drawing.Point(272, 26);
+            buttonHide.Margin = new Padding(4);
             buttonHide.MotionHeight = false;
             buttonHide.MotionWidth = false;
             buttonHide.Name = "buttonHide";
-            buttonHide.Size = new System.Drawing.Size(23, 23);
+            buttonHide.Size = new System.Drawing.Size(29, 29);
             buttonHide.TabIndex = 9;
             buttonHide.UseVisualStyleBackColor = false;
             buttonHide.Click += buttonHide_Click;
@@ -175,31 +185,33 @@ namespace MKproject.Management
             // 
             buttonLogin.Anchor = AnchorStyles.Top;
             buttonLogin.AutoSize = true;
-            buttonLogin.BackColor = System.Drawing.Color.Black;
+            buttonLogin.BackColor = System.Drawing.Color.White;
             buttonLogin.Cursor = Cursors.Hand;
-            buttonLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(30, 30, 30);
             buttonLogin.FlatStyle = FlatStyle.Flat;
             buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonLogin.ForeColor = System.Drawing.Color.FromArgb(61, 121, 219);
-            buttonLogin.Location = new System.Drawing.Point(147, 440);
+            buttonLogin.Location = new System.Drawing.Point(182, 550);
             buttonLogin.Margin = new Padding(0);
-            buttonLogin.MaximumSize = new System.Drawing.Size(140, 40);
-            buttonLogin.MinimumSize = new System.Drawing.Size(140, 40);
+            buttonLogin.MaximumSize = new System.Drawing.Size(175, 50);
+            buttonLogin.MinimumSize = new System.Drawing.Size(175, 50);
             buttonLogin.Name = "buttonLogin";
-            buttonLogin.Size = new System.Drawing.Size(140, 40);
+            buttonLogin.Size = new System.Drawing.Size(175, 50);
             buttonLogin.TabIndex = 4;
             buttonLogin.Text = "LOGIN";
             buttonLogin.UseVisualStyleBackColor = false;
             buttonLogin.Click += buttonLogin_Click;
+            buttonLogin.MouseLeave += buttonLogin_MouseLeave;
+            buttonLogin.MouseHover += buttonLogin_MouseHover;
             // 
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.None;
-            pictureBox1.BackColor = System.Drawing.Color.Black;
+            pictureBox1.BackColor = System.Drawing.Color.Transparent;
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(54, 25);
+            pictureBox1.Location = new System.Drawing.Point(76, 35);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(326, 213);
+            pictureBox1.Size = new System.Drawing.Size(387, 258);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -209,9 +221,10 @@ namespace MKproject.Management
             labelVersion.Anchor = AnchorStyles.Right;
             labelVersion.AutoSize = true;
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(61, 121, 219);
-            labelVersion.Location = new System.Drawing.Point(388, 493);
+            labelVersion.Location = new System.Drawing.Point(483, 616);
+            labelVersion.Margin = new Padding(4, 0, 4, 0);
             labelVersion.Name = "labelVersion";
-            labelVersion.Size = new System.Drawing.Size(43, 15);
+            labelVersion.Size = new System.Drawing.Size(53, 20);
             labelVersion.TabIndex = 15;
             labelVersion.Text = "v. 1.0.0";
             // 
@@ -223,16 +236,17 @@ namespace MKproject.Management
             // 
             // LOGIN
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new System.Drawing.Size(434, 515);
+            ClientSize = new System.Drawing.Size(540, 644);
             Controls.Add(panel1);
             DoubleBuffered = true;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4);
             MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(450, 660);
+            MaximumSize = new System.Drawing.Size(558, 813);
             MinimizeBox = false;
-            MinimumSize = new System.Drawing.Size(450, 39);
+            MinimumSize = new System.Drawing.Size(558, 47);
             Name = "LOGIN";
             Opacity = 0D;
             StartPosition = FormStartPosition.CenterScreen;

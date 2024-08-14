@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CustomizedTools;
@@ -7,14 +8,14 @@ namespace MKproject.Management
 {
     public partial class LOGIN : Form
     {
-       
+
 
 
         public LOGIN()
         {
             InitializeComponent();
             LoadForm();
-           
+
         }
         public void LoadForm()
         {
@@ -33,7 +34,7 @@ namespace MKproject.Management
 
 
 
-        private  void buttonLogin_Click(object sender, EventArgs e)
+        private void buttonLogin_Click(object sender, EventArgs e)
         {
 
             int EmpId = ClassEmployee.CheckIfEmployeeExist(textBoxPassword.Text);
@@ -44,7 +45,7 @@ namespace MKproject.Management
 
                 Program.Employee = new ClassEmployee();
                 Program.Employee = ClassEmployee.CreateEmployeeObject(EmpId);
-                Program.Employee.SetEmployeeAccess();      
+                Program.Employee.SetEmployeeAccess();
                 Program.HomeForm = new Home();
                 Program.HomeForm.Show();
                 this.Hide();
@@ -112,6 +113,16 @@ namespace MKproject.Management
 
         }
 
+        private void buttonLogin_MouseHover(object sender, EventArgs e)
+        {
+            //buttonLogin.ForeColor = Color.White;
+            //buttonLogin.BackColor = Color.FromArgb(61, 121, 219);
+        }
 
+        private void buttonLogin_MouseLeave(object sender, EventArgs e)
+        {
+            //buttonLogin.ForeColor = Color.FromArgb(61, 121, 219);
+            //buttonLogin.BackColor = Color.White;
+        }
     }
 }

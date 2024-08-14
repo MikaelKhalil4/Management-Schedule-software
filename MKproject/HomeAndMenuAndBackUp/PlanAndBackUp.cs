@@ -133,7 +133,7 @@ namespace MKproject
                 IsFormShouldBeCloseOnDisactivation = false;
                 if (checkBoxBackUp.Checked)
                 {
-                    DialogResult dialog = CustomMessageBox.Show("Are you do you want to active the auto backup daily", CustomMessageBox.Type.YesNo);
+                    DialogResult dialog = CustomMessageBox.Show("Do you want to active the auto backup daily", CustomMessageBox.Type.YesNo);
                     if (dialog == DialogResult.Yes)
                     {
                         BackupHelper.UpdateBackupIntervalAsync(true);

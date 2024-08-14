@@ -363,8 +363,15 @@ namespace MKproject.Schedule
         }
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
-            this.Select();
-            DisableClosingOnDisactivating = false;
+            try
+            {
+                this.Select();
+                DisableClosingOnDisactivating = false;
+            }
+            catch
+            {
+                //aam yotlaalna error tb3 reminder dispose
+            }
         }
 
 
