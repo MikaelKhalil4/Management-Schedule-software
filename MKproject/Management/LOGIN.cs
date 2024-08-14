@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CustomizedTools;
+using GlobalFunctions;
 
 namespace MKproject.Management
 {
@@ -15,7 +16,6 @@ namespace MKproject.Management
         {
             InitializeComponent();
             LoadForm();
-
         }
         public void LoadForm()
         {

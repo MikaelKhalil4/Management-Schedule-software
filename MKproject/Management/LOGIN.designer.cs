@@ -242,7 +242,7 @@ namespace MKproject.Management
             ClientSize = new System.Drawing.Size(540, 644);
             Controls.Add(panel1);
             DoubleBuffered = true;
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4);
             MaximizeBox = false;
             MaximumSize = new System.Drawing.Size(558, 813);
@@ -250,8 +250,8 @@ namespace MKproject.Management
             MinimumSize = new System.Drawing.Size(558, 47);
             Name = "LOGIN";
             Opacity = 0D;
+            ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "LOGIN";
             panel1.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();

@@ -14,6 +14,8 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data.SQLite;
+using System.Net.Http;
+using System.Net.Sockets;
 
 namespace MKproject
 {
@@ -206,10 +208,23 @@ namespace MKproject
 
                 return (mgr, newVersion);
             }
+            catch (HttpRequestException ex)
+            {
+                if (ex.Message.Contains("443"))
+                { 
+                    //which means no internet aal device
+                    //we wont log it
+                }
+                else
+                {
+                    LogHelper.logException(ex);//fi meshekle aa lvl of the server
+                }
+                return (null, null);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
 
+                LogHelper.logException(ex);//fi meshekle aa lvl velopack
                 return (null, null);
             }
 
