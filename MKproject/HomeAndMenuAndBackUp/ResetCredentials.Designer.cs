@@ -46,11 +46,11 @@
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.76389F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.625F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.7065849F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.94012F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.1155777F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(531, 288);
+            tableLayoutPanel1.Size = new System.Drawing.Size(531, 334);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
@@ -61,7 +61,7 @@
             label2.ForeColor = System.Drawing.Color.Black;
             label2.Location = new System.Drawing.Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(525, 103);
+            label2.Size = new System.Drawing.Size(525, 156);
             label2.TabIndex = 9;
             label2.Text = "Oops! Something went wrong with your credentials during authentication.\r\nPlease contact the support team to send you the new ticket \r\nid to reset your credentials.";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -75,12 +75,12 @@
             UCTextboxTicketID.IsEmail = false;
             UCTextboxTicketID.IsPhoneNumber = false;
             UCTextboxTicketID.IsRequired = true;
-            UCTextboxTicketID.Location = new System.Drawing.Point(5, 111);
+            UCTextboxTicketID.Location = new System.Drawing.Point(5, 164);
             UCTextboxTicketID.Margin = new System.Windows.Forms.Padding(5, 8, 5, 0);
             UCTextboxTicketID.Name = "UCTextboxTicketID";
             UCTextboxTicketID.NextControl = null;
             UCTextboxTicketID.ParentOfNextControl = null;
-            UCTextboxTicketID.Size = new System.Drawing.Size(521, 95);
+            UCTextboxTicketID.Size = new System.Drawing.Size(521, 92);
             UCTextboxTicketID.StringType = "TicketId";
             UCTextboxTicketID.TabIndex = 10;
             UCTextboxTicketID.Value = null;
@@ -96,7 +96,7 @@
             buttonReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonReset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonReset.ForeColor = System.Drawing.Color.White;
-            buttonReset.Location = new System.Drawing.Point(200, 235);
+            buttonReset.Location = new System.Drawing.Point(200, 276);
             buttonReset.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             buttonReset.Name = "buttonReset";
             buttonReset.Size = new System.Drawing.Size(111, 37);
@@ -110,7 +110,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
-            ClientSize = new System.Drawing.Size(531, 288);
+            ClientSize = new System.Drawing.Size(531, 334);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             MaximizeBox = false;

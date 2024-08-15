@@ -15,9 +15,12 @@ namespace MKproject.HomeAndMenuAndBackUp
 {
     public partial class ResetCredentials : Form
     {
-        public ResetCredentials()
+        public string Details { get; set; }
+        public ResetCredentials(string details)
         {
             InitializeComponent();
+            Details = details;
+            label2.Text += $"\n{Details}";
         }
 
         private async void buttonReset_ClickAsync(object sender, EventArgs e)
@@ -27,7 +30,7 @@ namespace MKproject.HomeAndMenuAndBackUp
             Cursor = Cursors.WaitCursor;
             if (await HttpRequestsClass.RegisterClient(UCTextboxTicketID.Value, owner.PhoneNumber))
             {
-                CustomMessageBox.Show("Credentials reset successfully. Now we're going to restart the app.", CustomMessageBox.Type.OkInfo);
+                CustomMessageBox.Show($"Credentials reset successfully. Now we're going to restart the app", CustomMessageBox.Type.OkInfo);
                 Application.Restart();
                 Environment.Exit(0);
             }

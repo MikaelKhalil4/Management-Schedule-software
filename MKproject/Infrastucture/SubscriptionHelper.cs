@@ -116,8 +116,7 @@ namespace MKproject.Infrastucture
             }
             else//hayda el message ha ybayyin only eza ticket-id mesh mazbuta aw fi shi tene, yaane 4xx
             {
-                DesiredMessage = "Oops! Something went wrong with your credentials during authentication." +
-                         "\nPlease contact the customer support team to reset your credentials.";
+                DesiredMessage = Message;
 
             }
 
@@ -131,7 +130,7 @@ namespace MKproject.Infrastucture
             }
             else
             {
-                ResetCredentials resetCredentials = new ResetCredentials(); 
+                ResetCredentials resetCredentials = new ResetCredentials(Message); 
                 resetCredentials.ShowDialog();
             }
             Program.GreyForm.Dispose();
