@@ -131,7 +131,7 @@ namespace MKproject.Infrastucture
             }
             else
             {
-                ResetCredentials resetCredentials = new ResetCredentials();
+                ResetCredentials resetCredentials = new ResetCredentials(); 
                 resetCredentials.ShowDialog();
             }
             Program.GreyForm.Dispose();
