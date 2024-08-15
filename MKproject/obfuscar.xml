@@ -5,15 +5,15 @@
 	<Var name="InPath" value=".\bin\Debug\net6.0-windows" />
 	<Var name="OutPath" value=".\Obfuscator_Output" />
 
-	
+	<Var name="KeepPublicApi" value="true" />
+	<Var name="HidePrivateApi" value="false" />
 	<Var name="RenameProperties" value="false" />
-	<Var name="RenameEvents" value="true" />
+	<Var name="RenameEvents" value="false" />
 	<Var name="RenameFields" value="false" />
-	<Var name="UseUnicodeNames" value="true" />
+	<Var name="UseUnicodeNames" value="false" />
 	<Var name="HideStrings" value="false" />
-	<Var name="OptimizeMethods" value="true" />
+	<Var name="OptimizeMethods" value="false" />
 	<Var name="SuppressIldasm" value="true" />
-
 	
 	<Module file="$(InPath)\MKproject.dll">
 		

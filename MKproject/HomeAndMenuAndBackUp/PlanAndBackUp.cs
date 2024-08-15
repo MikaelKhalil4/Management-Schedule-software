@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net.NetworkInformation;
 using CustomizedTools;
-using System.IO;
 using GlobalFunctions;
-using System.Net.Http;
-using System.Reflection.Metadata;
 using MKproject.Infrastucture;
 using static MKproject.Infrastucture.SettingsSql;
 

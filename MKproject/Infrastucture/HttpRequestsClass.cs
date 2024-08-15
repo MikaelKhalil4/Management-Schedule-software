@@ -245,8 +245,7 @@ namespace MKproject.Infrastucture
                     HttpResponseMessage response = await client.GetAsync(requestUri);
 
                     DateTime? Date = null;
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    LogHelper.logException(new Exception(responseContent));
+
 
                     if (response.IsSuccessStatusCode)//2xx,eza ma eendo package available ha tred NotFound
                     {
@@ -265,13 +264,13 @@ namespace MKproject.Infrastucture
                     }
                     else if ((int)response.StatusCode >= 500 && (int)response.StatusCode < 600)//5xx,yaane ma edir yaamil connection maa el api
                     {
-                       
-                        LogHelper.logException(new Exception("Status code 500"));
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        LogHelper.logException(new Exception(responseContent));
                         return;//it won't close the app but it will let him use the offline credentials
                     }
                     else//4xx,not found or bad request, which means ma naamal the right authentication
                     {
-                        LogHelper.logException(new Exception("Status code 400"));
+                        var responseContent = await response.Content.ReadAsStringAsync();
                         throw new Exception(responseContent);//this will make the app close,lieanno ha yenzal el datenull
                     }
 
@@ -289,7 +288,6 @@ namespace MKproject.Infrastucture
             catch (Exception ex)
             {
                 SettingsSql.UpdateKeyValue(DueDateKeyEncryp, DueDateValueEncryp);
-                LogHelper.logException(ex);
                 throw new Exception(ex.Message);
             }
           

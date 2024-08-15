@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using GlobalFunctions;
-using static MKproject.Management.ClassBundles;
-using System.Data.SQLite;
-using System.Reflection.Metadata.Ecma335;
-using System.Data.Entity.Core.Mapping;
 
 namespace MKproject.Management
 {
