@@ -64,6 +64,7 @@ namespace CustomizedTools
 
             this.Activated += NotificationBanner_Activated;
 
+            IsFromConstructor = true;
         }
 
 
@@ -80,6 +81,7 @@ namespace CustomizedTools
         bool IsNotfActive;
         bool IsParentFormActivated = true;
         bool IfDelayStillRunning = false;
+        bool IsFromConstructor;
         async Task ParentFormIsDeactivated()
         {
             if (!IfDelayStillRunning)
@@ -97,6 +99,7 @@ namespace CustomizedTools
                 }
                 IfDelayStillRunning = false;
             }
+
         }
         private void NotificationBanner_Activated(object sender, EventArgs e)
         {
@@ -107,7 +110,7 @@ namespace CustomizedTools
             IsNotfActive = false;
             labelText.Select();//kermel ma el button ybayyin eendo borders
         }
-       
+
 
 
 
@@ -147,18 +150,27 @@ namespace CustomizedTools
 
         private void ParentFormHome_Deactivate(object sender, EventArgs e)
         {
-            if (IsParentFormActivated)
+            if (!IsFromConstructor)
             {
-                Debug.WriteLine("DesActivated");
-                if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+                if (IsParentFormActivated)
                 {
+                    Debug.WriteLine("DesActivated");
+                    if (CurrentNotfBanner != null && !CurrentNotfBanner.IsDisposed)
+                    {
 
-                    ParentFormIsDeactivated();
+                        ParentFormIsDeactivated();
 
+                    }
+
+                    IsParentFormActivated = false;
                 }
-
-                IsParentFormActivated = false;
             }
+            else
+            {
+                IsFromConstructor = false;
+                ParentFormHome.Select();
+            }
+
         }
 
 
@@ -338,7 +350,12 @@ namespace CustomizedTools
             CurrentNotfBanner = new NotificationBanner(message, type, WithOrWithoutButtonDone, parentFormHome, UndoFromNotficationBannerCliked, IsUnlimtedTime);
             CurrentNotfBanner.Show();
             CurrentNotfBanner.timerLocation.Start();
+
+            //ouaa tshilun, hole kermel ma tekhtefe e; notificatin banner
+
             parentFormHome.Select();
+
+            CurrentNotfBanner.IsFromConstructor = false;
             return CurrentNotfBanner;
         }
         public static void CloseTheNotfBanner()
@@ -351,6 +368,6 @@ namespace CustomizedTools
             }
         }
 
-   
+
     }
 }
