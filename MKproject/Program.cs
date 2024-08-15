@@ -69,6 +69,7 @@ namespace MKproject
         static void Main()
         {
 
+
             VelopackApp.Build().WithAfterInstallFastCallback((v) => new Shortcuts().CreateShortcutForThisExe(ShortcutLocation.Desktop)).Run();
 
 
@@ -125,7 +126,6 @@ namespace MKproject
 
             //int zero = 0;
             //int x = 1 / zero;
-
 
 
 

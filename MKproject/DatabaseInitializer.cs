@@ -134,7 +134,6 @@ public class DatabaseInitializer
 									""AlbumType""	TEXT,
 									""amount_paid""	REAL,
 									""payment_date""	TEXT,
-									""payment_method""	TEXT,
 									FOREIGN KEY(""client_balance_id"") REFERENCES ""client_balance""(""client_balance_id""),
 									FOREIGN KEY(""AlbumType"") REFERENCES ""Albums""(""AlbumType"") ON UPDATE CASCADE ON DELETE SET NULL,
 									PRIMARY KEY(""finance_id"" AUTOINCREMENT)

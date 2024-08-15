@@ -1,5 +1,6 @@
 ﻿using CustomizedTools;
 using GlobalFunctions;
+using MKproject.HomeAndMenuAndBackUp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,10 +114,10 @@ namespace MKproject.Infrastucture
                     $"\nPlease renew your subscription at your earliest convenience to continue accessing all features." +
                     $"\n\nThank you for choosing us!";
             }
-            else//hayda el message ha ybayyin only eza bel https request toloolna 5XX error
+            else//hayda el message ha ybayyin only eza ticket-id mesh mazbuta aw fi shi tene, yaane 4xx
             {
-                DesiredMessage = $"Oops! Something went wrong on our Server. We're here to help—please reach out to customer support so we can get this sorted out for you."+
-                                 $"\nIf you have an active bundle, you can turn off the internet and continue using the application.";
+                DesiredMessage = "Oops! Something went wrong with your credentials during authentication." +
+                         "\nPlease contact the customer support team to reset your credentials.";
 
             }
 
@@ -124,7 +125,15 @@ namespace MKproject.Infrastucture
             await Task.Delay(1000);
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
-            CustomMessageBox.Show(DesiredMessage, CustomMessageBox.Type.OkInfo);
+            if (String.IsNullOrEmpty(Message))
+            {
+                CustomMessageBox.Show(DesiredMessage, CustomMessageBox.Type.OkInfo);
+            }
+            else
+            {
+                ResetCredentials resetCredentials = new ResetCredentials();
+                resetCredentials.ShowDialog();
+            }
             Program.GreyForm.Dispose();
             Application.Exit();
         }

@@ -68,10 +68,10 @@ namespace MKproject.Management
             {
                 buttonDelete.Visible = false;
 
-           
 
                 checkBoxStatus.Checked = true;
                 checkBoxStatus.Enabled = false;
+                ucTextboxPhoneNumber.Enabled = false;
 
                 foreach (Control control in FLPFeatures.Controls)
                 {
