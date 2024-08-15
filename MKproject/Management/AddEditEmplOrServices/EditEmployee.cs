@@ -71,7 +71,7 @@ namespace MKproject.Management
 
                 checkBoxStatus.Checked = true;
                 checkBoxStatus.Enabled = false;
-                ucTextboxPhoneNumber.Enabled = false;
+               
 
                 foreach (Control control in FLPFeatures.Controls)
                 {
@@ -104,6 +104,10 @@ namespace MKproject.Management
 
                     ChangeFormSize(true);
                     this.Height -= 30;
+                }
+                else
+                {
+                    ucTextboxPhoneNumber.Enabled = false;
                 }
             }
 
