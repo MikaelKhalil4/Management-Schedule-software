@@ -42,8 +42,14 @@ namespace MKproject
 
 
             //
-            SubscriptionHelper.SetupTimerAndStartSubuscriptionTimer();
+            StartupFunction();
 
+        }
+        private async Task StartupFunction()
+        {
+            await SubscriptionHelper.SetupTimerAndStartSubuscriptionTimer();
+            LogHelper.SetupTimerAndStartLogsTimer();
+            BackupHelper.SetupBackupTimerndStartItIfNecessar();
         }
 
 

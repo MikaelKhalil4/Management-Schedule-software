@@ -119,8 +119,7 @@ namespace MKproject
 
             //logging and backup
             SettingsSql.EnsureSettingsExist();//ejabre
-            LogHelper.SetupTimerAndStartLogsTimer();
-            BackupHelper.SetupBackupTimerndStartItIfNecessar();
+          
 
 
 

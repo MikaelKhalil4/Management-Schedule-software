@@ -133,7 +133,7 @@ namespace MKproject.Infrastucture
                 resetCredentials.ShowDialog();
             }
             Program.GreyForm.Dispose();
-            Application.Exit();
+            Environment.Exit(0);
         }
     }
 }
