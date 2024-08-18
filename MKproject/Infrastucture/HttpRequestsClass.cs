@@ -22,7 +22,7 @@ namespace MKproject.Infrastucture
     public class HttpRequestsClass
     {
         static string BaseAddress = "https://api.foxdigitaltech.online/admin";
-
+        //https://api.foxdigitaltech.online/admin
         //BackUP
         public static async Task<bool> UploadBackupFileAsync()
         {

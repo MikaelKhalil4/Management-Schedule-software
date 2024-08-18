@@ -119,7 +119,7 @@ namespace MKproject
 
             //logging and backup
             SettingsSql.EnsureSettingsExist();//ejabre
-          
+
 
 
 
@@ -259,8 +259,9 @@ namespace MKproject
 
             // Log the exception using Serilog (assuming it's configured)
             LogHelper.logException(e);
-            // Show a message box to the user
-            CustomMessageBox.Show("Oops! Something went wrong. We're here to help—please reach out to customer support so we can get this sorted out for you.", CustomMessageBox.Type.OkInfo);
+
+            //// Show a message box to the user
+            CustomMessageBox.Show("Oops! Something went wrong.The error has been reported to the technical team", CustomMessageBox.Type.OkInfo);
       
         }
 
