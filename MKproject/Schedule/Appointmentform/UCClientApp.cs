@@ -707,7 +707,7 @@ namespace MKproject.Schedule
 
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
-
+            ParentFormAppointment.TopMost = false;
             ParentFormAppointment.DisableClosingOnDisactivating = true;
             Search searchname = new Search(textBoxSearch, DesiredAppointmentUCClientApp.DesiredClient);
             searchname.Deactivate += Searchname_Deactivate;
@@ -733,7 +733,8 @@ namespace MKproject.Schedule
                 SetDesignIfEditAndOthersMode();
             }
 
-
+            ParentFormAppointment.Select();
+            ParentFormAppointment.TopMost = true;
         }
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
