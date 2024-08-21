@@ -733,8 +733,10 @@ namespace MKproject.Schedule
                 SetDesignIfEditAndOthersMode();
             }
 
+
             ParentFormAppointment.Select();
-            ParentFormAppointment.TopMost = true;
+            ParentFormAppointment.Focus();
+            ucSlideButtonServicerOthers.Select();
         }
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
