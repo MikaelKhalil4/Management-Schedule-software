@@ -733,13 +733,10 @@ namespace MKproject.Schedule
                 SetDesignIfEditAndOthersMode();
             }
 
-
-            ParentFormAppointment.Select();
-            ParentFormAppointment.Focus();
-            ucSlideButtonServicerOthers.Select();
         }
         private void Searchname_Deactivate(object sender, EventArgs e)
         {
+            ParentFormAppointment.Select();
             ParentFormAppointment.Focus();
             ParentFormAppointment.DisableClosingOnDisactivating = false;
             ucSlideButtonServicerOthers.Select();

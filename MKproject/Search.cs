@@ -193,7 +193,7 @@ namespace MKproject
             }
 
         }
-        private async void Search_Deactivate(object sender, EventArgs e)
+        private  void Search_Deactivate(object sender, EventArgs e)
         {
 
             if (ComingDesiredClient != null && string.IsNullOrEmpty(textBoxSearch.Text))//which mean ghayarne
@@ -206,7 +206,7 @@ namespace MKproject
                 ChosenClientChanged?.Invoke(this, EventArgs.Empty);
             }
 
-            await Task.Delay(1); //kermel to activate li tahta
+            Task.Delay(50); //kermel to activate li tahta
             this.Close(); // First, hide the form.
        
         }
