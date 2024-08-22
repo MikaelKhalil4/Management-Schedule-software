@@ -39,10 +39,10 @@
             // 
             TLPglobal.BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
             TLPglobal.ColumnCount = 4;
-            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
-            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            TLPglobal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             TLPglobal.Controls.Add(textBoxSearch, 1, 1);
             TLPglobal.Controls.Add(ButtonNewClient, 2, 1);
             TLPglobal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -51,10 +51,10 @@
             TLPglobal.Name = "TLPglobal";
             TLPglobal.RowCount = 4;
             TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
-            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            TLPglobal.Size = new System.Drawing.Size(452, 228);
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
+            TLPglobal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            TLPglobal.Size = new System.Drawing.Size(517, 304);
             TLPglobal.TabIndex = 0;
             // 
             // textBoxSearch
@@ -64,14 +64,15 @@
             textBoxSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             textBoxSearch.ForeColor = System.Drawing.Color.Gray;
             textBoxSearch.IsRequiredModeOn = false;
-            textBoxSearch.Location = new System.Drawing.Point(70, 83);
+            textBoxSearch.Location = new System.Drawing.Point(80, 113);
             textBoxSearch.Margin = new System.Windows.Forms.Padding(0);
             textBoxSearch.Name = "textBoxSearch";
             textBoxSearch.PlaceholderText = "By name or phone ";
-            textBoxSearch.Size = new System.Drawing.Size(268, 29);
+            textBoxSearch.Size = new System.Drawing.Size(306, 34);
             textBoxSearch.TabIndex = 31;
             textBoxSearch.Text = "By name or phone ";
             textBoxSearch.Click += textBoxSearch_Click;
+            textBoxSearch.TextChanged += textBoxSearch_TextChanged;
             // 
             // ButtonNewClient
             // 
@@ -86,9 +87,10 @@
             ButtonNewClient.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             ButtonNewClient.ForeColor = System.Drawing.Color.White;
             ButtonNewClient.Image = (System.Drawing.Image)resources.GetObject("ButtonNewClient.Image");
-            ButtonNewClient.Location = new System.Drawing.Point(349, 83);
+            ButtonNewClient.Location = new System.Drawing.Point(399, 110);
+            ButtonNewClient.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             ButtonNewClient.Name = "ButtonNewClient";
-            ButtonNewClient.Size = new System.Drawing.Size(92, 29);
+            ButtonNewClient.Size = new System.Drawing.Size(105, 39);
             ButtonNewClient.TabIndex = 70;
             ButtonNewClient.Text = "New Client";
             ButtonNewClient.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -98,13 +100,13 @@
             // 
             // UCClientApp
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(196, 210, 245);
             Controls.Add(TLPglobal);
             Margin = new System.Windows.Forms.Padding(0);
             Name = "UCClientApp";
-            Size = new System.Drawing.Size(452, 228);
+            Size = new System.Drawing.Size(517, 304);
             TLPglobal.ResumeLayout(false);
             TLPglobal.PerformLayout();
             ResumeLayout(false);

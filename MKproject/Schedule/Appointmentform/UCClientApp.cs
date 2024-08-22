@@ -34,7 +34,7 @@ namespace MKproject.Schedule
         PictureBox pictureBoxSearch;
         CustomButton ButtonChangeORChooseService;
         IconButton IconDeleteService;
-        UCSlideButton ucSlideButtonServicerOthers;
+       public UCSlideButton ucSlideButtonServicerOthers;
         Label labelFullName;
 
         ToolTip toolTip1;
@@ -707,7 +707,6 @@ namespace MKproject.Schedule
 
         private void textBoxSearch_Click(object sender, EventArgs e)
         {
-            ParentFormAppointment.TopMost = false;
             ParentFormAppointment.DisableClosingOnDisactivating = true;
             Search searchname = new Search(textBoxSearch, DesiredAppointmentUCClientApp.DesiredClient);
             searchname.Deactivate += Searchname_Deactivate;
@@ -901,6 +900,9 @@ namespace MKproject.Schedule
             SetDesignModeIfMultipleOrNoPackagesExist();
         }
 
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

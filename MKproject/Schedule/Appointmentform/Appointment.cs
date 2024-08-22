@@ -397,6 +397,8 @@ namespace MKproject.Schedule
         {
             DisableClosingOnDisactivating = false;
             this.Focus();
+            this.Select();
+            ucClientApp.ucSlideButtonServicerOthers.Select();
         }
         public void textBoxStartTime_TextChanged(object sender, EventArgs e)
         {

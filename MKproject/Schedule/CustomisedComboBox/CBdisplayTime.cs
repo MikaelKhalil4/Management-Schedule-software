@@ -369,7 +369,7 @@ namespace MKproject.Schedule
         /// <summary>
         /// kello aam nhawlo aal textboxtime hatta men ha tabaee kabsit label ,houwe eza 3ando lformat w sakkar textbox li bel appointment byekhdo eza la2 ma byekhdo
         /// </summary>
-        private async void DisplayTime_Deactivate(object sender, EventArgs e)
+        private void DisplayTime_Deactivate(object sender, EventArgs e)
         {
             try
             {
@@ -446,7 +446,7 @@ namespace MKproject.Schedule
 
             }
 
-            await Task.Delay(1); //kermel to activation lal form li tahta
+            Task.Delay(50); //kermel to activation lal form li tahta
             this.Close();
         }
 
