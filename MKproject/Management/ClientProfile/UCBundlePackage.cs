@@ -974,7 +974,7 @@ namespace MKproject.Management
             double EntetityAmount = (double)foundRow["balance"];
 
 
-            Payment payment = new Payment(ParentFormClientMan.Client, ParentFormClientMan.RetrievingSpecificRowsInDt(false, DesiredClientBalanceId), ParentFormClientMan, false);
+            Payment payment = new Payment(ParentFormClientMan.Client, ParentFormClientMan.RetrievingSpecificRowsInDt(false, DesiredClientBalanceId), ParentFormClientMan, false,DateTime.Now);
             payment.ClientManagementProfileParentForm = this.ParentFormClientMan;
             payment.Show();
         }

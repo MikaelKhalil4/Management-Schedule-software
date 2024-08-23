@@ -766,7 +766,7 @@ namespace MKproject.Schedule
                             Program.GreyFormJunior = new GreyColor(this, false, true, null);
                         }
                         Program.GreyFormJunior.Show();
-                        Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, PurchasedBundles, null, true);
+                        Payment paymentform = new Payment(DesiredAppointmentAppForm.DesiredClient, PurchasedBundles, null, true, DesiredAppointmentAppForm.StartTime);
                         paymentform.ShowDialog();
                         DisableClosingOnDisactivating = false;
                         //

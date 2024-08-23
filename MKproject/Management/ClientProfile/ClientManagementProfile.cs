@@ -871,7 +871,7 @@ namespace MKproject.Management
 
                     Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
                     Program.GreyForm.Show();
-                    Payment payment = new Payment(Client, RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false);
+                    Payment payment = new Payment(Client, RetrievingSpecificRowsInDt(false, ClientBalanceId), this, false,DateTime.Now);
                     payment.ClientManagementProfileParentForm = this;
                     payment.ShowDialog();
 
@@ -928,7 +928,7 @@ namespace MKproject.Management
         {
             Program.GreyForm = new GreyColor(Program.HomeForm, true, false, null);
             Program.GreyForm.Show();
-            Payment payment = new Payment(Client, RetrievingSpecificRowsInDt(true, null), this, false);
+            Payment payment = new Payment(Client, RetrievingSpecificRowsInDt(true, null), this, false,DateTime.Now);
             payment.ClientManagementProfileParentForm = this;
             payment.ShowDialog();
 

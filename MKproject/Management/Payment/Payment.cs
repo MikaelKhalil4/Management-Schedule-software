@@ -19,6 +19,7 @@ namespace MKproject.Management
 
         public ClientManagementProfile ClientManagementProfileParentForm { get; set; }
         bool IsFromSchedule;
+        DateTime DesiredDateOfPayment;
         public ClassClientCustom DesiredClient;
         private double initialbalance;
         private int OldSessionOrDaysNumber;
@@ -38,13 +39,14 @@ namespace MKproject.Management
 
 
         //DataTable here could be only one row or many rows if pay total
-        public Payment(ClassClientCustom desiredClient, DataTable desiredClientBalanceRowsdt, ClientManagementProfile clientManagementProfile, bool isFromSchedule)
+        public Payment(ClassClientCustom desiredClient, DataTable desiredClientBalanceRowsdt, ClientManagementProfile clientManagementProfile, bool isFromSchedule, DateTime desiredDatePfPayment)
         {
             InitializeComponent();
             this.Opacity = 0;
             this.TopMost = true;
 
             IsFromSchedule = isFromSchedule;
+            DesiredDateOfPayment= desiredDatePfPayment;
             ClientManagementProfileParentForm = clientManagementProfile;
             OriginalDesiredClientBalanceRowsdt = desiredClientBalanceRowsdt;
             DesiredClient = desiredClient;
@@ -629,7 +631,7 @@ namespace MKproject.Management
 
 
             //SQL
-            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRow, ClientBalanceId, AmountPaidPerRow, Date, DesiredClient.AlbumType);//ejbare tahet el design section foe, cz el values yetghdayaro b DesiredClientBalanceRow
+            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRow, ClientBalanceId, AmountPaidPerRow, DesiredDateOfPayment, DesiredClient.AlbumType);//ejbare tahet el design section foe, cz el values yetghdayaro b DesiredClientBalanceRow
 
             ClassBackOffice backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, Program.Employee.EmployeeId, ClientBalanceId, AmountPaidPerRow, null, null, null, null, Date);
             backOffice.CreateActionDetails(DesiredClientBalanceRow);
