@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using CustomizedTools;
 using GlobalFunctions;
@@ -18,10 +19,10 @@ namespace MKproject
             isConstrutor = true;
 
 
-            DateTime DueDate =Convert.ToDateTime(ECService.GetDecryptedKeyValue(EnumSettingKey.DueDateMembership.ToString()));
+            DateTime DueDate = Convert.ToDateTime(ECService.GetDecryptedKeyValue(EnumSettingKey.DueDateMembership.ToString()));
 
 
-            string DueDateString= RandomFunctions.SetDateFormatWithDayWithoutHour(DueDate.ToString());
+            string DueDateString = RandomFunctions.SetDateFormatWithDayWithoutHour(DueDate.ToString());
             int DaysDifference = RandomFunctions.GetDaysDifference(DateTime.Now, DueDate);
 
             labelDueDatePlan.Text = $"{DueDateString}\n({DaysDifference} Days Left)";
@@ -33,7 +34,7 @@ namespace MKproject
 
             if (checkBoxBackUp.Checked)
                 checkBoxBackUp.Text = "On";
-            else 
+            else
                 checkBoxBackUp.Text = "Off";
 
             isConstrutor = false;
@@ -156,41 +157,42 @@ namespace MKproject
 
         }
 
+        private void customButtonBackUpOffiline_Click(object sender, EventArgs e)
+        {
+            CloseNotfBanner();
+            IsFormShouldBeCloseOnDisactivation = false;
 
 
-        //Email and offline backup
-        //private void ButtonOfflineBackUp_Click(object sender, EventArgs e)
-        //{
-        //    CloseNotfBanner();
-        //    IsFormShouldBeCloseOnDisactivation = false;
+            string dbPath = AppPaths.DatabasePath;
+
+            if (!string.IsNullOrEmpty(dbPath) && System.IO.File.Exists(dbPath))
+            {
+                string BackUpDBPath = AppPaths.DirectoryPath + "\\FoxBackUp.db";
+                File.Copy(dbPath, BackUpDBPath, true);
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Database files (*.db)|*.db|All files (*.*)|*.*";
+                    saveFileDialog.Title = "Save Backup Database";
+                    saveFileDialog.FileName = "BackUp.db";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        File.Copy(BackUpDBPath, saveFileDialog.FileName, true);
+
+                        // Assuming the attachment and the MailMessage are no longer using the file
+                        File.Delete(BackUpDBPath);
+                        NotificationBanner.Show("Backup saved successfully!", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false);
+                        this.Close();
+                    }
+                }
+            }
+            IsFormShouldBeCloseOnDisactivation = true;
+        }
 
 
-        //    string dbPath = AppPaths.DatabasePath;
 
-        //    if (!string.IsNullOrEmpty(dbPath) && System.IO.File.Exists(dbPath))
-        //    {
-        //        string BackUpDBPath = AppPaths.DirectoryPath + "\\FoxBackUp.db";
-        //        File.Copy(dbPath, BackUpDBPath, true);
-
-        //        using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-        //        {
-        //            saveFileDialog.Filter = "Database files (*.db)|*.db|All files (*.*)|*.*";
-        //            saveFileDialog.Title = "Save Backup Database";
-        //            saveFileDialog.FileName = "FoxBackUp.db";
-
-        //            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-        //            {
-        //                File.Copy(BackUpDBPath, saveFileDialog.FileName, true);
-
-        //                // Assuming the attachment and the MailMessage are no longer using the file
-        //                File.Delete(BackUpDBPath);
-        //                NotificationBanner.Show("Backup saved successfully!", NotificationBanner.EnumType.ConfirmationMode, false, Program.HomeForm, false, false);
-        //                this.Close();
-        //            }
-        //        }
-        //    }
-        //    IsFormShouldBeCloseOnDisactivation = true;
-        //}
+    
 
 
 
