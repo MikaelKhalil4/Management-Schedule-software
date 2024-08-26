@@ -175,15 +175,19 @@ namespace MKproject.Schedule
             for (int i = 0; i < ListUCReminders.Count; i++)
             {
                 var ucreminder = ListUCReminders[i];
+
+                if(panelreminder.Contains(ucreminder))
                 panelreminder.Controls.SetChildIndex(ucreminder, ListUCReminders.Count-i);
             }
             if(ListUCReminders.Count > MaxDisplayUCReminders)
             {
-                panelreminder.Controls.SetChildIndex(LoadLabel, 0);
+                if (panelreminder.Contains(LoadLabel))
+                    panelreminder.Controls.SetChildIndex(LoadLabel, 0);
             }
 
             if (datatablereminder.Rows.Count == 0)
             {
+                if(panelreminder.Contains(LabelNoReminder))
                 panelreminder.Controls.Add(LabelNoReminder);
             }
             Cursor = Cursors.Default;
