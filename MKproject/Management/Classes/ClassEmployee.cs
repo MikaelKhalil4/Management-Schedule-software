@@ -421,7 +421,7 @@ namespace MKproject.Management
                 if (Schedule.SQLToProject.CheckIfHistoryExistsToday(Today))
                 {
                     int LastInsertedId = Convert.ToInt32(((DataTable)GetAllEmployeesOrLAstInseted(false)).Rows[0]["employee_id"]);
-                    Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, LastInsertedId, Convert.ToInt32(Rank), Availability);
+                    Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, LastInsertedId, Convert.ToInt32(Rank), null);
 
                 }
             }
@@ -494,7 +494,7 @@ namespace MKproject.Management
                     DateTime Today = DateTime.Now.Date;
                     if (Schedule.SQLToProject.CheckIfHistoryExistsToday(Today))
                     {
-                        Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, EmployeeId, Convert.ToInt32(Rank), Availability);
+                        Schedule.ProjectToSql.InsertHistoryEmployeeavailibility(Today, EmployeeId, Convert.ToInt32(Rank), null);
                     }
                 }
             }

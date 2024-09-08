@@ -348,6 +348,7 @@ namespace MKproject.Schedule
             }
         }
 
+
         public void SetSelectedDateAvailabilityForEachEmployeWorkingOn()
         {
             SelectedDateRowsAvailabilityForEachEmployeWorkingOn = new List<(ClassEmployee, List<int>)>();
@@ -359,7 +360,6 @@ namespace MKproject.Schedule
                 if (IsHistory)//past
                 {
                     DesiredAvailabiltyOfSpecificDay = DesiredEmployee.Availability;//since hone ha ykun directly of one day, lieanno aam neshaba men table history_employee 
-
                 }
                 else//present-future
                 {
@@ -370,6 +370,8 @@ namespace MKproject.Schedule
                 SelectedDateRowsAvailabilityForEachEmployeWorkingOn.Add((DesiredEmployee, ClassEmployeeFront.GetRowsAvailabilityofDesiredDay(DesiredAvailabiltyOfSpecificDay, TLPSchedule)));
             }
         }
+
+
         public void SetWeekRowsAvailabilityForTheOnlyEmployee()
         {
             WeekRowsAvailabilityForTheOnlyEmployee = new List<List<int>>();
