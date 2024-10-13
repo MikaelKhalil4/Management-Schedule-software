@@ -34,9 +34,7 @@ namespace MKproject.Schedule
         public  Label LabelNoReminder;
 
 
-        public Label LoadLabel;
-        List<UCreminder> ListUCReminders = new List<UCreminder>();
-        private int MaxDisplayUCReminders = 5;
+
 
         public ClientReminder()
         {
@@ -117,6 +115,10 @@ namespace MKproject.Schedule
         }
 
 
+        private int MaxDisplayUCReminders = 20;
+        public Label LoadLabel;
+        List<UCreminder> ListUCReminders = new List<UCreminder>();
+
         private void DisplayUCReminder(ClassClientCustom desiredclient)
         {
             Cursor = Cursors.WaitCursor;
@@ -133,15 +135,59 @@ namespace MKproject.Schedule
                 datatablereminder = ClassReminder.DisplayReminderByClientName(DesiredClient, IsCompletedButtonMode);
             }
 
-            int counter = 0;
+            bool IsMoretoLoadEnabled = datatablereminder.Rows.Count > MaxDisplayUCReminders;
+            int totalucToLoad = Math.Min(datatablereminder.Rows.Count, MaxDisplayUCReminders);
 
-            foreach (DataRow dr in datatablereminder.Rows)
+            AddUCReminder(0, totalucToLoad - 1);
+
+            ResetIndexes();
+
+            if (IsMoretoLoadEnabled)
             {
-                if (counter >= MaxDisplayUCReminders)
-                {
-                    panelreminder.Controls.Add(LoadLabel);
-                    break;
-                }
+                panelreminder.Controls.Add(LoadLabel);
+                panelreminder.Controls.SetChildIndex(LoadLabel, 0);
+            }
+
+            if (datatablereminder.Rows.Count == 0)
+            {
+                if(panelreminder.Contains(LabelNoReminder))
+                panelreminder.Controls.Add(LabelNoReminder);
+            }
+            Cursor = Cursors.Default;
+        }
+        private void LoadLabel_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            int startRow = panelreminder.Controls.Count-1;//-1 kermel el label
+            int endRow = startRow + MaxDisplayUCReminders - 1;
+
+            bool NoMoreLoad = endRow > datatablereminder.Rows.Count - 1 - 1;//-1 el tenyekermel el label
+            endRow = Math.Min(endRow, datatablereminder.Rows.Count - 1);
+
+
+            AddUCReminder(startRow, endRow);
+
+            ResetIndexes();
+
+            if (NoMoreLoad == false)
+            {
+                panelreminder.Controls.SetChildIndex(LoadLabel, 0);
+            }
+            else
+            {
+                panelreminder.Controls.Remove(LoadLabel);
+            }
+            Cursor = Cursors.Default;
+        }
+
+
+
+        void AddUCReminder(int StartingIndex,int EndingIndex)
+        {
+            for (int i = StartingIndex; i <= EndingIndex; i++)
+            {
+                DataRow dr = datatablereminder.Rows[i];
+
 
                 ClassReminder DesiredReminder = new ClassReminder();
                 DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
@@ -166,32 +212,26 @@ namespace MKproject.Schedule
                 UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, this);//zedna true kermel naeemela construction khas la ela
                 ucreminder.Dock = DockStyle.Top;
 
-                
+
                 panelreminder.Controls.Add(ucreminder);
                 ListUCReminders.Add(ucreminder);
-                counter++;
             }
+        }
+        void ResetIndexes()
+        {
 
             for (int i = 0; i < ListUCReminders.Count; i++)
             {
                 var ucreminder = ListUCReminders[i];
 
-                if(panelreminder.Contains(ucreminder))
-                panelreminder.Controls.SetChildIndex(ucreminder, ListUCReminders.Count-i);
-            }
-            if(ListUCReminders.Count > MaxDisplayUCReminders)
-            {
-                if (panelreminder.Contains(LoadLabel))
-                    panelreminder.Controls.SetChildIndex(LoadLabel, 0);
+                if (panelreminder.Contains(ucreminder))
+                    panelreminder.Controls.SetChildIndex(ucreminder, ListUCReminders.Count - 1 - i);
             }
 
-            if (datatablereminder.Rows.Count == 0)
-            {
-                if(panelreminder.Contains(LabelNoReminder))
-                panelreminder.Controls.Add(LabelNoReminder);
-            }
-            Cursor = Cursors.Default;
         }
+
+
+
         public Label GetLoadLabel()
         {
             Label loadLable = new Label();
@@ -206,7 +246,6 @@ namespace MKproject.Schedule
             loadLable.Click += new EventHandler(LoadLabel_Click);
             return loadLable;
         }
-
         public Label GetNoReminderLable(string Text)//in case we had no bundles
         {
             Label labelNoReminder = new Label();
@@ -221,51 +260,8 @@ namespace MKproject.Schedule
         }
 
 
-        private void LoadLabel_Click(object sender, EventArgs e)
-        {
-            panelreminder.Controls.Remove(LoadLabel);
+  
 
-            int NumberOfAddingUCReminder = 10;
-            int startRow = panelreminder.Controls.Count-1;
-            int endRow = startRow + NumberOfAddingUCReminder;
-
-            bool NoMoreLoad = endRow > datatablereminder.Rows.Count - 1;
-            endRow = Math.Min(endRow, datatablereminder.Rows.Count - 1);
-
-            for (int i = startRow; i <= endRow; i++)
-            {
-                DataRow dr = datatablereminder.Rows[i];
-                ClassReminder DesiredReminder = new ClassReminder();
-                DesiredReminder.Idreminder = Convert.ToInt32(dr["reminder_id"]);
-                if (desiredclient == null && dr["client_id"] != DBNull.Value)
-                {
-                    DesiredReminder.DesiredClient = new ClassClientCustom();
-                    DesiredReminder.DesiredClient.ClientId = Convert.ToInt32(dr["client_id"]);
-                    DesiredReminder.DesiredClient.Fname = (string)dr["name"];
-                    DesiredReminder.DesiredClient.Lname = (string)dr["family_name"];
-                    DesiredReminder.DesiredClient.PhoneNumber = (string)dr["phone_number"];
-                }
-                else
-                {
-                    DesiredReminder.DesiredClient = DesiredClient;
-                }
-
-                DesiredReminder.Reminder = (string)dr["reminder"];
-                DesiredReminder.Repeat = (string)dr["repeat"];
-                DesiredReminder.StartTime = Convert.ToDateTime(dr["starttime"]);
-                DesiredReminder.IsChecked = Convert.ToBoolean(dr["is_checked"]);
-
-                UCreminder ucreminder = new UCreminder(DesiredReminder, ucday, schedule, this);
-                ucreminder.Dock = DockStyle.Top;
-                panelreminder.Controls.Add(ucreminder);
-            }
-
-            if (NoMoreLoad == false)
-            {
-                panelreminder.Controls.Add(LoadLabel);
-                panelreminder.Controls.SetChildIndex(LoadLabel, 4);
-            }
-        }
         private void ClientReminder_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (Program.GreyForm != null)

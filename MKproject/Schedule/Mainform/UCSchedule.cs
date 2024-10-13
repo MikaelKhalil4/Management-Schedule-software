@@ -84,8 +84,6 @@ namespace MKproject.Schedule
             ParentFormSchedule = parentform;
             ParentFormSchedule.ScheduleFormResize += ParentFormSchedule_ScheduleFormResize;
 
-
-
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Day.ToString());
             comboBoxDaysOrWeek.Items.Add(EnumDaysOrWeek.Week.ToString());
 
@@ -779,24 +777,83 @@ namespace MKproject.Schedule
         }
 
 
+
+        private int MaxDisplayUCReminders = 15;
+        public Label LoadLabel;
+        List<UCreminder> ListUCReminders = new List<UCreminder>();
+        DataTable dtAllReminders;
+
         public void DisplayUCReminderForTheSelectedDate()
         {
             ParentFormSchedule.panelreminder.Controls.Clear();
+            ListUCReminders.Clear();
             ListUCreminderForTheSelectedDate.Clear();
-            DataTable AllReminders;
+            if (LoadLabel != null)
+            {
+                LoadLabel.Dispose();
+                LoadLabel = null;
+            }
+            
+
             if (IsDayOrWeek)
             {
-                AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate,null, null);
+                dtAllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate,null, null);
             }
             else
             {
                 DateTime StartDate = ListDaysOfDesiredWeek[0];
                 DateTime EndDate = ListDaysOfDesiredWeek[ListDaysOfDesiredWeek.Count - 1];
-                AllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate, StartDate, EndDate);
+                dtAllReminders = ClassReminder.DisplayReminderInASpecificDate(SelectedDate, StartDate, EndDate);
             }
 
-            foreach (DataRow dr in AllReminders.Rows)
+            LoadLabel = GetLoadLabel();
+            bool IsMoretoLoadEnabled = dtAllReminders.Rows.Count > MaxDisplayUCReminders;
+            int totalucToLoad = Math.Min(dtAllReminders.Rows.Count, MaxDisplayUCReminders);
+
+            AddUCReminder(0, totalucToLoad - 1);
+            ResetIndexes();
+
+            if (IsMoretoLoadEnabled)
             {
+                ParentFormSchedule.panelreminder.Controls.Add(LoadLabel);
+                ParentFormSchedule.panelreminder.Controls.SetChildIndex(LoadLabel, 0);
+            }
+
+            Cursor = Cursors.Default;
+        }
+        private void LoadLable_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            int startRow = ParentFormSchedule.panelreminder.Controls.Count-1;//-1 kermel el label
+            int endRow = startRow + MaxDisplayUCReminders - 1;
+
+            bool NoMoreLoad = endRow > dtAllReminders.Rows.Count - 1 -1;//-1 el tenyekermel el label
+            endRow = Math.Min(endRow, dtAllReminders.Rows.Count - 1);
+
+
+            AddUCReminder(startRow, endRow);
+
+            ResetIndexes();
+
+            if (NoMoreLoad == false)
+            {
+                ParentFormSchedule.panelreminder.Controls.SetChildIndex(LoadLabel, 0);
+            }
+            else
+            {
+                ParentFormSchedule.panelreminder.Controls.Remove(LoadLabel);
+            }
+            Cursor = Cursors.Default;
+        }
+
+
+        void AddUCReminder(int StartingIndex, int EndingIndex)
+        {
+            for (int i = StartingIndex; i <= EndingIndex; i++)
+            {
+                DataRow dr = dtAllReminders.Rows[i];
+
+
                 //Badna nt2akad eza lezim ton3ata lal DesiredReminder.DesiredClient
                 ClassReminder DesiredReminder = new ClassReminder();
 
@@ -820,9 +877,37 @@ namespace MKproject.Schedule
                 ucreminder.Dock = DockStyle.Top;
                 ParentFormSchedule.panelreminder.Controls.Add(ucreminder);
 
+                ListUCReminders.Add(ucreminder);
+            }
+        }
+        void ResetIndexes()
+        {
+
+            for (int i = 0; i < ListUCReminders.Count; i++)
+            {
+                var ucreminder = ListUCReminders[i];
+
+                if (ParentFormSchedule.panelreminder.Contains(ucreminder))
+                    ParentFormSchedule.panelreminder.Controls.SetChildIndex(ucreminder, ListUCReminders.Count - 1 - i);
             }
 
         }
+
+        public Label GetLoadLabel()
+        {
+            Label loadLable = new Label();
+            // Set the properties
+            loadLable.BackColor = Program.MediumColor;
+            loadLable.Cursor = Cursors.Hand;
+            loadLable.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular);
+            loadLable.TextAlign = ContentAlignment.MiddleCenter;
+            loadLable.Text = "Show More";
+            loadLable.AutoSize = false;
+            loadLable.Dock = DockStyle.Top;
+            loadLable.Click += LoadLable_Click; ;
+            return loadLable;
+        }
+
 
 
 

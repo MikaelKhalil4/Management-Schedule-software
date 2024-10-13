@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using CustomizedTools;
+using System.Windows.Forms;
 
 namespace MKproject.Schedule
 {
@@ -41,7 +42,7 @@ namespace MKproject.Schedule
             label1 = new Label();
             buttonAllReminder = new Button();
             AddButton = new PictureBox();
-            panelreminder = new Panel();
+            panelreminder = new PanelDoubleBuffered();
             tableLayoutPanelDoubleBufferedNoscroll1 = new TableLayoutPanel();
             buttonToday = new Button();
             flowLayoutPanelDoubleBufferedcs1 = new FlowLayoutPanel();
@@ -450,7 +451,7 @@ namespace MKproject.Schedule
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonAllReminder;
         private System.Windows.Forms.PictureBox AddButton;
-        public System.Windows.Forms.Panel panelreminder;
+        public PanelDoubleBuffered panelreminder;
         private TableLayoutPanel tableLayoutPanelDoubleBufferedNoscroll1;
         private System.Windows.Forms.Button buttonToday;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelDoubleBufferedcs1;

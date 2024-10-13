@@ -111,7 +111,7 @@ namespace MKproject.Schedule.Reminderform
             ";
             }
 
-            query += " ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, modified_date DESC";
+            query += " And is_checked=0 ORDER BY CASE WHEN is_checked = 1 THEN 0 ELSE 1 END, modified_date DESC";//el order by case ma ela aaze, unless shelet is_checked=0
 
 
 

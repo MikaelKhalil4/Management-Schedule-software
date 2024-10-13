@@ -836,8 +836,10 @@ namespace MKproject.Management
             // Get all controls within the FlowLayoutPanel
             List<Control> controls = FLPInfo.Controls.Cast<Control>().ToList();
 
+
             // Sort the controls based on their "Index" property in ascending order
             controls.Sort((a, b) => ((Int32)a.GetType().GetProperty("Index").GetValue(a)).CompareTo((Int32)b.GetType().GetProperty("Index").GetValue(b)));
+
 
             // Assign new indexes in ascending order
             for (int i = 0; i < controls.Count; i++)
