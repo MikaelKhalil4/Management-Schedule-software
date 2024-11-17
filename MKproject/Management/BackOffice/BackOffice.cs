@@ -689,17 +689,26 @@ namespace MKproject.Management
                         DialogResult dialogResult = CustomMessageBox.Show(MessageShow + "\nAre you sure you want to proceed?", CustomMessageBox.Type.YesNoWarning);
                         if (dialogResult == DialogResult.Yes)
                         {
-                            ClassBackOffice.UndoPaymentActionsSQL(clientId, clientBalanceId, ArchiveId, ArchiveDate, AmountPaid);
 
-                            //Design in Profile if Exists
-                            if (IsChildMode && this.ParentFormClientManagem != null)
+                            if (ClassBackOffice.CheckIfClientBalanceHasArchiveId(ArchiveId))
                             {
-                                UpdateProfileDesingOnUndoPayment(AmountPaid, clientBalanceId);
-                            }
 
-                            //design in BackofficeForm
-                            DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
-                            dataGridViewBackOffice.ClearSelection();
+                                ClassBackOffice.UndoPaymentActionsSQL(clientId, clientBalanceId, ArchiveId, ArchiveDate, AmountPaid);
+
+                                //Design in Profile if Exists
+                                if (IsChildMode && this.ParentFormClientManagem != null)
+                                {
+                                    UpdateProfileDesingOnUndoPayment(AmountPaid, clientBalanceId);
+                                }
+
+                                //design in BackofficeForm
+                                DeletingDatagridRowsAndActiveTheEvent(ArchiveId);
+                                dataGridViewBackOffice.ClearSelection();
+                            }
+                            else
+                            {
+                                CustomMessageBox.Show("This row can't be undo, since it's before 11/17/2024 where the data was founded missing, Thanks!", CustomMessageBox.Type.OkWarning);
+                            }
                         }
 
 

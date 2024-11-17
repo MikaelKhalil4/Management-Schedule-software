@@ -9,6 +9,7 @@ using System.Windows.Markup;
 using static MKproject.Management.ClassBundles;
 using System.Data.SQLite;
 using System.Data.Common;
+using Azure.Core;
 
 
 namespace MKproject.Management
@@ -64,7 +65,7 @@ namespace MKproject.Management
         }
 
 
-        public void InsertToArchiveSQL()
+        public long InsertToArchiveSQL()
         {
             string query = @"INSERT INTO archive (client_id,action,action_type,employee_id,date,attendance_id,appointment_id,client_balance_id,amount_paid,is_moneyOrsession_offre,previousBalanceOrSession_Offre) 
                                                                 VALUES
@@ -123,10 +124,16 @@ namespace MKproject.Management
 
             cmd.AddWithValue("@date", Date);
 
-
             Program.conOpen();
+
             cmd.ExecuteNonQuery();
+            // Retrieve the archive_id of the newly inserted row
+            DbCommand cmdGetId = Program.CreateCommand("SELECT last_insert_rowid();");
+            long archiveId = (long)cmdGetId.ExecuteScalar();
+
             Program.con.Close();
+
+            return archiveId;
         }
 
         public static DataTable GetBackOffice(bool IsOneYearORAll, int? ClientBalanceId, int? ClientID)
@@ -364,10 +371,10 @@ namespace MKproject.Management
             cmdUpdateBalance.AddWithValue("@balance", NewBalance);
             cmdUpdateBalance.ExecuteNonQuery();
 
-            string queryDeleteIncome = "Delete FROM  finance WHERE client_balance_id=@client_balance_id AND payment_date=@payment_date";
+
+            string queryDeleteIncome = "Delete FROM  finance WHERE archive_id=@archive_id";
             var cmdDeleteIncome = Program.CreateCommand(queryDeleteIncome);
-            cmdDeleteIncome.AddWithValue("@client_balance_id", ClientBalanceId);
-            cmdDeleteIncome.AddWithValue("@payment_date", ArchiveDate);//we can do this, lieanno ana bel code eemela enno both yekhdome same datetime
+            cmdDeleteIncome.AddWithValue("@archive_id", ArchiveId);
             cmdDeleteIncome.ExecuteNonQuery();
 
             string queryDeleteArchive = "Delete FROM  archive WHERE archive_id=@archive_id";
@@ -385,8 +392,23 @@ namespace MKproject.Management
 
             Program.con.Close();
 
-
         }
+        public static bool CheckIfClientBalanceHasArchiveId(int ArchiveId)//hayde eemelneha men baaed ma ktashafna enno fi meshekle bel data el adime w ma aam yenaamalun undo
+        {
+            bool exists = false;
+            Program.conOpen();
+            string query = "select * from finance where archive_id=@archive_id";
+            var cmd = Program.CreateCommand(query);
+            cmd.AddWithValue("@archive_id", ArchiveId);
+            using (var reader = cmd.ExecuteReader())
+            {
+                exists = reader.HasRows;
+            }
+            Program.con.Close();
+
+            return exists;
+        }
+
 
         public static DateTime? UndoSessionDoneActionsSQL(int ClientId, int AttendanceID, int ArchiveId, int ClientBalanceId, bool IsDeletingTheBundle, int? AppointmentIdReferringToBackoffice)
         {

@@ -17,12 +17,12 @@ namespace MKproject.Management
         ///Finance
 
 
-        public static void InsertToFinance(int ClientBalanceId, Double AmountPaid, DateTime Date, String AlbumType)
+        public static void InsertToFinance(int ClientBalanceId, Double AmountPaid, DateTime Date, String AlbumType,long? archiveId)
         {
 
-            string QueryInsert = @"INSERT INTO finance (client_balance_id,AlbumType,amount_paid,payment_date) 
+            string QueryInsert = @"INSERT INTO finance (client_balance_id,AlbumType,amount_paid,payment_date,archive_id) 
                         VALUES
-                        (@client_balance_id,@AlbumType,@amount_paid,@payment_date) ";
+                        (@client_balance_id,@AlbumType,@amount_paid,@payment_date,@archive_id) ";
 
             var cmdInsert = Program.CreateCommand(QueryInsert); // Initialize the SQLiteCommand inside the loop
 
@@ -39,6 +39,18 @@ namespace MKproject.Management
             }
             cmdInsert.AddWithValue("@amount_paid", AmountPaid);
             cmdInsert.AddWithValue("@payment_date", Date);
+
+
+            if (archiveId == null)//lamma ykun money 0, and we're adding it bas kermel el qtt
+            {
+                cmdInsert.AddWithValue("@archive_id", DBNull.Value);
+
+            }
+            else
+            {
+                cmdInsert.AddWithValue("@archive_id", archiveId);
+            }
+
             Program.conOpen();
             cmdInsert.ExecuteNonQuery();
             Program.con.Close();

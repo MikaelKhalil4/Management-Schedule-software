@@ -275,7 +275,7 @@ namespace MKproject.Management
             //CustomMessageBox.Show(Program.ExecptionString + ex.Message, CustomMessageBox.Type.Ok);
             //}
         }
-        public static void UpdateClientBalanceAndInsertingFinanceOnPay(DataRow DesiredClientBalanceRow, int ClientBalanceId, double AmountPaid, DateTime Date, String AlbumType)
+        public static void UpdateClientBalanceAndInsertingFinanceOnPay(DataRow DesiredClientBalanceRow, int ClientBalanceId, double AmountPaid, DateTime Date, String AlbumType,long archiveID)
         {
             //client info retrieval IsMember & Album Type only meanwhile because later on they willl be already existes in the parent form
 
@@ -302,7 +302,7 @@ namespace MKproject.Management
             Program.con.Close();
 
 
-            ProjectToSQL.InsertToFinance(ClientBalanceId, AmountPaid, Date, AlbumType);
+            ProjectToSQL.InsertToFinance(ClientBalanceId, AmountPaid, Date, AlbumType, archiveID);
 
         }
 

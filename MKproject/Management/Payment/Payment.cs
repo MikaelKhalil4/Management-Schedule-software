@@ -384,9 +384,10 @@ namespace MKproject.Management
 
         private void buttonUpdateOrPay_Click(object sender, EventArgs e)
         {
+            Date = DateTime.Now;
+
             if (IsPayementOrEditMode == false)//edit mode
             {
-                Date = DateTime.Now;
 
                 if (Convert.ToDouble(UCBalance.Sign + UCBalance.Amount) != initialbalance)//products and solo
                 {
@@ -513,7 +514,6 @@ namespace MKproject.Management
         //it can be for one row or total balance
         public void PayBalance(double AmountPaid)
         {
-            Date = DateTime.Now;
 
             if (SelectedClientBalanceRow != null)
             {
@@ -631,11 +631,21 @@ namespace MKproject.Management
 
 
             //SQL
-            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRow, ClientBalanceId, AmountPaidPerRow, DesiredDateOfPayment, DesiredClient.AlbumType);//ejbare tahet el design section foe, cz el values yetghdayaro b DesiredClientBalanceRow
+            //TimeSpan difference = Date - DesiredDateOfPayment;
+            //if (Math.Abs(difference.TotalMinutes) < 1)
+            //{
+            //    DesiredDateOfPayment = Date; // lieanno both b kun azdna dateTime.Now, bas lieanno fi baynetun faree bel algo, byenzalo gher
+            //    //w el desired date bas mostaamele lal solo services, w hawdike ma eenda meshekle bel undo tb3un since men shil based aal client_balance_id 
+            //    //or this staamalnehna kermel el undo mesh men el sc
+            //}
+          
 
             ClassBackOffice backOffice = new ClassBackOffice(DesiredClient.ClientId, ActionsEnum.Payments, Program.Employee.EmployeeId, ClientBalanceId, AmountPaidPerRow, null, null, null, null, Date);
             backOffice.CreateActionDetails(DesiredClientBalanceRow);
-            backOffice.InsertToArchiveSQL();
+            long NewarchiveId = backOffice.InsertToArchiveSQL();
+
+
+            ClassClientBalance.UpdateClientBalanceAndInsertingFinanceOnPay(DesiredClientBalanceRow, ClientBalanceId, AmountPaidPerRow, DesiredDateOfPayment, DesiredClient.AlbumType, NewarchiveId);//ejbare tahet el design section foe, cz el values yetghdayaro b DesiredClientBalanceRow
 
 
             //RefreshParent Design

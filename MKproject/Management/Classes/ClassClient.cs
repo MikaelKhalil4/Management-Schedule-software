@@ -577,9 +577,9 @@ namespace MKproject.Management
 
             ClassBackOffice backOffice = new ClassBackOffice(Client.ClientId, actiontype, Program.Employee.EmployeeId, ClientBalanceId, null, AttendanceId, appointmentId, null, null, BackOfficeDate);
             backOffice.CreateActionDetails(InsertedRow);
-            backOffice.InsertToArchiveSQL();
+            long newArchiveId = backOffice.InsertToArchiveSQL();
 
-            ProjectToSQL.InsertToFinance(Convert.ToInt32(InsertedRow["client_balance_id"]), 0, BackOfficeDate, Client.AlbumType);//kermel el count
+            ProjectToSQL.InsertToFinance(Convert.ToInt32(InsertedRow["client_balance_id"]), 0, BackOfficeDate, Client.AlbumType,null);//kermel el count
 
             if (Client.RegistrationDate == null && Bundle.IsMemberShip == true)
             {
@@ -602,7 +602,7 @@ namespace MKproject.Management
             backOffice.CreateActionDetails(InsertedRow);
             backOffice.InsertToArchiveSQL();
 
-            ProjectToSQL.InsertToFinance(Convert.ToInt32(InsertedRow["client_balance_id"]), 0, Date, Client.AlbumType);//kermel el count
+            ProjectToSQL.InsertToFinance(Convert.ToInt32(InsertedRow["client_balance_id"]), 0, Date, Client.AlbumType,null);//kermel el count
             return dtinserteditem;
         }
 

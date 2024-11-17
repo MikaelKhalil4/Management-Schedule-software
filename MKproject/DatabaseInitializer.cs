@@ -136,6 +136,7 @@ public class DatabaseInitializer
 									""payment_date""	TEXT,
 									FOREIGN KEY(""client_balance_id"") REFERENCES ""client_balance""(""client_balance_id""),
 									FOREIGN KEY(""AlbumType"") REFERENCES ""Albums""(""AlbumType"") ON UPDATE CASCADE ON DELETE SET NULL,
+									FOREIGN KEY(""archive_id"") REFERENCES ""archive""(""archive_id""),
 									PRIMARY KEY(""finance_id"" AUTOINCREMENT)
 								);
 								CREATE TABLE IF NOT EXISTS ""bundles"" (
