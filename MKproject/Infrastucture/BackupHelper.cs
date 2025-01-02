@@ -22,7 +22,7 @@ namespace MKproject.Infrastucture
         public static string backUpConstantInterval = "06:00:00";
         static Timer backupTimer;
 
-
+    
 
         public static async Task SetupBackupTimerndStartItIfNecessar()
         {
