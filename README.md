@@ -57,7 +57,7 @@ Please email me to receive your unique deployment ticket:
 
 - Frontend: WinForms 
 - Backend: .NET (C#), SQLite
-- DevOps: Dockerized deployment, CI/CD ready
+- DevOps: Dockerized deployment, CI/CD AZURE DEVOPS
 - Cloud: API integration for backup and logging
 
 ---
